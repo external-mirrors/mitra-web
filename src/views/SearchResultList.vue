@@ -1,0 +1,134 @@
+<template>
+  <div id="main">
+    <div class="content search-result-group">
+      <loader v-if="isLoading"></loader>
+      <div v-if="!isLoading" class="search-message">
+        <template v-if="errorMessage">{{ errorMessage }}</template>
+        <template v-else-if="profiles.length > 0">{{ profiles.length }} people</template>
+        <template v-else-if="posts.length > 0">{{ posts.length }} posts</template>
+        <template v-else>No results</template>
+      </div>
+      <div v-if="!isLoading" class="search-result-list">
+        <div class="search-result" v-for="profile in profiles" :key="profile.id">
+          <router-link class="profile" :to="{ name: 'profile', params: { profileId: profile.id }}">
+            <avatar :profile="profile"></avatar>
+            <div class="name">
+              <div class="display-name">{{ profile.display_name || profile.username }}</div>
+              <div class="username">@{{ profile.acct }}</div>
+            </div>
+          </router-link>
+        </div>
+        <post :post="post" v-for="post in posts" :key="post.id"></post>
+      </div>
+    </div>
+    <sidebar></sidebar>
+  </div>
+</template>
+
+<script lang="ts">
+import { Options, Vue, setup } from "vue-class-component"
+import { Post } from "@/api/posts"
+import { getSearchResults } from "@/api/search"
+import { Profile } from "@/api/users"
+import Avatar from "@/components/Avatar.vue"
+import Loader from "@/components/Loader.vue"
+import PostComponent from "@/components/Post.vue"
+import Sidebar from "@/components/Sidebar.vue"
+import { useCurrentUser } from "@/store/user"
+
+@Options({
+  components: {
+    Avatar,
+    Loader,
+    Post: PostComponent,
+    Sidebar,
+  },
+})
+export default class SearchResultList extends Vue {
+
+  private store = setup(() => {
+    const { ensureAuthToken } = useCurrentUser()
+    return { ensureAuthToken }
+  })
+
+  searchQuery: string | null = null
+  isLoading = false
+  errorMessage = ""
+
+  profiles: Profile[] = []
+  posts: Post[] = []
+
+  async created() {
+    const searchQuery = this.$route.query?.q
+    if (typeof searchQuery === "string") {
+      this.isLoading = true
+      this.searchQuery = searchQuery
+      try {
+        const results = await getSearchResults(
+          this.store.ensureAuthToken(),
+          this.searchQuery,
+        )
+        this.profiles = results.accounts
+        this.posts = results.statuses
+      } catch (error) {
+        this.errorMessage = error.message
+      }
+      this.isLoading = false
+    }
+  }
+
+}
+</script>
+
+<style scoped lang="scss">
+@import "../styles/layout";
+@import "../styles/theme";
+
+.search-message,
+.search-result-list {
+  background-color: $block-background-color;
+  border-radius: $block-border-radius;
+  box-sizing: border-box;
+}
+
+.search-message {
+  padding: $block-inner-padding;
+}
+
+.loader {
+  margin: $block-outer-padding auto;
+}
+
+.search-result-list {
+  margin-top: $block-outer-padding;
+}
+
+.search-result {
+  border-bottom: 1px solid $separator-color;
+  padding: $block-inner-padding;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .profile {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    .avatar {
+      height: $avatar-size;
+      margin-right: $block-inner-padding;
+      width: $avatar-size;
+    }
+
+    .display-name {
+      color: $text-color;
+    }
+
+    .username {
+      color: $secondary-text-color;
+    }
+  }
+}
+</style>

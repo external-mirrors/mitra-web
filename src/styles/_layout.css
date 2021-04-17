@@ -1,0 +1,21 @@
+$body-padding: 15px;
+
+$header-height: 75px;
+
+$content-width: 600px;
+$content-min-width: 450px;
+$sidebar-width: 200px;
+$content-gap: 50px;
+
+$block-outer-padding: 20px;
+$block-inner-padding: 20px;
+
+$wide-content-width: 600px;
+$wide-sidebar-width: 400px;
+
+$avatar-size: 42px;
+$icon-size: $block-inner-padding;
+
+$screen-breakpoint-medium: 1000px;
+$screen-breakpoint-small: 700px;
+$screen-breakpoint-x-small: 400px;
