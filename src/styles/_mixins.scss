@@ -17,7 +17,6 @@
       float: none;
       height: $icon-size;
       margin-left: 0;
-      margin-right: $icon-size / 2;
       margin-top: 0;
       width: $icon-size;
     }
@@ -46,7 +45,6 @@
     color: $secondary-text-color;
     display: flex;
     gap: 0.25em;
-    margin-right: $icon-size / 2;
 
     img {
       filter: $secondary-text-colorizer;

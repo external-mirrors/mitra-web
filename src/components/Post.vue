@@ -338,20 +338,29 @@ export default class PostComponent extends Vue {
   color: $secondary-text-color;
   display: flex;
   flex-direction: row;
+  gap: $block-inner-padding / 2;
   padding: $block-inner-padding $block-inner-padding 0;
 
   .floating-avatar {
     @include floating-avatar;
+
+    @media screen and (min-width: $screen-breakpoint-medium + 1) {
+      margin-right: -$block-inner-padding / 2;
+    }
   }
 
   .display-name {
     color: $text-color;
     font-weight: bold;
-    margin-right: $block-inner-padding / 2;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 
   .username {
     flex-grow: 1;
+    min-width: 15%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 
   .timestamp {
@@ -385,7 +394,7 @@ export default class PostComponent extends Vue {
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: $block-inner-padding / 2 0;
+  gap: $block-inner-padding / 2;
   padding: 0 $block-inner-padding $block-inner-padding;
 
   .icon {
@@ -408,10 +417,10 @@ export default class PostComponent extends Vue {
 .crypto-widget {
   display: flex;
   flex-grow: 1;
+  gap: $block-inner-padding / 2;
   justify-content: right;
 
   .crypto-address {
-    margin-right: 10px;
     max-width: 200px;
     width: 100%;
   }
