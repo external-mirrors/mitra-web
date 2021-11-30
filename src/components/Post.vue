@@ -4,10 +4,16 @@
       <router-link class="floating-avatar" :to="{ name: 'profile', params: { profileId: post.account.id }}">
         <avatar :profile="post.account"></avatar>
       </router-link>
-      <router-link class="display-name" :to="{ name: 'profile', params: { profileId: post.account.id }}">
-        {{ post.account.display_name || post.account.username }}
+      <router-link
+        class="display-name"
+        :to="{ name: 'profile', params: { profileId: post.account.id }}"
+        :title="authorName"
+      >
+        {{ authorName }}
       </router-link>
-      <div class="username">@{{ post.account.acct }}</div>
+      <div class="username" :title="'@' + post.account.acct">
+        @{{ post.account.acct }}
+      </div>
       <a
         class="icon icon-small"
         :href="post.uri"
@@ -163,6 +169,10 @@ export default class PostComponent extends Vue {
     const { instance } = useInstanceInfo()
     return { currentUser, ensureAuthToken, instance }
   })
+
+  get authorName(): string {
+    return this.post.account.display_name || this.post.account.username
+  }
 
   highlight(postId: string | null) {
     this.$emit("highlight", postId)
@@ -352,20 +362,22 @@ export default class PostComponent extends Vue {
   .display-name {
     color: $text-color;
     font-weight: bold;
-    overflow-x: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .username {
     flex-grow: 1;
     min-width: 15%;
-    overflow-x: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .timestamp {
     color: $secondary-text-color;
     text-align: right;
+    white-space: nowrap;
 
     &:hover {
       color: $secondary-text-hover-color;
