@@ -15,6 +15,14 @@
             <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
             <span>{{ getSenderName(notification) }} liked your post</span>
           </template>
+          <template v-else-if="notification.type === 'mention'">
+            <img :src="require('@/assets/forkawesome/comment-o.svg')">
+            <span>{{ getSenderName(notification) }} mentioned you</span>
+          </template>
+          <template v-else-if="notification.type === 'reblog'">
+            <img :src="require('@/assets/feather/repeat.svg')">
+            <span>{{ getSenderName(notification) }} reposted your post</span>
+          </template>
         </div>
         <post v-if="notification.status" :post="notification.status"></post>
         <router-link
