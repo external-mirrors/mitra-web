@@ -44,9 +44,20 @@ export interface Post {
   token_tx_id: string | null;
 }
 
-export async function getPosts(authToken: string): Promise<Post[]> {
+export async function getHomeTimeline(
+  authToken: string,
+  maxId?: string,
+): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/timelines/home`
-  const response = await http(url, { authToken })
+  let queryParams
+  if (maxId) {
+    queryParams = { max_id: maxId }
+  }
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
   const data = await response.json()
   return data
 }
