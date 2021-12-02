@@ -81,6 +81,16 @@
         <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
         <span>{{ post.favourites_count }}</span>
       </a>
+      <a
+        v-if="ipfsUrl"
+        class="icon"
+        title="Saved to IPFS"
+        :href="ipfsUrl"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img :src="require('@/assets/ipfs.svg')">
+      </a>
       <router-link
         v-if="isTokenized"
         class="icon tokenized"
@@ -98,13 +108,23 @@
       </a>
       <div
         class="post-menu-wrapper"
-        v-if="canMintToken()"
+        v-if="canSaveToIpfs() || canMintToken()"
         v-click-away="hideMenu"
       >
         <a class="icon" title="More" @click="toggleMenu()">
           <img :src="require('@/assets/feather/more-horizontal.svg')">
         </a>
         <ul v-if="menuVisible" class="post-menu">
+          <li v-if="canSaveToIpfs()">
+            <a
+              class="icon"
+              title="Save to IPFS"
+              @click="hideMenu(); saveToIpfs()"
+            >
+              <img :src="require('@/assets/ipfs.svg')">
+              <span>Save to IPFS</span>
+            </a>
+          </li>
           <li v-if="canMintToken()">
             <a
               class="icon"
@@ -267,6 +287,38 @@ export default class PostComponent extends Vue {
     this.menuVisible = false
   }
 
+  get ipfsUrl(): string | null {
+    const gatewayUrl = this.store.instance?.ipfs_gateway_url
+    if (
+      !gatewayUrl ||
+      this.post.ipfs_cid === null ||
+      this.isTokenized ||
+      this.isWaitingForToken
+    ) {
+      return null
+    }
+    return `${gatewayUrl}/ipfs/${this.post.ipfs_cid}`
+  }
+
+  canSaveToIpfs(): boolean {
+    return (
+      !!this.store.instance?.ipfs_gateway_url &&
+      this.post.account.id === this.store.currentUser?.id &&
+      this.post.ipfs_cid === null &&
+      !this.isWaitingForToken
+    )
+  }
+
+  async saveToIpfs() {
+    const { currentUser, instance } = this.store
+    if (!currentUser || !instance || !instance.ipfs_gateway_url) {
+      return
+    }
+    const authToken = this.store.ensureAuthToken()
+    const { ipfs_cid } = await makePermanent(authToken, this.post.id)
+    this.post.ipfs_cid = ipfs_cid
+  }
+
   getPaymentOptions(): PaymentOption[] {
     const items = []
     for (const [code, name] of CRYPTOCURRENCIES) {
@@ -295,6 +347,7 @@ export default class PostComponent extends Vue {
 
   canMintToken(): boolean {
     return (
+      !!this.store.instance?.nft_contract_address &&
       this.post.account.id === this.store.currentUser?.id &&
       !this.isTokenized &&
       !this.isWaitingForToken
@@ -311,8 +364,11 @@ export default class PostComponent extends Vue {
     }
     const authToken = this.store.ensureAuthToken()
     this.isWaitingForToken = true
-    const { ipfs_cid } = await makePermanent(authToken, this.post.id)
-    const tokenUri = `ipfs://${ipfs_cid}`
+    if (this.post.ipfs_cid === null) {
+      const { ipfs_cid } = await makePermanent(authToken, this.post.id)
+      this.post.ipfs_cid = ipfs_cid
+    }
+    const tokenUri = `ipfs://${this.post.ipfs_cid}`
     console.info("token URI:", tokenUri)
     let signature
     try {
@@ -348,7 +404,6 @@ export default class PostComponent extends Vue {
         clearInterval(intervalId)
         this.isWaitingForToken = false
         // Update post
-        this.post.ipfs_cid = post.ipfs_cid
         this.post.token_id = post.token_id
         this.post.token_tx_id = post.token_tx_id
       }
@@ -466,6 +521,9 @@ export default class PostComponent extends Vue {
   background-color: $block-background-color;
   border: 1px solid $separator-color;
   border-radius: $btn-border-radius;
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding / 2;
   padding: $block-inner-padding / 2;
   position: absolute;
   white-space: nowrap;
