@@ -90,14 +90,33 @@
         <img :src="require('@/assets/forkawesome/diamond.svg')">
       </router-link>
       <a
-        v-if="canTokenize()"
-        class="icon"
-        :class="{'waiting': isWaitingForToken}"
-        title="Tokenize post"
-        @click="tokenize()"
+        v-if="isWaitingForToken"
+        class="icon tokenize-progress"
+        title="Tokenizing..."
       >
         <img :src="require('@/assets/forkawesome/diamond.svg')">
       </a>
+      <div
+        class="post-menu-wrapper"
+        v-if="canMintToken()"
+        v-click-away="hideMenu"
+      >
+        <a class="icon" title="More" @click="toggleMenu()">
+          <img :src="require('@/assets/feather/more-horizontal.svg')">
+        </a>
+        <ul v-if="menuVisible" class="post-menu">
+          <li v-if="canMintToken()">
+            <a
+              class="icon"
+              title="Mint NFT"
+              @click="hideMenu(); mintToken()"
+            >
+              <img :src="require('@/assets/forkawesome/diamond.svg')">
+              <span>Mint NFT</span>
+            </a>
+          </li>
+        </ul>
+      </div>
       <div class="crypto-widget">
         <crypto-address
           v-if="selectedPaymentAddress"
@@ -163,6 +182,7 @@ export default class PostComponent extends Vue {
   inThread = false
 
   commentFormVisible = false
+  menuVisible = false
 
   private store = setup(() => {
     const { currentUser, ensureAuthToken } = useCurrentUser()
@@ -239,6 +259,14 @@ export default class PostComponent extends Vue {
     this.post.favourited = post.favourited
   }
 
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible
+  }
+
+  hideMenu() {
+    this.menuVisible = false
+  }
+
   getPaymentOptions(): PaymentOption[] {
     const items = []
     for (const [code, name] of CRYPTOCURRENCIES) {
@@ -263,13 +291,17 @@ export default class PostComponent extends Vue {
     return this.post.token_id !== null
   }
 
-  canTokenize(): boolean {
-    return this.post.account.id === this.store.currentUser?.id && !this.isTokenized
-  }
-
   isWaitingForToken = false
 
-  async tokenize() {
+  canMintToken(): boolean {
+    return (
+      this.post.account.id === this.store.currentUser?.id &&
+      !this.isTokenized &&
+      !this.isWaitingForToken
+    )
+  }
+
+  async mintToken() {
     const { currentUser, instance } = this.store
     if (!currentUser || !instance || !instance.nft_contract_name || !instance.nft_contract_address) {
       return
@@ -414,7 +446,7 @@ export default class PostComponent extends Vue {
       filter: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
     }
 
-    &.waiting img {
+    &.tokenize-progress img {
       animation: spin 1s linear infinite;
     }
   }
@@ -424,6 +456,20 @@ export default class PostComponent extends Vue {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.post-menu-wrapper {
+  position: relative;
+}
+
+.post-menu {
+  background-color: $block-background-color;
+  border: 1px solid $separator-color;
+  border-radius: $btn-border-radius;
+  padding: $block-inner-padding / 2;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 3;
 }
 
 .crypto-widget {
