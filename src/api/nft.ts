@@ -82,6 +82,25 @@ export async function mintToken(
   return transaction
 }
 
+export async function onTokenMinted(
+  authToken: string,
+  postId: string,
+  transactionId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/token_minted`
+  const response = await http(url, {
+    method: "POST",
+    json: { transaction_id: transactionId },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
+
 export async function getTokenMetadata(url: string): Promise<TokenMetadata> {
   const response = await http(url, {
     method: "GET",

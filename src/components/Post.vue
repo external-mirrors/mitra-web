@@ -166,7 +166,7 @@
 import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
-import { makePermanent, getSignature, mintToken } from "@/api/nft"
+import { makePermanent, getSignature, mintToken, onTokenMinted } from "@/api/nft"
 import { Post, getPost, favourite, unfavourite, createRepost, deleteRepost } from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
@@ -384,7 +384,7 @@ export default class PostComponent extends Vue {
       return
     }
     try {
-      await mintToken(
+      const transaction = await mintToken(
         instance.nft_contract_name,
         instance.nft_contract_address,
         currentUser.wallet_address,
@@ -392,6 +392,7 @@ export default class PostComponent extends Vue {
         signature,
         signer,
       )
+      await onTokenMinted(authToken, this.post.id, transaction.hash)
     } catch (error) {
       // User has rejected tx
       this.isWaitingForToken = false
