@@ -79,6 +79,9 @@ export async function getPostContext(
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/context`
   const response = await http(url, { authToken })
   const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  }
   return data
 }
 
@@ -122,6 +125,21 @@ export async function getPost(
     throw new Error(data.message)
   }
   return data
+}
+
+export async function deletePost(
+  authToken: string,
+  postId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}`
+  const response = await http(url, {
+    method: "DELETE",
+    authToken,
+  })
+  if (response.status !== 204) {
+    const data = await response.json()
+    throw new Error(data.message)
+  }
 }
 
 export async function favourite(

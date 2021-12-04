@@ -1,6 +1,9 @@
 <template>
   <div id="main">
-    <div class="content posts">
+    <div v-if="!isLoading && thread.length === 0" class="content not-found">
+      Not found
+    </div>
+    <div v-else class="content posts">
       <post
         v-for="(post, index) in thread"
         :key="post.id"
@@ -10,6 +13,7 @@
         @highlight="onPostHighlight($event)"
         @navigate-to="onPostNavigate($event)"
         @comment-created="onCommentCreated(index, $event)"
+        @post-deleted="onPostDeleted(index)"
       ></post>
     </div>
     <sidebar></sidebar>
@@ -44,14 +48,26 @@ export default class PostDetail extends Vue {
   private highlightedId: string | null = null
 
   thread: Post[] = []
+  isLoading = false
 
   created() {
     this.selectedId = this.$route.params.postId as string
     this.loader = getPostContext(this.store.authToken, this.selectedId)
+    this.isLoading = true
   }
 
   async mounted() {
-    this.thread = await this.loader
+    try {
+      this.thread = await this.loader
+    } catch (error) {
+      if (error.message === "post not found") {
+        // Show "not found" text
+        return
+      }
+      throw error
+    } finally {
+      this.isLoading = false
+    }
     this.$nextTick(() => {
       // TODO: scrolls to wrong position if posts above it have images
       this.scrollTo(this.selectedId as string)
@@ -98,12 +114,21 @@ export default class PostDetail extends Vue {
     this.thread.splice(index + 1, 0, post)
   }
 
+  onPostDeleted(postIndex: number) {
+    this.thread.splice(postIndex, 1)
+  }
+
 }
 
 </script>
 
 <style scoped lang="scss">
 @import "../styles/layout";
+
+.not-found {
+  font-size: 20px;
+  text-align: center;
+}
 
 .post {
   margin: 0 0 $block-outer-padding;

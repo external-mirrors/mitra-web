@@ -33,7 +33,12 @@
           <dt>{{ profile.followers_count }}</dt><dd>followers</dd>
         </dl>
       </div>
-      <post-or-repost v-for="post in posts" :post="post" :key="post.id"></post-or-repost>
+      <post-or-repost
+        v-for="post in posts"
+        :post="post"
+        :key="post.id"
+        @post-deleted="onPostDeleted($event)"
+      ></post-or-repost>
     </div>
     <sidebar></sidebar>
   </div>
@@ -136,6 +141,11 @@ export default class ProfileView extends Vue {
       this.store.ensureAuthToken(),
       this.profile.id,
     )
+  }
+
+  onPostDeleted(postId: string) {
+    const postIndex = this.posts.findIndex((post) => post.id === postId)
+    this.posts.splice(postIndex, 1)
   }
 
 }

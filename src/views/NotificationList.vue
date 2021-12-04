@@ -1,7 +1,11 @@
 <template>
   <div id="main">
     <div class="content">
-      <div class="notification" v-for="notification in notifications" :key="notification.id">
+      <div
+        class="notification"
+        v-for="(notification, index) in notifications"
+        :key="notification.id"
+      >
         <div class="action">
           <template v-if="notification.type === 'follow'">
             <img :src="require('@/assets/feather/user-plus.svg')">
@@ -24,7 +28,11 @@
             <span>{{ getSenderName(notification) }} reposted your post</span>
           </template>
         </div>
-        <post v-if="notification.status" :post="notification.status"></post>
+        <post
+          v-if="notification.status"
+          :post="notification.status"
+          @post-deleted="onPostDeleted(index)"
+        ></post>
         <router-link
           v-else
           class="profile"
@@ -72,6 +80,10 @@ onMounted(async () => {
 function getSenderName(notification: Notification): string {
   const sender = notification.account
   return sender.display_name || sender.username
+}
+
+function onPostDeleted(notificationIndex: number) {
+  notifications.value.splice(notificationIndex, 1)
 }
 </script>
 

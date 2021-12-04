@@ -2,7 +2,12 @@
   <div id="main">
     <div class="content posts">
       <post-editor @post-created="insertPost"></post-editor>
-      <post-or-repost v-for="post in posts" :post="post" :key="post.id"></post-or-repost>
+      <post-or-repost
+        v-for="post in posts"
+        :post="post"
+        :key="post.id"
+        @post-deleted="onPostDeleted($event)"
+      ></post-or-repost>
       <button
         v-if="isPageFull()"
         class="btn"
@@ -51,6 +56,11 @@ export default class PostList extends Vue {
 
   insertPost(post: Post) {
     this.posts = [post, ...this.posts]
+  }
+
+  onPostDeleted(postId: string) {
+    const postIndex = this.posts.findIndex((post) => post.id === postId)
+    this.posts.splice(postIndex, 1)
   }
 
   isPageFull(): boolean {

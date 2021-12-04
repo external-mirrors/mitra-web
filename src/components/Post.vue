@@ -108,7 +108,7 @@
       </a>
       <div
         class="post-menu-wrapper"
-        v-if="canSaveToIpfs() || canMintToken()"
+        v-if="canSaveToIpfs() || canMintToken() || canDeletePost()"
         v-click-away="hideMenu"
       >
         <a class="icon" title="More" @click="toggleMenu()">
@@ -133,6 +133,16 @@
             >
               <img :src="require('@/assets/forkawesome/diamond.svg')">
               <span>Mint NFT</span>
+            </a>
+          </li>
+          <li v-if="canDeletePost()">
+            <a
+              class="icon"
+              title="Delete post"
+              @click="hideMenu(); deletePost()"
+            >
+              <img :src="require('@/assets/feather/trash.svg')">
+              <span>Delete post</span>
             </a>
           </li>
         </ul>
@@ -167,7 +177,15 @@ import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
 import { makePermanent, getSignature, mintToken, onTokenMinted } from "@/api/nft"
-import { Post, getPost, favourite, unfavourite, createRepost, deleteRepost } from "@/api/posts"
+import {
+  Post,
+  getPost,
+  deletePost,
+  favourite,
+  unfavourite,
+  createRepost,
+  deleteRepost,
+} from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -317,6 +335,16 @@ export default class PostComponent extends Vue {
     const authToken = this.store.ensureAuthToken()
     const { ipfs_cid } = await makePermanent(authToken, this.post.id)
     this.post.ipfs_cid = ipfs_cid
+  }
+
+  canDeletePost(): boolean {
+    return this.post.account.id === this.store.currentUser?.id
+  }
+
+  async deletePost() {
+    const authToken = this.store.ensureAuthToken()
+    await deletePost(authToken, this.post.id)
+    this.$emit("post-deleted")
   }
 
   getPaymentOptions(): PaymentOption[] {
