@@ -2,9 +2,11 @@
 
 Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
+<img width="600" src="screenshot.png" alt="screenshot">
+
 ## Requirements
 
-- node 12+
+- node 12 or 14
 - npm 7+
 
 ## Project setup
