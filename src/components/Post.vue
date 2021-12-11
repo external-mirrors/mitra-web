@@ -41,7 +41,7 @@
         {{ formatDate(post.created_at) }}
       </a>
     </div>
-    <div class="post-content" v-html="post.content"></div>
+    <div class="post-content" ref="postContent" v-html="post.content"></div>
     <div class="post-attachment" v-if="post.media_attachments.length === 1">
       <img :src="post.media_attachments[0].url">
     </div>
@@ -227,6 +227,16 @@ export default class PostComponent extends Vue {
     const { instance } = useInstanceInfo()
     return { currentUser, ensureAuthToken, instance }
   })
+
+  $refs!: { postContent: HTMLElement }
+
+  mounted() {
+    const mentions = this.$refs.postContent.getElementsByClassName("mention")
+    for (const mention of Array.from(mentions)) {
+      mention.setAttribute("target", "_blank")
+      mention.setAttribute("rel", "noreferrer")
+    }
+  }
 
   get authorName(): string {
     return this.post.account.display_name || this.post.account.username
