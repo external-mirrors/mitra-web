@@ -10,6 +10,7 @@ import ProfileForm from "@/views/ProfileForm.vue"
 import PostList from "@/views/PostList.vue"
 import PostDetail from "@/views/PostDetail.vue"
 import PostOverlay from "@/views/PostOverlay.vue"
+import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 
 import { useCurrentUser } from "@/store/user"
@@ -65,6 +66,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/post-overlay/:postId",
     name: "post-overlay",
     component: PostOverlay,
+    meta: { },
+  },
+  {
+    path: "/tag/:tagName",
+    name: "tag",
+    component: TagTimeline,
     meta: { },
   },
   {

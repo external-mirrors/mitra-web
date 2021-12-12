@@ -59,6 +59,22 @@ export async function getHomeTimeline(
   return data
 }
 
+export async function getTagTimeline(
+  authToken: string | null,
+  tagName: string,
+  maxId?: string,
+): Promise<Post[]> {
+  const url = `${BACKEND_URL}/api/v1/timelines/tag/${tagName}`
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
+  const data = await response.json()
+  return data
+}
+
 export async function getPostsByAuthor(
   authToken: string | null,
   authorId: string,
