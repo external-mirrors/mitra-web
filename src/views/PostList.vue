@@ -23,14 +23,13 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
+import { PAGE_SIZE } from "@/api/common"
 import { Post, getHomeTimeline } from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
 import PostOrRepost from "@/components/PostOrRepost.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
-
-const PAGE_SIZE = 20
 
 @Options({
   components: {

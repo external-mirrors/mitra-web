@@ -1,5 +1,7 @@
 import { ENV } from "@/constants"
 
+export const PAGE_SIZE = 20
+
 // Wrapped in object for easy stubbing in tests
 export const fetcher = {
   async fetch(url: string, params: RequestInit): Promise<Response> {
@@ -10,7 +12,7 @@ export const fetcher = {
 interface RequestInfo extends RequestInit {
   authToken?: string | null;
   json?: any;
-  queryParams?: { [name: string]: string };
+  queryParams?: { [name: string]: string | number | undefined };
 }
 
 export async function http(
@@ -48,7 +50,15 @@ export async function http(
         // Convert URL string to URL object
         url = new URL(url, window.location.origin)
       }
-      url.search = new URLSearchParams(queryParams).toString()
+      // Serialize query params
+      const serialized = Object.keys(queryParams).reduce((res: { [name: string]: string }, key) => {
+        const value = queryParams[key]
+        if (value !== undefined) {
+          res[key] = value.toString()
+        }
+        return res
+      }, {})
+      url.search = new URLSearchParams(serialized).toString()
     }
     params = { ...defaults, ...requestParams }
   }

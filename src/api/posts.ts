@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { PAGE_SIZE, http } from "./common"
 import { Profile } from "./users"
 
 export interface Attachment {
@@ -49,10 +49,7 @@ export async function getHomeTimeline(
   maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/timelines/home`
-  let queryParams
-  if (maxId) {
-    queryParams = { max_id: maxId }
-  }
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
   const response = await http(url, {
     method: "GET",
     queryParams,
