@@ -75,12 +75,18 @@ export async function getTagTimeline(
   return data
 }
 
-export async function getPostsByAuthor(
+export async function getProfileTimeline(
   authToken: string | null,
   authorId: string,
+  maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
-  const response = await http(url, { authToken })
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
   const data = await response.json()
   return data
 }

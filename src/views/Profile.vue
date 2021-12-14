@@ -33,12 +33,10 @@
           <dt>{{ profile.followers_count }}</dt><dd>followers</dd>
         </dl>
       </div>
-      <post-or-repost
-        v-for="post in posts"
-        :post="post"
-        :key="post.id"
-        @post-deleted="onPostDeleted($event)"
-      ></post-or-repost>
+      <post-list
+        :posts="posts"
+        @load-next-page="loadNextPage"
+      ></post-list>
     </div>
     <sidebar></sidebar>
   </div>
@@ -48,7 +46,7 @@
 import { Options, Vue, setup } from "vue-class-component"
 
 import { Profile, getProfile } from "@/api/users"
-import { Post, getPostsByAuthor } from "@/api/posts"
+import { Post, getProfileTimeline } from "@/api/posts"
 import {
   follow,
   unfollow,
@@ -56,14 +54,14 @@ import {
   getRelationship,
 } from "@/api/relationships"
 import Avatar from "@/components/Avatar.vue"
-import PostOrRepost from "@/components/PostOrRepost.vue"
+import PostList from "@/components/PostList.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
 @Options({
   components: {
     Avatar,
-    PostOrRepost,
+    PostList,
     Sidebar,
   },
 })
@@ -89,7 +87,7 @@ export default class ProfileView extends Vue {
         this.profile.id,
       )
     }
-    this.posts = await getPostsByAuthor(
+    this.posts = await getProfileTimeline(
       this.store.authToken,
       this.profile.id,
     )
@@ -143,9 +141,12 @@ export default class ProfileView extends Vue {
     )
   }
 
-  onPostDeleted(postId: string) {
-    const postIndex = this.posts.findIndex((post) => post.id === postId)
-    this.posts.splice(postIndex, 1)
+  async loadNextPage(maxId: string) {
+    if (!this.profile) {
+      return
+    }
+    const posts = await getProfileTimeline(this.store.authToken, this.profile.id, maxId)
+    this.posts.push(...posts)
   }
 
 }
@@ -259,13 +260,5 @@ $avatar-size: 170px;
     margin-left: 5px;
     margin-right: 30px;
   }
-}
-
-.action {
-  @include post-action;
-}
-
-:deep(.post) {
-  margin-bottom: $block-outer-padding;
 }
 </style>
