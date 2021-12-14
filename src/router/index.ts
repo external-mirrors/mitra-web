@@ -2,12 +2,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
 import AboutPublicPage from "@/views/AboutPublic.vue"
+import HomeTimeline from "@/views/HomeTimeline.vue"
 import LandingPage from "../views/LandingPage.vue"
 import NotificationList from "../views/NotificationList.vue"
 import ProfileDirectory from "../views/ProfileDirectory.vue"
 import ProfileView from "@/views/Profile.vue"
 import ProfileForm from "@/views/ProfileForm.vue"
-import PostList from "@/views/PostList.vue"
 import PostDetail from "@/views/PostDetail.vue"
 import PostOverlay from "@/views/PostOverlay.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/home",
     name: "home",
-    component: PostList,
+    component: HomeTimeline,
     meta: { onlyAuthenticated: true },
   },
   {

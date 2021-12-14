@@ -37,4 +37,8 @@ function onPostDeleted(postId: string) {
 .action {
   @include post-action;
 }
+
+.post {
+  margin-bottom: $block-outer-padding;
+}
 </style>

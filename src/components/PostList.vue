@@ -1,0 +1,55 @@
+<template>
+  <post-or-repost
+    v-for="post in posts"
+    :post="post"
+    :key="post.id"
+    @post-deleted="onPostDeleted($event)"
+  ></post-or-repost>
+  <button
+    v-if="isPageFull()"
+    class="btn"
+    @click="loadNextPage()"
+  >
+    Show more posts
+  </button>
+</template>
+
+<script setup lang="ts">
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { watch } from "vue"
+import { PAGE_SIZE } from "@/api/common"
+import { Post as PostObject } from "@/api/posts"
+import PostOrRepost from "@/components/PostOrRepost.vue"
+
+const props = defineProps<{
+  posts: PostObject[],
+}>()
+const emit = defineEmits<{(event: "load-next-page", maxId: string): void}>()
+
+const initialPostCount: number | null = null
+
+watch(() => props.posts.length, (postCount) => {
+  if (initialPostCount === null) {
+    initialPostCount = postCount
+  }
+})
+
+function onPostDeleted(postId: string) {
+  const posts = props.posts
+  const postIndex = posts.findIndex((post) => post.id === postId)
+  posts.splice(postIndex, 1)
+}
+
+function isPageFull(): boolean {
+  return initialPostCount === null ? false : initialPostCount >= PAGE_SIZE
+}
+
+function loadNextPage() {
+  let maxId
+  if (props.posts.length > 0) {
+    maxId = props.posts[props.posts.length - 1].id
+  }
+  emit("load-next-page", maxId)
+}
+</script>

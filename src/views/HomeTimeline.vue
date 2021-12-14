@@ -2,19 +2,7 @@
   <div id="main">
     <div class="content posts">
       <post-editor @post-created="insertPost"></post-editor>
-      <post-or-repost
-        v-for="post in posts"
-        :post="post"
-        :key="post.id"
-        @post-deleted="onPostDeleted($event)"
-      ></post-or-repost>
-      <button
-        v-if="isPageFull()"
-        class="btn"
-        @click="loadNextPage()"
-      >
-        Show more posts
-      </button>
+      <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
     </div>
     <sidebar></sidebar>
   </div>
@@ -23,23 +11,22 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
-import { PAGE_SIZE } from "@/api/common"
 import { Post, getHomeTimeline } from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
-import PostOrRepost from "@/components/PostOrRepost.vue"
 import PostEditor from "@/components/PostEditor.vue"
+import PostList from "@/components/PostList.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
 @Options({
   components: {
     Avatar,
-    PostOrRepost,
     PostEditor,
+    PostList,
     Sidebar,
   },
 })
-export default class PostList extends Vue {
+export default class HomeTimeline extends Vue {
 
   private store = setup(() => {
     const { ensureAuthToken } = useCurrentUser()
@@ -57,28 +44,13 @@ export default class PostList extends Vue {
     this.posts = [post, ...this.posts]
   }
 
-  onPostDeleted(postId: string) {
-    const postIndex = this.posts.findIndex((post) => post.id === postId)
-    this.posts.splice(postIndex, 1)
-  }
-
-  isPageFull(): boolean {
-    return this.posts.length >= PAGE_SIZE
-  }
-
-  async loadNextPage() {
-    if (this.posts.length > 0) {
-      const authToken = this.store.ensureAuthToken()
-      const posts = await getHomeTimeline(
-        authToken,
-        this.posts[this.posts.length - 1].id,
-      )
-      this.posts.push(...posts)
-    }
+  async loadNextPage(maxId: string) {
+    const authToken = this.store.ensureAuthToken()
+    const posts = await getHomeTimeline(authToken, maxId)
+    this.posts.push(...posts)
   }
 
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -86,9 +58,5 @@ export default class PostList extends Vue {
 
 .post-form {
   margin-bottom: $block-outer-padding * 2;
-}
-
-:deep(.post) {
-  margin-bottom: $block-outer-padding;
 }
 </style>
