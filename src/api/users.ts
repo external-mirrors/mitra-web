@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { PAGE_SIZE, http } from "./common"
 
 interface ProfileField {
   name: string;
@@ -103,9 +103,13 @@ export async function getProfile(
   return data
 }
 
-export async function getProfiles(authToken: string): Promise<Profile[]> {
+export async function getProfiles(
+  authToken: string,
+  offset?: number,
+): Promise<Profile[]> {
   const url = `${BACKEND_URL}/api/v1/directory`
-  const response = await http(url, { authToken })
+  const queryParams = { offset, limit: PAGE_SIZE }
+  const response = await http(url, { queryParams, authToken })
   const data = await response.json()
   return data
 }

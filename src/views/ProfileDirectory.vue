@@ -9,6 +9,13 @@
       >
         <profile-card :profile="profile"></profile-card>
       </router-link>
+      <button
+        v-if="isPageFull()"
+        class="btn"
+        @click="loadNextPage()"
+      >
+        Show more posts
+      </button>
     </div>
     <sidebar></sidebar>
   </div>
@@ -17,6 +24,7 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
+import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
 import Sidebar from "@/components/Sidebar.vue"
@@ -36,10 +44,26 @@ export default class ProfileDirectory extends Vue {
   })
 
   profiles: Profile[] = []
+  initialProfileCount: number | null = null
 
   async created() {
     const authToken = this.store.ensureAuthToken()
     this.profiles = await getProfiles(authToken)
+    this.initialProfileCount = this.profiles.length
+  }
+
+  isPageFull(): boolean {
+    if (this.initialProfileCount === null) {
+      return false
+    }
+    return this.initialProfileCount >= PAGE_SIZE
+  }
+
+  async loadNextPage() {
+    const authToken = this.store.ensureAuthToken()
+    const offset = this.profiles.length
+    const profiles = await getProfiles(authToken, offset)
+    this.profiles.push(...profiles)
   }
 
 }
