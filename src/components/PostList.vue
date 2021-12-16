@@ -27,7 +27,7 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{(event: "load-next-page", maxId: string): void}>()
 
-const initialPostCount: number | null = null
+let initialPostCount: number | null = null
 
 watch(() => props.posts.length, (postCount) => {
   if (initialPostCount === null) {

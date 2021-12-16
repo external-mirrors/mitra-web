@@ -64,6 +64,7 @@
         <img :src="require('@/assets/tabler/arrow-forward.svg')">
       </a>
       <a
+        v-if="canRepost()"
         class="icon"
         :class="{ 'highlighted': post.reblogged }"
         title="Repost"
@@ -73,6 +74,7 @@
         <span>{{ post.reblogs_count }}</span>
       </a>
       <a
+        v-if="canLike()"
         class="icon"
         :class="{ 'highlighted': post.favourited }"
         title="Like"
@@ -267,6 +269,10 @@ export default class PostComponent extends Vue {
     this.$emit("comment-created", post)
   }
 
+  canRepost(): boolean {
+    return this.store.currentUser !== null && this.post.visibility === "public"
+  }
+
   async toggleRepost() {
     if (!this.store.currentUser) {
       return
@@ -285,6 +291,10 @@ export default class PostComponent extends Vue {
     }
     this.post.reblogs_count = post.reblogs_count
     this.post.reblogged = post.reblogged
+  }
+
+  canLike(): boolean {
+    return this.store.currentUser !== null
   }
 
   async toggleLike() {

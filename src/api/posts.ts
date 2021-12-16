@@ -33,6 +33,7 @@ export interface Post {
   content: string;
   in_reply_to_id: string | null;
   reblog: Post | null;
+  visibility: "public" | "direct";
   replies_count: number;
   favourites_count: number;
   reblogs_count: number;
