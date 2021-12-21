@@ -15,7 +15,7 @@
       <div class="token-info">
         <router-link class="profile" :to="{ name: 'profile', params: { profileId: post.account.id }}">
           <avatar :profile="post.account"></avatar>
-          <div class="account-uri">@{{ post.account.acct }}</div>
+          <div class="actor-address">@{{ actorAddress }}</div>
         </router-link>
         <a
           v-if="transactionUrl"
@@ -72,9 +72,9 @@ export default class PostOverlay extends Vue {
   token: TokenMetadata | null = null
 
   private store = setup(() => {
-    const { instance } = useInstanceInfo()
     const { currentUser, authToken } = useCurrentUser()
-    return { instance, currentUser, authToken }
+    const { instance, getActorAddress } = useInstanceInfo()
+    return { currentUser, authToken, instance, getActorAddress }
   })
 
   async created() {
@@ -94,6 +94,13 @@ export default class PostOverlay extends Vue {
 
   goBack() {
     this.$router.back()
+  }
+
+  get actorAddress(): string {
+    if (!this.post) {
+      return ""
+    }
+    return this.store.getActorAddress(this.post.account)
   }
 
   get transactionUrl(): string | null {

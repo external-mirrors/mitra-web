@@ -11,8 +11,8 @@
       >
         {{ authorName }}
       </router-link>
-      <div class="username" :title="'@' + post.account.acct">
-        @{{ post.account.acct }}
+      <div class="actor-address" :title="'@' + actorAddress">
+        @{{ actorAddress }}
       </div>
       <a
         class="icon icon-small"
@@ -226,8 +226,8 @@ export default class PostComponent extends Vue {
 
   private store = setup(() => {
     const { currentUser, ensureAuthToken } = useCurrentUser()
-    const { instance } = useInstanceInfo()
-    return { currentUser, ensureAuthToken, instance }
+    const { instance, getActorAddress } = useInstanceInfo()
+    return { currentUser, ensureAuthToken, instance, getActorAddress }
   })
 
   $refs!: { postContent: HTMLElement }
@@ -242,6 +242,10 @@ export default class PostComponent extends Vue {
 
   get authorName(): string {
     return this.post.account.display_name || this.post.account.username
+  }
+
+  get actorAddress(): string {
+    return this.store.getActorAddress(this.post.account)
   }
 
   highlight(postId: string | null) {
@@ -503,7 +507,7 @@ export default class PostComponent extends Vue {
     white-space: nowrap;
   }
 
-  .username {
+  .actor-address {
     flex-grow: 1;
     min-width: 15%;
     overflow: hidden;

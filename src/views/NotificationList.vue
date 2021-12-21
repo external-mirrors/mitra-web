@@ -42,7 +42,7 @@
             <avatar :profile="notification.account"></avatar>
           </div>
           <div class="display-name">{{ getSenderName(notification) }}</div>
-          <div class="username">@{{ notification.account.acct }}</div>
+          <div class="actor-address">@{{ getActorAddress(notification.account) }}</div>
           <div class="timestamp">{{ formatDate(notification.created_at) }}</div>
         </router-link>
       </div>
@@ -59,10 +59,12 @@ import { getNotifications } from "@/api/notifications"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import Sidebar from "@/components/Sidebar.vue"
+import { useInstanceInfo } from "@/store/instance"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { formatDate } from "@/utils/format"
 
+const { getActorAddress } = useInstanceInfo()
 const { notifications } = useNotifications()
 
 onMounted(async () => {
@@ -118,7 +120,7 @@ function onPostDeleted(notificationIndex: number) {
     margin-right: $block-inner-padding / 2;
   }
 
-  .username {
+  .actor-address {
     color: $secondary-text-color;
     flex-grow: 1;
   }

@@ -8,7 +8,7 @@
         <avatar :profile="profile"></avatar>
         <div class="name-group">
           <div class="display-name">{{ profile.display_name || profile.username }}</div>
-          <div class="account-uri">{{ getAcct() }}</div>
+          <div class="actor-address">@{{ actorAddress }}</div>
         </div>
       </div>
       <div class="bio" v-html="profile.note"></div>
@@ -44,19 +44,12 @@ export default class ProfileCard extends Vue {
   compact = false
 
   private store = setup(() => {
-    const { instance } = useInstanceInfo()
-    return { instance }
+    const { instance, getActorAddress } = useInstanceInfo()
+    return { instance, getActorAddress }
   })
 
-  getAcct(): string {
-    if (this.profile.acct.includes("@")) {
-      // Remote account
-      return `@${this.profile.acct}`
-    }
-    if (!this.store.instance) {
-      return `@${this.profile.username}`
-    }
-    return `@${this.profile.username}@${this.store.instance.uri}`
+  get actorAddress(): string {
+    return this.store.getActorAddress(this.profile)
   }
 
 }
@@ -112,7 +105,7 @@ $profile-padding: $block-inner-padding / 2;
       font-weight: bold;
     }
 
-    .account-uri {
+    .actor-address {
       color: $secondary-text-color;
       overflow-x: hidden;
       text-overflow: ellipsis;

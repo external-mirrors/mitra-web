@@ -9,7 +9,7 @@
           <avatar :profile="profile"></avatar>
           <div class="name-group">
             <div class="display-name">{{ profile.display_name || profile.username }}</div>
-            <div class="account-uri">@{{ profile.acct }}</div>
+            <div class="actor-address">@{{ actorAddress }}</div>
           </div>
           <div class="buttons">
             <router-link v-if="isCurrentUser()" class="edit-profile btn" to="/settings">Edit profile</router-link>
@@ -56,6 +56,7 @@ import {
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import Sidebar from "@/components/Sidebar.vue"
+import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 
 @Options({
@@ -69,7 +70,8 @@ export default class ProfileView extends Vue {
 
   private store = setup(() => {
     const { currentUser, authToken, ensureAuthToken } = useCurrentUser()
-    return { currentUser, authToken, ensureAuthToken }
+    const { getActorAddress } = useInstanceInfo()
+    return { currentUser, authToken, ensureAuthToken, getActorAddress }
   })
 
   profile: Profile | null = null
@@ -91,6 +93,13 @@ export default class ProfileView extends Vue {
       this.store.authToken,
       this.profile.id,
     )
+  }
+
+  get actorAddress(): string {
+    if (!this.profile) {
+      return ""
+    }
+    return this.store.getActorAddress(this.profile)
   }
 
   isCurrentUser(): boolean {
@@ -203,7 +212,7 @@ $avatar-size: 170px;
       font-weight: bold;
     }
 
-    .account-uri {
+    .actor-address {
       color: $secondary-text-color;
       overflow-x: hidden;
       text-overflow: ellipsis;
