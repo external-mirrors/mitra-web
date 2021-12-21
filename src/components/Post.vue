@@ -512,6 +512,7 @@ export default class PostComponent extends Vue {
     min-width: 15%;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: all;
   }
 
   .timestamp {
