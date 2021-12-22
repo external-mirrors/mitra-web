@@ -108,6 +108,7 @@ function onPostDeleted(notificationIndex: number) {
   border-radius: $block-border-radius;
   box-sizing: border-box;
   display: flex;
+  gap: $block-inner-padding / 2;
   padding: $block-inner-padding;
 
   .floating-avatar {
@@ -117,7 +118,6 @@ function onPostDeleted(notificationIndex: number) {
   .display-name {
     color: $text-color;
     font-weight: bold;
-    margin-right: $block-inner-padding / 2;
   }
 
   .actor-address {
