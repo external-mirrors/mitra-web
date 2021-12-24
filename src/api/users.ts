@@ -64,8 +64,8 @@ export async function createUser(userData: UserCreateForm): Promise<User> {
 export async function getAccessToken(user: UserLoginForm): Promise<string> {
   const url = `${BACKEND_URL}/oauth/token`
   const tokenRequestData = {
-    grant_type: "password",
-    username: user.wallet_address,
+    grant_type: "ethereum",
+    wallet_address: user.wallet_address,
     password: user.signature,
   }
   const response = await http(url, {
