@@ -216,6 +216,7 @@ $avatar-size: 170px;
       color: $secondary-text-color;
       overflow-x: hidden;
       text-overflow: ellipsis;
+      user-select: all;
     }
   }
 }
