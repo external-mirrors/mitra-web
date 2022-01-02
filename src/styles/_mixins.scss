@@ -37,6 +37,10 @@
     vertical-align: middle;
     width: $icon-size;
   }
+
+  a {
+    margin-right: 0.25em;  /* single space */
+  }
 }
 
 @mixin post-icon {

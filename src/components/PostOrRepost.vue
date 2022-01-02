@@ -2,7 +2,10 @@
   <template v-if="post.reblog">
     <div class="action">
       <img :src="require('@/assets/feather/repeat.svg')">
-      <span>{{ post.account.display_name || post.account.username }} reposted</span>
+      <router-link :to="{ name: 'profile', params: { profileId: post.account.id }}">
+        {{ post.account.display_name || post.account.username }}
+      </router-link>
+      <span>reposted</span>
     </div>
     <post
       :post="post.reblog"

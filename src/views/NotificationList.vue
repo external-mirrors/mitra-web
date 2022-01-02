@@ -9,23 +9,38 @@
         <div class="action">
           <template v-if="notification.type === 'follow'">
             <img :src="require('@/assets/feather/user-plus.svg')">
-            <span>{{ getSenderName(notification) }} followed you</span>
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>followed you</span>
           </template>
           <template v-else-if="notification.type === 'reply'">
             <img :src="require('@/assets/forkawesome/comment-o.svg')">
-            <span>{{ getSenderName(notification) }} replied to your post</span>
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>replied to your post</span>
           </template>
           <template v-else-if="notification.type === 'favourite'">
             <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
-            <span>{{ getSenderName(notification) }} liked your post</span>
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>liked your post</span>
           </template>
           <template v-else-if="notification.type === 'mention'">
             <img :src="require('@/assets/forkawesome/comment-o.svg')">
-            <span>{{ getSenderName(notification) }} mentioned you</span>
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>mentioned you</span>
           </template>
           <template v-else-if="notification.type === 'reblog'">
             <img :src="require('@/assets/feather/repeat.svg')">
-            <span>{{ getSenderName(notification) }} reposted your post</span>
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>reposted your post</span>
           </template>
         </div>
         <post
