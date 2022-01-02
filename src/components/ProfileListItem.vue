@@ -3,7 +3,7 @@
     <avatar :profile="profile"></avatar>
     <div class="name">
       <div class="display-name">{{ profile.display_name || profile.username }}</div>
-      <div class="username">@{{ profile.acct }}</div>
+      <div class="actor-address">@{{ getActorAddress(profile) }}</div>
     </div>
   </router-link>
 </template>
@@ -13,6 +13,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import { useInstanceInfo } from "@/store/instance"
+
+const { getActorAddress } = useInstanceInfo()
 
 const props = defineProps<{
   profile: Profile,
@@ -41,7 +44,7 @@ const props = defineProps<{
     color: $text-color;
   }
 
-  .username {
+  .actor-address {
     color: $secondary-text-color;
   }
 }
