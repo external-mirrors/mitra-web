@@ -10,13 +10,7 @@
       </div>
       <div v-if="!isLoading" class="search-result-list">
         <div class="search-result" v-for="profile in profiles" :key="profile.id">
-          <router-link class="profile" :to="{ name: 'profile', params: { profileId: profile.id }}">
-            <avatar :profile="profile"></avatar>
-            <div class="name">
-              <div class="display-name">{{ profile.display_name || profile.username }}</div>
-              <div class="username">@{{ profile.acct }}</div>
-            </div>
-          </router-link>
+          <profile-list-item :profile="profile"></profile-list-item>
         </div>
         <post :post="post" v-for="post in posts" :key="post.id"></post>
       </div>
@@ -33,6 +27,7 @@ import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostComponent from "@/components/Post.vue"
+import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
@@ -41,6 +36,7 @@ import { useCurrentUser } from "@/store/user"
     Avatar,
     Loader,
     Post: PostComponent,
+    ProfileListItem,
     Sidebar,
   },
 })
@@ -105,30 +101,9 @@ export default class SearchResultList extends Vue {
 
 .search-result {
   border-bottom: 1px solid $separator-color;
-  padding: $block-inner-padding;
 
   &:last-child {
     border-bottom: none;
-  }
-
-  .profile {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-
-    .avatar {
-      height: $avatar-size;
-      margin-right: $block-inner-padding;
-      width: $avatar-size;
-    }
-
-    .display-name {
-      color: $text-color;
-    }
-
-    .username {
-      color: $secondary-text-color;
-    }
   }
 }
 </style>
