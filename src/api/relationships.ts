@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
+import { Profile } from "./users"
 
 export interface Relationship {
   id: string,
@@ -57,4 +58,24 @@ export async function unfollow(
   } else {
     return data
   }
+}
+
+export async function getFollowers(
+  authToken: string,
+  accountId: string,
+): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/followers`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data
+}
+
+export async function getFollowing(
+  authToken: string,
+  accountId: string,
+): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/following`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data
 }

@@ -87,6 +87,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
+    path: "/profile/:profileId/:tabName",
+    name: "profile-tab",
+    component: ProfileView,
+    meta: { onlyAuthenticated: true },
+  },
+  {
     path: "/profile-directory",
     name: "profile-directory",
     component: ProfileDirectory,

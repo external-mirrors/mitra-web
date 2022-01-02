@@ -1,7 +1,7 @@
 <template>
   <div id="main" v-if="profile">
     <div class="content posts">
-      <div class="profile">
+      <div class="profile-block">
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>
@@ -27,16 +27,44 @@
             <dd v-html="field.value"></dd>
           </dl>
         </div>
-        <dl class="stats">
-          <dt>{{ profile.statuses_count }}</dt><dd>posts</dd>
-          <dt>{{ profile.following_count }}</dt><dd>following</dd>
-          <dt>{{ profile.followers_count }}</dt><dd>followers</dd>
-        </dl>
+        <div class="stats">
+          <component
+            class="stats-item"
+            :is="isCurrentUser() ? 'router-link' : 'div'"
+            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts' }}"
+          >
+            <span class="value">{{ profile.statuses_count }}</span>
+            <span class="label">posts</span>
+          </component>
+          <component
+            class="stats-item"
+            :is="isCurrentUser() ? 'router-link' : 'div'"
+            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'followers' }}">
+            <span class="value">{{ profile.followers_count }}</span>
+            <span class="label">followers</span>
+          </component>
+          <component
+            class="stats-item"
+            :is="isCurrentUser() ? 'router-link' : 'div'"
+            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'following' }}"
+          >
+            <span class="value">{{ profile.following_count }}</span>
+            <span class="label">following</span>
+          </component>
+        </div>
       </div>
       <post-list
+        v-if="tabName === 'posts'"
         :posts="posts"
         @load-next-page="loadNextPage"
       ></post-list>
+      <template v-if="tabName === 'followers' || tabName === 'following'">
+        <profile-list-item
+          v-for="profile in followList"
+          :profile="profile"
+          :key="profile.id"
+        ></profile-list-item>
+      </template>
     </div>
     <sidebar></sidebar>
   </div>
@@ -52,9 +80,12 @@ import {
   unfollow,
   Relationship,
   getRelationship,
+  getFollowers,
+  getFollowing,
 } from "@/api/relationships"
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
+import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -63,6 +94,7 @@ import { useCurrentUser } from "@/store/user"
   components: {
     Avatar,
     PostList,
+    ProfileListItem,
     Sidebar,
   },
 })
@@ -76,7 +108,9 @@ export default class ProfileView extends Vue {
 
   profile: Profile | null = null
   relationship: Relationship | null = null
+  tabName = "posts"
   posts: Post[] = []
+  followList: Profile[] = []
 
   async created() {
     this.profile = await getProfile(
@@ -89,10 +123,23 @@ export default class ProfileView extends Vue {
         this.profile.id,
       )
     }
-    this.posts = await getProfileTimeline(
-      this.store.authToken,
-      this.profile.id,
-    )
+    this.tabName = this.$route.params.tabName as string || "posts"
+    if (this.tabName === "posts") {
+      this.posts = await getProfileTimeline(
+        this.store.authToken,
+        this.profile.id,
+      )
+    } else if (this.tabName === "followers" && this.isCurrentUser()) {
+      this.followList = await getFollowers(
+        this.store.ensureAuthToken(),
+        this.profile.id,
+      )
+    } else if (this.tabName === "following" && this.isCurrentUser()) {
+      this.followList = await getFollowing(
+        this.store.ensureAuthToken(),
+        this.profile.id,
+      )
+    }
   }
 
   get actorAddress(): string {
@@ -168,7 +215,7 @@ export default class ProfileView extends Vue {
 
 $avatar-size: 170px;
 
-.profile {
+.profile-block {
   background-color: $block-background-color;
   border-radius: $block-border-radius;
   margin-bottom: $block-outer-padding;
@@ -256,19 +303,28 @@ $avatar-size: 170px;
 .stats {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   font-weight: bold;
+  gap: $block-inner-padding 30px;
   padding: 0 $block-inner-padding $block-inner-padding;
   text-align: center;
 
-  dt {
-    font-size: 18px;
-  }
+  .stats-item {
+    display: flex;
+    gap: 5px;
 
-  dd {
-    align-self: flex-end;
-    color: $secondary-text-color;
-    margin-left: 5px;
-    margin-right: 30px;
+    .value {
+      font-size: 18px;
+    }
+
+    .label {
+      align-self: flex-end;
+      color: $secondary-text-color;
+    }
   }
+}
+
+.profile {
+  margin-bottom: $block-outer-padding;
 }
 </style>
