@@ -143,6 +143,7 @@ function onPostDeleted(notificationIndex: number) {
   .timestamp {
     color: $secondary-text-color;
     text-align: right;
+    white-space: nowrap;
 
     &:hover {
       color: $secondary-text-hover-color;
