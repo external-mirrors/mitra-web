@@ -42,6 +42,10 @@ export function useCurrentUser() {
       if (token) {
         authToken.value = token
         currentUser.value = await getCurrentUser(token)
+        if (currentUser.value === null) {
+          // Failed to get current user, removing invalid token
+          setAuthToken(null)
+        }
       }
       isAuthChecked.value = true
     }
