@@ -30,6 +30,36 @@
             @change="uploadAttachment($event.target.files)"
           >
         </a>
+        <div
+          class="dropdown-menu-wrapper"
+          v-click-away="hideVisibilityMenu"
+        >
+          <a class="icon" title="Post visibility" @click="toggleVisibilityMenu()">
+            <visibility-icon :visibility="visibility"></visibility-icon>
+          </a>
+          <ul v-if="visibilityMenuVisible" class="dropdown-menu">
+            <li>
+              <a
+                class="icon"
+                title="Public"
+                @click="hideVisibilityMenu(); visibility = 'public'"
+              >
+                <visibility-icon :visibility="'public'"></visibility-icon>
+                <span>Public</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class="icon"
+                title="Direct"
+                @click="hideVisibilityMenu(); visibility = 'direct'"
+              >
+                <visibility-icon :visibility="'direct'"></visibility-icon>
+                <span>Direct</span>
+              </a>
+            </li>
+          </ul>
+        </div>
         <div class="character-counter" title="Characters left">
           {{ characterCounter }}
         </div>
@@ -61,6 +91,7 @@ import { Prop } from "vue-property-decorator"
 import { createPost, Attachment, uploadAttachment } from "@/api/posts"
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
@@ -71,6 +102,7 @@ const POST_CHARACTER_LIMIT = 1000
 @Options({
   components: {
     Avatar,
+    VisibilityIcon,
   },
 })
 export default class PostEditor extends Vue {
@@ -79,7 +111,10 @@ export default class PostEditor extends Vue {
   inReplyTo: string | null = null
 
   content = ""
+  visibility = "public"
   attachment: Attachment | null = null
+
+  visibilityMenuVisible = false
   errorMessage: string | null = null
 
   $refs!: {
@@ -113,6 +148,14 @@ export default class PostEditor extends Vue {
     )
   }
 
+  toggleVisibilityMenu() {
+    this.visibilityMenuVisible = !this.visibilityMenuVisible
+  }
+
+  hideVisibilityMenu() {
+    this.visibilityMenuVisible = false
+  }
+
   get characterCounter(): number {
     return (POST_CHARACTER_LIMIT - this.content.length)
   }
@@ -122,6 +165,7 @@ export default class PostEditor extends Vue {
     const postData = {
       content,
       in_reply_to_id: this.inReplyTo,
+      visibility: this.visibility,
     }
     let post
     try {
@@ -198,16 +242,21 @@ textarea {
   color: $secondary-text-color;
   display: flex;
   flex-direction: row;
-  font-weight: bold;
+  gap: $block-inner-padding / 2;
   padding: $block-inner-padding / 1.5 $block-inner-padding;
 
   .character-counter {
+    font-weight: bold;
     margin-left: auto;
   }
 
   .submit-btn-small {
     margin-left: $block-inner-padding;
   }
+}
+
+.dropdown-menu-wrapper {
+  @include post-dropdown-menu;
 }
 
 .submit-btn-wrapper {

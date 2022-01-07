@@ -21,8 +21,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        <img v-if="post.visibility === 'public'" :src="require('@/assets/feather/globe.svg')">
-        <img v-else-if="post.visibility === 'direct'" :src="require('@/assets/feather/lock.svg')">
+        <visibility-icon :visibility="post.visibility"></visibility-icon>
       </a>
       <a
         v-if="inThread && post.in_reply_to_id"
@@ -109,14 +108,14 @@
         <img :src="require('@/assets/forkawesome/diamond.svg')">
       </a>
       <div
-        class="post-menu-wrapper"
+        class="dropdown-menu-wrapper"
         v-if="canSaveToIpfs() || canMintToken() || canDeletePost()"
         v-click-away="hideMenu"
       >
         <a class="icon" title="More" @click="toggleMenu()">
           <img :src="require('@/assets/feather/more-horizontal.svg')">
         </a>
-        <ul v-if="menuVisible" class="post-menu">
+        <ul v-if="menuVisible" class="dropdown-menu">
           <li v-if="canSaveToIpfs()">
             <a
               class="icon"
@@ -191,6 +190,7 @@ import {
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostEditor from "@/components/PostEditor.vue"
+import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
@@ -208,6 +208,7 @@ interface PaymentOption {
     Avatar,
     CryptoAddress,
     PostEditor,
+    VisibilityIcon,
   },
 })
 export default class PostComponent extends Vue {
@@ -567,21 +568,8 @@ export default class PostComponent extends Vue {
   }
 }
 
-.post-menu-wrapper {
-  position: relative;
-}
-
-.post-menu {
-  background-color: $block-background-color;
-  border: 1px solid $separator-color;
-  border-radius: $btn-border-radius;
-  display: flex;
-  flex-direction: column;
-  gap: $block-inner-padding / 2;
-  padding: $block-inner-padding / 2;
-  position: absolute;
-  white-space: nowrap;
-  z-index: 3;
+.dropdown-menu-wrapper {
+  @include post-dropdown-menu;
 }
 
 .crypto-widget {

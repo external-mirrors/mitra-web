@@ -108,6 +108,7 @@ export async function getPostContext(
 export interface PostData {
   content: string;
   in_reply_to_id: string | null;
+  visibility: string;
 }
 
 export async function createPost(
@@ -121,6 +122,7 @@ export async function createPost(
     status: postData.content,
     "media_ids[]": attachment ? [attachment.id] : null,
     in_reply_to_id: postData.in_reply_to_id,
+    visibility: postData.visibility,
   }
   const response = await http(url, {
     method: "POST",

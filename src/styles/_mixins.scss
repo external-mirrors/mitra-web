@@ -82,6 +82,23 @@
   }
 }
 
+@mixin post-dropdown-menu {
+  position: relative;
+
+  .dropdown-menu {
+    background-color: $block-background-color;
+    border: 1px solid $separator-color;
+    border-radius: $btn-border-radius;
+    display: flex;
+    flex-direction: column;
+    gap: $block-inner-padding / 2;
+    padding: $block-inner-padding / 2;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 3;
+  }
+}
+
 @mixin block-btn {
   .btn {
     background-color: $btn-background-hover-color;
