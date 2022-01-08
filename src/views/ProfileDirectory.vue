@@ -14,7 +14,7 @@
         class="btn"
         @click="loadNextPage()"
       >
-        Show more posts
+        Show more profiles
       </button>
     </div>
     <sidebar></sidebar>
