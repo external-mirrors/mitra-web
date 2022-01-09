@@ -88,7 +88,7 @@
 import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
-import { createPost, Attachment, uploadAttachment } from "@/api/posts"
+import { Post, createPost, Attachment, uploadAttachment } from "@/api/posts"
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
@@ -108,7 +108,7 @@ const POST_CHARACTER_LIMIT = 1000
 export default class PostEditor extends Vue {
 
   @Prop()
-  inReplyTo: string | null = null
+  inReplyTo: Post | null = null
 
   content = ""
   visibility = "public"
@@ -129,6 +129,12 @@ export default class PostEditor extends Vue {
 
   get author(): User | null {
     return this.store.currentUser
+  }
+
+  created() {
+    if (this.inReplyTo) {
+      this.visibility = this.inReplyTo.visibility
+    }
   }
 
   mounted() {
@@ -164,7 +170,7 @@ export default class PostEditor extends Vue {
     const content = renderMarkdownLite(this.content)
     const postData = {
       content,
-      in_reply_to_id: this.inReplyTo,
+      in_reply_to_id: this.inReplyTo ? this.inReplyTo.id : null,
       visibility: this.visibility,
     }
     let post

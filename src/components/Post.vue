@@ -166,7 +166,7 @@
     </div>
     <post-editor
       v-if="commentFormVisible"
-      :in-reply-to="post.id"
+      :in-reply-to="post"
       @post-created="onCommentCreated"
     >
     </post-editor>
