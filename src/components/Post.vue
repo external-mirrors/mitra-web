@@ -65,7 +65,7 @@
         <span>{{ post.replies_count }}</span>
       </router-link>
       <a
-        v-if="inThread && canReply()"
+        v-else-if="inThread && canReply()"
         class="icon"
         title="Reply"
         @click="commentFormVisible = !commentFormVisible"
@@ -73,6 +73,10 @@
         <img :src="require('@/assets/forkawesome/comment-o.svg')">
         <span>{{ post.replies_count }}</span>
       </a>
+      <span v-else class="icon">
+        <img :src="require('@/assets/forkawesome/comment-o.svg')">
+        <span>{{ post.replies_count }}</span>
+      </span>
       <a
         v-if="canRepost()"
         class="icon"
@@ -83,6 +87,10 @@
         <img :src="require('@/assets/feather/repeat.svg')">
         <span>{{ post.reblogs_count }}</span>
       </a>
+      <span v-else class="icon">
+        <img :src="require('@/assets/feather/repeat.svg')">
+        <span>{{ post.reblogs_count }}</span>
+      </span>
       <a
         v-if="canLike()"
         class="icon"
@@ -93,6 +101,10 @@
         <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
         <span>{{ post.favourites_count }}</span>
       </a>
+      <span v-else class="icon">
+        <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
+        <span>{{ post.favourites_count }}</span>
+      </span>
       <a
         v-if="ipfsUrl"
         class="icon"

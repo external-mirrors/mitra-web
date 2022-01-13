@@ -58,18 +58,14 @@
       vertical-align: middle;
       width: $icon-size;
     }
+  }
 
-    &:hover,
-    &.highlighted {
-      color: $secondary-text-hover-color;
+  a.icon:hover,
+  .icon.highlighted {
+    color: $secondary-text-hover-color;
 
-      img {
-        filter: $secondary-text-hover-colorizer;
-      }
-    }
-
-    &:last-child {
-      margin-right: 0;
+    img {
+      filter: $secondary-text-hover-colorizer;
     }
   }
 
