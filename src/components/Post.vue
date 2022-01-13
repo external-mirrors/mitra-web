@@ -40,6 +40,16 @@
         {{ formatDate(post.created_at) }}
       </a>
     </div>
+    <div class="post-subheader" v-if="replyingTo.length > 0">
+      <span>replying to</span>
+      <router-link
+        v-for="mention in replyingTo"
+        :to="{ name: 'profile', params: { profileId: mention.id }}"
+        :key="mention.id"
+      >
+        @{{ mention.username }}
+      </router-link>
+    </div>
     <div class="post-content" ref="postContent" v-html="post.content"></div>
     <div class="post-attachment" v-if="post.media_attachments.length === 1">
       <img :src="post.media_attachments[0].url">
@@ -179,6 +189,7 @@ import { Prop } from "vue-property-decorator"
 
 import { makePermanent, getSignature, mintToken, onTokenMinted } from "@/api/nft"
 import {
+  Mention,
   Post,
   getPost,
   deletePost,
@@ -263,6 +274,13 @@ export default class PostComponent extends Vue {
 
   formatDate(isoDate: string): string {
     return formatDate(isoDate)
+  }
+
+  get replyingTo(): Mention[] {
+    if (this.post.in_reply_to_id === null) {
+      return []
+    }
+    return this.post.mentions
   }
 
   canReply(): boolean {
@@ -525,6 +543,15 @@ export default class PostComponent extends Vue {
       color: $secondary-text-hover-color;
     }
   }
+}
+
+.post-subheader {
+  color: $secondary-text-color;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  padding: $block-inner-padding / 4 $block-inner-padding 0;
 }
 
 .post-content {

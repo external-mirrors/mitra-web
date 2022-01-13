@@ -25,11 +25,18 @@ export async function uploadAttachment(
   return data
 }
 
+export interface Mention {
+  id: string;
+  username: string;
+  acct: string;
+  url: string;
+}
+
 export interface Post {
   id: string;
   uri: string;
   created_at: string;
-  account: Profile,
+  account: Profile;
   content: string;
   in_reply_to_id: string | null;
   reblog: Post | null;
@@ -38,6 +45,7 @@ export interface Post {
   favourites_count: number;
   reblogs_count: number;
   media_attachments: Attachment[];
+  mentions: Mention[];
   favourited: boolean;
   reblogged: boolean;
   ipfs_cid: string | null;
