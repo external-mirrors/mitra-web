@@ -15,15 +15,6 @@
         @{{ actorAddress }}
       </div>
       <a
-        class="icon icon-small"
-        :href="post.uri"
-        :title="'Visibility: ' + post.visibility"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <visibility-icon :visibility="post.visibility"></visibility-icon>
-      </a>
-      <a
         v-if="inThread && post.in_reply_to_id"
         class="icon"
         title="Go to previous post"
@@ -32,6 +23,15 @@
         @click="navigateTo(post.in_reply_to_id)"
       >
         <img :src="require('@/assets/tabler/corner-left-up.svg')">
+      </a>
+      <a
+        class="icon icon-small"
+        :href="post.uri"
+        :title="'Visibility: ' + post.visibility"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <visibility-icon :visibility="post.visibility"></visibility-icon>
       </a>
       <a
         class="timestamp"
@@ -58,7 +58,7 @@
       <router-link
         v-if="!inThread"
         class="icon"
-        title="View comments"
+        title="View replies"
         :to="{ name: 'post', params: { postId: post.id }}"
       >
         <img :src="require('@/assets/forkawesome/comment-o.svg')">
@@ -70,7 +70,8 @@
         title="Reply"
         @click="commentFormVisible = !commentFormVisible"
       >
-        <img :src="require('@/assets/tabler/arrow-forward.svg')">
+        <img :src="require('@/assets/forkawesome/comment-o.svg')">
+        <span>{{ post.replies_count }}</span>
       </a>
       <a
         v-if="canRepost()"
