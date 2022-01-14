@@ -330,7 +330,7 @@ export default class PostComponent extends Vue {
   }
 
   canLike(): boolean {
-    return this.store.currentUser !== null
+    return this.store.currentUser !== null && this.post.visibility === "public"
   }
 
   async toggleLike() {
