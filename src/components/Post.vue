@@ -378,6 +378,7 @@ export default class PostComponent extends Vue {
     return (
       !!this.store.instance?.ipfs_gateway_url &&
       this.post.account.id === this.store.currentUser?.id &&
+      this.post.visibility === "public" &&
       this.post.ipfs_cid === null &&
       !this.isWaitingForToken
     )
@@ -433,6 +434,7 @@ export default class PostComponent extends Vue {
     return (
       !!this.store.instance?.nft_contract_address &&
       this.post.account.id === this.store.currentUser?.id &&
+      this.post.visibility === "public" &&
       !this.isTokenized &&
       !this.isWaitingForToken
     )
