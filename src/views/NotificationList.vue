@@ -61,6 +61,13 @@
           <div class="timestamp">{{ formatDate(notification.created_at) }}</div>
         </router-link>
       </div>
+      <button
+        v-if="isPageFull()"
+        class="btn"
+        @click="loadNextPage()"
+      >
+        Show more notifications
+      </button>
     </div>
     <sidebar></sidebar>
   </div>
@@ -69,6 +76,7 @@
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, onMounted } from "vue"
+import { PAGE_SIZE } from "@/api/common"
 import { updateNotificationMarker } from "@/api/markers"
 import { getNotifications } from "@/api/notifications"
 import Avatar from "@/components/Avatar.vue"
@@ -79,11 +87,11 @@ import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { formatDate } from "@/utils/format"
 
+const { ensureAuthToken } = useCurrentUser()
 const { getActorAddress } = useInstanceInfo()
 const { notifications } = useNotifications()
 
 onMounted(async () => {
-  const { ensureAuthToken } = useCurrentUser()
   // Update notification timeline marker
   const firstNotification = notifications.value[0]
   if (firstNotification) {
@@ -101,6 +109,16 @@ function getSenderName(notification: Notification): string {
 
 function onPostDeleted(notificationIndex: number) {
   notifications.value.splice(notificationIndex, 1)
+}
+
+function isPageFull(): boolean {
+  return notifications.value.length >= PAGE_SIZE
+}
+
+async function loadNextPage() {
+  const maxId = notifications.value[notifications.value.length - 1].id
+  const newItems = await getNotifications(ensureAuthToken(), maxId)
+  notifications.value.push(...newItems)
 }
 </script>
 

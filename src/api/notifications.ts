@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 
-import { http } from "./common"
+import { PAGE_SIZE, http } from "./common"
 import { Post } from "./posts"
 import { Profile } from "./users"
 
@@ -14,10 +14,13 @@ export interface Notification {
 
 export async function getNotifications(
   authToken: string,
+  maxId?: string,
 ): Promise<Notification[]> {
   const url = `${BACKEND_URL}/api/v1/notifications`
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
   const response = await http(url, {
     method: "GET",
+    queryParams,
     authToken,
   })
   const data = await response.json()
