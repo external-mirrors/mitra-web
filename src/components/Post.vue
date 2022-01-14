@@ -571,6 +571,10 @@ export default class PostComponent extends Vue {
   color: $text-color;
   line-height: 1.5;
   padding: $block-inner-padding;
+
+  :deep(pre) {
+    overflow-x: scroll;
+  }
 }
 
 .post-attachment {
