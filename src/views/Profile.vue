@@ -18,6 +18,29 @@
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
             </button>
+            <div
+              v-if="!isLocalUser()"
+              class="dropdown-menu-wrapper"
+              v-click-away="hideProfileMenu"
+            >
+              <button title="More" @click="toggleProfileMenu()">
+                <img :src="require('@/assets/feather/more-vertical.svg')">
+              </button>
+              <ul v-if="profileMenuVisible" class="dropdown-menu">
+                <li>
+                  <a
+                    v-if="!isLocalUser()"
+                    title="Open profile page"
+                    :href="profile.url"
+                    target="_blank"
+                    rel="noreferrer"
+                    @click="hideProfileMenu()"
+                  >
+                    Open profile page
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="bio" v-html="profile.note"></div>
@@ -108,6 +131,9 @@ export default class ProfileView extends Vue {
 
   profile: Profile | null = null
   relationship: Relationship | null = null
+
+  profileMenuVisible = false
+
   tabName = "posts"
   posts: Post[] = []
   followList: Profile[] = []
@@ -197,6 +223,21 @@ export default class ProfileView extends Vue {
     )
   }
 
+  toggleProfileMenu() {
+    this.profileMenuVisible = !this.profileMenuVisible
+  }
+
+  hideProfileMenu() {
+    this.profileMenuVisible = false
+  }
+
+  isLocalUser(): boolean {
+    if (!this.profile) {
+      return false
+    }
+    return this.profile.username === this.profile.acct
+  }
+
   async loadNextPage(maxId: string) {
     if (!this.profile) {
       return
@@ -237,6 +278,7 @@ $avatar-size: 170px;
 .profile-info {
   @include block-btn;
 
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -265,6 +307,13 @@ $avatar-size: 170px;
       text-overflow: ellipsis;
       user-select: all;
     }
+  }
+
+  .buttons {
+    display: flex;
+    flex-grow: 1;
+    gap: $block-inner-padding;
+    justify-content: right;
   }
 }
 
@@ -322,6 +371,12 @@ $avatar-size: 170px;
       color: $secondary-text-color;
     }
   }
+}
+
+.dropdown-menu-wrapper {
+  @include post-dropdown-menu;
+
+  align-self: center;
 }
 
 .profile {

@@ -15,6 +15,7 @@ export interface Profile {
   id: string;
   username: string;
   acct: string;
+  url: string;
   display_name: string | null;
   note: string | null;
   avatar: string | null;
