@@ -20,7 +20,12 @@
         <img :src="attachment.url">
       </div>
       <div class="toolbar">
-        <a class="icon" title="Attach image" @click="selectAttachment()">
+        <button
+          type="button"
+          class="icon"
+          title="Attach image"
+          @click="selectAttachment()"
+        >
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
             type="file"
@@ -29,14 +34,19 @@
             style="display: none;"
             @change="uploadAttachment($event.target.files)"
           >
-        </a>
+        </button>
         <div
           class="dropdown-menu-wrapper"
           v-click-away="hideVisibilityMenu"
         >
-          <a class="icon" title="Post visibility" @click="toggleVisibilityMenu()">
+          <button
+            type="button"
+            class="icon"
+            title="Post visibility"
+            @click="toggleVisibilityMenu()"
+          >
             <visibility-icon :visibility="visibility"></visibility-icon>
-          </a>
+          </button>
           <ul v-if="visibilityMenuVisible" class="dropdown-menu">
             <li>
               <a
@@ -63,13 +73,14 @@
         <div class="character-counter" title="Characters left">
           {{ characterCounter }}
         </div>
-        <a
+        <button
+          type="submit"
           v-if="inReplyTo"
           class="submit-btn-small"
-          @click="publish($event)"
+          @click.prevent="publish($event)"
         >
           Publish
-        </a>
+        </button>
       </div>
     </div>
     <div v-if="!inReplyTo" class="submit-btn-wrapper">
@@ -257,6 +268,7 @@ textarea {
   }
 
   .submit-btn-small {
+    font-weight: bold;
     margin-left: $block-inner-padding;
   }
 }

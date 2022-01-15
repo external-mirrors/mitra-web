@@ -46,9 +46,7 @@ export default class CryptoAddress extends Vue {
   }
 
   .copy-btn {
-    border: none;
     border-radius: 0 10px 10px 0;
-    cursor: pointer;
     height: $icon-size;
     min-width: $icon-size;
     padding: 3px 7px 3px 0;

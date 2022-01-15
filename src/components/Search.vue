@@ -1,10 +1,10 @@
 <template>
   <form class="search" @submit.prevent="search($event)">
     <input type="text" placeholder="Search..." v-model="q">
-    <button v-if="q" type="button" class="btn" @click="clear()">
+    <button v-if="q" type="button" @click="clear()">
       <img :src="require('@/assets/feather/delete.svg')">
     </button>
-    <button type="submit" class="btn" :disabled="!q">
+    <button type="submit" :disabled="!q">
       <img :src="require('@/assets/feather/search.svg')">
     </button>
   </form>
@@ -51,11 +51,9 @@ input {
 }
 
 button {
-  background-color: transparent;
   border-radius: 0 $btn-border-radius $btn-border-radius 0;
   font-size: 15px;
   height: 100%;
-  padding: 0;
 
   img {
     filter: $text-colorizer;
@@ -64,10 +62,6 @@ button {
     object-fit: contain;
     vertical-align: middle;
     width: 1.2em;
-  }
-
-  &:hover {
-    background-color: transparent;
   }
 }
 </style>

@@ -130,6 +130,14 @@ textarea {
   resize: vertical;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: $text-font-size;
+  padding: 0;
+}
+
 .btn {
   background-color: $btn-background-color;
   border: none;

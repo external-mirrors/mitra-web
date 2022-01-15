@@ -63,14 +63,15 @@
             <img :src="require('@/assets/feather/x-circle.svg')">
           </a>
         </div>
-        <a
+        <button
           v-if="form.fields_attributes.length <= extraFieldMaxCount"
+          type="button"
           class="add-extra-field"
           @click="addExtraField()"
         >
           <img :src="require('@/assets/feather/plus-circle.svg')">
           Add new item
-        </a>
+        </button>
       </div>
       <button type="submit" class="btn">Save</button>
     </form>

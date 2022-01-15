@@ -13,11 +13,11 @@
           </div>
           <div class="buttons">
             <router-link v-if="isCurrentUser()" class="edit-profile btn" to="/settings">Edit profile</router-link>
-            <a v-if="canFollow()" class="follow btn" @click="follow()">Follow</a>
-            <a v-if="canUnfollow()" class="unfollow btn" @click="unfollow()">
+            <button v-if="canFollow()" class="follow btn" @click="follow()">Follow</button>
+            <button v-if="canUnfollow()" class="unfollow btn" @click="unfollow()">
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
-            </a>
+            </button>
           </div>
         </div>
         <div class="bio" v-html="profile.note"></div>
