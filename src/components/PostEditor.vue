@@ -122,8 +122,9 @@ export default class PostEditor extends Vue {
   inReplyTo: Post | null = null
 
   content = ""
-  visibility = "public"
   attachment: Attachment | null = null
+  visibility = "public"
+  mentions: string[] = []
 
   visibilityMenuVisible = false
   errorMessage: string | null = null
@@ -183,6 +184,7 @@ export default class PostEditor extends Vue {
       content,
       in_reply_to_id: this.inReplyTo ? this.inReplyTo.id : null,
       visibility: this.visibility,
+      mentions: this.mentions,
     }
     let post
     try {
