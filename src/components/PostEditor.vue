@@ -48,24 +48,14 @@
             <visibility-icon :visibility="visibility"></visibility-icon>
           </button>
           <ul v-if="visibilityMenuVisible" class="dropdown-menu">
-            <li>
+            <li v-for="[value, display] in visibilityMap" :key="value">
               <a
                 class="icon"
-                title="Public"
-                @click="hideVisibilityMenu(); visibility = 'public'"
+                :title="display"
+                @click="hideVisibilityMenu(); visibility = value"
               >
-                <visibility-icon :visibility="'public'"></visibility-icon>
-                <span>Public</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon"
-                title="Direct"
-                @click="hideVisibilityMenu(); visibility = 'direct'"
-              >
-                <visibility-icon :visibility="'direct'"></visibility-icon>
-                <span>Direct</span>
+                <visibility-icon :visibility="value"></visibility-icon>
+                <span>{{ display }}</span>
               </a>
             </li>
           </ul>
@@ -99,7 +89,13 @@
 import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
-import { Post, createPost, Attachment, uploadAttachment } from "@/api/posts"
+import {
+  VISIBILITY_MAP,
+  Post,
+  createPost,
+  Attachment,
+  uploadAttachment,
+} from "@/api/posts"
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
@@ -164,6 +160,10 @@ export default class PostEditor extends Vue {
       this.store.ensureAuthToken(),
       imageBase64,
     )
+  }
+
+  get visibilityMap() {
+    return Object.entries(VISIBILITY_MAP)
   }
 
   toggleVisibilityMenu() {

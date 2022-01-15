@@ -25,6 +25,18 @@ export async function uploadAttachment(
   return data
 }
 
+export enum Visibility {
+  Public = "public",
+  Followers = "private",
+  Direct = "direct",
+}
+
+export const VISIBILITY_MAP = {
+  [Visibility.Public]: "Public",
+  [Visibility.Followers]: "Followers",
+  [Visibility.Direct]: "Direct",
+}
+
 export interface Mention {
   id: string;
   username: string;
@@ -40,7 +52,7 @@ export interface Post {
   content: string;
   in_reply_to_id: string | null;
   reblog: Post | null;
-  visibility: "public" | "direct";
+  visibility: Visibility;
   replies_count: number;
   favourites_count: number;
   reblogs_count: number;

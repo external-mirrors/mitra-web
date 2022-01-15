@@ -27,7 +27,7 @@
       <a
         class="icon icon-small"
         :href="post.uri"
-        :title="'Visibility: ' + post.visibility"
+        :title="visibilityDisplay"
         target="_blank"
         rel="noreferrer"
       >
@@ -202,6 +202,7 @@ import { Prop } from "vue-property-decorator"
 
 import { makePermanent, getSignature, mintToken, onTokenMinted } from "@/api/nft"
 import {
+  VISIBILITY_MAP,
   Mention,
   Post,
   getPost,
@@ -283,6 +284,10 @@ export default class PostComponent extends Vue {
     } else {
       this.$router.push({ name: "post", params: { postId: postId } })
     }
+  }
+
+  get visibilityDisplay(): string {
+    return VISIBILITY_MAP[this.post.visibility]
   }
 
   formatDate(isoDate: string): string {
