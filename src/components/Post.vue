@@ -51,8 +51,8 @@
       </router-link>
     </div>
     <div class="post-content" ref="postContent" v-html="post.content"></div>
-    <div class="post-attachment" v-if="post.media_attachments.length === 1">
-      <img :src="post.media_attachments[0].url">
+    <div class="post-attachment" v-if="post.media_attachments.length > 0">
+      <img v-for="attachment in post.media_attachments" :src="attachment.url" :key="attachment.id">
     </div>
     <div class="post-footer">
       <router-link
