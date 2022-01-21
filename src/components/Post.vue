@@ -582,6 +582,11 @@ export default class PostComponent extends Vue {
   :deep(pre) {
     overflow-x: scroll;
   }
+
+  :deep(ul),
+  :deep(ol) {
+    list-style-position: inside;
+  }
 }
 
 .post-attachment {
