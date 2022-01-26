@@ -437,7 +437,7 @@ export default class PostComponent extends Vue {
 
   canMintToken(): boolean {
     return (
-      !!this.store.instance?.nft_contract_address &&
+      !!this.store.instance?.blockchain_contract_address &&
       this.post.account.id === this.store.currentUser?.id &&
       this.post.visibility === "public" &&
       !this.isTokenized &&
@@ -447,7 +447,12 @@ export default class PostComponent extends Vue {
 
   async mintToken() {
     const { currentUser, instance } = this.store
-    if (!currentUser || !instance || !instance.nft_contract_name || !instance.nft_contract_address) {
+    if (
+      !currentUser ||
+      !instance ||
+      !instance.blockchain_contract_name ||
+      !instance.blockchain_contract_address
+    ) {
       return
     }
     if (this.isTokenized || this.isWaitingForToken) {
@@ -476,8 +481,8 @@ export default class PostComponent extends Vue {
     }
     try {
       const transaction = await mintToken(
-        instance.nft_contract_name,
-        instance.nft_contract_address,
+        instance.blockchain_contract_name,
+        instance.blockchain_contract_address,
         currentUser.wallet_address,
         tokenUri,
         signature,

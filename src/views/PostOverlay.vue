@@ -104,7 +104,7 @@ export default class PostOverlay extends Vue {
   }
 
   get transactionUrl(): string | null {
-    const explorerUrl = this.store.instance?.ethereum_explorer_url
+    const explorerUrl = this.store.instance?.blockchain_explorer_url
     if (!explorerUrl || !this.post?.token_tx_id) {
       return null
     }

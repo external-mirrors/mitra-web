@@ -8,9 +8,9 @@ export interface InstanceInfo {
   description: string;
   registrations: boolean;
   login_message: string;
-  ethereum_explorer_url: string | null;
-  nft_contract_name: string | null;
-  nft_contract_address: string | null;
+  blockchain_explorer_url: string | null;
+  blockchain_contract_name: string | null;
+  blockchain_contract_address: string | null;
   ipfs_gateway_url: string | null;
 }
 
