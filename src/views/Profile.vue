@@ -11,7 +11,7 @@
             <div class="badge" v-if="isFollowedBy()">Follows you</div>
           </div>
           <div
-            v-if="!isLocalUser()"
+            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription()"
             class="dropdown-menu-wrapper"
             v-click-away="hideProfileMenu"
           >
@@ -19,9 +19,8 @@
               <img :src="require('@/assets/feather/more-vertical.svg')">
             </button>
             <ul v-if="profileMenuVisible" class="dropdown-menu">
-              <li>
+              <li v-if="!isLocalUser()">
                 <a
-                  v-if="!isLocalUser()"
                   title="Open profile page"
                   :href="profile.url"
                   target="_blank"
@@ -29,6 +28,22 @@
                   @click="hideProfileMenu()"
                 >
                   Open profile page
+                </a>
+              </li>
+               <li v-if="canConnectWallet()">
+                <a
+                  title="Connect wallet"
+                  @click="hideProfileMenu(); connectWallet()"
+                >
+                  Connect wallet
+                </a>
+              </li>
+              <li v-if="canConfigureSubscription()">
+                <a
+                  title="Set up subscription"
+                  @click="hideProfileMenu(); configureSubscription()"
+                >
+                  Set up subscription
                 </a>
               </li>
             </ul>
@@ -111,12 +126,18 @@ import {
   getFollowers,
   getFollowing,
 } from "@/api/relationships"
+import {
+  getSubscriptionAuthorization,
+  configureSubscription,
+  isSubscriptionConfigured,
+} from "@/api/subscriptions"
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
+import { getSigner } from "@/utils/ethereum"
 
 @Options({
   components: {
@@ -130,12 +151,15 @@ export default class ProfileView extends Vue {
 
   private store = setup(() => {
     const { currentUser, authToken, ensureAuthToken } = useCurrentUser()
-    const { getActorAddress } = useInstanceInfo()
-    return { currentUser, authToken, ensureAuthToken, getActorAddress }
+    const { instance, getActorAddress } = useInstanceInfo()
+    return { currentUser, authToken, ensureAuthToken, instance, getActorAddress }
   })
 
   profile: Profile | null = null
   relationship: Relationship | null = null
+
+  walletConnected = false
+  subscriptionConfigured: boolean | null = null
 
   profileMenuVisible = false
 
@@ -248,6 +272,74 @@ export default class ProfileView extends Vue {
       return false
     }
     return this.profile.username === this.profile.acct
+  }
+
+  canConnectWallet(): boolean {
+    return Boolean(this.store.instance?.blockchain_contract_address) && !this.walletConnected
+  }
+
+  async connectWallet() {
+    const signer = await getSigner()
+    if (!signer) {
+      return
+    }
+    this.walletConnected = true
+    this.checkSubscriptionConfigured()
+  }
+
+  canConfigureSubscription(): boolean {
+    // If wallet is not connected, subscriptionConfigured is set to null
+    return this.isCurrentUser() && this.subscriptionConfigured === false
+  }
+
+  private async checkSubscriptionConfigured() {
+    const { instance } = this.store
+    if (
+      !this.profile ||
+      !this.profile.wallet_address ||
+      !instance ||
+      !instance.blockchain_contract_name ||
+      !instance.blockchain_contract_address
+    ) {
+      return
+    }
+    const signer = await getSigner()
+    if (!signer) {
+      return
+    }
+    this.subscriptionConfigured = await isSubscriptionConfigured(
+      instance.blockchain_contract_name,
+      instance.blockchain_contract_address,
+      signer,
+      this.profile.wallet_address,
+    )
+  }
+
+  async configureSubscription() {
+    const { currentUser, instance } = this.store
+    if (
+      !currentUser ||
+      !instance ||
+      !instance.blockchain_contract_name ||
+      !instance.blockchain_contract_address
+    ) {
+      return
+    }
+    // Subscription configuration tx can be send from any address
+    const signer = await getSigner()
+    if (!signer) {
+      return
+    }
+    const authToken = this.store.ensureAuthToken()
+    const signature = await getSubscriptionAuthorization(authToken)
+    await configureSubscription(
+      instance.blockchain_contract_name,
+      instance.blockchain_contract_address,
+      signer,
+      currentUser.wallet_address,
+      signature,
+    )
+    this.subscriptionConfigured = true
   }
 
   async loadNextPage(maxId: string) {
