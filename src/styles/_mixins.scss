@@ -86,6 +86,7 @@
     background-color: $block-background-color;
     border: 1px solid $separator-color;
     border-radius: $btn-border-radius;
+    box-shadow: $shadow;
     display: flex;
     flex-direction: column;
     gap: $block-inner-padding / 2;

@@ -377,6 +377,10 @@ $avatar-size: 170px;
   @include post-dropdown-menu;
 
   align-self: center;
+
+  .dropdown-menu {
+    right: 0;
+  }
 }
 
 .profile {
