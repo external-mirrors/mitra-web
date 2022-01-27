@@ -1,6 +1,7 @@
 import { ref } from "vue"
 
 import { InstanceInfo, getInstanceInfo } from "@/api/instance"
+import { Mention } from "@/api/posts"
 import { Profile } from "@/api/users"
 
 const instance = ref<InstanceInfo | null>(null)
@@ -11,7 +12,7 @@ export function useInstanceInfo() {
     instance.value = await getInstanceInfo()
   }
 
-  function getActorAddress(profile: Profile): string {
+  function getActorAddress(profile: Profile | Mention): string {
     if (profile.acct.includes("@")) {
       // Remote account
       return `${profile.acct}`

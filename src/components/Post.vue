@@ -11,8 +11,8 @@
       >
         {{ authorName }}
       </router-link>
-      <div class="actor-address" :title="'@' + actorAddress">
-        @{{ actorAddress }}
+      <div class="actor-address" :title="'@' + getActorAddress(post.account)">
+        @{{ getActorAddress(post.account) }}
       </div>
       <a
         v-if="inThread && post.in_reply_to_id"
@@ -45,6 +45,7 @@
       <router-link
         v-for="mention in replyingTo"
         :to="{ name: 'profile', params: { profileId: mention.id }}"
+        :title="getActorAddress(mention)"
         :key="mention.id"
       >
         @{{ mention.username }}
@@ -212,6 +213,7 @@ import {
   createRepost,
   deleteRepost,
 } from "@/api/posts"
+import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -270,8 +272,8 @@ export default class PostComponent extends Vue {
     return this.post.account.display_name || this.post.account.username
   }
 
-  get actorAddress(): string {
-    return this.store.getActorAddress(this.post.account)
+  getActorAddress(profile: Profile | Mention): string {
+    return this.store.getActorAddress(profile)
   }
 
   highlight(postId: string | null) {
