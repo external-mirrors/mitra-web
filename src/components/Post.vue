@@ -586,7 +586,8 @@ export default class PostComponent extends Vue {
   line-height: 1.5;
   padding: $block-inner-padding;
 
-  :deep(pre) {
+  :deep(pre),
+  :deep(code) {
     overflow-x: scroll;
   }
 
