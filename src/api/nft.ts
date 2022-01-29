@@ -1,8 +1,10 @@
-import { Contract, Signer } from "ethers"
+import { Signer } from "ethers"
 import { TransactionResponse } from "@ethersproject/abstract-provider"
 
 import { BACKEND_URL } from "@/constants"
+import { Signature } from "@/utils/ethereum"
 import { http } from "./common"
+import { getContract } from "./contracts"
 import { Post } from "./posts"
 
 export async function makePermanent(
@@ -22,13 +24,7 @@ export async function makePermanent(
   }
 }
 
-interface Signature {
-  v: number;
-  r: string;
-  s: string;
-}
-
-export async function getSignature(
+export async function getMintingAuthorization(
   authToken: string,
   postId: string,
 ): Promise<Signature> {
@@ -45,16 +41,6 @@ export async function getSignature(
   }
 }
 
-export async function getContractAbi(contractName: string): Promise<any> {
-  // TODO: take artifact URL from instance config
-  const url = `${BACKEND_URL}/contracts/${contractName}.json`
-  const response = await http(url, {
-    method: "GET",
-  })
-  const data = await response.json()
-  return data.abi
-}
-
 export interface TokenMetadata {
   name: string;
   description: string;
@@ -65,14 +51,13 @@ export interface TokenMetadata {
 export async function mintToken(
   contractName: string,
   contractAddress: string,
+  signer: Signer,
   ownerAddress: string,
   tokenUri: string,
   serverSignature: Signature,
-  signer: Signer,
 ): Promise<TransactionResponse> {
-  const Minter = await getContractAbi(contractName)
-  const minter = new Contract(contractAddress, Minter, signer)
-  const transaction = await minter.mint(
+  const adapter = await getContract(contractName, contractAddress, signer)
+  const transaction = await adapter.mint(
     ownerAddress,
     tokenUri,
     serverSignature.v,

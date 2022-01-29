@@ -201,7 +201,12 @@
 import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
-import { makePermanent, getSignature, mintToken, onTokenMinted } from "@/api/nft"
+import {
+  makePermanent,
+  getMintingAuthorization,
+  mintToken,
+  onTokenMinted,
+} from "@/api/nft"
 import {
   VISIBILITY_MAP,
   Mention,
@@ -470,7 +475,7 @@ export default class PostComponent extends Vue {
     console.info("token URI:", tokenUri)
     let signature
     try {
-      signature = await getSignature(authToken, this.post.id)
+      signature = await getMintingAuthorization(authToken, this.post.id)
     } catch (error) {
       console.log(error)
       this.isWaitingForToken = false
@@ -485,10 +490,10 @@ export default class PostComponent extends Vue {
       const transaction = await mintToken(
         instance.blockchain_contract_name,
         instance.blockchain_contract_address,
+        signer,
         currentUser.wallet_address,
         tokenUri,
         signature,
-        signer,
       )
       await onTokenMinted(authToken, this.post.id, transaction.hash)
     } catch (error) {

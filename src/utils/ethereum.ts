@@ -21,3 +21,9 @@ export async function getSigner(): Promise<Signer | null> {
   const signer = provider.getSigner()
   return signer
 }
+
+export interface Signature {
+  v: number;
+  r: string;
+  s: string;
+}
