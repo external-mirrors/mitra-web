@@ -5,8 +5,33 @@
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>
-        <div class="profile-info">
+        <div class="avatar-group">
           <avatar :profile="profile"></avatar>
+          <div
+            v-if="!isLocalUser()"
+            class="dropdown-menu-wrapper"
+            v-click-away="hideProfileMenu"
+          >
+            <button title="More" @click="toggleProfileMenu()">
+              <img :src="require('@/assets/feather/more-vertical.svg')">
+            </button>
+            <ul v-if="profileMenuVisible" class="dropdown-menu">
+              <li>
+                <a
+                  v-if="!isLocalUser()"
+                  title="Open profile page"
+                  :href="profile.url"
+                  target="_blank"
+                  rel="noreferrer"
+                  @click="hideProfileMenu()"
+                >
+                  Open profile page
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="name-buttons-group">
           <div class="name-group">
             <div class="display-name">{{ profile.display_name || profile.username }}</div>
             <div class="actor-address">@{{ actorAddress }}</div>
@@ -18,29 +43,6 @@
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
             </button>
-            <div
-              v-if="!isLocalUser()"
-              class="dropdown-menu-wrapper"
-              v-click-away="hideProfileMenu"
-            >
-              <button title="More" @click="toggleProfileMenu()">
-                <img :src="require('@/assets/feather/more-vertical.svg')">
-              </button>
-              <ul v-if="profileMenuVisible" class="dropdown-menu">
-                <li>
-                  <a
-                    v-if="!isLocalUser()"
-                    title="Open profile page"
-                    :href="profile.url"
-                    target="_blank"
-                    rel="noreferrer"
-                    @click="hideProfileMenu()"
-                  >
-                    Open profile page
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
         <div class="bio" v-html="profile.note"></div>
@@ -257,6 +259,8 @@ export default class ProfileView extends Vue {
 $avatar-size: 170px;
 
 .profile-block {
+  @include block-btn;
+
   background-color: $block-background-color;
   border-radius: $block-border-radius;
   margin-bottom: $block-outer-padding;
@@ -275,14 +279,9 @@ $avatar-size: 170px;
   }
 }
 
-.profile-info {
-  @include block-btn;
-
-  align-items: flex-start;
+.avatar-group {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  gap: $block-inner-padding;
   padding: $block-inner-padding;
 
   .avatar {
@@ -293,8 +292,36 @@ $avatar-size: 170px;
     width: $avatar-size;
   }
 
+  .dropdown-menu-wrapper {
+    @include post-dropdown-menu;
+
+    margin-left: auto;
+
+    /* stylelint-disable-next-line selector-max-compound-selectors */
+    button img {
+      height: 32px;
+      min-width: 20px;
+      object-fit: none;
+      width: 20px;
+    }
+
+    .dropdown-menu {
+      right: 0;
+    }
+  }
+}
+
+.name-buttons-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $block-inner-padding;
+  padding: 0 $block-inner-padding $block-inner-padding;
+
   .name-group {
     flex-grow: 1;
+    font-size: 16px;
+    line-height: 1.3;
     overflow-x: hidden;
 
     .display-name {
@@ -311,9 +338,7 @@ $avatar-size: 170px;
 
   .buttons {
     display: flex;
-    flex-grow: 1;
     gap: $block-inner-padding;
-    justify-content: right;
   }
 }
 
@@ -370,16 +395,6 @@ $avatar-size: 170px;
       align-self: flex-end;
       color: $secondary-text-color;
     }
-  }
-}
-
-.dropdown-menu-wrapper {
-  @include post-dropdown-menu;
-
-  align-self: center;
-
-  .dropdown-menu {
-    right: 0;
   }
 }
 
