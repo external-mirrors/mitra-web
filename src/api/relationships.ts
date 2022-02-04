@@ -7,6 +7,8 @@ export interface Relationship {
   following: boolean,
   followed_by: boolean,
   requested: boolean,
+  subscription_to: boolean,
+  subscription_from: boolean,
 }
 
 export async function follow(

@@ -8,7 +8,11 @@
         <div class="avatar-menu-group">
           <div class="avatar-group">
             <avatar :profile="profile"></avatar>
-            <div class="badge" v-if="isFollowedBy()">Follows you</div>
+            <div class="badges">
+              <div class="badge" v-if="isFollowedBy()">Follows you</div>
+              <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
+              <div class="badge" v-if="isSubscriber()">Subscriber</div>
+            </div>
           </div>
           <div
             v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription()"
@@ -218,6 +222,20 @@ export default class ProfileView extends Vue {
     return this.relationship.followed_by
   }
 
+  isSubscriptionValid(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return this.relationship.subscription_to
+  }
+
+  isSubscriber(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return this.relationship.subscription_from
+  }
+
   canFollow(): boolean {
     if (!this.relationship) {
       return false
@@ -393,7 +411,7 @@ $avatar-size: 170px;
     flex-direction: row;
     flex-grow: 1;
     flex-wrap: wrap;
-    gap: $block-inner-padding;
+    gap: $block-inner-padding / 2 $block-inner-padding;
   }
 
   .avatar {
@@ -403,6 +421,12 @@ $avatar-size: 170px;
     min-width: $avatar-size;
     padding: 7px;
     width: $avatar-size;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $block-inner-padding / 2 $block-inner-padding;
   }
 
   .badge {
