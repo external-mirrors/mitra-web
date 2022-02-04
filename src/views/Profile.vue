@@ -5,8 +5,11 @@
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>
-        <div class="avatar-group">
-          <avatar :profile="profile"></avatar>
+        <div class="avatar-menu-group">
+          <div class="avatar-group">
+            <avatar :profile="profile"></avatar>
+            <div class="badge" v-if="isFollowedBy()">Follows you</div>
+          </div>
           <div
             v-if="!isLocalUser()"
             class="dropdown-menu-wrapper"
@@ -184,6 +187,13 @@ export default class ProfileView extends Vue {
     return this.store.currentUser.id === this.profile.id
   }
 
+  isFollowedBy(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return this.relationship.followed_by
+  }
+
   canFollow(): boolean {
     if (!this.relationship) {
       return false
@@ -279,23 +289,41 @@ $avatar-size: 170px;
   }
 }
 
-.avatar-group {
+.avatar-menu-group {
   display: flex;
   flex-direction: row;
+  gap: $block-inner-padding;
   padding: $block-inner-padding;
+
+  .avatar-group {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    gap: $block-inner-padding;
+  }
 
   .avatar {
     height: $avatar-size;
+    margin-right: auto;
     margin-top: -($avatar-size / 2 + $block-inner-padding);
     min-width: $avatar-size;
     padding: 7px;
     width: $avatar-size;
   }
 
+  .badge {
+    border: 1px solid $btn-text-color;
+    border-radius: $btn-border-radius;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 7px;
+    white-space: nowrap;
+  }
+
   .dropdown-menu-wrapper {
     @include post-dropdown-menu;
-
-    margin-left: auto;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
     button img {
