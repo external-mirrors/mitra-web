@@ -4,7 +4,7 @@ import { TransactionResponse } from "@ethersproject/abstract-provider"
 import { BACKEND_URL } from "@/constants"
 import { Signature } from "@/utils/ethereum"
 import { http } from "./common"
-import { getContract } from "./contracts"
+import { Contracts, getContract } from "./contracts"
 
 export async function getSubscriptionAuthorization(
   authToken: string,
@@ -23,13 +23,12 @@ export async function getSubscriptionAuthorization(
 }
 
 export async function configureSubscription(
-  contractName: string,
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
   serverSignature: Signature,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(contractName, contractAddress, signer)
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const transaction = await adapter.configureSubscription(
     recipientAddress,
     serverSignature.v,
@@ -40,12 +39,11 @@ export async function configureSubscription(
 }
 
 export async function isSubscriptionConfigured(
-  contractName: string,
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
 ): Promise<boolean> {
-  const adapter = await getContract(contractName, contractAddress, signer)
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const result = await adapter.isSubscriptionConfigured(recipientAddress)
   return result
 }

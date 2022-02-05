@@ -457,7 +457,6 @@ export default class PostComponent extends Vue {
     if (
       !currentUser ||
       !instance ||
-      !instance.blockchain_contract_name ||
       !instance.blockchain_contract_address
     ) {
       return
@@ -488,7 +487,6 @@ export default class PostComponent extends Vue {
     }
     try {
       const transaction = await mintToken(
-        instance.blockchain_contract_name,
         instance.blockchain_contract_address,
         signer,
         currentUser.wallet_address,

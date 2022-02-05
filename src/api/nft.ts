@@ -4,7 +4,7 @@ import { TransactionResponse } from "@ethersproject/abstract-provider"
 import { BACKEND_URL } from "@/constants"
 import { Signature } from "@/utils/ethereum"
 import { http } from "./common"
-import { getContract } from "./contracts"
+import { Contracts, getContract } from "./contracts"
 import { Post } from "./posts"
 
 export async function makePermanent(
@@ -49,14 +49,13 @@ export interface TokenMetadata {
 }
 
 export async function mintToken(
-  contractName: string,
   contractAddress: string,
   signer: Signer,
   ownerAddress: string,
   tokenUri: string,
   serverSignature: Signature,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(contractName, contractAddress, signer)
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const transaction = await adapter.mint(
     ownerAddress,
     tokenUri,

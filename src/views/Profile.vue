@@ -316,7 +316,6 @@ export default class ProfileView extends Vue {
       !this.profile ||
       !this.profile.wallet_address ||
       !instance ||
-      !instance.blockchain_contract_name ||
       !instance.blockchain_contract_address
     ) {
       return
@@ -326,7 +325,6 @@ export default class ProfileView extends Vue {
       return
     }
     this.subscriptionConfigured = await isSubscriptionConfigured(
-      instance.blockchain_contract_name,
       instance.blockchain_contract_address,
       signer,
       this.profile.wallet_address,
@@ -338,7 +336,6 @@ export default class ProfileView extends Vue {
     if (
       !currentUser ||
       !instance ||
-      !instance.blockchain_contract_name ||
       !instance.blockchain_contract_address
     ) {
       return
@@ -351,7 +348,6 @@ export default class ProfileView extends Vue {
     const authToken = this.store.ensureAuthToken()
     const signature = await getSubscriptionAuthorization(authToken)
     await configureSubscription(
-      instance.blockchain_contract_name,
       instance.blockchain_contract_address,
       signer,
       currentUser.wallet_address,

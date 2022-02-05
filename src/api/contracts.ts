@@ -3,8 +3,11 @@ import { Contract, Signer } from "ethers"
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
 
+export enum Contracts {
+  Adapter = "IAdapter",
+}
+
 async function getContractAbi(contractName: string): Promise<any> {
-  // TODO: take artifact URL from instance config
   const url = `${BACKEND_URL}/contracts/${contractName}.json`
   const response = await http(url, {
     method: "GET",
