@@ -15,7 +15,7 @@
             </div>
           </div>
           <div
-            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription()"
+            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe()"
             class="dropdown-menu-wrapper"
             v-click-away="hideProfileMenu"
           >
@@ -48,6 +48,14 @@
                   @click="hideProfileMenu(); configureSubscription()"
                 >
                   Set up subscription
+                </a>
+              </li>
+              <li v-if="canSubscribe()">
+                <a
+                  title="Pay for subscription"
+                  @click="hideProfileMenu(); makeSubscriptionPayment()"
+                >
+                  Pay for subscription
                 </a>
               </li>
             </ul>
@@ -134,6 +142,7 @@ import {
   getSubscriptionAuthorization,
   configureSubscription,
   isSubscriptionConfigured,
+  makeSubscriptionPayment,
 } from "@/api/subscriptions"
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
@@ -354,6 +363,31 @@ export default class ProfileView extends Vue {
       signature,
     )
     this.subscriptionConfigured = true
+  }
+
+  canSubscribe(): boolean {
+    return this.subscriptionConfigured === true && !this.isCurrentUser()
+  }
+
+  async makeSubscriptionPayment() {
+    const { instance } = this.store
+    if (
+      !this.profile ||
+      !this.profile.wallet_address ||
+      !instance ||
+      !instance.blockchain_contract_address
+    ) {
+      return
+    }
+    const signer = await getSigner()
+    if (!signer) {
+      return
+    }
+    await makeSubscriptionPayment(
+      instance.blockchain_contract_address,
+      signer,
+      this.profile.wallet_address,
+    )
   }
 
   async loadNextPage(maxId: string) {

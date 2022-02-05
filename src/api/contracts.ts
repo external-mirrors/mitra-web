@@ -5,6 +5,8 @@ import { http } from "./common"
 
 export enum Contracts {
   Adapter = "IAdapter",
+  Subscription = "ISubscription",
+  ERC20 = "IERC20",
 }
 
 async function getContractAbi(contractName: string): Promise<any> {
