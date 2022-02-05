@@ -28,12 +28,14 @@ export async function uploadAttachment(
 export enum Visibility {
   Public = "public",
   Followers = "private",
+  Subscribers = "subscribers",
   Direct = "direct",
 }
 
 export const VISIBILITY_MAP = {
   [Visibility.Public]: "Public",
   [Visibility.Followers]: "Followers",
+  [Visibility.Subscribers]: "Subscribers",
   [Visibility.Direct]: "Direct",
 }
 

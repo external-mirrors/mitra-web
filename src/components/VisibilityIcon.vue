@@ -1,6 +1,7 @@
 <template>
   <img v-if="visibility === 'public'" :src="require('@/assets/feather/globe.svg')">
-  <img v-else-if="visibility === 'private'" :src="require('@/assets/feather/lock.svg')">
+  <img v-else-if="visibility === 'private'" :src="require('@/assets/tabler/users.svg')">
+  <img v-else-if="visibility === 'subscribers'" :src="require('@/assets/tabler/coin.svg')">
   <img v-else-if="visibility === 'direct'" :src="require('@/assets/forkawesome/envelope-o.svg')">
 </template>
 
