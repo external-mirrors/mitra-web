@@ -66,7 +66,9 @@ export async function makeSubscriptionPayment(
     subscription.address,
   )
   if (allowance.lt(amount)) {
-    await token.approve(subscription.address, amount)
+    const approved = await token.approve(subscription.address, amount)
+    // Wait for confirmation
+    await approved.wait()
   }
   const transaction = await subscription.send(
     recipientAddress,
