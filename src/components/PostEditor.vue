@@ -104,7 +104,7 @@ import { setupAutoResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
-const POST_CHARACTER_LIMIT = 1000
+const POST_CHARACTER_LIMIT = 2000
 
 @Options({
   components: {
