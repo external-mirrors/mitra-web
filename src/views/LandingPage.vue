@@ -91,7 +91,7 @@ export default class LandingPage extends Vue {
       console.warn(error)
       return null
     }
-    return walletAddress
+    return walletAddress.toLowerCase()
   }
 
   private async getSignature(provider: Web3Provider, walletAddress: string, message: string): Promise<string | null> {
