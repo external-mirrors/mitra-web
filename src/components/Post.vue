@@ -388,7 +388,7 @@ export default class PostComponent extends Vue {
 
   canSaveToIpfs(): boolean {
     return (
-      !!this.store.instance?.ipfs_gateway_url &&
+      Boolean(this.store.instance?.ipfs_gateway_url) &&
       this.post.account.id === this.store.currentUser?.id &&
       this.post.visibility === "public" &&
       this.post.ipfs_cid === null &&
@@ -444,7 +444,8 @@ export default class PostComponent extends Vue {
 
   canMintToken(): boolean {
     return (
-      !!this.store.instance?.blockchain_contract_address &&
+      Boolean(this.store.instance?.ipfs_gateway_url) &&
+      Boolean(this.store.instance?.blockchain_contract_address) &&
       this.post.account.id === this.store.currentUser?.id &&
       this.post.visibility === "public" &&
       !this.isTokenized &&
