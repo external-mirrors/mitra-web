@@ -150,7 +150,7 @@ import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getSigner } from "@/utils/ethereum"
+import { getWallet } from "@/utils/ethereum"
 
 @Options({
   components: {
@@ -306,7 +306,7 @@ export default class ProfileView extends Vue {
   }
 
   async connectWallet() {
-    const signer = await getSigner()
+    const signer = await getWallet()
     if (!signer) {
       return
     }
@@ -329,7 +329,7 @@ export default class ProfileView extends Vue {
     ) {
       return
     }
-    const signer = await getSigner()
+    const signer = await getWallet()
     if (!signer) {
       return
     }
@@ -350,7 +350,7 @@ export default class ProfileView extends Vue {
       return
     }
     // Subscription configuration tx can be send from any address
-    const signer = await getSigner()
+    const signer = await getWallet()
     if (!signer) {
       return
     }
@@ -379,7 +379,7 @@ export default class ProfileView extends Vue {
     ) {
       return
     }
-    const signer = await getSigner()
+    const signer = await getWallet()
     if (!signer) {
       return
     }

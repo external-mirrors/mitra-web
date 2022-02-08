@@ -52,14 +52,13 @@
 
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
-import { Web3Provider } from "@ethersproject/providers"
 
 import { createUser, getAccessToken, getCurrentUser } from "@/api/users"
 import { InstanceInfo } from "@/api/instance"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getProvider } from "@/utils/ethereum"
+import { getWeb3Provider, getWalletAddress, getWalletSignature } from "@/utils/ethereum"
 
 @Options({
   components: { Loader },
@@ -82,45 +81,18 @@ export default class LandingPage extends Vue {
     return this.store.instance
   }
 
-  private async getWalletAddress(provider: Web3Provider): Promise<string | null> {
-    let walletAddress
-    try {
-      [walletAddress] = await provider.send("eth_requestAccounts", [])
-    } catch (error) {
-      // Access denied
-      console.warn(error)
-      return null
-    }
-    return walletAddress.toLowerCase()
-  }
-
-  private async getSignature(provider: Web3Provider, walletAddress: string, message: string): Promise<string | null> {
-    let signature
-    try {
-      signature = await provider.send(
-        "personal_sign",
-        [message, walletAddress],
-      )
-    } catch (error) {
-      // Signature request rejected
-      console.warn(error)
-      return null
-    }
-    return signature
-  }
-
   async register() {
     this.registrationErrorMessage = null
-    const provider = getProvider()
+    const provider = getWeb3Provider()
     if (!provider || !this.store.instance) {
       return
     }
     const loginMessage = this.store.instance.login_message
-    const walletAddress = await this.getWalletAddress(provider)
+    const walletAddress = await getWalletAddress(provider)
     if (!walletAddress) {
       return
     }
-    const signature = await this.getSignature(provider, walletAddress, loginMessage)
+    const signature = await getWalletSignature(provider, walletAddress, loginMessage)
     if (!signature) {
       return
     }
@@ -148,16 +120,16 @@ export default class LandingPage extends Vue {
 
   async login() {
     this.loginErrorMessage = null
-    const provider = getProvider()
+    const provider = getWeb3Provider()
     if (!provider || !this.store.instance) {
       return
     }
     const loginMessage = this.store.instance.login_message
-    const walletAddress = await this.getWalletAddress(provider)
+    const walletAddress = await getWalletAddress(provider)
     if (!walletAddress) {
       return
     }
-    const signature = await this.getSignature(provider, walletAddress, loginMessage)
+    const signature = await getWalletSignature(provider, walletAddress, loginMessage)
     if (!signature) {
       return
     }

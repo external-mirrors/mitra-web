@@ -226,7 +226,7 @@ import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
-import { getSigner } from "@/utils/ethereum"
+import { getWallet } from "@/utils/ethereum"
 import { formatDate } from "@/utils/format"
 
 interface PaymentOption {
@@ -481,7 +481,7 @@ export default class PostComponent extends Vue {
       this.isWaitingForToken = false
       return
     }
-    const signer = await getSigner()
+    const signer = await getWallet()
     if (!signer) {
       this.isWaitingForToken = false
       return

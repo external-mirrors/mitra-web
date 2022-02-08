@@ -1,13 +1,13 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
-export function getProvider(): Web3Provider | null {
+export function getWeb3Provider(): Web3Provider {
   const provider = (window as any).ethereum
   return new Web3Provider(provider)
 }
 
-export async function getSigner(): Promise<Signer | null> {
-  const provider = getProvider()
+export async function getWallet(): Promise<Signer | null> {
+  const provider = getWeb3Provider()
   if (!provider) {
     return null
   }
@@ -22,8 +22,39 @@ export async function getSigner(): Promise<Signer | null> {
   return signer
 }
 
-export interface Signature {
+export interface EthereumSignature {
   v: number;
   r: string;
   s: string;
+}
+
+export async function getWalletAddress(provider: Web3Provider): Promise<string | null> {
+  let walletAddress
+  try {
+    [walletAddress] = await provider.send("eth_requestAccounts", [])
+  } catch (error) {
+    // Access denied
+    console.warn(error)
+    return null
+  }
+  return walletAddress.toLowerCase()
+}
+
+export async function getWalletSignature(
+  provider: Web3Provider,
+  walletAddress: string,
+  message: string,
+): Promise<string | null> {
+  let signature
+  try {
+    signature = await provider.send(
+      "personal_sign",
+      [message, walletAddress],
+    )
+  } catch (error) {
+    // Signature request rejected
+    console.warn(error)
+    return null
+  }
+  return signature
 }

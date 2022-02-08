@@ -2,13 +2,13 @@ import { Signer } from "ethers"
 import { TransactionResponse } from "@ethersproject/abstract-provider"
 
 import { BACKEND_URL } from "@/constants"
-import { Signature } from "@/utils/ethereum"
+import { EthereumSignature } from "@/utils/ethereum"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
 
 export async function getSubscriptionAuthorization(
   authToken: string,
-): Promise<Signature> {
+): Promise<EthereumSignature> {
   const url = `${BACKEND_URL}/api/v1/accounts/authorize_subscription`
   const response = await http(url, {
     method: "GET",
@@ -26,7 +26,7 @@ export async function configureSubscription(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
-  serverSignature: Signature,
+  serverSignature: EthereumSignature,
 ): Promise<TransactionResponse> {
   const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const transaction = await adapter.configureSubscription(
