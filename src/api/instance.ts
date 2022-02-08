@@ -8,6 +8,7 @@ export interface InstanceInfo {
   description: string;
   registrations: boolean;
   login_message: string;
+  post_character_limit: number;
   blockchain_explorer_url: string | null;
   blockchain_contract_address: string | null;
   ipfs_gateway_url: string | null;

@@ -99,12 +99,11 @@ import {
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
+import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
-
-const POST_CHARACTER_LIMIT = 2000
 
 @Options({
   components: {
@@ -132,7 +131,8 @@ export default class PostEditor extends Vue {
 
   private store = setup(() => {
     const { currentUser, ensureAuthToken } = useCurrentUser()
-    return { currentUser, ensureAuthToken }
+    const { instance } = useInstanceInfo()
+    return { currentUser, ensureAuthToken, instance }
   })
 
   get author(): User | null {
@@ -175,7 +175,10 @@ export default class PostEditor extends Vue {
   }
 
   get characterCounter(): number {
-    return (POST_CHARACTER_LIMIT - this.content.length)
+    if (!this.store.instance) {
+      return 0
+    }
+    return (this.store.instance.post_character_limit - this.content.length)
   }
 
   async publish() {
