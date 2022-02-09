@@ -53,12 +53,23 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
-import { createUser, getAccessToken, getCurrentUser } from "@/api/users"
+import {
+  createUser,
+  getAccessToken,
+  getAccessTokenEip4361,
+  getCurrentUser,
+} from "@/api/users"
 import { InstanceInfo } from "@/api/instance"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getWeb3Provider, getWalletAddress, getWalletSignature } from "@/utils/ethereum"
+import {
+  getWeb3Provider,
+  getWallet,
+  getWalletAddress,
+  getWalletSignature,
+  createEip4361_SignedMessage,
+} from "@/utils/ethereum"
 
 @Options({
   components: { Loader },
@@ -120,24 +131,24 @@ export default class LandingPage extends Vue {
 
   async login() {
     this.loginErrorMessage = null
-    const provider = getWeb3Provider()
-    if (!provider || !this.store.instance) {
+    if (!this.store.instance) {
       return
     }
+    const instanceHost = this.store.instance.uri
     const loginMessage = this.store.instance.login_message
-    const walletAddress = await getWalletAddress(provider)
-    if (!walletAddress) {
+    const signer = await getWallet()
+    if (!signer) {
       return
     }
-    const signature = await getWalletSignature(provider, walletAddress, loginMessage)
-    if (!signature) {
-      return
-    }
-    const loginData = { wallet_address: walletAddress, signature }
+    const { message, signature } = await createEip4361_SignedMessage(
+      signer,
+      instanceHost,
+      loginMessage,
+    )
     let user
     let authToken
     try {
-      authToken = await getAccessToken(loginData)
+      authToken = await getAccessTokenEip4361(message, signature)
       user = await getCurrentUser(authToken)
     } catch (error) {
       this.loginErrorMessage = error.message

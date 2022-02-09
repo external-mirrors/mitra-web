@@ -81,6 +81,28 @@ export async function getAccessToken(user: UserLoginForm): Promise<string> {
   }
 }
 
+export async function getAccessTokenEip4361(
+  message: string,
+  signature: string,
+): Promise<string> {
+  const url = `${BACKEND_URL}/oauth/token`
+  const tokenRequestData = {
+    grant_type: "eip4361",
+    message: message,
+    signature: signature,
+  }
+  const response = await http(url, {
+    method: "POST",
+    json: tokenRequestData,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data.access_token
+  }
+}
+
 export async function getCurrentUser(authToken: string): Promise<User | null> {
   const url = `${BACKEND_URL}/api/v1/accounts/verify_credentials`
   const response = await http(url, { authToken })
