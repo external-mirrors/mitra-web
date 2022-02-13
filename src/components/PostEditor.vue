@@ -92,6 +92,7 @@ import { Prop } from "vue-property-decorator"
 import {
   Visibility,
   VISIBILITY_MAP,
+  Mention,
   Post,
   createPost,
   Attachment,
@@ -132,8 +133,8 @@ export default class PostEditor extends Vue {
 
   private store = setup(() => {
     const { currentUser, ensureAuthToken } = useCurrentUser()
-    const { instance } = useInstanceInfo()
-    return { currentUser, ensureAuthToken, instance }
+    const { instance, getActorAddress } = useInstanceInfo()
+    return { currentUser, ensureAuthToken, instance, getActorAddress }
   })
 
   get author(): User | null {
@@ -141,6 +142,16 @@ export default class PostEditor extends Vue {
   }
 
   created() {
+    if (this.inReplyTo) {
+      const mentions: Mention[] = [
+        this.inReplyTo.account,
+        ...this.inReplyTo.mentions,
+      ]
+      this.content = mentions
+        .filter(mention => mention.id !== this.store.currentUser?.id)
+        .map(mention => "@" + this.store.getActorAddress(mention))
+        .join(" ")
+    }
     if (this.inReplyTo && this.inReplyTo.visibility !== Visibility.Public) {
       this.visibility = Visibility.Direct
     }
