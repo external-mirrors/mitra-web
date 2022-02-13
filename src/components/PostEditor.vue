@@ -90,6 +90,7 @@ import { Options, Vue, setup } from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 
 import {
+  Visibility,
   VISIBILITY_MAP,
   Post,
   createPost,
@@ -118,7 +119,7 @@ export default class PostEditor extends Vue {
 
   content = ""
   attachment: Attachment | null = null
-  visibility = "public"
+  visibility = Visibility.Public
   mentions: string[] = []
 
   visibilityMenuVisible = false
@@ -140,8 +141,8 @@ export default class PostEditor extends Vue {
   }
 
   created() {
-    if (this.inReplyTo) {
-      this.visibility = this.inReplyTo.visibility
+    if (this.inReplyTo && this.inReplyTo.visibility !== Visibility.Public) {
+      this.visibility = Visibility.Direct
     }
   }
 
