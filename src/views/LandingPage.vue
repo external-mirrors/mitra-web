@@ -55,7 +55,7 @@ import { Options, Vue, setup } from "vue-class-component"
 
 import {
   createUser,
-  getAccessTokenEip4361,
+  getAccessToken,
   getCurrentUser,
 } from "@/api/users"
 import { InstanceInfo } from "@/api/instance"
@@ -63,10 +63,7 @@ import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import {
-  getWeb3Provider,
   getWallet,
-  getWalletAddress,
-  getWalletSignature,
   createEip4361_SignedMessage,
 } from "@/utils/ethereum"
 
@@ -93,25 +90,16 @@ export default class LandingPage extends Vue {
 
   async register() {
     this.registrationErrorMessage = null
-    const provider = getWeb3Provider()
-    if (!provider || !this.store.instance) {
+    if (!this.store.instance) {
       return
     }
     const instanceHost = this.store.instance.uri
     const loginMessage = this.store.instance.login_message
-    const walletAddress = await getWalletAddress(provider)
-    if (!walletAddress) {
-      return
-    }
-    const signature = await getWalletSignature(provider, walletAddress, loginMessage)
-    if (!signature) {
-      return
-    }
     const signer = await getWallet()
     if (!signer) {
       return
     }
-    const { message, signature: eip4361signature } = await createEip4361_SignedMessage(
+    const { message, signature } = await createEip4361_SignedMessage(
       signer,
       instanceHost,
       loginMessage,
@@ -122,12 +110,11 @@ export default class LandingPage extends Vue {
     try {
       user = await createUser({
         username: this.username,
-        password: signature,
         message,
-        signature: eip4361signature,
+        signature,
         invite_code: this.inviteCode,
       })
-      authToken = await getAccessTokenEip4361(message, eip4361signature)
+      authToken = await getAccessToken(message, signature)
     } catch (error) {
       this.isLoading = false
       this.registrationErrorMessage = error.message
@@ -158,7 +145,7 @@ export default class LandingPage extends Vue {
     let user
     let authToken
     try {
-      authToken = await getAccessTokenEip4361(message, signature)
+      authToken = await getAccessToken(message, signature)
       user = await getCurrentUser(authToken)
     } catch (error) {
       this.loginErrorMessage = error.message

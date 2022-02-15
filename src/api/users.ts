@@ -38,15 +38,9 @@ export interface User extends Profile {
 
 export interface UserCreateForm {
   username: string;
-  password: string;
   message: string;
   signature: string;
   invite_code: string | null;
-}
-
-export interface UserLoginForm {
-  signature: string;
-  wallet_address: string;
 }
 
 export async function createUser(userData: UserCreateForm): Promise<User> {
@@ -63,26 +57,7 @@ export async function createUser(userData: UserCreateForm): Promise<User> {
   }
 }
 
-export async function getAccessToken(user: UserLoginForm): Promise<string> {
-  const url = `${BACKEND_URL}/oauth/token`
-  const tokenRequestData = {
-    grant_type: "ethereum",
-    wallet_address: user.wallet_address,
-    password: user.signature,
-  }
-  const response = await http(url, {
-    method: "POST",
-    json: tokenRequestData,
-  })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.message)
-  } else {
-    return data.access_token
-  }
-}
-
-export async function getAccessTokenEip4361(
+export async function getAccessToken(
   message: string,
   signature: string,
 ): Promise<string> {

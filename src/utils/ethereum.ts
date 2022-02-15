@@ -40,31 +40,13 @@ export async function getWalletAddress(provider: Web3Provider): Promise<string |
   return walletAddress.toLowerCase()
 }
 
-export async function getWalletSignature(
-  provider: Web3Provider,
-  walletAddress: string,
-  message: string,
-): Promise<string | null> {
-  let signature
-  try {
-    signature = await provider.send(
-      "personal_sign",
-      [message, walletAddress],
-    )
-  } catch (error) {
-    // Signature request rejected
-    console.warn(error)
-    return null
-  }
-  return signature
-}
-
 function generateRandomString(len: number): string {
   const arr = new Uint8Array(len / 2)
   window.crypto.getRandomValues(arr)
   return Array.from(arr, (val) => val.toString(16).padStart(2, "0")).join("")
 }
 
+// https://eips.ethereum.org/EIPS/eip-4361
 export async function createEip4361_SignedMessage(
   signer: Signer,
   domain: string,
