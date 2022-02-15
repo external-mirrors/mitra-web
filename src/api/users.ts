@@ -39,7 +39,8 @@ export interface User extends Profile {
 export interface UserCreateForm {
   username: string;
   password: string;
-  wallet_address: string;
+  message: string;
+  signature: string;
   invite_code: string | null;
 }
 

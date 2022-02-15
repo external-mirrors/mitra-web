@@ -55,7 +55,6 @@ import { Options, Vue, setup } from "vue-class-component"
 
 import {
   createUser,
-  getAccessToken,
   getAccessTokenEip4361,
   getCurrentUser,
 } from "@/api/users"
@@ -98,6 +97,7 @@ export default class LandingPage extends Vue {
     if (!provider || !this.store.instance) {
       return
     }
+    const instanceHost = this.store.instance.uri
     const loginMessage = this.store.instance.login_message
     const walletAddress = await getWalletAddress(provider)
     if (!walletAddress) {
@@ -107,6 +107,15 @@ export default class LandingPage extends Vue {
     if (!signature) {
       return
     }
+    const signer = await getWallet()
+    if (!signer) {
+      return
+    }
+    const { message, signature: eip4361signature } = await createEip4361_SignedMessage(
+      signer,
+      instanceHost,
+      loginMessage,
+    )
     this.isLoading = true
     let user
     let authToken
@@ -114,10 +123,11 @@ export default class LandingPage extends Vue {
       user = await createUser({
         username: this.username,
         password: signature,
-        wallet_address: walletAddress,
+        message,
+        signature: eip4361signature,
         invite_code: this.inviteCode,
       })
-      authToken = await getAccessToken({ wallet_address: walletAddress, signature })
+      authToken = await getAccessTokenEip4361(message, eip4361signature)
     } catch (error) {
       this.isLoading = false
       this.registrationErrorMessage = error.message
