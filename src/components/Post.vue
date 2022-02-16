@@ -24,18 +24,16 @@
       >
         <img :src="require('@/assets/tabler/corner-left-up.svg')">
       </a>
-      <a
+      <span
         class="icon icon-small"
-        :href="post.uri"
         :title="visibilityDisplay"
-        target="_blank"
-        rel="noreferrer"
       >
         <visibility-icon :visibility="post.visibility"></visibility-icon>
-      </a>
+      </span>
       <a
         class="timestamp"
-        @click="navigateTo(post.id)"
+        :href="post.uri"
+        @click.prevent="navigateTo(post.id)"
       >
         {{ formatDate(post.created_at) }}
       </a>
