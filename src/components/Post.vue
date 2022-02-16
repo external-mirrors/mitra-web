@@ -581,12 +581,21 @@ export default class PostComponent extends Vue {
   flex-wrap: wrap;
   gap: 0.25em;
   padding: $block-inner-padding / 4 $block-inner-padding 0;
+
+  a {
+    @include block-link;
+  }
 }
 
 .post-content {
   color: $text-color;
   line-height: 1.5;
   padding: $block-inner-padding;
+  word-wrap: break-word;
+
+  :deep(a) {
+    @include block-link;
+  }
 
   :deep(pre),
   :deep(code) {

@@ -23,6 +23,14 @@
   }
 }
 
+@mixin block-link {
+  color: $block-link-color;
+
+  &:hover {
+    color: $block-link-hover-color;
+  }
+}
+
 @mixin post-action {
   display: flex;
   font-weight: bold;
