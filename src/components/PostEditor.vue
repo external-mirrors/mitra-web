@@ -150,6 +150,8 @@ export default class PostEditor extends Vue {
       this.content = mentions
         .filter(mention => mention.id !== this.store.currentUser?.id)
         .map(mention => "@" + this.store.getActorAddress(mention))
+        // Remove duplicates
+        .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
         .join(" ")
     }
     if (this.inReplyTo && this.inReplyTo.visibility !== Visibility.Public) {
