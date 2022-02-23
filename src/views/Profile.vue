@@ -15,7 +15,7 @@
             </div>
           </div>
           <div
-            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe()"
+            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe() || canHideReposts() || canShowReposts()"
             class="dropdown-menu-wrapper"
             v-click-away="hideProfileMenu"
           >
@@ -57,6 +57,12 @@
                 >
                   Pay for subscription
                 </a>
+              </li>
+              <li v-if="canHideReposts()">
+                <a @click="follow(false)">Hide reposts</a>
+              </li>
+              <li v-if="canShowReposts()">
+                <a @click="follow(true)">Show reposts</a>
               </li>
             </ul>
           </div>
@@ -266,13 +272,28 @@ export default class ProfileView extends Vue {
     return this.relationship.requested
   }
 
-  async follow() {
-    if (!this.store.currentUser || !this.profile) {
+  canHideReposts(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return (this.relationship.following || this.relationship.requested) && this.relationship.showing_reblogs
+  }
+
+  canShowReposts(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return (this.relationship.following || this.relationship.requested) && !this.relationship.showing_reblogs
+  }
+
+  async follow(showReposts?: boolean) {
+    if (!this.store.currentUser || !this.profile || !this.relationship) {
       return
     }
     this.relationship = await follow(
       this.store.ensureAuthToken(),
       this.profile.id,
+      showReposts ?? this.relationship.showing_reblogs,
     )
   }
 
