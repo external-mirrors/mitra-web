@@ -51,7 +51,11 @@
     </div>
     <div class="post-content" ref="postContent" v-html="post.content"></div>
     <div class="post-attachment" v-if="post.media_attachments.length > 0">
-      <img v-for="attachment in post.media_attachments" :src="attachment.url" :key="attachment.id">
+      <template v-for="attachment in post.media_attachments" :key="attachment.id">
+        <img v-if="attachment.type === 'image'" :src="attachment.url">
+        <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
+        <a v-else :href="attachment.url">{{ attachment.url }}</a>
+      </template>
     </div>
     <div class="post-footer">
       <router-link
@@ -614,6 +618,10 @@ export default class PostComponent extends Vue {
   img {
     display: block;
     width: 100%;
+  }
+
+  a {
+    @include block-link;
   }
 }
 
