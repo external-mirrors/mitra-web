@@ -614,6 +614,7 @@ export default class PostComponent extends Vue {
 
 .post-attachment {
   padding: 0 $block-inner-padding $block-inner-padding;
+  word-wrap: break-word;
 
   img {
     display: block;
