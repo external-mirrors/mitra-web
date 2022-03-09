@@ -15,7 +15,7 @@
             </div>
           </div>
           <div
-            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe() || canHideReposts() || canShowReposts()"
+            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe() || canHideReposts() || canShowReposts() || canHideReplies() || canShowReplies()"
             class="dropdown-menu-wrapper"
             v-click-away="hideProfileMenu"
           >
@@ -59,10 +59,16 @@
                 </a>
               </li>
               <li v-if="canHideReposts()">
-                <a @click="follow(false)">Hide reposts</a>
+                <a @click="follow(false, undefined)">Hide reposts</a>
               </li>
               <li v-if="canShowReposts()">
-                <a @click="follow(true)">Show reposts</a>
+                <a @click="follow(true, undefined)">Show reposts</a>
+              </li>
+              <li v-if="canHideReplies()">
+                <a @click="follow(undefined, false)">Hide replies</a>
+              </li>
+              <li v-if="canShowReplies()">
+                <a @click="follow(undefined, true)">Show replies</a>
               </li>
             </ul>
           </div>
@@ -286,7 +292,21 @@ export default class ProfileView extends Vue {
     return (this.relationship.following || this.relationship.requested) && !this.relationship.showing_reblogs
   }
 
-  async follow(showReposts?: boolean) {
+  canHideReplies(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return (this.relationship.following || this.relationship.requested) && this.relationship.showing_replies
+  }
+
+  canShowReplies(): boolean {
+    if (!this.relationship) {
+      return false
+    }
+    return (this.relationship.following || this.relationship.requested) && !this.relationship.showing_replies
+  }
+
+  async follow(showReposts?: boolean, showReplies?: boolean) {
     if (!this.store.currentUser || !this.profile || !this.relationship) {
       return
     }
@@ -294,6 +314,7 @@ export default class ProfileView extends Vue {
       this.store.ensureAuthToken(),
       this.profile.id,
       showReposts ?? this.relationship.showing_reblogs,
+      showReplies ?? this.relationship.showing_replies,
     )
   }
 

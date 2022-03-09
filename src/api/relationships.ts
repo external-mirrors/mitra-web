@@ -10,17 +10,22 @@ export interface Relationship {
   subscription_to: boolean,
   subscription_from: boolean,
   showing_reblogs: boolean,
+  showing_replies: boolean,
 }
 
 export async function follow(
   authToken: string,
   profileId: string,
   showReposts: boolean,
+  showReplies: boolean,
 ): Promise<Relationship> {
   const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/follow`
   const response = await http(url, {
     method: "POST",
-    json: { reblogs: showReposts },
+    json: {
+      reblogs: showReposts,
+      replies: showReplies,
+    },
     authToken,
   })
   const data = await response.json()
