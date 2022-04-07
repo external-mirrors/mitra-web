@@ -224,7 +224,10 @@ export async function createRepost(
   if (response.status !== 200) {
     throw new Error(data.message)
   }
-  return data
+  if (data.reblog === null) {
+    throw new Error("reblog property is null")
+  }
+  return data.reblog
 }
 
 export async function deleteRepost(
