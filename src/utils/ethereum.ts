@@ -40,6 +40,15 @@ export async function getWalletAddress(provider: Web3Provider): Promise<string |
   return walletAddress.toLowerCase()
 }
 
+// EIP-191 signature
+export async function getWalletSignature(
+  signer: Signer,
+  message: string,
+): Promise<string> {
+  const signature = await signer.signMessage(message)
+  return signature
+}
+
 function generateRandomString(len: number): string {
   const arr = new Uint8Array(len / 2)
   window.crypto.getRandomValues(arr)

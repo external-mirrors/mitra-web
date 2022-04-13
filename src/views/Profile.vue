@@ -41,7 +41,15 @@
                   Atom feed
                 </a>
               </li>
-               <li v-if="canConnectWallet()">
+              <li v-if="isCurrentUser()">
+                <a
+                  title="Verify ethereum address"
+                  @click="hideProfileMenu(); verifyEthereumAddress()"
+                >
+                  Verify ethereum address
+                </a>
+              </li>
+              <li v-if="canConnectWallet()">
                 <a
                   title="Connect wallet"
                   @click="hideProfileMenu(); connectWallet()"
@@ -95,11 +103,22 @@
           </div>
         </div>
         <div class="bio" v-html="profile.note"></div>
-        <div class="extra-fields" v-if="profile.fields.length > 0">
-          <dl v-for="field in profile.fields" :key="field.name">
-            <dt>{{ field.name }}</dt>
-            <dd v-html="field.value"></dd>
-          </dl>
+        <div class="extra-fields" v-if="fields.length > 0">
+          <div
+            v-for="field in fields"
+            class="field"
+            :class="{'verified': field.verified_at}"
+            :key="field.name"
+          >
+            <div class="name">{{ field.name }}</div>
+            <div class="value" v-html="field.value"></div>
+            <div class="verified-icon" v-if="field.verified_at">
+              <img
+                :src="require('@/assets/forkawesome/check.svg')"
+                title="Verified"
+              >
+            </div>
+          </div>
         </div>
         <div class="stats">
           <component
@@ -147,7 +166,6 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
-import { Profile, getProfile } from "@/api/users"
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
   follow,
@@ -163,6 +181,13 @@ import {
   isSubscriptionConfigured,
   makeSubscriptionPayment,
 } from "@/api/subscriptions"
+import {
+  createIdentityProof,
+  getIdentityClaim,
+  getProfile,
+  Profile,
+  ProfileField,
+} from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -170,7 +195,7 @@ import Sidebar from "@/components/Sidebar.vue"
 import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getWallet } from "@/utils/ethereum"
+import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
 @Options({
   components: {
@@ -235,6 +260,13 @@ export default class ProfileView extends Vue {
       return ""
     }
     return this.store.getActorAddress(this.profile)
+  }
+
+  get fields(): ProfileField[] {
+    if (!this.profile) {
+      return []
+    }
+    return this.profile.identity_proofs.concat(this.profile.fields)
   }
 
   isCurrentUser(): boolean {
@@ -358,11 +390,27 @@ export default class ProfileView extends Vue {
     return `${BACKEND_URL}/feeds/${this.profile.username}`
   }
 
+  async verifyEthereumAddress(): Promise<void> {
+    if (!this.profile || !this.isCurrentUser()) {
+      return
+    }
+    const signer = await getWallet()
+    if (!signer) {
+      return
+    }
+    const authToken = this.store.ensureAuthToken()
+    const message = await getIdentityClaim(authToken)
+    const signature = await getWalletSignature(signer, message)
+    const profile = await createIdentityProof(authToken, signature)
+    this.profile.identity_proofs = profile.identity_proofs
+  }
+
   canConnectWallet(): boolean {
     return Boolean(this.store.instance?.blockchain_contract_address) && !this.walletConnected
   }
 
   async connectWallet() {
+    // Part of subscription UI
     const signer = await getWallet()
     if (!signer) {
       return
@@ -576,31 +624,44 @@ $avatar-size: 170px;
 .bio {
   padding: 0 $block-inner-padding $block-inner-padding;
   white-space: pre-line;
+
+  :deep(a) {
+    @include block-link;
+  }
 }
 
 .extra-fields {
   border-bottom: 1px solid $separator-color;
   margin-bottom: $block-inner-padding;
 
-  dl {
+  .field {
+    border-top: 1px solid $separator-color;
     display: flex;
+    gap: $block-inner-padding / 2;
+    padding: $block-inner-padding / 2 $block-inner-padding;
 
-    dt,
-    dd {
-      border-top: 1px solid $separator-color;
-      padding: $block-inner-padding / 2 $block-inner-padding;
-    }
-
-    dt {
+    .name {
       font-weight: bold;
       min-width: 120px;
       width: 120px;
     }
 
-    dd {
+    .value {
       flex-grow: 1;
       overflow-x: hidden;
       text-overflow: ellipsis;
+    }
+
+    &.verified .value {
+      font-weight: bold;
+    }
+
+    /* stylelint-disable-next-line selector-max-compound-selectors */
+    .verified-icon img {
+      filter: $text-colorizer;
+      height: 1em;
+      min-width: 1em;
+      width: 1em;
     }
   }
 }

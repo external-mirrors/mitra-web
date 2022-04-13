@@ -1,9 +1,10 @@
 import { BACKEND_URL } from "@/constants"
 import { PAGE_SIZE, http } from "./common"
 
-interface ProfileField {
+export interface ProfileField {
   name: string;
   value: string;
+  verified_at: string | null;
 }
 
 interface Source {
@@ -20,6 +21,7 @@ export interface Profile {
   note: string | null;
   avatar: string | null;
   header: string | null;
+  identity_proofs: ProfileField[],
   fields: ProfileField[];
 
   followers_count: number;
@@ -143,5 +145,30 @@ export async function updateProfile(
     throw new Error(profileOrError.message)
   } else {
     return profileOrError
+  }
+}
+
+export async function getIdentityClaim(authToken: string): Promise<string> {
+  const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data.claim
+}
+
+export async function createIdentityProof(
+  authToken: string,
+  signature: string,
+): Promise<Profile> {
+  const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
+  const response = await http(url, {
+    method: "POST",
+    json: { signature: signature.replace(/0x/, "") },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
   }
 }
