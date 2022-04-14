@@ -15,7 +15,6 @@
             </div>
           </div>
           <div
-            v-if="!isLocalUser() || canConnectWallet() || canConfigureSubscription() || canSubscribe() || canHideReposts() || canShowReposts() || canHideReplies() || canShowReplies()"
             class="dropdown-menu-wrapper"
             v-click-away="hideProfileMenu"
           >
@@ -32,6 +31,14 @@
                   @click="hideProfileMenu()"
                 >
                   Open profile page
+                </a>
+              </li>
+              <li v-if="isLocalUser()">
+                <a
+                  :href="feedUrl"
+                  target="_blank"
+                >
+                  Atom feed
                 </a>
               </li>
                <li v-if="canConnectWallet()">
@@ -160,6 +167,7 @@ import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
+import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { getWallet } from "@/utils/ethereum"
@@ -341,6 +349,13 @@ export default class ProfileView extends Vue {
       return false
     }
     return this.profile.username === this.profile.acct
+  }
+
+  get feedUrl(): string {
+    if (!this.profile || !this.isLocalUser()) {
+      return ""
+    }
+    return `${BACKEND_URL}/feeds/${this.profile.username}`
   }
 
   canConnectWallet(): boolean {
