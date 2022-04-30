@@ -47,18 +47,18 @@
           >
             <visibility-icon :visibility="visibility"></visibility-icon>
           </button>
-          <ul v-if="visibilityMenuVisible" class="dropdown-menu">
+          <menu v-if="visibilityMenuVisible" class="dropdown-menu">
             <li v-for="[value, display] in visibilityMap" :key="value">
-              <a
+              <button
                 class="icon"
                 :title="display"
                 @click="hideVisibilityMenu(); visibility = value"
               >
                 <visibility-icon :visibility="value"></visibility-icon>
                 <span>{{ display }}</span>
-              </a>
+              </button>
             </li>
-          </ul>
+          </menu>
         </div>
         <div class="character-counter" title="Characters left">
           {{ characterCounter }}
@@ -293,7 +293,7 @@ textarea {
 }
 
 .dropdown-menu-wrapper {
-  @include post-dropdown-menu;
+  @include block-dropdown-menu;
 }
 
 .submit-btn-wrapper {

@@ -141,38 +141,38 @@
         <button class="icon" title="More" @click="toggleMenu()">
           <img :src="require('@/assets/feather/more-horizontal.svg')">
         </button>
-        <ul v-if="menuVisible" class="dropdown-menu">
+        <menu v-if="menuVisible" class="dropdown-menu">
           <li v-if="canSaveToIpfs()">
-            <a
+            <button
               class="icon"
               title="Save to IPFS"
               @click="hideMenu(); saveToIpfs()"
             >
               <img :src="require('@/assets/ipfs.svg')">
               <span>Save to IPFS</span>
-            </a>
+            </button>
           </li>
           <li v-if="canMintToken()">
-            <a
+            <button
               class="icon"
               title="Mint NFT"
               @click="hideMenu(); mintToken()"
             >
               <img :src="require('@/assets/forkawesome/diamond.svg')">
               <span>Mint NFT</span>
-            </a>
+            </button>
           </li>
           <li v-if="canDeletePost()">
-            <a
+            <button
               class="icon"
               title="Delete post"
               @click="hideMenu(); deletePost()"
             >
               <img :src="require('@/assets/feather/trash.svg')">
               <span>Delete post</span>
-            </a>
+            </button>
           </li>
-        </ul>
+        </menu>
       </div>
       <div class="crypto-widget">
         <crypto-address
@@ -653,7 +653,7 @@ export default class PostComponent extends Vue {
 }
 
 .dropdown-menu-wrapper {
-  @include post-dropdown-menu;
+  @include block-dropdown-menu;
 }
 
 .crypto-widget {

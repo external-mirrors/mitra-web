@@ -72,7 +72,7 @@ html {
 body {
   background: $background-color;
   color: $text-color;
-  font-family: Arial, sans-serif;
+  font-family: $text-font;
   font-size: $text-font-size;
 }
 
@@ -104,7 +104,7 @@ textarea {
   box-shadow: none;
   box-sizing: border-box;
   color: $text-color;
-  font-family: Arial, sans-serif;
+  font-family: $text-font;
   font-size: $text-font-size;
   margin: 0;
   padding: 10px;
@@ -133,9 +133,15 @@ textarea {
 button {
   background-color: transparent;
   border: none;
+  color: $link-color;
   cursor: pointer;
+  font-family: $text-font;
   font-size: $text-font-size;
   padding: 0;
+
+  &:hover {
+    color: $link-hover-color;
+  }
 }
 
 .btn {
@@ -154,6 +160,10 @@ button {
     background-color: $btn-background-hover-color;
     color: $btn-text-hover-color;
   }
+}
+
+menu {
+  list-style: none;
 }
 
 header {

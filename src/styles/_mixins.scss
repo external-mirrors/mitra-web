@@ -87,10 +87,10 @@
   }
 }
 
-@mixin post-dropdown-menu {
+@mixin block-dropdown-menu {
   position: relative;
 
-  .dropdown-menu {
+  menu.dropdown-menu {
     background-color: $block-background-color;
     border: 1px solid $separator-color;
     border-radius: $btn-border-radius;

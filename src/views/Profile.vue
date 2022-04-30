@@ -21,7 +21,7 @@
             <button title="More" @click="toggleProfileMenu()">
               <img :src="require('@/assets/feather/more-vertical.svg')">
             </button>
-            <ul v-if="profileMenuVisible" class="dropdown-menu">
+            <menu v-if="profileMenuVisible" class="dropdown-menu">
               <li v-if="!isLocalUser()">
                 <a
                   title="Open profile page"
@@ -42,50 +42,50 @@
                 </a>
               </li>
               <li v-if="isCurrentUser()">
-                <a
+                <button
                   title="Verify ethereum address"
                   @click="hideProfileMenu(); verifyEthereumAddress()"
                 >
                   Verify ethereum address
-                </a>
+                </button>
               </li>
               <li v-if="canConnectWallet()">
-                <a
+                <button
                   title="Connect wallet"
                   @click="hideProfileMenu(); connectWallet()"
                 >
                   Connect wallet
-                </a>
+                </button>
               </li>
               <li v-if="canConfigureSubscription()">
-                <a
+                <button
                   title="Set up subscription"
                   @click="hideProfileMenu(); configureSubscription()"
                 >
                   Set up subscription
-                </a>
+                </button>
               </li>
               <li v-if="canSubscribe()">
-                <a
+                <button
                   title="Pay for subscription"
                   @click="hideProfileMenu(); makeSubscriptionPayment()"
                 >
                   Pay for subscription
-                </a>
+                </button>
               </li>
               <li v-if="canHideReposts()">
-                <a @click="follow(false, undefined)">Hide reposts</a>
+                <button @click="follow(false, undefined)">Hide reposts</button>
               </li>
               <li v-if="canShowReposts()">
-                <a @click="follow(true, undefined)">Show reposts</a>
+                <button @click="follow(true, undefined)">Show reposts</button>
               </li>
               <li v-if="canHideReplies()">
-                <a @click="follow(undefined, false)">Hide replies</a>
+                <button @click="follow(undefined, false)">Hide replies</button>
               </li>
               <li v-if="canShowReplies()">
-                <a @click="follow(undefined, true)">Show replies</a>
+                <button @click="follow(undefined, true)">Show replies</button>
               </li>
-            </ul>
+            </menu>
           </div>
         </div>
         <div class="name-buttons-group">
@@ -574,7 +574,7 @@ $avatar-size: 170px;
   }
 
   .dropdown-menu-wrapper {
-    @include post-dropdown-menu;
+    @include block-dropdown-menu;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
     button img {
