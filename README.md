@@ -16,17 +16,32 @@ npm install
 npx allow-scripts
 ```
 
+### Compile and minify for production
+
+Set backend URL:
+
+```
+echo "VUE_APP_BACKEND_URL=https://mydomain.tld" > .env.local
+```
+
+Or un-set it if both frontend and backend will run on the same URL:
+
+```
+echo "VUE_APP_BACKEND_URL=" > .env.local
+```
+
+Compile:
+
+```
+npm run build
+```
+
+## Development
+
 ### Compiles and hot-reloads for development
 
 ```
 npm start
-```
-
-### Compile and minify for production
-
-```
-echo "VUE_APP_BACKEND_URL=https://mydomain.tld" > .env.local
-npm run build
 ```
 
 ### Run your unit tests
