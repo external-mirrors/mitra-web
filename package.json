@@ -27,7 +27,7 @@
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
-    "@lavamoat/allow-scripts": "^1.0.6",
+    "@lavamoat/allow-scripts": "^2.0.3",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
     "@types/chai": "^4.2.11",
     "@types/luxon": "^1.26.5",
@@ -67,7 +67,15 @@
       "core-js": false,
       "nodent-runtime": false,
       "ejs": false,
-      "node-sass": true
+      "node-sass": true,
+      "fsevents": false,
+      "@vue/cli-plugin-eslint>yorkie": false,
+      "@vue/cli-plugin-unit-mocha>mochapack>@babel/runtime-corejs2>core-js": false,
+      "@vue/cli-plugin-unit-mocha>mochapack>nodent-runtime": false,
+      "@vue/cli-service>webpack-bundle-analyzer>ejs": false,
+      "@vue/cli-plugin-unit-mocha>mochapack>chokidar>fsevents": false,
+      "@vue/cli-service>webpack-dev-server>chokidar>fsevents": false,
+      "sass-loader>webpack>watchpack>watchpack-chokidar2>chokidar>fsevents": false
     }
   }
 }

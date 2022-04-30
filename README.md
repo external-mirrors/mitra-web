@@ -12,7 +12,7 @@ Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 ## Project setup
 
 ```
-npm install
+npm install --no-save
 npx allow-scripts
 ```
 
