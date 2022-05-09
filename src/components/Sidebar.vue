@@ -7,6 +7,10 @@
       </div>
       <span>Notifications</span>
     </router-link>
+    <router-link class="sidebar-link" to="/local">
+      <div class="icon"><img :src="require('@/assets/feather/server.svg')"></div>
+      <span>Local</span>
+    </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><img :src="require('@/assets/feather/users.svg')"></div>
       <span>Profile directory</span>

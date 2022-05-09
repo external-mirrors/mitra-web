@@ -1,7 +1,6 @@
 <template>
   <div id="main">
     <div class="content posts">
-      <post-editor @post-created="insertPost"></post-editor>
       <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
     </div>
     <sidebar></sidebar>
@@ -11,20 +10,18 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component"
 
-import { Post, getHomeTimeline } from "@/api/posts"
-import PostEditor from "@/components/PostEditor.vue"
+import { Post, getPublicTimeline } from "@/api/posts"
 import PostList from "@/components/PostList.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
 @Options({
   components: {
-    PostEditor,
     PostList,
     Sidebar,
   },
 })
-export default class HomeTimeline extends Vue {
+export default class PublicTimeline extends Vue {
 
   private store = setup(() => {
     const { ensureAuthToken } = useCurrentUser()
@@ -35,7 +32,7 @@ export default class HomeTimeline extends Vue {
 
   async created() {
     const authToken = this.store.ensureAuthToken()
-    this.posts = await getHomeTimeline(authToken)
+    this.posts = await getPublicTimeline(authToken)
   }
 
   insertPost(post: Post) {
@@ -44,7 +41,7 @@ export default class HomeTimeline extends Vue {
 
   async loadNextPage(maxId: string) {
     const authToken = this.store.ensureAuthToken()
-    const posts = await getHomeTimeline(authToken, maxId)
+    const posts = await getPublicTimeline(authToken, maxId)
     this.posts.push(...posts)
   }
 
@@ -52,9 +49,4 @@ export default class HomeTimeline extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../styles/layout";
-
-.post-form {
-  margin-bottom: $block-outer-padding * 2;
-}
 </style>

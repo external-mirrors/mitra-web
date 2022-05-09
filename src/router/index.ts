@@ -10,6 +10,7 @@ import ProfileView from "@/views/Profile.vue"
 import ProfileForm from "@/views/ProfileForm.vue"
 import PostDetail from "@/views/PostDetail.vue"
 import PostOverlay from "@/views/PostOverlay.vue"
+import PublicTimeline from "@/views/PublicTimeline.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 
@@ -54,6 +55,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/home",
     name: "home",
     component: HomeTimeline,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/local",
+    name: "local",
+    component: PublicTimeline,
     meta: { onlyAuthenticated: true },
   },
   {
