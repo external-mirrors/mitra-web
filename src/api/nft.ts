@@ -74,7 +74,7 @@ export async function onTokenMinted(
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/token_minted`
   const response = await http(url, {
     method: "POST",
-    json: { transaction_id: transactionId },
+    json: { transaction_id: transactionId.replace(/0x/, "") },
     authToken,
   })
   const data = await response.json()
