@@ -50,6 +50,7 @@ export interface Post {
   id: string;
   uri: string;
   created_at: string;
+  edited_at: string | null;
   account: Profile;
   content: string;
   in_reply_to_id: string | null;

@@ -30,6 +30,7 @@
       >
         <visibility-icon :visibility="post.visibility"></visibility-icon>
       </span>
+      <span v-if="post.edited_at">edited</span>
       <a
         class="timestamp"
         :href="post.uri"
