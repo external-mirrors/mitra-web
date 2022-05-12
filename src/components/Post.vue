@@ -270,9 +270,15 @@ export default class PostComponent extends Vue {
 
   mounted() {
     const mentions = this.$refs.postContent.getElementsByClassName("mention")
-    for (const mention of Array.from(mentions)) {
-      mention.setAttribute("target", "_blank")
-      mention.setAttribute("rel", "noreferrer")
+    for (const mentionElement of Array.from(mentions)) {
+      mentionElement.addEventListener("click", (event: Event) => {
+        event.preventDefault()
+        const mention = this.post.mentions
+          .find((mention) => mention.url === mentionElement.getAttribute("href"))
+        if (mention) {
+          this.$router.push({ name: "profile", params: { profileId: mention.id } })
+        }
+      })
     }
   }
 
