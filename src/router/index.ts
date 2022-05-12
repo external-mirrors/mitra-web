@@ -117,6 +117,10 @@ const routes: Array<RouteRecordRaw> = [
     component: ProfileForm,
     meta: { onlyAuthenticated: true },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: { name: "home" },
+  },
 ]
 
 const router = createRouter({
