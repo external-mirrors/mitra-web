@@ -1,52 +1,54 @@
 <template>
   <div class="landing-page">
-    <div v-if="instance" class="instance-info">
-      <h1 class="instance-title">{{ instance.title }}</h1>
-      <div class="instance-description">
-        {{ instance.short_description }}
-        <br>
-        <router-link :to="{name: 'about-public'}">Learn more <span class="arrow">&gt;&gt;</span></router-link>
-      </div>
-      <div class="login">
-        <button @click="login()">Sign In</button>
-        <div v-if="loginErrorMessage" class="error-message">{{ loginErrorMessage }}</div>
-      </div>
-    </div>
-    <form v-if="instance" class="registration-form">
-      <div v-if="isLoading" class="registration-form-loader">
-        <loader></loader>
-      </div>
-      <div class="form-title">Want to join?</div>
-      <div class="form-control">
-        <div class="input-group">
-          <input id="username" v-model="username" required placeholder="Username">
-          <div class="addon">@{{ instance.uri }}</div>
+    <div class="instance-group">
+      <div v-if="instance" class="instance-info">
+        <h1 class="instance-title">{{ instance.title }}</h1>
+        <div class="instance-description">
+          {{ instance.short_description }}
+          <br>
+          <router-link :to="{name: 'about-public'}">Learn more <span class="arrow">&gt;&gt;</span></router-link>
         </div>
-        <div class="form-message">Only letters, numbers and underscores are allowed.</div>
+        <div class="login">
+          <button @click="login()">Sign In</button>
+          <div v-if="loginErrorMessage" class="error-message">{{ loginErrorMessage }}</div>
+        </div>
       </div>
-      <div class="form-control" v-if="!instance.registrations">
-        <input
-          id="invite-token"
-          v-model="inviteCode"
-          required
-          placeholder="Enter the invite code"
-        >
-      </div>
-      <div class="wallet-required">
-        <img :src="require('@/assets/forkawesome/ethereum.svg')">
-        <a
-          href="https://ethereum.org/en/wallets/find-wallet/?filters=has_explore_dapps"
-          target="_blank"
-          rel="noreferrer"
-        >Ethereum Wallet</a> is required
-      </div>
-      <button
-        type="submit"
-        :disabled="!username"
-        @click.prevent="register()"
-      >Sign Up</button>
-      <div v-if="registrationErrorMessage" class="error-message">{{ registrationErrorMessage }}</div>
-    </form>
+      <form v-if="instance" class="registration-form">
+        <div v-if="isLoading" class="registration-form-loader">
+          <loader></loader>
+        </div>
+        <div class="form-title">Want to join?</div>
+        <div class="form-control">
+          <div class="input-group">
+            <input id="username" v-model="username" required placeholder="Username">
+            <div class="addon">@{{ instance.uri }}</div>
+          </div>
+          <div class="form-message">Only letters, numbers and underscores are allowed.</div>
+        </div>
+        <div class="form-control" v-if="!instance.registrations">
+          <input
+            id="invite-token"
+            v-model="inviteCode"
+            required
+            placeholder="Enter the invite code"
+          >
+        </div>
+        <div class="wallet-required">
+          <img :src="require('@/assets/forkawesome/ethereum.svg')">
+          <a
+            href="https://ethereum.org/en/wallets/find-wallet/?filters=has_explore_dapps"
+            target="_blank"
+            rel="noreferrer"
+          >Ethereum Wallet</a> is required
+        </div>
+        <button
+          type="submit"
+          :disabled="!username"
+          @click.prevent="register()"
+        >Sign Up</button>
+        <div v-if="registrationErrorMessage" class="error-message">{{ registrationErrorMessage }}</div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -179,19 +181,24 @@ button {
 }
 
 .landing-page {
-  align-items: flex-start;
   background-color: #000;
   background-image: url("../assets/startpage.png");
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
   color: $text-color;
+  min-height: 100vh;
+  padding-top: 20vh;
+}
+
+.instance-group {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   gap: $content-gap;
-  justify-content: center;
-  min-height: 100vh;
-  padding-top: 20vh;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 }
 
 .instance-info {
@@ -208,7 +215,7 @@ button {
 }
 
 .instance-description {
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1.75;
 
   a {
@@ -373,9 +380,12 @@ button {
 
 @media screen and (max-width: $screen-breakpoint-small) {
   .landing-page {
+    padding-top: $content-gap;
+  }
+
+  .instance-group {
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding-top: $content-gap;
   }
 
   .registration-form {
