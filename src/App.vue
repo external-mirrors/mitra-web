@@ -6,7 +6,7 @@
           <img :src="require('@/assets/feather/home.svg')">
           <span>Home</span>
         </router-link>
-        <search  />
+        <search />
       </div>
       <div id="profile">
         <router-link v-if="profile" class="profile-link" :to="{ name: 'profile', params: { profileId: profile.id }}">

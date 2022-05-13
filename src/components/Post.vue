@@ -50,7 +50,7 @@
         @{{ mention.username }}
       </router-link>
     </div>
-    <div class="post-content" ref="postContent" v-html="post.content"></div>
+    <div class="post-content" ref="postContent" v-html="content"></div>
     <div class="post-attachment" v-if="post.media_attachments.length > 0">
       <template v-for="attachment in post.media_attachments" :key="attachment.id">
         <img v-if="attachment.type === 'image'" :src="attachment.url">
@@ -308,6 +308,14 @@ export default class PostComponent extends Vue {
 
   formatDate(isoDate: string): string {
     return formatDate(isoDate)
+  }
+
+  get content(): string {
+    // Add greentext
+    const greentextRegexp = /(?<=^|>)(&gt;.+)(?=$|<)/gm
+    const content = this.post.content
+      .replaceAll(greentextRegexp, '<span class="greentext">$1</span>')
+    return content
   }
 
   get replyingTo(): Mention[] {
@@ -616,6 +624,10 @@ export default class PostComponent extends Vue {
   :deep(ul),
   :deep(ol) {
     list-style-position: inside;
+  }
+
+  :deep(.greentext) {
+    color: #789922;
   }
 }
 
