@@ -6,3 +6,7 @@ export function setupAutoResize(textarea: HTMLTextAreaElement) {
     textarea.style.height = `${textarea.scrollHeight}px`
   }, false)
 }
+
+export function triggerResize(textarea: HTMLTextAreaElement) {
+  textarea.dispatchEvent(new Event("input"))
+}

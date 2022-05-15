@@ -103,7 +103,7 @@ import Avatar from "@/components/Avatar.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { setupAutoResize } from "@/utils/autoresize"
+import { setupAutoResize, triggerResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
@@ -218,6 +218,9 @@ export default class PostEditor extends Vue {
     this.errorMessage = null
     this.attachment = null
     this.content = ""
+    this.$nextTick(() => {
+      triggerResize(this.$refs.postFormContent)
+    })
     this.$emit("post-created", post)
   }
 
