@@ -231,6 +231,7 @@ import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
 import { formatDate } from "@/utils/format"
+import { addGreentext } from "@/utils/greentext"
 
 interface PaymentOption {
   code: string;
@@ -311,10 +312,7 @@ export default class PostComponent extends Vue {
   }
 
   get content(): string {
-    // Add greentext
-    const greentextRegexp = /(?<=^|>)(&gt;.+)(?=$|<)/gm
-    const content = this.post.content
-      .replaceAll(greentextRegexp, '<span class="greentext">$1</span>')
+    const content = addGreentext(this.post.content)
     return content
   }
 
