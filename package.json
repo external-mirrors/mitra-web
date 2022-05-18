@@ -34,31 +34,27 @@
     "@types/mocha": "^5.2.4",
     "@types/sinon": "^10.0.4",
     "@types/sinon-chai": "^3.2.5",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "@vue/cli-plugin-eslint": "~4.5.16",
-    "@vue/cli-plugin-router": "~4.5.16",
-    "@vue/cli-plugin-typescript": "~4.5.16",
-    "@vue/cli-plugin-unit-mocha": "~4.5.16",
-    "@vue/cli-service": "~4.5.16",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "@vue/cli-plugin-eslint": "~5.0.4",
+    "@vue/cli-plugin-router": "~5.0.4",
+    "@vue/cli-plugin-typescript": "~5.0.4",
+    "@vue/cli-plugin-unit-mocha": "~5.0.4",
+    "@vue/cli-service": "~5.0.4",
     "@vue/compiler-sfc": "^3.2.23",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "@vue/eslint-config-typescript": "^8.0.0",
     "@vue/test-utils": "^2.0.0-0",
     "chai": "^4.1.2",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^7.0.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.2",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.20.0",
+    "sass": "~1.32.13",
+    "sass-loader": "^10.2.1",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
     "stylelint": "^13.13.1",
     "stylelint-config-sass-guidelines": "^8.0.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.5.5"
   },
   "lavamoat": {
     "allowScripts": {
@@ -67,7 +63,6 @@
       "core-js": false,
       "nodent-runtime": false,
       "ejs": false,
-      "node-sass": true,
       "fsevents": false,
       "@vue/cli-plugin-eslint>yorkie": false,
       "@vue/cli-plugin-unit-mocha>mochapack>@babel/runtime-corejs2>core-js": false,
@@ -75,7 +70,8 @@
       "@vue/cli-service>webpack-bundle-analyzer>ejs": false,
       "@vue/cli-plugin-unit-mocha>mochapack>chokidar>fsevents": false,
       "@vue/cli-service>webpack-dev-server>chokidar>fsevents": false,
-      "sass-loader>webpack>watchpack>watchpack-chokidar2>chokidar>fsevents": false
+      "sass-loader>webpack>watchpack>watchpack-chokidar2>chokidar>fsevents": false,
+      "sass-loader>node-sass": true
     }
   }
 }

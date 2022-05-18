@@ -59,7 +59,7 @@ export default class PostDetail extends Vue {
   async mounted() {
     try {
       this.thread = await this.loader
-    } catch (error) {
+    } catch (error: any) {
       if (error.message === "post not found") {
         // Show "not found" text
         return

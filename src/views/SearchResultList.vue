@@ -66,7 +66,7 @@ export default class SearchResultList extends Vue {
         )
         this.profiles = results.accounts
         this.posts = results.statuses
-      } catch (error) {
+      } catch (error: any) {
         this.errorMessage = error.message
       }
       this.isLoading = false

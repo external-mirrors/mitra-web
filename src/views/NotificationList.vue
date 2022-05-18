@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { ref, onMounted } from "vue"
 import { PAGE_SIZE } from "@/api/common"
 import { updateNotificationMarker } from "@/api/markers"

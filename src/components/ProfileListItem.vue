@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 /* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"

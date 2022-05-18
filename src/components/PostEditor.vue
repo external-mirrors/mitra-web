@@ -210,7 +210,7 @@ export default class PostEditor extends Vue {
         postData,
         this.attachment,
       )
-    } catch (error) {
+    } catch (error: any) {
       this.errorMessage = error.message
       return
     }

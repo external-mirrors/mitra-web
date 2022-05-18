@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 /* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import type { Post as PostObject } from "@/api/posts"
 import Post from "@/components/Post.vue"
 

@@ -117,7 +117,7 @@ export default class LandingPage extends Vue {
         invite_code: this.inviteCode,
       })
       authToken = await getAccessToken(message, signature)
-    } catch (error) {
+    } catch (error: any) {
       this.isLoading = false
       this.registrationErrorMessage = error.message
       return
@@ -149,7 +149,7 @@ export default class LandingPage extends Vue {
     try {
       authToken = await getAccessToken(message, signature)
       user = await getCurrentUser(authToken)
-    } catch (error) {
+    } catch (error: any) {
       this.loginErrorMessage = error.message
       return
     }
