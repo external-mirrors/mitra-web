@@ -20,10 +20,10 @@
     "luxon": "^1.26.0",
     "markdown-it": "^12.2.0",
     "markdown-it-link-attributes": "^3.0.0",
-    "vue": "^3.2.26",
+    "vue": "^3.2.33",
     "vue-class-component": "^8.0.0-0",
     "vue-property-decorator": "^10.0.0-rc.3",
-    "vue-router": "^4.0.0-0",
+    "vue-router": "^4.0.15",
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
@@ -41,7 +41,6 @@
     "@vue/cli-plugin-typescript": "~5.0.4",
     "@vue/cli-plugin-unit-mocha": "~5.0.4",
     "@vue/cli-service": "~5.0.4",
-    "@vue/compiler-sfc": "^3.2.23",
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^8.0.0",
     "@vue/test-utils": "^2.0.0-0",
