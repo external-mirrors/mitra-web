@@ -13,6 +13,7 @@ import PostOverlay from "@/views/PostOverlay.vue"
 import PublicTimeline from "@/views/PublicTimeline.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
+import SubscriptionView from "@/views/Subscription.vue"
 
 import { useCurrentUser } from "@/store/user"
 
@@ -98,6 +99,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "profile-tab",
     component: ProfileView,
     meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/profile/:profileId/subscription",
+    name: "profile-subscription",
+    component: SubscriptionView,
+    meta: { },
   },
   {
     path: "/profile-directory",

@@ -49,29 +49,21 @@
                   Verify ethereum address
                 </button>
               </li>
-              <li v-if="canConnectWallet()">
-                <button
-                  title="Connect wallet"
-                  @click="hideProfileMenu(); connectWallet()"
-                >
-                  Connect wallet
-                </button>
-              </li>
               <li v-if="canConfigureSubscription()">
-                <button
+                <router-link
                   title="Set up subscription"
-                  @click="hideProfileMenu(); configureSubscription()"
+                  :to="{ name: 'profile-subscription', params: { profileId: profile.id }}"
                 >
                   Set up subscription
-                </button>
+                </router-link>
               </li>
               <li v-if="canSubscribe()">
-                <button
+                <router-link
                   title="Pay for subscription"
-                  @click="hideProfileMenu(); makeSubscriptionPayment()"
+                  :to="{ name: 'profile-subscription', params: { profileId: profile.id }}"
                 >
                   Pay for subscription
-                </button>
+                </router-link>
               </li>
               <li v-if="canHideReposts()">
                 <button @click="follow(false, undefined)">Hide reposts</button>
@@ -175,12 +167,6 @@ import {
   getFollowers,
   getFollowing,
 } from "@/api/relationships"
-import {
-  getSubscriptionAuthorization,
-  configureSubscription,
-  isSubscriptionConfigured,
-  makeSubscriptionPayment,
-} from "@/api/subscriptions"
 import {
   createIdentityProof,
   getIdentityClaim,
@@ -405,94 +391,12 @@ export default class ProfileView extends Vue {
     this.profile.identity_proofs = profile.identity_proofs
   }
 
-  canConnectWallet(): boolean {
-    return Boolean(this.store.instance?.blockchain_contract_address) && !this.walletConnected
-  }
-
-  async connectWallet() {
-    // Part of subscription UI
-    const signer = await getWallet()
-    if (!signer) {
-      return
-    }
-    this.walletConnected = true
-    this.checkSubscriptionConfigured()
-  }
-
   canConfigureSubscription(): boolean {
-    // If wallet is not connected, subscriptionConfigured is set to null
-    return this.isCurrentUser() && this.subscriptionConfigured === false
-  }
-
-  private async checkSubscriptionConfigured() {
-    const { instance } = this.store
-    if (
-      !this.profile ||
-      !this.profile.wallet_address ||
-      !instance ||
-      !instance.blockchain_contract_address
-    ) {
-      return
-    }
-    const signer = await getWallet()
-    if (!signer) {
-      return
-    }
-    this.subscriptionConfigured = await isSubscriptionConfigured(
-      instance.blockchain_contract_address,
-      signer,
-      this.profile.wallet_address,
-    )
-  }
-
-  async configureSubscription() {
-    const { currentUser, instance } = this.store
-    if (
-      !currentUser ||
-      !instance ||
-      !instance.blockchain_contract_address
-    ) {
-      return
-    }
-    // Subscription configuration tx can be send from any address
-    const signer = await getWallet()
-    if (!signer) {
-      return
-    }
-    const authToken = this.store.ensureAuthToken()
-    const signature = await getSubscriptionAuthorization(authToken)
-    await configureSubscription(
-      instance.blockchain_contract_address,
-      signer,
-      currentUser.wallet_address,
-      signature,
-    )
-    this.subscriptionConfigured = true
+    return Boolean(this.store.instance?.blockchain_contract_address) && Boolean(this.profile?.wallet_address) && this.isCurrentUser()
   }
 
   canSubscribe(): boolean {
-    return this.subscriptionConfigured === true && !this.isCurrentUser()
-  }
-
-  async makeSubscriptionPayment() {
-    const { instance } = this.store
-    if (
-      !this.profile ||
-      !this.profile.wallet_address ||
-      !instance ||
-      !instance.blockchain_contract_address
-    ) {
-      return
-    }
-    const signer = await getWallet()
-    if (!signer) {
-      return
-    }
-    await makeSubscriptionPayment(
-      instance.blockchain_contract_address,
-      signer,
-      this.profile.wallet_address,
-    )
+    return Boolean(this.store.instance?.blockchain_contract_address) && Boolean(this.profile?.wallet_address) && !this.isCurrentUser()
   }
 
   async loadNextPage(maxId: string) {
