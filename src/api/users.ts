@@ -29,8 +29,15 @@ export interface Profile {
   statuses_count: number;
 
   source: Source | null;
+}
 
-  wallet_address: string | null;
+export function getVerifiedEthereumAddress(profile: Profile): string | null {
+  for (const field of profile.identity_proofs) {
+    if (field.name === "$ETH") {
+      return field.value
+    }
+  }
+  return null
 }
 
 export interface User extends Profile {

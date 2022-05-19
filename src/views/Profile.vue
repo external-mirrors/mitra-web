@@ -171,6 +171,7 @@ import {
   createIdentityProof,
   getIdentityClaim,
   getProfile,
+  getVerifiedEthereumAddress,
   Profile,
   ProfileField,
 } from "@/api/users"
@@ -392,11 +393,22 @@ export default class ProfileView extends Vue {
   }
 
   canConfigureSubscription(): boolean {
-    return Boolean(this.store.instance?.blockchain_contract_address) && Boolean(this.profile?.wallet_address) && this.isCurrentUser()
+    // Only users with verified address can configure subscription
+    return (
+      Boolean(this.store.instance?.blockchain_contract_address) &&
+      this.profile !== null &&
+      getVerifiedEthereumAddress(this.profile) !== null &&
+      this.isCurrentUser()
+    )
   }
 
   canSubscribe(): boolean {
-    return Boolean(this.store.instance?.blockchain_contract_address) && Boolean(this.profile?.wallet_address) && !this.isCurrentUser()
+    return (
+      Boolean(this.store.instance?.blockchain_contract_address) &&
+      this.profile !== null &&
+      getVerifiedEthereumAddress(this.profile) !== null &&
+      !this.isCurrentUser()
+    )
   }
 
   async loadNextPage(maxId: string) {

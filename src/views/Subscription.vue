@@ -34,7 +34,11 @@
 import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 
-import { getProfile, Profile } from "@/api/users"
+import {
+  getProfile,
+  getVerifiedEthereumAddress,
+  Profile,
+} from "@/api/users"
 import {
   getSubscriptionAuthorization,
   configureSubscription,
@@ -69,9 +73,11 @@ function isCurrentUser(): boolean {
 }
 
 function canConnectWallet(): boolean {
+  // Only profiles with verified address can have subscription
   return (
     Boolean(instance?.blockchain_contract_address) &&
-    Boolean(profile?.wallet_address) &&
+    profile !== null &&
+    getVerifiedEthereumAddress(profile) !== null &&
     !walletConnected
   )
 }
@@ -88,10 +94,13 @@ async function connectWallet() {
 async function checkSubscriptionConfigured() {
   if (
     !profile ||
-    !profile.wallet_address ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
+    return
+  }
+  const profileEthereumAddress = getVerifiedEthereumAddress(profile)
+  if (!profileEthereumAddress) {
     return
   }
   const signer = await getWallet()
@@ -101,7 +110,7 @@ async function checkSubscriptionConfigured() {
   subscriptionConfigured = await isSubscriptionConfigured(
     instance.blockchain_contract_address,
     signer,
-    profile.wallet_address,
+    profileEthereumAddress,
   )
 }
 
@@ -142,10 +151,13 @@ function canSubscribe(): boolean {
 async function onMakeSubscriptionPayment() {
   if (
     !profile ||
-    !profile.wallet_address ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
+    return
+  }
+  const profileEthereumAddress = getVerifiedEthereumAddress(profile)
+  if (!profileEthereumAddress) {
     return
   }
   const signer = await getWallet()
@@ -155,7 +167,7 @@ async function onMakeSubscriptionPayment() {
   await makeSubscriptionPayment(
     instance.blockchain_contract_address,
     signer,
-    profile.wallet_address,
+    profileEthereumAddress,
   )
 }
 </script>
