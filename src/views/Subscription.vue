@@ -7,19 +7,26 @@
       <div class="connect-wallet" v-if="canConnectWallet()">
         <button class="btn" @click="connectWallet()">Connect wallet</button>
       </div>
-      <div class="setup" v-if="canConfigureSubscription()">
-        <template v-if="subscriptionConfigured">
-          Subscription is configured.
+      <div class="info" v-if="subscriptionConfigured !== null">
+        <template v-if="subscription">
+          <div>Recipient address: {{ subscription.recipientAddress }}</div>
+          <div>Token address: {{ subscription.token }}</div>
+          <div>Price of one month: {{ subscription.price }}</div>
         </template>
-        <button v-else class="btn" @click="onConfigureSubscription()">
+        <template v-else-if="isCurrentUser()">
+          Subscription is not configured.
+        </template>
+        <template v-else>
+          Subscription is not available.
+        </template>
+      </div>
+      <div class="setup" v-if="canConfigureSubscription()">
+        <button class="btn" @click="onConfigureSubscription()">
           Set up subscription
         </button>
       </div>
       <div class="payment" v-if="canSubscribe()">
-        <template v-if="!subscriptionConfigured">
-          Subscription is not available.
-        </template>
-        <button v-else class="btn" @click="onMakeSubscriptionPayment()">
+        <button class="btn" @click="onMakeSubscriptionPayment()">
           Pay for subscription
         </button>
       </div>
@@ -40,10 +47,11 @@ import {
   Profile,
 } from "@/api/users"
 import {
-  getSubscriptionAuthorization,
   configureSubscription,
-  isSubscriptionConfigured,
+  getSubscriptionAuthorization,
+  getSubscriptionInfo,
   makeSubscriptionPayment,
+  Subscription,
 } from "@/api/subscriptions"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
@@ -56,6 +64,7 @@ const { instance, getActorAddress } = $(useInstanceInfo())
 let profile = $ref<Profile | null>(null)
 let walletConnected = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
+let subscription = $ref<Subscription | null>(null)
 
 onMounted(async () => {
   const { authToken } = useCurrentUser()
@@ -88,10 +97,10 @@ async function connectWallet() {
     return
   }
   walletConnected = true
-  checkSubscriptionConfigured()
+  checkSubscription()
 }
 
-async function checkSubscriptionConfigured() {
+async function checkSubscription() {
   if (
     !profile ||
     !instance ||
@@ -107,16 +116,21 @@ async function checkSubscriptionConfigured() {
   if (!signer) {
     return
   }
-  subscriptionConfigured = await isSubscriptionConfigured(
+  subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
     profileEthereumAddress,
   )
+  if (subscription !== null) {
+    subscriptionConfigured = true
+  } else {
+    subscriptionConfigured = false
+  }
 }
 
 function canConfigureSubscription(): boolean {
   // If wallet is not connected, subscriptionConfigured is set to null
-  return isCurrentUser() && subscriptionConfigured !== null
+  return isCurrentUser() && subscriptionConfigured === false
 }
 
 async function onConfigureSubscription() {
@@ -135,17 +149,23 @@ async function onConfigureSubscription() {
   }
   const authToken = ensureAuthToken()
   const signature = await getSubscriptionAuthorization(authToken)
-  await configureSubscription(
+  const transaction = await configureSubscription(
     instance.blockchain_contract_address,
     signer,
     currentUser.wallet_address,
     signature,
   )
+  await transaction.wait()
   subscriptionConfigured = true
+  subscription = await getSubscriptionInfo(
+    instance.blockchain_contract_address,
+    signer,
+    currentUser.wallet_address,
+  )
 }
 
 function canSubscribe(): boolean {
-  return !isCurrentUser() && subscriptionConfigured !== null
+  return !isCurrentUser() && subscriptionConfigured === true
 }
 
 async function onMakeSubscriptionPayment() {
@@ -182,19 +202,15 @@ async function onMakeSubscriptionPayment() {
 
   background-color: $block-background-color;
   border-radius: $block-border-radius;
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding;
   margin-bottom: $block-outer-padding;
   padding: $block-inner-padding;
 
   h1 {
     font-size: 20px;
-    text-align: center;
+    margin: 0;
   }
-}
-
-.connect-wallet,
-.setup,
-.payment {
-  display: flex;
-  justify-content: center;
 }
 </style>

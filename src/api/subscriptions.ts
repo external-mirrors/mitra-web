@@ -1,4 +1,4 @@
-import { Signer } from "ethers"
+import { BigNumber, FixedNumber, Signer } from "ethers"
 import { TransactionResponse } from "@ethersproject/abstract-provider"
 
 import { BACKEND_URL } from "@/constants"
@@ -38,14 +38,34 @@ export async function configureSubscription(
   return transaction
 }
 
-export async function isSubscriptionConfigured(
+export interface Subscription {
+  recipientAddress: string;
+  token: string;
+  price: FixedNumber;
+}
+
+const SECONDS_IN_MONTH = 3600 * 24 * 30
+
+export async function getSubscriptionInfo(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
-): Promise<boolean> {
+): Promise<Subscription | null> {
   const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const result = await adapter.isSubscriptionConfigured(recipientAddress)
-  return result
+  if (result === true) {
+    const tokenAddress = await adapter.subscriptionToken()
+    const price = await adapter.getSubscriptionPrice(recipientAddress)
+    const pricePerMonth = price.mul(SECONDS_IN_MONTH)
+    const priceDec = FixedNumber.fromValue(pricePerMonth, 18).round(2)
+    return {
+      recipientAddress,
+      token: tokenAddress,
+      price: priceDec,
+    }
+  } else {
+    return null
+  }
 }
 
 export async function makeSubscriptionPayment(
@@ -59,8 +79,7 @@ export async function makeSubscriptionPayment(
   const tokenAddress = await adapter.subscriptionToken()
   const token = await getContract(Contracts.ERC20, tokenAddress, signer)
   const subscriptionPrice = await adapter.getSubscriptionPrice(recipientAddress)
-  const duration = 3600 * 24 * 31 // 1 month
-  const amount = subscriptionPrice.mul(duration)
+  const amount = subscriptionPrice.mul(SECONDS_IN_MONTH)
   const allowance = await token.allowance(
     signer.getAddress(),
     subscription.address,
