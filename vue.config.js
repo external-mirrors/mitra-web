@@ -11,6 +11,10 @@ module.exports = {
           reactivityTransform: true,
         }
       })
+    if (process.env.NODE_ENV === "production") {
+      // Type checker consumes too much memory
+      config.plugins.delete("fork-ts-checker")
+    }
   },
   lintOnSave: false,
 }

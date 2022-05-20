@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --no-module",
     "test:unit": "vue-cli-service test:unit",
     "test": "npm run test:unit",
     "lint:js": "vue-cli-service lint --no-fix",
