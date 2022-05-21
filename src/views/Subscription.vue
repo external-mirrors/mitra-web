@@ -10,8 +10,13 @@
       <div class="info" v-if="subscriptionConfigured !== null">
         <template v-if="subscription">
           <div>Recipient address: {{ subscription.recipientAddress }}</div>
-          <div>Token address: {{ subscription.token }}</div>
+          <div>Token address: {{ subscription.tokenAddress }}</div>
+          <div>Token symbol: {{ subscription.tokenSymbol }}</div>
           <div>Price of one month: {{ subscription.price }}</div>
+          <template v-if="subscription.senderAddress">
+            <div>Your address: {{ subscription.senderAddress }}</div>
+            <div>Your balance: {{ subscription.senderBalance }}</div>
+          </template>
         </template>
         <template v-else-if="isCurrentUser()">
           Subscription is not configured.
@@ -184,7 +189,13 @@ async function onMakeSubscriptionPayment() {
   if (!signer) {
     return
   }
-  await makeSubscriptionPayment(
+  const transaction = await makeSubscriptionPayment(
+    instance.blockchain_contract_address,
+    signer,
+    profileEthereumAddress,
+  )
+  await transaction.wait()
+  subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
     profileEthereumAddress,

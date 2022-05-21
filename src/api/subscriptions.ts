@@ -2,7 +2,7 @@ import { BigNumber, FixedNumber, Signer } from "ethers"
 import { TransactionResponse } from "@ethersproject/abstract-provider"
 
 import { BACKEND_URL } from "@/constants"
-import { EthereumSignature } from "@/utils/ethereum"
+import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
 
@@ -40,8 +40,11 @@ export async function configureSubscription(
 
 export interface Subscription {
   recipientAddress: string;
-  token: string;
+  tokenAddress: string;
+  tokenSymbol: string;
   price: FixedNumber;
+  senderAddress: string | null;
+  senderBalance: FixedNumber | null;
 }
 
 const SECONDS_IN_MONTH = 3600 * 24 * 30
@@ -55,13 +58,27 @@ export async function getSubscriptionInfo(
   const result = await adapter.isSubscriptionConfigured(recipientAddress)
   if (result === true) {
     const tokenAddress = await adapter.subscriptionToken()
-    const price = await adapter.getSubscriptionPrice(recipientAddress)
-    const pricePerMonth = price.mul(SECONDS_IN_MONTH)
-    const priceDec = FixedNumber.fromValue(pricePerMonth, 18).round(2)
+    const token = await getContract(Contracts.ERC20, tokenAddress, signer)
+    const tokenSymbol = await token.symbol()
+    const tokenDecimals = await token.decimals()
+    const priceInt = await adapter.getSubscriptionPrice(recipientAddress)
+    const pricePerMonth = priceInt.mul(SECONDS_IN_MONTH)
+    const price = FixedNumber.fromValue(pricePerMonth, tokenDecimals).round(2)
+    const signerAddress = await signer.getAddress()
+    let senderAddress = null
+    let senderBalance = null
+    if (!ethereumAddressMatch(signerAddress, recipientAddress)) {
+      senderAddress = signerAddress
+      const [senderBalanceInt] = await adapter.getSubscriptionState(senderAddress, recipientAddress)
+      senderBalance = FixedNumber.fromValue(senderBalanceInt, tokenDecimals).round(2)
+    }
     return {
       recipientAddress,
-      token: tokenAddress,
-      price: priceDec,
+      tokenAddress,
+      tokenSymbol,
+      price,
+      senderAddress,
+      senderBalance,
     }
   } else {
     return null

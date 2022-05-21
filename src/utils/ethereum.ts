@@ -1,6 +1,10 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
+export function ethereumAddressMatch(address1: string, address2: string): boolean {
+  return address1.toLowerCase() === address2.toLowerCase()
+}
+
 export function getWeb3Provider(): Web3Provider {
   const provider = (window as any).ethereum
   return new Web3Provider(provider)
