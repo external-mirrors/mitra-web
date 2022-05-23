@@ -13,9 +13,9 @@
           <div>Token address: {{ subscription.tokenAddress }}</div>
           <div>Token symbol: {{ subscription.tokenSymbol }}</div>
           <div>Price of one month: {{ subscription.price }}</div>
-          <template v-if="subscription.senderAddress">
-            <div>Your address: {{ subscription.senderAddress }}</div>
-            <div>Your balance: {{ subscription.senderBalance }}</div>
+          <template v-if="!isRecipient() && subscriptionState">
+            <div>Your address: {{ subscriptionState.senderAddress }}</div>
+            <div>Your balance: {{ subscriptionState.senderBalance }}</div>
           </template>
         </template>
         <template v-else-if="isCurrentUser()">
@@ -35,6 +35,18 @@
           Pay for subscription
         </button>
       </div>
+      <div class="cancel" v-if="canCancel()">
+        <button class="btn" @click="onCancelSubscription()">
+          Cancel subscription
+        </button>
+      </div>
+      <div class="withdraw" v-if="isRecipient()">
+        <input v-model="subscriberAddress" placeholder="Subscriber address">
+        <button class="btn" @click="onCheckSubsciptionState()">Check</button>
+        <button class="btn" v-if="canWithdrawReceived()" @click="onWithdrawReceived()">
+          Withdraw {{ subscriptionState.recipientBalance }}
+        </button>
+      </div>
     </div>
     <sidebar></sidebar>
   </div>
@@ -52,24 +64,31 @@ import {
   Profile,
 } from "@/api/users"
 import {
+  cancelSubscription,
   configureSubscription,
   getSubscriptionAuthorization,
   getSubscriptionInfo,
+  getSubscriptionState,
   makeSubscriptionPayment,
+  withdrawReceived,
   Subscription,
+  SubscriptionState,
 } from "@/api/subscriptions"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getWallet, getWeb3Provider } from "@/utils/ethereum"
+import { ethereumAddressMatch, getWallet, getWeb3Provider } from "@/utils/ethereum"
 
 const route = useRoute()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
 let profile = $ref<Profile | null>(null)
+let profileEthereumAddress = $ref<string | null>(null)
 let walletConnected = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
+let subscriptionState = $ref<SubscriptionState | null>(null)
+let subscriberAddress = $ref<string | null>(null)
 
 onMounted(async () => {
   const { authToken } = useCurrentUser()
@@ -77,6 +96,7 @@ onMounted(async () => {
     authToken,
     route.params.profileId,
   )
+  profileEthereumAddress = getVerifiedEthereumAddress(profile)
 })
 
 function isCurrentUser(): boolean {
@@ -91,7 +111,7 @@ function canConnectWallet(): boolean {
   return (
     Boolean(instance?.blockchain_contract_address) &&
     profile !== null &&
-    getVerifiedEthereumAddress(profile) !== null &&
+    profileEthereumAddress !== null &&
     !walletConnected
   )
 }
@@ -99,6 +119,8 @@ function canConnectWallet(): boolean {
 function disconnectWallet() {
   subscriptionConfigured = null
   subscription = null
+  subscriptionState = null
+  subscriberAddress = null
   walletConnected = false
 }
 
@@ -126,13 +148,10 @@ async function connectWallet() {
 async function checkSubscription() {
   if (
     !profile ||
+    !profileEthereumAddress ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
-    return
-  }
-  const profileEthereumAddress = getVerifiedEthereumAddress(profile)
-  if (!profileEthereumAddress) {
     return
   }
   const signer = getWeb3Provider().getSigner()
@@ -145,6 +164,16 @@ async function checkSubscription() {
     subscriptionConfigured = true
   } else {
     subscriptionConfigured = false
+  }
+  const signerAddress = await signer.getAddress()
+  if (!ethereumAddressMatch(signerAddress, profileEthereumAddress)) {
+    // Connected wallet is a subscriber
+    subscriptionState = await getSubscriptionState(
+      instance.blockchain_contract_address,
+      signer,
+      signerAddress,
+      profileEthereumAddress,
+    )
   }
 }
 
@@ -188,13 +217,10 @@ function canSubscribe(): boolean {
 async function onMakeSubscriptionPayment() {
   if (
     !profile ||
+    !profileEthereumAddress ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
-    return
-  }
-  const profileEthereumAddress = getVerifiedEthereumAddress(profile)
-  if (!profileEthereumAddress) {
     return
   }
   const signer = getWeb3Provider().getSigner()
@@ -209,6 +235,81 @@ async function onMakeSubscriptionPayment() {
     signer,
     profileEthereumAddress,
   )
+  subscriptionState = await getSubscriptionState(
+    instance.blockchain_contract_address,
+    signer,
+    await signer.getAddress(),
+    profileEthereumAddress,
+  )
+}
+
+function canCancel(): boolean {
+  return !isCurrentUser() && subscription?.senderBalance && !subscription.senderBalance.isZero()
+}
+
+async function onCancelSubscription() {
+  if (
+    !profile ||
+    !profileEthereumAddress ||
+    !instance?.blockchain_contract_address
+  ) {
+    return
+  }
+  const signer = getWeb3Provider().getSigner()
+  const transaction = await cancelSubscription(
+    instance.blockchain_contract_address,
+    signer,
+    profileEthereumAddress,
+  )
+  await transaction.wait()
+  subscription = await getSubscriptionInfo(
+    instance.blockchain_contract_address,
+    signer,
+    profileEthereumAddress,
+  )
+}
+
+function isRecipient(): boolean {
+  return isCurrentUser() && subscription
+}
+
+async function onCheckSubsciptionState() {
+  if (
+    !profile ||
+    !profileEthereumAddress ||
+    !instance?.blockchain_contract_address ||
+    !subscriberAddress
+  ) {
+    return
+  }
+  const signer = getWeb3Provider().getSigner()
+  subscriptionState = await getSubscriptionState(
+    instance.blockchain_contract_address,
+    signer,
+    subscriberAddress,
+    profileEthereumAddress,
+  )
+}
+
+function canWithdrawReceived(): boolean {
+  return isRecipient() && subscriptionState !== null
+}
+
+async function onWithdrawReceived() {
+  if (
+    !profile ||
+    !instance?.blockchain_contract_address ||
+    !subscriberAddress
+  ) {
+    return
+  }
+  const signer = getWeb3Provider().getSigner()
+  await withdrawReceived(
+    instance.blockchain_contract_address,
+    signer,
+    subscriberAddress,
+  )
+  subscriptionState = null
 }
 </script>
 
@@ -224,13 +325,24 @@ async function onMakeSubscriptionPayment() {
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
-  gap: $block-inner-padding;
+  gap: $block-inner-padding / 2;
   margin-bottom: $block-outer-padding;
   padding: $block-inner-padding;
 
   h1 {
     font-size: 20px;
     margin: 0;
+  }
+}
+
+.withdraw {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $block-inner-padding / 2;
+
+  input {
+    border: 1px solid $btn-background-hover-color;
+    border-radius: $btn-border-radius;
   }
 }
 </style>

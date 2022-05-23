@@ -43,8 +43,6 @@ export interface Subscription {
   tokenAddress: string;
   tokenSymbol: string;
   price: FixedNumber;
-  senderAddress: string | null;
-  senderBalance: FixedNumber | null;
 }
 
 const SECONDS_IN_MONTH = 3600 * 24 * 30
@@ -64,25 +62,37 @@ export async function getSubscriptionInfo(
     const priceInt = await adapter.getSubscriptionPrice(recipientAddress)
     const pricePerMonth = priceInt.mul(SECONDS_IN_MONTH)
     const price = FixedNumber.fromValue(pricePerMonth, tokenDecimals).round(2)
-    const signerAddress = await signer.getAddress()
-    let senderAddress = null
-    let senderBalance = null
-    if (!ethereumAddressMatch(signerAddress, recipientAddress)) {
-      senderAddress = signerAddress
-      const [senderBalanceInt] = await adapter.getSubscriptionState(senderAddress, recipientAddress)
-      senderBalance = FixedNumber.fromValue(senderBalanceInt, tokenDecimals).round(2)
-    }
     return {
       recipientAddress,
       tokenAddress,
       tokenSymbol,
       price,
-      senderAddress,
-      senderBalance,
     }
   } else {
     return null
   }
+}
+
+export interface SubscriptionState {
+  senderAddress: string;
+  senderBalance: FixedNumber;
+  recipientBalance: FixedNumber;
+}
+
+export async function getSubscriptionState(
+  contractAddress: string,
+  signer: Signer,
+  senderAddress: string,
+  recipientAddress: string,
+): Promise<SubscriptionState> {
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const tokenAddress = await adapter.subscriptionToken()
+  const token = await getContract(Contracts.ERC20, tokenAddress, signer)
+  const tokenDecimals = await token.decimals()
+  const [senderBalanceInt, recipientBalanceInt] = await adapter.getSubscriptionState(senderAddress, recipientAddress)
+  const senderBalance = FixedNumber.fromValue(senderBalanceInt, tokenDecimals)
+  const recipientBalance = FixedNumber.fromValue(recipientBalanceInt, tokenDecimals)
+  return { senderAddress, senderBalance, recipientBalance }
 }
 
 export async function makeSubscriptionPayment(
@@ -110,5 +120,29 @@ export async function makeSubscriptionPayment(
     recipientAddress,
     amount,
   )
+  return transaction
+}
+
+export async function cancelSubscription(
+  contractAddress: string,
+  signer: Signer,
+  recipientAddress: string,
+): Promise<TransactionResponse> {
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const subscriptionAddress = await adapter.subscription()
+  const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
+  const transaction = await subscription.cancel(recipientAddress)
+  return transaction
+}
+
+export async function withdrawReceived(
+  contractAddress: string,
+  signer: Signer,
+  senderAddress: string,
+): Promise<TransactionResponse> {
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const subscriptionAddress = await adapter.subscription()
+  const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
+  const transaction = await subscription.withdrawReceived(senderAddress)
   return transaction
 }
