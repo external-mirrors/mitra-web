@@ -61,7 +61,7 @@ import {
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getWallet } from "@/utils/ethereum"
+import { getWallet, getWeb3Provider } from "@/utils/ethereum"
 
 const route = useRoute()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
@@ -96,11 +96,29 @@ function canConnectWallet(): boolean {
   )
 }
 
+function disconnectWallet() {
+  subscriptionConfigured = null
+  subscription = null
+  walletConnected = false
+}
+
 async function connectWallet() {
-  const signer = await getWallet()
+  const web3Provider = getWeb3Provider()
+  const signer = await getWallet(web3Provider)
   if (!signer) {
     return
   }
+  const walletChainId = await web3Provider.send("eth_chainId", [])
+  console.info("chain ID:", walletChainId)
+  web3Provider.provider.on("chainChanged", (chainId: string) => {
+    disconnectWallet()
+  })
+  web3Provider.provider.on("accountsChanged", () => {
+    disconnectWallet()
+  })
+  web3Provider.provider.on("disconnect", () => {
+    disconnectWallet()
+  })
   walletConnected = true
   checkSubscription()
 }
@@ -117,10 +135,7 @@ async function checkSubscription() {
   if (!profileEthereumAddress) {
     return
   }
-  const signer = await getWallet()
-  if (!signer) {
-    return
-  }
+  const signer = getWeb3Provider().getSigner()
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
@@ -148,10 +163,7 @@ async function onConfigureSubscription() {
     return
   }
   // Subscription configuration tx can be send from any address
-  const signer = await getWallet()
-  if (!signer) {
-    return
-  }
+  const signer = getWeb3Provider().getSigner()
   const authToken = ensureAuthToken()
   const signature = await getSubscriptionAuthorization(authToken)
   const transaction = await configureSubscription(
@@ -185,10 +197,7 @@ async function onMakeSubscriptionPayment() {
   if (!profileEthereumAddress) {
     return
   }
-  const signer = await getWallet()
-  if (!signer) {
-    return
-  }
+  const signer = getWeb3Provider().getSigner()
   const transaction = await makeSubscriptionPayment(
     instance.blockchain_contract_address,
     signer,

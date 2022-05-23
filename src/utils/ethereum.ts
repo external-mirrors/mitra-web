@@ -10,10 +10,11 @@ export function getWeb3Provider(): Web3Provider {
   return new Web3Provider(provider)
 }
 
-export async function getWallet(): Promise<Signer | null> {
-  const provider = getWeb3Provider()
+export async function getWallet(
+  provider?: Web3Provider,
+): Promise<Signer | null> {
   if (!provider) {
-    return null
+    provider = getWeb3Provider()
   }
   try {
     await provider.send("eth_requestAccounts", [])
