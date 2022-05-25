@@ -130,6 +130,12 @@ async function connectWallet() {
   if (!signer) {
     return
   }
+  const walletAddress = await signer.getAddress()
+  if (isCurrentUser() && !ethereumAddressMatch(walletAddress, profileEthereumAddress)) {
+    // Recipient must use verified account
+    disconnectWallet()
+    return
+  }
   const walletChainId = await web3Provider.send("eth_chainId", [])
   console.info("chain ID:", walletChainId)
   web3Provider.provider.on("chainChanged", (chainId: string) => {
