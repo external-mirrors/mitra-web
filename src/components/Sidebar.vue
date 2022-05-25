@@ -180,6 +180,7 @@ export default class Sidebar extends Vue {
 @media screen and (max-width: $screen-breakpoint-small) {
   .sidebar:not(.wide) {
     flex-direction: row;
+    gap: 0;
     justify-content: space-between;
     padding-bottom: $body-padding;
     top: $header-height;

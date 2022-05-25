@@ -273,6 +273,7 @@ header {
 }
 
 .content {
+  box-sizing: border-box;
   max-width: $content-width;
   min-width: $content-min-width;
   width: $content-width;
