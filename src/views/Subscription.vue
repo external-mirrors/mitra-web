@@ -236,11 +236,6 @@ async function onMakeSubscriptionPayment() {
     profileEthereumAddress,
   )
   await transaction.wait()
-  subscription = await getSubscriptionInfo(
-    instance.blockchain_contract_address,
-    signer,
-    profileEthereumAddress,
-  )
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
     signer,
@@ -250,7 +245,11 @@ async function onMakeSubscriptionPayment() {
 }
 
 function canCancel(): boolean {
-  return !isCurrentUser() && subscription?.senderBalance && !subscription.senderBalance.isZero()
+  return (
+    !isCurrentUser() &&
+    subscriptionState?.senderBalance &&
+    !subscriptionState.senderBalance.isZero()
+  )
 }
 
 async function onCancelSubscription() {
@@ -268,9 +267,10 @@ async function onCancelSubscription() {
     profileEthereumAddress,
   )
   await transaction.wait()
-  subscription = await getSubscriptionInfo(
+  subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
     signer,
+    await signer.getAddress(),
     profileEthereumAddress,
   )
 }
