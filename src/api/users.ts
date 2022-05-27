@@ -42,7 +42,7 @@ export function getVerifiedEthereumAddress(profile: Profile): string | null {
 
 export interface User extends Profile {
   source: Source;
-  wallet_address: string;
+  wallet_address: string | null;
 }
 
 export interface UserCreateForm {

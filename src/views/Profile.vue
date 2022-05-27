@@ -396,8 +396,7 @@ export default class ProfileView extends Vue {
     // Only users with verified address can configure subscription
     return (
       Boolean(this.store.instance?.blockchain_contract_address) &&
-      this.profile !== null &&
-      getVerifiedEthereumAddress(this.profile) !== null &&
+      Boolean(this.store.currentUser?.wallet_address) &&
       this.isCurrentUser()
     )
   }

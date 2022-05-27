@@ -463,6 +463,7 @@ export default class PostComponent extends Vue {
       Boolean(this.store.instance?.blockchain_contract_address) &&
       this.post.account.id === this.store.currentUser?.id &&
       this.post.visibility === "public" &&
+      Boolean(this.store.currentUser?.wallet_address) &&
       !this.isTokenized &&
       !this.isWaitingForToken
     )
@@ -472,6 +473,7 @@ export default class PostComponent extends Vue {
     const { currentUser, instance } = this.store
     if (
       !currentUser ||
+      !currentUser.wallet_address ||
       !instance ||
       !instance.blockchain_contract_address
     ) {

@@ -184,13 +184,17 @@ async function checkSubscription() {
 }
 
 function canConfigureSubscription(): boolean {
-  // If wallet is not connected, subscriptionConfigured is set to null
-  return isCurrentUser() && subscriptionConfigured === false
+  return (
+    isCurrentUser() &&
+    currentUser.wallet_address &&
+    subscriptionConfigured === false
+  )
 }
 
 async function onConfigureSubscription() {
   if (
     !currentUser ||
+    !currentUser.wallet_address ||
     !isCurrentUser() ||
     !instance ||
     !instance.blockchain_contract_address
