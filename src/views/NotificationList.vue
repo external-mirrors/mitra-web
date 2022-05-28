@@ -42,6 +42,13 @@
             </router-link>
             <span>reposted your post</span>
           </template>
+          <template v-else-if="notification.type === 'subscription'">
+            <img :src="require('@/assets/tabler/coin.svg')">
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>paid for subscription</span>
+          </template>
         </div>
         <post
           v-if="notification.status"
@@ -78,7 +85,7 @@
 import { ref, onMounted } from "vue"
 import { PAGE_SIZE } from "@/api/common"
 import { updateNotificationMarker } from "@/api/markers"
-import { getNotifications } from "@/api/notifications"
+import { getNotifications, Notification } from "@/api/notifications"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import Sidebar from "@/components/Sidebar.vue"
