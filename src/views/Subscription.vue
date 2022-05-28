@@ -78,7 +78,12 @@ import {
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { ethereumAddressMatch, getWallet, getWeb3Provider } from "@/utils/ethereum"
+import {
+  ethereumAddressMatch,
+  getWallet,
+  getWeb3Provider,
+  parseCAIP2_chainId,
+} from "@/utils/ethereum"
 
 const route = useRoute()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
@@ -110,6 +115,7 @@ function isCurrentUser(): boolean {
 function canConnectWallet(): boolean {
   // Only profiles with verified address can have subscription
   return (
+    Boolean(instance?.blockchain_id) &&
     Boolean(instance?.blockchain_contract_address) &&
     profile !== null &&
     profileEthereumAddress !== null &&
@@ -126,7 +132,7 @@ function disconnectWallet() {
 }
 
 async function connectWallet() {
-  if (!profileEthereumAddress) {
+  if (!profileEthereumAddress || !instance?.blockchain_id) {
     return
   }
   const web3Provider = getWeb3Provider()
@@ -140,8 +146,13 @@ async function connectWallet() {
     disconnectWallet()
     return
   }
+  const instanceChainId = parseCAIP2_chainId(instance.blockchain_id)
   const walletChainId = await web3Provider.send("eth_chainId", [])
-  console.info("chain ID:", walletChainId)
+  if (walletChainId !== instanceChainId) {
+    // Wrong network
+    disconnectWallet()
+    return
+  }
   web3Provider.provider.on("chainChanged", (chainId: string) => {
     disconnectWallet()
   })

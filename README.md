@@ -2,6 +2,8 @@
 
 Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
+It is designed to work with Ethereum and requires a browser wallet (e.g. MetaMask).
+
 <img width="600" src="screenshot.png" alt="screenshot">
 
 ## Requirements

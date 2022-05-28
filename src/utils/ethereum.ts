@@ -1,6 +1,16 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
+export function parseCAIP2_chainId(chainId: string): string {
+  const match = chainId.match(/eip155:(\d+)/)
+  if (!match) {
+    throw new Error("invalid chain ID")
+  }
+  const ethereumChainId = parseInt(match[1])
+  // Return chain ID in hex format which is used by wallets
+  return "0x" + ethereumChainId.toString(16)
+}
+
 export function ethereumAddressMatch(address1: string, address2: string): boolean {
   return address1.toLowerCase() === address2.toLowerCase()
 }
