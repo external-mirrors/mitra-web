@@ -27,7 +27,7 @@ onMounted(async () => {
   const { authToken } = useCurrentUser()
   posts.value = await getTagTimeline(
     authToken.value,
-    route.params.tagName,
+    route.params.tagName as string,
   )
 })
 
@@ -35,7 +35,7 @@ async function loadNextPage(maxId: string) {
   const { authToken } = useCurrentUser()
   const newPosts = await getTagTimeline(
     authToken.value,
-    route.params.tagName,
+    route.params.tagName as string,
     maxId,
   )
   posts.value.push(...newPosts)

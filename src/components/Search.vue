@@ -1,5 +1,5 @@
 <template>
-  <form class="search" @submit.prevent="search($event)">
+  <form class="search" @submit.prevent="search()">
     <input type="text" placeholder="Search..." v-model="q">
     <button v-if="q" type="button" @click="clear()">
       <img :src="require('@/assets/feather/delete.svg')">

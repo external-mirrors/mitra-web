@@ -25,7 +25,7 @@ const props = defineProps<{
   post: PostObject,
 }>()
 
-const emit = defineEmits<{(event: "post-deleted"): void}>()
+const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
 function onPostDeleted(postId: string) {
   emit("post-deleted", postId)

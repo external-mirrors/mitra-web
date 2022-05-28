@@ -67,7 +67,7 @@
           type="submit"
           v-if="inReplyTo"
           class="submit-btn-small"
-          @click.prevent="publish($event)"
+          @click.prevent="publish()"
         >
           Publish
         </button>

@@ -8,7 +8,7 @@
     <div class="token">
       <div class="token-content">
         <div class="token-description" v-html="token.description"></div>
-        <div class="token-image">
+        <div class="token-image" v-if="imageUrl">
           <img :src="imageUrl">
         </div>
       </div>

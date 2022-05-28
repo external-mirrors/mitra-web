@@ -56,6 +56,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { ref, onMounted } from "vue"
+import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import {
@@ -91,10 +92,10 @@ let subscriptionState = $ref<SubscriptionState | null>(null)
 let subscriberAddress = $ref<string | null>(null)
 
 onMounted(async () => {
-  const { authToken } = useCurrentUser()
+  const { authToken } = $(useCurrentUser())
   profile = await getProfile(
     authToken,
-    route.params.profileId,
+    route.params.profileId as string,
   )
   profileEthereumAddress = getVerifiedEthereumAddress(profile)
 })
@@ -125,6 +126,9 @@ function disconnectWallet() {
 }
 
 async function connectWallet() {
+  if (!profileEthereumAddress) {
+    return
+  }
   const web3Provider = getWeb3Provider()
   const signer = await getWallet(web3Provider)
   if (!signer) {
@@ -186,7 +190,7 @@ async function checkSubscription() {
 function canConfigureSubscription(): boolean {
   return (
     isCurrentUser() &&
-    currentUser.wallet_address &&
+    Boolean(currentUser?.wallet_address) &&
     subscriptionConfigured === false
   )
 }
@@ -251,7 +255,7 @@ async function onMakeSubscriptionPayment() {
 function canCancel(): boolean {
   return (
     !isCurrentUser() &&
-    subscriptionState?.senderBalance &&
+    subscriptionState !== null &&
     !subscriptionState.senderBalance.isZero()
   )
 }
@@ -280,7 +284,7 @@ async function onCancelSubscription() {
 }
 
 function isRecipient(): boolean {
-  return isCurrentUser() && subscription
+  return isCurrentUser() && subscription !== null
 }
 
 async function onCheckSubsciptionState() {

@@ -46,10 +46,9 @@ function isPageFull(): boolean {
 }
 
 function loadNextPage() {
-  let maxId
   if (props.posts.length > 0) {
-    maxId = props.posts[props.posts.length - 1].id
+    const maxId = props.posts[props.posts.length - 1].id
+    emit("load-next-page", maxId)
   }
-  emit("load-next-page", maxId)
 }
 </script>
