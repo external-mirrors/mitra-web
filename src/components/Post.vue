@@ -426,9 +426,11 @@ export default class PostComponent extends Vue {
   }
 
   async deletePost() {
-    const authToken = this.store.ensureAuthToken()
-    await deletePost(authToken, this.post.id)
-    this.$emit("post-deleted")
+    if (confirm("Are you sure you want to delete this post?")) {
+      const authToken = this.store.ensureAuthToken()
+      await deletePost(authToken, this.post.id)
+      this.$emit("post-deleted")
+    }
   }
 
   getPaymentOptions(): PaymentOption[] {
