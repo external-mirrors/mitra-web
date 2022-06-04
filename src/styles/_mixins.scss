@@ -32,6 +32,7 @@
 }
 
 @mixin post-action {
+  align-items: center;
   display: flex;
   font-weight: bold;
   margin: 0 $block-outer-padding $block-outer-padding / 2;
