@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 

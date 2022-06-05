@@ -81,8 +81,8 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-unused-vars */
-import { ref, onMounted } from "vue"
+import { onMounted } from "vue"
+
 import { PAGE_SIZE } from "@/api/common"
 import { updateNotificationMarker } from "@/api/markers"
 import { getNotifications, Notification } from "@/api/notifications"

@@ -16,15 +16,14 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import type { Post as PostObject } from "@/api/posts"
 import Post from "@/components/Post.vue"
 
-const props = defineProps<{
+/* eslint-disable-next-line no-undef */
+defineProps<{
   post: PostObject,
 }>()
-
+/* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
 function onPostDeleted(postId: string) {

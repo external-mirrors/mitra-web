@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-undef */
+/* eslint-disable-next-line no-undef */
 defineProps<{
   visibility: string,
 }>()

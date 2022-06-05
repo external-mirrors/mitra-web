@@ -15,16 +15,17 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { watch } from "vue"
+
 import { PAGE_SIZE } from "@/api/common"
 import { Post as PostObject } from "@/api/posts"
 import PostOrRepost from "@/components/PostOrRepost.vue"
 
+/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   posts: PostObject[],
 }>()
+/* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "load-next-page", maxId: string): void}>()
 
 let initialPostCount: number | null = null

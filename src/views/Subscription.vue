@@ -53,9 +53,7 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-import { ref, onMounted } from "vue"
+import { onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 

@@ -9,15 +9,14 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 
 const { getActorAddress } = useInstanceInfo()
 
-const props = defineProps<{
+/* eslint-disable-next-line no-undef */
+defineProps<{
   profile: Profile,
 }>()
 </script>
