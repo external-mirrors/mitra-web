@@ -7,6 +7,9 @@
       <div class="connect-wallet" v-if="canConnectWallet()">
         <button class="btn" @click="connectWallet()">Connect wallet</button>
       </div>
+      <div class="wallet-error" v-if="walletError">
+        {{ walletError }}
+      </div>
       <div class="info" v-if="subscriptionConfigured !== null">
         <template v-if="subscription">
           <div>Recipient address: {{ subscription.recipientAddress }}</div>
@@ -89,6 +92,7 @@ const { instance, getActorAddress } = $(useInstanceInfo())
 let profile = $ref<Profile | null>(null)
 let profileEthereumAddress = $ref<string | null>(null)
 let walletConnected = $ref(false)
+let walletError = $ref<string | null>(null)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
@@ -111,11 +115,10 @@ function isCurrentUser(): boolean {
 }
 
 function canConnectWallet(): boolean {
-  // Only profiles with verified address can have subscription
   return (
     Boolean(instance?.blockchain_id) &&
     Boolean(instance?.blockchain_contract_address) &&
-    profile !== null &&
+    // Only profiles with verified address can have subscription
     profileEthereumAddress !== null &&
     !walletConnected
   )
@@ -127,30 +130,26 @@ function disconnectWallet() {
   subscriptionState = null
   subscriberAddress = null
   walletConnected = false
+  walletError = null
 }
 
 async function connectWallet() {
   if (!profileEthereumAddress || !instance?.blockchain_id) {
     return
   }
-  const web3Provider = getWeb3Provider()
+  let web3Provider
+  try {
+    web3Provider = getWeb3Provider()
+  } catch (error) {
+    walletError = "wallet not found"
+    return
+  }
   const signer = await getWallet(web3Provider)
   if (!signer) {
+    walletError = "wallet not connected"
     return
   }
   const walletAddress = await signer.getAddress()
-  if (isCurrentUser() && !ethereumAddressMatch(walletAddress, profileEthereumAddress)) {
-    // Recipient must use verified account
-    disconnectWallet()
-    return
-  }
-  const instanceChainId = parseCAIP2_chainId(instance.blockchain_id)
-  const walletChainId = await web3Provider.send("eth_chainId", [])
-  if (walletChainId !== instanceChainId) {
-    // Wrong network
-    disconnectWallet()
-    return
-  }
   web3Provider.provider.on("chainChanged", (chainId: string) => {
     disconnectWallet()
   })
@@ -161,6 +160,24 @@ async function connectWallet() {
     disconnectWallet()
   })
   walletConnected = true
+
+  const instanceChainId = parseCAIP2_chainId(instance.blockchain_id)
+  const walletChainId = await web3Provider.send("eth_chainId", [])
+  if (walletChainId !== instanceChainId) {
+    // Wrong network
+    walletError = "incorrect network"
+    return
+  }
+
+  if (isCurrentUser() && !ethereumAddressMatch(walletAddress, profileEthereumAddress)) {
+    // Recipient must use verified account
+    walletError = "incorrect wallet address"
+    return
+  }
+  if (!isCurrentUser() && ethereumAddressMatch(walletAddress, profileEthereumAddress)) {
+    walletError = "incorrect wallet address"
+    return
+  }
   checkSubscription()
 }
 
