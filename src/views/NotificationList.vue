@@ -147,6 +147,7 @@ async function loadNextPage() {
   background-color: $block-background-color;
   border-radius: $block-border-radius;
   box-sizing: border-box;
+  color: $secondary-text-color;
   display: flex;
   gap: $block-inner-padding / 2;
   padding: $block-inner-padding;
@@ -158,21 +159,21 @@ async function loadNextPage() {
   .display-name {
     color: $text-color;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .actor-address {
-    color: $secondary-text-color;
     flex-grow: 1;
+    min-width: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .timestamp {
-    color: $secondary-text-color;
     text-align: right;
     white-space: nowrap;
-
-    &:hover {
-      color: $secondary-text-hover-color;
-    }
   }
 }
 </style>
