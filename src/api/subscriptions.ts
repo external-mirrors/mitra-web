@@ -1,5 +1,6 @@
 import { BigNumber, FixedNumber, Signer } from "ethers"
 import { TransactionResponse } from "@ethersproject/abstract-provider"
+import { DateTime } from "luxon"
 
 import { BACKEND_URL } from "@/constants"
 import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
@@ -38,14 +39,44 @@ export async function configureSubscription(
   return transaction
 }
 
-export interface Subscription {
+const SECONDS_IN_DAY = 3600 * 24
+const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
+
+export class Subscription {
+
   recipientAddress: string;
   tokenAddress: string;
   tokenSymbol: string;
-  price: FixedNumber;
-}
+  private tokenDecimals: number;
+  private _price: BigNumber; // per second
 
-const SECONDS_IN_MONTH = 3600 * 24 * 30
+  constructor(
+    recipientAddress: string,
+    tokenAddress: string,
+    tokenSymbol: string,
+    tokenDecimals: number,
+    price: BigNumber,
+  ) {
+    this.recipientAddress = recipientAddress
+    this.tokenAddress = tokenAddress
+    this.tokenSymbol = tokenSymbol
+    this.tokenDecimals = tokenDecimals
+    this._price = price
+  }
+
+  get price(): FixedNumber {
+    const pricePerMonth = this._price.mul(SECONDS_IN_MONTH)
+    return FixedNumber.fromValue(pricePerMonth, this.tokenDecimals).round(2)
+  }
+
+  getExpirationDate(balance: FixedNumber): DateTime {
+    const price = FixedNumber.fromValue(this._price, this.tokenDecimals)
+    const seconds = balance.divUnsafe(price).toUnsafeFloat()
+    const now = DateTime.now()
+    return now.plus({ seconds })
+  }
+
+}
 
 export async function getSubscriptionInfo(
   contractAddress: string,
@@ -59,15 +90,14 @@ export async function getSubscriptionInfo(
     const token = await getContract(Contracts.ERC20, tokenAddress, signer)
     const tokenSymbol = await token.symbol()
     const tokenDecimals = await token.decimals()
-    const priceInt = await adapter.getSubscriptionPrice(recipientAddress)
-    const pricePerMonth = priceInt.mul(SECONDS_IN_MONTH)
-    const price = FixedNumber.fromValue(pricePerMonth, tokenDecimals).round(2)
-    return {
+    const price = await adapter.getSubscriptionPrice(recipientAddress)
+    return new Subscription(
       recipientAddress,
       tokenAddress,
       tokenSymbol,
+      tokenDecimals,
       price,
-    }
+    )
   } else {
     return null
   }

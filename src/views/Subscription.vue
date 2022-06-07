@@ -19,6 +19,7 @@
           <template v-if="!isRecipient() && subscriptionState">
             <div>Your address: {{ subscriptionState.senderAddress }}</div>
             <div>Your balance: {{ subscriptionState.senderBalance }}</div>
+            <div>Expires at: {{ subscription.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}</div>
           </template>
         </template>
         <template v-else-if="isCurrentUser()">
