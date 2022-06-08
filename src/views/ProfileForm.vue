@@ -218,15 +218,13 @@ export default class ProfileForm extends Vue {
 @import "../styles/layout";
 @import "../styles/theme";
 
-$form-inner-padding: 10px;
-
 .input-group {
   margin-bottom: $block-outer-padding;
 
   label {
     display: block;
     font-weight: bold;
-    margin-bottom: $form-inner-padding;
+    margin-bottom: $input-padding;
   }
 
   .sub-label {
@@ -245,7 +243,7 @@ $form-inner-padding: 10px;
 
 .image-upload-group {
   display: grid;
-  gap: $form-inner-padding;
+  gap: $input-padding;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   margin-bottom: $block-outer-padding;
 
@@ -256,8 +254,8 @@ $form-inner-padding: 10px;
 
 .extra-field {
   display: flex;
-  gap: $form-inner-padding;
-  margin-bottom: $form-inner-padding;
+  gap: $input-padding;
+  margin-bottom: $input-padding;
   position: relative;
 
   input {
@@ -300,7 +298,7 @@ $form-inner-padding: 10px;
 
   img {
     filter: $link-colorizer;
-    height: 20px;
+    height: $icon-size;
     margin-right: 5px;
     vertical-align: middle;
   }

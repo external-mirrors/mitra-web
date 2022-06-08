@@ -107,7 +107,7 @@ textarea {
   font-family: $text-font;
   font-size: $text-font-size;
   margin: 0;
-  padding: 10px;
+  padding: $input-padding;
   width: 100%;
 
   &:focus {
@@ -153,7 +153,7 @@ button {
   display: inline-block;
   font-size: $text-font-size;
   font-weight: bold;
-  padding: 10px 30px;
+  padding: $input-padding 30px;
   white-space: nowrap;
 
   &:hover {
