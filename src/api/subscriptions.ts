@@ -48,7 +48,7 @@ export class Subscription {
   tokenAddress: string;
   tokenSymbol: string;
   private tokenDecimals: number;
-  private _price: BigNumber; // per second
+  private price: BigNumber; // per second
 
   constructor(
     recipientAddress: string,
@@ -61,16 +61,19 @@ export class Subscription {
     this.tokenAddress = tokenAddress
     this.tokenSymbol = tokenSymbol
     this.tokenDecimals = tokenDecimals
-    this._price = price
+    this.price = price
   }
 
-  get price(): FixedNumber {
-    const pricePerMonth = this._price.mul(SECONDS_IN_MONTH)
-    return FixedNumber.fromValue(pricePerMonth, this.tokenDecimals).round(2)
+  get pricePerMonthInt(): BigNumber {
+    return this.price.mul(SECONDS_IN_MONTH)
+  }
+
+  get pricePerMonth(): FixedNumber {
+    return FixedNumber.fromValue(this.pricePerMonthInt, this.tokenDecimals)
   }
 
   getExpirationDate(balance: FixedNumber): DateTime {
-    const price = FixedNumber.fromValue(this._price, this.tokenDecimals)
+    const price = FixedNumber.fromValue(this.price, this.tokenDecimals)
     const seconds = balance.divUnsafe(price).toUnsafeFloat()
     const now = DateTime.now()
     return now.plus({ seconds })
@@ -129,14 +132,13 @@ export async function makeSubscriptionPayment(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
+  amount: BigNumber,
 ): Promise<TransactionResponse> {
   const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const subscriptionAddress = await adapter.subscription()
   const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
   const tokenAddress = await adapter.subscriptionToken()
   const token = await getContract(Contracts.ERC20, tokenAddress, signer)
-  const subscriptionPrice = await adapter.getSubscriptionPrice(recipientAddress)
-  const amount = subscriptionPrice.mul(SECONDS_IN_MONTH)
   const allowance = await token.allowance(
     signer.getAddress(),
     subscription.address,

@@ -12,7 +12,7 @@
         <div>Recipient address: {{ subscription.recipientAddress }}</div>
         <div>Token address: {{ subscription.tokenAddress }}</div>
         <div>Token symbol: {{ subscription.tokenSymbol }}</div>
-        <div>Price of one month: {{ subscription.price }}</div>
+        <div>Price of one month: {{ subscription.pricePerMonth.round(2) }}</div>
         <template v-if="subscriptionState">
           <div>Your address: {{ subscriptionState.senderAddress }}</div>
           <div>Your balance: {{ subscriptionState.senderBalance }}</div>
@@ -128,15 +128,18 @@ async function onMakeSubscriptionPayment() {
   if (
     !instance?.blockchain_contract_address ||
     !recipientEthereumAddress ||
-    !walletAddress
+    !walletAddress ||
+    !subscription
   ) {
     return
   }
   const signer = getWeb3Provider().getSigner()
+  const amount = subscription.pricePerMonthInt
   const transaction = await makeSubscriptionPayment(
     instance.blockchain_contract_address,
     signer,
     recipientEthereumAddress,
+    amount,
   )
   await transaction.wait()
   subscriptionState = await getSubscriptionState(

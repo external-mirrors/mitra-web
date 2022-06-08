@@ -12,7 +12,7 @@
         <div>Recipient address: {{ subscription.recipientAddress }}</div>
         <div>Token address: {{ subscription.tokenAddress }}</div>
         <div>Token symbol: {{ subscription.tokenSymbol }}</div>
-        <div>Price of one month: {{ subscription.price }}</div>
+        <div>Price of one month: {{ subscription.pricePerMonth.round(2) }}</div>
       </template>
       <template v-else>
         Subscription is not configured.
