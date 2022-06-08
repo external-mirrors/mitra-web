@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { $, $ref } from "vue/macros"
 
-import { getVerifiedEthereumAddress, Profile } from "@/api/users"
+import { Profile, ProfileWrapper } from "@/api/users"
 import {
   cancelSubscription,
   getSubscriptionInfo,
@@ -59,7 +59,8 @@ const props = defineProps<{
 
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet } = useWallet()
-const recipientEthereumAddress = getVerifiedEthereumAddress(props.profile)
+const recipient = new ProfileWrapper(props.profile)
+const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 let { walletAddress, walletError } = $(useWallet())
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)

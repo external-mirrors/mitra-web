@@ -21,14 +21,12 @@ export interface Profile {
   note: string | null;
   avatar: string | null;
   header: string | null;
-  identity_proofs: ProfileField[],
+  identity_proofs: ProfileField[];
   fields: ProfileField[];
 
   followers_count: number;
   following_count: number;
   statuses_count: number;
-
-  source: Source | null;
 }
 
 export function getVerifiedEthereumAddress(profile: Profile): string | null {
@@ -43,6 +41,23 @@ export function getVerifiedEthereumAddress(profile: Profile): string | null {
 export interface User extends Profile {
   source: Source;
   wallet_address: string | null;
+}
+
+export interface ProfileWrapper extends Profile {}
+export class ProfileWrapper {
+
+  constructor(source: Profile) {
+    Object.assign(this, source)
+  }
+
+  getDisplayName(): string {
+    return this.display_name || this.username
+  }
+
+  getVerifiedEthereumAddress(): string | null {
+    return getVerifiedEthereumAddress(this)
+  }
+
 }
 
 export interface UserCreateForm {
