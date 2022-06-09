@@ -10,15 +10,12 @@ import {
 const walletAddress = ref<string | null>(null)
 const walletError = ref<string | null>(null)
 
-function disconnectWallet(callback: () => void) {
-  callback()
+function disconnectWallet() {
   walletAddress.value = null
   walletError.value = null
 }
 
-async function connectWallet(
-  onDisconnect: () => void,
-): Promise<void> {
+async function connectWallet(): Promise<void> {
   const { instance } = useInstanceInfo()
   if (!instance.value?.blockchain_id) {
     throw new Error("blockchain integration disabled")
@@ -38,13 +35,13 @@ async function connectWallet(
   walletAddress.value = await signer.getAddress()
   const walletProvider = web3Provider.provider as any
   walletProvider.on("chainChanged", (chainId: string) => {
-    disconnectWallet(onDisconnect)
+    disconnectWallet()
   })
   walletProvider.on("accountsChanged", () => {
-    disconnectWallet(onDisconnect)
+    disconnectWallet()
   })
   walletProvider.on("disconnect", () => {
-    disconnectWallet(onDisconnect)
+    disconnectWallet()
   })
 
   const instanceChainId = parseCAIP2_chainId(instance.value.blockchain_id)

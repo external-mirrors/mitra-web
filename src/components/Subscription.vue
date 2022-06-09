@@ -37,7 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { onMounted, watch } from "vue"
+import { $, $$, $ref } from "vue/macros"
 
 import { Profile, ProfileWrapper } from "@/api/users"
 import {
@@ -66,6 +67,13 @@ let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 
+onMounted(() => {
+  if (walletAddress && !walletError) {
+    // Load info immediately if wallet is already connected
+    checkSubscription()
+  }
+})
+
 function canConnectWallet(): boolean {
   return (
     Boolean(instance?.blockchain_id) &&
@@ -83,16 +91,13 @@ function reset() {
 }
 
 async function connectWallet() {
-  await connectEthereumWallet(reset)
-  if (!recipientEthereumAddress || !walletAddress) {
-    return
+  await connectEthereumWallet()
+  if (!walletError) {
+    checkSubscription()
   }
-  if (ethereumAddressMatch(walletAddress, recipientEthereumAddress)) {
-    walletError = "incorrect wallet address"
-    return
-  }
-  checkSubscription()
 }
+
+watch($$(walletAddress), reset)
 
 async function checkSubscription() {
   if (
@@ -100,6 +105,10 @@ async function checkSubscription() {
     !recipientEthereumAddress ||
     !walletAddress
   ) {
+    return
+  }
+  if (ethereumAddressMatch(walletAddress, recipientEthereumAddress)) {
+    walletError = "incorrect wallet address"
     return
   }
   const signer = getWeb3Provider().getSigner()
