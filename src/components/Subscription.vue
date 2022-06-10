@@ -64,6 +64,7 @@
         </button>
       </div>
     </form>
+    <loader v-if="isLoading"></loader>
   </div>
 </template>
 
@@ -81,6 +82,7 @@ import {
   SubscriptionState,
 } from "@/api/subscriptions"
 import Avatar from "@/components/Avatar.vue"
+import Loader from "@/components/Loader.vue"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -115,6 +117,7 @@ const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 const sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let senderEthereumAddress = $ref<string | null>(sender.getVerifiedEthereumAddress())
 let { walletAddress, walletError } = $(useWallet())
+let isLoading = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
@@ -166,6 +169,7 @@ async function checkSubscription() {
   }
   senderEthereumAddress = walletAddress.toLowerCase()
   const signer = getWeb3Provider().getSigner()
+  isLoading = true
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
@@ -182,6 +186,7 @@ async function checkSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
+  isLoading = false
 }
 
 function getPaymentAmount(): number {
@@ -206,12 +211,20 @@ async function onMakeSubscriptionPayment() {
   }
   const signer = getWeb3Provider().getSigner()
   const amount = subscription.pricePerMonthInt.mul(paymentDuration)
-  const transaction = await makeSubscriptionPayment(
-    instance.blockchain_contract_address,
-    signer,
-    recipientEthereumAddress,
-    amount,
-  )
+  isLoading = true
+  let transaction
+  try {
+    transaction = await makeSubscriptionPayment(
+      instance.blockchain_contract_address,
+      signer,
+      recipientEthereumAddress,
+      amount,
+    )
+  } catch (error) {
+    console.error(error)
+    isLoading = false
+    return
+  }
   await transaction.wait()
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
@@ -219,6 +232,7 @@ async function onMakeSubscriptionPayment() {
     walletAddress,
     recipientEthereumAddress,
   )
+  isLoading = false
 }
 
 function canCancel(): boolean {
@@ -237,11 +251,19 @@ async function onCancelSubscription() {
     return
   }
   const signer = getWeb3Provider().getSigner()
-  const transaction = await cancelSubscription(
-    instance.blockchain_contract_address,
-    signer,
-    recipientEthereumAddress,
-  )
+  isLoading = true
+  let transaction
+  try {
+    transaction = await cancelSubscription(
+      instance.blockchain_contract_address,
+      signer,
+      recipientEthereumAddress,
+    )
+  } catch (error) {
+    console.error(error)
+    isLoading = false
+    return
+  }
   await transaction.wait()
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
@@ -249,6 +271,7 @@ async function onCancelSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
+  isLoading = false
 }
 </script>
 
@@ -305,6 +328,10 @@ async function onCancelSubscription() {
     text-align: center;
     text-overflow: ellipsis;
   }
+}
+
+.loader {
+  margin: 0 auto;
 }
 
 .info {
