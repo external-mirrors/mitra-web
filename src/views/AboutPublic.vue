@@ -59,7 +59,7 @@ export default class AboutPublicPage extends Vue {
   top: $body-padding;
 
   img {
-    filter: $btn-text-colorizer;
+    filter: $text-colorizer;
     width: 40px;
   }
 }

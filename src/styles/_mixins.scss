@@ -108,14 +108,13 @@
 
 @mixin block-btn {
   .btn {
-    background-color: $btn-background-hover-color;
+    background-color: $btn-background-color;
     border: 1px solid transparent;
-    color: $btn-text-hover-color;
+    box-shadow: none;
 
     &:hover {
       background-color: transparent;
-      border: 1px solid $btn-text-color;
-      color: $btn-text-color;
+      border: 1px solid $btn-background-color;
     }
   }
 }

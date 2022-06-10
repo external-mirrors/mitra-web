@@ -11,7 +11,7 @@
       </router-link>
       <button
         v-if="isPageFull()"
-        class="btn"
+        class="btn secondary next-btn"
         @click="loadNextPage()"
       >
         Show more profiles
@@ -81,5 +81,9 @@ export default class ProfileDirectory extends Vue {
 
 .profile-list-item {
   color: $text-color;
+}
+
+.next-btn {
+  margin-bottom: $block-outer-padding;
 }
 </style>

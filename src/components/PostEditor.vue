@@ -310,10 +310,6 @@ textarea {
     color: $error-color;
     margin-right: $block-inner-padding;
   }
-
-  button {
-    box-shadow: $btn-shadow;
-  }
 }
 
 .post-form.reply {

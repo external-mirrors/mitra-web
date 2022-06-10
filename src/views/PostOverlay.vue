@@ -166,7 +166,7 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
     width: $page-width;
 
     img {
-      filter: $btn-text-colorizer;
+      filter: $text-colorizer;
       width: 40px;
     }
   }

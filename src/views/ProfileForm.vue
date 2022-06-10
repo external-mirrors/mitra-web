@@ -307,8 +307,4 @@ export default class ProfileForm extends Vue {
     filter: $link-hover-colorizer;
   }
 }
-
-button[type="submit"] {
-  box-shadow: $btn-shadow;
-}
 </style>

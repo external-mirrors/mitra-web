@@ -70,7 +70,7 @@
       </div>
       <button
         v-if="isPageFull()"
-        class="btn"
+        class="btn secondary next-btn"
         @click="loadNextPage()"
       >
         Show more notifications
@@ -175,5 +175,9 @@ async function loadNextPage() {
     text-align: right;
     white-space: nowrap;
   }
+}
+
+.next-btn {
+  margin-bottom: $block-outer-padding;
 }
 </style>

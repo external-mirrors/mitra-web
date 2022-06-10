@@ -480,7 +480,7 @@ $avatar-size: 170px;
   }
 
   .badge {
-    border: 1px solid $btn-text-color;
+    border: 1px solid $btn-background-color;
     border-radius: $btn-border-radius;
     font-size: 14px;
     line-height: 30px;

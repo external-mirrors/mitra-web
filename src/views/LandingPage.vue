@@ -340,7 +340,7 @@ button {
     justify-content: center;
 
     img {
-      filter: $btn-text-hover-colorizer;
+      filter: $btn-text-colorizer;
       height: 1em;
     }
 

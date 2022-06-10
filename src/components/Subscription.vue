@@ -257,23 +257,6 @@ async function onCancelSubscription() {
 @import "../styles/mixins";
 @import "../styles/theme";
 
-.btn.primary {
-  background-color: $btn-background-hover-color;
-  color: $btn-text-hover-color;
-
-  &:hover {
-    background-color: $block-background-color;
-    color: $btn-text-color;
-  }
-}
-
-.btn.secondary {
-  &:hover {
-    background-color: $block-background-color;
-    color: $btn-text-color;
-  }
-}
-
 .subscription {
   display: flex;
   flex-direction: column;

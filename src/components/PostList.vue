@@ -7,7 +7,7 @@
   ></post-or-repost>
   <button
     v-if="isPageFull()"
-    class="btn"
+    class="btn secondary next-btn"
     @click="loadNextPage()"
   >
     Show more posts
@@ -53,3 +53,11 @@ function loadNextPage() {
   }
 }
 </script>
+
+<style scoped lang="scss">
+@import "../styles/layout";
+
+.next-btn {
+  margin-bottom: $block-outer-padding;
+}
+</style>

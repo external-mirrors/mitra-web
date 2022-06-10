@@ -15,14 +15,16 @@ $link-hover-colorizer: invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brig
 $error-color: #FF4D4D;
 
 $background-color: #f3f2ed;
-$btn-background-color: #CCCBC6;
-$btn-background-hover-color: $text-color;
-$btn-text-color: $text-color;
-$btn-text-colorizer: $text-colorizer;
-$btn-text-hover-color: #fff;
-$btn-text-hover-colorizer: invert(99%) sepia(74%) saturate(252%) hue-rotate(137deg) brightness(116%) contrast(100%);
+$btn-background-color: $text-color;
+$btn-background-hover-color: #fff;
+$btn-text-color: #fff;
+$btn-text-colorizer: invert(99%) sepia(74%) saturate(252%) hue-rotate(137deg) brightness(116%) contrast(100%);
+$btn-text-hover-color: $text-color;
+$btn-text-hover-colorizer: $text-colorizer;
 $btn-border-radius: 8px;
 $btn-shadow: 2px 5px 10px -5px #B7B5B5;
+$btn-secondary-background-color: #CCCBC6;
+$btn-secondary-text-color: $text-color;
 
 $block-border-radius: 15px;
 $block-background-color: #fff;

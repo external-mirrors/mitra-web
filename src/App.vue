@@ -148,6 +148,7 @@ button {
   background-color: $btn-background-color;
   border: none;
   border-radius: $btn-border-radius;
+  box-shadow: $btn-shadow;
   color: $btn-text-color;
   cursor: pointer;
   display: inline-block;
@@ -155,6 +156,16 @@ button {
   font-weight: bold;
   padding: $input-padding 30px;
   white-space: nowrap;
+
+  &:hover {
+    background-color: $btn-background-hover-color;
+    color: $btn-text-hover-color;
+  }
+}
+
+.btn.secondary {
+  background-color: $btn-secondary-background-color;
+  color: $btn-secondary-text-color;
 
   &:hover {
     background-color: $btn-background-hover-color;
@@ -200,7 +211,7 @@ header {
     border-radius: $btn-border-radius;
     box-shadow: $shadow;
     box-sizing: border-box;
-    color: $btn-text-color;
+    color: $text-color;
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
@@ -208,7 +219,7 @@ header {
     padding: 7px $body-padding;
 
     img {
-      filter: $btn-text-colorizer;
+      filter: $text-colorizer;
       height: 1.2em;
       margin-right: 5px;
     }
@@ -218,11 +229,11 @@ header {
     }
 
     &:hover {
-      background-color: $btn-text-color;
-      color: $btn-text-hover-color;
+      background-color: $btn-background-color;
+      color: $btn-text-color;
 
       img {
-        filter: $btn-text-hover-colorizer;
+        filter: $btn-text-colorizer;
       }
     }
   }

@@ -223,7 +223,7 @@ async function onWithdrawReceived() {
   gap: $block-inner-padding / 2;
 
   input {
-    border: 1px solid $btn-background-hover-color;
+    border: 1px solid $btn-background-color;
     border-radius: $btn-border-radius;
   }
 }
