@@ -73,7 +73,9 @@
           Add new item
         </button>
       </div>
-      <button type="submit" class="btn">Save</button>
+      <button type="submit" class="btn" :disabled="!isFormValid()">
+        Save
+      </button>
     </form>
     <sidebar></sidebar>
   </div>
@@ -204,6 +206,13 @@ export default class ProfileForm extends Vue {
     this.form.fields_attributes.push({ name: "", value: "", value_source: "" })
   }
 
+  isFormValid(): boolean {
+    if (this.form.display_name && this.form.display_name.length > 75) {
+      return false
+    }
+    return true
+  }
+
   async save() {
     const authToken = this.store.ensureAuthToken()
     const profile = await updateProfile(authToken, this.form)
@@ -306,5 +315,9 @@ export default class ProfileForm extends Vue {
   &:hover img {
     filter: $link-hover-colorizer;
   }
+}
+
+.btn[type="submit"] {
+  margin-bottom: $block-outer-padding;
 }
 </style>

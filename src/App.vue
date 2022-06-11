@@ -161,6 +161,14 @@ button {
     background-color: $btn-background-hover-color;
     color: $btn-text-hover-color;
   }
+
+  &[disabled],
+  &[disabled]:hover {
+    background-color: #ddd;
+    box-shadow: none;
+    color: #999;
+    cursor: initial;
+  }
 }
 
 .btn.secondary {
