@@ -34,7 +34,7 @@
         </div>
         <div class="status">
           <template v-if="subscriptionState && !subscriptionState.senderBalance.isZero()">
-            <div>Your balance {{ subscriptionState.senderBalance }} {{ subscription.tokenSymbol }}</div>
+            <div>Your balance {{ subscription.formatAmount(subscriptionState.senderBalance) }} {{ subscription.tokenSymbol }}</div>
             <div>Subscription expires {{ subscription.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}</div>
           </template>
           <template v-else>You are not subscribed yet</template>
@@ -69,6 +69,7 @@
 </template>
 
 <script setup lang="ts">
+import { FixedNumber } from "ethers"
 import { onMounted, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
 
@@ -189,11 +190,12 @@ async function checkSubscription() {
   isLoading = false
 }
 
-function getPaymentAmount(): number {
+function getPaymentAmount(): FixedNumber {
   if (!subscription) {
-    return 0
+    return FixedNumber.from(0)
   }
-  return subscription.pricePerMonth.toUnsafeFloat() * paymentDuration
+  const amount = subscription.pricePerMonthInt.mul(paymentDuration)
+  return subscription.formatAmount(amount)
 }
 
 function canSubscribe(): boolean {

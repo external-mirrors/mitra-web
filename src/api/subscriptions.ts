@@ -64,17 +64,21 @@ export class Subscription {
     this.price = price
   }
 
+  // Convert raw token amount to FixedNumber
+  formatAmount(value: BigNumber): FixedNumber {
+    return FixedNumber.fromValue(value, this.tokenDecimals)
+  }
+
   get pricePerMonthInt(): BigNumber {
     return this.price.mul(SECONDS_IN_MONTH)
   }
 
   get pricePerMonth(): FixedNumber {
-    return FixedNumber.fromValue(this.pricePerMonthInt, this.tokenDecimals)
+    return this.formatAmount(this.pricePerMonthInt)
   }
 
-  getExpirationDate(balance: FixedNumber): DateTime {
-    const price = FixedNumber.fromValue(this.price, this.tokenDecimals)
-    const seconds = balance.divUnsafe(price).toUnsafeFloat()
+  getExpirationDate(balance: BigNumber): DateTime {
+    const seconds = balance.div(this.price).toNumber()
     const now = DateTime.now()
     return now.plus({ seconds })
   }
@@ -107,9 +111,8 @@ export async function getSubscriptionInfo(
 }
 
 export interface SubscriptionState {
-  senderAddress: string;
-  senderBalance: FixedNumber;
-  recipientBalance: FixedNumber;
+  senderBalance: BigNumber;
+  recipientBalance: BigNumber;
 }
 
 export async function getSubscriptionState(
@@ -119,13 +122,11 @@ export async function getSubscriptionState(
   recipientAddress: string,
 ): Promise<SubscriptionState> {
   const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
-  const tokenAddress = await adapter.subscriptionToken()
-  const token = await getContract(Contracts.ERC20, tokenAddress, signer)
-  const tokenDecimals = await token.decimals()
-  const [senderBalanceInt, recipientBalanceInt] = await adapter.getSubscriptionState(senderAddress, recipientAddress)
-  const senderBalance = FixedNumber.fromValue(senderBalanceInt, tokenDecimals)
-  const recipientBalance = FixedNumber.fromValue(recipientBalanceInt, tokenDecimals)
-  return { senderAddress, senderBalance, recipientBalance }
+  const [senderBalance, recipientBalance] = await adapter.getSubscriptionState(
+    senderAddress,
+    recipientAddress,
+  )
+  return { senderBalance, recipientBalance }
 }
 
 export async function makeSubscriptionPayment(

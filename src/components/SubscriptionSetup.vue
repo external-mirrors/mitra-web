@@ -12,7 +12,7 @@
         <div>Recipient address: {{ subscription.recipientAddress }}</div>
         <div>Token address: {{ subscription.tokenAddress }}</div>
         <div>Token symbol: {{ subscription.tokenSymbol }}</div>
-        <div>Price of one month: {{ subscription.pricePerMonth.round(2) }}</div>
+        <div>Price of one month: {{ subscription.pricePerMonth }}</div>
       </template>
       <template v-else>
         Subscription is not configured.
@@ -27,7 +27,7 @@
       <input v-model="subscriberAddress" placeholder="Subscriber address">
       <button class="btn" @click="onCheckSubsciptionState()">Check</button>
       <button class="btn" v-if="subscriptionState !== null" @click="onWithdrawReceived()">
-        Withdraw {{ subscriptionState.recipientBalance }} {{ subscription.tokenSymbol }}
+        Withdraw {{ subscription.formatAmount(subscriptionState.recipientBalance) }} {{ subscription.tokenSymbol }}
       </button>
     </div>
   </div>
