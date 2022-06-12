@@ -24,12 +24,12 @@ async function connectWallet(): Promise<void> {
   try {
     web3Provider = getWeb3Provider()
   } catch (error) {
-    walletError.value = "wallet not found"
+    walletError.value = "Wallet not found"
     return
   }
   const signer = await getWallet(web3Provider)
   if (!signer) {
-    walletError.value = "wallet not connected"
+    walletError.value = "Wallet not connected"
     return
   }
   walletAddress.value = await signer.getAddress()
@@ -47,7 +47,7 @@ async function connectWallet(): Promise<void> {
   const instanceChainId = parseCAIP2_chainId(instance.value.blockchain_id)
   const walletChainId = await web3Provider.send("eth_chainId", [])
   if (walletChainId !== instanceChainId) {
-    walletError.value = "incorrect network"
+    walletError.value = "Incorrect network"
   }
 }
 

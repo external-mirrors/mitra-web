@@ -110,7 +110,7 @@ async function checkSubscription() {
   }
   if (!ethereumAddressMatch(walletAddress, profileEthereumAddress)) {
     // Recipient must use verified account
-    walletError = "incorrect wallet address"
+    walletError = "Incorrect wallet address"
     return
   }
   const signer = getWeb3Provider().getSigner()

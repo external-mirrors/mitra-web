@@ -34,7 +34,7 @@
         </div>
         <div class="status">
           <template v-if="subscriptionState && !subscriptionState.senderBalance.isZero()">
-            <div>Your balance {{ subscription.formatAmount(subscriptionState.senderBalance) }} {{ subscription.tokenSymbol }}</div>
+            <div>Your balance is {{ subscription.formatAmount(subscriptionState.senderBalance) }} {{ subscription.tokenSymbol }}</div>
             <div>Subscription expires {{ subscription.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}</div>
           </template>
           <template v-else>You are not subscribed yet</template>
@@ -45,17 +45,33 @@
       </template>
     </div>
     <form class="payment" v-if="canSubscribe()">
-      <div class="input-group">
+      <div class="duration">
         <label for="duration">Duration</label>
         <input type="number" id="duration" v-model="paymentDuration" min="1">
         <span>months</span>
       </div>
-      <div class="input-group">
-        <label>Amount</label>
-        <span>{{ getPaymentAmount() }} {{ subscription.tokenSymbol }}</span>
+      <div>
+        <div class="payment-amount">
+          <label>Amount</label>
+          <div>{{ getPaymentAmount() }} {{ subscription.tokenSymbol }}</div>
+        </div>
+        <div
+          v-if="tokenBalance !== null"
+          class="token-balance"
+          :class="{ error: !canPay() }"
+          @click="refreshTokenBalance()"
+        >
+          <label>You have</label>
+          <div>{{ subscription.formatAmount(tokenBalance) }} {{ subscription.tokenSymbol }}</div>
+        </div>
       </div>
       <div class="button-row">
-        <button type="submit" class="btn primary" @click.prevent="onMakeSubscriptionPayment()">
+        <button
+          type="submit"
+          class="btn primary"
+          :disabled="!canPay()"
+          @click.prevent="onMakeSubscriptionPayment()"
+        >
           <template v-if="!subscriptionState || subscriptionState.senderBalance.isZero()">Pay</template>
           <template v-else>Extend</template>
         </button>
@@ -69,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { FixedNumber } from "ethers"
+import { BigNumber, FixedNumber } from "ethers"
 import { onMounted, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
 
@@ -78,6 +94,7 @@ import {
   cancelSubscription,
   getSubscriptionInfo,
   getSubscriptionState,
+  getTokenBalance,
   makeSubscriptionPayment,
   Subscription,
   SubscriptionState,
@@ -122,6 +139,7 @@ let isLoading = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
+let tokenBalance = $ref<BigNumber | null>(null)
 const paymentDuration = $ref<number>(1)
 
 onMounted(() => {
@@ -165,7 +183,7 @@ async function checkSubscription() {
     return
   }
   if (ethereumAddressMatch(walletAddress, recipientEthereumAddress)) {
-    walletError = "incorrect wallet address"
+    walletError = "Incorrect wallet address"
     return
   }
   senderEthereumAddress = walletAddress.toLowerCase()
@@ -180,6 +198,8 @@ async function checkSubscription() {
     subscriptionConfigured = true
   } else {
     subscriptionConfigured = false
+    isLoading = false
+    return
   }
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
@@ -187,7 +207,12 @@ async function checkSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
+  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
   isLoading = false
+}
+
+function canSubscribe(): boolean {
+  return subscriptionConfigured === true
 }
 
 function getPaymentAmount(): FixedNumber {
@@ -198,8 +223,20 @@ function getPaymentAmount(): FixedNumber {
   return subscription.formatAmount(amount)
 }
 
-function canSubscribe(): boolean {
-  return subscriptionConfigured === true
+function canPay(): boolean {
+  if (!subscription || !tokenBalance) {
+    return false
+  }
+  const amount = subscription.pricePerMonthInt.mul(paymentDuration)
+  return amount.lte(tokenBalance)
+}
+
+async function refreshTokenBalance() {
+  if (!subscription) {
+    return
+  }
+  const signer = getWeb3Provider().getSigner()
+  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
 }
 
 async function onMakeSubscriptionPayment() {
@@ -234,6 +271,7 @@ async function onMakeSubscriptionPayment() {
     walletAddress,
     recipientEthereumAddress,
   )
+  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
   isLoading = false
 }
 
@@ -248,7 +286,8 @@ async function onCancelSubscription() {
   if (
     !instance?.blockchain_contract_address ||
     !recipientEthereumAddress ||
-    !walletAddress
+    !walletAddress ||
+    !subscription
   ) {
     return
   }
@@ -273,6 +312,7 @@ async function onCancelSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
+  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
   isLoading = false
 }
 </script>
@@ -332,6 +372,10 @@ async function onCancelSubscription() {
   }
 }
 
+.wallet-error {
+  color: $error-color;
+}
+
 .loader {
   margin: 0 auto;
 }
@@ -350,7 +394,7 @@ async function onCancelSubscription() {
   }
 
   .price-subtext {
-    font-size: 14px;
+    font-size: $text-font-size;
   }
 
   .status {
@@ -364,12 +408,17 @@ async function onCancelSubscription() {
   flex-direction: column;
   gap: $block-inner-padding;
 
-  .input-group {
+  .duration,
+  .payment-amount,
+  .token-balance {
     align-items: center;
     display: flex;
-    font-size: 16px;
     gap: $input-padding;
     justify-content: center;
+  }
+
+  .duration {
+    font-size: 16px;
 
     label {
       font-weight: bold;
@@ -377,6 +426,23 @@ async function onCancelSubscription() {
 
     input {
       width: 100px;
+    }
+  }
+
+  .payment-amount {
+    font-size: 16px;
+    margin-bottom: $input-padding / 2;
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .token-balance {
+    color: $secondary-text-color;
+
+    &.error {
+      color: $error-color;
     }
   }
 

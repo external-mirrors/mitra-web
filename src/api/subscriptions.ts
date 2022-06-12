@@ -129,6 +129,15 @@ export async function getSubscriptionState(
   return { senderBalance, recipientBalance }
 }
 
+export async function getTokenBalance(
+  signer: Signer,
+  tokenAddress: string,
+): Promise<BigNumber> {
+  const token = await getContract(Contracts.ERC20, tokenAddress, signer)
+  const balance = await token.balanceOf(signer.getAddress())
+  return balance
+}
+
 export async function makeSubscriptionPayment(
   contractAddress: string,
   signer: Signer,
