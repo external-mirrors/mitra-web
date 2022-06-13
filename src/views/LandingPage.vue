@@ -35,9 +35,8 @@
         </div>
         <div class="wallet-required">
           <img :src="require('@/assets/forkawesome/ethereum.svg')">
-          <a @click="walletTipVisible = !walletTipVisible">Ethereum Wallet</a> is required
+          <router-link :to="{ name: 'ethereum' }">Ethereum Wallet</router-link> is required
         </div>
-        <div class="wallet-tip" v-if="walletTipVisible" v-html="walletTip"></div>
         <button
           type="submit"
           :disabled="!username"
@@ -62,9 +61,6 @@ import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { createEip4361_SignedMessage, getWallet } from "@/utils/ethereum"
-import { renderMarkdown } from "@/utils/markdown"
-
-const WALLET_TIP = renderMarkdown("In order to register on this server, you need an [Ethereum wallet](https://ethereum.org/en/wallets/find-wallet/?filters=has_explore_dapps). [MetaMask](https://metamask.io/) is a good choice for beginners. Your wallet address will be stored for authentication purposes and will not be exposed unless you later complete an address verification procedure. In that case, your address will be publicly associated with your account. To protect your privacy, it is recommended that you create a fresh address and don't link it to your other activities. This can be achieved by using a [mixer](https://tornado.cash/) or an exchange [that doesn't require identity verification](http://kycnot.me/). For general privacy recommendations, visit [PrivacyGuides](https://www.privacyguides.org/tools/) website.")
 
 @Options({
   components: { Loader },
@@ -73,7 +69,6 @@ export default class LandingPage extends Vue {
 
   username = ""
   inviteCode: string | null = null
-  walletTipVisible = false
   isLoading = false
   loginErrorMessage: string | null = null
   registrationErrorMessage: string | null = null
@@ -86,10 +81,6 @@ export default class LandingPage extends Vue {
 
   get instance(): InstanceInfo | null {
     return this.store.instance
-  }
-
-  get walletTip(): string {
-    return WALLET_TIP
   }
 
   async register() {
@@ -345,13 +336,6 @@ button {
     }
 
     a {
-      color: $text-color;
-      text-decoration: underline;
-    }
-  }
-
-  .wallet-tip {
-    :deep(a) {
       color: $text-color;
       text-decoration: underline;
     }

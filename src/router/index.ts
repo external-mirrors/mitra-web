@@ -14,6 +14,7 @@ import PublicTimeline from "@/views/PublicTimeline.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
+import EthereumPage from "@/views/Ethereum.vue"
 
 import { useCurrentUser } from "@/store/user"
 
@@ -44,6 +45,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/about-public",
     name: "about-public",
     component: AboutPublicPage,
+    meta: { onlyGuest: true },
+  },
+  {
+    path: "/ethereum",
+    name: "ethereum",
+    component: EthereumPage,
     meta: { onlyGuest: true },
   },
   {
