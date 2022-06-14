@@ -431,18 +431,15 @@ async function onCancelSubscription() {
 
   .payment-amount {
     font-size: 16px;
+    font-weight: bold;
     margin-bottom: $input-padding / 2;
-
-    label {
-      font-weight: bold;
-    }
   }
 
   .token-balance {
     color: $secondary-text-color;
 
     &.error {
-      color: $error-color;
+      color: $text-color;
     }
   }
 
