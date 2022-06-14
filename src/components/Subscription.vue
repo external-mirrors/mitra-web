@@ -32,12 +32,14 @@
           {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
           <span class="price-subtext">per month</span>
         </div>
-        <div class="status">
-          <template v-if="subscriptionState && !subscriptionState.senderBalance.isZero()">
+        <div class="status" v-if="subscriptionState">
+          <template v-if="subscriptionState.senderBalance.isZero()">
+            You are not subscribed yet
+          </template>
+          <template v-else>
             <div>Your balance is {{ subscription.formatAmount(subscriptionState.senderBalance) }} {{ subscription.tokenSymbol }}</div>
             <div>Subscription expires {{ subscription.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}</div>
           </template>
-          <template v-else>You are not subscribed yet</template>
         </div>
       </template>
       <template v-else>
