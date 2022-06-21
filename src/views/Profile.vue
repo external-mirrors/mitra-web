@@ -539,6 +539,7 @@ $avatar-size: 170px;
 .bio {
   padding: 0 $block-inner-padding $block-inner-padding;
   white-space: pre-line;
+  word-wrap: break-word;
 
   :deep(a) {
     @include block-link;
