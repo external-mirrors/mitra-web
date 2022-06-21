@@ -629,7 +629,16 @@ export default class PostComponent extends Vue {
   }
 
   :deep(.greentext) {
-    color: #789922;
+    color: $greentext-color;
+  }
+
+  :deep(blockquote) {
+    color: $greentext-color;
+
+    &::before {
+      content: ">";
+      float: left;
+    }
   }
 }
 
