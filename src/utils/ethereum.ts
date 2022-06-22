@@ -1,7 +1,7 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
-export function parseCAIP2_chainId(chainId: string): string {
+export function parseCAIP2_ChainId(chainId: string): string {
   const match = chainId.match(/eip155:(\d+)/)
   if (!match) {
     throw new Error("invalid chain ID")
