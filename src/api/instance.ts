@@ -1,6 +1,14 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
 
+interface ChainInfo {
+  chain_name: string;
+  public_api_url: string;
+  currency_name: string;
+  currency_symbol: string;
+  currency_decimals: string;
+}
+
 export interface InstanceInfo {
   uri: string;
   title: string;
@@ -12,6 +20,7 @@ export interface InstanceInfo {
   blockchain_id: string | null;
   blockchain_explorer_url: string | null;
   blockchain_contract_address: string | null;
+  blockchain_info: ChainInfo | null;
   ipfs_gateway_url: string | null;
 }
 

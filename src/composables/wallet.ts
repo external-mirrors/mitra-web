@@ -38,12 +38,24 @@ async function connectWallet(): Promise<void> {
     )
   } catch (switchError: any) {
     // This error code indicates that the chain has not been added to MetaMask
-    if (switchError.code === 4902) {
+    if (switchError.code === 4902 && instance.value.blockchain_info) {
+      const { blockchain_explorer_url, blockchain_info } = instance.value
+      // https://eips.ethereum.org/EIPS/eip-3085
+      const ethereumChainParams = {
+        chainId: instanceChainId,
+        chainName: blockchain_info.chain_name,
+        rpcUrls: [blockchain_info.public_api_url],
+        blockExplorerUrls: blockchain_explorer_url ? [blockchain_explorer_url] : [],
+        nativeCurrency: {
+          name: blockchain_info.currency_name,
+          symbol: blockchain_info.currency_symbol,
+          decimals: parseInt(blockchain_info.currency_decimals),
+        },
+      }
       try {
-        // https://eips.ethereum.org/EIPS/eip-3085
         await provider.send(
           "wallet_addEthereumChain",
-          [{ chainId: instanceChainId }],
+          [ethereumChainParams],
         )
       } catch (addError) {
         walletError.value = "Incorrect network"
