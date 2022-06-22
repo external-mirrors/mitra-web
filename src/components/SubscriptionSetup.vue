@@ -50,7 +50,7 @@ import {
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { ethereumAddressMatch, getWeb3Provider } from "@/utils/ethereum"
+import { ethereumAddressMatch } from "@/utils/ethereum"
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -59,7 +59,7 @@ const props = defineProps<{
 
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
-const { connectWallet: connectEthereumWallet } = useWallet()
+const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const profileEthereumAddress = getVerifiedEthereumAddress(props.profile)
 let { walletAddress, walletError } = $(useWallet())
 let subscriptionConfigured = $ref<boolean | null>(null)
@@ -113,7 +113,7 @@ async function checkSubscription() {
     walletError = "Incorrect wallet address"
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
@@ -143,7 +143,7 @@ async function onConfigureSubscription() {
     return
   }
   // Subscription configuration tx can be sent from any address
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   const authToken = ensureAuthToken()
   const signature = await getSubscriptionAuthorization(authToken)
   const transaction = await configureSubscription(
@@ -169,7 +169,7 @@ async function onCheckSubsciptionState() {
   ) {
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
     signer,
@@ -185,7 +185,7 @@ async function onWithdrawReceived() {
   ) {
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   await withdrawReceived(
     instance.blockchain_contract_address,
     signer,

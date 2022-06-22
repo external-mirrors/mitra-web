@@ -106,7 +106,7 @@ import Loader from "@/components/Loader.vue"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { ethereumAddressMatch, getWeb3Provider } from "@/utils/ethereum"
+import { ethereumAddressMatch } from "@/utils/ethereum"
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -136,7 +136,7 @@ const recipient = new ProfileWrapper(props.profile)
 const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 const sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let senderEthereumAddress = $ref<string | null>(sender.getVerifiedEthereumAddress())
-let { walletAddress, walletError } = $(useWallet())
+let { walletAddress, walletError, getSigner } = $(useWallet())
 let isLoading = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
@@ -189,7 +189,7 @@ async function checkSubscription() {
     return
   }
   senderEthereumAddress = walletAddress.toLowerCase()
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   isLoading = true
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
@@ -237,7 +237,7 @@ async function refreshTokenBalance() {
   if (!subscription) {
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
 }
 
@@ -250,7 +250,7 @@ async function onMakeSubscriptionPayment() {
   ) {
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   const amount = subscription.pricePerMonthInt.mul(paymentDuration)
   isLoading = true
   let transaction
@@ -293,7 +293,7 @@ async function onCancelSubscription() {
   ) {
     return
   }
-  const signer = getWeb3Provider().getSigner()
+  const signer = getSigner()
   isLoading = true
   let transaction
   try {

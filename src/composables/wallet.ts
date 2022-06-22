@@ -1,3 +1,4 @@
+import { Signer } from "ethers"
 import { ref } from "vue"
 
 import { useInstanceInfo } from "@/store/instance"
@@ -20,20 +21,21 @@ async function connectWallet(): Promise<void> {
   if (!instance.value?.blockchain_id) {
     throw new Error("blockchain integration disabled")
   }
-  let web3Provider
+  let provider
   try {
-    web3Provider = getWeb3Provider()
+    provider = getWeb3Provider()
   } catch (error) {
     walletError.value = "Wallet not found"
     return
   }
-  const signer = await getWallet(web3Provider)
+  const signer = await getWallet(provider)
   if (!signer) {
     walletError.value = "Wallet not connected"
     return
   }
   walletAddress.value = await signer.getAddress()
-  const walletProvider = web3Provider.provider as any
+
+  const walletProvider = provider.provider as any
   walletProvider.on("chainChanged", (chainId: string) => {
     disconnectWallet()
   })
@@ -45,10 +47,16 @@ async function connectWallet(): Promise<void> {
   })
 
   const instanceChainId = parseCAIP2_chainId(instance.value.blockchain_id)
-  const walletChainId = await web3Provider.send("eth_chainId", [])
+  const walletChainId = await provider.send("eth_chainId", [])
   if (walletChainId !== instanceChainId) {
     walletError.value = "Incorrect network"
   }
+}
+
+// Can't use reactive signer object because it doesn't work with ethers.js
+function getSigner(): Signer {
+  const provider = getWeb3Provider()
+  return provider.getSigner()
 }
 
 export function useWallet() {
@@ -56,5 +64,6 @@ export function useWallet() {
     connectWallet,
     walletAddress,
     walletError,
+    getSigner,
   }
 }
