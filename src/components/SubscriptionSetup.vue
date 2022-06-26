@@ -1,6 +1,6 @@
 <template>
+  <h1>Configure subscription</h1>
   <div class="subscription">
-    <h1>Configure subscription</h1>
     <div class="connect-wallet" v-if="canConnectWallet()">
       <button class="btn" @click="connectWallet()">Connect wallet</button>
     </div>
@@ -15,14 +15,23 @@
         <div>Price of one month: {{ subscription.pricePerMonth }}</div>
       </template>
       <template v-else>
-        Subscription is not configured.
+        Subscription is not configured
       </template>
     </div>
-    <div class="setup" v-if="canConfigureSubscription()">
-      <button class="btn" @click="onConfigureSubscription()">
+    <form class="setup" v-if="canConfigureSubscription()">
+      <div class="price">
+        <label for="price">Price</label>
+        <input type="number" id="price" v-model="subscriptionPrice" min="0.00">
+        <span>per month</span>
+      </div>
+      <button
+        class="btn primary"
+        :disabled="subscriptionPrice <= 0"
+        @click.prevent="onConfigureSubscription()"
+      >
         Set up subscription
       </button>
-    </div>
+    </form>
     <div class="withdraw" v-if="subscription !== null">
       <input v-model="subscriberAddress" placeholder="Subscriber address">
       <button class="btn" @click="onCheckSubsciptionState()">Check</button>
@@ -40,6 +49,7 @@ import { $, $$, $ref } from "vue/macros"
 import { getVerifiedEthereumAddress, Profile } from "@/api/users"
 import {
   configureSubscription,
+  getPricePerSec,
   getSubscriptionAuthorization,
   getSubscriptionInfo,
   getSubscriptionState,
@@ -57,10 +67,11 @@ const props = defineProps<{
   profile: Profile,
 }>()
 
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { ensureAuthToken } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const profileEthereumAddress = getVerifiedEthereumAddress(props.profile)
+const subscriptionPrice = $ref<number>(1)
 let { walletAddress, walletError } = $(useWallet())
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
@@ -128,28 +139,32 @@ async function checkSubscription() {
 
 function canConfigureSubscription(): boolean {
   return (
-    Boolean(currentUser?.wallet_address) &&
+    profileEthereumAddress !== null &&
     subscriptionConfigured === false
   )
 }
 
 async function onConfigureSubscription() {
   if (
-    !currentUser ||
-    !currentUser.wallet_address ||
+    profileEthereumAddress === null ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
     return
   }
-  // Subscription configuration tx can be sent from any address
   const signer = getSigner()
   const authToken = ensureAuthToken()
-  const signature = await getSubscriptionAuthorization(authToken)
+  const pricePerSec = await getPricePerSec(
+    instance.blockchain_contract_address,
+    signer,
+    subscriptionPrice,
+  )
+  const signature = await getSubscriptionAuthorization(authToken, pricePerSec)
   const transaction = await configureSubscription(
     instance.blockchain_contract_address,
     signer,
-    currentUser.wallet_address,
+    profileEthereumAddress,
+    pricePerSec,
     signature,
   )
   await transaction.wait()
@@ -157,7 +172,7 @@ async function onConfigureSubscription() {
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
-    currentUser.wallet_address,
+    profileEthereumAddress,
   )
 }
 
@@ -201,19 +216,38 @@ async function onWithdrawReceived() {
 @import "../styles/theme";
 
 .subscription {
-  @include block-btn;
-
-  background-color: $block-background-color;
-  border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
-  gap: $block-inner-padding / 2;
-  margin-bottom: $block-outer-padding;
-  padding: $block-inner-padding;
+  gap: $block-outer-padding;
+  text-align: center;
+}
 
-  h1 {
-    font-size: 20px;
-    margin: 0;
+.info {
+  background-color: $block-background-color;
+  border-radius: $block-border-radius;
+  padding: $block-inner-padding;
+}
+
+.setup {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding;
+
+  .price {
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    gap: $input-padding;
+    justify-content: center;
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      width: 100px;
+    }
   }
 }
 
@@ -221,10 +255,5 @@ async function onWithdrawReceived() {
   display: flex;
   flex-wrap: wrap;
   gap: $block-inner-padding / 2;
-
-  input {
-    border: 1px solid $btn-background-color;
-    border-radius: $btn-border-radius;
-  }
 }
 </style>

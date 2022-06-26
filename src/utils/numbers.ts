@@ -11,3 +11,21 @@ export function roundBigNumber(value: BigNumber, precision: number): BigNumber {
     return value.div(divisor).mul(divisor)
   }
 }
+
+function getPrecision(value: number): number {
+  if (!isFinite(value)) {
+    return 0
+  }
+  let precision = 0
+  while (Math.round(value * Math.pow(10, precision)) / Math.pow(10, precision) !== value) {
+    precision++
+  }
+  return precision
+}
+
+export function floatToBigNumber(value: number, decimals: number): BigNumber {
+  const precision = getPrecision(value)
+  const denominator = 10 ** precision
+  const numerator = Math.round(value * denominator)
+  return BigNumber.from(10).pow(decimals).mul(numerator).div(denominator)
+}

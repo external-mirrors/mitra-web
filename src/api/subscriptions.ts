@@ -4,17 +4,35 @@ import { DateTime } from "luxon"
 
 import { BACKEND_URL } from "@/constants"
 import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
-import { roundBigNumber } from "@/utils/numbers"
+import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
 
+const SECONDS_IN_DAY = 3600 * 24
+const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
+
+export async function getPricePerSec(
+  contractAddress: string,
+  signer: Signer,
+  pricePerMonth: number,
+): Promise<BigNumber> {
+  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const tokenAddress = await adapter.subscriptionToken()
+  const token = await getContract(Contracts.ERC20, tokenAddress, signer)
+  const tokenDecimals = await token.decimals()
+  const pricePerMonthInt = floatToBigNumber(pricePerMonth, tokenDecimals)
+  return pricePerMonthInt.div(SECONDS_IN_MONTH)
+}
+
 export async function getSubscriptionAuthorization(
   authToken: string,
+  pricePerSec: BigNumber,
 ): Promise<EthereumSignature> {
   const url = `${BACKEND_URL}/api/v1/accounts/authorize_subscription`
   const response = await http(url, {
     method: "GET",
     authToken,
+    queryParams: { price: pricePerSec.toString() },
   })
   const data = await response.json()
   if (response.status !== 200) {
@@ -28,20 +46,19 @@ export async function configureSubscription(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
+  pricePerSec: BigNumber,
   serverSignature: EthereumSignature,
 ): Promise<TransactionResponse> {
   const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
   const transaction = await adapter.configureSubscription(
     recipientAddress,
+    pricePerSec,
     serverSignature.v,
     "0x" + serverSignature.r,
     "0x" + serverSignature.s,
   )
   return transaction
 }
-
-const SECONDS_IN_DAY = 3600 * 24
-const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
 
 export class Subscription {
 
