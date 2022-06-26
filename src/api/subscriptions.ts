@@ -4,6 +4,7 @@ import { DateTime } from "luxon"
 
 import { BACKEND_URL } from "@/constants"
 import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
+import { roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
 
@@ -70,7 +71,7 @@ export class Subscription {
   }
 
   get pricePerMonthInt(): BigNumber {
-    return this.price.mul(SECONDS_IN_MONTH)
+    return roundBigNumber(this.price.mul(SECONDS_IN_MONTH), 4)
   }
 
   get pricePerMonth(): FixedNumber {
