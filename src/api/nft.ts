@@ -55,7 +55,7 @@ export async function mintToken(
   tokenUri: string,
   serverSignature: EthereumSignature,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.Minter, contractAddress, signer)
   const transaction = await adapter.mint(
     ownerAddress,
     tokenUri,

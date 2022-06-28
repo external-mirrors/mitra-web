@@ -4,7 +4,8 @@ import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
 
 export enum Contracts {
-  Adapter = "IAdapter",
+  Minter = "IMinter",
+  SubscriptionAdapter = "ISubscriptionAdapter",
   Subscription = "ISubscription",
   ERC20 = "IERC20Metadata",
 }

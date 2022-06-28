@@ -463,6 +463,7 @@ export default class PostComponent extends Vue {
     return (
       Boolean(this.store.instance?.ipfs_gateway_url) &&
       Boolean(this.store.instance?.blockchain_contract_address) &&
+      Boolean(this.store.instance?.blockchain_features?.minter) &&
       this.post.account.id === this.store.currentUser?.id &&
       this.post.visibility === "public" &&
       Boolean(this.store.currentUser?.wallet_address) &&

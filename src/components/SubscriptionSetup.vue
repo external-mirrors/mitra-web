@@ -89,6 +89,7 @@ function canConnectWallet(): boolean {
   return (
     Boolean(instance?.blockchain_id) &&
     Boolean(instance?.blockchain_contract_address) &&
+    Boolean(instance?.blockchain_features?.subscription) &&
     // Only profiles with verified address can have subscription
     profileEthereumAddress !== null &&
     walletAddress === null

@@ -16,7 +16,7 @@ export async function getPricePerSec(
   signer: Signer,
   pricePerMonth: number,
 ): Promise<BigNumber> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const tokenAddress = await adapter.subscriptionToken()
   const token = await getContract(Contracts.ERC20, tokenAddress, signer)
   const tokenDecimals = await token.decimals()
@@ -49,7 +49,7 @@ export async function configureSubscription(
   pricePerSec: BigNumber,
   serverSignature: EthereumSignature,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const transaction = await adapter.configureSubscription(
     recipientAddress,
     pricePerSec,
@@ -108,7 +108,7 @@ export async function getSubscriptionInfo(
   signer: Signer,
   recipientAddress: string,
 ): Promise<Subscription | null> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const result = await adapter.isSubscriptionConfigured(recipientAddress)
   if (result === true) {
     const tokenAddress = await adapter.subscriptionToken()
@@ -139,7 +139,7 @@ export async function getSubscriptionState(
   senderAddress: string,
   recipientAddress: string,
 ): Promise<SubscriptionState> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const [senderBalance, recipientBalance] = await adapter.getSubscriptionState(
     senderAddress,
     recipientAddress,
@@ -162,7 +162,7 @@ export async function makeSubscriptionPayment(
   recipientAddress: string,
   amount: BigNumber,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const subscriptionAddress = await adapter.subscription()
   const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
   const tokenAddress = await adapter.subscriptionToken()
@@ -188,7 +188,7 @@ export async function cancelSubscription(
   signer: Signer,
   recipientAddress: string,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const subscriptionAddress = await adapter.subscription()
   const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
   const transaction = await subscription.cancel(recipientAddress)
@@ -200,7 +200,7 @@ export async function withdrawReceived(
   signer: Signer,
   senderAddress: string,
 ): Promise<TransactionResponse> {
-  const adapter = await getContract(Contracts.Adapter, contractAddress, signer)
+  const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const subscriptionAddress = await adapter.subscription()
   const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
   const transaction = await subscription.withdrawReceived(senderAddress)
