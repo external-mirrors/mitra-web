@@ -11,15 +11,30 @@ import { Contracts, getContract } from "./contracts"
 const SECONDS_IN_DAY = 3600 * 24
 const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
 
-export async function getPricePerSec(
+export interface SubscriptionToken {
+  address: string;
+  symbol: string;
+  decimals: string;
+}
+
+export async function getSubscriptionToken(
   contractAddress: string,
   signer: Signer,
-  pricePerMonth: number,
-): Promise<BigNumber> {
+): Promise<SubscriptionToken> {
   const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const tokenAddress = await adapter.subscriptionToken()
   const token = await getContract(Contracts.ERC20, tokenAddress, signer)
-  const tokenDecimals = await token.decimals()
+  return {
+    address: tokenAddress,
+    symbol: await token.symbol(),
+    decimals: await token.decimals(),
+  }
+}
+
+export function getPricePerSec(
+  pricePerMonth: number,
+  tokenDecimals: number,
+): BigNumber {
   const pricePerMonthInt = floatToBigNumber(pricePerMonth, tokenDecimals)
   return pricePerMonthInt.div(SECONDS_IN_MONTH)
 }

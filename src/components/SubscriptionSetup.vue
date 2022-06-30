@@ -22,7 +22,7 @@
       <div class="price">
         <label for="price">Price</label>
         <input type="number" id="price" v-model="subscriptionPrice" min="0.00">
-        <span>per month</span>
+        <span>{{ subscriptionToken.symbol }} per month</span>
       </div>
       <button
         class="btn primary"
@@ -53,9 +53,11 @@ import {
   getSubscriptionAuthorization,
   getSubscriptionInfo,
   getSubscriptionState,
+  getSubscriptionToken,
   withdrawReceived,
   Subscription,
   SubscriptionState,
+  SubscriptionToken,
 } from "@/api/subscriptions"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
@@ -73,6 +75,7 @@ const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const profileEthereumAddress = getVerifiedEthereumAddress(props.profile)
 const subscriptionPrice = $ref<number>(1)
 let { walletAddress, walletError } = $(useWallet())
+let subscriptionToken = $ref<SubscriptionToken | null>(null)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
@@ -135,13 +138,18 @@ async function checkSubscription() {
     subscriptionConfigured = true
   } else {
     subscriptionConfigured = false
+    subscriptionToken = await getSubscriptionToken(
+      instance.blockchain_contract_address,
+      signer,
+    )
   }
 }
 
 function canConfigureSubscription(): boolean {
   return (
     profileEthereumAddress !== null &&
-    subscriptionConfigured === false
+    subscriptionConfigured === false &&
+    subscriptionToken !== null
   )
 }
 
@@ -149,16 +157,16 @@ async function onConfigureSubscription() {
   if (
     profileEthereumAddress === null ||
     !instance ||
-    !instance.blockchain_contract_address
+    !instance.blockchain_contract_address ||
+    subscriptionToken === null
   ) {
     return
   }
   const signer = getSigner()
   const authToken = ensureAuthToken()
-  const pricePerSec = await getPricePerSec(
-    instance.blockchain_contract_address,
-    signer,
+  const pricePerSec = getPricePerSec(
     subscriptionPrice,
+    subscriptionToken.decimals,
   )
   const signature = await getSubscriptionAuthorization(authToken, pricePerSec)
   const transaction = await configureSubscription(
