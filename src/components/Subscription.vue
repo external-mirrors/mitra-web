@@ -379,10 +379,6 @@ async function onCancelSubscription() {
   color: $error-color;
 }
 
-.loader {
-  margin: 0 auto;
-}
-
 .info {
   background-color: $block-background-color;
   border-radius: $block-border-radius;
@@ -450,5 +446,9 @@ async function onCancelSubscription() {
     display: flex;
     gap: $block-inner-padding;
   }
+}
+
+.loader {
+  margin: 0 auto;
 }
 </style>

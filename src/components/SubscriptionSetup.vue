@@ -9,10 +9,11 @@
     </div>
     <div class="info" v-if="subscriptionConfigured !== null">
       <template v-if="subscription">
-        <div>Recipient address: {{ subscription.recipientAddress }}</div>
-        <div>Token address: {{ subscription.tokenAddress }}</div>
-        <div>Token symbol: {{ subscription.tokenSymbol }}</div>
-        <div>Price of one month: {{ subscription.pricePerMonth }}</div>
+        <span>Subscription is enabled</span>
+        <div class="price">
+          {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
+          <span class="price-subtext">per month</span>
+        </div>
       </template>
       <template v-else>
         Subscription is not configured
@@ -32,13 +33,23 @@
         Set up subscription
       </button>
     </form>
-    <div class="withdraw" v-if="subscription !== null">
+    <form class="withdraw" v-if="subscription !== null">
       <input v-model="subscriberAddress" placeholder="Subscriber address">
-      <button class="btn" @click="onCheckSubsciptionState()">Check</button>
-      <button class="btn" v-if="subscriptionState !== null" @click="onWithdrawReceived()">
+      <button
+        class="btn"
+        @click.prevent="onCheckSubsciptionState()"
+      >
+        Check
+      </button>
+      <button
+        class="btn"
+        v-if="subscriptionState !== null"
+        @click.prevent="onWithdrawReceived()"
+      >
         Withdraw {{ subscription.formatAmount(subscriptionState.recipientBalance) }} {{ subscription.tokenSymbol }}
       </button>
-    </div>
+    </form>
+    <loader v-if="isLoading"></loader>
   </div>
 </template>
 
@@ -59,6 +70,7 @@ import {
   SubscriptionState,
   SubscriptionToken,
 } from "@/api/subscriptions"
+import Loader from "@/components/Loader.vue"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -75,6 +87,7 @@ const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const profileEthereumAddress = getVerifiedEthereumAddress(props.profile)
 const subscriptionPrice = $ref<number>(1)
 let { walletAddress, walletError } = $(useWallet())
+let isLoading = $ref(false)
 let subscriptionToken = $ref<SubscriptionToken | null>(null)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
@@ -128,6 +141,7 @@ async function checkSubscription() {
     walletError = "Incorrect wallet address"
     return
   }
+  isLoading = true
   const signer = getSigner()
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
@@ -143,6 +157,7 @@ async function checkSubscription() {
       signer,
     )
   }
+  isLoading = false
 }
 
 function canConfigureSubscription(): boolean {
@@ -162,6 +177,7 @@ async function onConfigureSubscription() {
   ) {
     return
   }
+  isLoading = true
   const signer = getSigner()
   const authToken = ensureAuthToken()
   const pricePerSec = getPricePerSec(
@@ -169,13 +185,20 @@ async function onConfigureSubscription() {
     subscriptionToken.decimals,
   )
   const signature = await getSubscriptionAuthorization(authToken, pricePerSec)
-  const transaction = await configureSubscription(
-    instance.blockchain_contract_address,
-    signer,
-    profileEthereumAddress,
-    pricePerSec,
-    signature,
-  )
+  let transaction
+  try {
+    transaction = await configureSubscription(
+      instance.blockchain_contract_address,
+      signer,
+      profileEthereumAddress,
+      pricePerSec,
+      signature,
+    )
+  } catch (error) {
+    console.error(error)
+    isLoading = false
+    return
+  }
   await transaction.wait()
   subscriptionConfigured = true
   subscription = await getSubscriptionInfo(
@@ -183,6 +206,7 @@ async function onConfigureSubscription() {
     signer,
     profileEthereumAddress,
   )
+  isLoading = false
 }
 
 async function onCheckSubsciptionState() {
@@ -193,6 +217,7 @@ async function onCheckSubsciptionState() {
   ) {
     return
   }
+  isLoading = true
   const signer = getSigner()
   subscriptionState = await getSubscriptionState(
     instance.blockchain_contract_address,
@@ -200,6 +225,7 @@ async function onCheckSubsciptionState() {
     subscriberAddress,
     profileEthereumAddress,
   )
+  isLoading = false
 }
 
 async function onWithdrawReceived() {
@@ -209,6 +235,7 @@ async function onWithdrawReceived() {
   ) {
     return
   }
+  isLoading = true
   const signer = getSigner()
   await withdrawReceived(
     instance.blockchain_contract_address,
@@ -216,6 +243,7 @@ async function onWithdrawReceived() {
     subscriberAddress,
   )
   subscriptionState = null
+  isLoading = false
 }
 </script>
 
@@ -231,10 +259,22 @@ async function onWithdrawReceived() {
   text-align: center;
 }
 
+.wallet-error {
+  color: $error-color;
+}
+
 .info {
   background-color: $block-background-color;
   border-radius: $block-border-radius;
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding / 2;
   padding: $block-inner-padding;
+
+  .price {
+    font-size: 16px;
+    font-weight: bold;
+  }
 }
 
 .setup {
@@ -261,8 +301,17 @@ async function onWithdrawReceived() {
 }
 
 .withdraw {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
-  gap: $block-inner-padding / 2;
+  flex-direction: column;
+  gap: $block-inner-padding;
+
+  input {
+    width: 400px;
+  }
+}
+
+.loader {
+  margin: 0 auto;
 }
 </style>
