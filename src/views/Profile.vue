@@ -381,6 +381,9 @@ export default class ProfileView extends Vue {
     if (!this.profile || !this.isCurrentUser()) {
       return
     }
+    if (!confirm("This action will link your wallet address to your profile. Continue?")) {
+      return
+    }
     const signer = await getWallet()
     if (!signer) {
       return
