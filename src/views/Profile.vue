@@ -138,8 +138,26 @@
           </component>
         </div>
       </div>
+      <div class="tab-bar">
+        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies'">
+          <router-link
+            :class="{ active: tabName === 'posts' }"
+            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts' }}"
+          >
+            Posts
+          </router-link>
+          <router-link
+            :class="{ active: tabName === 'posts-with-replies' }"
+            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts-with-replies' }}"
+          >
+            Posts with replies
+          </router-link>
+        </template>
+        <template v-else-if="tabName === 'followers'">Followers</template>
+        <template v-else-if="tabName === 'following'">Following</template>
+      </div>
       <post-list
-        v-if="tabName === 'posts'"
+        v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
         :posts="posts"
         @load-next-page="loadNextPage"
       ></post-list>
@@ -228,6 +246,13 @@ export default class ProfileView extends Vue {
       this.posts = await getProfileTimeline(
         this.store.authToken,
         this.profile.id,
+        true,
+      )
+    } else if (this.tabName === "posts-with-replies") {
+      this.posts = await getProfileTimeline(
+        this.store.authToken,
+        this.profile.id,
+        false,
       )
     } else if (this.tabName === "followers" && this.isCurrentUser()) {
       this.followList = await getFollowers(
@@ -419,7 +444,12 @@ export default class ProfileView extends Vue {
     if (!this.profile) {
       return
     }
-    const posts = await getProfileTimeline(this.store.authToken, this.profile.id, maxId)
+    const posts = await getProfileTimeline(
+      this.store.authToken,
+      this.profile.id,
+      this.tabName !== "posts-with-replies",
+      maxId,
+    )
     this.posts.push(...posts)
   }
 
@@ -611,6 +641,25 @@ $avatar-size: 170px;
   }
 }
 
+.tab-bar {
+  align-items: center;
+  display: flex;
+  margin-bottom: $block-outer-padding;
+
+  a {
+    border-radius: $block-border-radius;
+    padding: $block-inner-padding / 2;
+    text-align: center;
+    width: 50%;
+
+    &.active {
+      background-color: $block-background-color;
+      font-weight: bold;
+    }
+  }
+}
+
+/* profile-list-item */
 .profile {
   margin-bottom: $block-outer-padding;
 }

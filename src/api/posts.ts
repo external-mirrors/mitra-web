@@ -117,10 +117,15 @@ export async function getTagTimeline(
 export async function getProfileTimeline(
   authToken: string | null,
   authorId: string,
+  excludeReplies?: boolean,
   maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
-  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const queryParams = {
+    exclude_replies: excludeReplies,
+    max_id: maxId,
+    limit: PAGE_SIZE,
+  }
   const response = await http(url, {
     method: "GET",
     queryParams,

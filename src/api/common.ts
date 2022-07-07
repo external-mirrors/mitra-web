@@ -12,7 +12,7 @@ export const fetcher = {
 interface RequestInfo extends RequestInit {
   authToken?: string | null;
   json?: any;
-  queryParams?: { [name: string]: string | number | undefined };
+  queryParams?: { [name: string]: string | number | boolean | undefined };
 }
 
 export async function http(
