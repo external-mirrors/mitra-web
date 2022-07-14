@@ -49,6 +49,13 @@
             </router-link>
             <span>paid for subscription</span>
           </template>
+          <template v-else-if="notification.type === 'subscription_expiration'">
+            <img :src="require('@/assets/tabler/coin.svg')">
+            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
+              {{ getSenderName(notification) }}
+            </router-link>
+            <span>subscription expired</span>
+          </template>
         </div>
         <post
           v-if="notification.status"
