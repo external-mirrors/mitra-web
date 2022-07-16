@@ -436,6 +436,7 @@ export default class ProfileView extends Vue {
       Boolean(this.store.instance?.blockchain_features?.subscription) &&
       this.profile !== null &&
       getVerifiedEthereumAddress(this.profile) !== null &&
+      this.isLocalUser() &&
       !this.isCurrentUser()
     )
   }

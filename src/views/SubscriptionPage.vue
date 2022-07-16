@@ -1,5 +1,5 @@
 <template>
-  <div id="main" v-if="profile">
+  <div id="main" v-if="profile && isLocalUser()">
     <div class="content">
       <component
         :is="isCurrentUser() ? SubscriptionSetup : Subscription"
@@ -31,6 +31,13 @@ onMounted(async () => {
     route.params.profileId as string,
   )
 })
+
+function isLocalUser(): boolean {
+  if (!profile) {
+    return false
+  }
+  return profile.username === profile.acct
+}
 
 function isCurrentUser(): boolean {
   if (!currentUser || !profile) {
