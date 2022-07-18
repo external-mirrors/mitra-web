@@ -66,16 +66,16 @@
                 </router-link>
               </li>
               <li v-if="canHideReposts()">
-                <button @click="follow(false, undefined)">Hide reposts</button>
+                <button @click="onFollow(false, undefined)">Hide reposts</button>
               </li>
               <li v-if="canShowReposts()">
-                <button @click="follow(true, undefined)">Show reposts</button>
+                <button @click="onFollow(true, undefined)">Show reposts</button>
               </li>
               <li v-if="canHideReplies()">
-                <button @click="follow(undefined, false)">Hide replies</button>
+                <button @click="onFollow(undefined, false)">Hide replies</button>
               </li>
               <li v-if="canShowReplies()">
-                <button @click="follow(undefined, true)">Show replies</button>
+                <button @click="onFollow(undefined, true)">Show replies</button>
               </li>
             </menu>
           </div>
@@ -87,8 +87,8 @@
           </div>
           <div class="buttons">
             <router-link v-if="isCurrentUser()" class="edit-profile btn" to="/settings">Edit profile</router-link>
-            <button v-if="canFollow()" class="follow btn" @click="follow()">Follow</button>
-            <button v-if="canUnfollow()" class="unfollow btn" @click="unfollow()">
+            <button v-if="canFollow()" class="follow btn" @click="onFollow()">Follow</button>
+            <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
             </button>
@@ -173,8 +173,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $, $ref, $computed } from "vue/macros"
+import { useRoute } from "vue-router"
 
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
@@ -202,258 +204,241 @@ import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
-@Options({
-  components: {
-    Avatar,
-    PostList,
-    ProfileListItem,
-    Sidebar,
-  },
+const route = useRoute()
+const { currentUser, authToken, ensureAuthToken } = $(useCurrentUser())
+const { instance, getActorAddress } = $(useInstanceInfo())
+
+let profile = $ref<Profile | null>(null)
+let relationship = $ref<Relationship | null>(null)
+
+let profileMenuVisible = $ref(false)
+
+let tabName = $ref("posts")
+let posts = $ref<Post[]>([])
+let followList = $ref<Profile[]>([])
+
+onMounted(async () => {
+  profile = await getProfile(
+    authToken,
+    route.params.profileId as string,
+  )
+  if (currentUser && !isCurrentUser()) {
+    relationship = await getRelationship(
+      ensureAuthToken(),
+      profile.id,
+    )
+  }
+  tabName = route.params.tabName as string || "posts"
+  if (tabName === "posts") {
+    posts = await getProfileTimeline(
+      authToken,
+      profile.id,
+      true,
+    )
+  } else if (tabName === "posts-with-replies") {
+    posts = await getProfileTimeline(
+      authToken,
+      profile.id,
+      false,
+    )
+  } else if (tabName === "followers" && isCurrentUser()) {
+    followList = await getFollowers(
+      ensureAuthToken(),
+      profile.id,
+    )
+  } else if (tabName === "following" && isCurrentUser()) {
+    followList = await getFollowing(
+      ensureAuthToken(),
+      profile.id,
+    )
+  }
 })
-export default class ProfileView extends Vue {
 
-  private store = setup(() => {
-    const { currentUser, authToken, ensureAuthToken } = useCurrentUser()
-    const { instance, getActorAddress } = useInstanceInfo()
-    return { currentUser, authToken, ensureAuthToken, instance, getActorAddress }
-  })
+const actorAddress = $computed<string>(() => {
+  if (!profile) {
+    return ""
+  }
+  return getActorAddress(profile)
+})
 
-  profile: Profile | null = null
-  relationship: Relationship | null = null
+const fields = $computed<ProfileField[]>(() => {
+  if (!profile) {
+    return []
+  }
+  return profile.identity_proofs.concat(profile.fields)
+})
 
-  walletConnected = false
-  subscriptionConfigured: boolean | null = null
+function isCurrentUser(): boolean {
+  if (!currentUser || !profile) {
+    return false
+  }
+  return currentUser.id === profile.id
+}
 
+function isFollowedBy(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.followed_by
+}
+
+function isSubscriptionValid(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.subscription_to
+}
+
+function isSubscriber(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.subscription_from
+}
+
+function canFollow(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return !relationship.following && !relationship.requested
+}
+
+function canUnfollow(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return (relationship.following || relationship.requested)
+}
+
+function isFollowRequestPending(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.requested
+}
+
+function canHideReposts(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return (relationship.following || relationship.requested) && relationship.showing_reblogs
+}
+
+function canShowReposts(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return (relationship.following || relationship.requested) && !relationship.showing_reblogs
+}
+
+function canHideReplies(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return (relationship.following || relationship.requested) && relationship.showing_replies
+}
+
+function canShowReplies(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return (relationship.following || relationship.requested) && !relationship.showing_replies
+}
+
+async function onFollow(showReposts?: boolean, showReplies?: boolean) {
+  if (!currentUser || !profile || !relationship) {
+    return
+  }
+  relationship = await follow(
+    ensureAuthToken(),
+    profile.id,
+    showReposts ?? relationship.showing_reblogs,
+    showReplies ?? relationship.showing_replies,
+  )
+}
+
+async function onUnfollow() {
+  if (!currentUser || !profile) {
+    return
+  }
+  relationship = await unfollow(
+    ensureAuthToken(),
+    profile.id,
+  )
+}
+
+function toggleProfileMenu() {
+  profileMenuVisible = !profileMenuVisible
+}
+
+function hideProfileMenu() {
   profileMenuVisible = false
+}
 
-  tabName = "posts"
-  posts: Post[] = []
-  followList: Profile[] = []
-
-  async created() {
-    this.profile = await getProfile(
-      this.store.authToken,
-      this.$route.params.profileId as string,
-    )
-    if (this.store.currentUser && !this.isCurrentUser()) {
-      this.relationship = await getRelationship(
-        this.store.ensureAuthToken(),
-        this.profile.id,
-      )
-    }
-    this.tabName = this.$route.params.tabName as string || "posts"
-    if (this.tabName === "posts") {
-      this.posts = await getProfileTimeline(
-        this.store.authToken,
-        this.profile.id,
-        true,
-      )
-    } else if (this.tabName === "posts-with-replies") {
-      this.posts = await getProfileTimeline(
-        this.store.authToken,
-        this.profile.id,
-        false,
-      )
-    } else if (this.tabName === "followers" && this.isCurrentUser()) {
-      this.followList = await getFollowers(
-        this.store.ensureAuthToken(),
-        this.profile.id,
-      )
-    } else if (this.tabName === "following" && this.isCurrentUser()) {
-      this.followList = await getFollowing(
-        this.store.ensureAuthToken(),
-        this.profile.id,
-      )
-    }
+function isLocalUser(): boolean {
+  if (!profile) {
+    return false
   }
+  return profile.username === profile.acct
+}
 
-  get actorAddress(): string {
-    if (!this.profile) {
-      return ""
-    }
-    return this.store.getActorAddress(this.profile)
+const feedUrl = $computed<string>(() => {
+  if (!profile || !isLocalUser()) {
+    return ""
   }
+  return `${BACKEND_URL}/feeds/${profile.username}`
+})
 
-  get fields(): ProfileField[] {
-    if (!this.profile) {
-      return []
-    }
-    return this.profile.identity_proofs.concat(this.profile.fields)
+async function verifyEthereumAddress(): Promise<void> {
+  if (!profile || !isCurrentUser()) {
+    return
   }
-
-  isCurrentUser(): boolean {
-    if (!this.store.currentUser || !this.profile) {
-      return false
-    }
-    return this.store.currentUser.id === this.profile.id
+  if (!confirm("This action will link your wallet address to your profile. Continue?")) {
+    return
   }
-
-  isFollowedBy(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return this.relationship.followed_by
+  const signer = await getWallet()
+  if (!signer) {
+    return
   }
+  const authToken = ensureAuthToken()
+  const message = await getIdentityClaim(authToken)
+  const signature = await getWalletSignature(signer, message)
+  const { identity_proofs } = await createIdentityProof(authToken, signature)
+  profile.identity_proofs = identity_proofs
+}
 
-  isSubscriptionValid(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return this.relationship.subscription_to
+function canConfigureSubscription(): boolean {
+  // Only users with verified address can configure subscription
+  return (
+    Boolean(instance?.blockchain_contract_address) &&
+    Boolean(instance?.blockchain_features?.subscription) &&
+    Boolean(currentUser?.wallet_address) &&
+    isCurrentUser()
+  )
+}
+
+function canSubscribe(): boolean {
+  return (
+    Boolean(instance?.blockchain_contract_address) &&
+    Boolean(instance?.blockchain_features?.subscription) &&
+    profile !== null &&
+    getVerifiedEthereumAddress(profile) !== null &&
+    isLocalUser() &&
+    !isCurrentUser()
+  )
+}
+
+async function loadNextPage(maxId: string) {
+  if (!profile) {
+    return
   }
-
-  isSubscriber(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return this.relationship.subscription_from
-  }
-
-  canFollow(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return !this.relationship.following && !this.relationship.requested
-  }
-
-  canUnfollow(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return (this.relationship.following || this.relationship.requested)
-  }
-
-  isFollowRequestPending(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return this.relationship.requested
-  }
-
-  canHideReposts(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return (this.relationship.following || this.relationship.requested) && this.relationship.showing_reblogs
-  }
-
-  canShowReposts(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return (this.relationship.following || this.relationship.requested) && !this.relationship.showing_reblogs
-  }
-
-  canHideReplies(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return (this.relationship.following || this.relationship.requested) && this.relationship.showing_replies
-  }
-
-  canShowReplies(): boolean {
-    if (!this.relationship) {
-      return false
-    }
-    return (this.relationship.following || this.relationship.requested) && !this.relationship.showing_replies
-  }
-
-  async follow(showReposts?: boolean, showReplies?: boolean) {
-    if (!this.store.currentUser || !this.profile || !this.relationship) {
-      return
-    }
-    this.relationship = await follow(
-      this.store.ensureAuthToken(),
-      this.profile.id,
-      showReposts ?? this.relationship.showing_reblogs,
-      showReplies ?? this.relationship.showing_replies,
-    )
-  }
-
-  async unfollow() {
-    if (!this.store.currentUser || !this.profile) {
-      return
-    }
-    this.relationship = await unfollow(
-      this.store.ensureAuthToken(),
-      this.profile.id,
-    )
-  }
-
-  toggleProfileMenu() {
-    this.profileMenuVisible = !this.profileMenuVisible
-  }
-
-  hideProfileMenu() {
-    this.profileMenuVisible = false
-  }
-
-  isLocalUser(): boolean {
-    if (!this.profile) {
-      return false
-    }
-    return this.profile.username === this.profile.acct
-  }
-
-  get feedUrl(): string {
-    if (!this.profile || !this.isLocalUser()) {
-      return ""
-    }
-    return `${BACKEND_URL}/feeds/${this.profile.username}`
-  }
-
-  async verifyEthereumAddress(): Promise<void> {
-    if (!this.profile || !this.isCurrentUser()) {
-      return
-    }
-    if (!confirm("This action will link your wallet address to your profile. Continue?")) {
-      return
-    }
-    const signer = await getWallet()
-    if (!signer) {
-      return
-    }
-    const authToken = this.store.ensureAuthToken()
-    const message = await getIdentityClaim(authToken)
-    const signature = await getWalletSignature(signer, message)
-    const profile = await createIdentityProof(authToken, signature)
-    this.profile.identity_proofs = profile.identity_proofs
-  }
-
-  canConfigureSubscription(): boolean {
-    // Only users with verified address can configure subscription
-    return (
-      Boolean(this.store.instance?.blockchain_contract_address) &&
-      Boolean(this.store.instance?.blockchain_features?.subscription) &&
-      Boolean(this.store.currentUser?.wallet_address) &&
-      this.isCurrentUser()
-    )
-  }
-
-  canSubscribe(): boolean {
-    return (
-      Boolean(this.store.instance?.blockchain_contract_address) &&
-      Boolean(this.store.instance?.blockchain_features?.subscription) &&
-      this.profile !== null &&
-      getVerifiedEthereumAddress(this.profile) !== null &&
-      this.isLocalUser() &&
-      !this.isCurrentUser()
-    )
-  }
-
-  async loadNextPage(maxId: string) {
-    if (!this.profile) {
-      return
-    }
-    const posts = await getProfileTimeline(
-      this.store.authToken,
-      this.profile.id,
-      this.tabName !== "posts-with-replies",
-      maxId,
-    )
-    this.posts.push(...posts)
-  }
-
+  const posts = await getProfileTimeline(
+    authToken,
+    profile.id,
+    tabName !== "posts-with-replies",
+    maxId,
+  )
+  posts.push(...posts)
 }
 </script>
 
