@@ -162,11 +162,10 @@ button {
     color: $btn-text-hover-color;
   }
 
-  &[disabled],
-  &[disabled]:hover {
-    background-color: #ddd;
+  &[disabled] {
+    background-color: #ddd !important;
     box-shadow: none;
-    color: #999;
+    color: #999 !important;
     cursor: initial;
   }
 }

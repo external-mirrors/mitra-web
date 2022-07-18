@@ -77,7 +77,12 @@
           <template v-if="!subscriptionState || subscriptionState.senderBalance.isZero()">Pay</template>
           <template v-else>Extend</template>
         </button>
-        <button v-if="canCancel()" class="btn secondary" @click.prevent="onCancelSubscription()">
+        <button
+          v-if="isBalancePositive()"
+          class="btn secondary"
+          :disabled="!canCancel()"
+          @click.prevent="onCancelSubscription()"
+        >
           Cancel
         </button>
       </div>
@@ -227,7 +232,7 @@ function getPaymentAmount(): FixedNumber {
 }
 
 function canPay(): boolean {
-  if (!subscription || !tokenBalance) {
+  if (!subscription || !tokenBalance || isLoading) {
     return false
   }
   const amount = subscription.pricePerMonthInt.mul(paymentDuration)
@@ -278,11 +283,15 @@ async function onMakeSubscriptionPayment() {
   isLoading = false
 }
 
-function canCancel(): boolean {
+function isBalancePositive(): boolean {
   return (
     subscriptionState !== null &&
     !subscriptionState.senderBalance.isZero()
   )
+}
+
+function canCancel(): boolean {
+  return isBalancePositive() && !isLoading
 }
 
 async function onCancelSubscription() {
