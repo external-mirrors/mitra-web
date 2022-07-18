@@ -31,60 +31,39 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $, $computed } from "vue/macros"
+import { useRouter } from "vue-router"
 
-import { InstanceInfo } from "@/api/instance"
-import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: { Avatar },
+const router = useRouter()
+const { instance } = $(useInstanceInfo())
+const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
+const { currentUser, setCurrentUser, ensureAuthToken, setAuthToken } = $(useCurrentUser())
+
+onMounted(async () => {
+  if (isUserAuthenticated) {
+    // TODO: reload notifications periodically
+    await loadNotifications(ensureAuthToken())
+  }
 })
-export default class Sidebar extends Vue {
 
-  private store = setup(() => {
-    const { instance } = useInstanceInfo()
-    const { loadNotifications, getUnreadNotificationCount } = useNotifications()
-    const { currentUser, setCurrentUser, ensureAuthToken, setAuthToken } = useCurrentUser()
-    return {
-      instance,
-      currentUser,
-      setCurrentUser,
-      ensureAuthToken,
-      setAuthToken,
-      loadNotifications,
-      getUnreadNotificationCount,
-    }
-  })
+const isUserAuthenticated = $computed<boolean>(() => {
+  return currentUser !== null
+})
 
-  async created() {
-    if (this.isUserAuthenticated) {
-      // TODO: reload notifications periodically
-      await this.store.loadNotifications(this.store.ensureAuthToken())
-    }
-  }
+const unreadNotificationCount = $computed<number>(() => {
+  return getUnreadNotificationCount()
+})
 
-  get isUserAuthenticated(): boolean {
-    return this.store.currentUser !== null
-  }
-
-  get unreadNotificationCount(): number {
-    return this.store.getUnreadNotificationCount()
-  }
-
-  async logout() {
-    this.store.setCurrentUser(null)
-    this.store.setAuthToken(null)
-    this.$router.push({ name: "landing-page" })
-  }
-
-  get instance(): InstanceInfo | null {
-    return this.store.instance
-  }
-
+function logout() {
+  setCurrentUser(null)
+  setAuthToken(null)
+  router.push({ name: "landing-page" })
 }
 </script>
 
