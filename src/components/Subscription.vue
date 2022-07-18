@@ -61,10 +61,15 @@
           v-if="tokenBalance !== null"
           class="token-balance"
           :class="{ error: !canPay() }"
-          @click="refreshTokenBalance()"
         >
           <label>You have</label>
-          <div>{{ subscription.formatAmount(tokenBalance) }} {{ subscription.tokenSymbol }}</div>
+          <output :class="{ loading: isTokenBalanceLoading }">
+            {{ subscription.formatAmount(tokenBalance) }}
+          </output>
+          <span>{{ subscription.tokenSymbol }}</span>
+          <button @click.prevent="refreshTokenBalance()">
+            <img :src="require('@/assets/feather/refresh-ccw.svg')">
+          </button>
         </div>
       </div>
       <div class="button-row">
@@ -142,12 +147,14 @@ const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 const sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let senderEthereumAddress = $ref<string | null>(sender.getVerifiedEthereumAddress())
 let { walletAddress, walletError, getSigner } = $(useWallet())
-let isLoading = $ref(false)
 let subscriptionConfigured = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 let tokenBalance = $ref<BigNumber | null>(null)
 const paymentDuration = $ref<number>(1)
+
+let isLoading = $ref(false)
+let isTokenBalanceLoading = $ref(false)
 
 onMounted(() => {
   if (walletAddress && !walletError) {
@@ -244,7 +251,9 @@ async function refreshTokenBalance() {
     return
   }
   const signer = getSigner()
+  isTokenBalanceLoading = true
   tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
+  isTokenBalanceLoading = false
 }
 
 async function onMakeSubscriptionPayment() {
@@ -452,6 +461,16 @@ async function onCancelSubscription() {
 
   .token-balance {
     color: $secondary-text-color;
+
+    output.loading {
+      opacity: 0.5;
+    }
+
+    img {
+      filter: $secondary-text-colorizer;
+      height: 1em;
+      min-width: 1em;
+    }
 
     &.error {
       color: $text-color;
