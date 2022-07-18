@@ -14,7 +14,7 @@ const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
 export interface SubscriptionToken {
   address: string;
   symbol: string;
-  decimals: string;
+  decimals: number;
 }
 
 export async function getSubscriptionToken(

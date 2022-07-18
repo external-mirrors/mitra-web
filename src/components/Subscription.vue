@@ -252,7 +252,8 @@ async function onMakeSubscriptionPayment() {
     !instance?.blockchain_contract_address ||
     !recipientEthereumAddress ||
     !walletAddress ||
-    !subscription
+    !subscription ||
+    !subscriptionState
   ) {
     return
   }
@@ -273,12 +274,18 @@ async function onMakeSubscriptionPayment() {
     return
   }
   await transaction.wait()
-  subscriptionState = await getSubscriptionState(
-    instance.blockchain_contract_address,
-    signer,
-    walletAddress,
-    recipientEthereumAddress,
-  )
+  // Wait for sender balance update
+  // because JSON-RPC API can return outdated info on the first call
+  let newSubscriptionState
+  while (!newSubscriptionState || subscriptionState.senderBalance === newSubscriptionState.senderBalance) {
+    newSubscriptionState = await getSubscriptionState(
+      instance.blockchain_contract_address,
+      signer,
+      walletAddress,
+      recipientEthereumAddress,
+    )
+  }
+  subscriptionState = newSubscriptionState
   tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
   isLoading = false
 }
