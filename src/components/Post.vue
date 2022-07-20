@@ -349,7 +349,7 @@ async function toggleRepost() {
 }
 
 function canLike(): boolean {
-  return currentUser !== null && props.post.visibility === "public"
+  return currentUser !== null
 }
 
 async function toggleLike() {
