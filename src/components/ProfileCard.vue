@@ -8,7 +8,7 @@
         <avatar :profile="profile"></avatar>
         <div class="name-group">
           <div class="display-name">{{ profile.display_name || profile.username }}</div>
-          <div class="actor-address">@{{ actorAddress }}</div>
+          <div class="actor-address">@{{ getActorAddress(profile) }}</div>
         </div>
       </div>
       <div class="bio" v-html="profile.note"></div>
@@ -22,37 +22,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
-import { Prop } from "vue-property-decorator"
-
+<script setup lang="ts">
 import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 
-@Options({
-  components: {
-    Avatar,
-  },
-})
-export default class ProfileCard extends Vue {
+/* eslint-disable-next-line no-undef */
+defineProps<{
+  profile: Profile,
+  compact: boolean,
+}>()
 
-  @Prop()
-  profile!: Profile
-
-  @Prop()
-  compact = false
-
-  private store = setup(() => {
-    const { instance, getActorAddress } = useInstanceInfo()
-    return { instance, getActorAddress }
-  })
-
-  get actorAddress(): string {
-    return this.store.getActorAddress(this.profile)
-  }
-
-}
+const { getActorAddress } = useInstanceInfo()
 </script>
 
 <style scoped lang="scss">

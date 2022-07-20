@@ -8,8 +8,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $ref } from "vue/macros"
 
 import { Post, getHomeTimeline } from "@/api/posts"
 import PostEditor from "@/components/PostEditor.vue"
@@ -17,37 +18,23 @@ import PostList from "@/components/PostList.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: {
-    PostEditor,
-    PostList,
-    Sidebar,
-  },
+const { ensureAuthToken } = useCurrentUser()
+
+let posts = $ref<Post[]>([])
+
+onMounted(async () => {
+  const authToken = ensureAuthToken()
+  posts = await getHomeTimeline(authToken)
 })
-export default class HomeTimeline extends Vue {
 
-  private store = setup(() => {
-    const { ensureAuthToken } = useCurrentUser()
-    return { ensureAuthToken }
-  })
+function insertPost(post: Post) {
+  posts = [post, ...posts]
+}
 
-  posts: Post[] = []
-
-  async created() {
-    const authToken = this.store.ensureAuthToken()
-    this.posts = await getHomeTimeline(authToken)
-  }
-
-  insertPost(post: Post) {
-    this.posts = [post, ...this.posts]
-  }
-
-  async loadNextPage(maxId: string) {
-    const authToken = this.store.ensureAuthToken()
-    const posts = await getHomeTimeline(authToken, maxId)
-    this.posts.push(...posts)
-  }
-
+async function loadNextPage(maxId: string) {
+  const authToken = ensureAuthToken()
+  const nextPage = await getHomeTimeline(authToken, maxId)
+  posts.push(...nextPage)
 }
 </script>
 

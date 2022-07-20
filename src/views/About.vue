@@ -8,35 +8,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { $ } from "vue/macros"
 
-import { InstanceInfo } from "@/api/instance"
 import Sidebar from "@/components/Sidebar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { renderMarkdown } from "@/utils/markdown"
 
-@Options({
-  components: {
-    Sidebar,
-  },
-})
-export default class AboutPage extends Vue {
-
-  private store = setup(() => {
-    const { instance } = useInstanceInfo()
-    return { instance }
-  })
-
-  get instance(): InstanceInfo | null {
-    return this.store.instance
-  }
-
-  renderMarkdown(description: string): string {
-    return renderMarkdown(description)
-  }
-
-}
+const { instance } = $(useInstanceInfo())
 </script>
 
 <style scoped lang="scss">

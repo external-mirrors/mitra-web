@@ -61,7 +61,7 @@
           </menu>
         </div>
         <div class="character-counter" title="Characters left">
-          {{ characterCounter }}
+          {{ getCharacterCount() }}
         </div>
         <button
           type="submit"
@@ -78,7 +78,7 @@
       <button
         class="btn"
         type="submit"
-        :disabled="characterCounter < 0"
+        :disabled="getCharacterCount() < 0"
         @click.prevent="publish()"
       >Publish</button>
     </div>
@@ -188,7 +188,7 @@ export default class PostEditor extends Vue {
     this.visibilityMenuVisible = false
   }
 
-  get characterCounter(): number {
+  getCharacterCount(): number {
     if (!this.store.instance) {
       return 0
     }

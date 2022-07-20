@@ -10,21 +10,19 @@
   </form>
 </template>
 
-<script lang="ts">
-import { Vue } from "vue-class-component"
+<script setup lang="ts">
+import { $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
-export default class Search extends Vue {
+const router = useRouter()
+let q = $ref("")
 
+function clear() {
   q = ""
+}
 
-  clear() {
-    this.q = ""
-  }
-
-  search() {
-    this.$router.push({ name: "search", query: { q: this.q } })
-  }
-
+function search() {
+  router.push({ name: "search", query: { q: q } })
 }
 </script>
 

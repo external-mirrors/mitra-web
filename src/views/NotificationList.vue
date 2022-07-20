@@ -60,6 +60,8 @@
         <post
           v-if="notification.status"
           :post="notification.status"
+          :highlighted="false"
+          :in-thread="false"
           @post-deleted="onPostDeleted(index)"
         ></post>
         <router-link

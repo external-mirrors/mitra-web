@@ -7,19 +7,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Vue } from "vue-class-component"
-import { Prop } from "vue-property-decorator"
+<script setup lang="ts">
+/* eslint-disable-next-line no-undef */
+const props = defineProps<{
+  address: string,
+}>()
 
-export default class CryptoAddress extends Vue {
-
-  @Prop()
-  address!: string
-
-  copyAddress() {
-    navigator.clipboard.writeText(this.address)
-  }
-
+function copyAddress() {
+  navigator.clipboard.writeText(props.address)
 }
 </script>
 

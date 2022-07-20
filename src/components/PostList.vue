@@ -25,8 +25,10 @@ import PostOrRepost from "@/components/PostOrRepost.vue"
 const props = defineProps<{
   posts: PostObject[],
 }>()
-/* eslint-disable-next-line no-undef */
-const emit = defineEmits<{(event: "load-next-page", maxId: string): void}>()
+/* eslint-disable-next-line no-undef, func-call-spacing */
+const emit = defineEmits<{
+  (event: "load-next-page", maxId: string): void,
+}>()
 
 let initialPostCount: number | null = null
 

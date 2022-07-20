@@ -9,10 +9,18 @@
     </div>
     <post
       :post="post.reblog"
+      :highlighted="false"
+      :in-thread="false"
       @post-deleted="onPostDeleted(post.reblog.id); onPostDeleted(post.id)"
     ></post>
   </template>
-  <post v-else :post="post" @post-deleted="onPostDeleted(post.id)"></post>
+  <post
+    v-else
+    :post="post"
+    :highlighted="false"
+    :in-thread="false"
+    @post-deleted="onPostDeleted(post.id)"
+  ></post>
 </template>
 
 <script setup lang="ts">

@@ -7,9 +7,9 @@
       <router-link
         class="display-name"
         :to="{ name: 'profile', params: { profileId: post.account.id }}"
-        :title="authorName"
+        :title="getAuthorName()"
       >
-        {{ authorName }}
+        {{ getAuthorName() }}
       </router-link>
       <div class="actor-address" :title="'@' + getActorAddress(post.account)">
         @{{ getActorAddress(post.account) }}
@@ -26,7 +26,7 @@
       </a>
       <span
         class="icon icon-small"
-        :title="visibilityDisplay"
+        :title="getVisibilityDisplay()"
       >
         <visibility-icon :visibility="post.visibility"></visibility-icon>
       </span>
@@ -39,10 +39,10 @@
         {{ formatDate(post.created_at) }}
       </a>
     </div>
-    <div class="post-subheader" v-if="replyingTo.length > 0">
+    <div class="post-subheader" v-if="getReplyMentions().length > 0">
       <span>replying to</span>
       <router-link
-        v-for="mention in replyingTo"
+        v-for="mention in getReplyMentions()"
         :to="{ name: 'profile', params: { profileId: mention.id }}"
         :title="getActorAddress(mention)"
         :key="mention.id"
@@ -50,7 +50,7 @@
         @{{ mention.username }}
       </router-link>
     </div>
-    <div class="post-content" ref="postContent" v-html="content"></div>
+    <div class="post-content" ref="postContentRef" v-html="getContent()"></div>
     <div class="post-attachment" v-if="post.media_attachments.length > 0">
       <template v-for="attachment in post.media_attachments" :key="attachment.id">
         <img v-if="attachment.type === 'image'" :src="attachment.url">
@@ -110,17 +110,17 @@
         <span>{{ post.favourites_count }}</span>
       </span>
       <a
-        v-if="ipfsUrl"
+        v-if="getIpfsUrl()"
         class="icon"
         title="Saved to IPFS"
-        :href="ipfsUrl"
+        :href="getIpfsUrl() || ''"
         target="_blank"
         rel="noreferrer"
       >
         <img :src="require('@/assets/ipfs.svg')">
       </a>
       <router-link
-        v-if="isTokenized"
+        v-if="isTokenized()"
         class="icon tokenized"
         title="View token"
         :to="{ name: 'post-overlay', params: { postId: post.id }}"
@@ -157,7 +157,7 @@
             <button
               class="icon"
               title="Mint NFT"
-              @click="hideMenu(); mintToken()"
+              @click="hideMenu(); onMintToken()"
             >
               <img :src="require('@/assets/forkawesome/diamond.svg')">
               <span>Mint NFT</span>
@@ -167,7 +167,7 @@
             <button
               class="icon"
               title="Delete post"
-              @click="hideMenu(); deletePost()"
+              @click="hideMenu(); onDeletePost()"
             >
               <img :src="require('@/assets/feather/trash.svg')">
               <span>Delete post</span>
@@ -200,9 +200,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
-import { Prop } from "vue-property-decorator"
+<script setup lang="ts">
+/* eslint-disable vue/no-mutating-props */
+import { onMounted } from "vue"
+import { $, $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
 import {
   makePermanent,
@@ -221,7 +223,6 @@ import {
   createRepost,
   deleteRepost,
 } from "@/api/posts"
-import { Profile } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -239,300 +240,283 @@ interface PaymentOption {
   address: string;
 }
 
-@Options({
-  components: {
-    Avatar,
-    CryptoAddress,
-    PostEditor,
-    VisibilityIcon,
-  },
+const router = useRouter()
+const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { instance, getActorAddress } = $(useInstanceInfo())
+
+/* eslint-disable-next-line no-undef */
+const props = defineProps<{
+  post: Post,
+  highlighted: boolean,
+  inThread: boolean,
+}>()
+
+/* eslint-disable-next-line no-undef, func-call-spacing */
+const emit = defineEmits<{
+  (event: "highlight", postId: string | null): void,
+  (event: "navigate-to", postId: string): void,
+  (event: "comment-created", post: Post): void,
+  (event: "post-deleted"): void,
+}>()
+
+const postContentRef = $ref<HTMLElement | null>(null)
+
+let commentFormVisible = $ref(false)
+let menuVisible = $ref(false)
+let selectedPaymentAddress = $ref<string | null>(null)
+let isWaitingForToken = $ref(false)
+
+onMounted(() => {
+  if (postContentRef === null) {
+    return
+  }
+  const mentions = postContentRef.getElementsByClassName("mention")
+  for (const mentionElement of Array.from(mentions)) {
+    mentionElement.addEventListener("click", (event: Event) => {
+      event.preventDefault()
+      const mention = props.post.mentions
+        .find((mention) => mention.url === mentionElement.getAttribute("href"))
+      if (mention) {
+        router.push({ name: "profile", params: { profileId: mention.id } })
+      }
+    })
+  }
 })
-export default class PostComponent extends Vue {
 
-  @Prop()
-  post!: Post
+function getAuthorName(): string {
+  return props.post.account.display_name || props.post.account.username
+}
 
-  @Prop()
-  highlighted = false
+function highlight(postId: string | null) {
+  emit("highlight", postId)
+}
 
-  @Prop()
-  inThread = false
+function navigateTo(postId: string) {
+  if (props.inThread) {
+    emit("navigate-to", postId)
+  } else {
+    router.push({ name: "post", params: { postId: postId } })
+  }
+}
 
+function getVisibilityDisplay(): string {
+  return VISIBILITY_MAP[props.post.visibility]
+}
+
+function getContent(): string {
+  const content = addGreentext(props.post.content)
+  return content
+}
+
+function getReplyMentions(): Mention[] {
+  if (props.post.in_reply_to_id === null) {
+    return []
+  }
+  return props.post.mentions
+}
+
+function canReply(): boolean {
+  return currentUser !== null
+}
+
+function onCommentCreated(post: Post) {
   commentFormVisible = false
-  menuVisible = false
+  emit("comment-created", post)
+}
 
-  private store = setup(() => {
-    const { currentUser, ensureAuthToken } = useCurrentUser()
-    const { instance, getActorAddress } = useInstanceInfo()
-    return { currentUser, ensureAuthToken, instance, getActorAddress }
-  })
+function canRepost(): boolean {
+  return currentUser !== null && props.post.visibility === "public"
+}
 
-  $refs!: { postContent: HTMLElement }
-
-  mounted() {
-    const mentions = this.$refs.postContent.getElementsByClassName("mention")
-    for (const mentionElement of Array.from(mentions)) {
-      mentionElement.addEventListener("click", (event: Event) => {
-        event.preventDefault()
-        const mention = this.post.mentions
-          .find((mention) => mention.url === mentionElement.getAttribute("href"))
-        if (mention) {
-          this.$router.push({ name: "profile", params: { profileId: mention.id } })
-        }
-      })
-    }
+async function toggleRepost() {
+  if (!currentUser) {
+    return
   }
-
-  get authorName(): string {
-    return this.post.account.display_name || this.post.account.username
-  }
-
-  getActorAddress(profile: Profile | Mention): string {
-    return this.store.getActorAddress(profile)
-  }
-
-  highlight(postId: string | null) {
-    this.$emit("highlight", postId)
-  }
-
-  navigateTo(postId: string) {
-    if (this.inThread) {
-      this.$emit("navigate-to", postId)
+  const authToken = ensureAuthToken()
+  let updatedPost
+  try {
+    if (props.post.reblogged) {
+      updatedPost = await deleteRepost(authToken, props.post.id)
     } else {
-      this.$router.push({ name: "post", params: { postId: postId } })
+      updatedPost = await createRepost(authToken, props.post.id)
     }
+  } catch (error) {
+    console.log(error)
+    return
   }
+  props.post.reblogs_count = updatedPost.reblogs_count
+  props.post.reblogged = updatedPost.reblogged
+}
 
-  get visibilityDisplay(): string {
-    return VISIBILITY_MAP[this.post.visibility]
+function canLike(): boolean {
+  return currentUser !== null && props.post.visibility === "public"
+}
+
+async function toggleLike() {
+  if (!currentUser) {
+    return
   }
-
-  formatDate(isoDate: string): string {
-    return formatDate(isoDate)
-  }
-
-  get content(): string {
-    const content = addGreentext(this.post.content)
-    return content
-  }
-
-  get replyingTo(): Mention[] {
-    if (this.post.in_reply_to_id === null) {
-      return []
+  const authToken = ensureAuthToken()
+  let updatedPost
+  try {
+    if (props.post.favourited) {
+      updatedPost = await unfavourite(authToken, props.post.id)
+    } else {
+      updatedPost = await favourite(authToken, props.post.id)
     }
-    return this.post.mentions
+  } catch (error) {
+    console.log(error)
+    return
   }
+  props.post.favourites_count = updatedPost.favourites_count
+  props.post.favourited = updatedPost.favourited
+}
 
-  canReply(): boolean {
-    return this.store.currentUser !== null
+function toggleMenu() {
+  menuVisible = !menuVisible
+}
+
+function hideMenu() {
+  menuVisible = false
+}
+
+function getIpfsUrl(): string | null {
+  const gatewayUrl = instance?.ipfs_gateway_url
+  if (
+    !gatewayUrl ||
+    props.post.ipfs_cid === null ||
+    isTokenized() ||
+    isWaitingForToken
+  ) {
+    return null
   }
+  return `${gatewayUrl}/ipfs/${props.post.ipfs_cid}`
+}
 
-  onCommentCreated(post: Post) {
-    this.commentFormVisible = false
-    this.$emit("comment-created", post)
+function canSaveToIpfs(): boolean {
+  return (
+    Boolean(instance?.ipfs_gateway_url) &&
+    props.post.account.id === currentUser?.id &&
+    props.post.visibility === "public" &&
+    props.post.ipfs_cid === null &&
+    !isWaitingForToken
+  )
+}
+
+async function saveToIpfs() {
+  if (!currentUser || !instance || !instance.ipfs_gateway_url) {
+    return
   }
+  const authToken = ensureAuthToken()
+  const { ipfs_cid } = await makePermanent(authToken, props.post.id)
+  props.post.ipfs_cid = ipfs_cid
+}
 
-  canRepost(): boolean {
-    return this.store.currentUser !== null && this.post.visibility === "public"
+function canDeletePost(): boolean {
+  return props.post.account.id === currentUser?.id
+}
+
+async function onDeletePost() {
+  if (confirm("Are you sure you want to delete this post?")) {
+    const authToken = ensureAuthToken()
+    await deletePost(authToken, props.post.id)
+    emit("post-deleted")
   }
+}
 
-  async toggleRepost() {
-    if (!this.store.currentUser) {
-      return
+function getPaymentOptions(): PaymentOption[] {
+  const items = []
+  for (const [code, name] of CRYPTOCURRENCIES) {
+    const symbol = `$${code}`
+    const field = props.post.account.fields.find(item => item.name === symbol)
+    if (!field) {
+      continue
     }
-    const authToken = this.store.ensureAuthToken()
-    let post
-    try {
-      if (this.post.reblogged) {
-        post = await deleteRepost(authToken, this.post.id)
-      } else {
-        post = await createRepost(authToken, this.post.id)
-      }
-    } catch (error) {
-      console.log(error)
-      return
-    }
-    this.post.reblogs_count = post.reblogs_count
-    this.post.reblogged = post.reblogged
+    const address = field.value.trim()
+    items.push({ code, name, address })
   }
+  return items
+}
 
-  canLike(): boolean {
-    return this.store.currentUser !== null && this.post.visibility === "public"
+function togglePaymentAddress(payment: PaymentOption) {
+  selectedPaymentAddress = selectedPaymentAddress === payment.address ? null : payment.address
+}
+
+function isTokenized(): boolean {
+  return props.post.token_id !== null
+}
+
+function canMintToken(): boolean {
+  return (
+    Boolean(instance?.ipfs_gateway_url) &&
+    Boolean(instance?.blockchain_contract_address) &&
+    Boolean(instance?.blockchain_features?.minter) &&
+    props.post.account.id === currentUser?.id &&
+    props.post.visibility === "public" &&
+    Boolean(currentUser?.wallet_address) &&
+    !isTokenized() &&
+    !isWaitingForToken
+  )
+}
+
+async function onMintToken() {
+  if (
+    !currentUser ||
+    !currentUser.wallet_address ||
+    !instance ||
+    !instance.blockchain_contract_address
+  ) {
+    return
   }
-
-  async toggleLike() {
-    if (!this.store.currentUser) {
-      return
-    }
-    const authToken = this.store.ensureAuthToken()
-    let post
-    try {
-      if (this.post.favourited) {
-        post = await unfavourite(authToken, this.post.id)
-      } else {
-        post = await favourite(authToken, this.post.id)
-      }
-    } catch (error) {
-      console.log(error)
-      return
-    }
-    this.post.favourites_count = post.favourites_count
-    this.post.favourited = post.favourited
+  if (isTokenized() || isWaitingForToken) {
+    return
   }
-
-  toggleMenu() {
-    this.menuVisible = !this.menuVisible
+  const authToken = ensureAuthToken()
+  isWaitingForToken = true
+  if (props.post.ipfs_cid === null) {
+    const { ipfs_cid } = await makePermanent(authToken, props.post.id)
+    props.post.ipfs_cid = ipfs_cid
   }
-
-  hideMenu() {
-    this.menuVisible = false
+  const tokenUri = `ipfs://${props.post.ipfs_cid}`
+  console.info("token URI:", tokenUri)
+  let signature
+  try {
+    signature = await getMintingAuthorization(authToken, props.post.id)
+  } catch (error) {
+    console.log(error)
+    isWaitingForToken = false
+    return
   }
-
-  get ipfsUrl(): string | null {
-    const gatewayUrl = this.store.instance?.ipfs_gateway_url
-    if (
-      !gatewayUrl ||
-      this.post.ipfs_cid === null ||
-      this.isTokenized ||
-      this.isWaitingForToken
-    ) {
-      return null
-    }
-    return `${gatewayUrl}/ipfs/${this.post.ipfs_cid}`
+  const signer = await getWallet()
+  if (!signer) {
+    isWaitingForToken = false
+    return
   }
-
-  canSaveToIpfs(): boolean {
-    return (
-      Boolean(this.store.instance?.ipfs_gateway_url) &&
-      this.post.account.id === this.store.currentUser?.id &&
-      this.post.visibility === "public" &&
-      this.post.ipfs_cid === null &&
-      !this.isWaitingForToken
+  try {
+    const transaction = await mintToken(
+      instance.blockchain_contract_address,
+      signer,
+      currentUser.wallet_address,
+      tokenUri,
+      signature,
     )
+    await onTokenMinted(authToken, props.post.id, transaction.hash)
+  } catch (error) {
+    // User has rejected tx
+    isWaitingForToken = false
+    return
   }
-
-  async saveToIpfs() {
-    const { currentUser, instance } = this.store
-    if (!currentUser || !instance || !instance.ipfs_gateway_url) {
-      return
+  // Wait until the server sees the tx
+  const intervalId = setInterval(async () => {
+    const updatedPost = await getPost(authToken, props.post.id)
+    if (updatedPost.token_id) {
+      clearInterval(intervalId)
+      isWaitingForToken = false
+      // Update post
+      props.post.token_id = updatedPost.token_id
+      props.post.token_tx_id = updatedPost.token_tx_id
     }
-    const authToken = this.store.ensureAuthToken()
-    const { ipfs_cid } = await makePermanent(authToken, this.post.id)
-    this.post.ipfs_cid = ipfs_cid
-  }
-
-  canDeletePost(): boolean {
-    return this.post.account.id === this.store.currentUser?.id
-  }
-
-  async deletePost() {
-    if (confirm("Are you sure you want to delete this post?")) {
-      const authToken = this.store.ensureAuthToken()
-      await deletePost(authToken, this.post.id)
-      this.$emit("post-deleted")
-    }
-  }
-
-  getPaymentOptions(): PaymentOption[] {
-    const items = []
-    for (const [code, name] of CRYPTOCURRENCIES) {
-      const symbol = `$${code}`
-      const field = this.post.account.fields.find(item => item.name === symbol)
-      if (!field) {
-        continue
-      }
-      const address = field.value.trim()
-      items.push({ code, name, address })
-    }
-    return items
-  }
-
-  selectedPaymentAddress: string | null = null
-
-  togglePaymentAddress(payment: PaymentOption) {
-    this.selectedPaymentAddress = this.selectedPaymentAddress === payment.address ? null : payment.address
-  }
-
-  get isTokenized(): boolean {
-    return this.post.token_id !== null
-  }
-
-  isWaitingForToken = false
-
-  canMintToken(): boolean {
-    return (
-      Boolean(this.store.instance?.ipfs_gateway_url) &&
-      Boolean(this.store.instance?.blockchain_contract_address) &&
-      Boolean(this.store.instance?.blockchain_features?.minter) &&
-      this.post.account.id === this.store.currentUser?.id &&
-      this.post.visibility === "public" &&
-      Boolean(this.store.currentUser?.wallet_address) &&
-      !this.isTokenized &&
-      !this.isWaitingForToken
-    )
-  }
-
-  async mintToken() {
-    const { currentUser, instance } = this.store
-    if (
-      !currentUser ||
-      !currentUser.wallet_address ||
-      !instance ||
-      !instance.blockchain_contract_address
-    ) {
-      return
-    }
-    if (this.isTokenized || this.isWaitingForToken) {
-      return
-    }
-    const authToken = this.store.ensureAuthToken()
-    this.isWaitingForToken = true
-    if (this.post.ipfs_cid === null) {
-      const { ipfs_cid } = await makePermanent(authToken, this.post.id)
-      this.post.ipfs_cid = ipfs_cid
-    }
-    const tokenUri = `ipfs://${this.post.ipfs_cid}`
-    console.info("token URI:", tokenUri)
-    let signature
-    try {
-      signature = await getMintingAuthorization(authToken, this.post.id)
-    } catch (error) {
-      console.log(error)
-      this.isWaitingForToken = false
-      return
-    }
-    const signer = await getWallet()
-    if (!signer) {
-      this.isWaitingForToken = false
-      return
-    }
-    try {
-      const transaction = await mintToken(
-        instance.blockchain_contract_address,
-        signer,
-        currentUser.wallet_address,
-        tokenUri,
-        signature,
-      )
-      await onTokenMinted(authToken, this.post.id, transaction.hash)
-    } catch (error) {
-      // User has rejected tx
-      this.isWaitingForToken = false
-      return
-    }
-    // Wait until the server sees the tx
-    const intervalId = setInterval(async () => {
-      const post = await getPost(authToken, this.post.id)
-      if (post.token_id) {
-        clearInterval(intervalId)
-        this.isWaitingForToken = false
-        // Update post
-        this.post.token_id = post.token_id
-        this.post.token_tx_id = post.token_tx_id
-      }
-    }, 5000)
-  }
-
+  }, 5000)
 }
 </script>
 
