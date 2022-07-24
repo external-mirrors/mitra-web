@@ -1,5 +1,5 @@
 <template>
-  <h1>Configure subscription</h1>
+  <h1>Manage subscriptions</h1>
   <div class="subscription">
     <div class="connect-wallet" v-if="canConnectWallet()">
       <button class="btn" @click="connectWallet()">Connect wallet</button>
@@ -7,19 +7,19 @@
     <div class="wallet-error" v-if="walletError">
       {{ walletError }}
     </div>
-    <div class="info" v-if="subscriptionConfigured !== null">
+    <div class="info" v-if="subscriptionsEnabled !== null">
       <template v-if="subscription">
-        <span>Subscription is enabled</span>
+        <span>Subscriptions are enabled</span>
         <div class="price">
           {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
           <span class="price-subtext">per month</span>
         </div>
       </template>
       <template v-else>
-        Subscription is not configured
+        Subscriptions are not enabled
       </template>
     </div>
-    <form class="setup" v-if="canConfigureSubscription()">
+    <form class="setup" v-if="canEnableSubscriptions()">
       <div class="price">
         <label for="price">Price</label>
         <input type="number" id="price" v-model="subscriptionPrice" min="0.00">
@@ -28,9 +28,9 @@
       <button
         class="btn primary"
         :disabled="subscriptionPrice <= 0"
-        @click.prevent="onConfigureSubscription()"
+        @click.prevent="onEnableSubscriptions()"
       >
-        Set up subscription
+        Enable subscriptions
       </button>
     </form>
     <form class="withdraw" v-if="subscription !== null">
@@ -57,14 +57,15 @@
 import { onMounted, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
 
-import { getVerifiedEthereumAddress, Profile } from "@/api/users"
+import { Profile, ProfileWrapper } from "@/api/users"
 import {
-  configureSubscription,
+  configureSubscriptions,
   getPricePerSec,
   getSubscriptionAuthorization,
   getSubscriptionInfo,
   getSubscriptionState,
   getSubscriptionToken,
+  onSubscriptionsEnabled,
   withdrawReceived,
   Subscription,
   SubscriptionState,
@@ -81,15 +82,16 @@ const props = defineProps<{
   profile: Profile,
 }>()
 
-const { ensureAuthToken } = $(useCurrentUser())
+const { ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
-const profileEthereumAddress = getVerifiedEthereumAddress(props.profile)
+const profile = new ProfileWrapper(props.profile)
+const profileEthereumAddress = profile.getVerifiedEthereumAddress()
 const subscriptionPrice = $ref<number>(1)
 let { walletAddress, walletError } = $(useWallet())
 let isLoading = $ref(false)
 let subscriptionToken = $ref<SubscriptionToken | null>(null)
-let subscriptionConfigured = $ref<boolean | null>(null)
+let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 let subscriberAddress = $ref<string | null>(null)
@@ -113,7 +115,7 @@ function canConnectWallet(): boolean {
 }
 
 function reset() {
-  subscriptionConfigured = null
+  subscriptionsEnabled = null
   subscription = null
   subscriptionState = null
   subscriberAddress = null
@@ -149,9 +151,11 @@ async function checkSubscription() {
     profileEthereumAddress,
   )
   if (subscription !== null) {
-    subscriptionConfigured = true
+    subscriptionsEnabled = true
+    // Ensure server is aware of subscription configuration
+    await onSubscriptionsEnabled(ensureAuthToken())
   } else {
-    subscriptionConfigured = false
+    subscriptionsEnabled = false
     subscriptionToken = await getSubscriptionToken(
       instance.blockchain_contract_address,
       signer,
@@ -160,15 +164,16 @@ async function checkSubscription() {
   isLoading = false
 }
 
-function canConfigureSubscription(): boolean {
+function canEnableSubscriptions(): boolean {
   return (
     profileEthereumAddress !== null &&
-    subscriptionConfigured === false &&
+    subscriptionsEnabled === false &&
     subscriptionToken !== null
   )
 }
 
-async function onConfigureSubscription() {
+// enableSubscriptions
+async function onEnableSubscriptions() {
   if (
     profileEthereumAddress === null ||
     !instance ||
@@ -187,7 +192,7 @@ async function onConfigureSubscription() {
   const signature = await getSubscriptionAuthorization(authToken, pricePerSec)
   let transaction
   try {
-    transaction = await configureSubscription(
+    transaction = await configureSubscriptions(
       instance.blockchain_contract_address,
       signer,
       profileEthereumAddress,
@@ -200,12 +205,15 @@ async function onConfigureSubscription() {
     return
   }
   await transaction.wait()
-  subscriptionConfigured = true
+  subscriptionsEnabled = true
   subscription = await getSubscriptionInfo(
     instance.blockchain_contract_address,
     signer,
     profileEthereumAddress,
   )
+  const user = await onSubscriptionsEnabled(authToken)
+  setCurrentUser(user)
+  profile.subscription_page_url = user.subscription_page_url
   isLoading = false
 }
 

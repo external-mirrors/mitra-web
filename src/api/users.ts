@@ -27,6 +27,8 @@ export interface Profile {
   followers_count: number;
   following_count: number;
   statuses_count: number;
+
+  subscription_page_url: string | null;
 }
 
 export function getVerifiedEthereumAddress(profile: Profile): string | null {
@@ -180,7 +182,7 @@ export async function getIdentityClaim(authToken: string): Promise<string> {
 export async function createIdentityProof(
   authToken: string,
   signature: string,
-): Promise<Profile> {
+): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const response = await http(url, {
     method: "POST",

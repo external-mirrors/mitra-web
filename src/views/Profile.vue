@@ -49,20 +49,12 @@
                   Verify ethereum address
                 </button>
               </li>
-              <li v-if="canConfigureSubscription()">
+              <li v-if="canManageSubscriptions()">
                 <router-link
-                  title="Set up subscription"
+                  title="Manage subscriptions"
                   :to="{ name: 'profile-subscription', params: { profileId: profile.id }}"
                 >
-                  Set up subscription
-                </router-link>
-              </li>
-              <li v-if="canSubscribe()">
-                <router-link
-                  title="Pay for subscription"
-                  :to="{ name: 'profile-subscription', params: { profileId: profile.id }}"
-                >
-                  Pay for subscription
+                  Manage subscriptions
                 </router-link>
               </li>
               <li v-if="canHideReposts()">
@@ -92,6 +84,26 @@
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
             </button>
+            <template v-if="canSubscribe()">
+              <router-link
+                v-if="isLocalUser()"
+                class="btn"
+                title="Pay for subscription"
+                :to="{ name: 'profile-subscription', params: { profileId: profile.id } }"
+              >
+                Subscribe
+              </router-link>
+              <a
+                v-else-if="profile.subscription_page_url"
+                class="btn"
+                title="Pay for subscription"
+                :href="profile.subscription_page_url"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Subscribe
+              </a>
+            </template>
           </div>
         </div>
         <div class="bio" v-html="profile.note"></div>
@@ -205,7 +217,12 @@ import { useCurrentUser } from "@/store/user"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
 const route = useRoute()
-const { currentUser, authToken, ensureAuthToken } = $(useCurrentUser())
+const {
+  authToken,
+  currentUser,
+  ensureAuthToken,
+  setCurrentUser,
+} = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
 
 let profile = $ref<Profile | null>(null)
@@ -403,11 +420,12 @@ async function verifyEthereumAddress(): Promise<void> {
   const authToken = ensureAuthToken()
   const message = await getIdentityClaim(authToken)
   const signature = await getWalletSignature(signer, message)
-  const { identity_proofs } = await createIdentityProof(authToken, signature)
-  profile.identity_proofs = identity_proofs
+  const user = await createIdentityProof(authToken, signature)
+  setCurrentUser(user)
+  profile.identity_proofs = user.identity_proofs
 }
 
-function canConfigureSubscription(): boolean {
+function canManageSubscriptions(): boolean {
   // Only users with verified address can configure subscription
   return (
     Boolean(instance?.blockchain_contract_address) &&
@@ -423,7 +441,7 @@ function canSubscribe(): boolean {
     Boolean(instance?.blockchain_features?.subscription) &&
     profile !== null &&
     getVerifiedEthereumAddress(profile) !== null &&
-    isLocalUser() &&
+    profile.subscription_page_url !== null &&
     !isCurrentUser()
   )
 }

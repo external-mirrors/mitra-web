@@ -7,6 +7,7 @@ import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
+import { User } from "./users"
 
 const SECONDS_IN_DAY = 3600 * 24
 const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
@@ -57,7 +58,7 @@ export async function getSubscriptionAuthorization(
   }
 }
 
-export async function configureSubscription(
+export async function configureSubscriptions(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
@@ -73,6 +74,22 @@ export async function configureSubscription(
     "0x" + serverSignature.s,
   )
   return transaction
+}
+
+export async function onSubscriptionsEnabled(
+  authToken: string,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/accounts/subscriptions_enabled`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
 }
 
 export class Subscription {

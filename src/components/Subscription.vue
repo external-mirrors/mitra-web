@@ -26,7 +26,7 @@
     <div class="wallet-error" v-if="walletError">
       {{ walletError }}
     </div>
-    <div class="info" v-if="subscriptionConfigured !== null">
+    <div class="info" v-if="subscriptionsEnabled !== null">
       <template v-if="subscription">
         <div class="price">
           {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
@@ -137,6 +137,7 @@ const guest: Profile = {
   followers_count: 0,
   following_count: 0,
   statuses_count: 0,
+  subscription_page_url: null,
 }
 
 const { currentUser } = $(useCurrentUser())
@@ -147,7 +148,7 @@ const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 const sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let senderEthereumAddress = $ref<string | null>(sender.getVerifiedEthereumAddress())
 let { walletAddress, walletError, getSigner } = $(useWallet())
-let subscriptionConfigured = $ref<boolean | null>(null)
+let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 let tokenBalance = $ref<BigNumber | null>(null)
@@ -175,7 +176,7 @@ function canConnectWallet(): boolean {
 }
 
 function reset() {
-  subscriptionConfigured = null
+  subscriptionsEnabled = null
   subscription = null
   subscriptionState = null
 }
@@ -210,9 +211,9 @@ async function checkSubscription() {
     recipientEthereumAddress,
   )
   if (subscription !== null) {
-    subscriptionConfigured = true
+    subscriptionsEnabled = true
   } else {
-    subscriptionConfigured = false
+    subscriptionsEnabled = false
     isLoading = false
     return
   }
@@ -227,7 +228,7 @@ async function checkSubscription() {
 }
 
 function canSubscribe(): boolean {
-  return subscriptionConfigured === true
+  return subscriptionsEnabled === true
 }
 
 function getPaymentAmount(): FixedNumber {
