@@ -85,9 +85,6 @@ async function connectWallet(): Promise<void> {
   walletProvider.on("accountsChanged", () => {
     disconnectWallet()
   })
-  walletProvider.on("disconnect", () => {
-    disconnectWallet()
-  })
 }
 
 // Can't use reactive signer object because it doesn't work with ethers.js

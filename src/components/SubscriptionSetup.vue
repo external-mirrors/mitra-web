@@ -115,6 +115,7 @@ function canConnectWallet(): boolean {
 }
 
 function reset() {
+  subscriptionToken = null
   subscriptionsEnabled = null
   subscription = null
   subscriptionState = null
@@ -128,7 +129,11 @@ async function connectWallet() {
   }
 }
 
-watch($$(walletAddress), reset)
+watch($$(walletAddress), (newValue) => {
+  if (newValue === null) {
+    reset()
+  }
+})
 
 async function checkSubscription() {
   if (

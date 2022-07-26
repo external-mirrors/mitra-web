@@ -176,9 +176,11 @@ function canConnectWallet(): boolean {
 }
 
 function reset() {
+  senderEthereumAddress = null
   subscriptionsEnabled = null
   subscription = null
   subscriptionState = null
+  tokenBalance = null
 }
 
 async function connectWallet() {
@@ -188,7 +190,11 @@ async function connectWallet() {
   }
 }
 
-watch($$(walletAddress), reset)
+watch($$(walletAddress), (newValue) => {
+  if (newValue === null) {
+    reset()
+  }
+})
 
 async function checkSubscription() {
   if (
