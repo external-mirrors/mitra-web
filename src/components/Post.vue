@@ -428,7 +428,9 @@ function getPaymentOptions(): PaymentOption[] {
   const items = []
   for (const [code, name] of CRYPTOCURRENCIES) {
     const symbol = `$${code}`
-    const field = props.post.account.fields.find(item => item.name === symbol)
+    const field = props.post.account.fields.find(item => {
+      return item.name.toLowerCase() === symbol.toLowerCase()
+    })
     if (!field) {
       continue
     }
