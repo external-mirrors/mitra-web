@@ -32,7 +32,7 @@
             ref="attachmentUploadInput"
             accept="image/*"
             style="display: none;"
-            @change="uploadAttachment($event.target.files)"
+            @change="onAttachmentUpload($event)"
           >
         </button>
         <div
@@ -167,7 +167,11 @@ export default class PostEditor extends Vue {
     this.$refs.attachmentUploadInput.click()
   }
 
-  async uploadAttachment(files: FileList) {
+  async onAttachmentUpload(event: Event) {
+    const files = (event.target as HTMLInputElement).files
+    if (!files) {
+      return
+    }
     const imageDataUrl = await fileToDataUrl(files[0])
     const imageBase64 = dataUrlToBase64(imageDataUrl)
     this.attachment = await uploadAttachment(

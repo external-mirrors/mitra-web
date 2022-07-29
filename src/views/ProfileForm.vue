@@ -11,8 +11,8 @@
         <textarea
           id="bio"
           ref="bioInput"
-          :value="form.note_source"
-          @input="updateNote($event.target.value)"
+          :value="form.note_source || ''"
+          @input="onBioUpdate($event)"
         ></textarea>
       </div>
       <div class="image-upload-group">
@@ -24,7 +24,7 @@
               type="file"
               id="avatar"
               accept="image/*"
-              @change="onFilePicked('avatar', $event.target.files)"
+              @change="onFilePicked('avatar', $event)"
             >
           </div>
           <div class="input-group">
@@ -33,7 +33,7 @@
               type="file"
               id="banner"
               accept="image/*"
-              @change="onFilePicked('header', $event.target.files)"
+              @change="onFilePicked('header', $event)"
             >
           </div>
         </div>
@@ -52,7 +52,7 @@
           <input v-model.trim="field.name" placeholder="Label">
           <input
             :value="field.value_source"
-            @input="updateExtraFieldValue(field, $event.target.value)"
+            @input="onExtraFieldUpdate(field, $event)"
             placeholder="Content"
           >
           <a
@@ -160,8 +160,8 @@ export default class ProfileForm extends Vue {
     setupAutoResize(this.$refs.bioInput)
   }
 
-  updateNote(value: string) {
-    this.form.note_source = value
+  onBioUpdate(event: Event) {
+    this.form.note_source = (event.target as HTMLTextAreaElement).value
     this.form.note = renderMarkdownLite(this.form.note_source)
   }
 
@@ -175,14 +175,18 @@ export default class ProfileForm extends Vue {
     }
   }
 
-  async onFilePicked(fieldName: "avatar" | "header", files: File[]) {
+  async onFilePicked(fieldName: "avatar" | "header", event: Event) {
+    const files = (event.target as HTMLInputElement).files
+    if (!files) {
+      return
+    }
     const imageDataUrl = await fileToDataUrl(files[0])
     this.images[fieldName] = imageDataUrl
     this.form[fieldName] = dataUrlToBase64(imageDataUrl)
   }
 
-  updateExtraFieldValue(field: ProfileFieldAttrs, value: string) {
-    field.value_source = value
+  onExtraFieldUpdate(field: ProfileFieldAttrs, event: Event) {
+    field.value_source = (event.target as HTMLInputElement).value
     field.value = renderMarkdownLite(field.value_source)
   }
 
