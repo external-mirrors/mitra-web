@@ -1,5 +1,5 @@
 <template>
-  <div v-if="post && token" class="post-overlay">
+  <div v-if="post && token" class="post-overlay wide">
     <div v-if="canGoBack()" class="back-btn-wrapper">
       <a class="back-btn" title="Back" @click="goBack()">
         <img :src="require('@/assets/feather/arrow-left.svg')">

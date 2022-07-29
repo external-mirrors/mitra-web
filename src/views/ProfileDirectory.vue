@@ -1,14 +1,16 @@
 <template>
-  <div id="main">
-    <div class="content profile-list">
-      <router-link
-        v-for="profile in profiles"
-        class="profile-list-item"
-        :to="{ name: 'profile', params: { profileId: profile.id }}"
-        :key="profile.id"
-      >
-        <profile-card :profile="profile" :compact="false"></profile-card>
-      </router-link>
+  <sidebar-layout>
+    <template #content>
+      <div class="profile-grid">
+        <router-link
+          v-for="profile in profiles"
+          class="profile-list-item"
+          :to="{ name: 'profile', params: { profileId: profile.id }}"
+          :key="profile.id"
+        >
+          <profile-card :profile="profile" :compact="false"></profile-card>
+        </router-link>
+      </div>
       <button
         v-if="isPageFull()"
         class="btn secondary next-btn"
@@ -16,9 +18,8 @@
       >
         Show more profiles
       </button>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -28,7 +29,7 @@ import { $ref } from "vue/macros"
 import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const { ensureAuthToken } = useCurrentUser()
@@ -61,7 +62,7 @@ async function loadNextPage() {
 @import "../styles/layout";
 @import "../styles/theme";
 
-.profile-list {
+.profile-grid {
   display: grid;
   gap: $block-outer-padding;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

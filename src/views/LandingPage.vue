@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page">
+  <div class="landing-page wide">
     <div class="instance-group">
       <div v-if="instance" class="instance-info">
         <h1 class="instance-title">{{ instance.title }}</h1>

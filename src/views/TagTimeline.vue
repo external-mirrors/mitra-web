@@ -1,13 +1,12 @@
 <template>
-  <div id="main">
-    <div class="content posts">
+  <sidebar-layout>
+    <template #content>
       <post-list
         :posts="posts"
         @load-next-page="loadNextPage"
       ></post-list>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +15,7 @@ import { useRoute } from "vue-router"
 
 import { Post, getTagTimeline } from "@/api/posts"
 import PostList from "@/components/PostList.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()

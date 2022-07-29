@@ -1,13 +1,12 @@
 <template>
-  <div id="main" v-if="profile && isLocalUser()">
-    <div class="content">
+  <sidebar-layout v-if="profile && isLocalUser()">
+    <template #content>
       <component
         :is="isCurrentUser() ? SubscriptionSetup : Subscription"
         :profile="profile"
       ></component>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +15,7 @@ import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { getProfile, Profile } from "@/api/users"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import Subscription from "@/components/Subscription.vue"
 import SubscriptionSetup from "@/components/SubscriptionSetup.vue"
 import { useCurrentUser } from "@/store/user"

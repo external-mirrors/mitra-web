@@ -1,6 +1,6 @@
 <template>
-  <div id="main">
-    <div class="content search-result-group">
+  <sidebar-layout>
+    <template #content>
       <loader v-if="isLoading"></loader>
       <div v-if="!isLoading" class="search-message">
         <template v-if="errorMessage">{{ errorMessage }}</template>
@@ -20,9 +20,8 @@
           :key="post.id"
         ></post>
       </div>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -36,7 +35,7 @@ import { Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()

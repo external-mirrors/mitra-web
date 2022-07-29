@@ -1,84 +1,85 @@
 <template>
-  <div id="main">
-    <form class="content settings" @submit.prevent="save()">
-      <h1>Edit profile</h1>
-      <div class="input-group">
-        <label for="display-name">Display name</label>
-        <input id="display-name" v-model.trim="form.display_name">
-      </div>
-      <div class="input-group">
-        <label for="bio">Bio</label>
-        <textarea
-          id="bio"
-          ref="bioInputRef"
-          :value="form.note_source || ''"
-          @input="onBioUpdate($event)"
-        ></textarea>
-      </div>
-      <div class="image-upload-group">
-        <profile-card :profile="profilePreview" :compact="true"></profile-card>
-        <div class="image-upload-inputs">
-          <div class="input-group">
-            <label for="avatar">Avatar</label>
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*"
-              @change="onFilePicked('avatar', $event)"
-            >
-          </div>
-          <div class="input-group">
-            <label for="banner">Banner</label>
-            <input
-              type="file"
-              id="banner"
-              accept="image/*"
-              @change="onFilePicked('header', $event)"
-            >
+  <sidebar-layout>
+    <template #content>
+      <form @submit.prevent="save()">
+        <h1>Edit profile</h1>
+        <div class="input-group">
+          <label for="display-name">Display name</label>
+          <input id="display-name" v-model.trim="form.display_name">
+        </div>
+        <div class="input-group">
+          <label for="bio">Bio</label>
+          <textarea
+            id="bio"
+            ref="bioInputRef"
+            :value="form.note_source || ''"
+            @input="onBioUpdate($event)"
+          ></textarea>
+        </div>
+        <div class="image-upload-group">
+          <profile-card :profile="profilePreview" :compact="true"></profile-card>
+          <div class="image-upload-inputs">
+            <div class="input-group">
+              <label for="avatar">Avatar</label>
+              <input
+                type="file"
+                id="avatar"
+                accept="image/*"
+                @change="onFilePicked('avatar', $event)"
+              >
+            </div>
+            <div class="input-group">
+              <label for="banner">Banner</label>
+              <input
+                type="file"
+                id="banner"
+                accept="image/*"
+                @change="onFilePicked('header', $event)"
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <div class="extra-fields input-group">
-        <label>
-          Additional info
-          <div class="sub-label">You can have up to {{ extraFieldMaxCount }} items displayed as a table on your profile</div>
-        </label>
-        <div
-          v-for="(field, index) in form.fields_attributes"
-          :key="index"
-          class="extra-field"
-          :class="{'error': !isValidExtraField(index)}"
-        >
-          <input v-model.trim="field.name" placeholder="Label">
-          <input
-            :value="field.value_source"
-            @input="onExtraFieldUpdate(field, $event)"
-            placeholder="Content"
+        <div class="extra-fields input-group">
+          <label>
+            Additional info
+            <div class="sub-label">You can have up to {{ extraFieldMaxCount }} items displayed as a table on your profile</div>
+          </label>
+          <div
+            v-for="(field, index) in form.fields_attributes"
+            :key="index"
+            class="extra-field"
+            :class="{'error': !isValidExtraField(index)}"
           >
-          <a
-            class="remove-extra-field"
-            title="Remove item"
-            @click="removeExtraField(index)"
+            <input v-model.trim="field.name" placeholder="Label">
+            <input
+              :value="field.value_source"
+              @input="onExtraFieldUpdate(field, $event)"
+              placeholder="Content"
+            >
+            <a
+              class="remove-extra-field"
+              title="Remove item"
+              @click="removeExtraField(index)"
+            >
+              <img :src="require('@/assets/feather/x-circle.svg')">
+            </a>
+          </div>
+          <button
+            v-if="form.fields_attributes.length <= extraFieldMaxCount"
+            type="button"
+            class="add-extra-field"
+            @click="addExtraField()"
           >
-            <img :src="require('@/assets/feather/x-circle.svg')">
-          </a>
+            <img :src="require('@/assets/feather/plus-circle.svg')">
+            Add new item
+          </button>
         </div>
-        <button
-          v-if="form.fields_attributes.length <= extraFieldMaxCount"
-          type="button"
-          class="add-extra-field"
-          @click="addExtraField()"
-        >
-          <img :src="require('@/assets/feather/plus-circle.svg')">
-          Add new item
+        <button type="submit" class="btn" :disabled="!isFormValid()">
+          Save
         </button>
-      </div>
-      <button type="submit" class="btn" :disabled="!isFormValid()">
-        Save
-      </button>
-    </form>
-    <sidebar></sidebar>
-  </div>
+      </form>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -93,7 +94,7 @@ import {
   updateProfile,
 } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"

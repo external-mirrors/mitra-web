@@ -1,17 +1,16 @@
 <template>
-  <div id="main">
-    <div class="content about" v-if="instance">
+  <sidebar-layout>
+    <template #content v-if="instance">
       <h1>{{ instance.title }}</h1>
       <div class="description static-text" v-html="renderMarkdown(instance.description)"></div>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
 import { $ } from "vue/macros"
 
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { renderMarkdown } from "@/utils/markdown"
 

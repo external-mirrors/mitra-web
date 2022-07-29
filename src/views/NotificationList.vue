@@ -1,6 +1,6 @@
 <template>
-  <div id="main">
-    <div class="content">
+  <sidebar-layout>
+    <template #content>
       <div
         class="notification"
         v-for="(notification, index) in notifications"
@@ -84,9 +84,8 @@
       >
         Show more notifications
       </button>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -97,7 +96,7 @@ import { updateNotificationMarker } from "@/api/markers"
 import { getNotifications, Notification } from "@/api/notifications"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"

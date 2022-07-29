@@ -20,7 +20,7 @@
       </div>
     </div>
   </header>
-  <router-view :key="route.fullPath" :class="{ wide: isPublicPage() }" />
+  <router-view :key="route.fullPath" />
 </template>
 
 <script setup lang="ts">

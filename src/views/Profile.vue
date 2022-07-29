@@ -1,6 +1,6 @@
 <template>
-  <div id="main" v-if="profile">
-    <div class="content posts">
+  <sidebar-layout v-if="profile">
+    <template #content>
       <div class="profile-block">
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
@@ -180,9 +180,8 @@
           :key="profile.id"
         ></profile-list-item>
       </template>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -210,7 +209,7 @@ import {
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"

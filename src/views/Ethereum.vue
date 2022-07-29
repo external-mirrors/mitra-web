@@ -1,5 +1,5 @@
 <template>
-  <static-page>
+  <static-page class="wide">
     <template #heading>Ethereum</template>
     <template #text>
       <div v-html="text"></div>

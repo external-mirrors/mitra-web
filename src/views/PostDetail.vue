@@ -1,9 +1,9 @@
 <template>
-  <div id="main" ref="containerRef">
-    <div v-if="!isLoading && thread.length === 0" class="content not-found">
-      Not found
-    </div>
-    <div v-else class="content posts">
+  <sidebar-layout>
+    <template #content>
+      <div v-if="!isLoading && thread.length === 0" class="not-found">
+        Not found
+      </div>
       <post
         v-for="(post, index) in thread"
         :key="post.id"
@@ -15,9 +15,8 @@
         @comment-created="onCommentCreated(index, $event)"
         @post-deleted="onPostDeleted(index)"
       ></post>
-    </div>
-    <sidebar></sidebar>
-  </div>
+    </template>
+  </sidebar-layout>
 </template>
 
 <script setup lang="ts">
@@ -27,7 +26,7 @@ import { useRoute } from "vue-router"
 
 import { Post as PostObject, getPostContext } from "@/api/posts"
 import Post from "@/components/Post.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()
@@ -37,7 +36,6 @@ let selectedId = $ref(route.params.postId as string)
 let highlightedId = $ref<string | null>(null)
 let thread = $ref<PostObject[]>([])
 let isLoading = $ref(true)
-const containerRef = $ref<HTMLElement | null>(null)
 const loader = $ref(getPostContext(authToken, selectedId))
 
 onMounted(async () => {
@@ -58,11 +56,12 @@ onMounted(async () => {
 })
 
 function scrollTo(postId: string, options: any = {}) {
-  if (containerRef === null) {
+  const container = document.getElementById("main")
+  if (!container) {
     return
   }
-  const containerOffset = containerRef.offsetTop // sticky header height or top margin
-  const postElem: HTMLElement | null = containerRef.querySelector(`div[data-post-id="${postId}"]`)
+  const containerOffset = container.offsetTop // sticky header height or top margin
+  const postElem: HTMLElement | null = container.querySelector(`div[data-post-id="${postId}"]`)
   if (postElem === null) {
     return
   }

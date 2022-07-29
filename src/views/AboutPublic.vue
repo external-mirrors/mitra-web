@@ -1,5 +1,5 @@
 <template>
-  <static-page v-if="instance">
+  <static-page v-if="instance" class="wide">
     <template #heading>{{ instance.title }}</template>
     <template #text>
       <div v-html="renderMarkdown(instance.description)"></div>
