@@ -7,7 +7,7 @@
         :to="{ name: 'profile', params: { profileId: profile.id }}"
         :key="profile.id"
       >
-        <profile-card :profile="profile"></profile-card>
+        <profile-card :profile="profile" :compact="false"></profile-card>
       </router-link>
       <button
         v-if="isPageFull()"
@@ -21,8 +21,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $ref } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
@@ -30,42 +31,29 @@ import ProfileCard from "@/components/ProfileCard.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: {
-    ProfileCard,
-    Sidebar,
-  },
+const { ensureAuthToken } = useCurrentUser()
+
+let profiles = $ref<Profile[]>([])
+let initialProfileCount = $ref<number | null>(null)
+
+onMounted(async () => {
+  const authToken = ensureAuthToken()
+  profiles = await getProfiles(authToken)
+  initialProfileCount = profiles.length
 })
-export default class ProfileDirectory extends Vue {
 
-  private store = setup(() => {
-    const { ensureAuthToken } = useCurrentUser()
-    return { ensureAuthToken }
-  })
-
-  profiles: Profile[] = []
-  initialProfileCount: number | null = null
-
-  async created() {
-    const authToken = this.store.ensureAuthToken()
-    this.profiles = await getProfiles(authToken)
-    this.initialProfileCount = this.profiles.length
+function isPageFull(): boolean {
+  if (initialProfileCount === null) {
+    return false
   }
+  return initialProfileCount >= PAGE_SIZE
+}
 
-  isPageFull(): boolean {
-    if (this.initialProfileCount === null) {
-      return false
-    }
-    return this.initialProfileCount >= PAGE_SIZE
-  }
-
-  async loadNextPage() {
-    const authToken = this.store.ensureAuthToken()
-    const offset = this.profiles.length
-    const profiles = await getProfiles(authToken, offset)
-    this.profiles.push(...profiles)
-  }
-
+async function loadNextPage() {
+  const authToken = ensureAuthToken()
+  const offset = profiles.length
+  const nextPage = await getProfiles(authToken, offset)
+  profiles.push(...nextPage)
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" ref="containerRef">
     <div v-if="!isLoading && thread.length === 0" class="content not-found">
       Not found
     </div>
@@ -20,106 +20,92 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { nextTick, onMounted } from "vue"
+import { $, $ref } from "vue/macros"
+import { useRoute } from "vue-router"
 
-import { Post, getPostContext } from "@/api/posts"
-import Avatar from "@/components/Avatar.vue"
-import PostComponent from "@/components/Post.vue"
+import { Post as PostObject, getPostContext } from "@/api/posts"
+import Post from "@/components/Post.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: {
-    Avatar,
-    Post: PostComponent,
-    Sidebar,
-  },
-})
-export default class PostDetail extends Vue {
+const route = useRoute()
+const { authToken } = $(useCurrentUser())
 
-  private store = setup(() => {
-    const { authToken } = useCurrentUser()
-    return { authToken }
-  })
+let selectedId = $ref(route.params.postId as string)
+let highlightedId = $ref<string | null>(null)
+let thread = $ref<PostObject[]>([])
+let isLoading = $ref(true)
+const containerRef = $ref<HTMLElement | null>(null)
+const loader = $ref(getPostContext(authToken, selectedId))
 
-  private loader!: Promise<Post[]>
-  private selectedId: string | null = null
-  private highlightedId: string | null = null
-
-  thread: Post[] = []
-  isLoading = false
-
-  created() {
-    this.selectedId = this.$route.params.postId as string
-    this.loader = getPostContext(this.store.authToken, this.selectedId)
-    this.isLoading = true
-  }
-
-  async mounted() {
-    try {
-      this.thread = await this.loader
-    } catch (error: any) {
-      if (error.message === "post not found") {
-        // Show "not found" text
-        return
-      }
-      throw error
-    } finally {
-      this.isLoading = false
-    }
-    this.$nextTick(() => {
-      // TODO: scrolls to wrong position if posts above it have images
-      this.scrollTo(this.selectedId as string)
-    })
-  }
-
-  private scrollTo(postId: string, options: any = {}) {
-    const containerOffset = this.$el.offsetTop // sticky header height or top margin
-    const postElem = this.$el.querySelector(`div[data-post-id="${postId}"]`)
-    window.scroll({
-      top: (postElem.offsetTop - containerOffset),
-      left: 0,
-      ...options,
-    })
-    if (this.selectedId === postId) {
+onMounted(async () => {
+  try {
+    thread = await loader
+  } catch (error: any) {
+    if (error.message === "post not found") {
+      // Show "not found" text
       return
     }
-    // Update postId in page URL
-    history.pushState(
-      {},
-      "",
-      location.pathname.replace(this.selectedId as string, postId),
-    )
-    this.selectedId = postId
+    throw error
+  } finally {
+    isLoading = false
   }
+  await nextTick()
+  // TODO: scrolls to wrong position if posts above it have images
+  scrollTo(selectedId)
+})
 
-  isHighlighted(post: Post): boolean {
-    if (this.thread.length === 1) {
-      return false
-    }
-    return post.id === this.selectedId || post.id === this.highlightedId
+function scrollTo(postId: string, options: any = {}) {
+  if (containerRef === null) {
+    return
   }
-
-  onPostHighlight(postId: string | null) {
-    this.highlightedId = postId
+  const containerOffset = containerRef.offsetTop // sticky header height or top margin
+  const postElem: HTMLElement | null = containerRef.querySelector(`div[data-post-id="${postId}"]`)
+  if (postElem === null) {
+    return
   }
-
-  onPostNavigate(postId: string) {
-    this.scrollTo(postId, { behavior: "smooth" })
+  window.scroll({
+    top: (postElem.offsetTop - containerOffset),
+    left: 0,
+    ...options,
+  })
+  if (selectedId === postId) {
+    return
   }
-
-  onCommentCreated(index: number, post: Post) {
-    // Insert comment after parent post
-    this.thread.splice(index + 1, 0, post)
-  }
-
-  onPostDeleted(postIndex: number) {
-    this.thread.splice(postIndex, 1)
-  }
-
+  // Update postId in page URL
+  window.history.pushState(
+    {},
+    "",
+    window.location.pathname.replace(selectedId, postId),
+  )
+  selectedId = postId
 }
 
+function isHighlighted(post: PostObject): boolean {
+  if (thread.length === 1) {
+    return false
+  }
+  return post.id === selectedId || post.id === highlightedId
+}
+
+function onPostHighlight(postId: string | null) {
+  highlightedId = postId
+}
+
+function onPostNavigate(postId: string) {
+  scrollTo(postId, { behavior: "smooth" })
+}
+
+function onCommentCreated(index: number, post: PostObject) {
+  // Insert comment after parent post
+  thread.splice(index + 1, 0, post)
+}
+
+function onPostDeleted(postIndex: number) {
+  thread.splice(postIndex, 1)
+}
 </script>
 
 <style scoped lang="scss">

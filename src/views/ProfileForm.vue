@@ -10,7 +10,7 @@
         <label for="bio">Bio</label>
         <textarea
           id="bio"
-          ref="bioInput"
+          ref="bioInputRef"
           :value="form.note_source || ''"
           @input="onBioUpdate($event)"
         ></textarea>
@@ -81,12 +81,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $, $computed, $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
 import {
   Profile,
-  User,
   ProfileFieldAttrs,
   ProfileUpdateData,
   updateProfile,
@@ -98,132 +99,108 @@ import { setupAutoResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
-@Options({
-  components: {
-    ProfileCard,
-    Sidebar,
-  },
+const router = useRouter()
+const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser())
+
+const extraFieldMaxCount = 10
+const profile = ensureCurrentUser()
+
+function getFieldsAttributes() {
+  const fields_attributes = []
+  for (let index = 0; index < profile.fields.length; index++) {
+    const field_attributes = {
+      name: profile.fields[index].name,
+      value: profile.fields[index].value,
+      value_source: profile.source.fields[index].value,
+    }
+    fields_attributes.push(field_attributes)
+  }
+  return fields_attributes
+}
+
+const form = $ref<ProfileUpdateData>({
+  display_name: profile.display_name,
+  note: profile.note,
+  note_source: profile.source.note,
+  fields_attributes: getFieldsAttributes(),
+  avatar: null,
+  header: null,
 })
-export default class ProfileForm extends Vue {
+const images = $ref({
+  avatar: profile.avatar,
+  header: profile.header,
+})
 
-  private store = setup(() => {
-    const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = useCurrentUser()
-    return { ensureCurrentUser, setCurrentUser, ensureAuthToken }
-  })
+const bioInputRef = $ref<HTMLTextAreaElement | null>(null)
 
-  form: ProfileUpdateData = {
-    display_name: null,
-    note: null,
-    note_source: null,
-    avatar: null,
-    header: null,
-    fields_attributes: [],
+onMounted(() => {
+  if (bioInputRef) {
+    setupAutoResize(bioInputRef)
   }
+})
 
-  images: {
-    avatar: string | null,
-    header: string | null,
-  } = { avatar: null, header: null }
-
-  extraFieldMaxCount = 10
-
-  private get profile(): User {
-    return this.store.ensureCurrentUser()
+const profilePreview = $computed<Profile>(() => {
+  return {
+    ...profile,
+    display_name: form.display_name,
+    note: form.note,
+    avatar: images.avatar,
+    header: images.header,
   }
+})
 
-  $refs!: { bioInput: HTMLTextAreaElement }
+function onBioUpdate(event: Event) {
+  form.note_source = (event.target as HTMLTextAreaElement).value
+  form.note = renderMarkdownLite(form.note_source)
+}
 
-  created() {
-    const fields_attributes = []
-    for (let index = 0; index < this.profile.fields.length; index++) {
-      const field_attributes = {
-        name: this.profile.fields[index].name,
-        value: this.profile.fields[index].value,
-        value_source: this.profile.source.fields[index].value,
-      }
-      fields_attributes.push(field_attributes)
-    }
-    this.form = {
-      ...this.form,
-      display_name: this.profile.display_name,
-      note: this.profile.note,
-      note_source: this.profile.source.note,
-      fields_attributes: fields_attributes,
-    }
-    this.images = {
-      avatar: this.profile.avatar,
-      header: this.profile.header,
-    }
+async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
+  const files = (event.target as HTMLInputElement).files
+  if (!files) {
+    return
   }
+  const imageDataUrl = await fileToDataUrl(files[0])
+  images[fieldName] = imageDataUrl
+  form[fieldName] = dataUrlToBase64(imageDataUrl)
+}
 
-  mounted() {
-    setupAutoResize(this.$refs.bioInput)
-  }
+function onExtraFieldUpdate(field: ProfileFieldAttrs, event: Event) {
+  field.value_source = (event.target as HTMLInputElement).value
+  field.value = renderMarkdownLite(field.value_source)
+}
 
-  onBioUpdate(event: Event) {
-    this.form.note_source = (event.target as HTMLTextAreaElement).value
-    this.form.note = renderMarkdownLite(this.form.note_source)
-  }
-
-  get profilePreview(): Profile {
-    return {
-      ...this.profile,
-      display_name: this.form.display_name,
-      note: this.form.note,
-      avatar: this.images.avatar,
-      header: this.images.header,
-    }
-  }
-
-  async onFilePicked(fieldName: "avatar" | "header", event: Event) {
-    const files = (event.target as HTMLInputElement).files
-    if (!files) {
-      return
-    }
-    const imageDataUrl = await fileToDataUrl(files[0])
-    this.images[fieldName] = imageDataUrl
-    this.form[fieldName] = dataUrlToBase64(imageDataUrl)
-  }
-
-  onExtraFieldUpdate(field: ProfileFieldAttrs, event: Event) {
-    field.value_source = (event.target as HTMLInputElement).value
-    field.value = renderMarkdownLite(field.value_source)
-  }
-
-  isValidExtraField(index: number): boolean {
-    const field = this.form.fields_attributes[index]
-    for (let prevIndex = 0; prevIndex < index; prevIndex++) {
-      const prevField = this.form.fields_attributes[prevIndex]
-      if (field.name === prevField.name) {
-        // Label is not unique
-        return false
-      }
-    }
-    return true
-  }
-
-  removeExtraField(index: number) {
-    this.form.fields_attributes.splice(index, 1)
-  }
-
-  addExtraField() {
-    this.form.fields_attributes.push({ name: "", value: "", value_source: "" })
-  }
-
-  isFormValid(): boolean {
-    if (this.form.display_name && this.form.display_name.length > 75) {
+function isValidExtraField(index: number): boolean {
+  const field = form.fields_attributes[index]
+  for (let prevIndex = 0; prevIndex < index; prevIndex++) {
+    const prevField = form.fields_attributes[prevIndex]
+    if (field.name === prevField.name) {
+      // Label is not unique
       return false
     }
-    return true
   }
+  return true
+}
 
-  async save() {
-    const authToken = this.store.ensureAuthToken()
-    const profile = await updateProfile(authToken, this.form)
-    this.store.setCurrentUser(profile)
-    this.$router.push({ name: "profile", params: { profileId: profile.id } })
+function removeExtraField(index: number) {
+  form.fields_attributes.splice(index, 1)
+}
+
+function addExtraField() {
+  form.fields_attributes.push({ name: "", value: "", value_source: "" })
+}
+
+function isFormValid(): boolean {
+  if (form.display_name && form.display_name.length > 75) {
+    return false
   }
+  return true
+}
 
+async function save() {
+  const authToken = ensureAuthToken()
+  const profile = await updateProfile(authToken, form)
+  setCurrentUser(profile)
+  router.push({ name: "profile", params: { profileId: profile.id } })
 }
 </script>
 

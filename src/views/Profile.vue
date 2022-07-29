@@ -450,13 +450,13 @@ async function loadNextPage(maxId: string) {
   if (!profile) {
     return
   }
-  const posts = await getProfileTimeline(
+  const nextPage = await getProfileTimeline(
     authToken,
     profile.id,
     tabName !== "posts-with-replies",
     maxId,
   )
-  posts.push(...posts)
+  posts.push(...nextPage)
 }
 </script>
 

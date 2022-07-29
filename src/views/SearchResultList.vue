@@ -12,68 +12,61 @@
         <div class="search-result" v-for="profile in profiles" :key="profile.id">
           <profile-list-item :profile="profile"></profile-list-item>
         </div>
-        <post :post="post" v-for="post in posts" :key="post.id"></post>
+        <post
+          v-for="post in posts"
+          :post="post"
+          :highlighted="false"
+          :in-thread="false"
+          :key="post.id"
+        ></post>
       </div>
     </div>
     <sidebar></sidebar>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
-import { Post } from "@/api/posts"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $ref } from "vue/macros"
+import { useRoute } from "vue-router"
+
+import { Post as PostObject } from "@/api/posts"
 import { getSearchResults } from "@/api/search"
 import { Profile } from "@/api/users"
-import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
-import PostComponent from "@/components/Post.vue"
+import Post from "@/components/Post.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: {
-    Avatar,
-    Loader,
-    Post: PostComponent,
-    ProfileListItem,
-    Sidebar,
-  },
-})
-export default class SearchResultList extends Vue {
+const route = useRoute()
+const { ensureAuthToken } = useCurrentUser()
 
-  private store = setup(() => {
-    const { ensureAuthToken } = useCurrentUser()
-    return { ensureAuthToken }
-  })
+let searchQuery = $ref<string | null>(null)
+let isLoading = $ref(false)
+let errorMessage = $ref("")
 
-  searchQuery: string | null = null
-  isLoading = false
-  errorMessage = ""
+let profiles = $ref<Profile[]>([])
+let posts = $ref<PostObject[]>([])
 
-  profiles: Profile[] = []
-  posts: Post[] = []
-
-  async created() {
-    const searchQuery = this.$route.query?.q
-    if (typeof searchQuery === "string") {
-      this.isLoading = true
-      this.searchQuery = searchQuery
-      try {
-        const results = await getSearchResults(
-          this.store.ensureAuthToken(),
-          this.searchQuery,
-        )
-        this.profiles = results.accounts
-        this.posts = results.statuses
-      } catch (error: any) {
-        this.errorMessage = error.message
-      }
-      this.isLoading = false
+onMounted(async () => {
+  const q = route.query?.q
+  if (typeof q === "string") {
+    isLoading = true
+    searchQuery = q
+    try {
+      const results = await getSearchResults(
+        ensureAuthToken(),
+        searchQuery,
+      )
+      profiles = results.accounts
+      posts = results.statuses
+    } catch (error: any) {
+      errorMessage = error.message
     }
+    isLoading = false
   }
-
-}
+})
 </script>
 
 <style scoped lang="scss">
