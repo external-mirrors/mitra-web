@@ -1,4 +1,24 @@
 <template>
+  <header v-if="currentUser !== null">
+    <div id="header">
+      <div id="nav">
+        <router-link to="/" class="home-btn">
+          <img :src="require('@/assets/feather/home.svg')">
+          <span>Home</span>
+        </router-link>
+        <search />
+      </div>
+      <div id="profile">
+        <router-link
+          class="profile-link"
+          :to="{ name: 'profile', params: { profileId: currentUser.id }}"
+        >
+          <avatar :profile="currentUser"></avatar>
+          <div class="profile-name">@{{ currentUser.username }}</div>
+        </router-link>
+      </div>
+    </div>
+  </header>
   <div id="main" :class="{ wide: currentUser === null }">
     <div class="content">
       <slot name="content"></slot>
@@ -11,7 +31,9 @@
 import { $ } from "vue/macros"
 
 import { useCurrentUser } from "@/store/user"
-import Sidebar from "./Sidebar.vue"
+import Avatar from "@/components/Avatar.vue"
+import Search from "@/components/Search.vue"
+import Sidebar from "@/components/Sidebar.vue"
 
 const { currentUser } = $(useCurrentUser())
 </script>
@@ -19,4 +41,198 @@ const { currentUser } = $(useCurrentUser())
 <style scoped lang="scss">
 @import "../styles/layout";
 @import "../styles/theme";
+
+header {
+  background-color: $background-color;
+  box-sizing: border-box;
+  height: $header-height;
+  margin-bottom: $block-outer-padding;
+  padding: $body-padding;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
+  gap: $content-gap;
+  height: 100%;
+  margin: 0 auto;
+  max-width: $content-width + $content-gap + $sidebar-width;
+}
+
+#nav {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: $body-padding;
+  min-width: $content-min-width;
+  width: $content-width;
+
+  .home-btn {
+    align-items: center;
+    background-color: $block-background-color;
+    border-radius: $btn-border-radius;
+    box-shadow: $shadow;
+    box-sizing: border-box;
+    color: $text-color;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    height: 100%;
+    padding: 7px $body-padding;
+
+    img {
+      filter: $text-colorizer;
+      height: 1.2em;
+      margin-right: 5px;
+    }
+
+    span {
+      padding-top: 1px;
+    }
+
+    &:hover {
+      background-color: $btn-background-color;
+      color: $btn-text-color;
+
+      img {
+        filter: $btn-text-colorizer;
+      }
+    }
+  }
+
+  .search {
+    background-color: $block-background-color;
+    box-shadow: $shadow;
+    height: 100%;
+    margin: 0 0 0 auto;
+    width: 250px;
+  }
+}
+
+#profile {
+  flex-shrink: 0;
+  width: $sidebar-width;
+
+  .profile-link {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  .profile-name {
+    margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .avatar {
+    height: $avatar-size;
+    width: $avatar-size;
+  }
+}
+
+#main {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  gap: $content-gap;
+  margin: 0 auto;
+  max-width: $content-width + $content-gap + $sidebar-width;
+}
+
+#main:not(.wide) {
+  padding: 0 $body-padding;
+}
+
+.content {
+  box-sizing: border-box;
+  max-width: $content-width;
+  min-width: $content-min-width;
+  width: $content-width;
+
+  :deep(h1) {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 $block-outer-padding * 1.5;
+  }
+}
+
+#main.wide {
+  /* main element should not have top padding to make scrollTo impl simpler */
+  margin-top: $content-gap;
+  max-width: $wide-content-width + $content-gap + $wide-sidebar-width;
+
+  .content {
+    max-width: $wide-content-width;
+    min-width: $content-min-width;
+    width: $wide-content-width;
+  }
+}
+
+@media screen and (max-width: $screen-breakpoint-medium) {
+  #header,
+  #main {
+    /* Equal to header's bottom padding + margin */
+    gap: $block-outer-padding + $body-padding;
+  }
+
+  #main.wide {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: $screen-breakpoint-small) {
+  header {
+    margin-bottom: 0;
+  }
+
+  #header {
+    gap: $body-padding;
+  }
+
+  #nav {
+    min-width: auto;
+    width: 100%;
+
+    .search {
+      width: auto;
+    }
+  }
+
+  #profile {
+    width: auto;
+
+    .profile-name {
+      display: none;
+    }
+  }
+
+  #main {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+
+  #main .content,
+  #main.wide .content {
+    max-width: none;
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: $screen-breakpoint-x-small) {
+  #nav .home-btn {
+    img {
+      margin-right: 0;
+    }
+
+    span {
+      display: none;
+    }
+  }
+}
 </style>
