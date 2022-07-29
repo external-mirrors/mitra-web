@@ -1,5 +1,5 @@
 <template>
-  <header v-if="!isPublicPage">
+  <header v-if="!isPublicPage()">
     <div id="header">
       <div id="nav">
         <router-link to="/" class="home-btn">
@@ -9,54 +9,40 @@
         <search />
       </div>
       <div id="profile">
-        <router-link v-if="profile" class="profile-link" :to="{ name: 'profile', params: { profileId: profile.id }}">
-          <avatar :profile="profile"></avatar>
-          <div class="profile-name">@{{ profile.username }}</div>
+        <router-link
+          v-if="currentUser"
+          class="profile-link"
+          :to="{ name: 'profile', params: { profileId: currentUser.id }}"
+        >
+          <avatar :profile="currentUser"></avatar>
+          <div class="profile-name">@{{ currentUser.username }}</div>
         </router-link>
       </div>
     </div>
   </header>
-  <router-view :key="$route.fullPath" :class="{'wide': isPublicPage}" />
+  <router-view :key="route.fullPath" :class="{ wide: isPublicPage() }" />
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { $ } from "vue/macros"
+import { useRoute } from "vue-router"
 
-import { User } from "@/api/users"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
 import Avatar from "@/components/Avatar.vue"
 import Search from "@/components/Search.vue"
 
-@Options({
-  components: {
-    Avatar,
-    Search,
-  },
-})
-export default class App extends Vue {
+const route = useRoute()
+const { currentUser } = $(useCurrentUser())
+const { loadInstanceInfo } = useInstanceInfo()
 
-  private store = setup(() => {
-    const { currentUser } = useCurrentUser()
-    const { loadInstanceInfo } = useInstanceInfo()
-    return { currentUser, loadInstanceInfo }
-  })
+loadInstanceInfo()
 
-  created() {
-    this.store.loadInstanceInfo()
-  }
-
-  get isPublicPage(): boolean {
-    return (
-      this.store.currentUser === null ||
-      this.$route.name === "post-overlay"
-    )
-  }
-
-  get profile(): User | null {
-    return this.store.currentUser
-  }
-
+function isPublicPage(): boolean {
+  return (
+    currentUser === null ||
+    route.name === "post-overlay"
+  )
 }
 </script>
 
