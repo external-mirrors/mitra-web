@@ -165,8 +165,8 @@
             Posts with replies
           </router-link>
         </template>
-        <template v-else-if="tabName === 'followers'">Followers</template>
-        <template v-else-if="tabName === 'following'">Following</template>
+        <span v-else-if="tabName === 'followers'" class="active">Followers</span>
+        <span v-else-if="tabName === 'following'" class="active">Following</span>
       </div>
       <post-list
         v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
@@ -650,11 +650,12 @@ $avatar-size: 170px;
   display: flex;
   margin-bottom: $block-outer-padding;
 
-  a {
+  a,
+  span {
     border-radius: $block-border-radius;
     padding: $block-inner-padding / 2;
     text-align: center;
-    width: 50%;
+    width: 100%;
 
     &.active {
       background-color: $block-background-color;

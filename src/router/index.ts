@@ -105,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/profile/:profileId/:tabName",
     name: "profile-tab",
     component: ProfileView,
-    meta: { onlyAuthenticated: true },
+    meta: { },
   },
   {
     path: "/profile/:profileId/subscription",
