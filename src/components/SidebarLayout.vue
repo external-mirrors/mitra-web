@@ -19,11 +19,14 @@
       </div>
     </div>
   </header>
+  <div v-else id="header-public" class="wide">
+    <instance-info></instance-info>
+  </div>
   <div id="main" :class="{ wide: currentUser === null }">
     <div class="content">
       <slot name="content"></slot>
     </div>
-    <sidebar></sidebar>
+    <sidebar v-if="currentUser !== null"></sidebar>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ import { $ } from "vue/macros"
 
 import { useCurrentUser } from "@/store/user"
 import Avatar from "@/components/Avatar.vue"
+import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
 import Sidebar from "@/components/Sidebar.vue"
 
@@ -135,6 +139,21 @@ header {
   }
 }
 
+#header-public {
+  background-color: $background-color;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  width: $wide-content-width;
+  z-index: 1;
+}
+
+.instance-info {
+  max-width: $wide-content-width;
+  min-width: $content-min-width;
+  width: $wide-content-width;
+}
+
 #main {
   align-items: flex-start;
   display: flex;
@@ -157,14 +176,15 @@ header {
   :deep(h1) {
     font-size: 32px;
     font-weight: bold;
-    margin: 0 0 $block-outer-padding * 1.5;
+    margin: 0 0 $block-outer-padding;
   }
 }
 
 #main.wide {
   /* main element should not have top padding to make scrollTo impl simpler */
-  margin-top: $content-gap;
-  max-width: $wide-content-width + $content-gap + $wide-sidebar-width;
+  margin-top: 1px;
+  max-width: $wide-content-width;
+  padding-top: 0;
 
   .content {
     max-width: $wide-content-width;
@@ -178,10 +198,6 @@ header {
   #main {
     /* Equal to header's bottom padding + margin */
     gap: $block-outer-padding + $body-padding;
-  }
-
-  #main.wide {
-    margin-top: 0;
   }
 }
 
@@ -211,13 +227,22 @@ header {
     }
   }
 
+  #header-public {
+    width: auto;
+  }
+
   #main {
     flex-direction: column-reverse;
     gap: 0;
   }
 
+  #main.wide {
+    max-width: none;
+  }
+
   #main .content,
-  #main.wide .content {
+  #main.wide .content,
+  .instance-info {
     max-width: none;
     min-width: auto;
     width: 100%;

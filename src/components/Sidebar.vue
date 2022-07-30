@@ -24,7 +24,6 @@
       <span>Logout</span>
     </a>
   </div>
-  <instance-info v-else-if="!isUserAuthenticated"></instance-info>
 </template>
 
 <script setup lang="ts">
@@ -32,7 +31,6 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import InstanceInfo from "@/components/InstanceInfo.vue"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 

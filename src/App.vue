@@ -139,7 +139,7 @@ menu {
 
 .wide {
   /* Reserve space for floating avatar */
-  padding: 0 $content-gap * 1.5;
+  padding: $body-padding $content-gap * 1.5;
 }
 
 @media screen and (max-width: $screen-breakpoint-medium) {

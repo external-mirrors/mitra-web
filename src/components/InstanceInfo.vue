@@ -30,7 +30,6 @@ const { instance } = $(useInstanceInfo())
   flex-shrink: 1;
   gap: $block-inner-padding;
   padding: $block-inner-padding;
-  width: $wide-sidebar-width;
 
   h1 {
     font-size: 32px;
@@ -39,13 +38,6 @@ const { instance } = $(useInstanceInfo())
 
   .btn {
     width: min-content;
-  }
-}
-
-@media screen and (max-width: $screen-breakpoint-small) {
-  .instance-info {
-    margin-bottom: $body-padding;
-    width: 100%;
   }
 }
 </style>
