@@ -24,11 +24,7 @@
       <span>Logout</span>
     </a>
   </div>
-  <div v-else-if="!isUserAuthenticated && instance" class="sidebar wide">
-    <h1 class="instance-title">{{ instance.title }}</h1>
-    <div class="instance-description">{{ instance.short_description }}</div>
-    <router-link class="btn" :to="{name: 'about-public'}">Learn more</router-link>
-  </div>
+  <instance-info v-else-if="!isUserAuthenticated"></instance-info>
 </template>
 
 <script setup lang="ts">
@@ -36,12 +32,11 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import { useInstanceInfo } from "@/store/instance"
+import InstanceInfo from "@/components/InstanceInfo.vue"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 
 const router = useRouter()
-const { instance } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 const { currentUser, setCurrentUser, ensureAuthToken, setAuthToken } = $(useCurrentUser())
 
@@ -69,17 +64,13 @@ function logout() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/mixins";
 @import "../styles/theme";
 
 .sidebar {
+  background-color: $background-color;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-}
-
-.sidebar:not(.wide) {
-  background-color: $background-color;
   flex-shrink: 0;
   gap: $block-outer-padding * 1.5;
   position: sticky;
@@ -136,28 +127,8 @@ function logout() {
   }
 }
 
-.sidebar.wide {
-  @include block-btn;
-
-  background-color: $block-background-color;
-  border-radius: $block-border-radius;
-  flex-shrink: 1;
-  gap: $block-inner-padding;
-  padding: $block-inner-padding;
-  width: $wide-sidebar-width;
-
-  h1 {
-    font-size: 32px;
-    font-weight: bold;
-  }
-
-  .btn {
-    width: min-content;
-  }
-}
-
 @media screen and (max-width: $screen-breakpoint-small) {
-  .sidebar:not(.wide) {
+  .sidebar {
     flex-direction: row;
     gap: 0;
     justify-content: space-between;
@@ -170,11 +141,6 @@ function logout() {
     span {
       display: none;
     }
-  }
-
-  .sidebar.wide {
-    margin-bottom: $body-padding;
-    width: 100%;
   }
 }
 </style>

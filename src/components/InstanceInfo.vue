@@ -1,0 +1,51 @@
+<template>
+  <div class="instance-info" v-if="instance">
+    <h1 class="instance-title">{{ instance.title }}</h1>
+    <div class="instance-description">{{ instance.short_description }}</div>
+    <router-link class="btn" :to="{ name: 'about-public' }">Learn more</router-link>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { $ } from "vue/macros"
+
+import { useInstanceInfo } from "@/store/instance"
+
+const { instance } = $(useInstanceInfo())
+</script>
+
+<style scoped lang="scss">
+@import "../styles/layout";
+@import "../styles/mixins";
+@import "../styles/theme";
+
+.instance-info {
+  @include block-btn;
+
+  background-color: $block-background-color;
+  border-radius: $block-border-radius;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  gap: $block-inner-padding;
+  padding: $block-inner-padding;
+  width: $wide-sidebar-width;
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .btn {
+    width: min-content;
+  }
+}
+
+@media screen and (max-width: $screen-breakpoint-small) {
+  .instance-info {
+    margin-bottom: $body-padding;
+    width: 100%;
+  }
+}
+</style>
