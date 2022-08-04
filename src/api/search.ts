@@ -25,3 +25,18 @@ export async function getSearchResults(
   }
   return data
 }
+
+export async function searchProfileByEthereumAddress(
+  walletAddress: string,
+): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/search_did`
+  const response = await http(url, {
+    method: "GET",
+    queryParams: { did: `did:pkh:eip155:1:${walletAddress.toLowerCase()}` },
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  }
+  return data
+}

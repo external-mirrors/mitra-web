@@ -9,7 +9,7 @@
       >
         <avatar :profile="sender"></avatar>
         <div class="display-name">{{ sender.getDisplayName() }}</div>
-        <div class="wallet-address">{{ senderEthereumAddress || '?' }}</div>
+        <div class="wallet-address">{{ sender.getVerifiedEthereumAddress() || '?' }}</div>
       </component>
       <div class="separator">
         <img :src="require('@/assets/feather/arrow-right.svg')">
@@ -101,6 +101,7 @@ import { BigNumber, FixedNumber } from "ethers"
 import { onMounted, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
 
+import { searchProfileByEthereumAddress } from "@/api/search"
 import { Profile, ProfileWrapper } from "@/api/users"
 import {
   cancelSubscription,
@@ -145,8 +146,7 @@ const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet } = useWallet()
 const recipient = new ProfileWrapper(props.profile)
 const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
-const sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
-let senderEthereumAddress = $ref<string | null>(sender.getVerifiedEthereumAddress())
+let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let { walletAddress, walletError, getSigner } = $(useWallet())
 let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscription = $ref<Subscription | null>(null)
@@ -176,7 +176,6 @@ function canConnectWallet(): boolean {
 }
 
 function reset() {
-  senderEthereumAddress = null
   subscriptionsEnabled = null
   subscription = null
   subscriptionState = null
@@ -208,7 +207,18 @@ async function checkSubscription() {
     walletError = "Incorrect wallet address"
     return
   }
-  senderEthereumAddress = walletAddress.toLowerCase()
+  // Update sender info
+  const profiles = await searchProfileByEthereumAddress(walletAddress)
+  if (profiles.length === 1) {
+    sender = new ProfileWrapper(profiles[0])
+  } else {
+    console.warn("can't find profile by wallet address")
+    sender.identity_proofs = [{
+      name: "$ETH",
+      value: walletAddress.toLowerCase(),
+      verified_at: null,
+    }]
+  }
   const signer = getSigner()
   isLoading = true
   subscription = await getSubscriptionInfo(
