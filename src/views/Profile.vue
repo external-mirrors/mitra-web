@@ -179,6 +179,13 @@
           :profile="profile"
           :key="profile.id"
         ></profile-list-item>
+        <button
+          v-if="followListNextPageUrl"
+          class="btn secondary next-btn"
+          @click="loadFollowListNextPage()"
+        >
+          Show more profiles
+        </button>
       </template>
     </template>
   </sidebar-layout>
@@ -232,6 +239,7 @@ let profileMenuVisible = $ref(false)
 let tabName = $ref("posts")
 let posts = $ref<Post[]>([])
 let followList = $ref<Profile[]>([])
+let followListNextPageUrl = $ref<string | null>(null)
 
 onMounted(async () => {
   profile = await getProfile(
@@ -258,15 +266,19 @@ onMounted(async () => {
       false,
     )
   } else if (tabName === "followers" && isCurrentUser()) {
-    followList = await getFollowers(
+    const page = await getFollowers(
       ensureAuthToken(),
       profile.id,
     )
+    followList = page.profiles
+    followListNextPageUrl = page.nextPageUrl
   } else if (tabName === "following" && isCurrentUser()) {
-    followList = await getFollowing(
+    const page = await getFollowing(
       ensureAuthToken(),
       profile.id,
     )
+    followList = page.profiles
+    followListNextPageUrl = page.nextPageUrl
   }
 })
 
@@ -456,6 +468,27 @@ async function loadNextPage(maxId: string) {
     maxId,
   )
   posts.push(...nextPage)
+}
+
+async function loadFollowListNextPage() {
+  if (!profile || !followListNextPageUrl) {
+    return
+  }
+  let loadFollowList
+  if (tabName === "followers") {
+    loadFollowList = getFollowers
+  } else if (tabName === "following") {
+    loadFollowList = getFollowing
+  } else {
+    throw new Error("wrong tab")
+  }
+  const page = await loadFollowList(
+    ensureAuthToken(),
+    profile.id,
+    followListNextPageUrl,
+  )
+  followList.push(...page.profiles)
+  followListNextPageUrl = page.nextPageUrl
 }
 </script>
 

@@ -70,22 +70,49 @@ export async function unfollow(
   }
 }
 
+interface ProfileListPage {
+  profiles: Profile[];
+  nextPageUrl: string | null;
+}
+
+function getNextPageUrl(response: Response): string | null {
+  const linkHeader = response.headers.get("Link")
+  if (!linkHeader) {
+    return null
+  }
+  // TODO: use advanced Link header parser
+  const link = linkHeader.split(";")[0]
+  return link.slice(1, link.length - 1)
+}
+
 export async function getFollowers(
   authToken: string,
   accountId: string,
-): Promise<Profile[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/followers`
+  url?: string,
+): Promise<ProfileListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/accounts/${accountId}/followers`
+  }
   const response = await http(url, { authToken })
   const data = await response.json()
-  return data
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
 
 export async function getFollowing(
   authToken: string,
   accountId: string,
-): Promise<Profile[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/following`
+  url?: string,
+): Promise<ProfileListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/accounts/${accountId}/following`
+  }
   const response = await http(url, { authToken })
   const data = await response.json()
-  return data
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
