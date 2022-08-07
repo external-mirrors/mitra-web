@@ -8,10 +8,10 @@
       {{ walletError }}
     </div>
     <div class="info" v-if="subscriptionsEnabled !== null">
-      <template v-if="subscription">
+      <template v-if="subscriptionConfig">
         <span>Subscriptions are enabled</span>
         <div class="price">
-          {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
+          {{ subscriptionConfig.pricePerMonth }} {{ subscriptionConfig.tokenSymbol }}
           <span class="price-subtext">per month</span>
         </div>
       </template>
@@ -33,7 +33,7 @@
         Enable subscriptions
       </button>
     </form>
-    <form class="withdraw" v-if="subscription !== null">
+    <form class="withdraw" v-if="subscriptionConfig !== null">
       <input v-model="subscriberAddress" placeholder="Subscriber address">
       <button
         class="btn"
@@ -46,7 +46,9 @@
         v-if="subscriptionState !== null"
         @click.prevent="onWithdrawReceived()"
       >
-        Withdraw {{ subscription.formatAmount(subscriptionState.recipientBalance) }} {{ subscription.tokenSymbol }}
+        Withdraw
+        {{ subscriptionConfig.formatAmount(subscriptionState.recipientBalance) }}
+        {{ subscriptionConfig.tokenSymbol }}
       </button>
     </form>
     <loader v-if="isLoading"></loader>
@@ -62,12 +64,12 @@ import {
   configureSubscriptions,
   getPricePerSec,
   getSubscriptionAuthorization,
-  getSubscriptionInfo,
+  getSubscriptionConfig,
   getSubscriptionState,
   getSubscriptionToken,
   onSubscriptionsEnabled,
   withdrawReceived,
-  Subscription,
+  SubscriptionConfig,
   SubscriptionState,
   SubscriptionToken,
 } from "@/api/subscriptions"
@@ -92,7 +94,7 @@ let { walletAddress, walletError } = $(useWallet())
 let isLoading = $ref(false)
 let subscriptionToken = $ref<SubscriptionToken | null>(null)
 let subscriptionsEnabled = $ref<boolean | null>(null)
-let subscription = $ref<Subscription | null>(null)
+let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 let subscriberAddress = $ref<string | null>(null)
 
@@ -117,7 +119,7 @@ function canConnectWallet(): boolean {
 function reset() {
   subscriptionToken = null
   subscriptionsEnabled = null
-  subscription = null
+  subscriptionConfig = null
   subscriptionState = null
   subscriberAddress = null
 }
@@ -150,12 +152,12 @@ async function checkSubscription() {
   }
   isLoading = true
   const signer = getSigner()
-  subscription = await getSubscriptionInfo(
+  subscriptionConfig = await getSubscriptionConfig(
     instance.blockchain_contract_address,
     signer,
     profileEthereumAddress,
   )
-  if (subscription !== null) {
+  if (subscriptionConfig !== null) {
     subscriptionsEnabled = true
     // Ensure server is aware of subscription configuration
     await onSubscriptionsEnabled(ensureAuthToken())
@@ -211,7 +213,7 @@ async function onEnableSubscriptions() {
   }
   await transaction.wait()
   subscriptionsEnabled = true
-  subscription = await getSubscriptionInfo(
+  subscriptionConfig = await getSubscriptionConfig(
     instance.blockchain_contract_address,
     signer,
     profileEthereumAddress,

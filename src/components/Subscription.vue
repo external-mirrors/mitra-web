@@ -27,9 +27,9 @@
       {{ walletError }}
     </div>
     <div class="info" v-if="subscriptionsEnabled !== null">
-      <template v-if="subscription">
+      <template v-if="subscriptionConfig">
         <div class="price">
-          {{ subscription.pricePerMonth }} {{ subscription.tokenSymbol }}
+          {{ subscriptionConfig.pricePerMonth }} {{ subscriptionConfig.tokenSymbol }}
           <span class="price-subtext">per month</span>
         </div>
         <div class="status" v-if="subscriptionState">
@@ -37,8 +37,15 @@
             You are not subscribed yet
           </template>
           <template v-else>
-            <div>Your balance is {{ subscription.formatAmount(subscriptionState.senderBalance) }} {{ subscription.tokenSymbol }}</div>
-            <div>Subscription expires {{ subscription.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}</div>
+            <div>
+              Your balance is
+              {{ subscriptionConfig.formatAmount(subscriptionState.senderBalance) }}
+              {{ subscriptionConfig.tokenSymbol }}
+            </div>
+            <div>
+              Subscription expires
+              {{ subscriptionConfig.getExpirationDate(subscriptionState.senderBalance).toLocaleString() }}
+            </div>
           </template>
         </div>
       </template>
@@ -55,7 +62,7 @@
       <div>
         <div class="payment-amount">
           <label>Amount</label>
-          <div>{{ getPaymentAmount() }} {{ subscription.tokenSymbol }}</div>
+          <div>{{ getPaymentAmount() }} {{ subscriptionConfig.tokenSymbol }}</div>
         </div>
         <div
           v-if="tokenBalance !== null"
@@ -64,9 +71,9 @@
         >
           <label>You have</label>
           <output :class="{ loading: isTokenBalanceLoading }">
-            {{ subscription.formatAmount(tokenBalance) }}
+            {{ subscriptionConfig.formatAmount(tokenBalance) }}
           </output>
-          <span>{{ subscription.tokenSymbol }}</span>
+          <span>{{ subscriptionConfig.tokenSymbol }}</span>
           <button @click.prevent="refreshTokenBalance()">
             <img :src="require('@/assets/feather/refresh-ccw.svg')">
           </button>
@@ -79,7 +86,9 @@
           :disabled="!canPay()"
           @click.prevent="onMakeSubscriptionPayment()"
         >
-          <template v-if="!subscriptionState || subscriptionState.senderBalance.isZero()">Pay</template>
+          <template v-if="!subscriptionState || subscriptionState.senderBalance.isZero()">
+            Pay
+          </template>
           <template v-else>Extend</template>
         </button>
         <button
@@ -105,11 +114,11 @@ import { searchProfileByEthereumAddress } from "@/api/search"
 import { Profile, ProfileWrapper } from "@/api/users"
 import {
   cancelSubscription,
-  getSubscriptionInfo,
+  getSubscriptionConfig,
   getSubscriptionState,
   getTokenBalance,
   makeSubscriptionPayment,
-  Subscription,
+  SubscriptionConfig,
   SubscriptionState,
 } from "@/api/subscriptions"
 import Avatar from "@/components/Avatar.vue"
@@ -149,7 +158,7 @@ const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
 let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
 let { walletAddress, walletError, getSigner } = $(useWallet())
 let subscriptionsEnabled = $ref<boolean | null>(null)
-let subscription = $ref<Subscription | null>(null)
+let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
 let tokenBalance = $ref<BigNumber | null>(null)
 const paymentDuration = $ref<number>(1)
@@ -177,7 +186,7 @@ function canConnectWallet(): boolean {
 
 function reset() {
   subscriptionsEnabled = null
-  subscription = null
+  subscriptionConfig = null
   subscriptionState = null
   tokenBalance = null
 }
@@ -221,12 +230,12 @@ async function checkSubscription() {
   }
   const signer = getSigner()
   isLoading = true
-  subscription = await getSubscriptionInfo(
+  subscriptionConfig = await getSubscriptionConfig(
     instance.blockchain_contract_address,
     signer,
     recipientEthereumAddress,
   )
-  if (subscription !== null) {
+  if (subscriptionConfig !== null) {
     subscriptionsEnabled = true
   } else {
     subscriptionsEnabled = false
@@ -239,7 +248,10 @@ async function checkSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
-  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
+  tokenBalance = await getTokenBalance(
+    signer,
+    subscriptionConfig.tokenAddress,
+  )
   isLoading = false
 }
 
@@ -248,28 +260,28 @@ function canSubscribe(): boolean {
 }
 
 function getPaymentAmount(): FixedNumber {
-  if (!subscription) {
+  if (!subscriptionConfig) {
     return FixedNumber.from(0)
   }
-  const amount = subscription.pricePerMonthInt.mul(paymentDuration)
-  return subscription.formatAmount(amount)
+  const amount = subscriptionConfig.pricePerMonthInt.mul(paymentDuration)
+  return subscriptionConfig.formatAmount(amount)
 }
 
 function canPay(): boolean {
-  if (!subscription || !tokenBalance || isLoading) {
+  if (!subscriptionConfig || !tokenBalance || isLoading) {
     return false
   }
-  const amount = subscription.pricePerMonthInt.mul(paymentDuration)
+  const amount = subscriptionConfig.pricePerMonthInt.mul(paymentDuration)
   return amount.lte(tokenBalance)
 }
 
 async function refreshTokenBalance() {
-  if (!subscription) {
+  if (!subscriptionConfig) {
     return
   }
   const signer = getSigner()
   isTokenBalanceLoading = true
-  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
+  tokenBalance = await getTokenBalance(signer, subscriptionConfig.tokenAddress)
   isTokenBalanceLoading = false
 }
 
@@ -278,13 +290,13 @@ async function onMakeSubscriptionPayment() {
     !instance?.blockchain_contract_address ||
     !recipientEthereumAddress ||
     !walletAddress ||
-    !subscription ||
+    !subscriptionConfig ||
     !subscriptionState
   ) {
     return
   }
   const signer = getSigner()
-  const amount = subscription.pricePerMonthInt.mul(paymentDuration)
+  const amount = subscriptionConfig.pricePerMonthInt.mul(paymentDuration)
   isLoading = true
   let transaction
   try {
@@ -312,7 +324,7 @@ async function onMakeSubscriptionPayment() {
     )
   }
   subscriptionState = newSubscriptionState
-  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
+  tokenBalance = await getTokenBalance(signer, subscriptionConfig.tokenAddress)
   isLoading = false
 }
 
@@ -332,7 +344,7 @@ async function onCancelSubscription() {
     !instance?.blockchain_contract_address ||
     !recipientEthereumAddress ||
     !walletAddress ||
-    !subscription
+    !subscriptionConfig
   ) {
     return
   }
@@ -357,7 +369,7 @@ async function onCancelSubscription() {
     walletAddress,
     recipientEthereumAddress,
   )
-  tokenBalance = await getTokenBalance(signer, subscription.tokenAddress)
+  tokenBalance = await getTokenBalance(signer, subscriptionConfig.tokenAddress)
   isLoading = false
 }
 </script>

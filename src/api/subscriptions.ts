@@ -92,7 +92,7 @@ export async function onSubscriptionsEnabled(
   }
 }
 
-export class Subscription {
+export class SubscriptionConfig {
 
   recipientAddress: string;
   tokenAddress: string;
@@ -135,11 +135,11 @@ export class Subscription {
 
 }
 
-export async function getSubscriptionInfo(
+export async function getSubscriptionConfig(
   contractAddress: string,
   signer: Signer,
   recipientAddress: string,
-): Promise<Subscription | null> {
+): Promise<SubscriptionConfig | null> {
   const adapter = await getContract(Contracts.SubscriptionAdapter, contractAddress, signer)
   const result = await adapter.isSubscriptionConfigured(recipientAddress)
   if (result === true) {
@@ -148,7 +148,7 @@ export async function getSubscriptionInfo(
     const tokenSymbol = await token.symbol()
     const tokenDecimals = await token.decimals()
     const price = await adapter.getSubscriptionPrice(recipientAddress)
-    return new Subscription(
+    return new SubscriptionConfig(
       recipientAddress,
       tokenAddress,
       tokenSymbol,
