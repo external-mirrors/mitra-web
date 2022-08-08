@@ -9,9 +9,14 @@
         <template v-else>No results</template>
       </div>
       <div v-if="!isLoading" class="search-result-list">
-        <div class="search-result" v-for="profile in profiles" :key="profile.id">
+        <router-link
+          class="search-result"
+          v-for="profile in profiles"
+          :key="profile.id"
+          :to="{ name: 'profile', params: { profileId: profile.id } }"
+        >
           <profile-list-item :profile="profile"></profile-list-item>
-        </div>
+        </router-link>
         <post
           v-for="post in posts"
           :post="post"
@@ -93,6 +98,7 @@ onMounted(async () => {
 
 .search-result {
   border-bottom: 1px solid $separator-color;
+  display: block;
 
   &:last-child {
     border-bottom: none;

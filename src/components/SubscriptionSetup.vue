@@ -34,9 +34,19 @@
       </button>
     </form>
     <form class="withdraw" v-if="subscriptionConfig !== null">
+      <h2>Subscribers</h2>
+      <div
+        v-for="subscription in subscribers"
+        class="subscriber"
+        :key="subscription.id"
+        @click="onSubscriberSelected(subscription)"
+      >
+        <profile-list-item :profile="subscription.sender"></profile-list-item>
+      </div>
       <input v-model="subscriberAddress" placeholder="Subscriber address">
       <button
         class="btn"
+        :disabled="!subscriberAddress"
         @click.prevent="onCheckSubsciptionState()"
       >
         Check
@@ -63,17 +73,20 @@ import { Profile, ProfileWrapper } from "@/api/users"
 import {
   configureSubscriptions,
   getPricePerSec,
+  getSubscribers,
   getSubscriptionAuthorization,
   getSubscriptionConfig,
   getSubscriptionState,
   getSubscriptionToken,
   onSubscriptionsEnabled,
   withdrawReceived,
+  Subscription,
   SubscriptionConfig,
   SubscriptionState,
   SubscriptionToken,
 } from "@/api/subscriptions"
 import Loader from "@/components/Loader.vue"
+import ProfileListItem from "@/components/ProfileListItem.vue"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -96,6 +109,7 @@ let subscriptionToken = $ref<SubscriptionToken | null>(null)
 let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
+let subscribers = $ref<Subscription[]>([])
 let subscriberAddress = $ref<string | null>(null)
 
 onMounted(() => {
@@ -161,6 +175,10 @@ async function checkSubscription() {
     subscriptionsEnabled = true
     // Ensure server is aware of subscription configuration
     await onSubscriptionsEnabled(ensureAuthToken())
+    subscribers = await getSubscribers(
+      ensureAuthToken(),
+      profile.id,
+    )
   } else {
     subscriptionsEnabled = false
     subscriptionToken = await getSubscriptionToken(
@@ -179,7 +197,6 @@ function canEnableSubscriptions(): boolean {
   )
 }
 
-// enableSubscriptions
 async function onEnableSubscriptions() {
   if (
     profileEthereumAddress === null ||
@@ -222,6 +239,11 @@ async function onEnableSubscriptions() {
   setCurrentUser(user)
   profile.subscription_page_url = user.subscription_page_url
   isLoading = false
+}
+
+function onSubscriberSelected(subscription: Subscription) {
+  subscriberAddress = subscription.sender_address
+  subscriptionState = null
 }
 
 async function onCheckSubsciptionState() {
@@ -321,6 +343,11 @@ async function onWithdrawReceived() {
   flex-direction: column;
   gap: $block-inner-padding;
 
+  h2 {
+    font-size: 20px;
+  }
+
+  .subscriber,
   input {
     width: 400px;
   }

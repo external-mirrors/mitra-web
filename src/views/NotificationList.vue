@@ -162,6 +162,10 @@ async function loadNextPage() {
 
   .floating-avatar {
     @include floating-avatar;
+
+    @media screen and (min-width: $screen-breakpoint-medium + 1) {
+      margin-right: -$block-inner-padding / 2;
+    }
   }
 
   .display-name {

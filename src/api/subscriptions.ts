@@ -7,7 +7,7 @@ import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
-import { User } from "./users"
+import { Profile, User } from "./users"
 
 const SECONDS_IN_DAY = 3600 * 24
 const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
@@ -225,6 +225,22 @@ export async function cancelSubscription(
   const subscription = await getContract(Contracts.Subscription, subscriptionAddress, signer)
   const transaction = await subscription.cancel(recipientAddress)
   return transaction
+}
+
+export interface Subscription {
+  id: number,
+  sender: Profile,
+  sender_address: string,
+}
+
+export async function getSubscribers(
+  authToken: string,
+  accountId: string,
+): Promise<Subscription[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/subscribers`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data
 }
 
 export async function withdrawReceived(

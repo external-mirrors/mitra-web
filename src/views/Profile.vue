@@ -174,11 +174,13 @@
         @load-next-page="loadNextPage"
       ></post-list>
       <template v-if="tabName === 'followers' || tabName === 'following'">
-        <profile-list-item
+        <router-link
           v-for="profile in followList"
-          :profile="profile"
           :key="profile.id"
-        ></profile-list-item>
+          :to="{ name: 'profile', params: { profileId: profile.id } }"
+        >
+          <profile-list-item :profile="profile"></profile-list-item>
+        </router-link>
         <button
           v-if="followListNextPageUrl"
           class="btn secondary next-btn"
