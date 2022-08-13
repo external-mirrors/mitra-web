@@ -50,8 +50,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
+<script setup lang="ts">
+import { onMounted } from "vue"
+import { $, $ref, $computed } from "vue/macros"
+import { useRoute, useRouter } from "vue-router"
 
 import { DateTime } from "luxon"
 
@@ -61,79 +63,67 @@ import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 
-@Options({
-  components: {
-    Avatar,
-  },
+const route = useRoute()
+const router = useRouter()
+const { currentUser, authToken } = $(useCurrentUser())
+const { instance, getActorAddress } = $(useInstanceInfo())
+
+let post = $ref<Post | null>(null)
+let token = $ref<TokenMetadata | null>(null)
+
+onMounted(async () => {
+  post = await getPost(
+    authToken,
+    route.params.postId as string,
+  )
+  if (metadataUrl) {
+    token = await getTokenMetadata(metadataUrl)
+  }
 })
-export default class PostOverlay extends Vue {
 
-  post: Post | null = null
-  token: TokenMetadata | null = null
-
-  private store = setup(() => {
-    const { currentUser, authToken } = useCurrentUser()
-    const { instance, getActorAddress } = useInstanceInfo()
-    return { currentUser, authToken, instance, getActorAddress }
-  })
-
-  async created() {
-    this.post = await getPost(
-      this.store.authToken,
-      this.$route.params.postId as string,
-    )
-    const metadataUrl = this.metadataUrl
-    if (metadataUrl) {
-      this.token = await getTokenMetadata(metadataUrl)
-    }
-  }
-
-  canGoBack(): boolean {
-    return this.store.currentUser !== null
-  }
-
-  goBack() {
-    this.$router.back()
-  }
-
-  get actorAddress(): string {
-    if (!this.post) {
-      return ""
-    }
-    return this.store.getActorAddress(this.post.account)
-  }
-
-  get transactionUrl(): string | null {
-    const explorerUrl = this.store.instance?.blockchain_explorer_url
-    if (!explorerUrl || !this.post?.token_tx_id) {
-      return null
-    }
-    return `${explorerUrl}/tx/0x${this.post.token_tx_id}`
-  }
-
-  get metadataUrl(): string | null {
-    const gatewayUrl = this.store.instance?.ipfs_gateway_url
-    if (!gatewayUrl || !this.post) {
-      return null
-    }
-    return `${gatewayUrl}/ipfs/${this.post.ipfs_cid}`
-  }
-
-  get imageUrl(): string | null {
-    const gatewayUrl = this.store.instance?.ipfs_gateway_url
-    if (!gatewayUrl || !this.token) {
-      return null
-    }
-    return this.token.image.replace("ipfs://", `${gatewayUrl}/ipfs/`)
-  }
-
-  formatDate(isoDate: string): string {
-    const date = DateTime.fromISO(isoDate)
-    return date.toLocaleString(DateTime.DATE_FULL)
-  }
-
+function canGoBack(): boolean {
+  return currentUser !== null
 }
 
+function goBack() {
+  router.back()
+}
+
+const actorAddress = $computed<string>(() => {
+  if (!post) {
+    return ""
+  }
+  return getActorAddress(post.account)
+})
+
+const transactionUrl = $computed<string | null>(() => {
+  const explorerUrl = instance?.blockchain_explorer_url
+  if (!explorerUrl || !post?.token_tx_id) {
+    return null
+  }
+  return `${explorerUrl}/tx/0x${post.token_tx_id}`
+})
+
+const metadataUrl = $computed<string | null>(() => {
+  const gatewayUrl = instance?.ipfs_gateway_url
+  if (!gatewayUrl || !post) {
+    return null
+  }
+  return `${gatewayUrl}/ipfs/${post.ipfs_cid}`
+})
+
+const imageUrl = $computed<string | null>(() => {
+  const gatewayUrl = instance?.ipfs_gateway_url
+  if (!gatewayUrl || !token) {
+    return null
+  }
+  return token.image.replace("ipfs://", `${gatewayUrl}/ipfs/`)
+})
+
+function formatDate(isoDate: string): string {
+  const date = DateTime.fromISO(isoDate)
+  return date.toLocaleString(DateTime.DATE_FULL)
+}
 </script>
 
 <style scoped lang="scss">

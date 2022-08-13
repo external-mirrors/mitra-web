@@ -1,7 +1,7 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <post-editor @post-created="insertPost"></post-editor>
+      <post-editor :in-reply-to="null" @post-created="insertPost"></post-editor>
       <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
     </template>
   </sidebar-layout>

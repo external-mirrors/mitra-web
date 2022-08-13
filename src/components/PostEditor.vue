@@ -10,7 +10,7 @@
     <div class="textarea-group">
       <textarea
         id="content"
-        ref="postFormContent"
+        ref="postFormContentRef"
         v-model="content"
         rows="1"
         required
@@ -29,7 +29,7 @@
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
             type="file"
-            ref="attachmentUploadInput"
+            ref="attachmentUploadInputRef"
             accept="image/*"
             style="display: none;"
             @change="onAttachmentUpload($event)"
@@ -85,9 +85,9 @@
   </form>
 </template>
 
-<script lang="ts">
-import { Options, Vue, setup } from "vue-class-component"
-import { Prop } from "vue-property-decorator"
+<script setup lang="ts">
+import { nextTick, onMounted } from "vue"
+import { $, $computed, $ref } from "vue/macros"
 
 import {
   Visibility,
@@ -107,127 +107,119 @@ import { setupAutoResize, triggerResize } from "@/utils/autoresize"
 import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
-@Options({
-  components: {
-    Avatar,
-    VisibilityIcon,
-  },
+const visibilityMap = Object.entries(VISIBILITY_MAP)
+
+const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { instance, getActorAddress } = $(useInstanceInfo())
+
+/* eslint-disable-next-line no-undef */
+const props = defineProps<{
+  inReplyTo: Post | null,
+}>()
+
+/* eslint-disable-next-line no-undef, func-call-spacing */
+const emit = defineEmits<{
+  (event: "post-created", post: Post): void,
+}>()
+
+const postFormContentRef = $ref<HTMLTextAreaElement | null>(null)
+const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
+
+let content = $ref("")
+let attachment = $ref<Attachment | null>(null)
+let visibility = $ref(Visibility.Public)
+
+let visibilityMenuVisible = $ref(false)
+let errorMessage = $ref<string | null>(null)
+
+const author = $computed<User | null>(() => {
+  return currentUser
 })
-export default class PostEditor extends Vue {
 
-  @Prop()
-  inReplyTo: Post | null = null
+if (props.inReplyTo) {
+  const mentions: Mention[] = [
+    props.inReplyTo.account,
+    ...props.inReplyTo.mentions,
+  ]
+  content = mentions
+    .filter(mention => mention.id !== currentUser?.id)
+    .map(mention => "@" + getActorAddress(mention))
+    // Remove duplicates
+    .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
+    .join(" ")
+}
+if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
+  visibility = Visibility.Direct
+}
 
-  content = ""
-  attachment: Attachment | null = null
-  visibility = Visibility.Public
-  mentions: string[] = []
+onMounted(() => {
+  if (postFormContentRef) {
+    setupAutoResize(postFormContentRef)
+  }
+})
 
+function selectAttachment() {
+  if (attachmentUploadInputRef) {
+    attachmentUploadInputRef.click()
+  }
+}
+
+async function onAttachmentUpload(event: Event) {
+  const files = (event.target as HTMLInputElement).files
+  if (!files) {
+    return
+  }
+  const imageDataUrl = await fileToDataUrl(files[0])
+  const imageBase64 = dataUrlToBase64(imageDataUrl)
+  attachment = await uploadAttachment(
+    ensureAuthToken(),
+    imageBase64,
+  )
+}
+
+function toggleVisibilityMenu() {
+  visibilityMenuVisible = !visibilityMenuVisible
+}
+
+function hideVisibilityMenu() {
   visibilityMenuVisible = false
-  errorMessage: string | null = null
+}
 
-  $refs!: {
-    postFormContent: HTMLTextAreaElement,
-    attachmentUploadInput: HTMLInputElement,
+function getCharacterCount(): number {
+  if (!instance) {
+    return 0
   }
+  return (instance.post_character_limit - content.length)
+}
 
-  private store = setup(() => {
-    const { currentUser, ensureAuthToken } = useCurrentUser()
-    const { instance, getActorAddress } = useInstanceInfo()
-    return { currentUser, ensureAuthToken, instance, getActorAddress }
-  })
-
-  get author(): User | null {
-    return this.store.currentUser
+async function publish() {
+  const contentRendered = renderMarkdownLite(content)
+  const postData = {
+    content: contentRendered,
+    in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
+    visibility: visibility,
+    mentions: [],
   }
-
-  created() {
-    if (this.inReplyTo) {
-      const mentions: Mention[] = [
-        this.inReplyTo.account,
-        ...this.inReplyTo.mentions,
-      ]
-      this.content = mentions
-        .filter(mention => mention.id !== this.store.currentUser?.id)
-        .map(mention => "@" + this.store.getActorAddress(mention))
-        // Remove duplicates
-        .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
-        .join(" ")
-    }
-    if (this.inReplyTo && this.inReplyTo.visibility !== Visibility.Public) {
-      this.visibility = Visibility.Direct
-    }
-  }
-
-  mounted() {
-    setupAutoResize(this.$refs.postFormContent)
-  }
-
-  selectAttachment() {
-    this.$refs.attachmentUploadInput.click()
-  }
-
-  async onAttachmentUpload(event: Event) {
-    const files = (event.target as HTMLInputElement).files
-    if (!files) {
-      return
-    }
-    const imageDataUrl = await fileToDataUrl(files[0])
-    const imageBase64 = dataUrlToBase64(imageDataUrl)
-    this.attachment = await uploadAttachment(
-      this.store.ensureAuthToken(),
-      imageBase64,
+  let post
+  try {
+    post = await createPost(
+      ensureAuthToken(),
+      postData,
+      attachment,
     )
+  } catch (error: any) {
+    errorMessage = error.message
+    return
   }
-
-  get visibilityMap() {
-    return Object.entries(VISIBILITY_MAP)
+  // Refresh editor
+  errorMessage = null
+  attachment = null
+  content = ""
+  if (postFormContentRef) {
+    await nextTick()
+    triggerResize(postFormContentRef)
   }
-
-  toggleVisibilityMenu() {
-    this.visibilityMenuVisible = !this.visibilityMenuVisible
-  }
-
-  hideVisibilityMenu() {
-    this.visibilityMenuVisible = false
-  }
-
-  getCharacterCount(): number {
-    if (!this.store.instance) {
-      return 0
-    }
-    return (this.store.instance.post_character_limit - this.content.length)
-  }
-
-  async publish() {
-    const content = renderMarkdownLite(this.content)
-    const postData = {
-      content,
-      in_reply_to_id: this.inReplyTo ? this.inReplyTo.id : null,
-      visibility: this.visibility,
-      mentions: this.mentions,
-    }
-    let post
-    try {
-      post = await createPost(
-        this.store.ensureAuthToken(),
-        postData,
-        this.attachment,
-      )
-    } catch (error: any) {
-      this.errorMessage = error.message
-      return
-    }
-    // Refresh editor
-    this.errorMessage = null
-    this.attachment = null
-    this.content = ""
-    this.$nextTick(() => {
-      triggerResize(this.$refs.postFormContent)
-    })
-    this.$emit("post-created", post)
-  }
-
+  emit("post-created", post)
 }
 </script>
 
