@@ -62,10 +62,11 @@ export class ProfileWrapper {
 
 }
 
-export interface UserCreateForm {
+interface UserCreateForm {
   username: string;
-  message: string;
-  signature: string;
+  password: string | null;
+  message: string | null;
+  signature: string | null;
   invite_code: string | null;
 }
 
@@ -83,15 +84,21 @@ export async function createUser(userData: UserCreateForm): Promise<User> {
   }
 }
 
+interface LoginForm {
+  username: string | null;
+  password: string | null;
+  message: string | null;
+  signature: string | null;
+}
+
 export async function getAccessToken(
-  message: string,
-  signature: string,
+  loginType: "password" | "eip4361",
+  loginData: LoginForm,
 ): Promise<string> {
   const url = `${BACKEND_URL}/oauth/token`
   const tokenRequestData = {
-    grant_type: "eip4361",
-    message: message,
-    signature: signature,
+    grant_type: loginType,
+    ...loginData,
   }
   const response = await http(url, {
     method: "POST",
