@@ -74,7 +74,7 @@
         </div>
         <div class="name-buttons-group">
           <div class="name-group">
-            <div class="display-name">{{ profile.display_name || profile.username }}</div>
+            <div class="display-name">{{ profile.getDisplayName() }}</div>
             <div class="actor-address">@{{ actorAddress }}</div>
           </div>
           <div class="buttons">
@@ -211,9 +211,9 @@ import {
   createIdentityProof,
   getIdentityClaim,
   getProfile,
-  getVerifiedEthereumAddress,
   Profile,
   ProfileField,
+  ProfileWrapper,
 } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
@@ -233,7 +233,7 @@ const {
 } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
 
-let profile = $ref<Profile | null>(null)
+let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
 
 let profileMenuVisible = $ref(false)
@@ -244,10 +244,11 @@ let followList = $ref<Profile[]>([])
 let followListNextPageUrl = $ref<string | null>(null)
 
 onMounted(async () => {
-  profile = await getProfile(
+  const _profile = await getProfile(
     authToken,
     route.params.profileId as string,
   )
+  profile = new ProfileWrapper(_profile)
   if (currentUser && !isCurrentUser()) {
     relationship = await getRelationship(
       ensureAuthToken(),
@@ -443,7 +444,8 @@ function canManageSubscriptions(): boolean {
   return (
     Boolean(instance?.blockchain_contract_address) &&
     Boolean(instance?.blockchain_features?.subscription) &&
-    Boolean(currentUser?.wallet_address) &&
+    profile !== null &&
+    profile.getVerifiedEthereumAddress() !== null &&
     isCurrentUser()
   )
 }
@@ -453,7 +455,7 @@ function canSubscribe(): boolean {
     Boolean(instance?.blockchain_contract_address) &&
     Boolean(instance?.blockchain_features?.subscription) &&
     profile !== null &&
-    getVerifiedEthereumAddress(profile) !== null &&
+    profile.getVerifiedEthereumAddress() !== null &&
     profile.subscription_page_url !== null &&
     !isCurrentUser()
   )

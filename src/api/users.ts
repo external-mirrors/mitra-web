@@ -31,18 +31,8 @@ export interface Profile {
   subscription_page_url: string | null;
 }
 
-export function getVerifiedEthereumAddress(profile: Profile): string | null {
-  for (const field of profile.identity_proofs) {
-    if (field.name === "$ETH") {
-      return field.value
-    }
-  }
-  return null
-}
-
 export interface User extends Profile {
   source: Source;
-  wallet_address: string | null;
 }
 
 export interface ProfileWrapper extends Profile {}
@@ -57,7 +47,12 @@ export class ProfileWrapper {
   }
 
   getVerifiedEthereumAddress(): string | null {
-    return getVerifiedEthereumAddress(this)
+    for (const field of this.identity_proofs) {
+      if (field.name === "$ETH") {
+        return field.value
+      }
+    }
+    return null
   }
 
 }

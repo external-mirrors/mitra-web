@@ -7,9 +7,9 @@
       <router-link
         class="display-name"
         :to="{ name: 'profile', params: { profileId: post.account.id }}"
-        :title="getAuthorName()"
+        :title="author.getDisplayName()"
       >
-        {{ getAuthorName() }}
+        {{ author.getDisplayName() }}
       </router-link>
       <div class="actor-address" :title="'@' + getActorAddress(post.account)">
         @{{ getActorAddress(post.account) }}
@@ -203,7 +203,7 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
 import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { $, $computed, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import {
@@ -223,6 +223,7 @@ import {
   createRepost,
   deleteRepost,
 } from "@/api/posts"
+import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -266,6 +267,8 @@ let menuVisible = $ref(false)
 let selectedPaymentAddress = $ref<string | null>(null)
 let isWaitingForToken = $ref(false)
 
+const author = $computed(() => new ProfileWrapper(props.post.account))
+
 onMounted(() => {
   if (postContentRef === null) {
     return
@@ -282,10 +285,6 @@ onMounted(() => {
     })
   }
 })
-
-function getAuthorName(): string {
-  return props.post.account.display_name || props.post.account.username
-}
 
 function highlight(postId: string | null) {
   emit("highlight", postId)
@@ -455,7 +454,7 @@ function canMintToken(): boolean {
     Boolean(instance?.blockchain_features?.minter) &&
     props.post.account.id === currentUser?.id &&
     props.post.visibility === "public" &&
-    Boolean(currentUser?.wallet_address) &&
+    author.getVerifiedEthereumAddress() !== null &&
     !isTokenized() &&
     !isWaitingForToken
   )
@@ -463,14 +462,16 @@ function canMintToken(): boolean {
 
 async function onMintToken() {
   if (
-    !currentUser ||
-    !currentUser.wallet_address ||
     !instance ||
     !instance.blockchain_contract_address
   ) {
     return
   }
   if (isTokenized() || isWaitingForToken) {
+    return
+  }
+  const authorAddress = author.getVerifiedEthereumAddress()
+  if (!authorAddress) {
     return
   }
   const authToken = ensureAuthToken()
@@ -498,7 +499,7 @@ async function onMintToken() {
     const transaction = await mintToken(
       instance.blockchain_contract_address,
       signer,
-      currentUser.wallet_address,
+      authorAddress,
       tokenUri,
       signature,
     )
