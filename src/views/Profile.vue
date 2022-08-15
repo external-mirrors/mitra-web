@@ -431,10 +431,15 @@ async function verifyEthereumAddress(): Promise<void> {
   if (!signer) {
     return
   }
+  const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
-  const message = await getIdentityClaim(authToken)
+  const message = await getIdentityClaim(authToken, walletAddress)
   const signature = await getWalletSignature(signer, message)
-  const user = await createIdentityProof(authToken, signature)
+  const user = await createIdentityProof(
+    authToken,
+    walletAddress,
+    signature,
+  )
   setCurrentUser(user)
   profile.identity_proofs = user.identity_proofs
 }

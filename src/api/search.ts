@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 
+import { createDidFromEthereumAddress } from "@/utils/did"
 import { http } from "./common"
 import { Post } from "./posts"
 import { Profile } from "./users"
@@ -32,7 +33,7 @@ export async function searchProfileByEthereumAddress(
   const url = `${BACKEND_URL}/api/v1/accounts/search_did`
   const response = await http(url, {
     method: "GET",
-    queryParams: { did: `did:pkh:eip155:1:${walletAddress.toLowerCase()}` },
+    queryParams: { did: createDidFromEthereumAddress(walletAddress) },
   })
   const data = await response.json()
   if (response.status !== 200) {

@@ -1,4 +1,5 @@
 import { BACKEND_URL } from "@/constants"
+import { createDidFromEthereumAddress } from "@/utils/did"
 import { PAGE_SIZE, http } from "./common"
 
 export interface ProfileField {
@@ -174,21 +175,29 @@ export async function updateProfile(
   }
 }
 
-export async function getIdentityClaim(authToken: string): Promise<string> {
+export async function getIdentityClaim(
+  authToken: string,
+  walletAddress: string,
+): Promise<string> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
-  const response = await http(url, { authToken })
+  const queryParams = { did: createDidFromEthereumAddress(walletAddress) }
+  const response = await http(url, { authToken, queryParams })
   const data = await response.json()
   return data.claim
 }
 
 export async function createIdentityProof(
   authToken: string,
+  walletAddress: string,
   signature: string,
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const response = await http(url, {
     method: "POST",
-    json: { signature: signature.replace(/0x/, "") },
+    json: {
+      did: createDidFromEthereumAddress(walletAddress),
+      signature: signature.replace(/0x/, ""),
+    },
     authToken,
   })
   const data = await response.json()
