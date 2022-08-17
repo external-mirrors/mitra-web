@@ -9,7 +9,7 @@
       >
         <avatar :profile="sender"></avatar>
         <div class="display-name">{{ sender.getDisplayName() }}</div>
-        <div class="wallet-address">{{ sender.getVerifiedEthereumAddress() || '?' }}</div>
+        <div class="wallet-address">{{ walletAddress ? walletAddress.toLowerCase() : '?' }}</div>
       </component>
       <div class="separator">
         <img :src="require('@/assets/feather/arrow-right.svg')">
@@ -222,11 +222,6 @@ async function checkSubscription() {
     sender = new ProfileWrapper(profiles[0])
   } else {
     console.warn("can't find profile by wallet address")
-    sender.identity_proofs = [{
-      name: "$ETH",
-      value: walletAddress.toLowerCase(),
-      verified_at: null,
-    }]
   }
   const signer = getSigner()
   isLoading = true
