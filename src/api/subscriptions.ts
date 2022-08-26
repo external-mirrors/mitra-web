@@ -44,7 +44,7 @@ export async function getSubscriptionAuthorization(
   authToken: string,
   pricePerSec: BigNumber,
 ): Promise<EthereumSignature> {
-  const url = `${BACKEND_URL}/api/v1/accounts/authorize_subscription`
+  const url = `${BACKEND_URL}/api/v1/subscriptions/authorize`
   const response = await http(url, {
     method: "GET",
     authToken,
@@ -79,10 +79,11 @@ export async function configureSubscriptions(
 export async function onSubscriptionsEnabled(
   authToken: string,
 ): Promise<User> {
-  const url = `${BACKEND_URL}/api/v1/accounts/subscriptions_enabled`
+  const url = `${BACKEND_URL}/api/v1/subscriptions/enable`
   const response = await http(url, {
     method: "POST",
     authToken,
+    json: { type: "ethereum" },
   })
   const data = await response.json()
   if (response.status !== 200) {
