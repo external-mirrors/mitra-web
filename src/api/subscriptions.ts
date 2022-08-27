@@ -40,6 +40,19 @@ export function getPricePerSec(
   return pricePerMonthInt.div(SECONDS_IN_MONTH)
 }
 
+export function getPricePerMonth(
+  pricePerSec: BigNumber,
+): BigNumber {
+  return roundBigNumber(pricePerSec.mul(SECONDS_IN_MONTH), 4)
+}
+
+export function formatAmount(
+  value: BigNumber,
+  tokenDecimals: number,
+): FixedNumber {
+  return FixedNumber.fromValue(value, tokenDecimals)
+}
+
 export async function getSubscriptionAuthorization(
   authToken: string,
   pricePerSec: BigNumber,
@@ -139,11 +152,11 @@ export class SubscriptionConfig {
 
   // Convert raw token amount to FixedNumber
   formatAmount(value: BigNumber): FixedNumber {
-    return FixedNumber.fromValue(value, this.tokenDecimals)
+    return formatAmount(value, this.tokenDecimals)
   }
 
   get pricePerMonthInt(): BigNumber {
-    return roundBigNumber(this.price.mul(SECONDS_IN_MONTH), 4)
+    return getPricePerMonth(this.price)
   }
 
   get pricePerMonth(): FixedNumber {
