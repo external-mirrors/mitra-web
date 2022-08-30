@@ -232,6 +232,7 @@ export interface Subscription {
   id: number,
   sender: Profile,
   sender_address: string,
+  expires_at: string,
 }
 
 export async function getSubscribers(

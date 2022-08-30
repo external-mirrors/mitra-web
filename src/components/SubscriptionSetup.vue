@@ -38,6 +38,7 @@
       <div
         v-for="subscription in subscribers"
         class="subscriber"
+        :class="{ expired: !isSubscriptionActive(subscription) }"
         :key="subscription.id"
         @click="onSubscriberSelected(subscription)"
       >
@@ -68,6 +69,8 @@
 <script setup lang="ts">
 import { onMounted, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
+
+import { DateTime } from "luxon"
 
 import { Profile, ProfileWrapper } from "@/api/users"
 import {
@@ -241,6 +244,11 @@ async function onEnableSubscriptions() {
   isLoading = false
 }
 
+function isSubscriptionActive(subscription: Subscription): boolean {
+  const expiresAt = DateTime.fromISO(subscription.expires_at)
+  return expiresAt > DateTime.now()
+}
+
 function onSubscriberSelected(subscription: Subscription) {
   subscriberAddress = subscription.sender_address
   subscriptionState = null
@@ -350,6 +358,10 @@ async function onWithdrawReceived() {
   .subscriber,
   input {
     width: 400px;
+  }
+
+  .subscriber.expired {
+    opacity: 0.5;
   }
 }
 
