@@ -250,8 +250,10 @@ function isSubscriptionActive(subscription: Subscription): boolean {
 }
 
 function onSubscriberSelected(subscription: Subscription) {
-  subscriberAddress = subscription.sender_address
-  subscriptionState = null
+  if (subscription.sender_address !== null) {
+    subscriberAddress = subscription.sender_address
+    subscriptionState = null
+  }
 }
 
 async function onCheckSubsciptionState() {
