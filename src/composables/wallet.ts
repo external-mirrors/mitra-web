@@ -18,7 +18,8 @@ function disconnectWallet() {
 
 async function connectWallet(): Promise<void> {
   const { instance } = useInstanceInfo()
-  if (!instance.value?.blockchain_id) {
+  const blockchain = instance.value?.blockchains[0]
+  if (!blockchain) {
     throw new Error("blockchain integration disabled")
   }
   let provider
@@ -29,7 +30,7 @@ async function connectWallet(): Promise<void> {
     return
   }
 
-  const instanceChainId = parseCAIP2_ChainId(instance.value.blockchain_id)
+  const instanceChainId = parseCAIP2_ChainId(blockchain.chain_id)
   try {
     // https://eips.ethereum.org/EIPS/eip-3326
     await provider.send(
@@ -38,18 +39,18 @@ async function connectWallet(): Promise<void> {
     )
   } catch (switchError: any) {
     // This error code indicates that the chain has not been added to MetaMask
-    if (switchError.code === 4902 && instance.value.blockchain_info) {
-      const { blockchain_explorer_url, blockchain_info } = instance.value
+    if (switchError.code === 4902 && blockchain.chain_metadata) {
+      const { chain_metadata } = blockchain
       // https://eips.ethereum.org/EIPS/eip-3085
       const ethereumChainParams = {
         chainId: instanceChainId,
-        chainName: blockchain_info.chain_name,
-        rpcUrls: [blockchain_info.public_api_url],
-        blockExplorerUrls: blockchain_explorer_url ? [blockchain_explorer_url] : [],
+        chainName: chain_metadata.chain_name,
+        rpcUrls: [chain_metadata.public_api_url],
+        blockExplorerUrls: chain_metadata.explorer_url ? [chain_metadata.explorer_url] : [],
         nativeCurrency: {
-          name: blockchain_info.currency_name,
-          symbol: blockchain_info.currency_symbol,
-          decimals: parseInt(blockchain_info.currency_decimals),
+          name: chain_metadata.currency_name,
+          symbol: chain_metadata.currency_symbol,
+          decimals: chain_metadata.currency_decimals,
         },
       }
       try {

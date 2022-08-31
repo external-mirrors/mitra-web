@@ -267,6 +267,7 @@ let menuVisible = $ref(false)
 let selectedPaymentAddress = $ref<string | null>(null)
 let isWaitingForToken = $ref(false)
 
+const blockchain = $computed(() => instance?.blockchains[0])
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
 onMounted(() => {
@@ -462,8 +463,8 @@ function isTokenized(): boolean {
 function canMintToken(): boolean {
   return (
     Boolean(instance?.ipfs_gateway_url) &&
-    Boolean(instance?.blockchain_contract_address) &&
-    Boolean(instance?.blockchain_features?.minter) &&
+    Boolean(blockchain?.contract_address) &&
+    Boolean(blockchain?.features.minter) &&
     props.post.account.id === currentUser?.id &&
     props.post.visibility === "public" &&
     author.getVerifiedEthereumAddress() !== null &&
@@ -475,7 +476,7 @@ function canMintToken(): boolean {
 async function onMintToken() {
   if (
     !instance ||
-    !instance.blockchain_contract_address
+    !blockchain?.contract_address
   ) {
     return
   }
@@ -509,7 +510,7 @@ async function onMintToken() {
   }
   try {
     const transaction = await mintToken(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
       authorAddress,
       tokenUri,

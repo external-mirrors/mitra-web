@@ -108,7 +108,7 @@
 <script setup lang="ts">
 import { BigNumber, FixedNumber } from "ethers"
 import { onMounted, watch } from "vue"
-import { $, $$, $ref } from "vue/macros"
+import { $, $$, $computed, $ref } from "vue/macros"
 
 import { searchProfileByEthereumAddress } from "@/api/search"
 import { Profile, ProfileWrapper } from "@/api/users"
@@ -173,11 +173,12 @@ onMounted(() => {
   }
 })
 
+const blockchain = $computed(() => instance?.blockchains[0])
+
 function canConnectWallet(): boolean {
   return (
-    Boolean(instance?.blockchain_id) &&
-    Boolean(instance?.blockchain_contract_address) &&
-    Boolean(instance?.blockchain_features?.subscription) &&
+    Boolean(blockchain?.contract_address) &&
+    Boolean(blockchain?.features.subscriptions) &&
     // Only profiles with verified address can have subscription
     recipientEthereumAddress !== null &&
     walletAddress === null
@@ -206,7 +207,7 @@ watch($$(walletAddress), (newValue) => {
 
 async function checkSubscription() {
   if (
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !recipientEthereumAddress ||
     !walletAddress
   ) {
@@ -226,7 +227,7 @@ async function checkSubscription() {
   const signer = getSigner()
   isLoading = true
   subscriptionConfig = await getSubscriptionConfig(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     recipientEthereumAddress,
   )
@@ -238,7 +239,7 @@ async function checkSubscription() {
     return
   }
   subscriptionState = await getSubscriptionState(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     walletAddress,
     recipientEthereumAddress,
@@ -282,7 +283,7 @@ async function refreshTokenBalance() {
 
 async function onMakeSubscriptionPayment() {
   if (
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !recipientEthereumAddress ||
     !walletAddress ||
     !subscriptionConfig ||
@@ -296,7 +297,7 @@ async function onMakeSubscriptionPayment() {
   let transaction
   try {
     transaction = await makeSubscriptionPayment(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
       recipientEthereumAddress,
       amount,
@@ -312,7 +313,7 @@ async function onMakeSubscriptionPayment() {
   let newSubscriptionState
   while (!newSubscriptionState || subscriptionState.senderBalance === newSubscriptionState.senderBalance) {
     newSubscriptionState = await getSubscriptionState(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
       walletAddress,
       recipientEthereumAddress,
@@ -336,7 +337,7 @@ function canCancel(): boolean {
 
 async function onCancelSubscription() {
   if (
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !recipientEthereumAddress ||
     !walletAddress ||
     !subscriptionConfig
@@ -348,7 +349,7 @@ async function onCancelSubscription() {
   let transaction
   try {
     transaction = await cancelSubscription(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
       recipientEthereumAddress,
     )
@@ -359,7 +360,7 @@ async function onCancelSubscription() {
   }
   await transaction.wait()
   subscriptionState = await getSubscriptionState(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     walletAddress,
     recipientEthereumAddress,

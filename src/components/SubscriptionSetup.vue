@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from "vue"
-import { $, $$, $ref } from "vue/macros"
+import { $, $$, $computed, $ref } from "vue/macros"
 
 import { DateTime } from "luxon"
 
@@ -122,11 +122,12 @@ onMounted(() => {
   }
 })
 
+const blockchain = $computed(() => instance?.blockchains[0])
+
 function canConnectWallet(): boolean {
   return (
-    Boolean(instance?.blockchain_id) &&
-    Boolean(instance?.blockchain_contract_address) &&
-    Boolean(instance?.blockchain_features?.subscription) &&
+    Boolean(blockchain?.contract_address) &&
+    Boolean(blockchain?.features.subscriptions) &&
     // Only profiles with verified address can have subscription
     profileEthereumAddress !== null &&
     walletAddress === null
@@ -156,7 +157,7 @@ watch($$(walletAddress), (newValue) => {
 
 async function checkSubscription() {
   if (
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !profileEthereumAddress ||
     !walletAddress
   ) {
@@ -170,7 +171,7 @@ async function checkSubscription() {
   isLoading = true
   const signer = getSigner()
   subscriptionConfig = await getSubscriptionConfig(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     profileEthereumAddress,
   )
@@ -185,7 +186,7 @@ async function checkSubscription() {
   } else {
     subscriptionsEnabled = false
     subscriptionToken = await getSubscriptionToken(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
     )
   }
@@ -203,8 +204,7 @@ function canEnableSubscriptions(): boolean {
 async function onEnableSubscriptions() {
   if (
     profileEthereumAddress === null ||
-    !instance ||
-    !instance.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     subscriptionToken === null
   ) {
     return
@@ -220,7 +220,7 @@ async function onEnableSubscriptions() {
   let transaction
   try {
     transaction = await configureSubscriptions(
-      instance.blockchain_contract_address,
+      blockchain.contract_address,
       signer,
       profileEthereumAddress,
       pricePerSec,
@@ -234,7 +234,7 @@ async function onEnableSubscriptions() {
   await transaction.wait()
   subscriptionsEnabled = true
   subscriptionConfig = await getSubscriptionConfig(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     profileEthereumAddress,
   )
@@ -259,7 +259,7 @@ function onSubscriberSelected(subscription: Subscription) {
 async function onCheckSubsciptionState() {
   if (
     !profileEthereumAddress ||
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !subscriberAddress
   ) {
     return
@@ -267,7 +267,7 @@ async function onCheckSubsciptionState() {
   isLoading = true
   const signer = getSigner()
   subscriptionState = await getSubscriptionState(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     subscriberAddress,
     profileEthereumAddress,
@@ -277,7 +277,7 @@ async function onCheckSubsciptionState() {
 
 async function onWithdrawReceived() {
   if (
-    !instance?.blockchain_contract_address ||
+    !blockchain?.contract_address ||
     !subscriberAddress
   ) {
     return
@@ -285,7 +285,7 @@ async function onWithdrawReceived() {
   isLoading = true
   const signer = getSigner()
   await withdrawReceived(
-    instance.blockchain_contract_address,
+    blockchain.contract_address,
     signer,
     subscriberAddress,
   )

@@ -97,7 +97,7 @@ const actorAddress = $computed<string>(() => {
 })
 
 const transactionUrl = $computed<string | null>(() => {
-  const explorerUrl = instance?.blockchain_explorer_url
+  const explorerUrl = instance?.blockchains[0]?.chain_metadata?.explorer_url
   if (!explorerUrl || !post?.token_tx_id) {
     return null
   }

@@ -1,17 +1,25 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
 
-interface ContractFeatures {
+interface Features {
   minter: boolean;
-  subscription: boolean;
+  subscriptions: boolean;
 }
 
-interface ChainInfo {
+interface ChainMetadata {
   chain_name: string;
-  public_api_url: string;
   currency_name: string;
   currency_symbol: string;
-  currency_decimals: string;
+  currency_decimals: number;
+  public_api_url: string;
+  explorer_url: string | null;
+}
+
+interface BlockchainInfo {
+  chain_id: string;
+  chain_metadata: ChainMetadata | null;
+  contract_address: string | null;
+  features: Features;
 }
 
 export interface InstanceInfo {
@@ -22,11 +30,7 @@ export interface InstanceInfo {
   registrations: boolean;
   login_message: string;
   post_character_limit: number;
-  blockchain_id: string | null;
-  blockchain_explorer_url: string | null;
-  blockchain_contract_address: string | null;
-  blockchain_features: ContractFeatures | null;
-  blockchain_info: ChainInfo | null;
+  blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }
 

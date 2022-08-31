@@ -446,9 +446,10 @@ async function verifyEthereumAddress(): Promise<void> {
 
 function canManageSubscriptions(): boolean {
   // Only users with verified address can configure subscription
+  const blockchain = instance?.blockchains[0]
   return (
-    Boolean(instance?.blockchain_contract_address) &&
-    Boolean(instance?.blockchain_features?.subscription) &&
+    Boolean(blockchain?.contract_address) &&
+    Boolean(blockchain?.features.subscriptions) &&
     profile !== null &&
     profile.getVerifiedEthereumAddress() !== null &&
     isCurrentUser()
@@ -456,9 +457,10 @@ function canManageSubscriptions(): boolean {
 }
 
 function canSubscribe(): boolean {
+  const blockchain = instance?.blockchains[0]
   return (
-    Boolean(instance?.blockchain_contract_address) &&
-    Boolean(instance?.blockchain_features?.subscription) &&
+    Boolean(blockchain?.contract_address) &&
+    Boolean(blockchain?.features.subscriptions) &&
     profile !== null &&
     profile.getVerifiedEthereumAddress() !== null &&
     profile.subscription_page_url !== null &&
