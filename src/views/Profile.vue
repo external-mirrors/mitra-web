@@ -52,7 +52,7 @@
               <li v-if="canManageSubscriptions()">
                 <router-link
                   title="Manage subscriptions"
-                  :to="{ name: 'profile-subscription', params: { profileId: profile.id }}"
+                  :to="{ name: 'subscriptions-settings' }"
                 >
                   Manage subscriptions
                 </router-link>

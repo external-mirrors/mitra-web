@@ -14,6 +14,7 @@ import PublicTimeline from "@/views/PublicTimeline.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
+import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 import EthereumPage from "@/views/Ethereum.vue"
 
 import { useCurrentUser } from "@/store/user"
@@ -129,6 +130,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings",
     name: "settings",
     component: ProfileForm,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/subscriptions/settings",
+    name: "subscriptions-settings",
+    component: SubscriptionsSettings,
     meta: { onlyAuthenticated: true },
   },
   {

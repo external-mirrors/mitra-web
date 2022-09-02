@@ -1,5 +1,4 @@
 <template>
-  <h1>Manage subscriptions</h1>
   <div class="subscription">
     <div class="connect-wallet" v-if="canConnectWallet()">
       <button class="btn" @click="connectWallet()">Connect wallet</button>
@@ -72,7 +71,7 @@ import { $, $$, $computed, $ref } from "vue/macros"
 
 import { DateTime } from "luxon"
 
-import { Profile, ProfileWrapper } from "@/api/users"
+import { ProfileWrapper } from "@/api/users"
 import {
   configureSubscriptions,
   getPricePerSec,
@@ -95,15 +94,10 @@ import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
-/* eslint-disable-next-line no-undef */
-const props = defineProps<{
-  profile: Profile,
-}>()
-
-const { ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const { ensureAuthToken, ensureCurrentUser, setCurrentUser } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
-const profile = new ProfileWrapper(props.profile)
+const profile = new ProfileWrapper(ensureCurrentUser())
 const profileEthereumAddress = profile.getVerifiedEthereumAddress()
 const subscriptionPrice = $ref<number>(1)
 let { walletAddress, walletError } = $(useWallet())

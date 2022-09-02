@@ -1,10 +1,7 @@
 <template>
   <sidebar-layout v-if="profile && isLocalUser()">
     <template #content>
-      <component
-        :is="isCurrentUser() ? SubscriptionSetup : Subscription"
-        :profile="profile"
-      ></component>
+      <subscription :profile="profile"></subscription>
     </template>
   </sidebar-layout>
 </template>
@@ -17,11 +14,10 @@ import { useRoute } from "vue-router"
 import { getProfile, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Subscription from "@/components/Subscription.vue"
-import SubscriptionSetup from "@/components/SubscriptionSetup.vue"
 import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()
-const { currentUser, authToken } = $(useCurrentUser())
+const { authToken } = $(useCurrentUser())
 let profile = $ref<Profile | null>(null)
 
 onMounted(async () => {
@@ -36,12 +32,5 @@ function isLocalUser(): boolean {
     return false
   }
   return profile.username === profile.acct
-}
-
-function isCurrentUser(): boolean {
-  if (!currentUser || !profile) {
-    return false
-  }
-  return currentUser.id === profile.id
 }
 </script>
