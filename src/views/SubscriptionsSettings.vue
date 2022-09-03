@@ -27,4 +27,12 @@ function isEthereum(): boolean {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/layout";
+
+.subscription-settings {
+  display: flex;
+  flex-direction: column;
+  gap: $block-outer-padding;
+  text-align: center;
+}
 </style>
