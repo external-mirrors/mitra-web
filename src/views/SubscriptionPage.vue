@@ -1,26 +1,32 @@
 <template>
   <sidebar-layout v-if="profile && isLocalUser()">
     <template #content>
-      <subscription :profile="profile"></subscription>
+      <h1>Subscription</h1>
+      <subscription-ethereum v-if="isEthereum()" :profile="profile"></subscription-ethereum>
     </template>
   </sidebar-layout>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { getProfile, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import Subscription from "@/components/Subscription.vue"
+import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/store/instance"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())
+const { instance } = $(useInstanceInfo())
 let profile = $ref<Profile | null>(null)
 
+const blockchain = $computed(() => instance?.blockchains[0])
+
 onMounted(async () => {
+  // Recipient
   profile = await getProfile(
     authToken,
     route.params.profileId as string,
@@ -32,5 +38,12 @@ function isLocalUser(): boolean {
     return false
   }
   return profile.username === profile.acct
+}
+
+function isEthereum(): boolean {
+  if (!blockchain) {
+    return false
+  }
+  return blockchain.chain_id.startsWith("eip155")
 }
 </script>

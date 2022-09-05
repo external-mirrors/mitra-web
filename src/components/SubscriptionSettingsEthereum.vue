@@ -74,22 +74,24 @@ import { DateTime } from "luxon"
 
 import { ProfileWrapper } from "@/api/users"
 import {
+  getSubscriptionOptions,
+  SubscriptionOption,
+} from "@/api/subscriptions-common"
+import {
   configureSubscriptions,
   getPricePerSec,
   getSubscribers,
   getSubscriptionAuthorization,
   getSubscriptionConfig,
-  getSubscriptionOptions,
   getSubscriptionState,
   getSubscriptionToken,
   onSubscriptionsEnabled,
   withdrawReceived,
   Subscription,
   SubscriptionConfig,
-  SubscriptionOption,
   SubscriptionState,
   SubscriptionToken,
-} from "@/api/subscriptions"
+} from "@/api/subscriptions-ethereum"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import { useWallet } from "@/composables/wallet"

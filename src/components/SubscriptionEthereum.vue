@@ -1,5 +1,4 @@
 <template>
-  <h1>Subscription</h1>
   <div class="subscription">
     <div class="participants">
       <component
@@ -120,7 +119,7 @@ import {
   makeSubscriptionPayment,
   SubscriptionConfig,
   SubscriptionState,
-} from "@/api/subscriptions"
+} from "@/api/subscriptions-ethereum"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import { useWallet } from "@/composables/wallet"

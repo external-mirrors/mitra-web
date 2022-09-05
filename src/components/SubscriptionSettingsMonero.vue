@@ -40,7 +40,10 @@
 import { onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 
-import { getSubscriptionOptions, SubscriptionOption } from "@/api/subscriptions"
+import {
+  getSubscriptionOptions,
+  SubscriptionOption,
+} from "@/api/subscriptions-common"
 import {
   enableMoneroSubscriptions,
   getPricePerMonth,

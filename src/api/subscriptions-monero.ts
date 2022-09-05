@@ -6,7 +6,7 @@ import {
   formatAmount,
   getPricePerMonth as _getPricePerMonth,
   getPricePerSec as _getPricePerSec,
-} from "./subscriptions"
+} from "./subscriptions-ethereum"
 import { Profile, User } from "./users"
 
 export function getPricePerSec(pricePerMonth: number): number {
