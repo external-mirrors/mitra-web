@@ -3,6 +3,7 @@
     <template #content>
       <h1>Subscription</h1>
       <subscription-ethereum v-if="isEthereum()" :profile="profile"></subscription-ethereum>
+      <subscription-monero v-if="isMonero()" :profile="profile"></subscription-monero>
     </template>
   </sidebar-layout>
 </template>
@@ -15,6 +16,7 @@ import { useRoute } from "vue-router"
 import { getProfile, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
+import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
 
@@ -45,5 +47,12 @@ function isEthereum(): boolean {
     return false
   }
   return blockchain.chain_id.startsWith("eip155")
+}
+
+function isMonero(): boolean {
+  if (!blockchain) {
+    return false
+  }
+  return blockchain.chain_id.startsWith("monero")
 }
 </script>

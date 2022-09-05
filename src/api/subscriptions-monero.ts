@@ -37,3 +37,43 @@ export async function enableMoneroSubscriptions(
     return data
   }
 }
+
+export interface Invoice {
+  id: string,
+  sender_id: string,
+  recipient_id: string,
+  payment_address: string,
+  status: string,
+}
+
+export async function createInvoice(
+  senderId: string,
+  recipientId: string,
+): Promise<Invoice> {
+  const url = `${BACKEND_URL}/api/v1/subscriptions/invoices`
+  const response = await http(url, {
+    method: "POST",
+    json: { sender_id: senderId, recipient_id: recipientId },
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
+
+export async function getInvoice(
+  invoiceId: string,
+): Promise<Invoice> {
+  const url = `${BACKEND_URL}/api/v1/subscriptions/invoices/${invoiceId}`
+  const response = await http(url, {
+    method: "GET",
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}

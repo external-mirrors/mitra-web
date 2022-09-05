@@ -27,7 +27,22 @@ export async function getSearchResults(
   return data
 }
 
-export async function searchProfileByEthereumAddress(
+export async function searchProfilesByAcct(
+  acct: string,
+): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/search`
+  const response = await http(url, {
+    method: "GET",
+    queryParams: { q: acct },
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  }
+  return data
+}
+
+export async function searchProfilesByEthereumAddress(
   walletAddress: string,
 ): Promise<Profile[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/search_did`

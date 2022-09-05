@@ -40,6 +40,25 @@ export interface Profile {
   statuses_count: number;
 }
 
+export function guest() {
+  return {
+    id: "",
+    username: "",
+    acct: "",
+    url: "",
+    display_name: "You",
+    note: null,
+    avatar: null,
+    header: null,
+    identity_proofs: [],
+    payment_options: [],
+    fields: [],
+    followers_count: 0,
+    following_count: 0,
+    statuses_count: 0,
+  }
+}
+
 export interface User extends Profile {
   source: Source;
 }

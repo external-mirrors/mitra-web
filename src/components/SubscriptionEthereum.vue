@@ -109,8 +109,8 @@ import { BigNumber, FixedNumber } from "ethers"
 import { onMounted, watch } from "vue"
 import { $, $$, $computed, $ref } from "vue/macros"
 
-import { searchProfileByEthereumAddress } from "@/api/search"
-import { Profile, ProfileWrapper } from "@/api/users"
+import { searchProfilesByEthereumAddress } from "@/api/search"
+import { guest, Profile, ProfileWrapper } from "@/api/users"
 import {
   cancelSubscription,
   getSubscriptionConfig,
@@ -132,29 +132,12 @@ const props = defineProps<{
   profile: Profile,
 }>()
 
-const guest: Profile = {
-  id: "",
-  username: "",
-  acct: "",
-  url: "",
-  display_name: "You",
-  note: null,
-  avatar: null,
-  header: null,
-  identity_proofs: [],
-  payment_options: [],
-  fields: [],
-  followers_count: 0,
-  following_count: 0,
-  statuses_count: 0,
-}
-
 const { currentUser } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet } = useWallet()
 const recipient = new ProfileWrapper(props.profile)
 const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
-let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest))
+let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest()))
 let { walletAddress, walletError, getSigner } = $(useWallet())
 let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
@@ -217,7 +200,7 @@ async function checkSubscription() {
     return
   }
   // Update sender info
-  const profiles = await searchProfileByEthereumAddress(walletAddress)
+  const profiles = await searchProfilesByEthereumAddress(walletAddress)
   if (profiles.length === 1) {
     sender = new ProfileWrapper(profiles[0])
   } else {
