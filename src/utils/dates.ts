@@ -1,6 +1,6 @@
 import { DateTime } from "luxon"
 
-export function formatDate(isoDate: string): string {
+export function humanizeDate(isoDate: string): string {
   const date = DateTime.fromISO(isoDate)
   const now = DateTime.now()
   const diff = now.diff(date)
@@ -18,4 +18,9 @@ export function formatDate(isoDate: string): string {
   } else {
     return date.toFormat("dd LLL y")
   }
+}
+
+export function formatDate(isoDate: string): string {
+  const date = DateTime.fromISO(isoDate)
+  return date.toLocaleString()
 }

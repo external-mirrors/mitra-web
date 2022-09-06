@@ -55,13 +55,12 @@ import { onMounted } from "vue"
 import { $, $ref, $computed } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
-import { DateTime } from "luxon"
-
 import { getTokenMetadata, TokenMetadata } from "@/api/nft"
 import { Post, getPost } from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
+import { formatDate } from "@/utils/dates"
 
 const route = useRoute()
 const router = useRouter()
@@ -119,11 +118,6 @@ const imageUrl = $computed<string | null>(() => {
   }
   return token.image.replace("ipfs://", `${gatewayUrl}/ipfs/`)
 })
-
-function formatDate(isoDate: string): string {
-  const date = DateTime.fromISO(isoDate)
-  return date.toLocaleString(DateTime.DATE_FULL)
-}
 </script>
 
 <style scoped lang="scss">

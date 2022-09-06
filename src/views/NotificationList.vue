@@ -74,7 +74,7 @@
           </div>
           <div class="display-name">{{ getSenderName(notification) }}</div>
           <div class="actor-address">@{{ getActorAddress(notification.account) }}</div>
-          <div class="timestamp">{{ formatDate(notification.created_at) }}</div>
+          <div class="timestamp">{{ humanizeDate(notification.created_at) }}</div>
         </router-link>
       </div>
       <button
@@ -100,7 +100,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
-import { formatDate } from "@/utils/format"
+import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
 const { getActorAddress } = useInstanceInfo()

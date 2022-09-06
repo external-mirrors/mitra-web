@@ -36,7 +36,7 @@
         :href="post.uri"
         @click.prevent="navigateTo(post.id)"
       >
-        {{ formatDate(post.created_at) }}
+        {{ humanizeDate(post.created_at) }}
       </a>
     </div>
     <div class="post-subheader" v-if="getReplyMentions().length > 0">
@@ -232,7 +232,7 @@ import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
-import { formatDate } from "@/utils/format"
+import { humanizeDate } from "@/utils/dates"
 import { addGreentext } from "@/utils/greentext"
 
 interface PaymentOption {
