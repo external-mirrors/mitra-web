@@ -1,3 +1,5 @@
+import { RouteLocationRaw } from "vue-router"
+
 import { BACKEND_URL } from "@/constants"
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { PAGE_SIZE, http } from "./common"
@@ -6,6 +8,13 @@ export interface ProfileField {
   name: string;
   value: string;
   verified_at: string | null;
+}
+
+export interface ProfilePaymentOption {
+  type: string,
+  name?: string,
+  href?: string,
+  price?: number,
 }
 
 interface Source {
@@ -23,13 +32,12 @@ export interface Profile {
   avatar: string | null;
   header: string | null;
   identity_proofs: ProfileField[];
+  payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
 
   followers_count: number;
   following_count: number;
   statuses_count: number;
-
-  subscription_page_url: string | null;
 }
 
 export interface User extends Profile {
@@ -51,6 +59,28 @@ export class ProfileWrapper {
     for (const field of this.identity_proofs) {
       if (field.name === "$ETH") {
         return field.value
+      }
+    }
+    return null
+  }
+
+  getSubscriptionPageLocation(): string | RouteLocationRaw | null {
+    console.log(this.payment_options)
+    for (const option of this.payment_options) {
+      if (
+        option.type === "link" &&
+        option.name === "EthereumSubscription" &&
+        option.href
+      ) {
+        return option.href
+      } else if (
+        option.type === "ethereum-subscription" ||
+        option.type === "monero-subscription"
+      ) {
+        return {
+          name: "profile-subscription",
+          params: { profileId: this.id },
+        }
       }
     }
     return null

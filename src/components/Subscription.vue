@@ -143,11 +143,11 @@ const guest: Profile = {
   avatar: null,
   header: null,
   identity_proofs: [],
+  payment_options: [],
   fields: [],
   followers_count: 0,
   following_count: 0,
   statuses_count: 0,
-  subscription_page_url: null,
 }
 
 const { currentUser } = $(useCurrentUser())

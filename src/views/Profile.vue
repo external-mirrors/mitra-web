@@ -85,24 +85,24 @@
               <template v-else>Unfollow</template>
             </button>
             <template v-if="canSubscribe()">
-              <router-link
-                v-if="isLocalUser()"
-                class="btn"
-                title="Pay for subscription"
-                :to="{ name: 'profile-subscription', params: { profileId: profile.id } }"
-              >
-                Subscribe
-              </router-link>
               <a
-                v-else-if="profile.subscription_page_url"
+                v-if="typeof profile.getSubscriptionPageLocation() === 'string'"
                 class="btn"
                 title="Pay for subscription"
-                :href="profile.subscription_page_url"
+                :href="profile.getSubscriptionPageLocation() as string"
                 target="_blank"
                 rel="noreferrer"
               >
                 Subscribe
               </a>
+              <router-link
+                v-else-if="profile.getSubscriptionPageLocation() !== null"
+                class="btn"
+                title="Pay for subscription"
+                :to="profile.getSubscriptionPageLocation()"
+              >
+                Subscribe
+              </router-link>
             </template>
           </div>
         </div>
@@ -461,7 +461,7 @@ function canSubscribe(): boolean {
     Boolean(blockchain?.features.subscriptions) &&
     profile !== null &&
     profile.getVerifiedEthereumAddress() !== null &&
-    profile.subscription_page_url !== null &&
+    profile.getSubscriptionPageLocation() !== null &&
     !isCurrentUser()
   )
 }
