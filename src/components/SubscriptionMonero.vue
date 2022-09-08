@@ -168,7 +168,12 @@ function isSubscribed(): boolean {
 }
 
 function canSubscribe(): boolean {
-  return sender.id !== "" && subscriptionPrice !== null && invoice === null
+  return (
+    sender.id !== "" &&
+    sender.id !== recipient.id &&
+    subscriptionPrice !== null &&
+    invoice === null
+  )
 }
 
 function getPaymentAmount(): number {

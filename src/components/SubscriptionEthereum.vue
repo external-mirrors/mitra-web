@@ -234,7 +234,10 @@ async function checkSubscription() {
 }
 
 function canSubscribe(): boolean {
-  return subscriptionsEnabled === true
+  return (
+    sender.id !== recipient.id &&
+    subscriptionsEnabled === true
+  )
 }
 
 function getPaymentAmount(): FixedNumber {
