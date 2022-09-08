@@ -11,6 +11,11 @@
         Subscriptions are not enabled
       </template>
     </div>
+    <div class="payment-page" v-if="subscriptionOption !== null && !isLoading">
+      <router-link :to="{ name: 'profile-subscription', params: { profileId: ensureCurrentUser().id } }">
+        Payment page
+      </router-link>
+    </div>
     <form v-if="canEnableSubscriptions()">
       <div class="price-input-group">
         <label for="price">Price</label>
@@ -52,7 +57,11 @@ import {
 import Loader from "@/components/Loader.vue"
 import { useCurrentUser } from "@/store/user"
 
-const { ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const {
+  ensureAuthToken,
+  ensureCurrentUser,
+  setCurrentUser,
+} = $(useCurrentUser())
 
 const subscriptionPrice = $ref(0.01)
 const subscriptionPayoutAddress = $ref("")
@@ -114,6 +123,13 @@ async function enableSubscriptions() {
   .price {
     font-size: 16px;
     font-weight: bold;
+  }
+}
+
+.payment-page {
+  a {
+    font-size: 16px;
+    text-decoration: underline;
   }
 }
 
