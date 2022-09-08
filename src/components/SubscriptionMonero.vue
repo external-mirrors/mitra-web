@@ -21,15 +21,17 @@
       <input
         type="text"
         v-model="senderAcct"
-        placeholder="Enter your fediverse address (user@example.org)"
+        placeholder="Enter your username or fediverse address (user@example.org)"
       >
       <button
         type="submit"
         class="btn"
+        :disabled="!senderAcct"
         @click.prevent="identifySender()"
       >
         Find profile
       </button>
+      <span class="sender-error">{{ senderError }}</span>
     </form>
     <div class="info" v-if="subscriptionOption !== null && sender.id !== ''">
       <template v-if="subscriptionPrice">
@@ -115,6 +117,7 @@ const props = defineProps<{
 const { currentUser } = $(useCurrentUser())
 const recipient = new ProfileWrapper(props.profile)
 const senderAcct = $ref("")
+let senderError = $ref<string | null>(null)
 let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest()))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 let subscriptionPrice = $ref<number | null>(null)
@@ -142,9 +145,16 @@ async function identifySender() {
   }
   isLoading = true
   const profiles = await searchProfilesByAcct(senderAcct)
-  const profile = profiles[0]
-  if (profile && profile.id !== recipient.id) {
-    sender = new ProfileWrapper(profile)
+  if (profiles.length > 1) {
+    senderError = "Please provide full address"
+  } else {
+    const profile = profiles[0]
+    if (profile && profile.id !== recipient.id) {
+      sender = new ProfileWrapper(profile)
+      senderError = null
+    } else {
+      senderError = "Profile not found"
+    }
   }
   isLoading = false
 }
