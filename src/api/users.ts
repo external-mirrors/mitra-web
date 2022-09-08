@@ -84,11 +84,10 @@ export class ProfileWrapper {
   }
 
   getSubscriptionPageLocation(): string | RouteLocationRaw | null {
-    console.log(this.payment_options)
     for (const option of this.payment_options) {
       if (
         option.type === "link" &&
-        option.name === "EthereumSubscription" &&
+        (option.name === "EthereumSubscription" || option.name === "MoneroSubscription") &&
         option.href
       ) {
         return option.href
