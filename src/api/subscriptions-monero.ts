@@ -2,6 +2,7 @@ import { BigNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
+import { registerSubscriptionOption } from "./subscriptions-common"
 import {
   formatAmount,
   getPricePerMonth as _getPricePerMonth,
@@ -24,18 +25,11 @@ export async function enableMoneroSubscriptions(
   price: number,
   payoutAddress: string,
 ): Promise<User> {
-  const url = `${BACKEND_URL}/api/v1/subscriptions/enable`
-  const response = await http(url, {
-    method: "POST",
-    authToken,
-    json: { type: "monero", price, payout_address: payoutAddress },
+  return await registerSubscriptionOption(authToken, {
+    type: "monero",
+    price,
+    payout_address: payoutAddress,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.message)
-  } else {
-    return data
-  }
 }
 
 export interface Invoice {

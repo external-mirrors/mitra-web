@@ -1,10 +1,11 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
+import { User } from "./users"
 
 export interface SubscriptionOption {
   type: string;
   price: number | null;
-  payout_address: number | null;
+  payout_address: string | null;
 }
 
 export async function getSubscriptionOptions(
@@ -14,6 +15,24 @@ export async function getSubscriptionOptions(
   const response = await http(url, {
     method: "GET",
     authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
+
+export async function registerSubscriptionOption(
+  authToken: string,
+  subscriptionOption: SubscriptionOption,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/subscriptions/options`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: subscriptionOption,
   })
   const data = await response.json()
   if (response.status !== 200) {
