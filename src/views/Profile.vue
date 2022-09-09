@@ -450,7 +450,6 @@ function canManageSubscriptions(): boolean {
   return (
     Boolean(blockchain?.features.subscriptions) &&
     profile !== null &&
-    profile.getVerifiedEthereumAddress() !== null &&
     isCurrentUser()
   )
 }
@@ -460,7 +459,6 @@ function canSubscribe(): boolean {
   return (
     Boolean(blockchain?.features.subscriptions) &&
     profile !== null &&
-    profile.getVerifiedEthereumAddress() !== null &&
     profile.getSubscriptionPageLocation() !== null &&
     !isCurrentUser()
   )
