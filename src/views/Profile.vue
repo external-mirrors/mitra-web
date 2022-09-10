@@ -44,7 +44,7 @@
               <li v-if="isCurrentUser()">
                 <button
                   title="Verify ethereum address"
-                  @click="hideProfileMenu(); verifyEthereumAddress()"
+                  @click="hideProfileMenu(); onVerifyEthereumAddress()"
                 >
                   Verify ethereum address
                 </button>
@@ -208,8 +208,6 @@ import {
   getFollowing,
 } from "@/api/relationships"
 import {
-  createIdentityProof,
-  getIdentityClaim,
   getProfile,
   Profile,
   ProfileField,
@@ -219,18 +217,18 @@ import Avatar from "@/components/Avatar.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
 const route = useRoute()
 const {
   authToken,
   currentUser,
   ensureAuthToken,
-  setCurrentUser,
 } = $(useCurrentUser())
+const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { instance, getActorAddress } = $(useInstanceInfo())
 
 let profile = $ref<ProfileWrapper | null>(null)
@@ -420,28 +418,14 @@ const feedUrl = $computed<string>(() => {
   return `${BACKEND_URL}/feeds/${profile.username}`
 })
 
-async function verifyEthereumAddress(): Promise<void> {
+async function onVerifyEthereumAddress() {
   if (!profile || !isCurrentUser()) {
     return
   }
-  if (!confirm("This action will link your wallet address to your profile. Continue?")) {
-    return
+  const user = await verifyEthereumAddress()
+  if (user) {
+    profile.identity_proofs = user.identity_proofs
   }
-  const signer = await getWallet()
-  if (!signer) {
-    return
-  }
-  const walletAddress = await signer.getAddress()
-  const authToken = ensureAuthToken()
-  const message = await getIdentityClaim(authToken, walletAddress)
-  const signature = await getWalletSignature(signer, message)
-  const user = await createIdentityProof(
-    authToken,
-    walletAddress,
-    signature,
-  )
-  setCurrentUser(user)
-  profile.identity_proofs = user.identity_proofs
 }
 
 function canManageSubscriptions(): boolean {

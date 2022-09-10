@@ -6,6 +6,11 @@
     <div class="wallet-error" v-if="walletError">
       {{ walletError }}
     </div>
+    <div class="link-address" v-if="canVerifyEthereumAddress()">
+      <button class="btn" @click="onVerifyEthereumAddress()">
+        Link your address
+      </button>
+    </div>
     <div class="info" v-if="subscriptionsEnabled !== null">
       <template v-if="subscriptionConfig && subscriptionOption !== null">
         <span>Subscriptions are enabled</span>
@@ -94,12 +99,14 @@ import {
 } from "@/api/subscriptions-ethereum"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
+import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
 const { ensureAuthToken, ensureCurrentUser, setCurrentUser } = $(useCurrentUser())
+const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const subscriptionPrice = $ref<number>(1)
@@ -135,8 +142,6 @@ function canConnectWallet(): boolean {
   return (
     Boolean(blockchain?.contract_address) &&
     Boolean(blockchain?.features.subscriptions) &&
-    // Only users with verified address can have ethereum subscriptions
-    profile.getVerifiedEthereumAddress() !== null &&
     walletAddress === null
   )
 }
@@ -200,6 +205,15 @@ async function loadSubscriptionSettings() {
     )
   }
   isLoading = false
+}
+
+function canVerifyEthereumAddress(): boolean {
+  return walletAddress !== null && profile.getVerifiedEthereumAddress() === null
+}
+
+async function onVerifyEthereumAddress() {
+  await verifyEthereumAddress()
+  await loadSubscriptionSettings()
 }
 
 function canEnableSubscriptions(): boolean {
