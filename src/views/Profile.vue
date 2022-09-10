@@ -41,12 +41,12 @@
                   Atom feed
                 </a>
               </li>
-              <li v-if="isCurrentUser()">
+              <li v-if="canVerifyEthereumAddress()">
                 <button
-                  title="Verify ethereum address"
+                  title="Link ethereum address"
                   @click="hideProfileMenu(); onVerifyEthereumAddress()"
                 >
-                  Verify ethereum address
+                  Link ethereum address
                 </button>
               </li>
               <li v-if="canManageSubscriptions()">
@@ -221,6 +221,7 @@ import { useEthereumAddressVerification } from "@/composables/ethereum-address-v
 import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
+import { hasEthereumWallet } from "@/utils/ethereum"
 
 const route = useRoute()
 const {
@@ -417,6 +418,10 @@ const feedUrl = $computed<string>(() => {
   }
   return `${BACKEND_URL}/feeds/${profile.username}`
 })
+
+function canVerifyEthereumAddress(): boolean {
+  return isCurrentUser() && hasEthereumWallet()
+}
 
 async function onVerifyEthereumAddress() {
   if (!profile || !isCurrentUser()) {

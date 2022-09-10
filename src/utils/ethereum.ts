@@ -15,6 +15,10 @@ export function ethereumAddressMatch(address1: string, address2: string): boolea
   return address1.toLowerCase() === address2.toLowerCase()
 }
 
+export function hasEthereumWallet(): boolean {
+  return Boolean((window as any).ethereum)
+}
+
 export function getWeb3Provider(): Web3Provider {
   const provider = (window as any).ethereum
   return new Web3Provider(provider)
