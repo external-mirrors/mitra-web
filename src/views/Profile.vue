@@ -148,6 +148,10 @@
             <span class="value">{{ profile.following_count }}</span>
             <span class="label">following</span>
           </component>
+          <div class="stats-item" v-if="isSubscriptionsFeatureEnabled()">
+            <span class="value">{{ profile.subscribers_count }}</span>
+            <span class="label">subscribers</span>
+          </div>
         </div>
       </div>
       <div class="tab-bar">
@@ -433,20 +437,22 @@ async function onVerifyEthereumAddress() {
   }
 }
 
-function canManageSubscriptions(): boolean {
-  // Only users with verified address can configure subscription
+function isSubscriptionsFeatureEnabled(): boolean {
   const blockchain = instance?.blockchains[0]
+  return Boolean(blockchain?.features.subscriptions)
+}
+
+function canManageSubscriptions(): boolean {
   return (
-    Boolean(blockchain?.features.subscriptions) &&
+    isSubscriptionsFeatureEnabled() &&
     profile !== null &&
     isCurrentUser()
   )
 }
 
 function canSubscribe(): boolean {
-  const blockchain = instance?.blockchains[0]
   return (
-    Boolean(blockchain?.features.subscriptions) &&
+    isSubscriptionsFeatureEnabled() &&
     profile !== null &&
     profile.getSubscriptionPageLocation() !== null &&
     !isCurrentUser()

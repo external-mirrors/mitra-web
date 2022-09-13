@@ -37,6 +37,7 @@ export interface Profile {
 
   followers_count: number;
   following_count: number;
+  subscribers_count: number;
   statuses_count: number;
 }
 
@@ -55,6 +56,7 @@ export function guest() {
     fields: [],
     followers_count: 0,
     following_count: 0,
+    subscribers_count: 0,
     statuses_count: 0,
   }
 }
