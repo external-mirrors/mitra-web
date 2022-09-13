@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isUserAuthenticated" class="sidebar">
+  <div v-if="isUserAuthenticated()" class="sidebar">
     <router-link class="sidebar-link" to="/notifications">
       <div class="icon">
         <img :src="require('@/assets/feather/bell.svg')">
@@ -14,6 +14,14 @@
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><img :src="require('@/assets/feather/users.svg')"></div>
       <span>Profile directory</span>
+    </router-link>
+    <router-link
+      v-if="isSubscriptionsFeatureEnabled()"
+      class="sidebar-link"
+      :to="{ name: 'subscriptions-settings' }"
+    >
+      <div class="icon"><img :src="require('@/assets/tabler/coin.svg')"></div>
+      <span>Subscriptions</span>
     </router-link>
     <router-link class="sidebar-link" to="/about">
       <div class="icon"><img :src="require('@/assets/feather/help-circle.svg')"></div>
@@ -33,25 +41,32 @@ import { useRouter } from "vue-router"
 
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/store/instance"
 
 const router = useRouter()
-const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 const { currentUser, setCurrentUser, ensureAuthToken, setAuthToken } = $(useCurrentUser())
+const { instance } = $(useInstanceInfo())
+const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 
 onMounted(async () => {
-  if (isUserAuthenticated) {
+  if (isUserAuthenticated()) {
     // TODO: reload notifications periodically
     await loadNotifications(ensureAuthToken())
   }
 })
 
-const isUserAuthenticated = $computed<boolean>(() => {
+function isUserAuthenticated(): boolean {
   return currentUser !== null
-})
+}
 
 const unreadNotificationCount = $computed<number>(() => {
   return getUnreadNotificationCount()
 })
+
+function isSubscriptionsFeatureEnabled(): boolean {
+  const blockchain = instance?.blockchains[0]
+  return Boolean(blockchain?.features.subscriptions)
+}
 
 function logout() {
   setCurrentUser(null)
