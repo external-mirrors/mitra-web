@@ -11,9 +11,14 @@
         Subscriptions are not enabled
       </template>
     </div>
-    <div class="payment-page" v-if="subscriptionOption !== null && !isLoading">
-      <router-link :to="{ name: 'profile-subscription', params: { profileId: ensureCurrentUser().id } }">
-        Payment page
+    <div class="subscription-page" v-if="subscriptionOption !== null && !isLoading">
+      <div>
+        Subscribers can pay for subscription by navigating to
+        <br>
+        your personal subscription page:
+      </div>
+      <router-link :to="getSubscriptionPagePath()">
+        {{ getSubscriptionPageUrl() }}
       </router-link>
     </div>
     <form v-if="canEnableSubscriptions()">
@@ -44,6 +49,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { $, $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
 import {
   getSubscriptionOptions,
@@ -57,6 +63,7 @@ import {
 import Loader from "@/components/Loader.vue"
 import { useCurrentUser } from "@/store/user"
 
+const router = useRouter()
 const {
   ensureAuthToken,
   ensureCurrentUser,
@@ -79,6 +86,18 @@ async function loadSubscriptionConfig() {
   subscriptionOption = subscriptionOptions.find((item) => {
     return item.type === "monero"
   }) || null
+}
+
+function getSubscriptionPagePath(): string {
+  const route = router.resolve({
+    name: "profile-subscription",
+    params: { profileId: ensureCurrentUser().id },
+  })
+  return route.fullPath
+}
+
+function getSubscriptionPageUrl(): string {
+  return window.location.origin + getSubscriptionPagePath()
 }
 
 function canEnableSubscriptions(): boolean {
@@ -126,7 +145,11 @@ async function enableSubscriptions() {
   }
 }
 
-.payment-page {
+.subscription-page {
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding / 2;
+
   a {
     font-size: 16px;
     text-decoration: underline;

@@ -21,7 +21,7 @@
       <input
         type="text"
         v-model="senderAcct"
-        placeholder="Enter your username or fediverse address (user@example.org)"
+        placeholder="Enter your username or Fediverse address (username@example.org)"
       >
       <button
         type="submit"
