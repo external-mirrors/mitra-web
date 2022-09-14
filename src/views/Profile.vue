@@ -127,72 +127,76 @@
         <div class="stats">
           <component
             class="stats-item"
-            :is="isCurrentUser() ? 'router-link' : 'div'"
-            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts' }}"
+            :is="isCurrentUser() ? 'a' : 'span'"
+            @click="isCurrentUser() && switchTab('posts')"
           >
             <span class="value">{{ profile.statuses_count }}</span>
             <span class="label">posts</span>
           </component>
           <component
             class="stats-item"
-            :is="isCurrentUser() ? 'router-link' : 'div'"
-            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'followers' }}">
+            :is="isCurrentUser() ? 'a' : 'span'"
+            @click="isCurrentUser() && switchTab('followers')"
+          >
             <span class="value">{{ profile.followers_count }}</span>
             <span class="label">followers</span>
           </component>
           <component
             class="stats-item"
-            :is="isCurrentUser() ? 'router-link' : 'div'"
-            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'following' }}"
+            :is="isCurrentUser() ? 'a' : 'span'"
+            @click="isCurrentUser() && switchTab('following')"
           >
             <span class="value">{{ profile.following_count }}</span>
             <span class="label">following</span>
           </component>
-          <div class="stats-item" v-if="isSubscriptionsFeatureEnabled()">
+          <span class="stats-item" v-if="isSubscriptionsFeatureEnabled()">
             <span class="value">{{ profile.subscribers_count }}</span>
             <span class="label">subscribers</span>
-          </div>
+          </span>
         </div>
       </div>
       <div class="tab-bar">
         <template v-if="tabName === 'posts' || tabName === 'posts-with-replies'">
-          <router-link
+          <a
             :class="{ active: tabName === 'posts' }"
-            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts' }}"
+            @click="switchTab('posts')"
           >
             Posts
-          </router-link>
-          <router-link
+          </a>
+          <a
             :class="{ active: tabName === 'posts-with-replies' }"
-            :to="{ name: 'profile-tab', params: { profileId: profile.id, tabName: 'posts-with-replies' }}"
+            @click="switchTab('posts-with-replies')"
           >
             Posts with replies
-          </router-link>
+          </a>
         </template>
         <span v-else-if="tabName === 'followers'" class="active">Followers</span>
         <span v-else-if="tabName === 'following'" class="active">Following</span>
       </div>
-      <post-list
-        v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
-        :posts="posts"
-        @load-next-page="loadNextPage"
-      ></post-list>
-      <template v-if="tabName === 'followers' || tabName === 'following'">
-        <router-link
-          v-for="profile in followList"
-          :key="profile.id"
-          :to="{ name: 'profile', params: { profileId: profile.id } }"
-        >
-          <profile-list-item :profile="profile"></profile-list-item>
-        </router-link>
-        <button
-          v-if="followListNextPageUrl"
-          class="btn secondary next-btn"
-          @click="loadFollowListNextPage()"
-        >
-          Show more profiles
-        </button>
-      </template>
+      <loader v-if="isLoading"></loader>
+      <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
+        <post-list
+          v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
+          :posts="posts"
+          @load-next-page="loadNextPage"
+        ></post-list>
+        <template v-if="tabName === 'followers' || tabName === 'following'">
+          <router-link
+            v-for="profile in followList"
+            :key="profile.id"
+            :to="{ name: 'profile', params: { profileId: profile.id } }"
+          >
+            <profile-list-item :profile="profile"></profile-list-item>
+          </router-link>
+          <button
+            v-if="followListNextPageUrl"
+            class="btn secondary next-btn"
+            @click="loadFollowListNextPage()"
+          >
+            Show more profiles
+          </button>
+        </template>
+      </div>
     </template>
   </sidebar-layout>
 </template>
@@ -218,6 +222,7 @@ import {
   ProfileWrapper,
 } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -242,6 +247,7 @@ let relationship = $ref<Relationship | null>(null)
 let profileMenuVisible = $ref(false)
 
 let tabName = $ref("posts")
+let isLoading = $ref(false)
 let posts = $ref<Post[]>([])
 let followList = $ref<Profile[]>([])
 let followListNextPageUrl = $ref<string | null>(null)
@@ -258,7 +264,15 @@ onMounted(async () => {
       profile.id,
     )
   }
-  tabName = route.params.tabName as string || "posts"
+  await switchTab("posts")
+})
+
+async function switchTab(name: string) {
+  if (!profile) {
+    return
+  }
+  isLoading = true
+  tabName = name
   if (tabName === "posts") {
     posts = await getProfileTimeline(
       authToken,
@@ -286,7 +300,8 @@ onMounted(async () => {
     followList = page.profiles
     followListNextPageUrl = page.nextPageUrl
   }
-})
+  isLoading = false
+}
 
 const actorAddress = $computed<string>(() => {
   if (!profile) {
@@ -701,5 +716,9 @@ $avatar-size: 170px;
 /* profile-list-item */
 .profile {
   margin-bottom: $block-outer-padding;
+}
+
+.loader {
+  margin: 0 auto;
 }
 </style>
