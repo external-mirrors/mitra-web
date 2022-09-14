@@ -41,7 +41,7 @@
     <form class="withdraw" v-if="subscriptionConfig !== null">
       <h2>Subscribers</h2>
       <div
-        v-for="subscription in subscribers"
+        v-for="subscription in subscriptions"
         class="subscriber"
         :class="{ expired: !isSubscriptionActive(subscription) }"
         :key="subscription.id"
@@ -80,19 +80,19 @@ import { DateTime } from "luxon"
 import { ProfileWrapper } from "@/api/users"
 import {
   getSubscriptionOptions,
+  getReceivedSubscriptions,
+  Subscription,
   SubscriptionOption,
 } from "@/api/subscriptions-common"
 import {
   configureSubscriptions,
   getPricePerSec,
-  getSubscribers,
   getSubscriptionAuthorization,
   getSubscriptionConfig,
   getSubscriptionState,
   getSubscriptionToken,
   onSubscriptionsEnabled,
   withdrawReceived,
-  Subscription,
   SubscriptionConfig,
   SubscriptionState,
   SubscriptionToken,
@@ -118,7 +118,7 @@ let subscriptionToken = $ref<SubscriptionToken | null>(null)
 let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
 let subscriptionState = $ref<SubscriptionState | null>(null)
-let subscribers = $ref<Subscription[]>([])
+let subscriptions = $ref<Subscription[]>([])
 let subscriberAddress = $ref<string | null>(null)
 
 const blockchain = $computed(() => instance?.blockchains[0])
@@ -193,7 +193,7 @@ async function loadSubscriptionSettings() {
     // Ensure server is aware of subscription configuration
     await onSubscriptionsEnabled(ensureAuthToken())
     await loadSubscriptionOption()
-    subscribers = await getSubscribers(
+    subscriptions = await getReceivedSubscriptions(
       ensureAuthToken(),
       profile.id,
     )

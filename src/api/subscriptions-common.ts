@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
-import { User } from "./users"
+import { Profile, User } from "./users"
 
 export interface SubscriptionOption {
   type: string;
@@ -47,7 +47,7 @@ export interface SubscriptionDetails {
   expires_at: string,
 }
 
-export async function getSubscription(
+export async function findSubscription(
   senderId: string,
   recipientId: string,
 ): Promise<SubscriptionDetails | null> {
@@ -64,4 +64,21 @@ export async function getSubscription(
   } else {
     throw new Error(data.message)
   }
+}
+
+export interface Subscription {
+  id: number,
+  sender: Profile,
+  sender_address: string | null,
+  expires_at: string,
+}
+
+export async function getReceivedSubscriptions(
+  authToken: string,
+  accountId: string,
+): Promise<Subscription[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/subscribers`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data
 }

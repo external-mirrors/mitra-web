@@ -149,10 +149,15 @@
             <span class="value">{{ profile.following_count }}</span>
             <span class="label">following</span>
           </component>
-          <span class="stats-item" v-if="isSubscriptionsFeatureEnabled()">
+          <component
+            class="stats-item"
+            v-if="isSubscriptionsFeatureEnabled()"
+            :is="isCurrentUser() ? 'a' : 'span'"
+            @click="isCurrentUser() && switchTab('subscribers')"
+          >
             <span class="value">{{ profile.subscribers_count }}</span>
             <span class="label">subscribers</span>
-          </span>
+          </component>
         </div>
       </div>
       <div class="tab-bar">
@@ -172,6 +177,7 @@
         </template>
         <span v-else-if="tabName === 'followers'" class="active">Followers</span>
         <span v-else-if="tabName === 'following'" class="active">Following</span>
+        <span v-else-if="tabName === 'subscribers'" class="active">Subscribers</span>
       </div>
       <loader v-if="isLoading"></loader>
       <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
@@ -180,7 +186,7 @@
           :posts="posts"
           @load-next-page="loadNextPage"
         ></post-list>
-        <template v-if="tabName === 'followers' || tabName === 'following'">
+        <template v-else-if="tabName === 'followers' || tabName === 'following' || tabName === 'subscribers'">
           <router-link
             v-for="profile in followList"
             :key="profile.id"
@@ -215,6 +221,7 @@ import {
   getFollowers,
   getFollowing,
 } from "@/api/relationships"
+import { getReceivedSubscriptions } from "@/api/subscriptions-common"
 import {
   getProfile,
   Profile,
@@ -299,6 +306,13 @@ async function switchTab(name: string) {
     )
     followList = page.profiles
     followListNextPageUrl = page.nextPageUrl
+  } else if (tabName === "subscribers" && isCurrentUser()) {
+    const subscriptions = await getReceivedSubscriptions(
+      ensureAuthToken(),
+      profile.id,
+    )
+    followList = subscriptions.map((subscription) => subscription.sender)
+    followListNextPageUrl = null
   }
   isLoading = false
 }

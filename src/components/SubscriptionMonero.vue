@@ -96,7 +96,7 @@ import { $, $ref } from "vue/macros"
 import { DateTime } from "luxon"
 
 import { searchProfilesByAcct } from "@/api/search"
-import { getSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
+import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
 import {
   createInvoice,
   getInvoice,
@@ -134,7 +134,7 @@ onMounted(async () => {
   if (subscriptionOption?.price) {
     subscriptionPrice = getPricePerMonth(subscriptionOption.price)
     if (sender.id !== "") {
-      subscriptionDetails = await getSubscription(sender.id, recipient.id)
+      subscriptionDetails = await findSubscription(sender.id, recipient.id)
     }
   }
 })
@@ -204,7 +204,7 @@ async function checkInvoice() {
   isLoading = true
   invoice = await getInvoice(invoice.id)
   if (invoice.status === "forwarded") {
-    subscriptionDetails = await getSubscription(sender.id, recipient.id)
+    subscriptionDetails = await findSubscription(sender.id, recipient.id)
     invoice = null
   }
   isLoading = false

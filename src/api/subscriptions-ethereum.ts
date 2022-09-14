@@ -235,23 +235,6 @@ export async function cancelSubscription(
   return transaction
 }
 
-export interface Subscription {
-  id: number,
-  sender: Profile,
-  sender_address: string | null,
-  expires_at: string,
-}
-
-export async function getSubscribers(
-  authToken: string,
-  accountId: string,
-): Promise<Subscription[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/subscribers`
-  const response = await http(url, { authToken })
-  const data = await response.json()
-  return data
-}
-
 export async function withdrawReceived(
   contractAddress: string,
   signer: Signer,
