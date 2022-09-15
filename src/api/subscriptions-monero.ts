@@ -20,7 +20,7 @@ export function getPricePerMonth(pricePerSec: number): number {
   return formatAmount(pricePerMonthInt, 12).toUnsafeFloat()
 }
 
-export async function enableMoneroSubscriptions(
+export async function registerMoneroSubscriptionOption(
   authToken: string,
   price: number,
   payoutAddress: string,

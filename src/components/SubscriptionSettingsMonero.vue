@@ -2,7 +2,7 @@
   <div class="subscription-settings">
     <div class="info" v-if="!isLoading">
       <template v-if="subscriptionOption !== null">
-        Subscriptions are enabled
+        <span>Subscriptions are enabled</span>
         <div class="price">
           {{ getPricePerMonth(subscriptionOption.price) }} XMR per month
         </div>
@@ -11,7 +11,7 @@
         Subscriptions are not enabled
       </template>
     </div>
-    <div class="subscription-page" v-if="subscriptionOption !== null && !isLoading">
+    <div class="subscription-page" v-if="subscriptionOption !== null && !isFormVisible && !isLoading">
       <div>
         Subscribers can pay for subscription by navigating to
         <br>
@@ -21,7 +21,12 @@
         {{ getSubscriptionPageUrl() }}
       </router-link>
     </div>
-    <form v-if="canEnableSubscriptions()">
+    <div class="edit-settings" v-if="!isFormVisible && !isLoading">
+      <button class="btn" @click="isFormVisible = true">
+        Edit settings
+      </button>
+    </div>
+    <form class="settings" v-if="isFormVisible">
       <div class="price-input-group">
         <label for="price">Price</label>
         <input type="number" id="price" v-model="subscriptionPrice" min="0.00" step="0.01">
@@ -37,9 +42,10 @@
         type="submit"
         class="btn"
         :disabled="!isFormValid()"
-        @click.prevent="enableSubscriptions()"
+        @click.prevent="saveSubscriptionSettings()"
       >
-        Enable subscriptions
+        <template v-if="subscriptionOption">Save</template>
+        <template v-else>Enable subscriptions</template>
       </button>
     </form>
     <loader v-if="isLoading"></loader>
@@ -56,7 +62,7 @@ import {
   SubscriptionOption,
 } from "@/api/subscriptions-common"
 import {
-  enableMoneroSubscriptions,
+  registerMoneroSubscriptionOption,
   getPricePerMonth,
   getPricePerSec,
 } from "@/api/subscriptions-monero"
@@ -70,22 +76,31 @@ const {
   setCurrentUser,
 } = $(useCurrentUser())
 
-const subscriptionPrice = $ref(0.01)
-const subscriptionPayoutAddress = $ref("")
 let isLoading = $ref(false)
 let subscriptionOption = $ref<SubscriptionOption | null>(null)
 
+let subscriptionPrice = $ref(0.01)
+let subscriptionPayoutAddress = $ref("")
+let isFormVisible = $ref(false)
+
 onMounted(async () => {
   isLoading = true
-  await loadSubscriptionConfig()
+  await loadSubscriptionSettings()
   isLoading = false
 })
 
-async function loadSubscriptionConfig() {
+async function loadSubscriptionSettings() {
   const subscriptionOptions = await getSubscriptionOptions(ensureAuthToken())
   subscriptionOption = subscriptionOptions.find((item) => {
     return item.type === "monero"
   }) || null
+  if (subscriptionOption?.price && subscriptionOption?.payout_address) {
+    subscriptionPrice = getPricePerMonth(subscriptionOption.price)
+    subscriptionPayoutAddress = subscriptionOption.payout_address
+  }
+  if (subscriptionOption === null) {
+    isFormVisible = true
+  }
 }
 
 function getSubscriptionPagePath(): string {
@@ -100,13 +115,6 @@ function getSubscriptionPageUrl(): string {
   return window.location.origin + getSubscriptionPagePath()
 }
 
-function canEnableSubscriptions(): boolean {
-  return (
-    !isLoading &&
-    subscriptionOption === null
-  )
-}
-
 function isFormValid(): boolean {
   return (
     getPricePerSec(subscriptionPrice) > 0 &&
@@ -114,15 +122,16 @@ function isFormValid(): boolean {
   )
 }
 
-async function enableSubscriptions() {
+async function saveSubscriptionSettings() {
   isLoading = true
-  const user = await enableMoneroSubscriptions(
+  const user = await registerMoneroSubscriptionOption(
     ensureAuthToken(),
     getPricePerSec(subscriptionPrice),
     subscriptionPayoutAddress,
   )
   setCurrentUser(user)
-  await loadSubscriptionConfig()
+  await loadSubscriptionSettings()
+  isFormVisible = false
   isLoading = false
 }
 </script>
