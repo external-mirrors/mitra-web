@@ -277,11 +277,25 @@ onMounted(() => {
   const mentions = postContentRef.getElementsByClassName("mention")
   for (const mentionElement of Array.from(mentions)) {
     const mention = props.post.mentions
-      .find((mention) => mention.url === mentionElement.getAttribute("href"))
+      .find((mention) => mentionElement.getAttribute("href") === mention.url)
     if (mention) {
       mentionElement.addEventListener("click", (event: Event) => {
         event.preventDefault()
         router.push({ name: "profile", params: { profileId: mention.id } })
+      })
+    }
+  }
+  const hashtags = postContentRef.getElementsByClassName("hashtag")
+  for (const hashtagElement of Array.from(hashtags)) {
+    const hashtag = props.post.tags
+      .find((tag) => {
+        const innerText = (hashtagElement as HTMLElement).innerText
+        return innerText.toLowerCase() === `#${tag.name}`
+      })
+    if (hashtag) {
+      hashtagElement.addEventListener("click", (event: Event) => {
+        event.preventDefault()
+        router.push({ name: "tag", params: { tagName: hashtag.name } })
       })
     }
   }
