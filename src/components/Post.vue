@@ -558,14 +558,14 @@ async function onMintToken() {
   color: $secondary-text-color;
   display: flex;
   flex-direction: row;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding $block-inner-padding 0;
 
   .floating-avatar {
     @include floating-avatar;
 
     @media screen and (min-width: $screen-breakpoint-medium + 1) {
-      margin-right: -$block-inner-padding / 2;
+      margin-right: calc(0px - $block-inner-padding / 2);
     }
   }
 
@@ -602,7 +602,7 @@ async function onMintToken() {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.25em;
-  padding: $block-inner-padding / 4 $block-inner-padding 0;
+  padding: calc($block-inner-padding / 4) $block-inner-padding 0;
 
   a {
     @include block-link;
@@ -663,7 +663,7 @@ async function onMintToken() {
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   padding: 0 $block-inner-padding $block-inner-padding;
 
   .icon {
@@ -690,7 +690,7 @@ async function onMintToken() {
 .crypto-widget {
   display: flex;
   flex-grow: 1;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   justify-content: right;
 
   .crypto-address {

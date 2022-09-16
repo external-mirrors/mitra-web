@@ -237,7 +237,7 @@ $line-height: 1.5;
     @include floating-avatar;
 
     left: $block-inner-padding;
-    margin-top: $line-height * 1em / 2;
+    margin-top: calc($line-height * 1em / 2);
     position: absolute;
     top: $block-inner-padding;
 
@@ -261,7 +261,7 @@ textarea {
 }
 
 .attachment {
-  padding: $block-inner-padding / 1.5 $block-inner-padding;
+  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 
   img {
     width: 100%;
@@ -277,8 +277,8 @@ textarea {
   color: $secondary-text-color;
   display: flex;
   flex-direction: row;
-  gap: $block-inner-padding / 2;
-  padding: $block-inner-padding / 1.5 $block-inner-padding;
+  gap: calc($block-inner-padding / 2);
+  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 
   .character-counter {
     font-weight: bold;
@@ -300,7 +300,7 @@ textarea {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-top: $block-inner-padding / 1.5;
+  margin-top: calc($block-inner-padding / 1.5);
 
   .error-message {
     color: $error-color;

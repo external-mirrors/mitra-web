@@ -236,7 +236,7 @@ async function checkInvoice() {
     display: flex;
     flex-basis: 50%;
     flex-direction: column;
-    gap: $block-inner-padding / 2;
+    gap: calc($block-inner-padding / 2);
     min-width: 0;
     padding: $block-inner-padding;
   }
@@ -278,7 +278,7 @@ async function checkInvoice() {
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
 
   .price {

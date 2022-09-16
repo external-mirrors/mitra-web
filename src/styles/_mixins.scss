@@ -5,8 +5,8 @@
   .avatar {
     float: left;
     height: $avatar-size;
-    margin-left: -$avatar-size - $block-inner-padding * 2;
-    margin-top: -$avatar-size / 2;
+    margin-left: calc(0px - $avatar-size - $block-inner-padding * 2);
+    margin-top: calc(0px - $avatar-size / 2);
     width: $avatar-size;
   }
 
@@ -35,12 +35,12 @@
   align-items: center;
   display: flex;
   font-weight: bold;
-  margin: 0 $block-outer-padding $block-outer-padding / 2;
+  margin: 0 $block-outer-padding calc($block-outer-padding / 2);
 
   img {
     filter: $text-colorizer;
     height: $icon-size;
-    margin-right: $icon-size / 2;
+    margin-right: calc($icon-size / 2);
     min-width: $icon-size;
     object-fit: contain;
     vertical-align: middle;
@@ -98,8 +98,8 @@
     box-shadow: $shadow;
     display: flex;
     flex-direction: column;
-    gap: $block-inner-padding / 2;
-    padding: $block-inner-padding / 2;
+    gap: calc($block-inner-padding / 2);
+    padding: calc($block-inner-padding / 2);
     position: absolute;
     white-space: nowrap;
     z-index: 3;

@@ -35,9 +35,9 @@ $loader-width: 4px;
 @keyframes loader {
   0% {
     height: 0;
-    left: $loader-size / 2 - $loader-width;
+    left: calc($loader-size / 2 - $loader-width);
     opacity: 1;
-    top: $loader-size / 2 - $loader-width;
+    top: calc($loader-size / 2 - $loader-width);
     width: 0;
   }
 

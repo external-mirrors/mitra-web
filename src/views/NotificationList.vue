@@ -157,14 +157,14 @@ async function loadNextPage() {
   box-sizing: border-box;
   color: $secondary-text-color;
   display: flex;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
 
   .floating-avatar {
     @include floating-avatar;
 
     @media screen and (min-width: $screen-breakpoint-medium + 1) {
-      margin-right: -$block-inner-padding / 2;
+      margin-right: calc(0px - $block-inner-padding / 2);
     }
   }
 

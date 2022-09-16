@@ -380,7 +380,7 @@ async function onCancelSubscription() {
     display: flex;
     flex-basis: 50%;
     flex-direction: column;
-    gap: $block-inner-padding / 2;
+    gap: calc($block-inner-padding / 2);
     min-width: 0;
     padding: $block-inner-padding;
   }
@@ -419,7 +419,7 @@ async function onCancelSubscription() {
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
-  gap: $block-inner-padding / 2;
+  gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
 
   .price {
@@ -466,7 +466,7 @@ async function onCancelSubscription() {
   .payment-amount {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: $input-padding / 2;
+    margin-bottom: calc($input-padding / 2);
   }
 
   .token-balance {

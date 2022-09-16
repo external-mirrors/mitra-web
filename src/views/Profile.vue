@@ -577,13 +577,13 @@ $avatar-size: 170px;
     flex-direction: row;
     flex-grow: 1;
     flex-wrap: wrap;
-    gap: $block-inner-padding / 2 $block-inner-padding;
+    gap: calc($block-inner-padding / 2) $block-inner-padding;
   }
 
   .avatar {
     height: $avatar-size;
     margin-right: auto;
-    margin-top: -($avatar-size / 2 + $block-inner-padding);
+    margin-top: calc(-1 * ($avatar-size / 2 + $block-inner-padding));
     min-width: $avatar-size;
     padding: 7px;
     width: $avatar-size;
@@ -592,7 +592,7 @@ $avatar-size: 170px;
   .badges {
     display: flex;
     flex-wrap: wrap;
-    gap: $block-inner-padding / 2 $block-inner-padding;
+    gap: calc($block-inner-padding / 2) $block-inner-padding;
   }
 
   .badge {
@@ -669,8 +669,8 @@ $avatar-size: 170px;
   .field {
     border-top: 1px solid $separator-color;
     display: flex;
-    gap: $block-inner-padding / 2;
-    padding: $block-inner-padding / 2 $block-inner-padding;
+    gap: calc($block-inner-padding / 2);
+    padding: calc($block-inner-padding / 2) $block-inner-padding;
 
     .name {
       font-weight: bold;
@@ -730,7 +730,7 @@ $avatar-size: 170px;
   a,
   span {
     border-radius: $block-border-radius;
-    padding: $block-inner-padding / 2;
+    padding: calc($block-inner-padding / 2);
     text-align: center;
     width: 100%;
 

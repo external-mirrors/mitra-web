@@ -41,7 +41,7 @@ const { getActorAddress } = useInstanceInfo()
 @import "../styles/theme";
 
 $avatar-size: 90px;
-$profile-padding: $block-inner-padding / 2;
+$profile-padding: calc($block-inner-padding / 2);
 
 .profile {
   background-color: $block-background-color;
@@ -73,7 +73,7 @@ $profile-padding: $block-inner-padding / 2;
   .avatar {
     height: $avatar-size;
     margin-right: $profile-padding;
-    margin-top: -($profile-padding + $avatar-size / 3);
+    margin-top: calc(-1 * ($profile-padding + $avatar-size / 3));
     min-width: $avatar-size;
     padding: 4px;
     width: $avatar-size;
