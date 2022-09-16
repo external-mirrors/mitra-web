@@ -1,7 +1,10 @@
 <template>
-  <sidebar-layout v-if="profile">
+  <sidebar-layout>
     <template #content>
-      <div class="profile-block">
+      <div class="not-found" v-if="!profile && !isLoading">
+        Profile not found
+      </div>
+      <div class="profile-block" v-if="profile">
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>
@@ -160,7 +163,7 @@
           </component>
         </div>
       </div>
-      <div class="tab-bar">
+      <div class="tab-bar" v-if="profile">
         <template v-if="tabName === 'posts' || tabName === 'posts-with-replies'">
           <a
             :class="{ active: tabName === 'posts' }"
@@ -260,11 +263,21 @@ let followList = $ref<Profile[]>([])
 let followListNextPageUrl = $ref<string | null>(null)
 
 onMounted(async () => {
-  const _profile = await getProfile(
-    authToken,
-    route.params.profileId as string,
-  )
-  profile = new ProfileWrapper(_profile)
+  isLoading = true
+  try {
+    const _profile = await getProfile(
+      authToken,
+      route.params.profileId as string,
+    )
+    profile = new ProfileWrapper(_profile)
+  } catch (error: any) {
+    if (error.message === "profile not found") {
+      // Show "not found" text
+      isLoading = false
+      return
+    }
+    throw error
+  }
   if (currentUser && !isCurrentUser()) {
     relationship = await getRelationship(
       ensureAuthToken(),
@@ -272,6 +285,7 @@ onMounted(async () => {
     )
   }
   await switchTab("posts")
+  isLoading = false
 })
 
 async function switchTab(name: string) {
@@ -734,5 +748,10 @@ $avatar-size: 170px;
 
 .loader {
   margin: 0 auto;
+}
+
+.not-found {
+  font-size: 20px;
+  text-align: center;
 }
 </style>
