@@ -22,6 +22,7 @@
     "luxon": "^1.26.0",
     "markdown-it": "^12.2.0",
     "markdown-it-link-attributes": "^3.0.0",
+    "qrcode": "^1.5.1",
     "vue": "^3.2.33",
     "vue-router": "^4.0.15",
     "vue3-click-away": "^1.2.1"
@@ -32,6 +33,7 @@
     "@types/chai": "^4.2.11",
     "@types/luxon": "^1.26.5",
     "@types/mocha": "^5.2.4",
+    "@types/qrcode": "^1.5.0",
     "@types/sinon": "^10.0.4",
     "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^5.25.0",

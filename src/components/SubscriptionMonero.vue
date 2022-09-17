@@ -79,7 +79,13 @@
     </form>
     <div class="invoice" v-if="invoice">
       <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
-      <div class="payment-address">{{ invoice.payment_address }}</div>
+      <a
+        class="payment-address"
+        :href="getPaymentUri(invoice)"
+      >
+        {{ invoice.payment_address }}
+      </a>
+      <qr-code :url="getPaymentUri(invoice)"></qr-code>
       <div class="invoice-status">
         <template v-if="invoice.status === 'open'">Waiting for payment</template>
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
@@ -110,8 +116,10 @@ import {
 import { guest, Profile, ProfilePaymentOption, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
+import QrCode from "@/components/QrCode.vue"
 import { useCurrentUser } from "@/store/user"
 import { formatDate } from "@/utils/dates"
+import { createMoneroPaymentUri } from "@/utils/monero"
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -234,6 +242,13 @@ async function checkInvoice() {
     )
   }
   isLoading = false
+}
+
+function getPaymentUri(invoice: Invoice): string {
+  return createMoneroPaymentUri(
+    invoice.payment_address,
+    formatXmrAmount(invoice.amount),
+  )
 }
 </script>
 
@@ -365,6 +380,11 @@ async function checkInvoice() {
     user-select: all;
     word-wrap: break-word;
   }
+}
+
+.qr-wrapper {
+  margin: 0 auto;
+  max-width: 300px;
 }
 
 .loader {
