@@ -2,22 +2,40 @@ import { BigNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
-import { registerSubscriptionOption } from "./subscriptions-common"
 import {
   formatAmount,
   getPricePerMonth as _getPricePerMonth,
   getPricePerSec as _getPricePerSec,
-} from "./subscriptions-ethereum"
+  registerSubscriptionOption,
+} from "./subscriptions-common"
 import { Profile, User } from "./users"
 
+const MONERO_DECIMALS = 12
+
+export function formatXmrAmount(value: number | BigNumber): number {
+  if (typeof value === "number") {
+    value = BigNumber.from(value)
+  }
+  return formatAmount(value, MONERO_DECIMALS).toUnsafeFloat()
+}
+
 export function getPricePerSec(pricePerMonth: number): number {
-  return _getPricePerSec(pricePerMonth, 12).toNumber()
+  return _getPricePerSec(pricePerMonth, MONERO_DECIMALS).toNumber()
 }
 
 export function getPricePerMonth(pricePerSec: number): number {
   const pricePerSecInt = BigNumber.from(pricePerSec)
   const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
-  return formatAmount(pricePerMonthInt, 12).toUnsafeFloat()
+  return formatXmrAmount(pricePerMonthInt)
+}
+
+export function getPaymentAmount(
+  pricePerSec: number,
+  durationMonths: number,
+): number {
+  const pricePerSecInt = BigNumber.from(pricePerSec)
+  const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
+  return Math.round(pricePerMonthInt.toNumber() * durationMonths)
 }
 
 export async function registerMoneroSubscriptionOption(

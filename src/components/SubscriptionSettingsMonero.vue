@@ -117,6 +117,7 @@ function getSubscriptionPageUrl(): string {
 
 function isFormValid(): boolean {
   return (
+    // Price must be greater than 0 when expressed in piconeros
     getPricePerSec(subscriptionPrice) > 0 &&
     subscriptionPayoutAddress.length > 0
   )

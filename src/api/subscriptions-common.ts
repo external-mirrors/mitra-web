@@ -1,6 +1,33 @@
+import { BigNumber, FixedNumber } from "@ethersproject/bignumber"
+
 import { BACKEND_URL } from "@/constants"
+import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Profile, User } from "./users"
+
+const SECONDS_IN_DAY = 3600 * 24
+const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
+
+export function getPricePerSec(
+  pricePerMonth: number,
+  tokenDecimals: number,
+): BigNumber {
+  const pricePerMonthInt = floatToBigNumber(pricePerMonth, tokenDecimals)
+  return pricePerMonthInt.div(SECONDS_IN_MONTH)
+}
+
+export function getPricePerMonth(
+  pricePerSec: BigNumber,
+): BigNumber {
+  return roundBigNumber(pricePerSec.mul(SECONDS_IN_MONTH), 4)
+}
+
+export function formatAmount(
+  value: BigNumber,
+  tokenDecimals: number,
+): FixedNumber {
+  return FixedNumber.fromValue(value, tokenDecimals)
+}
 
 export interface SubscriptionOption {
   type: string;

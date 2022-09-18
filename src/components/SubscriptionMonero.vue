@@ -63,7 +63,7 @@
       </div>
       <div class="payment-amount">
         <label>Amount</label>
-        <div>{{ getPaymentAmount() }} XMR</div>
+        <div>{{ formatXmrAmount(paymentAmount) }} XMR</div>
       </div>
       <button
         type="submit"
@@ -78,7 +78,7 @@
       </button>
     </form>
     <div class="invoice" v-if="invoice">
-      <div>Please send {{ getPaymentAmount() }} XMR to this address:</div>
+      <div>Please send {{ formatXmrAmount(paymentAmount) }} XMR to this address:</div>
       <div class="payment-address">{{ invoice.payment_address }}</div>
       <div class="invoice-status">
         <template v-if="invoice.status === 'open'">Waiting for payment</template>
@@ -92,14 +92,16 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { $, $computed, $ref } from "vue/macros"
 import { DateTime } from "luxon"
 
 import { searchProfilesByAcct } from "@/api/search"
 import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
 import {
   createInvoice,
+  formatXmrAmount,
   getInvoice,
+  getPaymentAmount,
   getPricePerMonth,
   Invoice,
 } from "@/api/subscriptions-monero"
@@ -120,7 +122,6 @@ const senderAcct = $ref("")
 let senderError = $ref<string | null>(null)
 let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest()))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
-let subscriptionPrice = $ref<number | null>(null)
 let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
 const paymentDuration = $ref<number>(1)
 let invoice = $ref<Invoice | null>(null)
@@ -131,12 +132,17 @@ onMounted(async () => {
   subscriptionOption = recipient.payment_options.find((option) => {
     return option.type === "monero-subscription" && option.price !== undefined
   }) || null
-  if (subscriptionOption?.price) {
-    subscriptionPrice = getPricePerMonth(subscriptionOption.price)
-    if (sender.id !== "") {
-      subscriptionDetails = await findSubscription(sender.id, recipient.id)
-    }
+  if (subscriptionOption && sender.id !== "") {
+    subscriptionDetails = await findSubscription(sender.id, recipient.id)
   }
+})
+
+// Human-readable subscription price
+const subscriptionPrice = $computed<number | null>(() => {
+  if (!subscriptionOption?.price) {
+    return null
+  }
+  return getPricePerMonth(subscriptionOption.price)
 })
 
 async function identifySender() {
@@ -176,16 +182,15 @@ function canSubscribe(): boolean {
   )
 }
 
-function getPaymentAmount(): number {
-  if (!subscriptionPrice) {
-    return 0
+const paymentAmount = $computed<number | null>(() => {
+  if (!subscriptionOption?.price) {
+    return null
   }
-  const amount = subscriptionPrice * paymentDuration
-  return amount
-}
+  return getPaymentAmount(subscriptionOption.price, paymentDuration)
+})
 
 function canPay(): boolean {
-  return getPaymentAmount() > 0
+  return paymentAmount !== null
 }
 
 async function onCreateInvoice() {

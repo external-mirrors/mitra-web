@@ -7,11 +7,13 @@ import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 import { http } from "./common"
 import { Contracts, getContract } from "./contracts"
-import { registerSubscriptionOption } from "./subscriptions-common"
+import {
+  formatAmount,
+  getPricePerMonth,
+  getPricePerSec,
+  registerSubscriptionOption,
+} from "./subscriptions-common"
 import { Profile, User } from "./users"
-
-const SECONDS_IN_DAY = 3600 * 24
-const SECONDS_IN_MONTH = SECONDS_IN_DAY * 30
 
 export interface SubscriptionToken {
   address: string;
@@ -31,27 +33,6 @@ export async function getSubscriptionToken(
     symbol: await token.symbol(),
     decimals: await token.decimals(),
   }
-}
-
-export function getPricePerSec(
-  pricePerMonth: number,
-  tokenDecimals: number,
-): BigNumber {
-  const pricePerMonthInt = floatToBigNumber(pricePerMonth, tokenDecimals)
-  return pricePerMonthInt.div(SECONDS_IN_MONTH)
-}
-
-export function getPricePerMonth(
-  pricePerSec: BigNumber,
-): BigNumber {
-  return roundBigNumber(pricePerSec.mul(SECONDS_IN_MONTH), 4)
-}
-
-export function formatAmount(
-  value: BigNumber,
-  tokenDecimals: number,
-): FixedNumber {
-  return FixedNumber.fromValue(value, tokenDecimals)
 }
 
 export async function getSubscriptionAuthorization(
