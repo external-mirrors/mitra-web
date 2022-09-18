@@ -55,17 +55,23 @@ export interface Invoice {
   sender_id: string,
   recipient_id: string,
   payment_address: string,
+  amount: number,
   status: string,
 }
 
 export async function createInvoice(
   senderId: string,
   recipientId: string,
+  amount: number,
 ): Promise<Invoice> {
   const url = `${BACKEND_URL}/api/v1/subscriptions/invoices`
   const response = await http(url, {
     method: "POST",
-    json: { sender_id: senderId, recipient_id: recipientId },
+    json: {
+      sender_id: senderId,
+      recipient_id: recipientId,
+      amount,
+    },
   })
   const data = await response.json()
   if (response.status !== 200) {

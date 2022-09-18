@@ -78,13 +78,14 @@
       </button>
     </form>
     <div class="invoice" v-if="invoice">
-      <div>Please send {{ formatXmrAmount(paymentAmount) }} XMR to this address:</div>
+      <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
       <div class="payment-address">{{ invoice.payment_address }}</div>
       <div class="invoice-status">
         <template v-if="invoice.status === 'open'">Waiting for payment</template>
-        <template v-else-if="invoice.status === 'paid'">Waiting for confirmation</template>
+        <template v-else-if="invoice.status === 'paid'">Processing payment</template>
+        <template v-else-if="invoice.status === 'timeout'">Timeout</template>
       </div>
-      <button class="btn" @click.prevent="checkInvoice()">Check payment</button>
+      <button class="btn" @click.prevent="checkInvoice()">Refresh</button>
     </div>
     <loader v-if="isLoading"></loader>
   </div>
@@ -93,6 +94,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
+import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
 import { searchProfilesByAcct } from "@/api/search"
@@ -116,6 +118,7 @@ const props = defineProps<{
   profile: Profile,
 }>()
 
+const route = useRoute()
 const { currentUser } = $(useCurrentUser())
 const recipient = new ProfileWrapper(props.profile)
 const senderAcct = $ref("")
@@ -135,6 +138,7 @@ onMounted(async () => {
   if (subscriptionOption && sender.id !== "") {
     subscriptionDetails = await findSubscription(sender.id, recipient.id)
   }
+  await checkInvoice()
 })
 
 // Human-readable subscription price
@@ -194,23 +198,40 @@ function canPay(): boolean {
 }
 
 async function onCreateInvoice() {
+  if (paymentAmount === null) {
+    return
+  }
   isLoading = true
   invoice = await createInvoice(
     sender.id,
     recipient.id,
+    paymentAmount,
+  )
+  // Add invoice ID to current URL
+  window.history.pushState(
+    {},
+    "",
+    `${window.location.pathname}?invoice_id=${invoice.id}`,
   )
   isLoading = false
 }
 
 async function checkInvoice() {
-  if (!invoice) {
+  const invoiceId = invoice?.id || route.query.invoice_id
+  if (!invoiceId) {
     return
   }
   isLoading = true
-  invoice = await getInvoice(invoice.id)
+  invoice = await getInvoice(invoiceId as string)
   if (invoice.status === "forwarded") {
     subscriptionDetails = await findSubscription(sender.id, recipient.id)
     invoice = null
+    // Remove invoice ID from current URL
+    window.history.pushState(
+      {},
+      "",
+      window.location.pathname,
+    )
   }
   isLoading = false
 }
