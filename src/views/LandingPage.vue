@@ -6,7 +6,7 @@
         <div class="instance-description">
           {{ instance.short_description }}
           <br>
-          <router-link :to="{name: 'about-public'}">Learn more <span class="arrow">&gt;&gt;</span></router-link>
+          <router-link :to="{ name: 'about' }">Learn more <span class="arrow">&gt;&gt;</span></router-link>
         </div>
       </div>
       <form v-if="instance" class="login-form">

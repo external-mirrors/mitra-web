@@ -2,7 +2,7 @@
   <div class="instance-info" v-if="instance">
     <h1 class="instance-title">{{ instance.title }}</h1>
     <div class="instance-description">{{ instance.short_description }}</div>
-    <router-link class="btn" :to="{ name: 'about-public' }">Learn more</router-link>
+    <router-link class="btn" :to="{ name: 'about' }">Learn more</router-link>
   </div>
 </template>
 

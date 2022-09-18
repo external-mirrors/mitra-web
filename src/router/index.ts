@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
-import AboutPublicPage from "@/views/AboutPublic.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import LandingPage from "../views/LandingPage.vue"
 import NotificationList from "../views/NotificationList.vue"
@@ -43,22 +42,16 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyGuest: true },
   },
   {
-    path: "/about-public",
-    name: "about-public",
-    component: AboutPublicPage,
-    meta: { onlyGuest: true },
+    path: "/about",
+    name: "about",
+    component: AboutPage,
+    meta: { },
   },
   {
     path: "/ethereum",
     name: "ethereum",
     component: EthereumPage,
     meta: { onlyGuest: true },
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: AboutPage,
-    meta: { onlyAuthenticated: true },
   },
   {
     path: "/home",
