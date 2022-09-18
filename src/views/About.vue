@@ -33,6 +33,5 @@ const { instance } = $(useInstanceInfo())
 .content .description {
   font-size: 18px;
   font-weight: lighter;
-  line-height: 2;
 }
 </style>

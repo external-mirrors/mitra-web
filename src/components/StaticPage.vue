@@ -49,7 +49,6 @@ h1 {
 
 .static-text {
   font-size: 24px;
-  line-height: 1.75;
 }
 
 @media screen and (max-width: $screen-breakpoint-small) {

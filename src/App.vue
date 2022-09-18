@@ -48,14 +48,25 @@ a {
   }
 }
 
-.static-text p {
-  a {
+.static-text {
+  line-height: 2;
+
+  p a {
     text-decoration: underline;
     text-decoration-skip-ink: none;
 
     &:hover {
       text-decoration: none;
     }
+  }
+
+  ol,
+  ul {
+    padding-left: 1em;
+  }
+
+  ul {
+    list-style-type: disc;
   }
 }
 
