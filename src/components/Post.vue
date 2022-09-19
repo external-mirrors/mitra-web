@@ -1,16 +1,22 @@
 <template>
   <div class="post" :class="{ 'highlighted': highlighted }" :data-post-id="post.id" :id="post.id">
     <div class="post-header">
-      <router-link class="floating-avatar" :to="{ name: 'profile', params: { profileId: post.account.id }}">
-        <avatar :profile="post.account"></avatar>
-      </router-link>
-      <router-link
-        class="display-name"
-        :to="{ name: 'profile', params: { profileId: post.account.id }}"
+      <a
+        class="floating-avatar"
+        :href="post.account.url"
         :title="author.getDisplayName()"
+        @click="openProfile($event, post.account.id)"
+      >
+        <avatar :profile="post.account"></avatar>
+      </a>
+      <a
+        class="display-name"
+        :href="post.account.url"
+        :title="author.getDisplayName()"
+        @click="openProfile($event, post.account.id)"
       >
         {{ author.getDisplayName() }}
-      </router-link>
+      </a>
       <div class="actor-address" :title="'@' + getActorAddress(post.account)">
         @{{ getActorAddress(post.account) }}
       </div>
@@ -34,21 +40,22 @@
       <a
         class="timestamp"
         :href="post.uri"
-        @click.prevent="navigateTo(post.id)"
+        @click="navigateTo($event)"
       >
         {{ humanizeDate(post.created_at) }}
       </a>
     </div>
     <div class="post-subheader" v-if="getReplyMentions().length > 0">
       <span>replying to</span>
-      <router-link
+      <a
         v-for="mention in getReplyMentions()"
-        :to="{ name: 'profile', params: { profileId: mention.id }}"
-        :title="getActorAddress(mention)"
         :key="mention.id"
+        :href="mention.url"
+        :title="getActorAddress(mention)"
+        @click="openProfile($event, mention.id)"
       >
         @{{ mention.username }}
-      </router-link>
+      </a>
     </div>
     <div class="post-content" ref="postContentRef" v-html="getContent()"></div>
     <div class="post-attachment" v-if="post.media_attachments.length > 0">
@@ -271,6 +278,12 @@ const blockchain = $computed(() => instance?.blockchains[0])
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
 onMounted(() => {
+  if (currentUser !== null) {
+    configureInlineLinks()
+  }
+})
+
+function configureInlineLinks() {
   if (postContentRef === null) {
     return
   }
@@ -311,13 +324,28 @@ onMounted(() => {
       }
     }
   }
-})
+}
+
+function openProfile(event: Event, profileId: string) {
+  if (currentUser === null) {
+    // Viewing as guest; do not override click handler
+    return
+  }
+  event.preventDefault()
+  router.push({ name: "profile", params: { profileId: profileId } })
+}
 
 function highlight(postId: string | null) {
   emit("highlight", postId)
 }
 
-function navigateTo(postId: string) {
+function navigateTo(event: Event) {
+  if (currentUser === null) {
+    // Viewing as guest; do not override click handler
+    return
+  }
+  event.preventDefault()
+  const postId = props.post.id
   if (props.inThread) {
     emit("navigate-to", postId)
   } else {
