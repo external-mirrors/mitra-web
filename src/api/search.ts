@@ -2,12 +2,13 @@ import { BACKEND_URL } from "@/constants"
 
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { http } from "./common"
-import { Post } from "./posts"
+import { Post, Tag } from "./posts"
 import { Profile } from "./users"
 
 interface SearchResults {
   accounts: Profile[];
   statuses: Post[];
+  hashtags: Tag[];
 }
 
 export async function getSearchResults(

@@ -46,7 +46,7 @@ export interface Mention {
   url: string;
 }
 
-export interface PostTag {
+export interface Tag {
   name: string;
   url: string;
 }
@@ -66,7 +66,7 @@ export interface Post {
   reblogs_count: number;
   media_attachments: Attachment[];
   mentions: Mention[];
-  tags: PostTag[];
+  tags: Tag[];
   favourited: boolean;
   reblogged: boolean;
   ipfs_cid: string | null;

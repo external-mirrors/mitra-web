@@ -6,6 +6,7 @@
         <template v-if="errorMessage">{{ errorMessage }}</template>
         <template v-else-if="profiles.length > 0">{{ profiles.length }} people</template>
         <template v-else-if="posts.length > 0">{{ posts.length }} posts</template>
+        <template v-else-if="tags.length > 0">{{ tags.length }} tags</template>
         <template v-else>No results</template>
       </div>
       <div v-if="!isLoading" class="search-result-list">
@@ -24,6 +25,14 @@
           :in-thread="false"
           :key="post.id"
         ></post>
+        <router-link
+          class="search-result tag"
+          v-for="tag in tags"
+          :key="tag.name"
+          :to="{ name: 'tag', params: { tagName: tag.name } }"
+        >
+          #{{ tag.name }}
+        </router-link>
       </div>
     </template>
   </sidebar-layout>
@@ -34,7 +43,7 @@ import { onMounted } from "vue"
 import { $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { Post as PostObject } from "@/api/posts"
+import { Post as PostObject, Tag } from "@/api/posts"
 import { getSearchResults } from "@/api/search"
 import { Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
@@ -52,6 +61,7 @@ let errorMessage = $ref("")
 
 let profiles = $ref<Profile[]>([])
 let posts = $ref<PostObject[]>([])
+let tags = $ref<Tag[]>([])
 
 onMounted(async () => {
   const q = route.query?.q
@@ -65,6 +75,7 @@ onMounted(async () => {
       )
       profiles = results.accounts
       posts = results.statuses
+      tags = results.hashtags
     } catch (error: any) {
       errorMessage = error.message
     }
@@ -103,5 +114,9 @@ onMounted(async () => {
   &:last-child {
     border-bottom: none;
   }
+}
+
+.tag {
+  padding: $block-inner-padding;
 }
 </style>
