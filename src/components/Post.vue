@@ -301,10 +301,10 @@ onMounted(() => {
   }
   const quote = props.post.quote
   if (quote) {
-    const quotes = postContentRef.querySelectorAll(".quote-inline a")
-    for (const quoteElement of Array.from(quotes)) {
-      if (quote.uri === quoteElement.getAttribute("href")) {
-        quoteElement.addEventListener("click", (event: Event) => {
+    const links = postContentRef.querySelectorAll("a")
+    for (const linkElement of Array.from(links)) {
+      if (quote.uri === linkElement.getAttribute("href")) {
+        linkElement.addEventListener("click", (event: Event) => {
           event.preventDefault()
           router.push({ name: "post", params: { postId: quote.id } })
         })
