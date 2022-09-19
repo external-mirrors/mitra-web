@@ -1,6 +1,6 @@
 <template>
   <div class="subscription-settings">
-    <div class="info" v-if="!isLoading">
+    <div class="info" v-if="subscriptionOptionLoaded">
       <template v-if="subscriptionOption !== null">
         <span>Subscriptions are enabled</span>
         <div class="price">
@@ -78,6 +78,7 @@ const {
 
 let isLoading = $ref(false)
 let subscriptionOption = $ref<SubscriptionOption | null>(null)
+let subscriptionOptionLoaded = $ref(false)
 
 let subscriptionPrice = $ref(0.01)
 let subscriptionPayoutAddress = $ref("")
@@ -94,6 +95,7 @@ async function loadSubscriptionSettings() {
   subscriptionOption = subscriptionOptions.find((item) => {
     return item.type === "monero"
   }) || null
+  subscriptionOptionLoaded = true
   if (subscriptionOption?.price && subscriptionOption?.payout_address) {
     subscriptionPrice = getPricePerMonth(subscriptionOption.price)
     subscriptionPayoutAddress = subscriptionOption.payout_address
