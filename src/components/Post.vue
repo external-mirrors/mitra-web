@@ -26,7 +26,7 @@
         title="Go to previous post"
         @mouseover="highlight(post.in_reply_to_id)"
         @mouseleave="highlight(null)"
-        @click="navigateTo(post.in_reply_to_id)"
+        @click="navigateTo($event, post.in_reply_to_id)"
       >
         <img :src="require('@/assets/tabler/corner-left-up.svg')">
       </a>
@@ -40,7 +40,7 @@
       <a
         class="timestamp"
         :href="post.uri"
-        @click="navigateTo($event)"
+        @click="navigateTo($event, post.id)"
       >
         {{ humanizeDate(post.created_at) }}
       </a>
@@ -339,13 +339,12 @@ function highlight(postId: string | null) {
   emit("highlight", postId)
 }
 
-function navigateTo(event: Event) {
+function navigateTo(event: Event, postId: string) {
   if (currentUser === null) {
     // Viewing as guest; do not override click handler
     return
   }
   event.preventDefault()
-  const postId = props.post.id
   if (props.inThread) {
     emit("navigate-to", postId)
   } else {
