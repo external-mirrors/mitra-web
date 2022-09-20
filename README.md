@@ -2,7 +2,7 @@
 
 Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
-<img width="600" src="screenshot.png" alt="screenshot">
+<img width="650" src="screenshot.png" alt="screenshot">
 
 ## Requirements
 
@@ -35,6 +35,8 @@ Compile:
 ```
 npm run build
 ```
+
+This will produce a static website in the `/dist` directory.
 
 ## Development
 
