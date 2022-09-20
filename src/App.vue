@@ -62,7 +62,7 @@ a {
 
   ol,
   ul {
-    padding-left: 1em;
+    padding-left: 1.5em;
   }
 
   ul {
