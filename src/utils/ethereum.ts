@@ -28,7 +28,11 @@ export async function getWallet(
   provider?: Web3Provider,
 ): Promise<Signer | null> {
   if (!provider) {
-    provider = getWeb3Provider()
+    try {
+      provider = getWeb3Provider()
+    } catch (error) {
+      return null
+    }
   }
   try {
     await provider.send("eth_requestAccounts", [])

@@ -103,14 +103,18 @@ import {
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
-import { createEip4361_SignedMessage, getWallet } from "@/utils/ethereum"
+import {
+  createEip4361_SignedMessage,
+  getWallet,
+  hasEthereumWallet,
+} from "@/utils/ethereum"
 
 const router = useRouter()
 const { setCurrentUser, setAuthToken } = useCurrentUser()
 const { instance } = $(useInstanceInfo())
 
 const isRegistered = $ref(true)
-const loginType = $ref<"password" | "eip4361">("password")
+const loginType = $ref<"password" | "eip4361">(hasEthereumWallet() ? "eip4361" : "password")
 const username = $ref("")
 const password = $ref<string | null>(null)
 const inviteCode = $ref<string | null>(null)
@@ -156,6 +160,7 @@ async function register() {
   } else {
     const signer = await getWallet()
     if (!signer) {
+      loginErrorMessage = "wallet not found"
       return
     }
     const { message, signature } = await createEip4361_SignedMessage(
@@ -200,6 +205,7 @@ async function login() {
   } else {
     const signer = await getWallet()
     if (!signer) {
+      loginErrorMessage = "wallet not found"
       return
     }
     const { message, signature } = await createEip4361_SignedMessage(
