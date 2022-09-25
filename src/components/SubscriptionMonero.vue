@@ -68,7 +68,7 @@
       <button
         type="submit"
         class="btn primary"
-        :disabled="!canPay()"
+        :disabled="!canCreateInvoice()"
         @click.prevent="onCreateInvoice()"
       >
         <template v-if="!isSubscribed()">
@@ -78,14 +78,16 @@
       </button>
     </form>
     <div class="invoice" v-if="invoice">
-      <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
-      <a
-        class="payment-address"
-        :href="getPaymentUri(invoice)"
-      >
-        {{ invoice.payment_address }}
-      </a>
-      <qr-code :url="getPaymentUri(invoice)"></qr-code>
+      <template v-if="invoice.status === 'open' || invoice.status === 'timeout'">
+        <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
+        <a
+          class="payment-address"
+          :href="getPaymentUri(invoice)"
+        >
+          {{ invoice.payment_address }}
+        </a>
+        <qr-code :url="getPaymentUri(invoice)"></qr-code>
+      </template>
       <div class="invoice-status">
         <template v-if="invoice.status === 'open'">Waiting for payment</template>
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
@@ -201,7 +203,7 @@ const paymentAmount = $computed<number | null>(() => {
   return getPaymentAmount(subscriptionOption.price, paymentDuration)
 })
 
-function canPay(): boolean {
+function canCreateInvoice(): boolean {
   return paymentAmount !== null
 }
 
@@ -377,7 +379,6 @@ function getPaymentUri(invoice: Invoice): string {
   .payment-address {
     font-family: monospace;
     max-width: 100%;
-    user-select: all;
     word-wrap: break-word;
   }
 }
