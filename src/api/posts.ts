@@ -160,18 +160,18 @@ export interface PostData {
   in_reply_to_id: string | null;
   visibility: string;
   mentions: string[];
+  attachments: Attachment[];
 }
 
 export async function createPost(
   authToken: string,
   postData: PostData,
-  attachment: Attachment | null,
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses`
   // Convert to Mastodon API Status entity
   const statusData = {
     status: postData.content,
-    "media_ids[]": attachment ? [attachment.id] : null,
+    "media_ids[]": postData.attachments.map((attachment) => attachment.id),
     in_reply_to_id: postData.in_reply_to_id,
     visibility: postData.visibility,
     mentions: postData.mentions,

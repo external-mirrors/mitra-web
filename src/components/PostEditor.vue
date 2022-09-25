@@ -16,12 +16,16 @@
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
       ></textarea>
-      <div v-if="attachment" class="attachments">
-        <div class="attachment">
+      <div v-if="attachments.length > 0" class="attachments">
+        <div
+          v-for="(attachment, index) in attachments"
+          class="attachment"
+          :key="attachment.id"
+        >
           <button
             class="remove-attachment"
             title="Remove attachment"
-            @click.prevent="removeAttachment()"
+            @click.prevent="removeAttachment(index)"
           >
             <img :src="require('@/assets/feather/x.svg')">
           </button>
@@ -136,7 +140,7 @@ const postFormContentRef = $ref<HTMLTextAreaElement | null>(null)
 const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 
 let content = $ref("")
-let attachment = $ref<Attachment | null>(null)
+let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 
 let visibilityMenuVisible = $ref(false)
@@ -182,14 +186,15 @@ async function onAttachmentUpload(event: Event) {
   }
   const imageDataUrl = await fileToDataUrl(files[0])
   const imageBase64 = dataUrlToBase64(imageDataUrl)
-  attachment = await uploadAttachment(
+  const attachment = await uploadAttachment(
     ensureAuthToken(),
     imageBase64,
   )
+  attachments.push(attachment)
 }
 
-function removeAttachment() {
-  attachment = null
+function removeAttachment(index: number) {
+  attachments.splice(index, 1)
 }
 
 function toggleVisibilityMenu() {
@@ -218,6 +223,7 @@ async function publish() {
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],
+    attachments: attachments,
   }
   isLoading = true
   let post
@@ -225,7 +231,6 @@ async function publish() {
     post = await createPost(
       ensureAuthToken(),
       postData,
-      attachment,
     )
   } catch (error: any) {
     errorMessage = error.message
@@ -235,7 +240,7 @@ async function publish() {
   // Refresh editor
   errorMessage = null
   isLoading = false
-  attachment = null
+  attachments = []
   content = ""
   if (postFormContentRef) {
     await nextTick()
@@ -287,6 +292,7 @@ textarea {
 }
 
 .attachment {
+  display: flex;
   position: relative;
 
   .remove-attachment {
