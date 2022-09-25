@@ -67,6 +67,7 @@
           type="submit"
           v-if="inReplyTo"
           class="submit-btn-small"
+          :disabled="!canPublish()"
           @click.prevent="publish()"
         >
           Publish
@@ -78,7 +79,7 @@
       <button
         class="btn"
         type="submit"
-        :disabled="getCharacterCount() < 0"
+        :disabled="!canPublish()"
         @click.prevent="publish()"
       >Publish</button>
     </div>
@@ -130,6 +131,7 @@ let attachment = $ref<Attachment | null>(null)
 let visibility = $ref(Visibility.Public)
 
 let visibilityMenuVisible = $ref(false)
+let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
 const author = $computed<User | null>(() => {
@@ -192,6 +194,10 @@ function getCharacterCount(): number {
   return (instance.post_character_limit - content.length)
 }
 
+function canPublish(): boolean {
+  return getCharacterCount() >= 0 && !isLoading
+}
+
 async function publish() {
   const contentRendered = renderMarkdownLite(content)
   const postData = {
@@ -200,6 +206,7 @@ async function publish() {
     visibility: visibility,
     mentions: [],
   }
+  isLoading = true
   let post
   try {
     post = await createPost(
@@ -209,10 +216,12 @@ async function publish() {
     )
   } catch (error: any) {
     errorMessage = error.message
+    isLoading = false
     return
   }
   // Refresh editor
   errorMessage = null
+  isLoading = false
   attachment = null
   content = ""
   if (postFormContentRef) {
@@ -288,6 +297,11 @@ textarea {
   .submit-btn-small {
     font-weight: bold;
     margin-left: $block-inner-padding;
+
+    &[disabled] {
+      color: $btn-disabled-text-color;
+      cursor: initial;
+    }
   }
 }
 

@@ -136,9 +136,9 @@ button {
   }
 
   &[disabled] {
-    background-color: #ddd !important;
+    background-color: $btn-disabled-background-color !important;
     box-shadow: none;
-    color: #999 !important;
+    color: $btn-disabled-text-color !important;
     cursor: initial;
   }
 }
