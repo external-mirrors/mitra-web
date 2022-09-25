@@ -16,8 +16,17 @@
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
       ></textarea>
-      <div v-if="attachment" class="attachment">
-        <img :src="attachment.url">
+      <div v-if="attachment" class="attachments">
+        <div class="attachment">
+          <button
+            class="remove-attachment"
+            title="Remove attachment"
+            @click.prevent="removeAttachment()"
+          >
+            <img :src="require('@/assets/feather/x.svg')">
+          </button>
+          <img :src="attachment.url">
+        </div>
       </div>
       <div class="toolbar">
         <button
@@ -42,7 +51,7 @@
           <button
             type="button"
             class="icon"
-            title="Post visibility"
+            title="Change visibility"
             @click="toggleVisibilityMenu()"
           >
             <visibility-icon :visibility="visibility"></visibility-icon>
@@ -179,6 +188,10 @@ async function onAttachmentUpload(event: Event) {
   )
 }
 
+function removeAttachment() {
+  attachment = null
+}
+
 function toggleVisibilityMenu() {
   visibilityMenuVisible = !visibilityMenuVisible
 }
@@ -269,10 +282,28 @@ textarea {
   width: 100%;
 }
 
-.attachment {
+.attachments {
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+}
 
-  img {
+.attachment {
+  position: relative;
+
+  .remove-attachment {
+    background-color: $btn-background-color;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    img {
+      filter: $btn-text-colorizer;
+      height: $icon-size;
+      width: $icon-size;
+    }
+  }
+
+  > img {
     width: 100%;
   }
 }
