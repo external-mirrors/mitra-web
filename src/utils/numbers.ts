@@ -13,6 +13,9 @@ export function roundBigNumber(value: BigNumber, precision: number): BigNumber {
 }
 
 function getPrecision(value: number): number {
+  if (typeof value !== "number") {
+    return 0
+  }
   if (!isFinite(value)) {
     return 0
   }
