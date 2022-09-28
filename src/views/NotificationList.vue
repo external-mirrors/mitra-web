@@ -7,55 +7,28 @@
         :key="notification.id"
       >
         <div class="action">
-          <template v-if="notification.type === 'follow'">
-            <img :src="require('@/assets/feather/user-plus.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>followed you</span>
-          </template>
-          <template v-else-if="notification.type === 'reply'">
-            <img :src="require('@/assets/forkawesome/comment-o.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>replied to your post</span>
-          </template>
-          <template v-else-if="notification.type === 'favourite'">
-            <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>liked your post</span>
-          </template>
-          <template v-else-if="notification.type === 'mention'">
-            <img :src="require('@/assets/forkawesome/comment-o.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>mentioned you</span>
-          </template>
-          <template v-else-if="notification.type === 'reblog'">
-            <img :src="require('@/assets/feather/repeat.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>reposted your post</span>
-          </template>
-          <template v-else-if="notification.type === 'subscription'">
-            <img :src="require('@/assets/tabler/coin.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>paid for subscription</span>
-          </template>
-          <template v-else-if="notification.type === 'subscription_expiration'">
-            <img :src="require('@/assets/tabler/coin.svg')">
-            <router-link :to="{ name: 'profile', params: { profileId: notification.account.id }}">
-              {{ getSenderName(notification) }}
-            </router-link>
-            <span>subscription expired</span>
-          </template>
+          <img v-if="notification.type === 'follow'" :src="require('@/assets/feather/user-plus.svg')">
+          <img v-else-if="notification.type === 'reply'" :src="require('@/assets/forkawesome/comment-o.svg')">
+          <img v-else-if="notification.type === 'favourite'" :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
+          <img v-else-if="notification.type === 'mention'" :src="require('@/assets/forkawesome/comment-o.svg')">
+          <img v-else-if="notification.type === 'reblog'" :src="require('@/assets/feather/repeat.svg')">
+          <img
+            v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
+            :src="require('@/assets/tabler/coin.svg')"
+          >
+          <router-link
+            :title="getSenderInfo(notification)"
+            :to="{ name: 'profile', params: { profileId: notification.account.id } }"
+          >
+            {{ getSenderName(notification) }}
+          </router-link>
+          <span v-if="notification.type === 'follow'">followed you</span>
+          <span v-else-if="notification.type === 'reply'">replied to your post</span>
+          <span v-else-if="notification.type === 'favourite'">liked your post</span>
+          <span v-else-if="notification.type === 'mention'">mentioned you</span>
+          <span v-else-if="notification.type === 'reblog'">reposted your post</span>
+          <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
+          <span v-else-if="notification.type === 'subscription_expiration'">subscription expired</span>
         </div>
         <post
           v-if="notification.status"
@@ -67,7 +40,7 @@
         <router-link
           v-else
           class="profile"
-          :to="{ name: 'profile', params: { profileId: notification.account.id }}"
+          :to="{ name: 'profile', params: { profileId: notification.account.id } }"
         >
           <div class="floating-avatar">
             <avatar :profile="notification.account"></avatar>
@@ -120,6 +93,10 @@ onMounted(async () => {
 function getSenderName(notification: Notification): string {
   const sender = notification.account
   return sender.display_name || sender.username
+}
+
+function getSenderInfo(notification: Notification): string {
+  return `${getSenderName(notification)} (${getActorAddress(notification.account)})`
 }
 
 function onPostDeleted(notificationIndex: number) {
