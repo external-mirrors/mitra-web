@@ -37,6 +37,7 @@
           type="button"
           class="icon"
           title="Attach image"
+          :disabled="!canAttachFile()"
           @click="selectAttachment()"
         >
           <img :src="require('@/assets/feather/paperclip.svg')">
@@ -122,6 +123,7 @@ import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const visibilityMap = Object.entries(VISIBILITY_MAP)
+const ATTACHMENTS_MAX_NUM = 10
 
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
@@ -172,6 +174,10 @@ onMounted(() => {
     setupAutoResize(postFormContentRef)
   }
 })
+
+function canAttachFile(): boolean {
+  return attachments.length < ATTACHMENTS_MAX_NUM
+}
 
 function selectAttachment() {
   if (attachmentUploadInputRef) {

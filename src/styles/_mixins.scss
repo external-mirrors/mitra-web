@@ -79,6 +79,12 @@
     }
   }
 
+  button.icon[disabled] {
+    img {
+      filter: $secondary-text-colorizer;
+    }
+  }
+
   .icon-small img {
     $icon-size-small: $icon-size * 0.8;
 

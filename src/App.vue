@@ -115,6 +115,10 @@ button {
   &:hover {
     color: $link-hover-color;
   }
+
+  &[disabled] {
+    cursor: initial;
+  }
 }
 
 .btn {
@@ -139,7 +143,6 @@ button {
     background-color: $btn-disabled-background-color !important;
     box-shadow: none;
     color: $btn-disabled-text-color !important;
-    cursor: initial;
   }
 }
 
