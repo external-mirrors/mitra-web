@@ -32,6 +32,12 @@
           <img :src="attachment.url">
         </div>
       </div>
+      <input
+        v-if="quoteInputVisible"
+        id="quote"
+        v-model="quote"
+        placeholder="Enter post ID"
+      >
       <div class="toolbar">
         <button
           type="button"
@@ -48,6 +54,15 @@
             style="display: none;"
             @change="onAttachmentUpload($event)"
           >
+        </button>
+        <button
+          v-if="canAddQuote()"
+          type="button"
+          class="icon"
+          title="Add quote"
+          @click="quoteInputVisible = !quoteInputVisible"
+        >
+          <img :src="require('@/assets/tabler/quote.svg')">
         </button>
         <div
           class="dropdown-menu-wrapper"
@@ -143,8 +158,10 @@ const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 
 let content = $ref("")
 let attachments = $ref<Attachment[]>([])
+let quote = $ref<string | null>(null)
 let visibility = $ref(Visibility.Public)
 
+const quoteInputVisible = $ref(false)
 let visibilityMenuVisible = $ref(false)
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
@@ -203,6 +220,10 @@ function removeAttachment(index: number) {
   attachments.splice(index, 1)
 }
 
+function canAddQuote(): boolean {
+  return props.inReplyTo === null && visibility === Visibility.Public
+}
+
 function toggleVisibilityMenu() {
   visibilityMenuVisible = !visibilityMenuVisible
 }
@@ -229,6 +250,7 @@ async function publish() {
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],
+    links: quote ? [quote] : [],
     attachments: attachments,
   }
   isLoading = true
@@ -246,8 +268,9 @@ async function publish() {
   // Refresh editor
   errorMessage = null
   isLoading = false
-  attachments = []
   content = ""
+  attachments = []
+  quote = null
   if (postFormContentRef) {
     await nextTick()
     triggerResize(postFormContentRef)
@@ -285,7 +308,7 @@ $line-height: 1.5;
   border-radius: $block-border-radius;
 }
 
-textarea {
+#content {
   border-radius: $block-border-radius $block-border-radius 0 0;
   height: 100px;
   line-height: $line-height;
@@ -318,6 +341,12 @@ textarea {
   > img {
     width: 100%;
   }
+}
+
+#quote {
+  border-top: 1px solid $separator-color;
+  line-height: $line-height;
+  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 }
 
 .toolbar {

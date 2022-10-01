@@ -65,6 +65,20 @@
         <a v-else :href="attachment.url">{{ attachment.url }}</a>
       </template>
     </div>
+    <a
+      v-if="post.quote"
+      class="post-quote"
+      :href="post.quote.uri"
+      @click="navigateTo($event, post.quote.id)"
+    >
+      <div class="quote-header">
+        <avatar :profile="post.quote.account"></avatar>
+        <span class="actor-address">
+          @{{ getActorAddress(post.quote.account) }}
+        </span>
+      </div>
+      <div class="quote-content" v-html="post.quote.content"></div>
+    </a>
     <div class="post-footer">
       <router-link
         v-if="!inThread"
@@ -682,6 +696,42 @@ async function onMintToken() {
       float: left;
     }
   }
+}
+
+.post-quote {
+  border: 1px solid $separator-color;
+  border-radius: $block-border-radius;
+  color: inherit;
+  display: block;
+  margin: 0 $block-inner-padding $block-inner-padding;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.quote-header {
+  align-items: center;
+  color: $secondary-text-color;
+  display: flex;
+  flex-direction: row;
+  gap: calc($block-inner-padding / 2);
+  padding: $block-inner-padding $block-inner-padding 0;
+
+  .avatar {
+    height: $icon-size;
+    width: $icon-size;
+  }
+
+  .actor-address {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: all;
+  }
+}
+
+.quote-content {
+  padding: $block-inner-padding;
 }
 
 .post-attachment {
