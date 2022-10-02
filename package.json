@@ -38,14 +38,14 @@
     "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
-    "@vue/cli-plugin-eslint": "~5.0.4",
-    "@vue/cli-plugin-router": "~5.0.4",
-    "@vue/cli-plugin-typescript": "~5.0.4",
-    "@vue/cli-plugin-unit-mocha": "~5.0.4",
-    "@vue/cli-service": "~5.0.4",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-typescript": "~5.0.8",
+    "@vue/cli-plugin-unit-mocha": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^8.0.0",
-    "@vue/test-utils": "^2.0.0-0",
+    "@vue/test-utils": "^2.1.0",
     "chai": "^4.1.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.20.0",
@@ -61,19 +61,9 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "yorkie": false,
-      "core-js": false,
-      "nodent-runtime": false,
-      "ejs": false,
-      "fsevents": false,
       "@vue/cli-plugin-eslint>yorkie": false,
       "@vue/cli-plugin-unit-mocha>mochapack>@babel/runtime-corejs2>core-js": false,
-      "@vue/cli-plugin-unit-mocha>mochapack>nodent-runtime": false,
-      "@vue/cli-service>webpack-bundle-analyzer>ejs": false,
-      "@vue/cli-plugin-unit-mocha>mochapack>chokidar>fsevents": false,
-      "@vue/cli-service>webpack-dev-server>chokidar>fsevents": false,
-      "sass-loader>webpack>watchpack>watchpack-chokidar2>chokidar>fsevents": false,
-      "sass-loader>node-sass": true
+      "@vue/cli-plugin-unit-mocha>mochapack>nodent-runtime": false
     }
   }
 }
