@@ -73,6 +73,9 @@
     >
       <div class="quote-header">
         <avatar :profile="post.quote.account"></avatar>
+        <span class="display-name">
+          {{ (new ProfileWrapper(post.quote.account)).getDisplayName() }}
+        </span>
         <span class="actor-address">
           @{{ getActorAddress(post.quote.account) }}
         </span>
@@ -632,10 +635,17 @@ async function onMintToken() {
     width: $icon-size;
   }
 
+  .display-name {
+    color: $text-color;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .actor-address {
     overflow: hidden;
     text-overflow: ellipsis;
-    user-select: all;
   }
 }
 
