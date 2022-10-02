@@ -1,6 +1,9 @@
 <template>
   <sidebar-layout>
     <template #content>
+      <div class="tag-name">
+        #{{ route.params.tagName }}
+      </div>
       <post-list
         :posts="posts"
         @load-next-page="loadNextPage"
@@ -39,3 +42,15 @@ async function loadNextPage(maxId: string) {
   posts.value.push(...nextPage)
 }
 </script>
+
+<style scoped lang="scss">
+@import "../styles/layout";
+@import "../styles/theme";
+
+.tag-name {
+  background-color: $block-background-color;
+  border-radius: $block-border-radius;
+  margin-bottom: $block-outer-padding;
+  padding: $block-inner-padding;
+}
+</style>
