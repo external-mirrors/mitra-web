@@ -57,7 +57,7 @@
         @{{ mention.username }}
       </a>
     </div>
-    <div class="post-content" ref="postContentRef" v-html="getContent()"></div>
+    <post-content :post="post"></post-content>
     <div class="post-attachment" v-if="post.media_attachments.length > 0">
       <template v-for="attachment in post.media_attachments" :key="attachment.id">
         <img v-if="attachment.type === 'image'" :src="attachment.url">
@@ -77,7 +77,7 @@
           @{{ getActorAddress(post.quote.account) }}
         </span>
       </div>
-      <div class="quote-content" v-html="post.quote.content"></div>
+      <post-content :post="post.quote"></post-content>
     </a>
     <div class="post-footer">
       <router-link
@@ -223,7 +223,6 @@
 
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
-import { onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
@@ -247,6 +246,7 @@ import {
 import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
+import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
@@ -254,7 +254,6 @@ import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
 import { humanizeDate } from "@/utils/dates"
-import { addGreentext } from "@/utils/greentext"
 
 interface PaymentOption {
   code: string;
@@ -281,8 +280,6 @@ const emit = defineEmits<{
   (event: "post-deleted"): void,
 }>()
 
-const postContentRef = $ref<HTMLElement | null>(null)
-
 let commentFormVisible = $ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentAddress = $ref<string | null>(null)
@@ -290,55 +287,6 @@ let isWaitingForToken = $ref(false)
 
 const blockchain = $computed(() => instance?.blockchains[0])
 const author = $computed(() => new ProfileWrapper(props.post.account))
-
-onMounted(() => {
-  if (currentUser !== null) {
-    configureInlineLinks()
-  }
-})
-
-function configureInlineLinks() {
-  if (postContentRef === null) {
-    return
-  }
-  const mentions = postContentRef.getElementsByClassName("mention")
-  for (const mentionElement of Array.from(mentions)) {
-    const mention = props.post.mentions
-      .find((mention) => mentionElement.getAttribute("href") === mention.url)
-    if (mention) {
-      mentionElement.addEventListener("click", (event: Event) => {
-        event.preventDefault()
-        router.push({ name: "profile", params: { profileId: mention.id } })
-      })
-    }
-  }
-  const hashtags = postContentRef.getElementsByClassName("hashtag")
-  for (const hashtagElement of Array.from(hashtags)) {
-    const hashtag = props.post.tags
-      .find((tag) => {
-        const innerText = (hashtagElement as HTMLElement).innerText
-        return innerText.toLowerCase() === `#${tag.name}`
-      })
-    if (hashtag) {
-      hashtagElement.addEventListener("click", (event: Event) => {
-        event.preventDefault()
-        router.push({ name: "tag", params: { tagName: hashtag.name } })
-      })
-    }
-  }
-  const quote = props.post.quote
-  if (quote) {
-    const links = postContentRef.querySelectorAll("a")
-    for (const linkElement of Array.from(links)) {
-      if (quote.uri === linkElement.getAttribute("href")) {
-        linkElement.addEventListener("click", (event: Event) => {
-          event.preventDefault()
-          router.push({ name: "post", params: { postId: quote.id } })
-        })
-      }
-    }
-  }
-}
 
 function openProfile(event: Event, profileId: string) {
   if (currentUser === null) {
@@ -368,11 +316,6 @@ function navigateTo(event: Event, postId: string) {
 
 function getVisibilityDisplay(): string {
   return VISIBILITY_MAP[props.post.visibility]
-}
-
-function getContent(): string {
-  const content = addGreentext(props.post.content)
-  return content
 }
 
 function getReplyMentions(): Mention[] {
@@ -664,40 +607,6 @@ async function onMintToken() {
   }
 }
 
-.post-content {
-  color: $text-color;
-  line-height: 1.5;
-  padding: $block-inner-padding;
-  word-wrap: break-word;
-
-  :deep(a) {
-    @include block-link;
-  }
-
-  :deep(pre),
-  :deep(code) {
-    overflow-x: scroll;
-  }
-
-  :deep(ul),
-  :deep(ol) {
-    list-style-position: inside;
-  }
-
-  :deep(.greentext) {
-    color: $greentext-color;
-  }
-
-  :deep(blockquote) {
-    color: $greentext-color;
-
-    &::before {
-      content: ">";
-      float: left;
-    }
-  }
-}
-
 .post-quote {
   border: 1px solid $separator-color;
   border-radius: $block-border-radius;
@@ -728,10 +637,6 @@ async function onMintToken() {
     text-overflow: ellipsis;
     user-select: all;
   }
-}
-
-.quote-content {
-  padding: $block-inner-padding;
 }
 
 .post-attachment {
