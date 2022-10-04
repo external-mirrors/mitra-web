@@ -74,7 +74,7 @@
       <div class="quote-header">
         <avatar :profile="post.quote.account"></avatar>
         <span class="display-name">
-          {{ (new ProfileWrapper(post.quote.account)).getDisplayName() }}
+          {{ getQuoteAuthorDisplayName() }}
         </span>
         <span class="actor-address">
           @{{ getActorAddress(post.quote.account) }}
@@ -326,6 +326,14 @@ function getReplyMentions(): Mention[] {
     return []
   }
   return props.post.mentions
+}
+
+function getQuoteAuthorDisplayName(): string | null {
+  if (props.post.quote === null) {
+    return null
+  }
+  const profile = new ProfileWrapper(props.post.quote.account)
+  return profile.getDisplayName()
 }
 
 function canReply(): boolean {
