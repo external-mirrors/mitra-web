@@ -45,6 +45,7 @@
           title="Attach image"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
+          @click.middle="quoteInputVisible = !quoteInputVisible"
         >
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
@@ -56,7 +57,7 @@
           >
         </button>
         <button
-          v-if="canAddQuote()"
+          v-if="canAddQuote() && false"
           type="button"
           class="icon"
           title="Add quote"
