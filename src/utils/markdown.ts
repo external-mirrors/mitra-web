@@ -16,6 +16,10 @@ const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
     { attrs: { target: "_blank", rel: "noopener" } },
   )
 
+// Remove \n from output
+markdownLite.renderer.rules.hardbreak = () => "<br>"
+markdownLite.renderer.rules.softbreak = () => "<br>"
+
 export function renderMarkdown(text: string): string {
   return markdown.render(text)
 }
