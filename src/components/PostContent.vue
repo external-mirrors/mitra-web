@@ -87,6 +87,10 @@ function getContent(): string {
   padding: $block-inner-padding;
   word-wrap: break-word;
 
+  :deep(p) {
+    white-space: pre-wrap;
+  }
+
   :deep(a) {
     @include block-link;
   }
