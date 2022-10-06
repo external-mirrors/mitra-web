@@ -10,7 +10,7 @@ const markdown = new MarkdownIt({ linkify: true, breaks: true })
 
 // Minimal renderer
 const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
-  .disable(["emphasis", "strikethrough", "image"])
+  .disable(["strikethrough", "image"])
   .use(
     MarkdownItLinkAttrs,
     { attrs: { target: "_blank", rel: "noopener" } },
