@@ -45,7 +45,7 @@
           title="Attach image"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
-          @click.middle="quoteInputVisible = !quoteInputVisible"
+          @click.middle="canAddQuote() ? quoteInputVisible = !quoteInputVisible : null"
         >
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
