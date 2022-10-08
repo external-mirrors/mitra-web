@@ -91,13 +91,20 @@ function getContent(): string {
     white-space: pre-wrap;
   }
 
+  :deep(p),
+  :deep(pre) {
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
+  }
+
   :deep(a) {
     @include block-link;
   }
 
   :deep(pre),
   :deep(code) {
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 
   :deep(ul),

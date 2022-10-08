@@ -97,7 +97,7 @@ import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize } from "@/utils/autoresize"
-import { renderMarkdownLite } from "@/utils/markdown"
+import { renderMarkdownLiteInline } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const router = useRouter()
@@ -152,7 +152,7 @@ const profilePreview = $computed<Profile>(() => {
 
 function onBioUpdate(event: Event) {
   form.note_source = (event.target as HTMLTextAreaElement).value
-  form.note = renderMarkdownLite(form.note_source)
+  form.note = renderMarkdownLiteInline(form.note_source)
 }
 
 async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
@@ -167,7 +167,7 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
 
 function onExtraFieldUpdate(field: ProfileFieldAttrs, event: Event) {
   field.value_source = (event.target as HTMLInputElement).value
-  field.value = renderMarkdownLite(field.value_source)
+  field.value = renderMarkdownLiteInline(field.value_source)
 }
 
 function isValidExtraField(index: number): boolean {

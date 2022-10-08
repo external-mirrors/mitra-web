@@ -10,7 +10,15 @@ const markdown = new MarkdownIt({ linkify: true, breaks: true })
 
 // Minimal renderer
 const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
-  .disable(["strikethrough", "image"])
+  .disable([
+    "blockquote",
+    "list",
+    "heading",
+    "lheading",
+    "hr",
+    "strikethrough",
+    "image",
+  ])
   .use(
     MarkdownItLinkAttrs,
     { attrs: { target: "_blank", rel: "noopener" } },
@@ -19,11 +27,20 @@ const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
 // Remove \n from output
 markdownLite.renderer.rules.hardbreak = () => "<br>"
 markdownLite.renderer.rules.softbreak = () => "<br>"
+markdownLite.renderer.rules.paragraph_close = () => "</p>"
+const default_fence_rule = markdownLite.renderer.rules.fence
+markdownLite.renderer.rules.fence = (...args: any[]) => {
+  return default_fence_rule(...args).trim()
+}
 
 export function renderMarkdown(text: string): string {
   return markdown.render(text)
 }
 
 export function renderMarkdownLite(text: string): string {
+  return markdownLite.render(text)
+}
+
+export function renderMarkdownLiteInline(text: string): string {
   return markdownLite.renderInline(text)
 }
