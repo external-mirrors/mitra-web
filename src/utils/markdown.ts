@@ -19,10 +19,6 @@ const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
     "strikethrough",
     "image",
   ])
-  .use(
-    MarkdownItLinkAttrs,
-    { attrs: { target: "_blank", rel: "noopener" } },
-  )
 
 // Remove \n from output
 markdownLite.renderer.rules.hardbreak = () => "<br>"
