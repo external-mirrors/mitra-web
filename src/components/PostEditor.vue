@@ -1,5 +1,5 @@
 <template>
-  <form class="post-form" :class="{'reply': inReplyTo}">
+  <form class="post-form" :class="{ 'reply': inReplyTo }">
     <router-link
       v-if="author"
       class="floating-avatar"
@@ -162,7 +162,7 @@ let attachments = $ref<Attachment[]>([])
 let quote = $ref<string | null>(null)
 let visibility = $ref(Visibility.Public)
 
-const quoteInputVisible = $ref(false)
+let quoteInputVisible = $ref(false)
 let visibilityMenuVisible = $ref(false)
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
@@ -272,6 +272,7 @@ async function publish() {
   content = ""
   attachments = []
   quote = null
+  quoteInputVisible = false
   if (postFormContentRef) {
     await nextTick()
     triggerResize(postFormContentRef)
