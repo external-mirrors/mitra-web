@@ -17,14 +17,18 @@ defineProps<{
 @import "../styles/theme";
 @import "../styles/mixins";
 
+a {
+  @include block-link;
+
+  word-wrap: break-word;
+}
+
 img {
   display: block;
   width: 100%;
 }
 
-a {
-  @include block-link;
-
-  word-wrap: break-word;
+video {
+  width: 100%;
 }
 </style>
