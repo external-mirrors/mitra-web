@@ -58,12 +58,12 @@
       </a>
     </div>
     <post-content :post="post"></post-content>
-    <div class="post-attachment" v-if="post.media_attachments.length > 0">
-      <template v-for="attachment in post.media_attachments" :key="attachment.id">
-        <img v-if="attachment.type === 'image'" :src="attachment.url">
-        <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
-        <a v-else :href="attachment.url">{{ attachment.url }}</a>
-      </template>
+    <div class="post-attachments" v-if="post.media_attachments.length > 0">
+      <post-attachment
+        v-for="attachment in post.media_attachments"
+        :attachment="attachment"
+        :key="attachment.id"
+      ></post-attachment>
     </div>
     <a
       v-if="post.quote"
@@ -81,6 +81,13 @@
         </span>
       </div>
       <post-content :post="post.quote"></post-content>
+      <div class="quote-attachments" v-if="post.quote.media_attachments.length > 0">
+        <post-attachment
+          v-for="attachment in post.quote.media_attachments"
+          :attachment="attachment"
+          :key="attachment.id"
+        ></post-attachment>
+      </div>
     </a>
     <div class="post-footer">
       <router-link
@@ -249,6 +256,7 @@ import {
 import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
+import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
@@ -618,6 +626,11 @@ async function onMintToken() {
   }
 }
 
+.post-attachments,
+.quote-attachments {
+  padding: 0 $block-inner-padding $block-inner-padding;
+}
+
 .post-quote {
   border: 1px solid $separator-color;
   border-radius: $block-border-radius;
@@ -654,20 +667,6 @@ async function onMintToken() {
   .actor-address {
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-}
-
-.post-attachment {
-  padding: 0 $block-inner-padding $block-inner-padding;
-  word-wrap: break-word;
-
-  img {
-    display: block;
-    width: 100%;
-  }
-
-  a {
-    @include block-link;
   }
 }
 
