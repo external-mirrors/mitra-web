@@ -92,6 +92,10 @@ function getContent(): string {
   }
 
   :deep(p),
+  :deep(blockquote),
+  :deep(ul),
+  :deep(ol),
+  :deep(hr),
   :deep(pre) {
     &:not(:last-child) {
       margin-bottom: 1em;
@@ -110,6 +114,10 @@ function getContent(): string {
   :deep(ul),
   :deep(ol) {
     list-style-position: inside;
+  }
+
+  :deep(ul) {
+    list-style-type: disc;
   }
 
   :deep(.greentext) {
