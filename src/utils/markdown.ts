@@ -18,6 +18,7 @@ const markdownLite = new MarkdownIt({ linkify: true, breaks: true })
     "hr",
     "strikethrough",
     "image",
+    "table",
   ])
 
 // Remove \n from output
