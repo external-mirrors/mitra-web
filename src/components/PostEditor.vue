@@ -244,10 +244,10 @@ function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading
 }
 
-async function publish() {
-  const contentRendered = renderMarkdownLite(content)
+async function publish(contentType = "text/markdown") {
   const postData = {
-    content: contentRendered,
+    content: contentType === "text/markdown" ? content : renderMarkdownLite(content),
+    content_type: contentType,
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],

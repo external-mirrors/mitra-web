@@ -157,6 +157,7 @@ export async function getPostContext(
 
 export interface PostData {
   content: string;
+  content_type: string;
   in_reply_to_id: string | null;
   visibility: string;
   mentions: string[];
@@ -172,6 +173,7 @@ export async function createPost(
   // Convert to Mastodon API Status entity
   const statusData = {
     status: postData.content,
+    content_type: postData.content_type,
     "media_ids[]": postData.attachments.map((attachment) => attachment.id),
     in_reply_to_id: postData.in_reply_to_id,
     visibility: postData.visibility,
