@@ -72,7 +72,7 @@ export interface Post {
   ipfs_cid: string | null;
   token_id: number | null;
   token_tx_id: string | null;
-  quote: Post | null;
+  links: Post[];
 }
 
 export async function getHomeTimeline(

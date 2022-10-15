@@ -33,10 +33,10 @@
         </div>
       </div>
       <input
-        v-if="quoteInputVisible"
-        id="quote"
-        v-model="quote"
-        placeholder="Enter post ID"
+        v-if="linkListInputVisible"
+        id="link-list"
+        v-model="linkList"
+        placeholder="Enter post IDs (separated by commas)"
       >
       <div class="toolbar">
         <button
@@ -45,7 +45,7 @@
           title="Attach image"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
-          @click.middle="canAddQuote() ? quoteInputVisible = !quoteInputVisible : null"
+          @click.middle="canAddLink() ? linkListInputVisible = !linkListInputVisible : null"
         >
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
@@ -57,11 +57,11 @@
           >
         </button>
         <button
-          v-if="canAddQuote() && false"
+          v-if="canAddLink() && false"
           type="button"
           class="icon"
-          title="Add quote"
-          @click="quoteInputVisible = !quoteInputVisible"
+          title="Add link"
+          @click="linkListInputVisible = !linkListInputVisible"
         >
           <img :src="require('@/assets/tabler/quote.svg')">
         </button>
@@ -159,10 +159,10 @@ const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 
 let content = $ref("")
 let attachments = $ref<Attachment[]>([])
-let quote = $ref<string | null>(null)
+let linkList = $ref<string | null>(null)
 let visibility = $ref(Visibility.Public)
 
-let quoteInputVisible = $ref(false)
+let linkListInputVisible = $ref(false)
 let visibilityMenuVisible = $ref(false)
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
@@ -221,7 +221,7 @@ function removeAttachment(index: number) {
   attachments.splice(index, 1)
 }
 
-function canAddQuote(): boolean {
+function canAddLink(): boolean {
   return props.inReplyTo === null && visibility === Visibility.Public
 }
 
@@ -251,7 +251,7 @@ async function publish(contentType = "text/markdown") {
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],
-    links: quote ? [quote] : [],
+    links: linkList ? linkList.split(",") : [],
     attachments: attachments,
   }
   isLoading = true
@@ -271,8 +271,8 @@ async function publish(contentType = "text/markdown") {
   isLoading = false
   content = ""
   attachments = []
-  quote = null
-  quoteInputVisible = false
+  linkList = null
+  linkListInputVisible = false
   if (postFormContentRef) {
     await nextTick()
     triggerResize(postFormContentRef)
@@ -345,7 +345,7 @@ $line-height: 1.5;
   }
 }
 
-#quote {
+#link-list {
   border-top: 1px solid $separator-color;
   line-height: $line-height;
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;

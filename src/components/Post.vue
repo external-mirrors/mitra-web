@@ -66,24 +66,25 @@
       ></post-attachment>
     </div>
     <a
-      v-if="post.quote"
+      v-for="linkedPost in post.links"
       class="post-quote"
-      :href="post.quote.uri"
-      @click="navigateTo($event, post.quote.id)"
+      :href="linkedPost.uri"
+      :key="linkedPost.id"
+      @click="navigateTo($event, linkedPost.id)"
     >
       <div class="quote-header">
-        <avatar :profile="post.quote.account"></avatar>
+        <avatar :profile="linkedPost.account"></avatar>
         <span class="display-name">
-          {{ getQuoteAuthorDisplayName() }}
+          {{ getQuoteAuthorDisplayName(linkedPost) }}
         </span>
         <span class="actor-address">
-          @{{ getActorAddress(post.quote.account) }}
+          @{{ getActorAddress(linkedPost.account) }}
         </span>
       </div>
-      <post-content :post="post.quote"></post-content>
-      <div class="quote-attachments" v-if="post.quote.media_attachments.length > 0">
+      <post-content :post="linkedPost"></post-content>
+      <div class="quote-attachments" v-if="linkedPost.media_attachments.length > 0">
         <post-attachment
-          v-for="attachment in post.quote.media_attachments"
+          v-for="attachment in linkedPost.media_attachments"
           :attachment="attachment"
           :key="attachment.id"
         ></post-attachment>
@@ -336,11 +337,8 @@ function getReplyMentions(): Mention[] {
   return props.post.mentions
 }
 
-function getQuoteAuthorDisplayName(): string | null {
-  if (props.post.quote === null) {
-    return null
-  }
-  const profile = new ProfileWrapper(props.post.quote.account)
+function getQuoteAuthorDisplayName(post: Post): string | null {
+  const profile = new ProfileWrapper(post.account)
   return profile.getDisplayName()
 }
 

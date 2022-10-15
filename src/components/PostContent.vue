@@ -56,14 +56,13 @@ function configureInlineLinks() {
       })
     }
   }
-  const quote = props.post.quote
-  if (quote) {
+  for (const linkedPost of props.post.links) {
     const links = postContentRef.querySelectorAll("a")
     for (const linkElement of Array.from(links)) {
-      if (quote.uri === linkElement.getAttribute("href")) {
+      if (linkedPost.uri === linkElement.getAttribute("href")) {
         linkElement.addEventListener("click", (event: Event) => {
           event.preventDefault()
-          router.push({ name: "post", params: { postId: quote.id } })
+          router.push({ name: "post", params: { postId: linkedPost.id } })
         })
       }
     }
