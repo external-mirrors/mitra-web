@@ -9,10 +9,7 @@
           <router-link :to="{ name: 'about' }">Learn more <span class="arrow">&gt;&gt;</span></router-link>
         </div>
       </div>
-      <form v-if="instance" class="login-form">
-        <div v-if="isLoading" class="login-form-loader">
-          <loader></loader>
-        </div>
+      <div v-if="instance" class="login-form-group">
         <div class="login-type">
           <button
             :class="{ active: loginType === 'password' }"
@@ -27,56 +24,61 @@
             Ethereum
           </button>
         </div>
-        <div class="form-control" v-if="!isRegistered || loginType == 'password'">
-          <div class="input-group">
-            <input
-              id="username"
-              v-model="username"
-              required
-              placeholder="Username"
-            >
-            <div class="addon">@{{ instance.uri }}</div>
+        <form class="login-form">
+          <div v-if="isLoading" class="login-form-loader">
+            <loader></loader>
           </div>
-          <div class="form-message">Only letters, numbers and underscores are allowed.</div>
-        </div>
-        <div class="form-control" v-if="loginType === 'password'">
-          <input
-            id="password"
-            type="password"
-            v-model="password"
-            required
-            placeholder="Password"
+          <div class="form-control" v-if="!isRegistered || loginType == 'password'">
+            <div class="input-group">
+              <input
+                id="username"
+                v-model="username"
+                required
+                placeholder="Username"
+              >
+              <div class="addon">@{{ instance.uri }}</div>
+            </div>
+            <div class="form-message">Only letters, numbers and underscores are allowed.</div>
+          </div>
+          <div class="form-control" v-if="loginType === 'password'">
+            <input
+              id="password"
+              type="password"
+              v-model="password"
+              required
+              placeholder="Password"
+            >
+          </div>
+          <div class="form-control" v-if="!instance.registrations && !isRegistered">
+            <input
+              id="invite-token"
+              v-model="inviteCode"
+              required
+              placeholder="Enter the invite code"
+            >
+          </div>
+          <div class="wallet-required" v-if="loginType === 'eip4361'">
+            <img :src="require('@/assets/forkawesome/ethereum.svg')">
+            <router-link :to="{ name: 'ethereum' }">Ethereum Wallet</router-link> is required
+          </div>
+          <button
+            v-if="isRegistered"
+            type="submit"
+            :disabled="!isLoginFormValid()"
+            @click.prevent="login()"
           >
-        </div>
-        <div class="form-control" v-if="!instance.registrations && !isRegistered">
-          <input
-            id="invite-token"
-            v-model="inviteCode"
-            required
-            placeholder="Enter the invite code"
+            Sign in
+          </button>
+          <button
+            v-else
+            type="submit"
+            :disabled="!isLoginFormValid()"
+            @click.prevent="register()"
           >
-        </div>
-        <div class="wallet-required" v-if="loginType === 'eip4361'">
-          <img :src="require('@/assets/forkawesome/ethereum.svg')">
-          <router-link :to="{ name: 'ethereum' }">Ethereum Wallet</router-link> is required
-        </div>
-        <button
-          v-if="isRegistered"
-          type="submit"
-          :disabled="!isLoginFormValid()"
-          @click.prevent="login()"
-        >
-          Sign in
-        </button>
-        <button
-          v-else
-          type="submit"
-          :disabled="!isLoginFormValid()"
-          @click.prevent="register()"
-        >
-          Sign Up
-        </button>
-        <div class="error-message" v-if="loginErrorMessage" >{{ loginErrorMessage }}</div>
+            Sign Up
+          </button>
+          <div class="error-message" v-if="loginErrorMessage" >{{ loginErrorMessage }}</div>
+        </form>
         <div class="switch-mode">
           <template v-if="isRegistered">Don't have an account?</template>
           <template v-else>Already registered?</template>
@@ -86,7 +88,7 @@
             <template v-else>Sign In</template>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -290,7 +292,7 @@ $text-color: #fff;
   }
 }
 
-.login-form {
+.login-form-group {
   background-color: #1A1818;
   border-radius: 10px;
   box-sizing: border-box;
@@ -299,8 +301,38 @@ $text-color: #fff;
   gap: 15px;
   min-width: $wide-sidebar-width - 50px;
   padding: 30px;
-  position: relative;
   width: $wide-sidebar-width;
+}
+
+.login-type {
+  border-radius: 10px;
+  display: flex;
+
+  button {
+    border: 1px solid #3D3D3D;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+
+    &:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+
+    &.active {
+      background-color: #3D3D3D;
+    }
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
 
   input,
   .addon {
@@ -385,15 +417,6 @@ $text-color: #fff;
       text-decoration: underline;
     }
   }
-
-  .switch-mode {
-    text-align: center;
-
-    button {
-      color: $text-color;
-      text-decoration: underline;
-    }
-  }
 }
 
 .login-form-loader {
@@ -406,41 +429,21 @@ $text-color: #fff;
   z-index: 1;
 
   .loader {
-    margin-bottom: auto;
-    margin-top: auto;
+    margin: auto;
   }
 }
 
-.loader {
-  margin: 0 auto;
-}
-
-.login-type {
-  border-radius: 10px;
-  display: flex;
+.switch-mode {
+  text-align: center;
 
   button {
-    border: 1px solid #3D3D3D;
-    color: #fff;
-    padding: 10px;
-    width: 100%;
-
-    &:first-child {
-      border-radius: 10px 0 0 10px;
-    }
-
-    &:last-child {
-      border-radius: 0 10px 10px 0;
-    }
-
-    &.active {
-      background-color: #3D3D3D;
-    }
+    color: $text-color;
+    text-decoration: underline;
   }
 }
 
 @media screen and (max-width: $screen-breakpoint-medium) {
-  .login-form {
+  .login-form-group {
     padding: 25px;
   }
 }
@@ -455,13 +458,9 @@ $text-color: #fff;
     justify-content: flex-start;
   }
 
-  .login-form {
+  .login-form-group {
     margin-right: auto;
     min-width: auto;
-
-    .form-title {
-      text-align: left;
-    }
   }
 }
 </style>
