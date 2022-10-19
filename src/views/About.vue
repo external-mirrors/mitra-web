@@ -32,6 +32,5 @@ const { instance } = $(useInstanceInfo())
 /* Internal page */
 .content .description {
   font-size: 18px;
-  font-weight: lighter;
 }
 </style>
