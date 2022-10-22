@@ -16,6 +16,7 @@
             v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
             :src="require('@/assets/tabler/coin.svg')"
           >
+          <img v-else-if="notification.type === 'move'" :src="require('@/assets/feather/truck.svg')">
           <router-link
             :title="getSenderInfo(notification)"
             :to="{ name: 'profile', params: { profileId: notification.account.id } }"
@@ -29,6 +30,7 @@
           <span v-else-if="notification.type === 'reblog'">reposted your post</span>
           <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
           <span v-else-if="notification.type === 'subscription_expiration'">subscription expired</span>
+          <span v-else-if="notification.type === 'move'">moved to a new instance</span>
         </div>
         <post
           v-if="notification.status"
