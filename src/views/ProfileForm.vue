@@ -65,7 +65,7 @@
             </a>
           </div>
           <button
-            v-if="form.fields_attributes.length <= extraFieldMaxCount"
+            v-if="canAddExtraField()"
             type="button"
             class="add-extra-field"
             @click="addExtraField()"
@@ -174,7 +174,7 @@ function isValidExtraField(index: number): boolean {
   const field = form.fields_attributes[index]
   for (let prevIndex = 0; prevIndex < index; prevIndex++) {
     const prevField = form.fields_attributes[prevIndex]
-    if (field.name === prevField.name) {
+    if (field.name && field.name === prevField.name) {
       // Label is not unique
       return false
     }
@@ -184,6 +184,10 @@ function isValidExtraField(index: number): boolean {
 
 function removeExtraField(index: number) {
   form.fields_attributes.splice(index, 1)
+}
+
+function canAddExtraField(): boolean {
+  return form.fields_attributes.length <= extraFieldMaxCount
 }
 
 function addExtraField() {
