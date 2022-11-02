@@ -225,6 +225,44 @@ export async function updateProfile(
   }
 }
 
+interface UnsignedActivity {
+  internal_activity_id: string,
+  activity: string,
+}
+
+export async function getUnsignedUpdate(
+  authToken: string,
+): Promise<UnsignedActivity> {
+  const url = `${BACKEND_URL}/api/v1/accounts/signed_update`
+  const response = await http(url, { authToken })
+  const data = await response.json()
+  return data
+}
+
+export async function sendSignedUpdate(
+  authToken: string,
+  internalActivityId: string,
+  walletAddress: string,
+  signature: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/accounts/signed_update`
+  const response = await http(url, {
+    method: "POST",
+    json: {
+      internal_activity_id: internalActivityId,
+      signer: createDidFromEthereumAddress(walletAddress),
+      signature: signature.replace(/0x/, ""),
+    },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
+
 export async function getIdentityClaim(
   authToken: string,
   walletAddress: string,

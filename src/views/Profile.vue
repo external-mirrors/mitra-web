@@ -52,6 +52,14 @@
                   Link ethereum address
                 </button>
               </li>
+              <li v-if="canVerifyEthereumAddress()">
+                <button
+                  title="Send signed update"
+                  @click="hideProfileMenu(); onSignActivity()"
+                >
+                  Send signed update
+                </button>
+              </li>
               <li v-if="canManageSubscriptions()">
                 <router-link
                   title="Manage subscriptions"
@@ -237,6 +245,7 @@ import PostList from "@/components/PostList.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
+import { useSignedActivity } from "@/composables/signed-activity"
 import { BACKEND_URL } from "@/constants"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -478,6 +487,14 @@ async function onVerifyEthereumAddress() {
   if (user) {
     profile.identity_proofs = user.identity_proofs
   }
+}
+
+async function onSignActivity() {
+  if (!profile || !isCurrentUser()) {
+    return
+  }
+  const { signActivity } = useSignedActivity()
+  await signActivity()
 }
 
 function isSubscriptionsFeatureEnabled(): boolean {
