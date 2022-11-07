@@ -1,4 +1,4 @@
-import { getUnsignedUpdate, sendSignedUpdate } from "@/api/users"
+import { getUnsignedUpdate, sendSignedActivity } from "@/api/users"
 import { useCurrentUser } from "@/store/user"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
@@ -13,11 +13,11 @@ async function signActivity(): Promise<void> {
   }
   const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
-  const { internal_activity_id, activity } = await getUnsignedUpdate(authToken)
-  const signature = await getWalletSignature(signer, activity)
-  await sendSignedUpdate(
+  const { params, message } = await getUnsignedUpdate(authToken)
+  const signature = await getWalletSignature(signer, message)
+  await sendSignedActivity(
     authToken,
-    internal_activity_id,
+    params,
     walletAddress,
     signature,
   )

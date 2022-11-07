@@ -240,9 +240,14 @@ export async function updateProfile(
   }
 }
 
+interface ActivityParams {
+  type: "update",
+  [key: string]: any,
+}
+
 interface UnsignedActivity {
-  internal_activity_id: string,
-  activity: string,
+  params: ActivityParams,
+  message: string,
 }
 
 export async function getUnsignedUpdate(
@@ -254,17 +259,17 @@ export async function getUnsignedUpdate(
   return data
 }
 
-export async function sendSignedUpdate(
+export async function sendSignedActivity(
   authToken: string,
-  internalActivityId: string,
+  activityParams: ActivityParams,
   walletAddress: string,
   signature: string,
 ): Promise<void> {
-  const url = `${BACKEND_URL}/api/v1/accounts/signed_update`
+  const url = `${BACKEND_URL}/api/v1/accounts/send_activity`
   const response = await http(url, {
     method: "POST",
     json: {
-      internal_activity_id: internalActivityId,
+      params: activityParams,
       signer: createDidFromEthereumAddress(walletAddress),
       signature: signature.replace(/0x/, ""),
     },
