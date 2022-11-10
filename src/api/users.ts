@@ -266,24 +266,24 @@ export async function sendSignedUpdate(
 export async function getIdentityClaim(
   authToken: string,
   walletAddress: string,
-): Promise<string> {
+): Promise<{ did: string, claim: string }> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
-  const queryParams = { did: createDidFromEthereumAddress(walletAddress) }
+  const queryParams = { proof_type: "ethereum", signer: walletAddress }
   const response = await http(url, { authToken, queryParams })
   const data = await response.json()
-  return data.claim
+  return data
 }
 
 export async function createIdentityProof(
   authToken: string,
-  walletAddress: string,
+  did: string,
   signature: string,
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const response = await http(url, {
     method: "POST",
     json: {
-      did: createDidFromEthereumAddress(walletAddress),
+      did: did,
       signature: signature.replace(/0x/, ""),
     },
     authToken,
