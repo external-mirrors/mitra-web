@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
+import IdentityProof from "@/views/IdentityProof.vue"
 import LandingPage from "../views/LandingPage.vue"
 import NotificationList from "../views/NotificationList.vue"
 import ProfileDirectory from "../views/ProfileDirectory.vue"
@@ -117,6 +118,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings",
     name: "settings",
     component: ProfileForm,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/identity-proof",
+    name: "identity-proof",
+    component: IdentityProof,
     meta: { onlyAuthenticated: true },
   },
   {

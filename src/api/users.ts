@@ -265,10 +265,11 @@ export async function sendSignedUpdate(
 
 export async function getIdentityClaim(
   authToken: string,
-  walletAddress: string,
+  proofType: "ethereum" | "minisign",
+  signer: string,
 ): Promise<{ did: string, claim: string }> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
-  const queryParams = { proof_type: "ethereum", signer: walletAddress }
+  const queryParams = { proof_type: proofType, signer }
   const response = await http(url, { authToken, queryParams })
   const data = await response.json()
   return data
@@ -284,7 +285,7 @@ export async function createIdentityProof(
     method: "POST",
     json: {
       did: did,
-      signature: signature.replace(/0x/, ""),
+      signature: signature.replace(/^0x/, ""),
     },
     authToken,
   })

@@ -52,6 +52,14 @@
                   Link ethereum address
                 </button>
               </li>
+              <li v-if="isCurrentUser()">
+                <router-link
+                  title="Link minisign key"
+                  :to="{ name: 'identity-proof' }"
+                >
+                  Link minisign key
+                </router-link>
+              </li>
               <li v-if="canVerifyEthereumAddress()">
                 <button
                   title="Send signed update"
