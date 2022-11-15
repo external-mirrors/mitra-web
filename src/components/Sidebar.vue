@@ -39,6 +39,7 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
+import { revokeAccessToken } from "@/api/users"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
@@ -68,7 +69,8 @@ function isSubscriptionsFeatureEnabled(): boolean {
   return Boolean(blockchain?.features.subscriptions)
 }
 
-function logout() {
+async function logout() {
+  await revokeAccessToken(ensureAuthToken())
   setCurrentUser(null)
   setAuthToken(null)
   router.push({ name: "landing-page" })

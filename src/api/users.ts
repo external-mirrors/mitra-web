@@ -158,6 +158,21 @@ export async function getAccessToken(
   }
 }
 
+export async function revokeAccessToken(
+  authToken: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/oauth/revoke`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { token: authToken },
+  })
+  if (response.status !== 200) {
+    const data = await response.json()
+    throw new Error(data.message)
+  }
+}
+
 export async function getCurrentUser(authToken: string): Promise<User | null> {
   const url = `${BACKEND_URL}/api/v1/accounts/verify_credentials`
   const response = await http(url, { authToken })
