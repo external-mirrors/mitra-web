@@ -97,7 +97,13 @@
             <div class="actor-address">@{{ actorAddress }}</div>
           </div>
           <div class="buttons">
-            <router-link v-if="isCurrentUser()" class="edit-profile btn" to="/settings">Edit profile</router-link>
+            <router-link
+              v-if="isCurrentUser()"
+              class="edit-profile btn"
+              :to="{ name: 'settings-profile' }"
+            >
+              Edit profile
+            </router-link>
             <button v-if="canFollow()" class="follow btn" @click="onFollow()">Follow</button>
             <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
               <template v-if="isFollowRequestPending()">Cancel follow request</template>

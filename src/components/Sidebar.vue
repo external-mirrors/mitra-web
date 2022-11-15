@@ -23,6 +23,10 @@
       <div class="icon"><img :src="require('@/assets/tabler/coin.svg')"></div>
       <span>Subscriptions</span>
     </router-link>
+    <router-link class="sidebar-link" :to="{ name: 'settings' }">
+      <div class="icon"><img :src="require('@/assets/feather/settings.svg')"></div>
+      <span>Settings</span>
+    </router-link>
     <router-link class="sidebar-link" to="/about">
       <div class="icon"><img :src="require('@/assets/feather/help-circle.svg')"></div>
       <span>About</span>

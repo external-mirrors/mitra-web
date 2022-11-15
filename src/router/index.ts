@@ -3,14 +3,15 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import AboutPage from "@/views/About.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
-import LandingPage from "../views/LandingPage.vue"
-import NotificationList from "../views/NotificationList.vue"
-import ProfileDirectory from "../views/ProfileDirectory.vue"
+import LandingPage from "@/views/LandingPage.vue"
+import NotificationList from "@/views/NotificationList.vue"
+import ProfileDirectory from "@/views/ProfileDirectory.vue"
 import ProfileView from "@/views/Profile.vue"
 import ProfileForm from "@/views/ProfileForm.vue"
 import PostDetail from "@/views/PostDetail.vue"
 import PostOverlay from "@/views/PostOverlay.vue"
 import PublicTimeline from "@/views/PublicTimeline.vue"
+import SettingsPage from "@/views/Settings.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
@@ -117,6 +118,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/settings",
     name: "settings",
+    component: SettingsPage,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/profile",
+    name: "settings-profile",
     component: ProfileForm,
     meta: { onlyAuthenticated: true },
   },

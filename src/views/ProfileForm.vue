@@ -1,8 +1,8 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <form @submit.prevent="save()">
-        <h1>Edit profile</h1>
+      <h1>Edit profile</h1>
+      <form class="profile-form" @submit.prevent="save()">
         <div class="input-group">
           <label for="display-name">Display name</label>
           <input id="display-name" v-model.trim="form.display_name">
@@ -203,37 +203,19 @@ function isFormValid(): boolean {
 
 async function save() {
   const authToken = ensureAuthToken()
-  const profile = await updateProfile(authToken, form)
-  setCurrentUser(profile)
-  router.push({ name: "profile", params: { profileId: profile.id } })
+  const user = await updateProfile(authToken, form)
+  setCurrentUser(user)
+  router.push({ name: "profile", params: { profileId: user.id } })
 }
 </script>
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 @import "../styles/theme";
 
-.input-group {
-  margin-bottom: $block-outer-padding;
-
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: $input-padding;
-  }
-
-  .sub-label {
-    color: $secondary-text-color;
-    font-size: 12px;
-    font-weight: normal;
-    margin-top: 3px;
-  }
-
-  input,
-  textarea {
-    border-radius: $btn-border-radius;
-    width: 100%;
-  }
+.profile-form {
+  @include content-form;
 }
 
 .image-upload-group {

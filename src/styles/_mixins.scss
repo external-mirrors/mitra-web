@@ -124,3 +124,28 @@
     }
   }
 }
+
+@mixin content-form {
+  .input-group {
+    margin-bottom: $block-outer-padding;
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: $input-padding;
+    }
+
+    .sub-label {
+      color: $secondary-text-color;
+      font-size: 12px;
+      font-weight: normal;
+      margin-top: 3px;
+    }
+
+    input,
+    textarea {
+      border-radius: $btn-border-radius;
+      width: 100%;
+    }
+  }
+}
