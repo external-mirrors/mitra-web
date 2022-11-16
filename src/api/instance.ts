@@ -2,6 +2,7 @@ import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
 
 interface Features {
+  gate: boolean;
   minter: boolean;
   subscriptions: boolean;
 }

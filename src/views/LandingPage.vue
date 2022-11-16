@@ -12,6 +12,7 @@
       <div v-if="instance" class="login-form-group">
         <div class="login-type">
           <button
+            v-if="!isWalletRequired()"
             :class="{ active: loginType === 'password' }"
             @click.prevent="loginType = 'password'; loginErrorMessage = null"
           >
@@ -94,7 +95,8 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { watch } from "vue"
+import { $, $$, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import {
@@ -116,12 +118,28 @@ const { setCurrentUser, setAuthToken } = useCurrentUser()
 const { instance } = $(useInstanceInfo())
 
 const isRegistered = $ref(true)
-const loginType = $ref<"password" | "eip4361">(hasEthereumWallet() ? "eip4361" : "password")
 const username = $ref("")
 const password = $ref<string | null>(null)
 const inviteCode = $ref<string | null>(null)
+let loginType = $ref<"password" | "eip4361">("password")
 let isLoading = $ref(false)
 let loginErrorMessage = $ref<string | null>(null)
+
+function isWalletRequired(): boolean {
+  if (!instance) {
+    return false
+  }
+  const blockchain = instance?.blockchains[0]
+  return Boolean(blockchain?.features.gate)
+}
+
+watch($$(instance), () => {
+  if (hasEthereumWallet() || isWalletRequired()) {
+    // Switch to EIP-4361 if wallet is present or
+    // if registration is token-gated
+    loginType = "eip4361"
+  }
+}, { immediate: true })
 
 function isLoginFormValid(): boolean {
   if (!instance) {
@@ -315,11 +333,13 @@ $text-color: #fff;
     width: 100%;
 
     &:first-child {
-      border-radius: 10px 0 0 10px;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
     }
 
     &:last-child {
-      border-radius: 0 10px 10px 0;
+      border-bottom-right-radius: 10px;
+      border-top-right-radius: 10px;
     }
 
     &.active {
