@@ -160,6 +160,10 @@ async function logout() {
     span {
       display: none;
     }
+
+    .icon {
+      margin: 0;
+    }
   }
 }
 </style>
