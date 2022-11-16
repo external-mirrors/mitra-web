@@ -74,7 +74,11 @@
             Add new item
           </button>
         </div>
-        <button type="submit" class="btn" :disabled="!isFormValid()">
+        <button
+          type="submit"
+          class="btn"
+          :disabled="!isFormValid() || isLoading"
+        >
           Save
         </button>
       </form>
@@ -105,6 +109,7 @@ const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser(
 
 const extraFieldMaxCount = 10
 const profile = ensureCurrentUser()
+let isLoading = $ref(false)
 
 function getFieldsAttributes() {
   const fields_attributes = []
@@ -203,7 +208,9 @@ function isFormValid(): boolean {
 
 async function save() {
   const authToken = ensureAuthToken()
+  isLoading = true
   const user = await updateProfile(authToken, form)
+  isLoading = false
   setCurrentUser(user)
   router.push({ name: "profile", params: { profileId: user.id } })
 }
