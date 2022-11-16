@@ -40,6 +40,7 @@
       <a
         class="timestamp"
         :href="post.uri"
+        :title="formatDate(post.created_at)"
         @click="navigateTo($event, post.id)"
       >
         {{ humanizeDate(post.created_at) }}
@@ -116,7 +117,7 @@
       <button
         v-if="canRepost()"
         class="icon"
-        :class="{ 'highlighted': post.reblogged }"
+        :class="{ highlighted: post.reblogged }"
         title="Repost"
         @click="toggleRepost()"
       >
@@ -130,7 +131,7 @@
       <button
         v-if="canLike()"
         class="icon"
-        :class="{ 'highlighted': post.favourited }"
+        :class="{ highlighted: post.favourited }"
         title="Like"
         @click="toggleLike()"
       >
@@ -265,7 +266,7 @@ import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
-import { humanizeDate } from "@/utils/dates"
+import { formatDate, humanizeDate } from "@/utils/dates"
 
 interface PaymentOption {
   code: string;
