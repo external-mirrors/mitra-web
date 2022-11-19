@@ -23,3 +23,9 @@ onMounted(async () => {
   qrSvg = await QRCode.toString(props.url, { type: "svg" })
 })
 </script>
+
+<style scoped lang="scss">
+:deep(svg) {
+  width: 100%;
+}
+</style>
