@@ -34,6 +34,25 @@
           </div>
         </form>
       </section>
+      <section>
+        <h2>Export</h2>
+        <table class="export">
+          <tr>
+            <td>Follows</td>
+            <td>{{ currentUser.following_count }}</td>
+            <td>
+              <a @click="onExportFollows()">download</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Followers</td>
+            <td>{{ currentUser.followers_count }}</td>
+            <td>
+              <a @click="onExportFollowers()">download</a>
+            </td>
+          </tr>
+        </table>
+      </section>
     </template>
   </sidebar-layout>
 </template>
@@ -41,11 +60,12 @@
 <script setup lang="ts">
 import { $, $ref } from "vue/macros"
 
+import { exportFollowers, exportFollows } from "@/api/settings"
 import { changePassword } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
-const { ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
 let passwordFormMessage = $ref<string | null>(null)
@@ -61,6 +81,16 @@ async function onChangePassword() {
   newPassword = ""
   newPasswordConfirmation = ""
   passwordFormMessage = "Password changed"
+}
+
+async function onExportFollows() {
+  const authToken = ensureAuthToken()
+  await exportFollows(authToken)
+}
+
+async function onExportFollowers() {
+  const authToken = ensureAuthToken()
+  await exportFollowers(authToken)
 }
 </script>
 
@@ -79,5 +109,20 @@ form {
 
 .password-form-message {
   margin-top: $block-outer-padding;
+}
+
+.export {
+  td {
+    font-weight: bold;
+    padding: 0 $block-inner-padding $block-inner-padding 0;
+
+    &:last-child {
+      font-weight: normal;
+    }
+  }
+
+  a {
+    color: $block-link-color;
+  }
 }
 </style>
