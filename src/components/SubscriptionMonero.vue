@@ -94,8 +94,15 @@
         </template>
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
         <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
+        <template v-else-if="invoice.status === 'forwarded'">Payment completed</template>
       </div>
-      <button class="btn" @click.prevent="checkInvoice()">Refresh</button>
+      <button
+        v-if="invoice.status === 'forwarded' || invoice.status === 'timeout'"
+        class="btn"
+        @click="closeInvoice()"
+      >
+        OK
+      </button>
     </div>
     <loader v-if="isLoading"></loader>
   </div>
@@ -144,13 +151,20 @@ let invoice = $ref<Invoice | null>(null)
 let isLoading = $ref(false)
 
 onMounted(async () => {
+  isLoading = true
   subscriptionOption = recipient.payment_options.find((option) => {
     return option.type === "monero-subscription" && option.price !== undefined
   }) || null
   if (subscriptionOption && sender.id !== "") {
     subscriptionDetails = await findSubscription(sender.id, recipient.id)
   }
-  await checkInvoice()
+  if (route.query.invoice_id) {
+    invoice = await getInvoice(route.query.invoice_id as string)
+    if (invoice && invoice.status !== "forwarded") {
+      watchInvoice()
+    }
+  }
+  isLoading = false
 })
 
 // Human-readable subscription price
@@ -226,26 +240,33 @@ async function onCreateInvoice() {
     `${window.location.pathname}?invoice_id=${invoice.id}`,
   )
   isLoading = false
+  watchInvoice()
 }
 
-async function checkInvoice() {
-  const invoiceId = invoice?.id || route.query.invoice_id
-  if (!invoiceId) {
-    return
-  }
-  isLoading = true
-  invoice = await getInvoice(invoiceId as string)
-  if (invoice.status === "forwarded") {
-    subscriptionDetails = await findSubscription(sender.id, recipient.id)
-    invoice = null
-    // Remove invoice ID from current URL
-    window.history.pushState(
-      {},
-      "",
-      window.location.pathname,
-    )
-  }
-  isLoading = false
+function watchInvoice() {
+  const watcher = setInterval(async () => {
+    if (!invoice) {
+      // Stop watching if invoice was closed
+      clearInterval(watcher)
+      return
+    }
+    invoice = await getInvoice(invoice.id)
+    if (invoice.status === "forwarded") {
+      // Stop watching and refresh subscription details
+      clearInterval(watcher)
+      subscriptionDetails = await findSubscription(sender.id, recipient.id)
+    }
+  }, 10000)
+}
+
+function closeInvoice() {
+  invoice = null
+  // Remove invoice ID from current URL
+  window.history.pushState(
+    {},
+    "",
+    window.location.pathname,
+  )
 }
 
 function getPaymentUri(invoice: Invoice): string {
