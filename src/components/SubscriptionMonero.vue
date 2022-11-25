@@ -78,7 +78,7 @@
       </button>
     </form>
     <div class="invoice" v-if="invoice">
-      <template v-if="invoice.status === 'open' || invoice.status === 'timeout'">
+      <template v-if="invoice.status === 'open'">
         <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
         <a
           class="payment-address"
@@ -89,9 +89,11 @@
         <qr-code :url="getPaymentUri(invoice)"></qr-code>
       </template>
       <div class="invoice-status">
-        <template v-if="invoice.status === 'open'">Waiting for payment</template>
+        <template v-if="invoice.status === 'open'">
+          Waiting for payment ({{ getPaymentMinutesLeft(invoice) }} minutes left)
+        </template>
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
-        <template v-else-if="invoice.status === 'timeout'">Timeout</template>
+        <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
       </div>
       <button class="btn" @click.prevent="checkInvoice()">Refresh</button>
     </div>
@@ -252,6 +254,13 @@ function getPaymentUri(invoice: Invoice): string {
     formatXmrAmount(invoice.amount),
   )
 }
+
+function getPaymentMinutesLeft(invoice: Invoice): number {
+  const expiresAt = DateTime.fromISO(invoice.expires_at)
+  const now = DateTime.now()
+  const diff = expiresAt.diff(now)
+  return Math.round(diff.as("minutes"))
+}
 </script>
 
 <style scoped lang="scss">
@@ -375,6 +384,7 @@ function getPaymentUri(invoice: Invoice): string {
   display: flex;
   flex-direction: column;
   gap: $block-inner-padding;
+  padding-bottom: $block-inner-padding;
 
   .payment-address {
     font-family: monospace;

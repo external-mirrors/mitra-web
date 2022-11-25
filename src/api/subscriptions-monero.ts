@@ -57,6 +57,7 @@ export interface Invoice {
   payment_address: string,
   amount: number,
   status: string,
+  expires_at: string,
 }
 
 export async function createInvoice(
