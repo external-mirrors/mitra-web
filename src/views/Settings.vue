@@ -60,8 +60,7 @@
 <script setup lang="ts">
 import { $, $ref } from "vue/macros"
 
-import { exportFollowers, exportFollows } from "@/api/settings"
-import { changePassword } from "@/api/users"
+import { changePassword, exportFollowers, exportFollows } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 

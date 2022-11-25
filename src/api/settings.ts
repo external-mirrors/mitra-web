@@ -1,5 +1,24 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
+import { User } from "./users"
+
+export async function changePassword(
+  authToken: string,
+  newPassword: string,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/settings/change_password`
+  const response = await http(url, {
+    method: "POST",
+    json: { new_password: newPassword },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
 
 async function downloadBlob(blob: Blob) {
   const fileUrl = window.URL.createObjectURL(blob)
