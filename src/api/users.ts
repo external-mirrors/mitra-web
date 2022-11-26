@@ -250,6 +250,25 @@ interface UnsignedActivity {
   message: string,
 }
 
+export async function getUnsignedMove(
+  authToken: string,
+  fromActorId: string,
+  followersCsv: string,
+): Promise<UnsignedActivity> {
+  const url = `${BACKEND_URL}/api/v1/accounts/move_followers`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { from_actor_id: fromActorId, followers_csv: followersCsv },
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
+
 export async function getUnsignedUpdate(
   authToken: string,
 ): Promise<UnsignedActivity> {

@@ -507,8 +507,8 @@ async function onSignActivity() {
   if (!profile || !isCurrentUser()) {
     return
   }
-  const { signActivity } = useSignedActivity()
-  await signActivity()
+  const { signUpdateActivity } = useSignedActivity()
+  await signUpdateActivity()
 }
 
 function isSubscriptionsFeatureEnabled(): boolean {

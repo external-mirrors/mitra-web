@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
+import EthereumPage from "@/views/Ethereum.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
 import LandingPage from "@/views/LandingPage.vue"
+import MoveFollowers from "@/views/MoveFollowers.vue"
 import NotificationList from "@/views/NotificationList.vue"
 import ProfileDirectory from "@/views/ProfileDirectory.vue"
 import ProfileView from "@/views/Profile.vue"
@@ -16,7 +18,6 @@ import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
-import EthereumPage from "@/views/Ethereum.vue"
 
 import { useCurrentUser } from "@/store/user"
 
@@ -125,6 +126,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings/profile",
     name: "settings-profile",
     component: ProfileForm,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/move-followers",
+    name: "move-followers",
+    component: MoveFollowers,
     meta: { onlyAuthenticated: true },
   },
   {
