@@ -317,6 +317,7 @@ $text-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-width: 100%;
   min-width: $wide-sidebar-width - 50px;
   padding: 30px;
   width: $wide-sidebar-width;
@@ -384,8 +385,13 @@ $text-color: #fff;
     .addon {
       border-radius: 0 10px 10px 0;
       color: #B3B3B3;
+      flex-shrink: 0;
+      max-width: 40%;
+      overflow: hidden;
       padding-left: 0;
       text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
