@@ -26,7 +26,7 @@
         title="Go to previous post"
         @mouseover="highlight(post.in_reply_to_id)"
         @mouseleave="highlight(null)"
-        @click="navigateTo($event, post.in_reply_to_id)"
+        @click.prevent="scrollTo(post.in_reply_to_id)"
       >
         <img :src="require('@/assets/tabler/corner-left-up.svg')">
       </a>
@@ -41,7 +41,7 @@
         class="timestamp"
         :href="post.uri"
         :title="formatDate(post.created_at)"
-        @click="navigateTo($event, post.id)"
+        @click="openPost($event, post.id)"
       >
         {{ humanizeDate(post.created_at) }}
       </a>
@@ -71,7 +71,7 @@
       class="post-quote"
       :href="linkedPost.uri"
       :key="linkedPost.id"
-      @click="navigateTo($event, linkedPost.id)"
+      @click="openPost($event, linkedPost.id, true)"
     >
       <div class="quote-header">
         <avatar :profile="linkedPost.account"></avatar>
@@ -314,14 +314,18 @@ function highlight(postId: string | null) {
   emit("highlight", postId)
 }
 
-function navigateTo(event: Event, postId: string) {
+function scrollTo(postId: string) {
+  emit("navigate-to", postId)
+}
+
+function openPost(event: Event, postId: string, forcePush = false) {
   if (currentUser === null) {
     // Viewing as guest; do not override click handler
     return
   }
   event.preventDefault()
-  if (props.inThread) {
-    emit("navigate-to", postId)
+  if (props.inThread && !forcePush) {
+    scrollTo(postId)
   } else {
     router.push({ name: "post", params: { postId: postId } })
   }
