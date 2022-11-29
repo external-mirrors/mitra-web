@@ -15,6 +15,7 @@
         @comment-created="onCommentCreated(index, $event)"
         @post-deleted="onPostDeleted(index)"
       ></post>
+      <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
 </template>
@@ -25,6 +26,7 @@ import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { Post as PostObject, getPostContext } from "@/api/posts"
+import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
@@ -36,11 +38,11 @@ let selectedId = $ref(route.params.postId as string)
 let highlightedId = $ref<string | null>(null)
 let thread = $ref<PostObject[]>([])
 let isLoading = $ref(true)
-const loader = $ref(getPostContext(authToken, selectedId))
+const loaded = $ref(getPostContext(authToken, selectedId))
 
 onMounted(async () => {
   try {
-    thread = await loader
+    thread = await loaded
   } catch (error: any) {
     if (error.message === "post not found") {
       // Show "not found" text
@@ -117,5 +119,9 @@ function onPostDeleted(postIndex: number) {
 
 .post {
   margin: 0 0 $block-outer-padding;
+}
+
+.loader {
+  margin: $block-outer-padding auto;
 }
 </style>
