@@ -32,12 +32,6 @@
           <img :src="attachment.url">
         </div>
       </div>
-      <input
-        v-if="linkListInputVisible"
-        id="link-list"
-        v-model="linkList"
-        placeholder="Enter post IDs (separated by commas)"
-      >
       <div class="toolbar">
         <button
           type="button"
@@ -45,7 +39,6 @@
           title="Attach image"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
-          @click.middle="canAddLink() ? linkListInputVisible = !linkListInputVisible : null"
         >
           <img :src="require('@/assets/feather/paperclip.svg')">
           <input
@@ -55,15 +48,6 @@
             style="display: none;"
             @change="onAttachmentUpload($event)"
           >
-        </button>
-        <button
-          v-if="canAddLink() && false"
-          type="button"
-          class="icon"
-          title="Add link"
-          @click="linkListInputVisible = !linkListInputVisible"
-        >
-          <img :src="require('@/assets/tabler/quote.svg')">
         </button>
         <div
           class="dropdown-menu-wrapper"
@@ -159,10 +143,8 @@ const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 
 let content = $ref("")
 let attachments = $ref<Attachment[]>([])
-let linkList = $ref<string | null>(null)
 let visibility = $ref(Visibility.Public)
 
-let linkListInputVisible = $ref(false)
 let visibilityMenuVisible = $ref(false)
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
@@ -221,10 +203,6 @@ function removeAttachment(index: number) {
   attachments.splice(index, 1)
 }
 
-function canAddLink(): boolean {
-  return props.inReplyTo === null && visibility === Visibility.Public
-}
-
 function toggleVisibilityMenu() {
   visibilityMenuVisible = !visibilityMenuVisible
 }
@@ -251,7 +229,6 @@ async function publish(contentType = "text/markdown") {
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],
-    links: linkList ? linkList.split(",") : [],
     attachments: attachments,
   }
   isLoading = true
@@ -271,8 +248,6 @@ async function publish(contentType = "text/markdown") {
   isLoading = false
   content = ""
   attachments = []
-  linkList = null
-  linkListInputVisible = false
   if (postFormContentRef) {
     await nextTick()
     triggerResize(postFormContentRef)
@@ -343,12 +318,6 @@ $line-height: 1.5;
   > img {
     width: 100%;
   }
-}
-
-#link-list {
-  border-top: 1px solid $separator-color;
-  line-height: $line-height;
-  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 }
 
 .toolbar {

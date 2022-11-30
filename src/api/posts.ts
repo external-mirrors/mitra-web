@@ -161,7 +161,6 @@ export interface PostData {
   in_reply_to_id: string | null;
   visibility: string;
   mentions: string[];
-  links: string[];
   attachments: Attachment[];
 }
 
@@ -178,7 +177,6 @@ export async function createPost(
     in_reply_to_id: postData.in_reply_to_id,
     visibility: postData.visibility,
     mentions: postData.mentions,
-    links: postData.links,
   }
   const response = await http(url, {
     method: "POST",
