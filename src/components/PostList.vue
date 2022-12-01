@@ -8,6 +8,7 @@
   <button
     v-if="isPageFull()"
     class="btn secondary next-btn"
+    :disabled="isNextPageLoading"
     @click="loadNextPage()"
   >
     Show more posts
@@ -16,6 +17,7 @@
 
 <script setup lang="ts">
 import { watch } from "vue"
+import { $ref } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Post as PostObject } from "@/api/posts"
@@ -31,11 +33,13 @@ const emit = defineEmits<{
 }>()
 
 let initialPostCount: number | null = null
+let isNextPageLoading = $ref(false)
 
-watch(() => props.posts.length, (postCount) => {
+watch(() => props.posts, (posts) => {
   if (initialPostCount === null) {
-    initialPostCount = postCount
+    initialPostCount = posts.length
   }
+  isNextPageLoading = false
 })
 
 function onPostDeleted(postId: string) {
@@ -51,6 +55,7 @@ function isPageFull(): boolean {
 function loadNextPage() {
   if (props.posts.length > 0) {
     const maxId = props.posts[props.posts.length - 1].id
+    isNextPageLoading = true
     emit("load-next-page", maxId)
   }
 }

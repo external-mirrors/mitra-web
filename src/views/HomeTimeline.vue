@@ -38,7 +38,7 @@ function insertPost(post: Post) {
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
   const nextPage = await getHomeTimeline(authToken, maxId)
-  posts.push(...nextPage)
+  posts = [...posts, ...nextPage]
 }
 </script>
 
