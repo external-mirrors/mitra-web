@@ -28,6 +28,7 @@ export interface InstanceInfo {
   title: string;
   short_description: string;
   description: string;
+  description_html: string;
   version: string;
   registrations: boolean;
   login_message: string;

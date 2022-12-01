@@ -2,7 +2,7 @@
   <sidebar-layout v-if="currentUser">
     <template #content v-if="instance">
       <h1>{{ instance.title }}</h1>
-      <div class="description static-text" v-html="renderMarkdown(instance.description)"></div>
+      <div class="description static-text" v-html="instance.description_html"></div>
       <details class="technical-info static-text">
         <summary>Technical Info</summary>
         mitra version: {{ getMitraVersion(instance.version) }}
@@ -14,7 +14,7 @@
   <static-page v-else-if="currentUser === null && instance" class="wide">
     <template #heading>{{ instance.title }}</template>
     <template #text>
-      <div v-html="renderMarkdown(instance.description)"></div>
+      <div v-html="instance.description_html"></div>
     </template>
   </static-page>
 </template>
@@ -27,7 +27,6 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import StaticPage from "@/components/StaticPage.vue"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
-import { renderMarkdown } from "@/utils/markdown"
 
 const { currentUser } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
