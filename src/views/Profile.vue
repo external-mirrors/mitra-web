@@ -143,10 +143,10 @@
           <div
             v-for="field in fields"
             class="field"
-            :class="{'verified': field.verified_at}"
+            :class="{ verified: field.verified_at }"
             :key="field.name"
           >
-            <div class="name">{{ field.name }}</div>
+            <div class="name" :title="field.name">{{ field.name }}</div>
             <div class="value" v-html="field.value"></div>
             <div class="verified-icon" v-if="field.verified_at">
               <img
@@ -259,6 +259,7 @@ import {
   Profile,
   ProfileField,
   ProfileWrapper,
+  EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
@@ -372,7 +373,9 @@ const fields = $computed<ProfileField[]>(() => {
   if (!profile) {
     return []
   }
-  return profile.identity_proofs.concat(profile.fields)
+  return profile.identity_proofs
+    .concat(profile.fields)
+    .slice(0, EXTRA_FIELD_COUNT_MAX)
 })
 
 function isCurrentUser(): boolean {
@@ -734,6 +737,8 @@ $avatar-size: 170px;
     .name {
       font-weight: bold;
       min-width: 120px;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
       width: 120px;
     }
 

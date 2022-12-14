@@ -42,7 +42,7 @@
         <div class="extra-fields input-group">
           <label>
             Additional info
-            <div class="sub-label">You can have up to {{ extraFieldMaxCount }} items displayed as a table on your profile</div>
+            <div class="sub-label">You can have up to {{ EXTRA_FIELD_COUNT_MAX }} items displayed as a table on your profile</div>
           </label>
           <div
             v-for="(field, index) in form.fields_attributes"
@@ -96,6 +96,7 @@ import {
   ProfileFieldAttrs,
   ProfileUpdateData,
   updateProfile,
+  EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -107,7 +108,6 @@ import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 const router = useRouter()
 const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser())
 
-const extraFieldMaxCount = 10
 const profile = ensureCurrentUser()
 let isLoading = $ref(false)
 
@@ -192,7 +192,7 @@ function removeExtraField(index: number) {
 }
 
 function canAddExtraField(): boolean {
-  return form.fields_attributes.length <= extraFieldMaxCount
+  return form.fields_attributes.length <= EXTRA_FIELD_COUNT_MAX
 }
 
 function addExtraField() {

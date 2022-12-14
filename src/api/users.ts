@@ -4,6 +4,8 @@ import { BACKEND_URL } from "@/constants"
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { PAGE_SIZE, http } from "./common"
 
+export const EXTRA_FIELD_COUNT_MAX = 10
+
 export interface ProfileField {
   name: string;
   value: string;
