@@ -31,6 +31,7 @@ export interface Profile {
   note: string | null;
   avatar: string | null;
   header: string | null;
+  locked: boolean;
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
@@ -41,7 +42,7 @@ export interface Profile {
   statuses_count: number;
 }
 
-export function guest() {
+export function guest(): Profile {
   return {
     id: "",
     username: "",
@@ -51,6 +52,7 @@ export function guest() {
     note: null,
     avatar: null,
     header: null,
+    locked: false,
     identity_proofs: [],
     payment_options: [],
     fields: [],

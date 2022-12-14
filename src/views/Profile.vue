@@ -104,7 +104,14 @@
             >
               Edit profile
             </router-link>
-            <button v-if="canFollow()" class="follow btn" @click="onFollow()">Follow</button>
+            <button v-if="canFollow()" class="follow btn" @click="onFollow()">
+              <span>Follow</span>
+              <img
+                v-if="profile.locked"
+                title="Manually approves followers"
+                :src="require('@/assets/forkawesome/lock.svg')"
+              >
+            </button>
             <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
               <template v-if="isFollowRequestPending()">Cancel follow request</template>
               <template v-else>Unfollow</template>
@@ -680,6 +687,27 @@ $avatar-size: 170px;
   .buttons {
     display: flex;
     gap: $block-inner-padding;
+  }
+}
+
+.follow {
+  align-items: center;
+  display: flex;
+  gap: $input-padding;
+
+  img {
+    $icon-size: 1em;
+
+    filter: $btn-text-colorizer;
+    height: $icon-size;
+    min-width: $icon-size;
+    width: $icon-size;
+  }
+
+  &:hover {
+    img {
+      filter: $text-colorizer;
+    }
   }
 }
 

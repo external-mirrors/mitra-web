@@ -621,7 +621,7 @@ async function onMintToken() {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.25em;
+  gap: $whitespace;
   padding: calc($block-inner-padding / 4) $block-inner-padding 0;
 
   a {
