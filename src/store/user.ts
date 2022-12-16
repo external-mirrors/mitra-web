@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-import { User, getCurrentUser } from "@/api/users"
+import { User, getCurrentUser, revokeAccessToken } from "@/api/users"
 
 const AUTH_TOKEN_STORAGE_KEY = "auth_token"
 
@@ -27,13 +27,14 @@ export function useCurrentUser() {
     return authToken.value
   }
 
-  function setAuthToken(token: string | null) {
-    if (token) {
-      localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token)
-    } else {
-      localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY)
-    }
+  function setAuthToken(token: string) {
+    localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token)
     authToken.value = token
+  }
+
+  function clearAuthToken() {
+    localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY)
+    authToken.value = null
   }
 
   async function isAuthenticated(): Promise<boolean> {
@@ -44,12 +45,20 @@ export function useCurrentUser() {
         currentUser.value = await getCurrentUser(token)
         if (currentUser.value === null) {
           // Failed to get current user, removing invalid token
-          setAuthToken(null)
+          clearAuthToken()
         }
       }
       isAuthChecked.value = true
     }
     return currentUser.value !== null
+  }
+
+  async function endUserSession() {
+    await revokeAccessToken(ensureAuthToken())
+    setCurrentUser(null)
+    clearAuthToken()
+    // Also remove other local data
+    localStorage.clear()
   }
 
   return {
@@ -60,5 +69,6 @@ export function useCurrentUser() {
     ensureAuthToken,
     setAuthToken,
     isAuthenticated,
+    endUserSession,
   }
 }

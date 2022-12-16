@@ -43,13 +43,16 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import { revokeAccessToken } from "@/api/users"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
 
 const router = useRouter()
-const { currentUser, setCurrentUser, ensureAuthToken, setAuthToken } = $(useCurrentUser())
+const {
+  currentUser,
+  endUserSession,
+  ensureAuthToken,
+} = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 
@@ -74,9 +77,7 @@ function isSubscriptionsFeatureEnabled(): boolean {
 }
 
 async function logout() {
-  await revokeAccessToken(ensureAuthToken())
-  setCurrentUser(null)
-  setAuthToken(null)
+  await endUserSession()
   router.push({ name: "landing-page" })
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <form class="post-form" :class="{ 'reply': inReplyTo }">
+  <form class="post-form" :class="{ reply: inReplyTo }">
     <router-link
       v-if="author"
       class="floating-avatar"
@@ -12,6 +12,7 @@
         id="content"
         ref="postFormContentRef"
         v-model="content"
+        @input="saveLocalDraft()"
         rows="1"
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
@@ -124,6 +125,7 @@ import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const visibilityMap = Object.entries(VISIBILITY_MAP)
 const ATTACHMENTS_MAX_NUM = 10
+const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
@@ -141,7 +143,7 @@ const emit = defineEmits<{
 const postFormContentRef = $ref<HTMLTextAreaElement | null>(null)
 const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 
-let content = $ref("")
+let content = $ref(loadLocalDraft())
 let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 
@@ -153,7 +155,7 @@ const author = $computed<User | null>(() => {
   return currentUser
 })
 
-if (props.inReplyTo) {
+if (props.inReplyTo && content.length === 0) {
   const mentions: Mention[] = [
     props.inReplyTo.account,
     ...props.inReplyTo.mentions,
@@ -174,6 +176,23 @@ onMounted(() => {
     setupAutoResize(postFormContentRef)
   }
 })
+
+function getLocalDraftKey(): string {
+  const postId = props.inReplyTo?.id || "new"
+  return `${POST_CONTENT_STORAGE_KEY}_${postId}`
+}
+
+function loadLocalDraft(): string {
+  return localStorage.getItem(getLocalDraftKey()) || ""
+}
+
+function saveLocalDraft() {
+  localStorage.setItem(getLocalDraftKey(), content)
+}
+
+function removeLocalDraft() {
+  localStorage.removeItem(getLocalDraftKey())
+}
 
 function canAttachFile(): boolean {
   return attachments.length < ATTACHMENTS_MAX_NUM
@@ -246,6 +265,7 @@ async function publish(contentType = "text/markdown") {
   // Refresh editor
   errorMessage = null
   isLoading = false
+  removeLocalDraft()
   content = ""
   attachments = []
   if (postFormContentRef) {
