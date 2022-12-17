@@ -4,7 +4,7 @@
       <router-link class="back" to="/" title="Back">
         <img :src="require('@/assets/feather/arrow-left.svg')">
       </router-link>
-      <h1><slot name="heading"></slot></h1>
+      <h1 class="page-heading"><slot name="heading"></slot></h1>
       <div class="static-text"><slot name="text"></slot></div>
     </div>
   </div>
@@ -39,7 +39,7 @@
   }
 }
 
-h1 {
+h1.page-heading {
   font-size: 90px;
   font-weight: bold;
   margin: 0 0 20px;

@@ -172,18 +172,6 @@ header {
   max-width: $content-width;
   min-width: $content-min-width;
   width: $content-width;
-
-  :deep(h1) {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0 0 $block-outer-padding;
-  }
-
-  :deep(h2) {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 $block-outer-padding;
-  }
 }
 
 #main.wide {

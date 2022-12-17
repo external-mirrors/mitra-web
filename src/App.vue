@@ -28,14 +28,11 @@ loadInstanceInfo()
 @import "styles/theme";
 
 html {
-  min-height: 100%;
-}
-
-body {
   background: $background-color;
   color: $text-color;
   font-family: $text-font;
   font-size: $text-font-size;
+  min-height: 100%;
 }
 
 a {
@@ -48,8 +45,51 @@ a {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin: 0 0 $block-outer-padding;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
 .static-text {
   line-height: 2;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
 
   p a {
     text-decoration: underline;

@@ -90,6 +90,12 @@ function getContent(): string {
     white-space: pre-wrap;
   }
 
+  :deep(h1),
+  :deep(h2),
+  :deep(h3),
+  :deep(h4),
+  :deep(h5),
+  :deep(h6),
   :deep(p),
   :deep(blockquote),
   :deep(ul),
@@ -97,8 +103,26 @@ function getContent(): string {
   :deep(hr),
   :deep(pre) {
     &:not(:last-child) {
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
     }
+  }
+
+  :deep(h1) {
+    font-size: 1.6rem;
+  }
+
+  :deep(h2) {
+    font-size: 1.4rem;
+  }
+
+  :deep(h3) {
+    font-size: 1.2em;
+  }
+
+  :deep(h4),
+  :deep(h5),
+  :deep(h6) {
+    font-size: 1rem;
   }
 
   :deep(a) {
