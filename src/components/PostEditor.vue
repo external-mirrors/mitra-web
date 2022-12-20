@@ -11,12 +11,18 @@
       <textarea
         id="content"
         ref="postFormContentRef"
+        v-show="preview === null"
         v-model="content"
         @input="saveLocalDraft()"
         rows="1"
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
       ></textarea>
+      <post-content
+        v-if="preview"
+        :post="preview"
+        @click.prevent=""
+      ></post-content>
       <div v-if="attachments.length > 0" class="attachments">
         <div
           v-for="(attachment, index) in attachments"
@@ -75,6 +81,17 @@
             </li>
           </menu>
         </div>
+        <div class="toolbar-space"></div>
+        <button
+          v-if="canPreview()"
+          type="button"
+          class="icon"
+          title="Toggle preview"
+          @click="togglePreview()"
+        >
+          <img v-if="preview === null" :src="require('@/assets/feather/eye.svg')">
+          <img v-else :src="require('@/assets/feather/eye-off.svg')">
+        </button>
         <div class="character-counter" title="Characters left">
           {{ getCharacterCount() }}
         </div>
@@ -106,16 +123,18 @@ import { nextTick, onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 
 import {
-  Visibility,
-  VISIBILITY_MAP,
+  createPost,
+  previewPost,
+  uploadAttachment,
+  Attachment,
   Mention,
   Post,
-  createPost,
-  Attachment,
-  uploadAttachment,
+  Visibility,
+  VISIBILITY_MAP,
 } from "@/api/posts"
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import PostContent from "@/components/PostContent.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -147,6 +166,7 @@ let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 
 let visibilityMenuVisible = $ref(false)
+let preview = $ref<Post | null>(null)
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
@@ -173,6 +193,7 @@ if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
 onMounted(() => {
   if (postFormContentRef) {
     setupAutoResize(postFormContentRef)
+    triggerResize(postFormContentRef)
   }
 })
 
@@ -236,6 +257,18 @@ function getCharacterCount(): number {
   return (instance.post_character_limit - content.length)
 }
 
+function canPreview(): boolean {
+  return content.length > 0
+}
+
+async function togglePreview() {
+  if (preview === null) {
+    preview = await previewPost(ensureAuthToken(), content)
+  } else {
+    preview = null
+  }
+}
+
 function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading
 }
@@ -266,6 +299,7 @@ async function publish() {
   removeLocalDraft()
   content = ""
   attachments = []
+  preview = null
   if (postFormContentRef) {
     await nextTick()
     triggerResize(postFormContentRef)
@@ -350,9 +384,12 @@ $line-height: 1.5;
   gap: calc($block-inner-padding / 2);
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 
+  .toolbar-space {
+    flex-grow: 1;
+  }
+
   .character-counter {
     font-weight: bold;
-    margin-left: auto;
   }
 
   .submit-btn-small {

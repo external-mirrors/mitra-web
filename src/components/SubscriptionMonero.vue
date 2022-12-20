@@ -124,7 +124,7 @@ import {
   getPricePerMonth,
   Invoice,
 } from "@/api/subscriptions-monero"
-import { guest, Profile, ProfilePaymentOption, ProfileWrapper } from "@/api/users"
+import { defaultProfile, Profile, ProfilePaymentOption, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
@@ -142,7 +142,7 @@ const { currentUser } = $(useCurrentUser())
 const recipient = new ProfileWrapper(props.profile)
 const senderAcct = $ref("")
 let senderError = $ref<string | null>(null)
-let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest()))
+let sender = $ref(new ProfileWrapper(currentUser || defaultProfile()))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
 const paymentDuration = $ref<number>(1)

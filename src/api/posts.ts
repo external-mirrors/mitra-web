@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { PAGE_SIZE, http } from "./common"
-import { Profile } from "./users"
+import { defaultProfile, Profile } from "./users"
 
 export interface Attachment {
   id: string;
@@ -153,6 +153,45 @@ export async function getPostContext(
     throw new Error(data.message)
   }
   return data
+}
+
+export async function previewPost(
+  authToken: string,
+  content: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/preview`
+  const response = await http(url, {
+    method: "POST",
+    json: {
+      status: content,
+      content_type: "text/markdown",
+    },
+    authToken,
+  })
+  const data = await response.json()
+  return {
+    id: "",
+    uri: "",
+    created_at: "",
+    edited_at: null,
+    account: defaultProfile(),
+    content: data.content,
+    in_reply_to_id: null,
+    reblog: null,
+    visibility: Visibility.Public,
+    replies_count: 0,
+    favourites_count: 0,
+    reblogs_count: 0,
+    media_attachments: [],
+    mentions: [],
+    tags: [],
+    favourited: false,
+    reblogged: false,
+    ipfs_cid: null,
+    token_id: null,
+    token_tx_id: null,
+    links: [],
+  }
 }
 
 export interface PostData {

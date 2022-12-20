@@ -44,7 +44,7 @@ export interface Profile {
   statuses_count: number;
 }
 
-export function guest(): Profile {
+export function defaultProfile(): Profile {
   return {
     id: "",
     username: "",

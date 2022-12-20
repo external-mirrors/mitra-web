@@ -110,7 +110,7 @@ import { onMounted, watch } from "vue"
 import { $, $$, $computed, $ref } from "vue/macros"
 
 import { searchProfilesByEthereumAddress } from "@/api/search"
-import { guest, Profile, ProfileWrapper } from "@/api/users"
+import { defaultProfile, Profile, ProfileWrapper } from "@/api/users"
 import {
   cancelSubscription,
   getSubscriptionConfig,
@@ -137,7 +137,7 @@ const { instance } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet } = useWallet()
 const recipient = new ProfileWrapper(props.profile)
 const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
-let sender = $ref<ProfileWrapper>(new ProfileWrapper(currentUser || guest()))
+let sender = $ref(new ProfileWrapper(currentUser || defaultProfile()))
 let { walletAddress, walletError, getSigner } = $(useWallet())
 let subscriptionsEnabled = $ref<boolean | null>(null)
 let subscriptionConfig = $ref<SubscriptionConfig | null>(null)
