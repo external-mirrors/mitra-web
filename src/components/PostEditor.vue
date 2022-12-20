@@ -120,7 +120,6 @@ import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize, triggerResize } from "@/utils/autoresize"
-import { renderMarkdownLite } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const visibilityMap = Object.entries(VISIBILITY_MAP)
@@ -241,10 +240,9 @@ function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading
 }
 
-async function publish(contentType = "text/markdown") {
+async function publish() {
   const postData = {
-    content: contentType === "text/markdown" ? content : renderMarkdownLite(content),
-    content_type: contentType,
+    content: content,
     in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     mentions: [],
