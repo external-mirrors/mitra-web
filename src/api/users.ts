@@ -211,16 +211,14 @@ export async function getProfiles(
   return data
 }
 
-export interface ProfileFieldAttrs {
+interface ProfileFieldAttrs {
   name: string;
   value: string;
-  value_source: string;
 }
 
 export interface ProfileUpdateData {
   display_name: string | null;
   note: string | null;
-  note_source: string | null;
   avatar: string | null;
   header: string | null;
   fields_attributes: ProfileFieldAttrs[];

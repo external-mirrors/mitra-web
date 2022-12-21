@@ -12,7 +12,7 @@
           <textarea
             id="bio"
             ref="bioInputRef"
-            :value="form.note_source || ''"
+            :value="form.note || ''"
             @input="onBioUpdate($event)"
           ></textarea>
         </div>
@@ -52,8 +52,7 @@
           >
             <input v-model.trim="field.name" placeholder="Label">
             <input
-              :value="field.value_source"
-              @input="onExtraFieldUpdate(field, $event)"
+              v-model.trim="field.value"
               placeholder="Content"
             >
             <a
@@ -93,7 +92,6 @@ import { useRouter } from "vue-router"
 
 import {
   Profile,
-  ProfileFieldAttrs,
   ProfileUpdateData,
   updateProfile,
   EXTRA_FIELD_COUNT_MAX,
@@ -102,7 +100,6 @@ import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 import { setupAutoResize } from "@/utils/autoresize"
-import { renderMarkdownLiteInline } from "@/utils/markdown"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const router = useRouter()
@@ -115,9 +112,8 @@ function getFieldsAttributes() {
   const fields_attributes = []
   for (let index = 0; index < profile.fields.length; index++) {
     const field_attributes = {
-      name: profile.fields[index].name,
-      value: profile.fields[index].value,
-      value_source: profile.source.fields[index].value,
+      name: profile.source.fields[index].name,
+      value: profile.source.fields[index].value,
     }
     fields_attributes.push(field_attributes)
   }
@@ -126,8 +122,7 @@ function getFieldsAttributes() {
 
 const form = $ref<ProfileUpdateData>({
   display_name: profile.display_name,
-  note: profile.note,
-  note_source: profile.source.note,
+  note: profile.source.note,
   fields_attributes: getFieldsAttributes(),
   avatar: null,
   header: null,
@@ -149,15 +144,16 @@ const profilePreview = $computed<Profile>(() => {
   return {
     ...profile,
     display_name: form.display_name,
-    note: form.note,
     avatar: images.avatar,
     header: images.header,
   }
 })
 
 function onBioUpdate(event: Event) {
-  form.note_source = (event.target as HTMLTextAreaElement).value
-  form.note = renderMarkdownLiteInline(form.note_source)
+  const value = (event.target as HTMLTextAreaElement).value
+  if (value) {
+    form.note = value
+  }
 }
 
 async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
@@ -168,11 +164,6 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
   const imageDataUrl = await fileToDataUrl(files[0])
   images[fieldName] = imageDataUrl
   form[fieldName] = dataUrlToBase64(imageDataUrl)
-}
-
-function onExtraFieldUpdate(field: ProfileFieldAttrs, event: Event) {
-  field.value_source = (event.target as HTMLInputElement).value
-  field.value = renderMarkdownLiteInline(field.value_source)
 }
 
 function isValidExtraField(index: number): boolean {
@@ -196,7 +187,7 @@ function canAddExtraField(): boolean {
 }
 
 function addExtraField() {
-  form.fields_attributes.push({ name: "", value: "", value_source: "" })
+  form.fields_attributes.push({ name: "", value: "" })
 }
 
 function isFormValid(): boolean {

@@ -11,7 +11,7 @@
           <div class="actor-address">@{{ getActorAddress(profile) }}</div>
         </div>
       </div>
-      <div class="bio" v-html="profile.note"></div>
+      <div v-if="!compact" class="bio" v-html="profile.note"></div>
       <div v-if="!compact" class="bottom-row">
         <div class="post-count">
           <div class="value">{{ profile.statuses_count }}</div>
@@ -62,13 +62,15 @@ $profile-padding: calc($block-inner-padding / 2);
 }
 
 .profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: $profile-padding;
   padding: $profile-padding;
 }
 
 .avatar-row {
   display: flex;
   flex-direction: row;
-  margin-bottom: $profile-padding;
 
   .avatar {
     height: $avatar-size;
@@ -109,7 +111,6 @@ $profile-padding: calc($block-inner-padding / 2);
 .bottom-row {
   display: flex;
   flex-direction: row;
-  margin-top: $profile-padding;
 
   .post-count {
     display: flex;
