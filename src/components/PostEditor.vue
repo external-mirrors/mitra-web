@@ -230,10 +230,11 @@ async function onAttachmentUpload(event: Event) {
     return
   }
   const imageDataUrl = await fileToDataUrl(files[0])
-  const imageBase64 = dataUrlToBase64(imageDataUrl)
+  const imageData = dataUrlToBase64(imageDataUrl)
   const attachment = await uploadAttachment(
     ensureAuthToken(),
-    imageBase64,
+    imageData.data,
+    imageData.mediaType,
   )
   attachments.push(attachment)
 }

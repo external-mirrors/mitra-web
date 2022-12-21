@@ -11,11 +11,12 @@ export interface Attachment {
 export async function uploadAttachment(
   authToken: string,
   base64data: string,
+  mediaType: string,
 ): Promise<Attachment> {
   const url = `${BACKEND_URL}/api/v1/media`
   const response = await http(url, {
     method: "POST",
-    json: { file: base64data },
+    json: { file: base64data, media_type: mediaType },
     authToken,
   })
   const data = await response.json()

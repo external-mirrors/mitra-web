@@ -163,7 +163,8 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
   }
   const imageDataUrl = await fileToDataUrl(files[0])
   images[fieldName] = imageDataUrl
-  form[fieldName] = dataUrlToBase64(imageDataUrl)
+  const imageData = dataUrlToBase64(imageDataUrl)
+  form[fieldName] = imageData.data
 }
 
 function isValidExtraField(index: number): boolean {
