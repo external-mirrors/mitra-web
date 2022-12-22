@@ -2,7 +2,7 @@
   <sidebar-layout v-if="currentUser">
     <template #content v-if="instance">
       <h1>{{ instance.title }}</h1>
-      <div class="description static-text" v-html="instance.description_html"></div>
+      <div class="description static-text" v-html="instance.description"></div>
       <details class="technical-info static-text">
         <summary>Technical Info</summary>
         mitra version: {{ getMitraVersion(instance.version) }}
@@ -14,7 +14,7 @@
   <static-page v-else-if="currentUser === null && instance" class="wide">
     <template #heading>{{ instance.title }}</template>
     <template #text>
-      <div v-html="instance.description_html"></div>
+      <div v-html="instance.description"></div>
     </template>
   </static-page>
 </template>
