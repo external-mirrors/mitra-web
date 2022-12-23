@@ -31,7 +31,7 @@ onMounted(async () => {
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
   const nextPage = await getPublicTimeline(authToken, maxId)
-  posts.push(...nextPage)
+  posts = [...posts, ...nextPage]
 }
 </script>
 

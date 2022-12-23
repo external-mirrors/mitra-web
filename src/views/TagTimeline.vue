@@ -13,7 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { onMounted } from "vue"
+import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { Post, getTagTimeline } from "@/api/posts"
@@ -22,24 +23,23 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()
-const posts = ref<Post[]>([])
+const { authToken } = $(useCurrentUser())
+let posts = $ref<Post[]>([])
 
 onMounted(async () => {
-  const { authToken } = useCurrentUser()
-  posts.value = await getTagTimeline(
-    authToken.value,
+  posts = await getTagTimeline(
+    authToken,
     route.params.tagName as string,
   )
 })
 
 async function loadNextPage(maxId: string) {
-  const { authToken } = useCurrentUser()
   const nextPage = await getTagTimeline(
-    authToken.value,
+    authToken,
     route.params.tagName as string,
     maxId,
   )
-  posts.value.push(...nextPage)
+  posts = [...posts, ...nextPage]
 }
 </script>
 

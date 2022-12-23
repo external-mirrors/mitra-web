@@ -54,7 +54,7 @@ async function loadNextPage() {
   const authToken = ensureAuthToken()
   const offset = profiles.length
   const nextPage = await getProfiles(authToken, offset)
-  profiles.push(...nextPage)
+  profiles = [...profiles, ...nextPage]
 }
 </script>
 

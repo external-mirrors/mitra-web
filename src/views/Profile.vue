@@ -553,7 +553,7 @@ async function loadNextPage(maxId: string) {
     tabName !== "posts-with-replies",
     maxId,
   )
-  posts.push(...nextPage)
+  posts = [...posts, ...nextPage]
 }
 
 async function loadFollowListNextPage() {
