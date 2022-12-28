@@ -147,6 +147,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyAuthenticated: true },
   },
   {
+    path: "/@:acct(.*)",
+    name: "profile-by-acct",
+    component: ProfileView,
+    meta: { },
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: { name: "home" },
   },

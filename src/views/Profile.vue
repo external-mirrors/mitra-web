@@ -256,6 +256,7 @@ import {
 import { getReceivedSubscriptions } from "@/api/subscriptions-common"
 import {
   getProfile,
+  lookupProfile,
   Profile,
   ProfileField,
   ProfileWrapper,
@@ -296,10 +297,18 @@ let followListNextPageUrl = $ref<string | null>(null)
 onMounted(async () => {
   isLoading = true
   try {
-    const _profile = await getProfile(
-      authToken,
-      route.params.profileId as string,
-    )
+    let _profile
+    if (route.params.acct) {
+      _profile = await lookupProfile(
+        authToken,
+        route.params.acct as string,
+      )
+    } else {
+      _profile = await getProfile(
+        authToken,
+        route.params.profileId as string,
+      )
+    }
     profile = new ProfileWrapper(_profile)
   } catch (error: any) {
     if (error.message === "profile not found") {

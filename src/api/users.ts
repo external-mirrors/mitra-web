@@ -187,6 +187,19 @@ export async function getCurrentUser(authToken: string): Promise<User | null> {
   return data
 }
 
+export async function lookupProfile(
+  authToken: string | null,
+  acct: string,
+): Promise<Profile> {
+  const url = `${BACKEND_URL}/api/v1/accounts/lookup`
+  const response = await http(url, { authToken, queryParams: { acct } })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  }
+  return data
+}
+
 export async function getProfile(
   authToken: string | null,
   profileId: string,
