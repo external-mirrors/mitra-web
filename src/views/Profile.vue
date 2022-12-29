@@ -8,188 +8,190 @@
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>
-        <div class="avatar-menu-group">
-          <div class="avatar-group">
-            <avatar :profile="profile"></avatar>
-            <div class="badges">
-              <div class="badge" v-if="isFollowedBy()">Follows you</div>
-              <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
-              <div class="badge" v-if="isSubscriber()">Subscriber</div>
+        <div class="profile-info-group">
+          <div class="avatar-menu-group">
+            <div class="avatar-group">
+              <avatar :profile="profile"></avatar>
+              <div class="badges">
+                <div class="badge" v-if="isFollowedBy()">Follows you</div>
+                <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
+                <div class="badge" v-if="isSubscriber()">Subscriber</div>
+              </div>
+            </div>
+            <div
+              class="dropdown-menu-wrapper"
+              v-click-away="hideProfileMenu"
+            >
+              <button title="More" @click="toggleProfileMenu()">
+                <img :src="require('@/assets/feather/more-vertical.svg')">
+              </button>
+              <menu v-if="profileMenuVisible" class="dropdown-menu">
+                <li v-if="!isLocalUser()">
+                  <a
+                    title="Open profile page"
+                    :href="profile.url"
+                    target="_blank"
+                    rel="noreferrer"
+                    @click="hideProfileMenu()"
+                  >
+                    Open profile page
+                  </a>
+                </li>
+                <li v-if="isLocalUser()">
+                  <a
+                    :href="feedUrl"
+                    target="_blank"
+                  >
+                    Atom feed
+                  </a>
+                </li>
+                <li v-if="canVerifyEthereumAddress()">
+                  <button
+                    title="Link ethereum address"
+                    @click="hideProfileMenu(); onVerifyEthereumAddress()"
+                  >
+                    Link ethereum address
+                  </button>
+                </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    title="Link minisign key"
+                    :to="{ name: 'identity-proof' }"
+                  >
+                    Link minisign key
+                  </router-link>
+                </li>
+                <li v-if="canVerifyEthereumAddress()">
+                  <button
+                    title="Send signed update"
+                    @click="hideProfileMenu(); onSignActivity()"
+                  >
+                    Send signed update
+                  </button>
+                </li>
+                <li v-if="canManageSubscriptions()">
+                  <router-link
+                    title="Manage subscriptions"
+                    :to="{ name: 'subscriptions-settings' }"
+                  >
+                    Manage subscriptions
+                  </router-link>
+                </li>
+                <li v-if="canHideReposts()">
+                  <button @click="onFollow(false, undefined)">Hide reposts</button>
+                </li>
+                <li v-if="canShowReposts()">
+                  <button @click="onFollow(true, undefined)">Show reposts</button>
+                </li>
+                <li v-if="canHideReplies()">
+                  <button @click="onFollow(undefined, false)">Hide replies</button>
+                </li>
+                <li v-if="canShowReplies()">
+                  <button @click="onFollow(undefined, true)">Show replies</button>
+                </li>
+              </menu>
             </div>
           </div>
-          <div
-            class="dropdown-menu-wrapper"
-            v-click-away="hideProfileMenu"
-          >
-            <button title="More" @click="toggleProfileMenu()">
-              <img :src="require('@/assets/feather/more-vertical.svg')">
-            </button>
-            <menu v-if="profileMenuVisible" class="dropdown-menu">
-              <li v-if="!isLocalUser()">
+          <div class="name-buttons-group">
+            <div class="name-group">
+              <div class="display-name">{{ profile.getDisplayName() }}</div>
+              <div class="actor-address">@{{ actorAddress }}</div>
+            </div>
+            <div class="buttons">
+              <router-link
+                v-if="isCurrentUser()"
+                class="edit-profile btn"
+                :to="{ name: 'settings-profile' }"
+              >
+                Edit profile
+              </router-link>
+              <button v-if="canFollow()" class="follow btn" @click="onFollow()">
+                <span>Follow</span>
+                <img
+                  v-if="profile.locked"
+                  title="Manually approves followers"
+                  :src="require('@/assets/forkawesome/lock.svg')"
+                >
+              </button>
+              <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
+                <template v-if="isFollowRequestPending()">Cancel follow request</template>
+                <template v-else>Unfollow</template>
+              </button>
+              <template v-if="canSubscribe()">
                 <a
-                  title="Open profile page"
-                  :href="profile.url"
+                  v-if="typeof profile.getSubscriptionPageLocation() === 'string'"
+                  class="btn"
+                  title="Pay for subscription"
+                  :href="profile.getSubscriptionPageLocation() as string"
                   target="_blank"
                   rel="noreferrer"
-                  @click="hideProfileMenu()"
                 >
-                  Open profile page
+                  Subscribe
                 </a>
-              </li>
-              <li v-if="isLocalUser()">
-                <a
-                  :href="feedUrl"
-                  target="_blank"
-                >
-                  Atom feed
-                </a>
-              </li>
-              <li v-if="canVerifyEthereumAddress()">
-                <button
-                  title="Link ethereum address"
-                  @click="hideProfileMenu(); onVerifyEthereumAddress()"
-                >
-                  Link ethereum address
-                </button>
-              </li>
-              <li v-if="isCurrentUser()">
                 <router-link
-                  title="Link minisign key"
-                  :to="{ name: 'identity-proof' }"
+                  v-else-if="profile.getSubscriptionPageLocation() !== null"
+                  class="btn"
+                  title="Pay for subscription"
+                  :to="profile.getSubscriptionPageLocation()"
                 >
-                  Link minisign key
+                  Subscribe
                 </router-link>
-              </li>
-              <li v-if="canVerifyEthereumAddress()">
-                <button
-                  title="Send signed update"
-                  @click="hideProfileMenu(); onSignActivity()"
-                >
-                  Send signed update
-                </button>
-              </li>
-              <li v-if="canManageSubscriptions()">
-                <router-link
-                  title="Manage subscriptions"
-                  :to="{ name: 'subscriptions-settings' }"
-                >
-                  Manage subscriptions
-                </router-link>
-              </li>
-              <li v-if="canHideReposts()">
-                <button @click="onFollow(false, undefined)">Hide reposts</button>
-              </li>
-              <li v-if="canShowReposts()">
-                <button @click="onFollow(true, undefined)">Show reposts</button>
-              </li>
-              <li v-if="canHideReplies()">
-                <button @click="onFollow(undefined, false)">Hide replies</button>
-              </li>
-              <li v-if="canShowReplies()">
-                <button @click="onFollow(undefined, true)">Show replies</button>
-              </li>
-            </menu>
-          </div>
-        </div>
-        <div class="name-buttons-group">
-          <div class="name-group">
-            <div class="display-name">{{ profile.getDisplayName() }}</div>
-            <div class="actor-address">@{{ actorAddress }}</div>
-          </div>
-          <div class="buttons">
-            <router-link
-              v-if="isCurrentUser()"
-              class="edit-profile btn"
-              :to="{ name: 'settings-profile' }"
-            >
-              Edit profile
-            </router-link>
-            <button v-if="canFollow()" class="follow btn" @click="onFollow()">
-              <span>Follow</span>
-              <img
-                v-if="profile.locked"
-                title="Manually approves followers"
-                :src="require('@/assets/forkawesome/lock.svg')"
-              >
-            </button>
-            <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
-              <template v-if="isFollowRequestPending()">Cancel follow request</template>
-              <template v-else>Unfollow</template>
-            </button>
-            <template v-if="canSubscribe()">
-              <a
-                v-if="typeof profile.getSubscriptionPageLocation() === 'string'"
-                class="btn"
-                title="Pay for subscription"
-                :href="profile.getSubscriptionPageLocation() as string"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Subscribe
-              </a>
-              <router-link
-                v-else-if="profile.getSubscriptionPageLocation() !== null"
-                class="btn"
-                title="Pay for subscription"
-                :to="profile.getSubscriptionPageLocation()"
-              >
-                Subscribe
-              </router-link>
-            </template>
-          </div>
-        </div>
-        <div class="bio" v-html="profile.note"></div>
-        <div class="extra-fields" v-if="fields.length > 0">
-          <div
-            v-for="field in fields"
-            class="field"
-            :class="{ verified: field.verified_at }"
-            :key="field.name"
-          >
-            <div class="name" :title="field.name">{{ field.name }}</div>
-            <div class="value" v-html="field.value"></div>
-            <div class="verified-icon" v-if="field.verified_at">
-              <img
-                :src="require('@/assets/forkawesome/check.svg')"
-                title="Verified"
-              >
+              </template>
             </div>
           </div>
-        </div>
-        <div class="stats">
-          <component
-            class="stats-item"
-            :is="isCurrentUser() ? 'a' : 'span'"
-            @click="isCurrentUser() && switchTab('posts')"
-          >
-            <span class="value">{{ profile.statuses_count }}</span>
-            <span class="label">posts</span>
-          </component>
-          <component
-            class="stats-item"
-            :is="isCurrentUser() ? 'a' : 'span'"
-            @click="isCurrentUser() && switchTab('followers')"
-          >
-            <span class="value">{{ profile.followers_count }}</span>
-            <span class="label">followers</span>
-          </component>
-          <component
-            class="stats-item"
-            :is="isCurrentUser() ? 'a' : 'span'"
-            @click="isCurrentUser() && switchTab('following')"
-          >
-            <span class="value">{{ profile.following_count }}</span>
-            <span class="label">following</span>
-          </component>
-          <component
-            class="stats-item"
-            v-if="isSubscriptionsFeatureEnabled()"
-            :is="isCurrentUser() ? 'a' : 'span'"
-            @click="isCurrentUser() && switchTab('subscribers')"
-          >
-            <span class="value">{{ profile.subscribers_count }}</span>
-            <span class="label">subscribers</span>
-          </component>
+          <div class="bio" v-html="profile.note"></div>
+          <div class="extra-fields" v-if="fields.length > 0">
+            <div
+              v-for="field in fields"
+              class="field"
+              :class="{ verified: field.verified_at }"
+              :key="field.name"
+            >
+              <div class="name" :title="field.name">{{ field.name }}</div>
+              <div class="value" v-html="field.value"></div>
+              <div class="verified-icon" v-if="field.verified_at">
+                <img
+                  :src="require('@/assets/forkawesome/check.svg')"
+                  title="Verified"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="stats">
+            <component
+              class="stats-item"
+              :is="isCurrentUser() ? 'a' : 'span'"
+              @click="isCurrentUser() && switchTab('posts')"
+            >
+              <span class="value">{{ profile.statuses_count }}</span>
+              <span class="label">posts</span>
+            </component>
+            <component
+              class="stats-item"
+              :is="isCurrentUser() ? 'a' : 'span'"
+              @click="isCurrentUser() && switchTab('followers')"
+            >
+              <span class="value">{{ profile.followers_count }}</span>
+              <span class="label">followers</span>
+            </component>
+            <component
+              class="stats-item"
+              :is="isCurrentUser() ? 'a' : 'span'"
+              @click="isCurrentUser() && switchTab('following')"
+            >
+              <span class="value">{{ profile.following_count }}</span>
+              <span class="label">following</span>
+            </component>
+            <component
+              class="stats-item"
+              v-if="isSubscriptionsFeatureEnabled()"
+              :is="isCurrentUser() ? 'a' : 'span'"
+              @click="isCurrentUser() && switchTab('subscribers')"
+            >
+              <span class="value">{{ profile.subscribers_count }}</span>
+              <span class="label">subscribers</span>
+            </component>
+          </div>
         </div>
       </div>
       <div class="tab-bar" v-if="profile">
@@ -615,11 +617,17 @@ $avatar-size: 170px;
   }
 }
 
+.profile-info-group {
+  display: flex;
+  flex-direction: column;
+  gap: $block-inner-padding;
+  padding: $block-inner-padding;
+}
+
 .avatar-menu-group {
   display: flex;
   flex-direction: row;
   gap: $block-inner-padding;
-  padding: $block-inner-padding;
 
   .avatar-group {
     align-items: flex-start;
@@ -676,7 +684,6 @@ $avatar-size: 170px;
   display: flex;
   flex-wrap: wrap;
   gap: $block-inner-padding;
-  padding: 0 $block-inner-padding $block-inner-padding;
 
   .name-group {
     flex-grow: 1;
@@ -724,7 +731,6 @@ $avatar-size: 170px;
 }
 
 .bio {
-  padding: 0 $block-inner-padding $block-inner-padding;
   white-space: pre-line;
   word-wrap: break-word;
 
@@ -735,13 +741,12 @@ $avatar-size: 170px;
 
 .extra-fields {
   border-bottom: 1px solid $separator-color;
-  margin-bottom: $block-inner-padding;
 
   .field {
     border-top: 1px solid $separator-color;
     display: flex;
     gap: calc($block-inner-padding / 2);
-    padding: calc($block-inner-padding / 2) $block-inner-padding;
+    padding: calc($block-inner-padding / 2) 0;
 
     .name {
       font-weight: bold;
@@ -777,7 +782,6 @@ $avatar-size: 170px;
   flex-wrap: wrap;
   font-weight: bold;
   gap: $block-inner-padding 30px;
-  padding: 0 $block-inner-padding $block-inner-padding;
   text-align: center;
 
   .stats-item {
