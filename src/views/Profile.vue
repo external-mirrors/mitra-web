@@ -157,7 +157,7 @@
               </div>
             </div>
           </div>
-          <div class="stats">
+          <div v-if="isLocalUser()" class="stats">
             <component
               class="stats-item"
               :is="isCurrentUser() ? 'a' : 'span'"
@@ -773,6 +773,10 @@ $avatar-size: 170px;
       min-width: 1em;
       width: 1em;
     }
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 

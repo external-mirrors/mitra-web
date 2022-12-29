@@ -13,3 +13,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed text on Ethereum page.
+- Not showing profile stats if profile is remote.
