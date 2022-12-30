@@ -17,6 +17,7 @@
         rows="1"
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
+        @paste="onPaste($event)"
       ></textarea>
       <post-content
         v-if="preview"
@@ -214,6 +215,15 @@ function removeLocalDraft() {
   localStorage.removeItem(getLocalDraftKey())
 }
 
+async function onPaste(event: ClipboardEvent) {
+  const files = event.clipboardData?.files || []
+  if (files.length > 0) {
+    event.preventDefault()
+    // NOTE: files property gets emptied after event propagation
+    await addAttachment(files[0])
+  }
+}
+
 function canAttachFile(): boolean {
   return attachments.length < ATTACHMENTS_MAX_NUM
 }
@@ -229,7 +239,11 @@ async function onAttachmentUpload(event: Event) {
   if (!files) {
     return
   }
-  const imageDataUrl = await fileToDataUrl(files[0])
+  await addAttachment(files[0])
+}
+
+async function addAttachment(file: File) {
+  const imageDataUrl = await fileToDataUrl(file)
   const imageData = dataUrlToBase64(imageDataUrl)
   const attachment = await uploadAttachment(
     ensureAuthToken(),
