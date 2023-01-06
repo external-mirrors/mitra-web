@@ -34,6 +34,7 @@ const { instance } = $(useInstanceInfo())
   h1 {
     font-size: 32px;
     font-weight: bold;
+    margin-bottom: 0;
   }
 
   .btn {
