@@ -31,8 +31,16 @@ export interface InstanceInfo {
   description_source: string;
   version: string;
   registrations: boolean;
+  configuration: {
+    statuses: {
+      max_characters: number,
+      max_media_attachments: number,
+    },
+    media_attachments: {
+      supported_mime_types: string[],
+    },
+  },
   login_message: string;
-  post_character_limit: number;
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }

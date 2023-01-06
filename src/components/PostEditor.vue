@@ -52,7 +52,7 @@
           <input
             type="file"
             ref="attachmentUploadInputRef"
-            accept="image/*"
+            :accept="getAcceptedMediaTypes()"
             style="display: none;"
             @change="onAttachmentUpload($event)"
           >
@@ -143,7 +143,6 @@ import { setupAutoResize, triggerResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const visibilityMap = Object.entries(VISIBILITY_MAP)
-const ATTACHMENTS_MAX_NUM = 10
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
@@ -225,7 +224,19 @@ async function onPaste(event: ClipboardEvent) {
 }
 
 function canAttachFile(): boolean {
-  return attachments.length < ATTACHMENTS_MAX_NUM
+  if (!instance) {
+    return false
+  }
+  return attachments.length < instance.configuration.statuses.max_media_attachments
+}
+
+function getAcceptedMediaTypes(): string {
+  if (!instance) {
+    return ""
+  }
+  return instance.configuration.media_attachments.supported_mime_types
+    .filter(mediaType => mediaType.startsWith("image/"))
+    .join(",")
 }
 
 function selectAttachment() {
@@ -269,7 +280,7 @@ function getCharacterCount(): number {
   if (!instance) {
     return 0
   }
-  return (instance.post_character_limit - content.length)
+  return (instance.configuration.statuses.max_characters - content.length)
 }
 
 function canPreview(): boolean {
