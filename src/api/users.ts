@@ -233,7 +233,9 @@ export interface ProfileUpdateData {
   display_name: string | null;
   note: string | null;
   avatar: string | null;
+  avatar_media_type: string | null;
   header: string | null;
+  header_media_type: string | null;
   fields_attributes: ProfileFieldAttrs[];
 }
 

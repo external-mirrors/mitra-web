@@ -125,7 +125,9 @@ const form = $ref<ProfileUpdateData>({
   note: profile.source.note,
   fields_attributes: getFieldsAttributes(),
   avatar: null,
+  avatar_media_type: null,
   header: null,
+  header_media_type: null,
 })
 const images = $ref({
   avatar: profile.avatar,
@@ -165,6 +167,7 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
   images[fieldName] = imageDataUrl
   const imageData = dataUrlToBase64(imageDataUrl)
   form[fieldName] = imageData.data
+  form[`${fieldName}_media_type`] = imageData.mediaType
 }
 
 function isValidExtraField(index: number): boolean {
