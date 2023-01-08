@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added "Experiments" section to Settings page (includes "Move Followers" feature).
+
 ## [1.9.0] - 2023-01-08
 
 ### Added

@@ -53,6 +53,15 @@
           </tr>
         </table>
       </section>
+      <section>
+        <h2>Experiments</h2>
+        <details class="experiments">
+          <summary>This section contains experimental features. Use at your own risk.</summary>
+          <router-link class="btn" :to="{ name: 'move-followers' }">
+            Move followers
+          </router-link>
+        </details>
+      </section>
     </template>
   </sidebar-layout>
 </template>
@@ -122,6 +131,12 @@ form {
 
   a {
     color: $block-link-color;
+  }
+}
+
+.experiments {
+  summary {
+    margin-bottom: $block-outer-padding;
   }
 }
 </style>
