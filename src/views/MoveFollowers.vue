@@ -36,13 +36,12 @@
 import { $, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
+import { moveFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useSignedActivity } from "@/composables/signed-activity"
 import { useCurrentUser } from "@/store/user"
 
 const router = useRouter()
-const { currentUser } = $(useCurrentUser())
-const { signMoveActivity } = useSignedActivity()
+const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 
 const fromActorId = $ref("")
 const followersCsv = $ref("")
@@ -55,7 +54,12 @@ async function move() {
   if (currentUser === null) {
     return
   }
-  await signMoveActivity(fromActorId, followersCsv)
+  const user = await moveFollowers(
+    ensureAuthToken(),
+    fromActorId,
+    followersCsv,
+  )
+  setCurrentUser(user)
   router.push({ name: "profile", params: { profileId: currentUser.id } })
 }
 </script>

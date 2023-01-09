@@ -48,3 +48,22 @@ export async function exportFollows(
   const blob = await response.blob()
   downloadBlob(blob)
 }
+
+export async function moveFollowers(
+  authToken: string,
+  fromActorId: string,
+  followersCsv: string,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/settings/move_followers`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { from_actor_id: fromActorId, followers_csv: followersCsv },
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.message)
+  } else {
+    return data
+  }
+}
