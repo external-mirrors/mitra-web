@@ -224,7 +224,7 @@ async function save() {
   display: grid;
   gap: $input-padding;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  margin-bottom: $block-outer-padding;
+  width: 100%;
 
   .input-group:last-child {
     margin-bottom: 0;

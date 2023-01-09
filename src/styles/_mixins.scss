@@ -126,8 +126,13 @@
 }
 
 @mixin content-form {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: $block-outer-padding;
+
   .input-group {
-    margin-bottom: $block-outer-padding;
+    width: 100%;
 
     label {
       display: block;
@@ -147,5 +152,9 @@
       border-radius: $btn-border-radius;
       width: 100%;
     }
+  }
+
+  .error-message {
+    color: $error-color;
   }
 }
