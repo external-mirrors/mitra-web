@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added "Experiments" section to Settings page (includes "Move Followers" feature).
 - Show error message if moving of followers fails.
+- Added "Import Follows" page.
 
 ### Changed
 

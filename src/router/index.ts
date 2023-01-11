@@ -4,6 +4,7 @@ import AboutPage from "@/views/About.vue"
 import EthereumPage from "@/views/Ethereum.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
+import ImportFollows from "@/views/ImportFollows.vue"
 import LandingPage from "@/views/LandingPage.vue"
 import MoveFollowers from "@/views/MoveFollowers.vue"
 import NotificationList from "@/views/NotificationList.vue"
@@ -138,6 +139,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings/identity-proof",
     name: "identity-proof",
     component: IdentityProof,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/import-follows",
+    name: "import-follows",
+    component: ImportFollows,
     meta: { onlyAuthenticated: true },
   },
   {

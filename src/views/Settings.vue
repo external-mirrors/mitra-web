@@ -57,9 +57,14 @@
         <h2>Experiments</h2>
         <details class="experiments">
           <summary>This section contains experimental features. Use at your own risk.</summary>
-          <router-link class="btn" :to="{ name: 'move-followers' }">
-            Move followers
-          </router-link>
+          <div class="experiments-wrapper">
+            <router-link class="btn" :to="{ name: 'import-follows' }">
+              Import follows
+            </router-link>
+            <router-link class="btn" :to="{ name: 'move-followers' }">
+              Move followers
+            </router-link>
+          </div>
         </details>
       </section>
     </template>
@@ -137,6 +142,13 @@ form {
 .experiments {
   summary {
     margin-bottom: $block-outer-padding;
+  }
+
+  .experiments-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: $block-outer-padding;
   }
 }
 </style>

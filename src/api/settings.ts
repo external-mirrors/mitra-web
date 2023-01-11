@@ -49,6 +49,22 @@ export async function exportFollows(
   downloadBlob(blob)
 }
 
+export async function importFollows(
+  authToken: string,
+  followsCsv: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/settings/import_follows`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { follows_csv: followsCsv },
+  })
+  if (response.status !== 204) {
+    const data = await response.json()
+    throw new Error(data.message)
+  }
+}
+
 export async function moveFollowers(
   authToken: string,
   fromActorId: string,
