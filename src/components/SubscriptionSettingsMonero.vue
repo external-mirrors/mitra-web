@@ -127,11 +127,17 @@ function isFormValid(): boolean {
 
 async function saveSubscriptionSettings() {
   isLoading = true
-  const user = await registerMoneroSubscriptionOption(
-    ensureAuthToken(),
-    getPricePerSec(subscriptionPrice),
-    subscriptionPayoutAddress,
-  )
+  let user
+  try {
+    user = await registerMoneroSubscriptionOption(
+      ensureAuthToken(),
+      getPricePerSec(subscriptionPrice),
+      subscriptionPayoutAddress,
+    )
+  } catch (error: any) {
+    isLoading = false
+    return
+  }
   setCurrentUser(user)
   await loadSubscriptionSettings()
   isFormVisible = false
