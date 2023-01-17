@@ -70,7 +70,18 @@ function configureInlineLinks() {
 }
 
 function getContent(): string {
-  const content = addGreentext(props.post.content)
+  let content = addGreentext(props.post.content)
+  // Replace emoji shortcodes
+  content = content.replace(/:([\w.]+):/g, (match, shortcode) => {
+    const emoji = props.post.emojis.find((emoji) => {
+      return emoji.shortcode === shortcode
+    })
+    if (emoji) {
+      return `<img class="emoji" title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}">`
+    } else {
+      return match
+    }
+  })
   return content
 }
 </script>
@@ -154,6 +165,12 @@ function getContent(): string {
       content: ">";
       float: left;
     }
+  }
+
+  :deep(.emoji) {
+    height: 32px;
+    vertical-align: middle;
+    width: 32px;
   }
 }
 </style>

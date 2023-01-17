@@ -52,6 +52,11 @@ export interface Tag {
   url: string;
 }
 
+export interface CustomEmoji {
+  shortcode: string,
+  url: string,
+}
+
 export interface Post {
   id: string;
   uri: string;
@@ -68,6 +73,7 @@ export interface Post {
   media_attachments: Attachment[];
   mentions: Mention[];
   tags: Tag[];
+  emojis: CustomEmoji[];
   favourited: boolean;
   reblogged: boolean;
   ipfs_cid: string | null;
@@ -186,6 +192,7 @@ export async function previewPost(
     media_attachments: [],
     mentions: [],
     tags: [],
+    emojis: [],
     favourited: false,
     reblogged: false,
     ipfs_cid: null,
