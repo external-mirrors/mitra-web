@@ -2,7 +2,10 @@
   <template v-if="post.reblog">
     <div class="action">
       <img :src="require('@/assets/feather/repeat.svg')">
-      <router-link :to="{ name: 'profile', params: { profileId: post.account.id }}">
+      <router-link
+        :to="{ name: 'profile', params: { profileId: post.account.id }}"
+        :title="getActorAddress(post.account)"
+      >
         {{ post.account.display_name || post.account.username }}
       </router-link>
       <span>reposted</span>
@@ -24,8 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import { $ } from "vue/macros"
+
 import type { Post as PostObject } from "@/api/posts"
 import Post from "@/components/Post.vue"
+import { useInstanceInfo } from "@/store/instance"
 
 /* eslint-disable-next-line no-undef */
 defineProps<{
@@ -33,6 +39,8 @@ defineProps<{
 }>()
 /* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
+
+const { getActorAddress } = $(useInstanceInfo())
 
 function onPostDeleted(postId: string) {
   emit("post-deleted", postId)
