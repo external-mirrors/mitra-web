@@ -24,3 +24,8 @@ export function formatDate(isoDate: string): string {
   const date = DateTime.fromISO(isoDate)
   return date.toLocaleString()
 }
+
+export function formatDateTime(isoDate: string): string {
+  const date = DateTime.fromISO(isoDate)
+  return date.toLocaleString(DateTime.DATETIME_FULL)
+}

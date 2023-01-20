@@ -1,5 +1,5 @@
 <template>
-  <div class="post" :class="{ 'highlighted': highlighted }" :data-post-id="post.id" :id="post.id">
+  <div class="post" :class="{ highlighted: highlighted }" :data-post-id="post.id" :id="post.id">
     <div class="post-header">
       <a
         class="floating-avatar"
@@ -40,7 +40,7 @@
       <a
         class="timestamp"
         :href="post.uri"
-        :title="formatDate(post.created_at)"
+        :title="formatDateTime(post.created_at)"
         @click="openPost($event, post.id)"
       >
         {{ humanizeDate(post.created_at) }}
@@ -266,7 +266,7 @@ import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
-import { formatDate, humanizeDate } from "@/utils/dates"
+import { formatDateTime, humanizeDate } from "@/utils/dates"
 
 interface PaymentOption {
   code: string;
