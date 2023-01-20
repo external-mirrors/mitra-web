@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Show full date and time in post timestamp tooltip.
 - Show error message if profile details can't be updated.
+- Set file name for follower/following list downloads.
 
 ## [1.10.0] - 2023-01-18
 

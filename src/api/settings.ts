@@ -20,9 +20,13 @@ export async function changePassword(
   }
 }
 
-async function downloadBlob(blob: Blob) {
+async function downloadBlob(blob: Blob, name: string) {
   const fileUrl = window.URL.createObjectURL(blob)
-  window.location.assign(fileUrl)
+  const hiddenLink = document.createElement("a")
+  hiddenLink.setAttribute("href", fileUrl)
+  hiddenLink.setAttribute("download", name)
+  hiddenLink.click()
+  window.URL.revokeObjectURL(fileUrl)
 }
 
 export async function exportFollowers(
@@ -34,7 +38,7 @@ export async function exportFollowers(
     authToken,
   })
   const blob = await response.blob()
-  downloadBlob(blob)
+  downloadBlob(blob, "followers.csv")
 }
 
 export async function exportFollows(
@@ -46,7 +50,7 @@ export async function exportFollows(
     authToken,
   })
   const blob = await response.blob()
-  downloadBlob(blob)
+  downloadBlob(blob, "follows.csv")
 }
 
 export async function importFollows(
