@@ -14,10 +14,13 @@
     <div class="info" v-if="subscriptionsEnabled !== null">
       <template v-if="subscriptionConfig && subscriptionOption !== null">
         <span>Subscriptions are enabled</span>
-        <div class="price">
+        <div class="info-item">
           {{ subscriptionConfig.pricePerMonth }}
           {{ subscriptionConfig.tokenSymbol }}
           per month
+        </div>
+        <div class="info-item">
+          {{ ensureCurrentUser().subscribers_count }} subscribers
         </div>
       </template>
       <template v-else>
@@ -334,7 +337,7 @@ async function onWithdrawReceived() {
   gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
 
-  .price {
+  .info-item {
     font-size: 16px;
     font-weight: bold;
   }

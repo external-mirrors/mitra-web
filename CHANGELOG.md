@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Show number of subscribers on subscription settings page.
+
 ### Fixed
 
 - Show full date and time in post timestamp tooltip.

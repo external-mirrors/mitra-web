@@ -3,8 +3,11 @@
     <div class="info" v-if="subscriptionOptionLoaded">
       <template v-if="subscriptionOption !== null">
         <span>Subscriptions are enabled</span>
-        <div class="price">
+        <div class="info-item">
           {{ getPricePerMonth(subscriptionOption.price) }} XMR per month
+        </div>
+        <div class="info-item">
+          {{ ensureCurrentUser().subscribers_count }} subscribers
         </div>
       </template>
       <template v-else>
@@ -157,7 +160,7 @@ async function saveSubscriptionSettings() {
   gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
 
-  .price {
+  .info-item {
     font-size: 16px;
     font-weight: bold;
   }
