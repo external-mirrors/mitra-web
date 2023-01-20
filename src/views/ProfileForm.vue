@@ -80,6 +80,7 @@
         >
           Save
         </button>
+        <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
     </template>
   </sidebar-layout>
@@ -107,6 +108,7 @@ const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser(
 
 const profile = ensureCurrentUser()
 let isLoading = $ref(false)
+let errorMessage = $ref<string | null>(null)
 
 function getFieldsAttributes() {
   const fields_attributes = []
@@ -204,7 +206,15 @@ function isFormValid(): boolean {
 async function save() {
   const authToken = ensureAuthToken()
   isLoading = true
-  const user = await updateProfile(authToken, form)
+  errorMessage = null
+  let user
+  try {
+    user = await updateProfile(authToken, form)
+  } catch (error: any) {
+    isLoading = false
+    errorMessage = error.message
+    return
+  }
   isLoading = false
   setCurrentUser(user)
   router.push({ name: "profile", params: { profileId: user.id } })
@@ -218,6 +228,8 @@ async function save() {
 
 .profile-form {
   @include content-form;
+
+  margin-bottom: $block-outer-padding;
 }
 
 .image-upload-group {
@@ -285,9 +297,5 @@ async function save() {
   &:hover img {
     filter: $link-hover-colorizer;
   }
-}
-
-.btn[type="submit"] {
-  margin-bottom: $block-outer-padding;
 }
 </style>

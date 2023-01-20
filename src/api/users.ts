@@ -249,11 +249,11 @@ export async function updateProfile(
     json: profileData,
     authToken,
   })
-  const profileOrError = await response.json()
+  const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(profileOrError.message)
+    throw new Error(data.message)
   } else {
-    return profileOrError
+    return data
   }
 }
 
