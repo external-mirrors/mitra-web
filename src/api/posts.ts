@@ -192,7 +192,7 @@ export async function previewPost(
     media_attachments: [],
     mentions: [],
     tags: [],
-    emojis: [],
+    emojis: data.emojis,
     favourited: false,
     reblogged: false,
     ipfs_cid: null,

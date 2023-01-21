@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Show number of subscribers on subscription settings page.
+- Render emojis when previewing post.
 
 ### Fixed
 
