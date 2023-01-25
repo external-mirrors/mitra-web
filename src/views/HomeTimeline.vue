@@ -1,7 +1,11 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <post-editor :in-reply-to="null" @post-created="insertPost"></post-editor>
+      <post-editor
+        v-if="canCreatePost()"
+        :in-reply-to="null"
+        @post-created="insertPost"
+      ></post-editor>
       <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
       <loader v-if="isLoading"></loader>
     </template>
@@ -13,13 +17,14 @@ import { onMounted } from "vue"
 import { $ref } from "vue/macros"
 
 import { Post, getHomeTimeline } from "@/api/posts"
+import { Permissions } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
-const { ensureAuthToken } = useCurrentUser()
+const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
@@ -30,6 +35,11 @@ onMounted(async () => {
   posts = await getHomeTimeline(authToken)
   isLoading = false
 })
+
+function canCreatePost(): boolean {
+  const user = ensureCurrentUser()
+  return user.role.permissions.includes(Permissions.CreatePost)
+}
 
 function insertPost(post: Post) {
   posts = [post, ...posts]

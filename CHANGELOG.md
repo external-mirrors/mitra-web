@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Disabled posting and reposting if current user doesn't have `create_post` permission.
+
 ## [1.11.0] - 2023-01-23
 
 ### Added

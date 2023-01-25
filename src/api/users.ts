@@ -24,6 +24,16 @@ interface Source {
   fields: ProfileField[];
 }
 
+interface Role {
+  id: number,
+  name: string,
+  permissions: string[],
+}
+
+export enum Permissions {
+  CreatePost = "create_post",
+}
+
 export interface Profile {
   id: string;
   username: string;
@@ -67,6 +77,7 @@ export function defaultProfile(): Profile {
 
 export interface User extends Profile {
   source: Source;
+  role: Role,
 }
 
 export interface ProfileWrapper extends Profile {}

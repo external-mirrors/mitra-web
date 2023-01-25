@@ -255,7 +255,7 @@ import {
   createRepost,
   deleteRepost,
 } from "@/api/posts"
-import { ProfileWrapper } from "@/api/users"
+import { Permissions, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
@@ -348,7 +348,10 @@ function getQuoteAuthorDisplayName(post: Post): string | null {
 }
 
 function canReply(): boolean {
-  return currentUser !== null
+  if (currentUser === null) {
+    return false
+  }
+  return currentUser.role.permissions.includes(Permissions.CreatePost)
 }
 
 function onCommentCreated(post: Post) {
@@ -357,7 +360,13 @@ function onCommentCreated(post: Post) {
 }
 
 function canRepost(): boolean {
-  return currentUser !== null && props.post.visibility === "public"
+  if (currentUser === null) {
+    return false
+  }
+  return (
+    props.post.visibility === "public" &&
+    currentUser.role.permissions.includes(Permissions.CreatePost)
+  )
 }
 
 async function toggleRepost() {
