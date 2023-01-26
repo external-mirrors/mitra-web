@@ -171,6 +171,13 @@ function getContent(): string {
     height: 32px;
     vertical-align: middle;
     width: 32px;
+
+    &:hover {
+      height: 48px;
+      transition: 100ms linear;
+      transition-delay: 0.5s;
+      width: 48px;
+    }
   }
 }
 </style>
