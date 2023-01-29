@@ -39,7 +39,13 @@
               >
               <div class="addon">@{{ instance.uri }}</div>
             </div>
-            <div class="form-message">Only letters, numbers and underscores are allowed.</div>
+            <div
+              v-if="!isRegistered"
+              class="form-message"
+              :class="{ error: !isUsernameValid() }"
+            >
+              Only lowercase letters, numbers and underscores are allowed.
+            </div>
           </div>
           <div class="form-control" v-if="loginType === 'password'">
             <input
@@ -141,6 +147,13 @@ watch($$(instance), () => {
   }
 }, { immediate: true })
 
+function isUsernameValid(): boolean {
+  if (!username) {
+    return true
+  }
+  return /^[a-z0-9_]+$/.test(username)
+}
+
 function isLoginFormValid(): boolean {
   if (!instance) {
     return false
@@ -153,10 +166,13 @@ function isLoginFormValid(): boolean {
     }
   } else {
     const inviteCodeValid = instance.registrations ? true : Boolean(inviteCode)
+    if (!username || !isUsernameValid()) {
+      return false
+    }
     if (loginType === "password") {
-      return Boolean(username) && Boolean(password) && inviteCodeValid
+      return Boolean(password) && inviteCodeValid
     } else {
-      return Boolean(username) && inviteCodeValid
+      return inviteCodeValid
     }
   }
 }
@@ -399,6 +415,10 @@ $text-color: #fff;
     font-size: 12px;
     margin-top: 3px;
     padding: 0 15px;
+
+    &.error {
+      color: $error-color;
+    }
   }
 
   button[type="submit"] {

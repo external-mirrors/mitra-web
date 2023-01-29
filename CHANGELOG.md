@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Improved username validation.
+
 ## [1.12.0] - 2023-01-26
 
 ### Added
