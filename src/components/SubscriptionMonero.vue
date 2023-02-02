@@ -132,6 +132,8 @@ import { useCurrentUser } from "@/store/user"
 import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"
 
+const INVOICE_ID_STORAGE_KEY = "invoice"
+
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
@@ -150,6 +152,10 @@ let invoice = $ref<Invoice | null>(null)
 
 let isLoading = $ref(false)
 
+function getInvoiceIdStorageKey(): string {
+  return `${INVOICE_ID_STORAGE_KEY}_${recipient.id}`
+}
+
 onMounted(async () => {
   isLoading = true
   subscriptionOption = recipient.payment_options.find((option) => {
@@ -158,8 +164,12 @@ onMounted(async () => {
   if (subscriptionOption && sender.id !== "") {
     subscriptionDetails = await findSubscription(sender.id, recipient.id)
   }
-  if (route.query.invoice_id) {
-    invoice = await getInvoice(route.query.invoice_id as string)
+  const invoiceId = (
+    route.query.invoice_id ||
+    localStorage.getItem(getInvoiceIdStorageKey())
+  )
+  if (invoiceId) {
+    invoice = await getInvoice(invoiceId as string)
     if (invoice && invoice.status !== "forwarded") {
       watchInvoice()
     }
@@ -239,6 +249,7 @@ async function onCreateInvoice() {
     "",
     `${window.location.pathname}?invoice_id=${invoice.id}`,
   )
+  localStorage.setItem(getInvoiceIdStorageKey(), invoice.id)
   isLoading = false
   watchInvoice()
 }
@@ -267,6 +278,7 @@ function closeInvoice() {
     "",
     window.location.pathname,
   )
+  localStorage.removeItem(getInvoiceIdStorageKey())
 }
 
 function getPaymentUri(invoice: Invoice): string {

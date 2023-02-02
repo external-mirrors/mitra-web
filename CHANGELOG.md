@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Improved username validation.
 
+### Fixed
+
+- Restore payment details when navigating back to subscription payment page from another page.
+
 ## [1.12.0] - 2023-01-26
 
 ### Added

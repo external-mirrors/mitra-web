@@ -1,3 +1,4 @@
+// https://github.com/monero-project/monero/wiki/URI-Formatting
 export function createMoneroPaymentUri(
   address: string,
   amount?: number,
