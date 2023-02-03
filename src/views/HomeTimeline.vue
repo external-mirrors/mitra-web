@@ -1,13 +1,13 @@
 <template>
-  <sidebar-layout>
+  <sidebar-layout @reload-home="loadTimeline">
     <template #content>
       <post-editor
         v-if="canCreatePost()"
         :in-reply-to="null"
         @post-created="insertPost"
       ></post-editor>
-      <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
       <loader v-if="isLoading"></loader>
+      <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
     </template>
   </sidebar-layout>
 </template>
@@ -29,13 +29,6 @@ const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
 
-onMounted(async () => {
-  isLoading = true
-  const authToken = ensureAuthToken()
-  posts = await getHomeTimeline(authToken)
-  isLoading = false
-})
-
 function canCreatePost(): boolean {
   const user = ensureCurrentUser()
   return user.role.permissions.includes(Permissions.CreatePost)
@@ -45,11 +38,22 @@ function insertPost(post: Post) {
   posts = [post, ...posts]
 }
 
+async function loadTimeline() {
+  isLoading = true
+  const authToken = ensureAuthToken()
+  posts = await getHomeTimeline(authToken)
+  isLoading = false
+}
+
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
   const nextPage = await getHomeTimeline(authToken, maxId)
   posts = [...posts, ...nextPage]
 }
+
+onMounted(async () => {
+  await loadTimeline()
+})
 </script>
 
 <style scoped lang="scss">

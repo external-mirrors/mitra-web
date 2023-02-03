@@ -2,7 +2,11 @@
   <header v-if="currentUser !== null">
     <div id="header">
       <div id="nav">
-        <router-link to="/" class="home-btn">
+        <router-link
+          class="home-btn"
+          :to="{ name: 'home' }"
+          @click.prevent="showHomeTimeline()"
+        >
           <img :src="require('@/assets/feather/home.svg')">
           <span>Home</span>
         </router-link>
@@ -32,14 +36,31 @@
 
 <script setup lang="ts">
 import { $ } from "vue/macros"
+import { useRoute, useRouter } from "vue-router"
 
-import { useCurrentUser } from "@/store/user"
 import Avatar from "@/components/Avatar.vue"
 import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
 import Sidebar from "@/components/Sidebar.vue"
+import { useCurrentUser } from "@/store/user"
+import { useNotifications } from "@/store/notifications"
 
-const { currentUser } = $(useCurrentUser())
+const route = useRoute()
+const router = useRouter()
+const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { loadNotifications } = $(useNotifications())
+
+/* eslint-disable-next-line no-undef */
+const emit = defineEmits<{(event: "reload-home"): void}>()
+
+function showHomeTimeline() {
+  if (route.name === "home") {
+    loadNotifications(ensureAuthToken())
+    emit("reload-home")
+  } else {
+    router.push({ name: "home" })
+  }
+}
 </script>
 
 <style scoped lang="scss">
