@@ -62,6 +62,7 @@
           v-click-away="hideVisibilityMenu"
         >
           <button
+            v-if="canChangeVisibility()"
             type="button"
             class="icon"
             title="Change visibility"
@@ -69,6 +70,9 @@
           >
             <visibility-icon :visibility="visibility"></visibility-icon>
           </button>
+          <span v-else class="icon">
+            <visibility-icon :visibility="visibility"></visibility-icon>
+          </span>
           <menu v-if="visibilityMenuVisible" class="dropdown-menu">
             <li v-for="[value, display] in visibilityMap" :key="value">
               <button
@@ -266,6 +270,13 @@ async function addAttachment(file: File) {
 
 function removeAttachment(index: number) {
   attachments.splice(index, 1)
+}
+
+function canChangeVisibility(): boolean {
+  return (
+    props.inReplyTo === null ||
+    props.inReplyTo.visibility === Visibility.Public
+  )
 }
 
 function toggleVisibilityMenu() {

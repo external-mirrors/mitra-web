@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Restore payment details when navigating back to subscription payment page from another page.
+- Disable visibility menu in reply if parent post is not public.
 
 ## [1.12.0] - 2023-01-26
 
