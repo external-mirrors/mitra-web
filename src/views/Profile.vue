@@ -259,6 +259,7 @@ import { getReceivedSubscriptions } from "@/api/subscriptions-common"
 import {
   getProfile,
   lookupProfile,
+  Permissions,
   Profile,
   ProfileField,
   ProfileWrapper,
@@ -541,7 +542,9 @@ function canManageSubscriptions(): boolean {
   return (
     isSubscriptionsFeatureEnabled() &&
     profile !== null &&
-    isCurrentUser()
+    currentUser !== null &&
+    isCurrentUser() &&
+    currentUser.role.permissions.includes(Permissions.ManageSubscriptionOptions)
   )
 }
 

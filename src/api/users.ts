@@ -32,6 +32,7 @@ interface Role {
 
 export enum Permissions {
   CreatePost = "create_post",
+  ManageSubscriptionOptions = "manage_subscription_options",
 }
 
 export interface Profile {

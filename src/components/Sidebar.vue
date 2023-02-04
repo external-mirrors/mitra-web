@@ -16,7 +16,7 @@
       <span>Profile directory</span>
     </router-link>
     <router-link
-      v-if="isSubscriptionsFeatureEnabled()"
+      v-if="canManageSubscriptions()"
       class="sidebar-link"
       :to="{ name: 'subscriptions-settings' }"
     >
@@ -43,6 +43,7 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
+import { Permissions } from "@/api/users"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
@@ -71,9 +72,14 @@ const unreadNotificationCount = $computed<number>(() => {
   return getUnreadNotificationCount()
 })
 
-function isSubscriptionsFeatureEnabled(): boolean {
+function canManageSubscriptions(): boolean {
   const blockchain = instance?.blockchains[0]
-  return Boolean(blockchain?.features.subscriptions)
+  const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
+  return (
+    isSubscriptionsFeatureEnabled &&
+    currentUser !== null &&
+    currentUser.role.permissions.includes(Permissions.ManageSubscriptionOptions)
+  )
 }
 
 async function logout() {

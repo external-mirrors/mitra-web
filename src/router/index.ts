@@ -20,6 +20,7 @@ import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 
+import { Permissions } from "@/api/users"
 import { useCurrentUser } from "@/store/user"
 
 async function authGuard(to: any) {
@@ -152,6 +153,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "subscriptions-settings",
     component: SubscriptionsSettings,
     meta: { onlyAuthenticated: true },
+    beforeEnter: () => {
+      const { ensureCurrentUser } = useCurrentUser()
+      return ensureCurrentUser()
+        .role.permissions
+        .includes(Permissions.ManageSubscriptionOptions)
+    },
   },
   {
     path: "/@:acct(.*)",
