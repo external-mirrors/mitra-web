@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Remove invisible characters from display names.
+
 ## [1.13.0] - 2023-02-06
 
 ### Added

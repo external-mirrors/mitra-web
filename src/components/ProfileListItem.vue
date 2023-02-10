@@ -2,23 +2,27 @@
   <div class="profile">
     <avatar :profile="profile"></avatar>
     <div class="name">
-      <div class="display-name">{{ profile.display_name || profile.username }}</div>
+      <div class="display-name">{{ profile.getDisplayName() }}</div>
       <div class="actor-address">@{{ getActorAddress(profile) }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Profile } from "@/api/users"
+import { $computed } from "vue/macros"
+
+import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import { useInstanceInfo } from "@/store/instance"
 
 const { getActorAddress } = useInstanceInfo()
 
 /* eslint-disable-next-line no-undef */
-defineProps<{
+const props = defineProps<{
   profile: Profile,
 }>()
+
+const profile = $computed(() => new ProfileWrapper(props.profile))
 </script>
 
 <style scoped lang="scss">

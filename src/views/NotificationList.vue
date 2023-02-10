@@ -70,6 +70,7 @@ import { $ } from "vue/macros"
 import { PAGE_SIZE } from "@/api/common"
 import { updateNotificationMarker } from "@/api/markers"
 import { getNotifications, Notification } from "@/api/notifications"
+import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -94,8 +95,8 @@ onMounted(async () => {
 })
 
 function getSenderName(notification: Notification): string {
-  const sender = notification.account
-  return sender.display_name || sender.username
+  const sender = new ProfileWrapper(notification.account)
+  return sender.getDisplayName()
 }
 
 function getSenderInfo(notification: Notification): string {

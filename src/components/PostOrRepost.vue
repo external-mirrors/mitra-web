@@ -6,7 +6,7 @@
         :to="{ name: 'profile', params: { profileId: post.account.id }}"
         :title="getActorAddress(post.account)"
       >
-        {{ post.account.display_name || post.account.username }}
+        {{ author.getDisplayName() }}
       </router-link>
       <span>reposted</span>
     </div>
@@ -27,20 +27,23 @@
 </template>
 
 <script setup lang="ts">
-import { $ } from "vue/macros"
+import { $, $computed } from "vue/macros"
 
 import type { Post as PostObject } from "@/api/posts"
+import { ProfileWrapper } from "@/api/users"
 import Post from "@/components/Post.vue"
 import { useInstanceInfo } from "@/store/instance"
 
 /* eslint-disable-next-line no-undef */
-defineProps<{
+const props = defineProps<{
   post: PostObject,
 }>()
 /* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
 const { getActorAddress } = $(useInstanceInfo())
+
+const author = $computed(() => new ProfileWrapper(props.post.account))
 
 function onPostDeleted(postId: string) {
   emit("post-deleted", postId)

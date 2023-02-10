@@ -89,7 +89,14 @@ export class ProfileWrapper {
   }
 
   getDisplayName(): string {
-    return this.display_name || this.username
+    let cleanDisplayName
+    if (this.display_name) {
+      // Replace control characters
+      cleanDisplayName = this.display_name.replace(/\p{C}/gu, "")
+    } else {
+      cleanDisplayName = this.display_name
+    }
+    return cleanDisplayName || this.username
   }
 
   getVerifiedEthereumAddress(): string | null {
