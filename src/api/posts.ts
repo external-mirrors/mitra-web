@@ -149,11 +149,11 @@ export async function getProfileTimeline(
   return data
 }
 
-export async function getPostContext(
+export async function getPostThread(
   authToken: string | null,
   postId: string,
 ): Promise<Post[]> {
-  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/context`
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/thread`
   const response = await http(url, { authToken })
   const data = await response.json()
   if (response.status !== 200) {

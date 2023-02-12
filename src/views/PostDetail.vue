@@ -25,7 +25,7 @@ import { nextTick, onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { Post as PostObject, getPostContext } from "@/api/posts"
+import { Post as PostObject, getPostThread } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -38,7 +38,7 @@ let selectedId = $ref(route.params.postId as string)
 let highlightedId = $ref<string | null>(null)
 let thread = $ref<PostObject[]>([])
 let isLoading = $ref(true)
-const loaded = $ref(getPostContext(authToken, selectedId))
+const loaded = $ref(getPostThread(authToken, selectedId))
 
 onMounted(async () => {
   try {
