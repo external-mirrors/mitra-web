@@ -1,6 +1,6 @@
 <template>
   <form class="search" @submit.prevent="search()">
-    <input type="text" placeholder="Search..." v-model="q">
+    <input type="search" placeholder="Search..." v-model="q">
     <button v-if="q" type="button" @click="clear()">
       <img :src="require('@/assets/feather/delete.svg')">
     </button>
@@ -38,7 +38,8 @@ function search() {
   padding: 7px 15px;
 }
 
-input {
+input[type="search"] {
+  appearance: none;
   background-color: transparent;
   border: none;
   box-sizing: border-box;
@@ -46,6 +47,10 @@ input {
   height: 100%;
   min-width: 0; /* fix for firefox 78 */
   padding: 0;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
 }
 
 button {

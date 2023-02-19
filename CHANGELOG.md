@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Remove invisible characters from display names.
-- Use `/api/v1/{status_id}/thread` API endpoint to load threads.
+- Use `/api/v1/statuses/{status_id}/thread` API endpoint to load threads.
+- Use `<input type="search">` for search bar.
 
 ## [1.13.0] - 2023-02-06
 
