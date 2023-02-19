@@ -168,9 +168,9 @@ function getContent(): string {
   }
 
   :deep(.emoji) {
-    height: 32px;
-    vertical-align: middle;
-    width: 32px;
+    height: 24px;
+    vertical-align: text-bottom;
+    width: 24px;
 
     &:hover {
       height: 48px;
