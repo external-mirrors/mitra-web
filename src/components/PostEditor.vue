@@ -172,6 +172,7 @@ let visibility = $ref(Visibility.Public)
 let visibilityMenuVisible = $ref(false)
 let preview = $ref<Post | null>(null)
 let isLoading = $ref(false)
+let isAttachmentLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
 const author = $computed<User | null>(() => {
@@ -231,7 +232,10 @@ function canAttachFile(): boolean {
   if (!instance) {
     return false
   }
-  return attachments.length < instance.configuration.statuses.max_media_attachments
+  return (
+    attachments.length < instance.configuration.statuses.max_media_attachments &&
+    !isAttachmentLoading
+  )
 }
 
 function getAcceptedMediaTypes(): string {
@@ -258,6 +262,7 @@ async function onAttachmentUpload(event: Event) {
 }
 
 async function addAttachment(file: File) {
+  isAttachmentLoading = true
   const imageDataUrl = await fileToDataUrl(file)
   const imageData = dataUrlToBase64(imageDataUrl)
   const attachment = await uploadAttachment(
@@ -266,6 +271,7 @@ async function addAttachment(file: File) {
     imageData.mediaType,
   )
   attachments.push(attachment)
+  isAttachmentLoading = false
 }
 
 function removeAttachment(index: number) {
@@ -307,7 +313,7 @@ async function togglePreview() {
 }
 
 function canPublish(): boolean {
-  return getCharacterCount() >= 0 && !isLoading
+  return getCharacterCount() >= 0 && !isLoading && !isAttachmentLoading
 }
 
 async function publish() {

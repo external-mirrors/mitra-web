@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Changed custom emoji vertical alignment and size.
 - Expect `/api/v1/statuses` to return status code 200.
 - Insert application-name meta tag at build time.
+- Disable post submission button while attachment is being uploaded.
 
 ## [1.13.0] - 2023-02-06
 
