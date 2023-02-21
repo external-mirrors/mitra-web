@@ -4,20 +4,11 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router"
-import { useHead } from "@vueuse/head"
 
 import { useInstanceInfo } from "@/store/instance"
-import { APP_VERSION } from "@/constants"
 
 const route = useRoute()
 const { loadInstanceInfo } = useInstanceInfo()
-
-useHead({
-  meta: [{
-    name: "application-name",
-    content: `mitra-web v${APP_VERSION}`,
-  }],
-})
 
 loadInstanceInfo()
 </script>

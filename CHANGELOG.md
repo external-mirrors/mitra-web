@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Use `<input type="search">` for search bar.
 - Changed custom emoji vertical alignment and size.
 - Expect `/api/v1/statuses` to return status code 200.
+- Insert application-name meta tag at build time.
 
 ## [1.13.0] - 2023-02-06
 
