@@ -3,14 +3,23 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from "vue"
+import { $, $$ } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { useInstanceInfo } from "@/store/instance"
+import { useCurrentUser } from "@/store/user"
 
 const route = useRoute()
+const { currentUser } = $(useCurrentUser())
 const { loadInstanceInfo } = useInstanceInfo()
 
 loadInstanceInfo()
+
+watch($$(currentUser), () => {
+  const title = currentUser ? `@${currentUser.username}` : "Federated social network"
+  document.title = `Mitra | ${title}`
+}, { immediate: true })
 </script>
 
 <style lang="scss">
