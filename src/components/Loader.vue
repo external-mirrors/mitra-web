@@ -8,18 +8,18 @@
 <style scoped lang="scss">
 /* https://github.com/loadingio/css-spinner/blob/master/dist/ripple.html */
 
-$loader-size: 80px;
-$loader-width: 4px;
-
 .loader {
-  height: $loader-size;
+  --loader-size: 80px;
+  --loader-width: 4px;
+
+  height: var(--loader-size);
   position: relative;
-  width: $loader-size;
+  width: var(--loader-size);
 }
 
 .loader div {
   animation: loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-  border: $loader-width solid var(--loader-color);
+  border: var(--loader-width) solid var(--loader-color);
   border-radius: 50%;
   opacity: 1;
   position: absolute;
@@ -32,18 +32,18 @@ $loader-width: 4px;
 @keyframes loader {
   0% {
     height: 0;
-    left: calc($loader-size / 2 - $loader-width);
+    left: calc(var(--loader-size) / 2 - var(--loader-width));
     opacity: 1;
-    top: calc($loader-size / 2 - $loader-width);
+    top: calc(var(--loader-size) / 2 - var(--loader-width));
     width: 0;
   }
 
   100% {
-    height: $loader-size - $loader-width * 2;
+    height: calc(var(--loader-size) - var(--loader-width) * 2);
     left: 0;
     opacity: 0;
     top: 0;
-    width: $loader-size - $loader-width * 2;
+    width: calc(var(--loader-size) - var(--loader-width) * 2);
   }
 }
 </style>

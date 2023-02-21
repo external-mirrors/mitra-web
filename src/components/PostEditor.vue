@@ -45,11 +45,12 @@
         <button
           type="button"
           class="icon"
-          title="Attach image"
+          title="Attach file"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
         >
-          <img src="@/assets/feather/paperclip.svg">
+          <img v-if="!isAttachmentLoading" src="@/assets/feather/paperclip.svg">
+          <loader v-else></loader>
           <input
             type="file"
             ref="attachmentUploadInputRef"
@@ -140,6 +141,7 @@ import {
 } from "@/api/posts"
 import { User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/composables/instance"
@@ -449,6 +451,11 @@ $line-height: 1.5;
 
   .toolbar-space {
     flex-grow: 1;
+  }
+
+  .loader {
+    --loader-size: #{$icon-size};
+    --loader-width: 2px;
   }
 
   .character-counter {

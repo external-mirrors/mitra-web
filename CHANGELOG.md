@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Detect preferred color scheme.
+- Show loading indicator while attachment is being uploaded.
 
 ## [1.21.0] - 2023-04-12
 
