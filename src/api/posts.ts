@@ -21,7 +21,7 @@ export async function uploadAttachment(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -157,7 +157,7 @@ export async function getPostThread(
   const response = await http(url, { authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -231,7 +231,7 @@ export async function createPost(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -244,7 +244,7 @@ export async function getPost(
   const response = await http(url, { authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -260,7 +260,7 @@ export async function deletePost(
   })
   if (response.status !== 204) {
     const data = await response.json()
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
 }
 
@@ -272,7 +272,7 @@ export async function favourite(
   const response = await http(url, { method: "POST", authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -285,7 +285,7 @@ export async function unfavourite(
   const response = await http(url, { method: "POST", authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -298,7 +298,7 @@ export async function createRepost(
   const response = await http(url, { method: "POST", authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   if (data.reblog === null) {
     throw new Error("reblog property is null")
@@ -314,7 +314,7 @@ export async function deleteRepost(
   const response = await http(url, { method: "POST", authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }

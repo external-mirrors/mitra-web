@@ -23,7 +23,7 @@ export async function getSearchResults(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -38,7 +38,7 @@ export async function searchProfilesByAcct(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -53,7 +53,7 @@ export async function searchProfilesByEthereumAddress(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }

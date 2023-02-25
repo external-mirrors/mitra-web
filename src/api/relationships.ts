@@ -30,7 +30,7 @@ export async function follow(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -48,7 +48,7 @@ export async function getRelationship(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data[0]
 }
@@ -64,7 +64,7 @@ export async function unfollow(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }

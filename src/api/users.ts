@@ -147,7 +147,7 @@ export async function createUser(userData: UserCreateForm): Promise<User> {
   })
   const data = await response.json()
   if (response.status !== 201) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -175,7 +175,7 @@ export async function getAccessToken(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data.access_token
   }
@@ -192,7 +192,7 @@ export async function revokeAccessToken(
   })
   if (response.status !== 200) {
     const data = await response.json()
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
 }
 
@@ -214,7 +214,7 @@ export async function lookupProfile(
   const response = await http(url, { authToken, queryParams: { acct } })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -227,7 +227,7 @@ export async function getProfile(
   const response = await http(url, { authToken })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
   return data
 }
@@ -270,7 +270,7 @@ export async function updateProfile(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -313,7 +313,7 @@ export async function sendSignedActivity(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -347,7 +347,7 @@ export async function createIdentityProof(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }

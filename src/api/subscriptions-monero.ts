@@ -76,7 +76,7 @@ export async function createInvoice(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -91,7 +91,7 @@ export async function getInvoice(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }

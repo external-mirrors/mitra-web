@@ -45,7 +45,7 @@ export async function getSubscriptionOptions(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -63,7 +63,7 @@ export async function registerSubscriptionOption(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -89,7 +89,7 @@ export async function findSubscription(
   } else if (response.status === 404) {
     return null
   } else {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   }
 }
 

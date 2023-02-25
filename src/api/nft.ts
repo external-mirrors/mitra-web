@@ -18,7 +18,7 @@ export async function makePermanent(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -35,7 +35,7 @@ export async function getMintingAuthorization(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
@@ -79,7 +79,7 @@ export async function onTokenMinted(
   })
   const data = await response.json()
   if (response.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error_description)
   } else {
     return data
   }
