@@ -508,7 +508,7 @@ const feedUrl = $computed<string>(() => {
   if (!profile || !isLocalUser()) {
     return ""
   }
-  return `${BACKEND_URL}/feeds/${profile.username}`
+  return `${BACKEND_URL}/feeds/users/${profile.username}`
 })
 
 function canVerifyEthereumAddress(): boolean {
