@@ -4,7 +4,11 @@
       <div class="not-found" v-if="!profile && !isLoading">
         Profile not found
       </div>
-      <div class="profile-block" v-if="profile">
+      <div
+        class="profile-block"
+        v-if="profile"
+        :data-profile-id="profile.id"
+      >
         <div class="profile-header">
           <img v-if="profile.header" :src="profile.header">
         </div>

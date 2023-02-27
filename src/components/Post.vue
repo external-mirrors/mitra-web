@@ -1,5 +1,10 @@
 <template>
-  <div class="post" :class="{ highlighted: highlighted }" :data-post-id="post.id" :id="post.id">
+  <div
+    class="post"
+    :class="{ highlighted: highlighted }"
+    :data-post-id="post.id"
+    :id="post.id"
+  >
     <div class="post-header">
       <a
         class="floating-avatar"
