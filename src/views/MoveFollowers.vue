@@ -73,7 +73,7 @@ async function move() {
   isLoading = false
   errorMessage = null
   setCurrentUser(user)
-  router.push({ name: "profile", params: { profileId: currentUser.id } })
+  router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
 }
 </script>
 

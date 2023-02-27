@@ -67,7 +67,7 @@ async function submit() {
       did,
       signature,
     )
-    router.push({ name: "profile", params: { profileId: currentUser.id } })
+    router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
   }
 }
 </script>

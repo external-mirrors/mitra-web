@@ -5,7 +5,7 @@
         class="floating-avatar"
         :href="post.account.url"
         :title="author.getDisplayName()"
-        @click="openProfile($event, post.account.id)"
+        @click="openProfile($event, post.account)"
       >
         <avatar :profile="post.account"></avatar>
       </a>
@@ -13,7 +13,7 @@
         class="display-name"
         :href="post.account.url"
         :title="author.getDisplayName()"
-        @click="openProfile($event, post.account.id)"
+        @click="openProfile($event, post.account)"
       >
         {{ author.getDisplayName() }}
       </a>
@@ -53,7 +53,7 @@
         :key="mention.id"
         :href="mention.url"
         :title="getActorAddress(mention)"
-        @click="openProfile($event, mention.id)"
+        @click="openProfile($event, mention)"
       >
         @{{ mention.username }}
       </a>
@@ -255,7 +255,11 @@ import {
   createRepost,
   deleteRepost,
 } from "@/api/posts"
-import { Permissions, ProfileWrapper } from "@/api/users"
+import {
+  Permissions,
+  Profile,
+  ProfileWrapper,
+} from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
@@ -301,13 +305,13 @@ let isWaitingForToken = $ref(false)
 const blockchain = $computed(() => instance?.blockchains[0])
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
-function openProfile(event: Event, profileId: string) {
+function openProfile(event: Event, profile: Mention | Profile) {
   if (currentUser === null) {
     // Viewing as guest; do not override click handler
     return
   }
   event.preventDefault()
-  router.push({ name: "profile", params: { profileId: profileId } })
+  router.push({ name: "profile-by-acct", params: { acct: profile.acct } })
 }
 
 function highlight(postId: string | null) {

@@ -121,8 +121,8 @@ export class ProfileWrapper {
         option.type === "monero-subscription"
       ) {
         return {
-          name: "profile-subscription",
-          params: { profileId: this.id },
+          name: "profile-by-acct-subscription",
+          params: { acct: this.acct },
         }
       }
     }

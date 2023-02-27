@@ -3,7 +3,7 @@
     <router-link
       v-if="author"
       class="floating-avatar"
-      :to="{ name: 'profile', params: { profileId: author.id }}"
+      :to="{ name: 'profile-by-acct', params: { acct: author.acct }}"
     >
       <avatar :profile="author"></avatar>
     </router-link>

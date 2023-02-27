@@ -14,7 +14,7 @@
           class="search-result"
           v-for="profile in profiles"
           :key="profile.id"
-          :to="{ name: 'profile', params: { profileId: profile.id } }"
+          :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
         >
           <profile-list-item :profile="profile"></profile-list-item>
         </router-link>

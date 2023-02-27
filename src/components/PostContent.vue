@@ -38,7 +38,7 @@ function configureInlineLinks() {
     if (mention) {
       mentionElement.addEventListener("click", (event: Event) => {
         event.preventDefault()
-        router.push({ name: "profile", params: { profileId: mention.id } })
+        router.push({ name: "profile-by-acct", params: { acct: mention.acct } })
       })
     }
   }

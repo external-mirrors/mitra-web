@@ -4,7 +4,7 @@
       <component
         class="profile-card"
         :is="sender.id ? 'router-link' : 'div'"
-        :to="{ name: 'profile', params: { profileId: sender.id }}"
+        :to="{ name: 'profile-by-acct', params: { acct: sender.acct }}"
       >
         <avatar :profile="sender"></avatar>
         <div class="display-name">{{ sender.getDisplayName() }}</div>
@@ -13,7 +13,10 @@
       <div class="separator">
         <img :src="require('@/assets/feather/arrow-right.svg')">
       </div>
-      <router-link class="profile-card" :to="{ name: 'profile', params: { profileId: recipient.id }}">
+      <router-link
+        class="profile-card"
+        :to="{ name: 'profile-by-acct', params: { acct: recipient.acct }}"
+      >
         <avatar :profile="recipient"></avatar>
         <div class="display-name">{{ recipient.getDisplayName() }}</div>
         <div class="wallet-address">{{ recipientEthereumAddress }}</div>

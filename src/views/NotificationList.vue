@@ -19,7 +19,7 @@
           <img v-else-if="notification.type === 'move'" :src="require('@/assets/feather/truck.svg')">
           <router-link
             :title="getSenderInfo(notification)"
-            :to="{ name: 'profile', params: { profileId: notification.account.id } }"
+            :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
           >
             {{ getSenderName(notification) }}
           </router-link>
@@ -42,7 +42,7 @@
         <router-link
           v-else
           class="profile"
-          :to="{ name: 'profile', params: { profileId: notification.account.id } }"
+          :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
         >
           <div class="floating-avatar">
             <avatar :profile="notification.account"></avatar>

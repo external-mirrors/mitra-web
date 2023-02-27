@@ -13,7 +13,11 @@ import { onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { getProfile, Profile } from "@/api/users"
+import {
+  lookupProfile,
+  getProfile,
+  Profile,
+} from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
@@ -29,10 +33,17 @@ const blockchain = $computed(() => instance?.blockchains[0])
 
 onMounted(async () => {
   // Recipient
-  profile = await getProfile(
-    authToken,
-    route.params.profileId as string,
-  )
+  if (route.params.acct) {
+    profile = await lookupProfile(
+      authToken,
+      route.params.acct as string,
+    )
+  } else {
+    profile = await getProfile(
+      authToken,
+      route.params.profileId as string,
+    )
+  }
 })
 
 function isLocalUser(): boolean {

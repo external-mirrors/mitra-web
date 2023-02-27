@@ -15,7 +15,7 @@
       <div id="profile">
         <router-link
           class="profile-link"
-          :to="{ name: 'profile', params: { profileId: currentUser.id }}"
+          :to="{ name: 'profile-by-acct', params: { acct: currentUser.acct }}"
         >
           <avatar :profile="currentUser"></avatar>
           <div class="profile-name">@{{ currentUser.username }}</div>

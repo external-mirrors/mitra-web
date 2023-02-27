@@ -5,7 +5,7 @@
         <router-link
           v-for="profile in profiles"
           class="profile-list-item"
-          :to="{ name: 'profile', params: { profileId: profile.id }}"
+          :to="{ name: 'profile-by-acct', params: { acct: profile.acct }}"
           :key="profile.id"
         >
           <profile-card :profile="profile" :compact="false"></profile-card>

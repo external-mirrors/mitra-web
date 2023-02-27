@@ -217,7 +217,7 @@ async function save() {
   }
   isLoading = false
   setCurrentUser(user)
-  router.push({ name: "profile", params: { profileId: user.id } })
+  router.push({ name: "profile-by-acct", params: { acct: user.acct } })
 }
 </script>
 

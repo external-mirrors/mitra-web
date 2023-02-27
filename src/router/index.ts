@@ -101,8 +101,20 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
+    path: "/@:acct(.*)",
+    name: "profile-by-acct",
+    component: ProfileView,
+    meta: { },
+  },
+  {
     path: "/profile/:profileId/subscription",
     name: "profile-subscription",
+    component: SubscriptionPage,
+    meta: { },
+  },
+  {
+    path: "/@:acct(.*)/subscription",
+    name: "profile-by-acct-subscription",
     component: SubscriptionPage,
     meta: { },
   },
@@ -159,12 +171,6 @@ const routes: Array<RouteRecordRaw> = [
         .role.permissions
         .includes(Permissions.ManageSubscriptionOptions)
     },
-  },
-  {
-    path: "/@:acct(.*)",
-    name: "profile-by-acct",
-    component: ProfileView,
-    meta: { },
   },
   {
     path: "/:pathMatch(.*)*",

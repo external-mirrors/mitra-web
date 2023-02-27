@@ -3,7 +3,7 @@
     <div class="action">
       <img :src="require('@/assets/feather/repeat.svg')">
       <router-link
-        :to="{ name: 'profile', params: { profileId: post.account.id }}"
+        :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
         :title="getActorAddress(post.account)"
       >
         {{ author.getDisplayName() }}

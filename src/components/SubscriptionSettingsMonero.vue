@@ -110,8 +110,8 @@ async function loadSubscriptionSettings() {
 
 function getSubscriptionPagePath(): string {
   const route = router.resolve({
-    name: "profile-subscription",
-    params: { profileId: ensureCurrentUser().id },
+    name: "profile-by-acct-subscription",
+    params: { acct: ensureCurrentUser().acct },
   })
   return route.fullPath
 }

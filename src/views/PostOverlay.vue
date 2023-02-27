@@ -13,7 +13,10 @@
         </div>
       </div>
       <div class="token-info">
-        <router-link class="profile" :to="{ name: 'profile', params: { profileId: post.account.id }}">
+        <router-link
+          class="profile"
+          :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
+        >
           <avatar :profile="post.account"></avatar>
           <div class="actor-address">@{{ actorAddress }}</div>
         </router-link>
