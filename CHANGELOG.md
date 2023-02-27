@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Show "Alias" badge on profile page if account has aliases.
+
 ### Changed
 
 - Use `/feeds/users/{username}` path for user's Atom feed.

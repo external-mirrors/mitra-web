@@ -13,6 +13,13 @@
             <div class="avatar-group">
               <avatar :profile="profile"></avatar>
               <div class="badges">
+                <div
+                  class="badge"
+                  v-if="aliases.length > 0"
+                  :title="aliases.map(profile => '@' + profile.acct).join(', ')"
+                >
+                  Alias
+                </div>
                 <div class="badge" v-if="isFollowedBy()">Follows you</div>
                 <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
                 <div class="badge" v-if="isSubscriber()">Subscriber</div>
@@ -257,6 +264,7 @@ import {
 } from "@/api/relationships"
 import { getReceivedSubscriptions } from "@/api/subscriptions-common"
 import {
+  getAliases,
   getProfile,
   lookupProfile,
   Permissions,
@@ -288,6 +296,7 @@ const { instance, getActorAddress } = $(useInstanceInfo())
 
 let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
+let aliases = $ref<Profile[]>([])
 
 let profileMenuVisible = $ref(false)
 
@@ -326,6 +335,9 @@ onMounted(async () => {
       ensureAuthToken(),
       profile.id,
     )
+  }
+  if (profile.identity_proofs.length > 0) {
+    aliases = await getAliases(profile.id)
   }
   await switchTab("posts")
   isLoading = false

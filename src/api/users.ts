@@ -352,3 +352,13 @@ export async function createIdentityProof(
     return data
   }
 }
+
+export async function getAliases(profileId: string): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/aliases`
+  const response = await http(url)
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.error_description)
+  }
+  return data
+}
