@@ -644,6 +644,9 @@ async function onMintToken() {
 
   a {
     @include block-link;
+
+    overflow: hidden;
+    word-wrap: break-word;
   }
 }
 
