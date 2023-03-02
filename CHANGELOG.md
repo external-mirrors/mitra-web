@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed text overflow in post subheader.
+- Prevent display name from shrinking too much in post header.
 
 ## [1.15.0] - 2023-02-27
 
