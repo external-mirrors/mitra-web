@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { PAGE_SIZE, http } from "./common"
+import { CustomEmoji } from "./emojis"
 import { defaultProfile, Profile } from "./users"
 
 export interface Attachment {
@@ -50,11 +51,6 @@ export interface Mention {
 export interface Tag {
   name: string;
   url: string;
-}
-
-export interface CustomEmoji {
-  shortcode: string,
-  url: string,
 }
 
 export interface Post {

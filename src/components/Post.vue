@@ -15,12 +15,12 @@
         <avatar :profile="post.account"></avatar>
       </a>
       <a
-        class="display-name"
+        class="display-name-link"
         :href="post.account.url"
         :title="author.getDisplayName()"
         @click="openProfile($event, post.account)"
       >
-        {{ author.getDisplayName() }}
+        <profile-display-name :profile="author"></profile-display-name>
       </a>
       <div class="actor-address" :title="'@' + getActorAddress(post.account)">
         @{{ getActorAddress(post.account) }}
@@ -80,9 +80,8 @@
     >
       <div class="quote-header">
         <avatar :profile="linkedPost.account"></avatar>
-        <span class="display-name">
-          {{ getQuoteAuthorDisplayName(linkedPost) }}
-        </span>
+        <profile-display-name :profile="getQuoteAuthor(linkedPost)">
+        </profile-display-name>
         <span class="actor-address">
           @{{ getActorAddress(linkedPost.account) }}
         </span>
@@ -270,6 +269,7 @@ import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"
@@ -351,9 +351,8 @@ function getReplyMentions(): Mention[] {
   return props.post.mentions
 }
 
-function getQuoteAuthorDisplayName(post: Post): string | null {
-  const profile = new ProfileWrapper(post.account)
-  return profile.getDisplayName()
+function getQuoteAuthor(post: Post): ProfileWrapper {
+  return new ProfileWrapper(post.account)
 }
 
 function canReply(): boolean {
@@ -607,7 +606,7 @@ async function onMintToken() {
     }
   }
 
-  .display-name {
+  .display-name-link {
     color: $text-color;
     font-weight: bold;
     overflow: hidden;

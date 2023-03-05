@@ -20,8 +20,10 @@
           <router-link
             :title="getSenderInfo(notification)"
             :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
+            class="display-name-link"
           >
-            {{ getSenderName(notification) }}
+            <profile-display-name :profile="getSender(notification)">
+            </profile-display-name>
           </router-link>
           <span v-if="notification.type === 'follow'">followed you</span>
           <span v-else-if="notification.type === 'reply'">replied to your post</span>
@@ -47,7 +49,8 @@
           <div class="floating-avatar">
             <avatar :profile="notification.account"></avatar>
           </div>
-          <div class="display-name">{{ getSenderName(notification) }}</div>
+          <profile-display-name :profile="getSender(notification)">
+          </profile-display-name>
           <div class="actor-address">@{{ getActorAddress(notification.account) }}</div>
           <div class="timestamp">{{ humanizeDate(notification.created_at) }}</div>
         </router-link>
@@ -73,6 +76,7 @@ import { getNotifications, Notification } from "@/api/notifications"
 import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/store/instance"
 import { useNotifications } from "@/store/notifications"
@@ -94,13 +98,13 @@ onMounted(async () => {
   }
 })
 
-function getSenderName(notification: Notification): string {
-  const sender = new ProfileWrapper(notification.account)
-  return sender.getDisplayName()
+function getSender(notification: Notification): ProfileWrapper {
+  return new ProfileWrapper(notification.account)
 }
 
 function getSenderInfo(notification: Notification): string {
-  return `${getSenderName(notification)} (${getActorAddress(notification.account)})`
+  const senderName = getSender(notification).getDisplayName()
+  return `${senderName} (${getActorAddress(notification.account)})`
 }
 
 function onPostDeleted(notificationIndex: number) {

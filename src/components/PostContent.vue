@@ -7,6 +7,7 @@ import { onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
+import { replaceShortcodes } from "@/api/emojis"
 import { Post } from "@/api/posts"
 import { useCurrentUser } from "@/store/user"
 import { addGreentext } from "@/utils/greentext"
@@ -72,16 +73,7 @@ function configureInlineLinks() {
 function getContent(): string {
   let content = addGreentext(props.post.content)
   // Replace emoji shortcodes
-  content = content.replace(/:([\w.]+):/g, (match, shortcode) => {
-    const emoji = props.post.emojis.find((emoji) => {
-      return emoji.shortcode === shortcode
-    })
-    if (emoji) {
-      return `<img class="emoji" title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}">`
-    } else {
-      return match
-    }
-  })
+  content = replaceShortcodes(content, props.post.emojis)
   return content
 }
 </script>
@@ -92,6 +84,8 @@ function getContent(): string {
 @import "../styles/mixins";
 
 .post-content {
+  @include ugc-emoji;
+
   color: $text-color;
   line-height: 1.5;
   padding: $block-inner-padding;
@@ -168,10 +162,6 @@ function getContent(): string {
   }
 
   :deep(.emoji) {
-    height: 24px;
-    vertical-align: text-bottom;
-    width: 24px;
-
     &:hover {
       height: 48px;
       transition: 100ms linear;

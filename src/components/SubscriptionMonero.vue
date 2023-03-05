@@ -7,7 +7,7 @@
         :to="{ name: 'profile-by-acct', params: { acct: sender.acct } }"
       >
         <avatar :profile="sender"></avatar>
-        <div class="display-name">{{ sender.getDisplayName() }}</div>
+        <profile-display-name :profile="sender"></profile-display-name>
       </component>
       <div class="separator">
         <img :src="require('@/assets/feather/arrow-right.svg')">
@@ -17,7 +17,7 @@
         :to="{ name: 'profile-by-acct', params: { acct: recipient.acct }}"
       >
         <avatar :profile="recipient"></avatar>
-        <div class="display-name">{{ recipient.getDisplayName() }}</div>
+        <profile-display-name :profile="recipient"></profile-display-name>
       </router-link>
     </div>
     <form class="sender" v-if="sender.id === ''">
@@ -131,6 +131,7 @@ import { defaultProfile, Profile, ProfilePaymentOption, ProfileWrapper } from "@
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useCurrentUser } from "@/store/user"
 import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"

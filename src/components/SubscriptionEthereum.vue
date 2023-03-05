@@ -7,7 +7,7 @@
         :to="{ name: 'profile-by-acct', params: { acct: sender.acct }}"
       >
         <avatar :profile="sender"></avatar>
-        <div class="display-name">{{ sender.getDisplayName() }}</div>
+        <profile-display-name :profile="sender"></profile-display-name>
         <div class="wallet-address">{{ walletAddress ? walletAddress.toLowerCase() : '?' }}</div>
       </component>
       <div class="separator">
@@ -18,7 +18,7 @@
         :to="{ name: 'profile-by-acct', params: { acct: recipient.acct }}"
       >
         <avatar :profile="recipient"></avatar>
-        <div class="display-name">{{ recipient.getDisplayName() }}</div>
+        <profile-display-name :profile="recipient"></profile-display-name>
         <div class="wallet-address">{{ recipientEthereumAddress }}</div>
       </router-link>
     </div>
@@ -125,6 +125,7 @@ import {
 } from "@/api/subscriptions-ethereum"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useWallet } from "@/composables/wallet"
 import { useInstanceInfo } from "@/store/instance"
 import { useCurrentUser } from "@/store/user"

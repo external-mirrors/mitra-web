@@ -105,7 +105,8 @@
           </div>
           <div class="name-buttons-group">
             <div class="name-group">
-              <div class="display-name">{{ profile.getDisplayName() }}</div>
+              <profile-display-name :profile="profile">
+              </profile-display-name>
               <div class="actor-address">@{{ actorAddress }}</div>
             </div>
             <div class="buttons">
@@ -280,6 +281,7 @@ import {
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"

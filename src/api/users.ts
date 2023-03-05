@@ -3,6 +3,7 @@ import { RouteLocationRaw } from "vue-router"
 import { BACKEND_URL } from "@/constants"
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { PAGE_SIZE, http } from "./common"
+import { CustomEmoji } from "./emojis"
 
 export const EXTRA_FIELD_COUNT_MAX = 10
 
@@ -48,6 +49,7 @@ export interface Profile {
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
+  emojis: CustomEmoji[],
 
   followers_count: number;
   following_count: number;
@@ -69,6 +71,7 @@ export function defaultProfile(): Profile {
     identity_proofs: [],
     payment_options: [],
     fields: [],
+    emojis: [],
     followers_count: 0,
     following_count: 0,
     subscribers_count: 0,

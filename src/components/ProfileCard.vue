@@ -7,7 +7,7 @@
       <div class="avatar-row">
         <avatar :profile="profile"></avatar>
         <div class="name-group">
-          <div class="display-name">{{ profile.getDisplayName() }}</div>
+          <profile-display-name :profile="profile"></profile-display-name>
           <div class="actor-address">@{{ getActorAddress(profile) }}</div>
         </div>
       </div>
@@ -27,6 +27,7 @@ import { $computed } from "vue/macros"
 
 import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
+import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useInstanceInfo } from "@/store/instance"
 
 /* eslint-disable-next-line no-undef */
