@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Render custom emojis in display names.
+- Display player for audio attachments.
 
 ### Changed
 

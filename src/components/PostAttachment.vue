@@ -1,6 +1,7 @@
 <template>
   <img v-if="attachment.type === 'image'" :src="attachment.url">
   <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
+  <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
   <div v-else>
     &bull; <a :href="attachment.url">{{ attachment.url }}</a>
   </div>
@@ -30,6 +31,7 @@ img {
   width: 100%;
 }
 
+audio,
 video {
   width: 100%;
 }
