@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 
-import { PAGE_SIZE, http } from "./common"
+import { handleResponse, http, PAGE_SIZE } from "./common"
 import { Post } from "./posts"
 import { Profile } from "./users"
 
@@ -23,9 +23,6 @@ export async function getNotifications(
     queryParams,
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }

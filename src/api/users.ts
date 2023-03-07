@@ -2,7 +2,7 @@ import { RouteLocationRaw } from "vue-router"
 
 import { BACKEND_URL } from "@/constants"
 import { createDidFromEthereumAddress } from "@/utils/did"
-import { PAGE_SIZE, http } from "./common"
+import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
 
 export const EXTRA_FIELD_COUNT_MAX = 10
@@ -199,13 +199,10 @@ export async function revokeAccessToken(
   }
 }
 
-export async function getCurrentUser(authToken: string): Promise<User | null> {
+export async function getCurrentUser(authToken: string): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/verify_credentials`
   const response = await http(url, { authToken })
-  if (response.status !== 200) {
-    return null
-  }
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 

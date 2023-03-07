@@ -55,7 +55,16 @@ const emit = defineEmits<{(event: "reload-home"): void}>()
 
 function showHomeTimeline() {
   if (route.name === "home") {
-    loadNotifications(ensureAuthToken())
+    try {
+      loadNotifications(ensureAuthToken())
+    } catch (error: any) {
+      if (error.message === "access token is invalid") {
+        router.push({ name: "landing-page" })
+        return
+      } else {
+        throw error
+      }
+    }
     emit("reload-home")
   } else {
     router.push({ name: "home" })

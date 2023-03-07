@@ -9,10 +9,10 @@ const lastReadId = ref<string | null>(null)
 export function useNotifications() {
 
   async function loadNotifications(authToken: string): Promise<void> {
-    const notifications_ = await getNotifications(authToken)
+    const items = await getNotifications(authToken)
     const marker = await getNotificationMarker(authToken)
     // Don't update reactive object until marker is loaded
-    notifications.value = notifications_
+    notifications.value = items
     if (marker) {
       lastReadId.value = marker.last_read_id
     }

@@ -42,9 +42,11 @@ export function useCurrentUser() {
       const token = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY)
       if (token) {
         authToken.value = token
-        currentUser.value = await getCurrentUser(token)
-        if (currentUser.value === null) {
+        try {
+          currentUser.value = await getCurrentUser(token)
+        } catch (error: any) {
           // Failed to get current user, removing invalid token
+          currentUser.value = null
           clearAuthToken()
         }
       }
