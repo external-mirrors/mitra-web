@@ -84,8 +84,6 @@ function getContent(): string {
 @import "../styles/mixins";
 
 .post-content {
-  @include ugc-emoji;
-
   color: $text-color;
   line-height: 1.5;
   padding: $block-inner-padding;
@@ -162,6 +160,10 @@ function getContent(): string {
   }
 
   :deep(.emoji) {
+    height: 24px;
+    vertical-align: text-bottom;
+    width: 24px;
+
     &:hover {
       height: 48px;
       transition: 100ms linear;

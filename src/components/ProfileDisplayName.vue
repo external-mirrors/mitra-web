@@ -23,10 +23,17 @@ function getDisplayNameHtml(): string {
 </script>
 
 <style scoped lang="scss">
-@import "../styles/mixins";
 @import "../styles/theme";
 
+$display-name-line-height: 1.4;
+
 .display-name {
-  @include ugc-emoji;
+  line-height: $display-name-line-height;
+
+  :deep(.emoji) {
+    height: $display-name-line-height * 0.8em;
+    vertical-align: text-bottom;
+    width: $display-name-line-height * 0.8em;
+  }
 }
 </style>

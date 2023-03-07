@@ -607,11 +607,14 @@ async function onMintToken() {
   }
 
   .display-name-link {
-    color: $text-color;
-    font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    .display-name {
+      color: $text-color;
+      font-weight: bold;
+    }
   }
 
   .actor-address {
