@@ -162,8 +162,8 @@ async function loadNextPage() {
   }
 
   .actor-address {
+    flex-basis: 25%;
     flex-grow: 1;
-    min-width: 15%;
     overflow: hidden;
     text-overflow: ellipsis;
   }
