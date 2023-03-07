@@ -66,3 +66,21 @@ export async function http(
   const response = await fetcher.fetch(url as string, params)
   return response
 }
+
+export async function handleResponse(
+  response: Response,
+  expectedStatus: number = 200,
+): Promise<any> {
+  if (response.status === expectedStatus) {
+    if (expectedStatus === 204) {
+      // No data
+      return null
+    } else {
+      const data = await response.json()
+      return data
+    }
+  } else {
+    const data = await response.json()
+    throw new Error(data.error_description)
+  }
+}

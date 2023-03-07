@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { PAGE_SIZE, http } from "./common"
+import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
 import { defaultProfile, Profile } from "./users"
 
@@ -20,10 +20,7 @@ export async function uploadAttachment(
     json: { file: base64data, media_type: mediaType },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -89,7 +86,7 @@ export async function getHomeTimeline(
     queryParams,
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -104,7 +101,7 @@ export async function getPublicTimeline(
     queryParams,
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -120,7 +117,7 @@ export async function getTagTimeline(
     queryParams,
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -141,7 +138,7 @@ export async function getProfileTimeline(
     queryParams,
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -151,10 +148,7 @@ export async function getPostThread(
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/thread`
   const response = await http(url, { authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -171,7 +165,7 @@ export async function previewPost(
     },
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return {
     id: "",
     uri: "",
@@ -225,10 +219,7 @@ export async function createPost(
     json: statusData,
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -238,10 +229,7 @@ export async function getPost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}`
   const response = await http(url, { authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -254,10 +242,7 @@ export async function deletePost(
     method: "DELETE",
     authToken,
   })
-  if (response.status !== 204) {
-    const data = await response.json()
-    throw new Error(data.error_description)
-  }
+  await handleResponse(response, 204)
 }
 
 export async function favourite(
@@ -266,10 +251,7 @@ export async function favourite(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/favourite`
   const response = await http(url, { method: "POST", authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -279,10 +261,7 @@ export async function unfavourite(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unfavourite`
   const response = await http(url, { method: "POST", authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -292,10 +271,7 @@ export async function createRepost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/reblog`
   const response = await http(url, { method: "POST", authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   if (data.reblog === null) {
     throw new Error("reblog property is null")
   }
@@ -308,9 +284,6 @@ export async function deleteRepost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unreblog`
   const response = await http(url, { method: "POST", authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
