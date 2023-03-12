@@ -37,7 +37,8 @@
           >
             <img :src="require('@/assets/feather/x.svg')">
           </button>
-          <img :src="attachment.url">
+          <img v-if="attachment.type === 'image'" :src="attachment.url">
+          <div v-else class="placeholder">{{ attachment.url }}</div>
         </div>
       </div>
       <div class="toolbar">
@@ -243,7 +244,6 @@ function getAcceptedMediaTypes(): string {
     return ""
   }
   return instance.configuration.media_attachments.supported_mime_types
-    .filter(mediaType => mediaType.startsWith("image/"))
     .join(",")
 }
 
@@ -412,6 +412,15 @@ $line-height: 1.5;
 
   > img {
     width: 100%;
+  }
+
+  .placeholder {
+    background-color: $background-color;
+    box-sizing: border-box;
+    padding: $block-inner-padding;
+    text-align: center;
+    width: 100%;
+    word-wrap: break-word;
   }
 }
 
