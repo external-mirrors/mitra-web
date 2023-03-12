@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
 import { Post, getHomeTimeline } from "@/api/posts"
 import { Permissions } from "@/api/users"
@@ -24,6 +25,7 @@ import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
+const router = useRouter()
 const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 
 let posts = $ref<Post[]>([])
@@ -41,7 +43,16 @@ function insertPost(post: Post) {
 async function loadTimeline() {
   isLoading = true
   const authToken = ensureAuthToken()
-  posts = await getHomeTimeline(authToken)
+  try {
+    posts = await getHomeTimeline(authToken)
+  } catch (error: any) {
+    if (error.message === "access token is invalid") {
+      router.push({ name: "landing-page" })
+      return
+    } else {
+      throw error
+    }
+  }
   isLoading = false
 }
 
