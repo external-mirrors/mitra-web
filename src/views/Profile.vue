@@ -218,7 +218,7 @@
             :class="{ active: tabName === 'posts-with-replies' }"
             @click="switchTab('posts-with-replies')"
           >
-            Posts with replies
+            Posts and replies
           </a>
         </template>
         <span v-else-if="tabName === 'followers'" class="active">Followers</span>
