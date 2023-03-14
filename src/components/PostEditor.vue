@@ -265,11 +265,18 @@ async function addAttachment(file: File) {
   isAttachmentLoading = true
   const imageDataUrl = await fileToDataUrl(file)
   const imageData = dataUrlToBase64(imageDataUrl)
-  const attachment = await uploadAttachment(
-    ensureAuthToken(),
-    imageData.data,
-    imageData.mediaType,
-  )
+  let attachment
+  try {
+    attachment = await uploadAttachment(
+      ensureAuthToken(),
+      imageData.data,
+      imageData.mediaType,
+    )
+  } catch (error: any) {
+    isAttachmentLoading = false
+    alert(error.message)
+    return
+  }
   attachments.push(attachment)
   isAttachmentLoading = false
 }
