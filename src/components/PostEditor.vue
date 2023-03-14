@@ -334,6 +334,10 @@ async function publish() {
   } catch (error: any) {
     errorMessage = error.message
     isLoading = false
+    if (props.inReplyTo !== null) {
+      // Show alert if there's no errorbox
+      alert(errorMessage)
+    }
     return
   }
   // Refresh editor
