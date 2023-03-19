@@ -80,7 +80,14 @@ export async function handleResponse(
       return data
     }
   } else {
-    const data = await response.json()
-    throw new Error(data.error_description)
+    let errorDescription
+    if (response.headers.get("Content-Type") === "application/json") {
+      const data = await response.json()
+      errorDescription = data.error_description
+    } else {
+      // Unexpected response
+      errorDescription = response.statusText
+    }
+    throw new Error(errorDescription)
   }
 }

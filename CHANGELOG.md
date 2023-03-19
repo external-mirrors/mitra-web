@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Show better error message if HTTP status code is 413.
+
 ## [1.17.0] - 2023-03-15
 
 ### Added
