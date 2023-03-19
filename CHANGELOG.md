@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Show better error message if HTTP status code is 413.
 
+### Fixed
+
+- Fixed automatic logout on authentication error.
+
 ## [1.17.0] - 2023-03-15
 
 ### Added
@@ -24,10 +28,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Show alert if publishing of reply fails.
 - Show alert if attachment upload fails.
-
-### Fixed
-
-- Fixed automatic logout on authentication error.
 
 ## [1.16.0] - 2023-03-08
 
