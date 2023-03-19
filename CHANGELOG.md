@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add "Copy profile ID" item to profile menu if current user is admin.
+
 ### Changed
 
 - Show better error message if HTTP status code is 413.

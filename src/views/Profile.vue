@@ -100,6 +100,14 @@
                 <li v-if="canShowReplies()">
                   <button @click="onFollow(undefined, true)">Show replies</button>
                 </li>
+                <li v-if="isAdmin()">
+                  <button
+                    title="Copy profile ID"
+                    @click="hideProfileMenu(); copyProfileId()"
+                  >
+                    Copy profile ID
+                  </button>
+                </li>
               </menu>
             </div>
           </div>
@@ -573,6 +581,20 @@ function canSubscribe(): boolean {
     profile.getSubscriptionPageLocation() !== null &&
     !isCurrentUser()
   )
+}
+
+function isAdmin(): boolean {
+  if (!currentUser) {
+    return false
+  }
+  return currentUser.role.permissions.includes(Permissions.DeleteAnyProfile)
+}
+
+function copyProfileId(): void {
+  if (!profile) {
+    return
+  }
+  navigator.clipboard.writeText(profile.id)
 }
 
 async function loadNextPage(maxId: string) {
