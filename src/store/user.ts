@@ -63,6 +63,11 @@ export function useCurrentUser() {
     localStorage.clear()
   }
 
+  function onInvalidAuthToken() {
+    setCurrentUser(null)
+    clearAuthToken()
+  }
+
   return {
     currentUser,
     ensureCurrentUser,
@@ -72,5 +77,6 @@ export function useCurrentUser() {
     setAuthToken,
     isAuthenticated,
     endUserSession,
+    onInvalidAuthToken,
   }
 }

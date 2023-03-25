@@ -26,7 +26,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/store/user"
 
 const router = useRouter()
-const { endUserSession, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
+const { onInvalidAuthToken, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
@@ -46,8 +46,9 @@ async function loadTimeline() {
   try {
     posts = await getHomeTimeline(authToken)
   } catch (error: any) {
+    console.error("timeline loading error:", error.message)
     if (error.message === "access token is invalid") {
-      await endUserSession()
+      onInvalidAuthToken()
       router.push({ name: "landing-page" })
       return
     } else {
