@@ -20,10 +20,9 @@ function copyAddress() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
 
 .crypto-address {
-  background-color: $widget-background-color;
+  background-color: var(--widget-background-color);
   border-radius: 10px;
   display: flex;
 
@@ -31,7 +30,7 @@ function copyAddress() {
     background-color: inherit;
     border: none;
     border-radius: 10px 0 0 10px;
-    color: $text-color;
+    color: var(--text-color);
     font-family: monospace;
     font-size: 12px;
     line-height: 20px;
@@ -48,14 +47,14 @@ function copyAddress() {
     width: $icon-size;
 
     img {
-      filter: $link-colorizer;
+      filter: var(--link-colorizer);
       height: 100%;
       object-fit: contain;
       width: 100%;
     }
 
     &:hover img {
-      filter: $link-hover-colorizer;
+      filter: var(--link-hover-colorizer);
     }
   }
 }

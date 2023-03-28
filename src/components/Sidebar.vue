@@ -95,7 +95,7 @@ async function logout() {
 $sidebar-icon-size: 20px;
 
 .sidebar {
-  background-color: $background-color;
+  background-color: var(--background-color);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -123,13 +123,13 @@ $sidebar-icon-size: 20px;
     width: $sidebar-icon-size + 5px;
 
     img {
-      filter: $link-colorizer;
+      filter: var(--link-colorizer);
       height: $sidebar-icon-size;
       width: $sidebar-icon-size;
     }
 
     .icon-badge {
-      background-color: $block-background-color;
+      background-color: var(--block-background-color);
       border-radius: 50%;
       font-size: 0.8rem;
       height: 1em;
@@ -144,15 +144,15 @@ $sidebar-icon-size: 20px;
 
   &:hover {
     img {
-      filter: $link-hover-colorizer;
+      filter: var(--link-hover-colorizer);
     }
   }
 
   &.router-link-exact-active {
-    color: $link-hover-color;
+    color: var(--link-hover-color);
 
     img {
-      filter: $link-hover-colorizer;
+      filter: var(--link-hover-colorizer);
     }
   }
 }

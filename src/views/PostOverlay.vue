@@ -130,7 +130,7 @@ const imageUrl = $computed<string | null>(() => {
 $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 
 .post-overlay {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -153,7 +153,7 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
     width: $page-width;
 
     img {
-      filter: $text-colorizer;
+      filter: var(--text-colorizer);
       height: 40px;
       width: 40px;
     }
@@ -207,7 +207,7 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   max-width: 150px;
 
   img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: 20px;
     width: 20px;
   }

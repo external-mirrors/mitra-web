@@ -69,7 +69,7 @@ async function loadNextPage() {
 }
 
 .profile-list-item {
-  color: $text-color;
+  color: var(--text-color);
 }
 
 .next-btn {

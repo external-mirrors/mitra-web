@@ -49,11 +49,11 @@ $avatar-size: 90px;
 $profile-padding: calc($block-inner-padding / 2);
 
 .profile {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
 
   .profile-header {
-    background-color: $btn-background-color;
+    background-color: var(--btn-background-color);
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 100px;
 
@@ -94,7 +94,7 @@ $profile-padding: calc($block-inner-padding / 2);
     }
 
     .actor-address {
-      color: $secondary-text-color;
+      color: var(--secondary-text-color);
       overflow-x: hidden;
       text-overflow: ellipsis;
     }
@@ -127,7 +127,7 @@ $profile-padding: calc($block-inner-padding / 2);
     }
 
     .name {
-      color: $secondary-text-color;
+      color: var(--secondary-text-color);
       margin-left: 0.3em;
     }
   }

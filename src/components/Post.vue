@@ -579,12 +579,12 @@ async function onMintToken() {
 @import "../styles/mixins";
 
 .post {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   text-align: left;
 
   &.highlighted {
-    outline: 1px solid $highlight-color;
+    outline: 1px solid var(--highlight-color);
   }
 }
 
@@ -592,7 +592,7 @@ async function onMintToken() {
   @include post-icon;
 
   align-items: center;
-  color: $secondary-text-color;
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
@@ -612,7 +612,7 @@ async function onMintToken() {
     white-space: nowrap;
 
     .display-name {
-      color: $text-color;
+      color: var(--text-color);
       font-weight: bold;
     }
   }
@@ -626,18 +626,18 @@ async function onMintToken() {
   }
 
   .timestamp {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
     text-align: right;
     white-space: nowrap;
 
     &:hover {
-      color: $secondary-text-hover-color;
+      color: var(--secondary-text-hover-color);
     }
   }
 }
 
 .post-subheader {
-  color: $secondary-text-color;
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -658,7 +658,7 @@ async function onMintToken() {
 }
 
 .post-quote {
-  border: 1px solid $separator-color;
+  border: 1px solid var(--separator-color);
   border-radius: $block-border-radius;
   color: inherit;
   display: block;
@@ -671,7 +671,7 @@ async function onMintToken() {
 
 .quote-header {
   align-items: center;
-  color: $secondary-text-color;
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
@@ -683,7 +683,7 @@ async function onMintToken() {
   }
 
   .display-name {
-    color: $text-color;
+    color: var(--text-color);
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -744,7 +744,7 @@ async function onMintToken() {
 }
 
 .post-form {
-  border-top: 1px solid $separator-color;
+  border-top: 1px solid var(--separator-color);
 }
 
 @media screen and (max-width: $screen-breakpoint-small) {

@@ -24,10 +24,10 @@
 }
 
 @mixin block-link {
-  color: $block-link-color;
+  color: var(--block-link-color);
 
   &:hover {
-    color: $block-link-hover-color;
+    color: var(--block-link-hover-color);
   }
 }
 
@@ -38,7 +38,7 @@
   margin: 0 $block-outer-padding calc($block-outer-padding / 2);
 
   img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: $icon-size;
     margin-right: calc($icon-size / 2);
     min-width: $icon-size;
@@ -55,12 +55,12 @@
 @mixin post-icon {
   .icon {
     align-items: center;
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
     display: flex;
     gap: $whitespace;
 
     img {
-      filter: $secondary-text-colorizer;
+      filter: var(--secondary-text-colorizer);
       height: $icon-size;
       min-width: $icon-size;
       object-fit: contain;
@@ -72,16 +72,16 @@
   a.icon:hover,
   button.icon:hover,
   .icon.highlighted {
-    color: $secondary-text-hover-color;
+    color: var(--secondary-text-hover-color);
 
     img {
-      filter: $secondary-text-hover-colorizer;
+      filter: var(--secondary-text-hover-colorizer);
     }
   }
 
   button.icon[disabled] {
     img {
-      filter: $secondary-text-colorizer;
+      filter: var(--secondary-text-colorizer);
     }
   }
 
@@ -98,10 +98,10 @@
   position: relative;
 
   menu.dropdown-menu {
-    background-color: $block-background-color;
-    border: 1px solid $separator-color;
+    background-color: var(--block-background-color);
+    border: 1px solid var(--separator-color);
     border-radius: $btn-border-radius;
-    box-shadow: $menu-shadow-size $shadow-color;
+    box-shadow: $menu-shadow-size var(--shadow-color);
     display: flex;
     flex-direction: column;
     gap: calc($block-inner-padding / 2);
@@ -114,13 +114,13 @@
 
 @mixin block-btn {
   .btn {
-    background-color: $btn-background-color;
+    background-color: var(--btn-background-color);
     border: 1px solid transparent;
     box-shadow: none;
 
     &:hover {
       background-color: transparent;
-      border: 1px solid $btn-background-color;
+      border: 1px solid var(--btn-background-color);
     }
   }
 }
@@ -141,7 +141,7 @@
     }
 
     .sub-label {
-      color: $secondary-text-color;
+      color: var(--secondary-text-color);
       font-size: 12px;
       font-weight: normal;
       margin-top: 3px;

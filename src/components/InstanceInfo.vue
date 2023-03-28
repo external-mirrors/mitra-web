@@ -17,12 +17,11 @@ const { instance } = $(useInstanceInfo())
 <style scoped lang="scss">
 @import "../styles/layout";
 @import "../styles/mixins";
-@import "../styles/theme";
 
 .instance-info {
   @include block-btn;
 
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
   display: flex;

@@ -32,7 +32,7 @@ const profile = $computed(() => new ProfileWrapper(props.profile))
 
 .profile {
   align-items: center;
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: row;
@@ -51,13 +51,13 @@ const profile = $computed(() => new ProfileWrapper(props.profile))
   }
 
   .display-name {
-    color: $text-color;
+    color: var(--text-color);
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .actor-address {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
   }

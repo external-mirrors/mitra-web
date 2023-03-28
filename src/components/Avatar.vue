@@ -30,10 +30,8 @@ const avatarUrl = computed<string>(() => {
 </script>
 
 <style scoped lang="scss">
-@import "../styles/theme";
-
 .avatar {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: 50%;
   box-sizing: border-box;
 

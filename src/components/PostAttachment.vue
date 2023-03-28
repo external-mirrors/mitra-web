@@ -18,7 +18,6 @@ defineProps<{
 
 <style scoped lang="scss">
 @import "../styles/mixins";
-@import "../styles/theme";
 
 a {
   @include block-link;

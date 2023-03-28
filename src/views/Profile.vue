@@ -642,12 +642,12 @@ $avatar-size: 170px;
 .profile-block {
   @include block-btn;
 
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   margin-bottom: $block-outer-padding;
 
   .profile-header {
-    background-color: $btn-background-color;
+    background-color: var(--btn-background-color);
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 200px;
 
@@ -697,7 +697,7 @@ $avatar-size: 170px;
   }
 
   .badge {
-    border: 1px solid $btn-background-color;
+    border: 1px solid var(--btn-background-color);
     border-radius: $btn-border-radius;
     font-size: 14px;
     line-height: 30px;
@@ -710,7 +710,7 @@ $avatar-size: 170px;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
     button img {
-      filter: $link-colorizer;
+      filter: var(--link-colorizer);
       height: 32px;
       min-width: 20px;
       object-fit: none;
@@ -718,7 +718,7 @@ $avatar-size: 170px;
 
       /* stylelint-disable-next-line selector-max-compound-selectors */
       &:hover {
-        filter: $link-hover-colorizer;
+        filter: var(--link-hover-colorizer);
       }
     }
 
@@ -745,7 +745,7 @@ $avatar-size: 170px;
     }
 
     .actor-address {
-      color: $secondary-text-color;
+      color: var(--secondary-text-color);
       overflow-x: hidden;
       text-overflow: ellipsis;
       user-select: all;
@@ -766,7 +766,7 @@ $avatar-size: 170px;
   img {
     $icon-size: 1em;
 
-    filter: $btn-text-colorizer;
+    filter: var(--btn-text-colorizer);
     height: $icon-size;
     min-width: $icon-size;
     width: $icon-size;
@@ -774,7 +774,7 @@ $avatar-size: 170px;
 
   &:hover {
     img {
-      filter: $text-colorizer;
+      filter: var(--text-colorizer);
     }
   }
 }
@@ -789,10 +789,10 @@ $avatar-size: 170px;
 }
 
 .extra-fields {
-  border-bottom: 1px solid $separator-color;
+  border-bottom: 1px solid var(--separator-color);
 
   .field {
-    border-top: 1px solid $separator-color;
+    border-top: 1px solid var(--separator-color);
     display: flex;
     gap: calc($block-inner-padding / 2);
     padding: calc($block-inner-padding / 2) 0;
@@ -817,7 +817,7 @@ $avatar-size: 170px;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
     .verified-icon img {
-      filter: $text-colorizer;
+      filter: var(--text-colorizer);
       height: 1em;
       min-width: 1em;
       width: 1em;
@@ -847,7 +847,7 @@ $avatar-size: 170px;
 
     .label {
       align-self: flex-end;
-      color: $secondary-text-color;
+      color: var(--secondary-text-color);
     }
   }
 }
@@ -865,7 +865,7 @@ $avatar-size: 170px;
     width: 100%;
 
     &.active {
-      background-color: $block-background-color;
+      background-color: var(--block-background-color);
       font-weight: bold;
     }
   }

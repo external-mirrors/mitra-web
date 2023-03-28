@@ -135,7 +135,7 @@ form {
   }
 
   a {
-    color: $block-link-color;
+    color: var(--block-link-color);
   }
 }
 

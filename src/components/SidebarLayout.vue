@@ -65,10 +65,9 @@ function showHomeTimeline() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
 
 header {
-  background-color: $background-color;
+  background-color: var(--background-color);
   box-sizing: border-box;
   height: $header-height;
   margin-bottom: $block-outer-padding;
@@ -97,11 +96,11 @@ header {
 
   .home-btn {
     align-items: center;
-    background-color: $block-background-color;
+    background-color: var(--block-background-color);
     border-radius: $btn-border-radius;
-    box-shadow: $menu-shadow-size $shadow-color;
+    box-shadow: $menu-shadow-size var(--shadow-color);
     box-sizing: border-box;
-    color: $text-color;
+    color: var(--text-color);
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
@@ -109,7 +108,7 @@ header {
     padding: 7px $body-padding;
 
     img {
-      filter: $text-colorizer;
+      filter: var(--text-colorizer);
       height: 1.2em;
       margin-right: 5px;
       width: 1.2em;
@@ -120,18 +119,18 @@ header {
     }
 
     &:hover {
-      background-color: $btn-background-color;
-      color: $btn-text-color;
+      background-color: var(--btn-background-color);
+      color: var(--btn-text-color);
 
       img {
-        filter: $btn-text-colorizer;
+        filter: var(--btn-text-colorizer);
       }
     }
   }
 
   .search {
-    background-color: $block-background-color;
-    box-shadow: $menu-shadow-size $shadow-color;
+    background-color: var(--block-background-color);
+    box-shadow: $menu-shadow-size var(--shadow-color);
     height: 100%;
     margin: 0 0 0 auto;
     width: 250px;
@@ -162,7 +161,7 @@ header {
 }
 
 #header-public {
-  background-color: $background-color;
+  background-color: var(--background-color);
   margin: 0 auto;
   position: sticky;
   top: 0;

@@ -387,7 +387,7 @@ $line-height: 1.5;
 }
 
 .textarea-group {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
 }
 
@@ -408,14 +408,14 @@ $line-height: 1.5;
   position: relative;
 
   .remove-attachment {
-    background-color: $btn-background-color;
+    background-color: var(--btn-background-color);
     display: flex;
     position: absolute;
     right: 0;
     top: 0;
 
     img {
-      filter: $btn-text-colorizer;
+      filter: var(--btn-text-colorizer);
       height: $icon-size;
       width: $icon-size;
     }
@@ -426,7 +426,7 @@ $line-height: 1.5;
   }
 
   .placeholder {
-    background-color: $background-color;
+    background-color: var(--background-color);
     box-sizing: border-box;
     padding: $block-inner-padding;
     text-align: center;
@@ -440,8 +440,8 @@ $line-height: 1.5;
 
   align-items: center;
   border-radius: 0 0 $block-border-radius $block-border-radius;
-  border-top: 1px solid $separator-color;
-  color: $secondary-text-color;
+  border-top: 1px solid var(--separator-color);
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
@@ -460,7 +460,7 @@ $line-height: 1.5;
     margin-left: $block-inner-padding;
 
     &[disabled] {
-      color: $btn-disabled-text-color;
+      color: var(--btn-disabled-text-color);
       cursor: initial;
     }
   }

@@ -86,11 +86,10 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
 
 .search-message,
 .search-result-list {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
 }
@@ -108,7 +107,7 @@ onMounted(async () => {
 }
 
 .search-result {
-  border-bottom: 1px solid $separator-color;
+  border-bottom: 1px solid var(--separator-color);
   display: block;
 
   &:last-child {

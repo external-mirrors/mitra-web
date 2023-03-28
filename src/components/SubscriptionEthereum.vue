@@ -379,7 +379,7 @@ async function onCancelSubscription() {
   gap: $block-inner-padding;
 
   .profile-card {
-    background-color: $block-background-color;
+    background-color: var(--block-background-color);
     border-radius: $block-border-radius;
     display: flex;
     flex-basis: 50%;
@@ -390,7 +390,7 @@ async function onCancelSubscription() {
   }
 
   .separator img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;
@@ -420,7 +420,7 @@ async function onCancelSubscription() {
 }
 
 .info {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
@@ -437,7 +437,7 @@ async function onCancelSubscription() {
   }
 
   .status {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
   }
 }
 
@@ -475,20 +475,20 @@ async function onCancelSubscription() {
   }
 
   .token-balance {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
 
     output.loading {
       opacity: 0.5;
     }
 
     img {
-      filter: $secondary-text-colorizer;
+      filter: var(--secondary-text-colorizer);
       height: 1em;
       min-width: 1em;
     }
 
     &.error {
-      color: $text-color;
+      color: var(--text-color);
     }
   }
 

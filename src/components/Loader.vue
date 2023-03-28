@@ -6,8 +6,6 @@
 </template>
 
 <style scoped lang="scss">
-@import "../styles/theme";
-
 /* https://github.com/loadingio/css-spinner/blob/master/dist/ripple.html */
 
 $loader-size: 80px;
@@ -21,7 +19,7 @@ $loader-width: 4px;
 
 .loader div {
   animation: loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-  border: $loader-width solid $loader-color;
+  border: $loader-width solid var(--loader-color);
   border-radius: 50%;
   opacity: 1;
   position: absolute;

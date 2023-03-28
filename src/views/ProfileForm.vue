@@ -268,14 +268,14 @@ async function save() {
     width: $icon-size * 2;
 
     .remove-icon {
-      background-color: $block-background-color;
+      background-color: var(--block-background-color);
       border-radius: 50%;
       height: $icon-size;
       width: $icon-size;
 
       /* stylelint-disable-next-line selector-max-compound-selectors */
       img {
-        filter: $link-hover-colorizer;
+        filter: var(--link-hover-colorizer);
       }
     }
   }
@@ -294,7 +294,7 @@ async function save() {
   display: flex;
 
   img {
-    filter: $link-colorizer;
+    filter: var(--link-colorizer);
     height: $icon-size;
     margin-right: 5px;
     vertical-align: middle;
@@ -302,7 +302,7 @@ async function save() {
   }
 
   &:hover img {
-    filter: $link-hover-colorizer;
+    filter: var(--link-hover-colorizer);
   }
 }
 </style>

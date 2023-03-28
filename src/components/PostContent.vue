@@ -84,7 +84,7 @@ function getContent(): string {
 @import "../styles/mixins";
 
 .post-content {
-  color: $text-color;
+  color: var(--text-color);
   line-height: 1.5;
   padding: $block-inner-padding;
   word-wrap: break-word;

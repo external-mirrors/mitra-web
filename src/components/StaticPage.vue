@@ -12,7 +12,6 @@
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
 
 .page {
   align-items: flex-start;
@@ -34,7 +33,7 @@
   top: $body-padding;
 
   img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: 40px;
     width: 40px;
   }

@@ -330,7 +330,7 @@ async function onWithdrawReceived() {
 }
 
 .info {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;

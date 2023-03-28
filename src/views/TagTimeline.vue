@@ -48,7 +48,7 @@ async function loadNextPage(maxId: string) {
 @import "../styles/theme";
 
 .tag-name {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   margin-bottom: $block-outer-padding;
   padding: $block-inner-padding;

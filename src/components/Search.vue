@@ -60,7 +60,7 @@ button {
   height: 100%;
 
   img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: 1.2em;
     min-width: 1.2em;
     object-fit: contain;

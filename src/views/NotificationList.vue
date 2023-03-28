@@ -137,10 +137,10 @@ async function loadNextPage() {
 
 .profile {
   align-items: center;
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
-  color: $secondary-text-color;
+  color: var(--secondary-text-color);
   display: flex;
   gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding;
@@ -154,7 +154,7 @@ async function loadNextPage() {
   }
 
   .display-name {
-    color: $text-color;
+    color: var(--text-color);
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;

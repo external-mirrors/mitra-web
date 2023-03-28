@@ -454,7 +454,7 @@ $landing-text-color: #fff;
     justify-content: center;
 
     img {
-      filter: $btn-text-colorizer;
+      filter: var(--btn-text-colorizer);
       height: 1em;
       width: 1em;
     }

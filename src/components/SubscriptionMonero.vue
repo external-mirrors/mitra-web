@@ -320,7 +320,7 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   gap: $block-inner-padding;
 
   .profile-card {
-    background-color: $block-background-color;
+    background-color: var(--block-background-color);
     border-radius: $block-border-radius;
     display: flex;
     flex-basis: 50%;
@@ -331,7 +331,7 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   }
 
   .separator img {
-    filter: $text-colorizer;
+    filter: var(--text-colorizer);
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;
@@ -364,7 +364,7 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
 }
 
 .info {
-  background-color: $block-background-color;
+  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   display: flex;
   flex-direction: column;
@@ -381,7 +381,7 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   }
 
   .status {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
   }
 }
 

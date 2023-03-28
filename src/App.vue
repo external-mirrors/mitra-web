@@ -27,21 +27,53 @@ watch($$(currentUser), () => {
 @import "styles/layout";
 @import "styles/theme";
 
+:root {
+  --background-color: #{$background-color};
+  --text-color: #{$text-color};
+  --text-colorizer: #{$text-colorizer};
+  --secondary-text-color: #{$secondary-text-color};
+  --secondary-text-colorizer: #{$secondary-text-colorizer};
+  --secondary-text-hover-color: #{$secondary-text-hover-color};
+  --secondary-text-hover-colorizer: #{$secondary-text-hover-colorizer};
+  --link-color: #{$link-color};
+  --link-colorizer: #{$link-colorizer};
+  --link-hover-color: #{$link-hover-color};
+  --link-hover-colorizer: #{$link-hover-colorizer};
+  --btn-background-color: #{$btn-background-color};
+  --btn-background-hover-color: #{$btn-background-hover-color};
+  --btn-text-color: #{$btn-text-color};
+  --btn-text-colorizer: #{$btn-text-colorizer};
+  --btn-text-hover-color: #{$btn-text-hover-color};
+  --btn-text-hover-colorizer: #{$btn-text-hover-colorizer};
+  --btn-secondary-background-color: #{$btn-secondary-background-color};
+  --btn-secondary-text-color: #{$btn-secondary-text-color};
+  --btn-disabled-background-color: #{$btn-disabled-background-color};
+  --btn-disabled-text-color: #{$btn-disabled-text-color};
+  --block-background-color: #{$block-background-color};
+  --block-link-color: #{$block-link-color};
+  --block-link-hover-color: #{$block-link-hover-color};
+  --separator-color: #{$separator-color};
+  --widget-background-color: #{$widget-background-color};
+  --highlight-color: #{$highlight-color};
+  --loader-color: #{$loader-color};
+  --shadow-color: #{$shadow-color};
+}
+
 html {
-  background: $background-color;
-  color: $text-color;
+  background: var(--background-color);
+  color: var(--text-color);
   font-family: $text-font;
   font-size: $text-font-size;
   min-height: 100%;
 }
 
 a {
-  color: $link-color;
+  color: var(--link-color);
   cursor: pointer;
   text-decoration: none;
 
   &:hover {
-    color: $link-hover-color;
+    color: var(--link-hover-color);
   }
 }
 
@@ -112,11 +144,11 @@ h6 {
 
 input,
 textarea {
-  background-color: $block-background-color;
-  border: 1px solid $block-background-color;
+  background-color: var(--block-background-color);
+  border: 1px solid var(--block-background-color);
   box-shadow: none;
   box-sizing: border-box;
-  color: $text-color;
+  color: var(--text-color);
   font-family: $text-font;
   font-size: $text-font-size;
   margin: 0;
@@ -128,7 +160,7 @@ textarea {
   }
 
   &::placeholder {
-    color: $secondary-text-color;
+    color: var(--secondary-text-color);
     opacity: 1;
   }
 }
@@ -146,14 +178,14 @@ textarea {
 button {
   background-color: transparent;
   border: none;
-  color: $link-color;
+  color: var(--link-color);
   cursor: pointer;
   font-family: $text-font;
   font-size: $text-font-size;
   padding: 0;
 
   &:hover {
-    color: $link-hover-color;
+    color: var(--link-hover-color);
   }
 
   &[disabled] {
@@ -162,11 +194,11 @@ button {
 }
 
 .btn {
-  background-color: $btn-background-color;
+  background-color: var(--btn-background-color);
   border: none;
   border-radius: $btn-border-radius;
-  box-shadow: $btn-shadow-size $shadow-color;
-  color: $btn-text-color;
+  box-shadow: $btn-shadow-size var(--shadow-color);
+  color: var(--btn-text-color);
   cursor: pointer;
   display: inline-block;
   font-size: $text-font-size;
@@ -175,24 +207,24 @@ button {
   white-space: nowrap;
 
   &:hover {
-    background-color: $btn-background-hover-color;
-    color: $btn-text-hover-color;
+    background-color: var(--btn-background-hover-color);
+    color: var(--btn-text-hover-color);
   }
 
   &[disabled] {
-    background-color: $btn-disabled-background-color !important;
+    background-color: var(--btn-disabled-background-color) !important;
     box-shadow: none;
-    color: $btn-disabled-text-color !important;
+    color: var(--btn-disabled-text-color) !important;
   }
 }
 
 .btn.secondary {
-  background-color: $btn-secondary-background-color;
-  color: $btn-secondary-text-color;
+  background-color: var(--btn-secondary-background-color);
+  color: var(--btn-secondary-text-color);
 
   &:hover {
-    background-color: $btn-background-hover-color;
-    color: $btn-text-hover-color;
+    background-color: var(--btn-background-hover-color);
+    color: var(--btn-text-hover-color);
   }
 }
 
