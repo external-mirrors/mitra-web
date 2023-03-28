@@ -4,6 +4,8 @@ import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { injectHtml } from "vite-plugin-html"
 
+import svgLoader from "./src/svg-loader.ts"
+
 // TODO: switch to 127.0.0.1
 dns.setDefaultResultOrder("verbatim")
 
@@ -22,6 +24,7 @@ export default ({ mode }) => {
           __APP_VERSION__: process.env.npm_package_version,
         },
       }),
+      svgLoader(),
     ],
     resolve: {
       alias: {

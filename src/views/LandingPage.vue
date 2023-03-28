@@ -10,14 +10,14 @@
           :to="{ name: 'about' }"
           class="instance-link"
         >
-          Learn more <img class="arrow" src="@/assets/arrow_long.svg">
+          Learn more <svg-arrow-long class="arrow"></svg-arrow-long>
         </router-link>
         <router-link
           v-if="instance.allow_unauthenticated.timeline_local"
           class="instance-link"
           :to="{ name: 'local' }"
         >
-          Explore <img class="arrow" src="@/assets/arrow_long.svg">
+          Explore <svg-arrow-long class="arrow"></svg-arrow-long>
         </router-link>
       </div>
       <div v-if="instance" class="login-form-group">
@@ -158,6 +158,7 @@ import {
   getCurrentUser,
   AuthenticationMethod,
 } from "@/api/users"
+import SvgArrowLong from "@/assets/arrow_long.svg?component"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
@@ -423,12 +424,13 @@ async function login() {
   color: $landing-text-color;
 
   .arrow {
-    filter: $landing-accent-colorizer;
+    fill: $landing-accent-color;
     height: 1em;
     vertical-align: middle;
+    width: auto;
 
     &:hover {
-      filter: $landing-text-colorizer;
+      fill: $landing-text-color;
     }
   }
 }

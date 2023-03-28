@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed arrow shape on landing page.
+- Inline SVGs on landing page.
 
 ## [2.9.0] - 2024-02-07
 
