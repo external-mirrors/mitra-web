@@ -7,7 +7,7 @@
           :to="{ name: 'home' }"
           @click.prevent="showHomeTimeline()"
         >
-          <img :src="require('@/assets/feather/home.svg')">
+          <img src="@/assets/feather/home.svg">
           <span>Home</span>
         </router-link>
         <search />
@@ -112,6 +112,7 @@ header {
       filter: $text-colorizer;
       height: 1.2em;
       margin-right: 5px;
+      width: 1.2em;
     }
 
     span {

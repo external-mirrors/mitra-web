@@ -2,7 +2,7 @@
   <div class="crypto-address">
     <input :value="address" readonly>
     <button class="copy-btn" title="Copy address" @click="copyAddress()">
-      <img :src="require('@/assets/forkawesome/files-o.svg')">
+      <img src="@/assets/forkawesome/files-o.svg">
     </button>
   </div>
 </template>
@@ -50,6 +50,8 @@ function copyAddress() {
     img {
       filter: $link-colorizer;
       height: 100%;
+      object-fit: contain;
+      width: 100%;
     }
 
     &:hover img {

@@ -10,7 +10,7 @@
         <profile-display-name :profile="sender"></profile-display-name>
       </component>
       <div class="separator">
-        <img :src="require('@/assets/feather/arrow-right.svg')">
+        <img src="@/assets/feather/arrow-right.svg">
       </div>
       <router-link
         class="profile-card"

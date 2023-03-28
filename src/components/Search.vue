@@ -2,10 +2,10 @@
   <form class="search" @submit.prevent="search()">
     <input type="search" placeholder="Search..." v-model="q">
     <button v-if="q" type="button" @click="clear()">
-      <img :src="require('@/assets/feather/delete.svg')">
+      <img src="@/assets/feather/delete.svg">
     </button>
     <button type="submit" :disabled="!q">
-      <img :src="require('@/assets/feather/search.svg')">
+      <img src="@/assets/feather/search.svg">
     </button>
   </form>
 </template>

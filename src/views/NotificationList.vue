@@ -7,16 +7,16 @@
         :key="notification.id"
       >
         <div class="action">
-          <img v-if="notification.type === 'follow'" :src="require('@/assets/feather/user-plus.svg')">
-          <img v-else-if="notification.type === 'reply'" :src="require('@/assets/forkawesome/comment-o.svg')">
-          <img v-else-if="notification.type === 'favourite'" :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
-          <img v-else-if="notification.type === 'mention'" :src="require('@/assets/forkawesome/comment-o.svg')">
-          <img v-else-if="notification.type === 'reblog'" :src="require('@/assets/feather/repeat.svg')">
+          <img v-if="notification.type === 'follow'" src="@/assets/feather/user-plus.svg">
+          <img v-else-if="notification.type === 'reply'" src="@/assets/forkawesome/comment-o.svg">
+          <img v-else-if="notification.type === 'favourite'" src="@/assets/forkawesome/thumbs-o-up.svg">
+          <img v-else-if="notification.type === 'mention'" src="@/assets/forkawesome/comment-o.svg">
+          <img v-else-if="notification.type === 'reblog'" src="@/assets/feather/repeat.svg">
           <img
             v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
-            :src="require('@/assets/tabler/coin.svg')"
+            src="@/assets/tabler/coin.svg"
           >
-          <img v-else-if="notification.type === 'move'" :src="require('@/assets/feather/truck.svg')">
+          <img v-else-if="notification.type === 'move'" src="@/assets/feather/truck.svg">
           <router-link
             :title="getSenderInfo(notification)"
             :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"

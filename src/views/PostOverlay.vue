@@ -2,7 +2,7 @@
   <div v-if="post && token" class="post-overlay wide">
     <div v-if="canGoBack()" class="back-btn-wrapper">
       <a class="back-btn" title="Back" @click="goBack()">
-        <img :src="require('@/assets/feather/arrow-left.svg')">
+        <img src="@/assets/feather/arrow-left.svg">
       </a>
     </div>
     <div class="token">
@@ -28,7 +28,7 @@
           target="_blank"
           rel="noreferrer"
         >
-          <img :src="require('@/assets/forkawesome/ethereum.svg')">
+          <img src="@/assets/forkawesome/ethereum.svg">
           <div>0x{{ post.token_tx_id }}</div>
         </a>
         <a
@@ -39,7 +39,7 @@
           target="_blank"
           rel="noreferrer"
         >
-          <img :src="require('@/assets/ipfs.svg')">
+          <img src="@/assets/ipfs.svg">
           <div>{{ post.ipfs_cid }}</div>
         </a>
         <div class="created-at">
@@ -154,6 +154,7 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 
     img {
       filter: $text-colorizer;
+      height: 40px;
       width: 40px;
     }
   }

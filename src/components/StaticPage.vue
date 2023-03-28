@@ -2,7 +2,7 @@
   <div class="page">
     <div class="page-content">
       <router-link class="back" to="/" title="Back">
-        <img :src="require('@/assets/feather/arrow-left.svg')">
+        <img src="@/assets/feather/arrow-left.svg">
       </router-link>
       <h1 class="page-heading"><slot name="heading"></slot></h1>
       <div class="static-text"><slot name="text"></slot></div>
@@ -35,6 +35,7 @@
 
   img {
     filter: $text-colorizer;
+    height: 40px;
     width: 40px;
   }
 }

@@ -35,7 +35,7 @@
             title="Remove attachment"
             @click.prevent="removeAttachment(index)"
           >
-            <img :src="require('@/assets/feather/x.svg')">
+            <img src="@/assets/feather/x.svg">
           </button>
           <img v-if="attachment.type === 'image'" :src="attachment.url">
           <div v-else class="placeholder">{{ attachment.url }}</div>
@@ -49,7 +49,7 @@
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
         >
-          <img :src="require('@/assets/feather/paperclip.svg')">
+          <img src="@/assets/feather/paperclip.svg">
           <input
             type="file"
             ref="attachmentUploadInputRef"
@@ -95,8 +95,8 @@
           title="Toggle preview"
           @click="togglePreview()"
         >
-          <img v-if="preview === null" :src="require('@/assets/feather/eye.svg')">
-          <img v-else :src="require('@/assets/feather/eye-off.svg')">
+          <img v-if="preview === null" src="@/assets/feather/eye.svg">
+          <img v-else src="@/assets/feather/eye-off.svg">
         </button>
         <div class="character-counter" title="Characters left">
           {{ getCharacterCount() }}

@@ -33,7 +33,7 @@
         @mouseleave="highlight(null)"
         @click.prevent="scrollTo(post.in_reply_to_id)"
       >
-        <img :src="require('@/assets/tabler/corner-left-up.svg')">
+        <img src="@/assets/tabler/corner-left-up.svg">
       </a>
       <span
         class="icon icon-small"
@@ -102,7 +102,7 @@
         title="View replies"
         :to="{ name: 'post', params: { postId: post.id }}"
       >
-        <img :src="require('@/assets/forkawesome/comment-o.svg')">
+        <img src="@/assets/forkawesome/comment-o.svg">
         <span>{{ post.replies_count }}</span>
       </router-link>
       <button
@@ -111,11 +111,11 @@
         title="Reply"
         @click="commentFormVisible = !commentFormVisible"
       >
-        <img :src="require('@/assets/forkawesome/comment-o.svg')">
+        <img src="@/assets/forkawesome/comment-o.svg">
         <span>{{ post.replies_count }}</span>
       </button>
       <span v-else class="icon">
-        <img :src="require('@/assets/forkawesome/comment-o.svg')">
+        <img src="@/assets/forkawesome/comment-o.svg">
         <span>{{ post.replies_count }}</span>
       </span>
       <button
@@ -125,11 +125,11 @@
         title="Repost"
         @click="toggleRepost()"
       >
-        <img :src="require('@/assets/feather/repeat.svg')">
+        <img src="@/assets/feather/repeat.svg">
         <span>{{ post.reblogs_count }}</span>
       </button>
       <span v-else class="icon">
-        <img :src="require('@/assets/feather/repeat.svg')">
+        <img src="@/assets/feather/repeat.svg">
         <span>{{ post.reblogs_count }}</span>
       </span>
       <button
@@ -139,11 +139,11 @@
         title="Like"
         @click="toggleLike()"
       >
-        <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
+        <img src="@/assets/forkawesome/thumbs-o-up.svg">
         <span>{{ post.favourites_count }}</span>
       </button>
       <span v-else class="icon">
-        <img :src="require('@/assets/forkawesome/thumbs-o-up.svg')">
+        <img src="@/assets/forkawesome/thumbs-o-up.svg">
         <span>{{ post.favourites_count }}</span>
       </span>
       <a
@@ -154,7 +154,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        <img :src="require('@/assets/ipfs.svg')">
+        <img src="@/assets/ipfs.svg">
       </a>
       <router-link
         v-if="isTokenized()"
@@ -162,14 +162,14 @@
         title="View token"
         :to="{ name: 'post-overlay', params: { postId: post.id }}"
       >
-        <img :src="require('@/assets/forkawesome/diamond.svg')">
+        <img src="@/assets/forkawesome/diamond.svg">
       </router-link>
       <a
         v-if="isWaitingForToken"
         class="icon tokenize-progress"
         title="Tokenizing..."
       >
-        <img :src="require('@/assets/forkawesome/diamond.svg')">
+        <img src="@/assets/forkawesome/diamond.svg">
       </a>
       <div
         class="dropdown-menu-wrapper"
@@ -177,7 +177,7 @@
         v-click-away="hideMenu"
       >
         <button class="icon" title="More" @click="toggleMenu()">
-          <img :src="require('@/assets/feather/more-horizontal.svg')">
+          <img src="@/assets/feather/more-horizontal.svg">
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
           <li v-if="canSaveToIpfs()">
@@ -186,7 +186,7 @@
               title="Save to IPFS"
               @click="hideMenu(); saveToIpfs()"
             >
-              <img :src="require('@/assets/ipfs.svg')">
+              <img src="@/assets/ipfs.svg">
               <span>Save to IPFS</span>
             </button>
           </li>
@@ -196,7 +196,7 @@
               title="Mint NFT"
               @click="hideMenu(); onMintToken()"
             >
-              <img :src="require('@/assets/forkawesome/diamond.svg')">
+              <img src="@/assets/forkawesome/diamond.svg">
               <span>Mint NFT</span>
             </button>
           </li>
@@ -206,7 +206,7 @@
               title="Delete post"
               @click="hideMenu(); onDeletePost()"
             >
-              <img :src="require('@/assets/feather/trash.svg')">
+              <img src="@/assets/feather/trash.svg">
               <span>Delete post</span>
             </button>
           </li>

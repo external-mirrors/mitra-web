@@ -34,7 +34,7 @@
               v-click-away="hideProfileMenu"
             >
               <button title="More" @click="toggleProfileMenu()">
-                <img :src="require('@/assets/feather/more-vertical.svg')">
+                <img src="@/assets/feather/more-vertical.svg">
               </button>
               <menu v-if="profileMenuVisible" class="dropdown-menu">
                 <li v-if="!isLocalUser()">
@@ -130,7 +130,7 @@
                 <img
                   v-if="profile.locked"
                   title="Manually approves followers"
-                  :src="require('@/assets/forkawesome/lock.svg')"
+                  src="@/assets/forkawesome/lock.svg"
                 >
               </button>
               <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
@@ -171,7 +171,7 @@
               <div class="value" v-html="field.value"></div>
               <div class="verified-icon" v-if="field.verified_at">
                 <img
-                  :src="require('@/assets/forkawesome/check.svg')"
+                  src="@/assets/forkawesome/check.svg"
                   title="Verified"
                 >
               </div>

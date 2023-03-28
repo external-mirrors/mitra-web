@@ -60,7 +60,7 @@
               title="Remove item"
               @click="removeExtraField(index)"
             >
-              <img :src="require('@/assets/feather/x-circle.svg')">
+              <img src="@/assets/feather/x-circle.svg">
             </a>
           </div>
           <button
@@ -69,7 +69,7 @@
             class="add-extra-field"
             @click="addExtraField()"
           >
-            <img :src="require('@/assets/feather/plus-circle.svg')">
+            <img src="@/assets/feather/plus-circle.svg">
             Add new item
           </button>
         </div>
@@ -271,6 +271,7 @@ async function save() {
       filter: $link-hover-colorizer;
       height: $icon-size;
       vertical-align: middle;
+      width: $icon-size;
     }
   }
 
@@ -292,6 +293,7 @@ async function save() {
     height: $icon-size;
     margin-right: 5px;
     vertical-align: middle;
+    width: $icon-size;
   }
 
   &:hover img {

@@ -65,7 +65,7 @@
             >
           </div>
           <div class="wallet-required" v-if="loginType === 'eip4361'">
-            <img :src="require('@/assets/forkawesome/ethereum.svg')">
+            <img src="@/assets/forkawesome/ethereum.svg">
             <router-link :to="{ name: 'ethereum' }">Ethereum Wallet</router-link> is required
           </div>
           <button
@@ -456,6 +456,7 @@ $text-color: #fff;
     img {
       filter: $btn-text-colorizer;
       height: 1em;
+      width: 1em;
     }
 
     a {

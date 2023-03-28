@@ -2,17 +2,17 @@
   <div v-if="isUserAuthenticated()" class="sidebar">
     <router-link class="sidebar-link" to="/notifications">
       <div class="icon">
-        <img :src="require('@/assets/feather/bell.svg')">
+        <img src="@/assets/feather/bell.svg">
         <div v-if="unreadNotificationCount > 0" class="icon-badge">{{ unreadNotificationCount }}</div>
       </div>
       <span>Notifications</span>
     </router-link>
     <router-link class="sidebar-link" to="/local">
-      <div class="icon"><img :src="require('@/assets/feather/server.svg')"></div>
+      <div class="icon"><img src="@/assets/feather/server.svg"></div>
       <span>Local</span>
     </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
-      <div class="icon"><img :src="require('@/assets/feather/users.svg')"></div>
+      <div class="icon"><img src="@/assets/feather/users.svg"></div>
       <span>Profile directory</span>
     </router-link>
     <router-link
@@ -20,19 +20,19 @@
       class="sidebar-link"
       :to="{ name: 'subscriptions-settings' }"
     >
-      <div class="icon"><img :src="require('@/assets/tabler/coin.svg')"></div>
+      <div class="icon"><img src="@/assets/tabler/coin.svg"></div>
       <span>Subscriptions</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
-      <div class="icon"><img :src="require('@/assets/feather/settings.svg')"></div>
+      <div class="icon"><img src="@/assets/feather/settings.svg"></div>
       <span>Settings</span>
     </router-link>
     <router-link class="sidebar-link" to="/about">
-      <div class="icon"><img :src="require('@/assets/feather/help-circle.svg')"></div>
+      <div class="icon"><img src="@/assets/feather/help-circle.svg"></div>
       <span>About</span>
     </router-link>
     <a class="sidebar-link" @click="logout()">
-      <div class="icon"><img :src="require('@/assets/feather/log-out.svg')"></div>
+      <div class="icon"><img src="@/assets/feather/log-out.svg"></div>
       <span>Logout</span>
     </a>
   </div>
@@ -92,6 +92,8 @@ async function logout() {
 @import "../styles/layout";
 @import "../styles/theme";
 
+$sidebar-icon-size: 20px;
+
 .sidebar {
   background-color: $background-color;
   box-sizing: border-box;
@@ -112,16 +114,18 @@ async function logout() {
   font-size: 18px;
 
   .icon {
-    height: 20px;
+    /* margin + padding + width ~= avatar-size */
+    height: $sidebar-icon-size;
     margin-left: 8px;
     margin-right: 10px;
     position: relative;
     text-align: center;
-    width: 25px;
+    width: $sidebar-icon-size + 5px;
 
     img {
       filter: $link-colorizer;
-      height: 100%;
+      height: $sidebar-icon-size;
+      width: $sidebar-icon-size;
     }
 
     .icon-badge {

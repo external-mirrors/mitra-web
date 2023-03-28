@@ -11,7 +11,7 @@
         <div class="wallet-address">{{ walletAddress ? walletAddress.toLowerCase() : '?' }}</div>
       </component>
       <div class="separator">
-        <img :src="require('@/assets/feather/arrow-right.svg')">
+        <img src="@/assets/feather/arrow-right.svg">
       </div>
       <router-link
         class="profile-card"
@@ -77,7 +77,7 @@
           </output>
           <span>{{ subscriptionConfig.tokenSymbol }}</span>
           <button @click.prevent="refreshTokenBalance()">
-            <img :src="require('@/assets/feather/refresh-ccw.svg')">
+            <img src="@/assets/feather/refresh-ccw.svg">
           </button>
         </div>
       </div>

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Don't revoke auth token when handling timeline loading error.
+
 ## [1.18.0] - 2023-03-21
 
 ### Added

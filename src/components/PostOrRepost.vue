@@ -1,7 +1,7 @@
 <template>
   <template v-if="post.reblog">
     <div class="action">
-      <img :src="require('@/assets/feather/repeat.svg')">
+      <img src="@/assets/feather/repeat.svg">
       <router-link
         :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
         :title="getActorAddress(post.account)"
