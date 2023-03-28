@@ -40,3 +40,38 @@ $shadow-color: #B7B5B5;
 
 $gem-color: #9678c3;
 $gem-colorizer: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
+
+/* Dark theme */
+
+$dark-background-color: #12110C;
+
+$dark-text-color: #cccccc;
+$dark-text-colorizer: invert(94%) sepia(14%) saturate(0%) hue-rotate(228deg) brightness(83%) contrast(96%);
+$dark-secondary-text-color: #8C8C8C;
+$dark-secondary-text-colorizer: invert(62%) sepia(0%) saturate(610%) hue-rotate(189deg) brightness(90%) contrast(86%);
+$dark-secondary-text-hover-color: #B3B3B3;
+$dark-secondary-text-hover-colorizer: invert(73%) sepia(1%) saturate(0%) hue-rotate(210deg) brightness(100%) contrast(89%);
+$dark-link-color: #b7b8b8;
+$dark-link-colorizer: invert(80%) sepia(4%) saturate(52%) hue-rotate(131deg) brightness(94%) contrast(85%);
+$dark-link-hover-color: #fff;
+$dark-link-hover-colorizer: invert(100%) sepia(0%) saturate(7500%) hue-rotate(199deg) brightness(109%) contrast(105%);
+
+$dark-btn-background-color: $dark-text-color;
+$dark-btn-background-hover-color: #4D4D4D;
+$dark-btn-text-color: #000;
+$dark-btn-text-colorizer: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(97%) contrast(103%);
+$dark-btn-text-hover-color: $dark-text-color;
+$dark-btn-text-hover-colorizer: $dark-text-colorizer;
+$dark-btn-secondary-background-color: #333;
+$dark-btn-secondary-text-color: $dark-text-color;
+$dark-btn-disabled-background-color: #222222;
+$dark-btn-disabled-text-color: #666666;
+
+$dark-block-background-color: #262626;
+$dark-block-link-color: #E3C093;
+$dark-block-link-hover-color: #F2E2CD;
+$dark-separator-color: $dark-background-color;
+$dark-widget-background-color: #1A1A1A;
+$dark-highlight-color: #B37400;
+$dark-loader-color: #666666;
+$dark-shadow-color: #666;

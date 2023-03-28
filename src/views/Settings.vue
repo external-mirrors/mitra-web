@@ -64,6 +64,9 @@
             <router-link class="btn" :to="{ name: 'move-followers' }">
               Move followers
             </router-link>
+            <button class="btn" @click="toggleDarkMode()">
+              Toggle dark mode
+            </button>
           </div>
         </details>
       </section>
@@ -76,9 +79,11 @@ import { $, $ref } from "vue/macros"
 
 import { changePassword, exportFollowers, exportFollows } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/store/user"
 
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const { toggleDarkMode } = useTheme()
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
 let passwordFormMessage = $ref<string | null>(null)

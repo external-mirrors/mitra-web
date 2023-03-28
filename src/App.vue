@@ -59,6 +59,38 @@ watch($$(currentUser), () => {
   --shadow-color: #{$shadow-color};
 }
 
+[data-theme="dark"] {
+  --background-color: #{$dark-background-color};
+  --text-color: #{$dark-text-color};
+  --text-colorizer: #{$dark-text-colorizer};
+  --secondary-text-color: #{$dark-secondary-text-color};
+  --secondary-text-colorizer: #{$dark-secondary-text-colorizer};
+  --secondary-text-hover-color: #{$dark-secondary-text-hover-color};
+  --secondary-text-hover-colorizer: #{$dark-secondary-text-hover-colorizer};
+  --link-color: #{$dark-link-color};
+  --link-colorizer: #{$dark-link-colorizer};
+  --link-hover-color: #{$dark-link-hover-color};
+  --link-hover-colorizer: #{$dark-link-hover-colorizer};
+  --btn-background-color: #{$dark-btn-background-color};
+  --btn-background-hover-color: #{$dark-btn-background-hover-color};
+  --btn-text-color: #{$dark-btn-text-color};
+  --btn-text-colorizer: #{$dark-btn-text-colorizer};
+  --btn-text-hover-color: #{$dark-btn-text-hover-color};
+  --btn-text-hover-colorizer: #{$dark-btn-text-hover-colorizer};
+  --btn-secondary-background-color: #{$dark-btn-secondary-background-color};
+  --btn-secondary-text-color: #{$dark-btn-secondary-text-color};
+  --btn-disabled-background-color: #{$dark-btn-disabled-background-color};
+  --btn-disabled-text-color: #{$dark-btn-disabled-text-color};
+  --block-background-color: #{$dark-block-background-color};
+  --block-link-color: #{$dark-block-link-color};
+  --block-link-hover-color: #{$dark-block-link-hover-color};
+  --separator-color: #{$dark-separator-color};
+  --widget-background-color: #{$dark-widget-background-color};
+  --highlight-color: #{$dark-highlight-color};
+  --loader-color: #{$dark-loader-color};
+  --shadow-color: #{$dark-shadow-color};
+}
+
 html {
   background: var(--background-color);
   color: var(--text-color);

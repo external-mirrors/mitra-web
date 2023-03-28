@@ -44,6 +44,7 @@ import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import { Permissions } from "@/api/users"
+import { useTheme } from "@/composables/theme"
 import { useNotifications } from "@/store/notifications"
 import { useCurrentUser } from "@/store/user"
 import { useInstanceInfo } from "@/store/instance"
@@ -56,9 +57,11 @@ const {
 } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
+const { loadTheme } = useTheme()
 
 onMounted(async () => {
   if (isUserAuthenticated()) {
+    loadTheme()
     // TODO: reload notifications periodically
     await loadNotifications(ensureAuthToken())
   }
