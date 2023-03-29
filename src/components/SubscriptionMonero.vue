@@ -331,6 +331,7 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   }
 
   .separator img {
+    filter: $text-colorizer;
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;

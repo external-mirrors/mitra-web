@@ -647,7 +647,7 @@ $avatar-size: 170px;
   margin-bottom: $block-outer-padding;
 
   .profile-header {
-    background-color: $text-color;
+    background-color: $btn-background-color;
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 200px;
 
@@ -710,10 +710,16 @@ $avatar-size: 170px;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
     button img {
+      filter: $link-colorizer;
       height: 32px;
       min-width: 20px;
       object-fit: none;
       width: 20px;
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      &:hover {
+        filter: $link-hover-colorizer;
+      }
     }
 
     .dropdown-menu {

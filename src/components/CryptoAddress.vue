@@ -23,7 +23,7 @@ function copyAddress() {
 @import "../styles/theme";
 
 .crypto-address {
-  background-color: #eee;
+  background-color: $widget-background-color;
   border-radius: 10px;
   display: flex;
 

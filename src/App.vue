@@ -165,7 +165,7 @@ button {
   background-color: $btn-background-color;
   border: none;
   border-radius: $btn-border-radius;
-  box-shadow: $btn-shadow;
+  box-shadow: $btn-shadow-size $shadow-color;
   color: $btn-text-color;
   cursor: pointer;
   display: inline-block;

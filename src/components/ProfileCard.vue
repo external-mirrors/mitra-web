@@ -53,7 +53,7 @@ $profile-padding: calc($block-inner-padding / 2);
   border-radius: $block-border-radius;
 
   .profile-header {
-    background-color: $text-color;
+    background-color: $btn-background-color;
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 100px;
 

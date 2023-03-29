@@ -10,7 +10,6 @@
 
 /* https://github.com/loadingio/css-spinner/blob/master/dist/ripple.html */
 
-$loader-color: #999;
 $loader-size: 80px;
 $loader-width: 4px;
 

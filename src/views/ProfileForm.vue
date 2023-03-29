@@ -60,7 +60,9 @@
               title="Remove item"
               @click="removeExtraField(index)"
             >
-              <img src="@/assets/feather/x-circle.svg">
+              <div class="remove-icon">
+                <img src="@/assets/feather/x-circle.svg">
+              </div>
             </a>
           </div>
           <button
@@ -256,27 +258,30 @@ async function save() {
   .remove-extra-field {
     $icon-size: 15px;
 
+    align-items: center;
     display: none;
     height: $icon-size * 2;
-    line-height: $icon-size * 2;
+    justify-content: center;
     position: absolute;
     right: -$icon-size;
-    text-align: center;
     top: -$icon-size;
     width: $icon-size * 2;
 
-    img {
+    .remove-icon {
       background-color: $block-background-color;
       border-radius: 50%;
-      filter: $link-hover-colorizer;
       height: $icon-size;
-      vertical-align: middle;
       width: $icon-size;
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      img {
+        filter: $link-hover-colorizer;
+      }
     }
   }
 
   &:hover .remove-extra-field {
-    display: block;
+    display: flex;
   }
 
   &.error input {

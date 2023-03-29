@@ -99,7 +99,7 @@ header {
     align-items: center;
     background-color: $block-background-color;
     border-radius: $btn-border-radius;
-    box-shadow: $shadow;
+    box-shadow: $menu-shadow-size $shadow-color;
     box-sizing: border-box;
     color: $text-color;
     display: flex;
@@ -131,7 +131,7 @@ header {
 
   .search {
     background-color: $block-background-color;
-    box-shadow: $shadow;
+    box-shadow: $menu-shadow-size $shadow-color;
     height: 100%;
     margin: 0 0 0 auto;
     width: 250px;

@@ -390,6 +390,7 @@ async function onCancelSubscription() {
   }
 
   .separator img {
+    filter: $text-colorizer;
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;

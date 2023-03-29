@@ -27,6 +27,7 @@ function search() {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/layout";
 @import "../styles/theme";
 
 .search {

@@ -584,7 +584,7 @@ async function onMintToken() {
   text-align: left;
 
   &.highlighted {
-    outline: 1px solid #FFA500;
+    outline: 1px solid $highlight-color;
   }
 }
 
@@ -707,7 +707,7 @@ async function onMintToken() {
 
   .icon {
     &.tokenized img {
-      filter: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
+      filter: $gem-colorizer;
     }
 
     &.tokenize-progress img {
@@ -744,7 +744,7 @@ async function onMintToken() {
 }
 
 .post-form {
-  border-top: 1px solid #f3f2ed;
+  border-top: 1px solid $separator-color;
 }
 
 @media screen and (max-width: $screen-breakpoint-small) {

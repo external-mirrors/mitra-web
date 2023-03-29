@@ -273,7 +273,7 @@ async function login() {
 @import "../styles/layout";
 @import "../styles/theme";
 
-$text-color: #fff;
+$landing-text-color: #fff;
 
 .landing-page {
   background-color: #000;
@@ -281,7 +281,7 @@ $text-color: #fff;
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
-  color: $text-color;
+  color: $landing-text-color;
   min-height: 100vh;
   padding-top: 20vh;
 }
@@ -314,14 +314,14 @@ $text-color: #fff;
   line-height: 1.75;
 
   a {
-    color: $text-color;
+    color: $landing-text-color;
   }
 
   .arrow {
     color: #7DFF54;
 
     &:hover {
-      color: $text-color;
+      color: $landing-text-color;
     }
   }
 }
@@ -381,7 +381,7 @@ $text-color: #fff;
 
   input {
     border-radius: 10px;
-    color: $text-color;
+    color: $landing-text-color;
     min-width: 100px;
 
     &::placeholder {
@@ -427,7 +427,7 @@ $text-color: #fff;
     border: none;
     border-radius: 10px;
     box-shadow: 0 2px 16px -5px #BB5CC7;
-    color: $text-color;
+    color: $landing-text-color;
     cursor: pointer;
     display: block;
     font-size: 20px;
@@ -460,7 +460,7 @@ $text-color: #fff;
     }
 
     a {
-      color: $text-color;
+      color: $landing-text-color;
       text-decoration: underline;
     }
   }
@@ -484,7 +484,7 @@ $text-color: #fff;
   text-align: center;
 
   button {
-    color: $text-color;
+    color: $landing-text-color;
     text-decoration: underline;
   }
 }

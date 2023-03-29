@@ -130,7 +130,7 @@ const imageUrl = $computed<string | null>(() => {
 $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 
 .post-overlay {
-  background-color: #fff;
+  background-color: $block-background-color;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

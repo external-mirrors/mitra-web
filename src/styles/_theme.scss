@@ -1,7 +1,10 @@
 /* color-to-filter converter https://codepen.io/sosuke/pen/Pjoqqp */
 
+$background-color: #f3f2ed;
+
 $text-font: Helvetica, Arial, sans-serif;
 $text-font-size: 15px;
+
 $text-color: #333;
 $text-colorizer: invert(17%) sepia(0%) saturate(0%) hue-rotate(356deg) brightness(101%) contrast(91%);
 $secondary-text-color: #999;
@@ -15,23 +18,25 @@ $link-hover-colorizer: invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brig
 $error-color: #FF4D4D;
 $greentext-color: #789922;
 
-$background-color: #f3f2ed;
 $btn-background-color: $text-color;
 $btn-background-hover-color: #fff;
 $btn-text-color: #fff;
 $btn-text-colorizer: invert(99%) sepia(74%) saturate(252%) hue-rotate(137deg) brightness(116%) contrast(100%);
 $btn-text-hover-color: $text-color;
 $btn-text-hover-colorizer: $text-colorizer;
-$btn-border-radius: 8px;
-$btn-shadow: 2px 5px 10px -5px #B7B5B5;
 $btn-secondary-background-color: #CCCBC6;
 $btn-secondary-text-color: $text-color;
 $btn-disabled-background-color: #ddd;
 $btn-disabled-text-color: #999;
 
-$block-border-radius: 15px;
 $block-background-color: #fff;
 $block-link-color: #6c491c;
 $block-link-hover-color: #1A0000;
 $separator-color: $background-color;
-$shadow: 0 2px 16px -9px #C3C4C7;
+$widget-background-color: #eee;
+$highlight-color: #FFA500;
+$loader-color: #999;
+$shadow-color: #B7B5B5;
+
+$gem-color: #9678c3;
+$gem-colorizer: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
