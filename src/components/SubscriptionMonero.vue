@@ -242,11 +242,17 @@ async function onCreateInvoice() {
     return
   }
   isLoading = true
-  invoice = await createInvoice(
-    sender.id,
-    recipient.id,
-    paymentAmount,
-  )
+  try {
+    invoice = await createInvoice(
+      sender.id,
+      recipient.id,
+      paymentAmount,
+    )
+  } catch (error: any) {
+    alert(error.message)
+    isLoading = false
+    return
+  }
   // Add invoice ID to current URL
   window.history.pushState(
     {},
