@@ -35,6 +35,12 @@
         </form>
       </section>
       <section>
+        <h2>Aliases</h2>
+        <router-link class="btn" :to="{ name: 'settings-aliases' }">
+          Manage aliases
+        </router-link>
+      </section>
+      <section>
         <h2>Export</h2>
         <table class="export">
           <tr>

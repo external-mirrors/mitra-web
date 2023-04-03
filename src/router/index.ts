@@ -8,6 +8,7 @@ import ImportFollows from "@/views/ImportFollows.vue"
 import LandingPage from "@/views/LandingPage.vue"
 import MoveFollowers from "@/views/MoveFollowers.vue"
 import NotificationList from "@/views/NotificationList.vue"
+import ProfileAliases from "@/views/ProfileAliases.vue"
 import ProfileDirectory from "@/views/ProfileDirectory.vue"
 import ProfileView from "@/views/Profile.vue"
 import ProfileForm from "@/views/ProfileForm.vue"
@@ -140,6 +141,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings/profile",
     name: "settings-profile",
     component: ProfileForm,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/aliases",
+    name: "settings-aliases",
+    component: ProfileAliases,
     meta: { onlyAuthenticated: true },
   },
   {

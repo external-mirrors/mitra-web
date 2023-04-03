@@ -351,7 +351,8 @@ onMounted(async () => {
     )
   }
   if (profile.identity_proofs.length > 0) {
-    aliases = await getAliases(profile.id)
+    const { verified } = await getAliases(profile.id)
+    aliases = verified
   }
   await switchTab("posts")
   isLoading = false

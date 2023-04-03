@@ -354,8 +354,13 @@ export async function createIdentityProof(
   }
 }
 
-export async function getAliases(profileId: string): Promise<Profile[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/aliases`
+export interface Aliases {
+  declared: Profile[],
+  verified: Profile[],
+}
+
+export async function getAliases(profileId: string): Promise<Aliases> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/aliases/all`
   const response = await http(url)
   const data = await response.json()
   if (response.status !== 200) {
