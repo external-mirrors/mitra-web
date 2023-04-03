@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
-import { User } from "./users"
+import { Aliases, User } from "./users"
 
 export async function changePassword(
   authToken: string,
@@ -10,6 +10,24 @@ export async function changePassword(
   const response = await http(url, {
     method: "POST",
     json: { new_password: newPassword },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.error_description)
+  } else {
+    return data
+  }
+}
+
+export async function addAlias(
+  authToken: string,
+  acct: string,
+): Promise<Aliases> {
+  const url = `${BACKEND_URL}/api/v1/settings/aliases`
+  const response = await http(url, {
+    method: "POST",
+    json: { acct: acct },
     authToken,
   })
   const data = await response.json()

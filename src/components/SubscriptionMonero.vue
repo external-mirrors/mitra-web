@@ -194,7 +194,7 @@ async function identifySender() {
     return
   }
   isLoading = true
-  const profiles = await searchProfilesByAcct(senderAcct)
+  const profiles = await searchProfilesByAcct(null, senderAcct)
   if (profiles.length > 1) {
     senderError = "Please provide full address"
   } else {
