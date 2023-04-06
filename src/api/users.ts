@@ -83,6 +83,7 @@ export function defaultProfile(): Profile {
 export interface User extends Profile {
   source: Source;
   role: Role,
+  client_config: { [clientName: string]: { [property: string]: any } },
 }
 
 export interface ProfileWrapper extends Profile {}

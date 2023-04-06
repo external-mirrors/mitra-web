@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added "Aliases" page.
 - Form for adding aliases.
+- Store appearance settings on server.
+
+### Changed
+
+- Move dark mode toggle out of "Experiments" section.
 
 ## [1.19.0] - 2023-03-30
 

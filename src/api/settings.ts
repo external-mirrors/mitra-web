@@ -1,6 +1,24 @@
-import { BACKEND_URL } from "@/constants"
+import { APP_NAME, BACKEND_URL } from "@/constants"
 import { http } from "./common"
 import { Aliases, User } from "./users"
+
+export async function updateClientConfig(
+  authToken: string,
+  clientConfig: { [property: string]: any },
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/settings/client_config`
+  const response = await http(url, {
+    method: "POST",
+    json: { [APP_NAME]: clientConfig },
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.error_description)
+  } else {
+    return data
+  }
+}
 
 export async function changePassword(
   authToken: string,

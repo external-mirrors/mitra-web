@@ -12,6 +12,16 @@
         </router-link>
       </section>
       <section>
+        <h2>Appearance</h2>
+        <button
+          class="btn"
+          @click="onToggleDarkMode()"
+          :disabled="isLoading"
+        >
+          Toggle dark mode
+        </button>
+      </section>
+      <section>
         <h2>Change password</h2>
         <form @submit.prevent="onChangePassword()">
           <div class="input-group">
@@ -70,9 +80,6 @@
             <router-link class="btn" :to="{ name: 'move-followers' }">
               Move followers
             </router-link>
-            <button class="btn" @click="toggleDarkMode()">
-              Toggle dark mode
-            </button>
           </div>
         </details>
       </section>
@@ -93,6 +100,13 @@ const { toggleDarkMode } = useTheme()
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
 let passwordFormMessage = $ref<string | null>(null)
+let isLoading = $ref(false)
+
+async function onToggleDarkMode() {
+  isLoading = true
+  await toggleDarkMode()
+  isLoading = false
+}
 
 function canChangePassword(): boolean {
   return newPassword && newPassword === newPasswordConfirmation

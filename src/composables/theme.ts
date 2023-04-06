@@ -1,6 +1,8 @@
 import { ref } from "vue"
 
-const THEME_STORAGE_KEY = "theme"
+import { updateClientConfig } from "@/api/settings"
+import { APP_NAME } from "@/constants"
+import { useCurrentUser } from "@/store/user"
 
 enum Theme {
   Light = "light",
@@ -14,20 +16,39 @@ export function useTheme() {
   function setTheme(theme: Theme) {
     document.documentElement.setAttribute("data-theme", theme)
     currentTheme.value = theme
-    localStorage.setItem(THEME_STORAGE_KEY, theme)
+  }
+
+  async function persistTheme(theme: Theme) {
+    const {
+      ensureAuthToken,
+      ensureCurrentUser,
+      setCurrentUser,
+    } = useCurrentUser()
+    const currentUser = ensureCurrentUser()
+    let clientConfig = currentUser.client_config[APP_NAME] || {}
+    clientConfig = { ...clientConfig, theme }
+    const authToken = ensureAuthToken()
+    const user = await updateClientConfig(authToken, clientConfig)
+    setCurrentUser(user)
   }
 
   function loadTheme() {
-    const theme = localStorage.getItem(THEME_STORAGE_KEY) || Theme.Light
+    const { ensureCurrentUser } = useCurrentUser()
+    const currentUser = ensureCurrentUser()
+    const clientConfig = currentUser.client_config[APP_NAME] || {}
+    const theme = clientConfig.theme || Theme.Light
     setTheme(theme as Theme)
   }
 
-  function toggleDarkMode() {
+  async function toggleDarkMode() {
+    let theme
     if (currentTheme.value === Theme.Light) {
-      setTheme(Theme.Dark)
+      theme = Theme.Dark
     } else {
-      setTheme(Theme.Light)
+      theme = Theme.Light
     }
+    setTheme(theme)
+    await persistTheme(theme)
   }
 
   return {
