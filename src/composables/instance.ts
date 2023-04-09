@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-import { InstanceInfo, getInstanceInfo } from "@/api/instance"
+import { BlockchainInfo, InstanceInfo, getInstanceInfo } from "@/api/instance"
 import { Mention } from "@/api/posts"
 import { Profile } from "@/api/users"
 
@@ -23,9 +23,14 @@ export function useInstanceInfo() {
     return `${profile.username}@${instance.value.uri}`
   }
 
+  function getBlockchainInfo(): BlockchainInfo | null {
+    return instance.value?.blockchains[0] || null
+  }
+
   return {
     instance,
     loadInstanceInfo,
     getActorAddress,
+    getBlockchainInfo,
   }
 }

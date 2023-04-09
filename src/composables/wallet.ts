@@ -17,8 +17,8 @@ function disconnectWallet() {
 }
 
 async function connectWallet(): Promise<void> {
-  const { instance } = useInstanceInfo()
-  const blockchain = instance.value?.blockchains[0]
+  const { getBlockchainInfo } = useInstanceInfo()
+  const blockchain = getBlockchainInfo()
   if (!blockchain) {
     throw new Error("blockchain integration disabled")
   }

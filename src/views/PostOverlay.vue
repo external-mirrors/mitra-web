@@ -68,7 +68,11 @@ import { formatDate } from "@/utils/dates"
 const route = useRoute()
 const router = useRouter()
 const { currentUser, authToken } = $(useCurrentUser())
-const { instance, getActorAddress } = $(useInstanceInfo())
+const {
+  getActorAddress,
+  getBlockchainInfo,
+  instance,
+} = $(useInstanceInfo())
 
 let post = $ref<Post | null>(null)
 let token = $ref<TokenMetadata | null>(null)
@@ -99,7 +103,8 @@ const actorAddress = $computed<string>(() => {
 })
 
 const transactionUrl = $computed<string | null>(() => {
-  const explorerUrl = instance?.blockchains[0]?.chain_metadata?.explorer_url
+  const blockchain = getBlockchainInfo()
+  const explorerUrl = blockchain?.chain_metadata?.explorer_url
   if (!explorerUrl || !post?.token_tx_id) {
     return null
   }

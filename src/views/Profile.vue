@@ -306,7 +306,7 @@ const {
   ensureAuthToken,
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
-const { instance, getActorAddress } = $(useInstanceInfo())
+const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
 
 let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
@@ -561,7 +561,7 @@ async function onSignActivity() {
 }
 
 function isSubscriptionsFeatureEnabled(): boolean {
-  const blockchain = instance?.blockchains[0]
+  const blockchain = getBlockchainInfo()
   return Boolean(blockchain?.features.subscriptions)
 }
 

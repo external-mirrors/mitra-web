@@ -26,10 +26,10 @@ import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo } = $(useInstanceInfo())
 let profile = $ref<Profile | null>(null)
 
-const blockchain = $computed(() => instance?.blockchains[0])
+const blockchain = $computed(() => getBlockchainInfo())
 
 onMounted(async () => {
   // Recipient

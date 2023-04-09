@@ -110,7 +110,7 @@ import { ethereumAddressMatch } from "@/utils/ethereum"
 
 const { ensureAuthToken, ensureCurrentUser, setCurrentUser } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet, getSigner } = useWallet()
 const subscriptionPrice = $ref<number>(1)
 
@@ -124,7 +124,7 @@ let subscriptionState = $ref<SubscriptionState | null>(null)
 let subscriptions = $ref<Subscription[]>([])
 let subscriberAddress = $ref<string | null>(null)
 
-const blockchain = $computed(() => instance?.blockchains[0])
+const blockchain = $computed(() => getBlockchainInfo())
 const profile = $computed(() => new ProfileWrapper(ensureCurrentUser()))
 
 onMounted(() => {

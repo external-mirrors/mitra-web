@@ -121,7 +121,7 @@ import {
 
 const router = useRouter()
 const { setCurrentUser, setAuthToken } = useCurrentUser()
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo, instance } = $(useInstanceInfo())
 
 const isRegistered = $ref(true)
 const username = $ref("")
@@ -135,7 +135,7 @@ function isWalletRequired(): boolean {
   if (!instance) {
     return false
   }
-  const blockchain = instance?.blockchains[0]
+  const blockchain = getBlockchainInfo()
   return Boolean(blockchain?.features.gate)
 }
 

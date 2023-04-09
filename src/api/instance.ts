@@ -16,7 +16,7 @@ interface ChainMetadata {
   explorer_url: string | null;
 }
 
-interface BlockchainInfo {
+export interface BlockchainInfo {
   chain_id: string;
   chain_metadata: ChainMetadata | null;
   contract_address: string | null;

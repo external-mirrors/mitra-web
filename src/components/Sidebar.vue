@@ -55,7 +55,7 @@ const {
   endUserSession,
   ensureAuthToken,
 } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 const { loadTheme } = useTheme()
 
@@ -76,7 +76,7 @@ const unreadNotificationCount = $computed<number>(() => {
 })
 
 function canManageSubscriptions(): boolean {
-  const blockchain = instance?.blockchains[0]
+  const blockchain = getBlockchainInfo()
   const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
   return (
     isSubscriptionsFeatureEnabled &&

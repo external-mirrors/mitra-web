@@ -285,7 +285,7 @@ interface PaymentOption {
 
 const router = useRouter()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { instance, getActorAddress } = $(useInstanceInfo())
+const { getActorAddress, getBlockchainInfo, instance } = $(useInstanceInfo())
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -307,7 +307,7 @@ let menuVisible = $ref(false)
 let selectedPaymentAddress = $ref<string | null>(null)
 let isWaitingForToken = $ref(false)
 
-const blockchain = $computed(() => instance?.blockchains[0])
+const blockchain = $computed(() => getBlockchainInfo())
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
 function openProfile(event: Event, profile: Mention | Profile) {

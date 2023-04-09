@@ -16,9 +16,9 @@ import SubscriptionSettingsEthereum from "@/components/SubscriptionSettingsEther
 import SubscriptionSettingsMonero from "@/components/SubscriptionSettingsMonero.vue"
 import { useInstanceInfo } from "@/composables/instance"
 
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo } = $(useInstanceInfo())
 
-const blockchain = $computed(() => instance?.blockchains[0])
+const blockchain = $computed(() => getBlockchainInfo())
 
 function isEthereum(): boolean {
   if (!blockchain) {

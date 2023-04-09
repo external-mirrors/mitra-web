@@ -137,7 +137,7 @@ const props = defineProps<{
 }>()
 
 const { currentUser } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { getBlockchainInfo } = $(useInstanceInfo())
 const { connectWallet: connectEthereumWallet } = useWallet()
 const recipient = new ProfileWrapper(props.profile)
 const recipientEthereumAddress = recipient.getVerifiedEthereumAddress()
@@ -159,7 +159,7 @@ onMounted(() => {
   }
 })
 
-const blockchain = $computed(() => instance?.blockchains[0])
+const blockchain = $computed(() => getBlockchainInfo())
 
 function canConnectWallet(): boolean {
   return (
