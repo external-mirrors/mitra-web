@@ -44,10 +44,10 @@ import { $, $computed } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import { Permissions } from "@/api/users"
+import { useInstanceInfo } from "@/composables/instance"
+import { useNotifications } from "@/composables/notifications"
 import { useTheme } from "@/composables/theme"
-import { useNotifications } from "@/store/notifications"
-import { useCurrentUser } from "@/store/user"
-import { useInstanceInfo } from "@/store/instance"
+import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const {

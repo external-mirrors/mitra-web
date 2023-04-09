@@ -293,10 +293,10 @@ import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
+import { useInstanceInfo } from "@/composables/instance"
 import { useSignedActivity } from "@/composables/signed-activity"
+import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
 import { hasEthereumWallet } from "@/utils/ethereum"
 
 const route = useRoute()

@@ -78,9 +78,9 @@ import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useInstanceInfo } from "@/store/instance"
-import { useNotifications } from "@/store/notifications"
-import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/composables/instance"
+import { useNotifications } from "@/composables/notifications"
+import { useCurrentUser } from "@/composables/user"
 import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()

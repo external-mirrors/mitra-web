@@ -34,7 +34,7 @@ import type { Post as PostObject } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{

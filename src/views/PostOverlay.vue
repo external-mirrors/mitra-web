@@ -61,8 +61,8 @@ import { useRoute, useRouter } from "vue-router"
 import { getTokenMetadata, TokenMetadata } from "@/api/nft"
 import { Post, getPost } from "@/api/posts"
 import Avatar from "@/components/Avatar.vue"
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 import { formatDate } from "@/utils/dates"
 
 const route = useRoute()

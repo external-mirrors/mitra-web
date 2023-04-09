@@ -50,7 +50,7 @@ import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { ensureAuthToken } = useCurrentUser()

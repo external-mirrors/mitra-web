@@ -38,7 +38,7 @@ import { useRouter } from "vue-router"
 
 import { createIdentityProof, getIdentityClaim } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { ensureAuthToken, currentUser } = $(useCurrentUser())

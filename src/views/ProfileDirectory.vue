@@ -30,7 +30,7 @@ import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const { ensureAuthToken } = useCurrentUser()
 

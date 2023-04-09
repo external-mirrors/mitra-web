@@ -14,7 +14,7 @@ import { $, $computed } from "vue/macros"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionSettingsEthereum from "@/components/SubscriptionSettingsEthereum.vue"
 import SubscriptionSettingsMonero from "@/components/SubscriptionSettingsMonero.vue"
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
 
 const { instance } = $(useInstanceInfo())
 

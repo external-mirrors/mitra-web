@@ -20,7 +20,7 @@ import { useRoute } from "vue-router"
 import { Post, getTagTimeline } from "@/api/posts"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())

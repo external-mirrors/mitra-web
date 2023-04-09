@@ -132,7 +132,7 @@ import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"
 

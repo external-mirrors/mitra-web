@@ -31,7 +31,7 @@ import { useRouter } from "vue-router"
 
 import { importFollows } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())

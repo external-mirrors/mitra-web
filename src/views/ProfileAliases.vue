@@ -71,7 +71,7 @@ import { getAliases, Aliases, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const { ensureCurrentUser, ensureAuthToken } = $(useCurrentUser())
 

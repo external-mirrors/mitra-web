@@ -93,7 +93,7 @@ import { $, $ref } from "vue/macros"
 import { changePassword, exportFollowers, exportFollows } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useTheme } from "@/composables/theme"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 const { toggleDarkMode } = useTheme()

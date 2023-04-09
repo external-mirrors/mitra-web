@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { $ } from "vue/macros"
 
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
 
 const { instance } = $(useInstanceInfo())
 </script>

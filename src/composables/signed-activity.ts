@@ -2,7 +2,7 @@ import {
   getUnsignedUpdate,
   sendSignedActivity,
 } from "@/api/users"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
 async function signUpdateActivity(): Promise<void> {

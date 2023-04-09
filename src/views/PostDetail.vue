@@ -29,7 +29,7 @@ import { Post as PostObject, getPostThread } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())

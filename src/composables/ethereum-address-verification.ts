@@ -1,5 +1,5 @@
 import { createIdentityProof, getIdentityClaim, User } from "@/api/users"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
 
 async function verifyEthereumAddress(): Promise<User | null> {

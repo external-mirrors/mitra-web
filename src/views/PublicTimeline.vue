@@ -15,7 +15,7 @@ import { Post, getPublicTimeline } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const { ensureAuthToken } = useCurrentUser()
 let posts = $ref<Post[]>([])

@@ -23,7 +23,7 @@ import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { onInvalidAuthToken, ensureAuthToken, ensureCurrentUser } = useCurrentUser()

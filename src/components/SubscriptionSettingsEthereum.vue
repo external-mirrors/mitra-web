@@ -103,9 +103,9 @@ import {
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 import { useWallet } from "@/composables/wallet"
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
 const { ensureAuthToken, ensureCurrentUser, setCurrentUser } = $(useCurrentUser())

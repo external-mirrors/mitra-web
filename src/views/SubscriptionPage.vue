@@ -21,8 +21,8 @@ import {
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
-import { useCurrentUser } from "@/store/user"
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())

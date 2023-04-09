@@ -1,8 +1,8 @@
 import { ref } from "vue"
 
 import { updateClientConfig } from "@/api/settings"
+import { useCurrentUser } from "@/composables/user"
 import { APP_NAME } from "@/constants"
-import { useCurrentUser } from "@/store/user"
 
 enum Theme {
   Light = "light",

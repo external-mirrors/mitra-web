@@ -70,7 +70,7 @@ import {
   getPricePerSec,
 } from "@/api/subscriptions-monero"
 import Loader from "@/components/Loader.vue"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const {

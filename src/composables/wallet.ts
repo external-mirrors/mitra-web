@@ -1,7 +1,7 @@
 import { Signer } from "ethers"
 import { ref } from "vue"
 
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
 import {
   getWallet,
   getWeb3Provider,

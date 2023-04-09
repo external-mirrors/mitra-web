@@ -9,7 +9,7 @@ import { useRouter } from "vue-router"
 
 import { replaceShortcodes } from "@/api/emojis"
 import { Post } from "@/api/posts"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 import { addGreentext } from "@/utils/greentext"
 
 const router = useRouter()

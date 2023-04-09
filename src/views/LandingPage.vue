@@ -111,8 +111,8 @@ import {
   getCurrentUser,
 } from "@/api/users"
 import Loader from "@/components/Loader.vue"
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 import {
   createEip4361_SignedMessage,
   getWallet,

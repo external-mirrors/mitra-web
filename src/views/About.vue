@@ -25,8 +25,8 @@ import { $ } from "vue/macros"
 import { APP_VERSION } from "@/constants"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import StaticPage from "@/components/StaticPage.vue"
-import { useCurrentUser } from "@/store/user"
-import { useInstanceInfo } from "@/store/instance"
+import { useCurrentUser } from "@/composables/user"
+import { useInstanceInfo } from "@/composables/instance"
 
 const { currentUser } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())

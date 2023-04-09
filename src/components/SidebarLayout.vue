@@ -42,8 +42,8 @@ import Avatar from "@/components/Avatar.vue"
 import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
 import Sidebar from "@/components/Sidebar.vue"
-import { useCurrentUser } from "@/store/user"
-import { useNotifications } from "@/store/notifications"
+import { useNotifications } from "@/composables/notifications"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const router = useRouter()

@@ -126,9 +126,9 @@ import {
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 import { useWallet } from "@/composables/wallet"
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
 /* eslint-disable-next-line no-undef */

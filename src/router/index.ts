@@ -22,7 +22,7 @@ import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 
 import { Permissions } from "@/api/users"
-import { useCurrentUser } from "@/store/user"
+import { useCurrentUser } from "@/composables/user"
 
 async function authGuard(to: any) {
   const { isAuthenticated } = useCurrentUser()

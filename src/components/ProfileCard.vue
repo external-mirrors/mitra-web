@@ -28,7 +28,7 @@ import { $computed } from "vue/macros"
 import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useInstanceInfo } from "@/store/instance"
+import { useInstanceInfo } from "@/composables/instance"
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{

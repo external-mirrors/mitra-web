@@ -7,8 +7,8 @@ import { watch } from "vue"
 import { $, $$ } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { useInstanceInfo } from "@/store/instance"
-import { useCurrentUser } from "@/store/user"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { currentUser } = $(useCurrentUser())
