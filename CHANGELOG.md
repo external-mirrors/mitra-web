@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [1.20.0] - 2023-03-07
+### Changed
+
+- Adjusted block background color in dark mode.
+
+## [1.20.0] - 2023-04-07
 
 ### Added
 
