@@ -62,7 +62,6 @@ const { loadTheme } = useTheme()
 onMounted(async () => {
   if (isUserAuthenticated()) {
     loadTheme()
-    // TODO: reload notifications periodically
     await loadNotifications(ensureAuthToken())
   }
 })

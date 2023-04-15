@@ -67,11 +67,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $ } from "vue/macros"
+import { watch } from "vue"
+import { $, $$ } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
-import { updateNotificationMarker } from "@/api/markers"
 import { getNotifications, Notification } from "@/api/notifications"
 import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
@@ -85,18 +84,12 @@ import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
 const { getActorAddress } = useInstanceInfo()
-let { notifications } = $(useNotifications())
+let { notifications, updateUnreadNotificationCount } = $(useNotifications())
 
-onMounted(async () => {
+watch($$(notifications), async () => {
   // Update notification timeline marker
-  const firstNotification = notifications[0]
-  if (firstNotification) {
-    await updateNotificationMarker(
-      ensureAuthToken(),
-      firstNotification.id,
-    )
-  }
-})
+  await updateUnreadNotificationCount(ensureAuthToken())
+}, { immediate: true })
 
 function getSender(notification: Notification): ProfileWrapper {
   return new ProfileWrapper(notification.account)

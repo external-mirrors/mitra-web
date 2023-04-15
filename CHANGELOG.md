@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Detect preferred color scheme.
 - Show loading indicator while attachment is being uploaded.
 
+### Fixed
+
+- Fix update of unread notification counter.
+
 ## [1.21.0] - 2023-04-12
 
 ### Changed

@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-import { getNotificationMarker } from "@/api/markers"
+import { getNotificationMarker, updateNotificationMarker } from "@/api/markers"
 import { Notification, getNotifications } from "@/api/notifications"
 
 const notifications = ref<Notification[]>([])
@@ -33,9 +33,24 @@ export function useNotifications() {
     return unreadCount
   }
 
+  async function updateUnreadNotificationCount(authToken: string) {
+    const firstNotification = notifications.value[0]
+    if (
+      firstNotification &&
+      firstNotification.id !== lastReadId.value
+    ) {
+      await updateNotificationMarker(
+        authToken,
+        firstNotification.id,
+      )
+      lastReadId.value = firstNotification.id
+    }
+  }
+
   return {
     notifications,
     loadNotifications,
     getUnreadNotificationCount,
+    updateUnreadNotificationCount,
   }
 }
