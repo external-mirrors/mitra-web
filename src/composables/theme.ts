@@ -9,7 +9,15 @@ enum Theme {
   Dark = "dark",
 }
 
-const currentTheme = ref(Theme.Light)
+function defaultTheme(): Theme {
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return Theme.Dark
+  } else {
+    return Theme.Light
+  }
+}
+
+const currentTheme = ref(defaultTheme())
 
 export function useTheme() {
 
@@ -36,7 +44,7 @@ export function useTheme() {
     const { ensureCurrentUser } = useCurrentUser()
     const currentUser = ensureCurrentUser()
     const clientConfig = currentUser.client_config[APP_NAME] || {}
-    const theme = clientConfig.theme || Theme.Light
+    const theme = clientConfig.theme || defaultTheme()
     setTheme(theme as Theme)
   }
 
