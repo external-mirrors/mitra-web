@@ -68,6 +68,7 @@
       <post-attachment
         v-for="attachment in post.media_attachments"
         :attachment="attachment"
+        :is-sensitive="post.sensitive"
         :key="attachment.id"
       ></post-attachment>
     </div>
@@ -91,6 +92,7 @@
         <post-attachment
           v-for="attachment in linkedPost.media_attachments"
           :attachment="attachment"
+          :is-sensitive="linkedPost.sensitive"
           :key="attachment.id"
         ></post-attachment>
       </div>

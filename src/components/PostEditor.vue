@@ -88,6 +88,15 @@
             </li>
           </menu>
         </div>
+        <button
+          type="button"
+          class="icon"
+          :class="{ highlighted: isSensitive }"
+          title="Toggle content warning"
+          @click="isSensitive = !isSensitive"
+        >
+          <img src="@/assets/tabler/alert-triangle.svg">
+        </button>
         <div class="toolbar-space"></div>
         <button
           v-if="canPreview()"
@@ -171,6 +180,7 @@ const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
 let content = $ref(loadLocalDraft())
 let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
+let isSensitive = $ref(false)
 
 let visibilityMenuVisible = $ref(false)
 let preview = $ref<Post | null>(null)
@@ -328,8 +338,9 @@ function canPublish(): boolean {
 async function publish() {
   const postData = {
     content: content,
-    in_reply_to_id: props.inReplyTo ? props.inReplyTo.id : null,
+    inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
+    isSensitive: isSensitive,
     mentions: [],
     attachments: attachments,
   }
@@ -354,6 +365,7 @@ async function publish() {
   isLoading = false
   removeLocalDraft()
   content = ""
+  isSensitive = false
   attachments = []
   preview = null
   if (postFormContentRef) {

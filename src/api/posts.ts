@@ -60,6 +60,7 @@ export interface Post {
   in_reply_to_id: string | null;
   reblog: Post | null;
   visibility: Visibility;
+  sensitive: boolean;
   replies_count: number;
   favourites_count: number;
   reblogs_count: number;
@@ -176,6 +177,7 @@ export async function previewPost(
     in_reply_to_id: null,
     reblog: null,
     visibility: Visibility.Public,
+    sensitive: false,
     replies_count: 0,
     favourites_count: 0,
     reblogs_count: 0,
@@ -194,8 +196,9 @@ export async function previewPost(
 
 export interface PostData {
   content: string;
-  in_reply_to_id: string | null;
+  inReplyToId: string | null;
   visibility: string;
+  isSensitive: boolean;
   mentions: string[];
   attachments: Attachment[];
 }
@@ -210,8 +213,9 @@ export async function createPost(
     status: postData.content,
     content_type: "text/markdown",
     "media_ids[]": postData.attachments.map((attachment) => attachment.id),
-    in_reply_to_id: postData.in_reply_to_id,
+    in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,
+    sensitive: postData.isSensitive,
     mentions: postData.mentions,
   }
   const response = await http(url, {
