@@ -22,7 +22,16 @@
         </button>
       </section>
       <section>
-        <h2>Change password</h2>
+        <h2>Authentication</h2>
+        <div class="authentication-methods">
+          Enabled authentication methods:
+          <span v-for="(method, index) in currentUser.authentication_methods" :key="method">
+            <template v-if="method === 'password'">password</template>
+            <template v-else-if="method === 'eip4361'">EIP-4361</template>
+            <template v-if="index !== currentUser.authentication_methods.length - 1">, </template>
+          </span>
+        </div>
+        <h3>Change password</h3>
         <form @submit.prevent="onChangePassword()">
           <div class="input-group">
             <label for="new-password">New password</label>
@@ -143,6 +152,10 @@ section {
 
 form {
   @include content-form;
+}
+
+.authentication-methods {
+  margin-bottom: $block-inner-padding;
 }
 
 .password-form-message {
