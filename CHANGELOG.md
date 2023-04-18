@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Content warnings.
 - List enabled authentication methods in "Settings".
 
+### Changed
+
+- Send preferred authentication method along with user data when creating new account.
+
 ### Fixed
 
 - Fix update of unread notification counter.

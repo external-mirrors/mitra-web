@@ -217,7 +217,7 @@ async function register() {
   let user
   let authToken
   try {
-    user = await createUser(userData)
+    user = await createUser(loginType, userData)
     authToken = await getAccessToken(loginType, loginData)
   } catch (error: any) {
     isLoading = false

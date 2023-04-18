@@ -145,11 +145,17 @@ interface UserCreateForm {
   invite_code: string | null;
 }
 
-export async function createUser(userData: UserCreateForm): Promise<User> {
+export async function createUser(
+  loginType: "password" | "eip4361",
+  userData: UserCreateForm,
+): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts`
   const response = await http(url, {
     method: "POST",
-    json: userData,
+    json: {
+      authentication_method: loginType,
+      ...userData,
+    },
   })
   const data = await response.json()
   if (response.status !== 201) {
