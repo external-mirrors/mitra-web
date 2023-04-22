@@ -91,11 +91,11 @@
         <button
           type="button"
           class="icon"
-          :class="{ highlighted: isSensitive }"
-          title="Toggle content warning"
+          :class="{ warning: isSensitive }"
+          :title="isSensitive ? 'Remove content warning' : 'Add content warning'"
           @click="isSensitive = !isSensitive"
         >
-          <img src="@/assets/tabler/alert-triangle.svg">
+          <img src="@/assets/feather/alert-triangle.svg">
         </button>
         <div class="toolbar-space"></div>
         <button
@@ -468,6 +468,14 @@ $line-height: 1.5;
   .loader {
     --loader-size: #{$icon-size};
     --loader-width: 2px;
+  }
+
+  .icon.warning {
+    color: $warning-color;
+
+    img {
+      filter: $warning-colorizer;
+    }
   }
 
   .character-counter {
