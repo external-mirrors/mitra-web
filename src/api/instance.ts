@@ -40,6 +40,7 @@ export interface InstanceInfo {
       supported_mime_types: string[],
     },
   },
+  authentication_methods: string[],
   login_message: string;
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;

@@ -10,19 +10,18 @@
         </div>
       </div>
       <div v-if="instance" class="login-form-group">
-        <div class="login-type">
+        <div
+          class="login-type"
+          v-if="allowedAuthenticationMethods.length > 1"
+        >
           <button
-            v-if="!isWalletRequired()"
-            :class="{ active: loginType === 'password' }"
-            @click.prevent="loginType = 'password'; loginErrorMessage = null"
+            v-for="authType in allowedAuthenticationMethods"
+            :key="authType"
+            :class="{ active: loginType === authType }"
+            @click.prevent="loginType = authType; loginErrorMessage = null"
           >
-            Password
-          </button>
-          <button
-            :class="{ active: loginType === 'eip4361' }"
-            @click.prevent="loginType = 'eip4361'; loginErrorMessage = null"
-          >
-            Ethereum
+            <template v-if="authType === 'password'">Password</template>
+            <template v-else-if="authType === 'eip4361'">Ethereum</template>
           </button>
         </div>
         <form class="login-form">
@@ -101,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue"
+import { computed, watch } from "vue"
 import { $, $$, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
@@ -139,8 +138,21 @@ function isWalletRequired(): boolean {
   return Boolean(blockchain?.features.gate)
 }
 
+const allowedAuthenticationMethods = computed(() => {
+  if (!instance) {
+    return []
+  }
+  if (isWalletRequired()) {
+    return ["eip4361"]
+  }
+  return instance.authentication_methods
+})
+
 watch($$(instance), () => {
-  if (hasEthereumWallet() || isWalletRequired()) {
+  if (
+    allowedAuthenticationMethods.value.includes("eip4361") &&
+    (hasEthereumWallet() || isWalletRequired())
+  ) {
     // Switch to EIP-4361 if wallet is present or
     // if registration is token-gated
     loginType = "eip4361"
@@ -481,6 +493,7 @@ $landing-text-color: #fff;
 }
 
 .switch-mode {
+  margin-top: 15px;
   text-align: center;
 
   button {

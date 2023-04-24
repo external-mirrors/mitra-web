@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Don't show disabled login options.
+
 ## [1.22.0] - 2023-04-22
 
 ### Added
