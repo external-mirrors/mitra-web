@@ -46,7 +46,6 @@ import { useRouter } from "vue-router"
 import { Permissions } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"
-import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
@@ -57,11 +56,9 @@ const {
 } = $(useCurrentUser())
 const { getBlockchainInfo } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
-const { loadTheme } = useTheme()
 
 onMounted(async () => {
   if (isUserAuthenticated()) {
-    loadTheme()
     await loadNotifications(ensureAuthToken())
   }
 })

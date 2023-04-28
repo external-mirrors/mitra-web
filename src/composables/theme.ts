@@ -41,9 +41,8 @@ export function useTheme() {
   }
 
   function loadTheme() {
-    const { ensureCurrentUser } = useCurrentUser()
-    const currentUser = ensureCurrentUser()
-    const clientConfig = currentUser.client_config[APP_NAME] || {}
+    const { currentUser } = useCurrentUser()
+    const clientConfig = currentUser.value?.client_config[APP_NAME] || {}
     const theme = clientConfig.theme || defaultTheme()
     setTheme(theme as Theme)
   }

@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue"
 import { $ } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
@@ -43,15 +44,21 @@ import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
 import Sidebar from "@/components/Sidebar.vue"
 import { useNotifications } from "@/composables/notifications"
+import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const router = useRouter()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { loadNotifications } = $(useNotifications())
+const { loadTheme } = useTheme()
 
 /* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "reload-home"): void}>()
+
+onMounted(() => {
+  loadTheme()
+})
 
 function showHomeTimeline() {
   if (route.name === "home") {

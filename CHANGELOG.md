@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Move content warning behind the header.
+- Enabled theme auto-detection for unauthenticated users.
 
 ## [1.22.0] - 2023-04-22
 
