@@ -31,6 +31,7 @@
           <div class="form-control" v-if="!isRegistered || loginType == 'password'">
             <div class="input-group">
               <input
+                type="text"
                 id="username"
                 v-model="username"
                 required
@@ -57,6 +58,7 @@
           </div>
           <div class="form-control" v-if="!instance.registrations && !isRegistered">
             <input
+              type="text"
               id="invite-token"
               v-model="inviteCode"
               required

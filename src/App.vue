@@ -176,13 +176,20 @@ h6 {
 
 input,
 textarea {
+  font-family: $text-font;
+  font-size: $text-font-size;
+}
+
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="text"],
+textarea {
   background-color: var(--block-background-color);
   border: 1px solid var(--block-background-color);
   box-shadow: none;
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: $text-font;
-  font-size: $text-font-size;
   margin: 0;
   padding: $input-padding;
   width: 100%;

@@ -147,7 +147,8 @@
       margin-top: 3px;
     }
 
-    input,
+    input[type="password"],
+    input[type="text"],
     textarea {
       border-radius: $btn-border-radius;
       width: 100%;

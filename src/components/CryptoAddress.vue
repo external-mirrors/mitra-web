@@ -1,6 +1,6 @@
 <template>
   <div class="crypto-address">
-    <input :value="address" readonly>
+    <input type="text" :value="address" readonly>
     <button class="copy-btn" title="Copy address" @click="copyAddress()">
       <img src="@/assets/forkawesome/files-o.svg">
     </button>

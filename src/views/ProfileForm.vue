@@ -5,7 +5,7 @@
       <form class="profile-form" @submit.prevent="save()">
         <div class="input-group">
           <label for="display-name">Display name</label>
-          <input id="display-name" v-model.trim="form.display_name">
+          <input id="display-name" type="text" v-model.trim="form.display_name">
         </div>
         <div class="input-group">
           <label for="bio">Bio</label>
@@ -50,8 +50,13 @@
             class="extra-field"
             :class="{'error': !isValidExtraField(index)}"
           >
-            <input v-model.trim="field.name" placeholder="Label">
             <input
+              type="text"
+              v-model.trim="field.name"
+              placeholder="Label"
+            >
+            <input
+              type="text"
               v-model.trim="field.value"
               placeholder="Content"
             >
@@ -239,6 +244,12 @@ async function save() {
   gap: $input-padding;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   width: 100%;
+
+  .image-upload-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: $input-padding;
+  }
 
   .input-group:last-child {
     margin-bottom: 0;

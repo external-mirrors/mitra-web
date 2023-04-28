@@ -52,7 +52,11 @@
       >
         <profile-list-item :profile="subscription.sender"></profile-list-item>
       </div>
-      <input v-model="subscriberAddress" placeholder="Subscriber address">
+      <input
+        type="text"
+        v-model="subscriberAddress"
+        placeholder="Subscriber address"
+      >
       <button
         class="btn"
         :disabled="!subscriberAddress"
