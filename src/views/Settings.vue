@@ -23,6 +23,16 @@
           >
           <label for="dark-mode">Enable dark mode</label>
         </div>
+        <div class="appearance-checkbox">
+          <input
+            type="checkbox"
+            id="content-warnings"
+            :checked="contentWarningsEnabled"
+            @change="onToggleContentWarnings()"
+            :disabled="isLoading"
+          >
+          <label for="content-warnings">Enable content warnings</label>
+        </div>
       </section>
       <section>
         <h2>Authentication</h2>
@@ -104,9 +114,14 @@ import { $, $ref } from "vue/macros"
 
 import { changePassword, exportFollowers, exportFollows } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useClientConfig, ConfigKey } from "@/composables/client-config"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
+const {
+  contentWarningsEnabled,
+  setClientConfigKey,
+} = useClientConfig()
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 const { darkModeEnabled, toggleDarkMode } = useTheme()
 let newPassword = $ref("")
@@ -117,6 +132,15 @@ let isLoading = $ref(false)
 async function onToggleDarkMode() {
   isLoading = true
   await toggleDarkMode()
+  isLoading = false
+}
+
+async function onToggleContentWarnings() {
+  isLoading = true
+  await setClientConfigKey(
+    ConfigKey.ContentWarningsEnabled,
+    !contentWarningsEnabled.value,
+  )
   isLoading = false
 }
 

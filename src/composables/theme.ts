@@ -1,8 +1,6 @@
-import { computed, ref } from "vue"
+import { computed } from "vue"
 
-import { updateClientConfig } from "@/api/settings"
-import { useCurrentUser } from "@/composables/user"
-import { APP_NAME } from "@/constants"
+import { useClientConfig, ConfigKey } from "@/composables/client-config"
 
 enum Theme {
   Light = "light",
@@ -17,34 +15,20 @@ function defaultTheme(): Theme {
   }
 }
 
-const currentTheme = ref(defaultTheme())
-
 export function useTheme() {
+  const { getClientConfigKey, setClientConfigKey } = useClientConfig()
+
+  const currentTheme = computed<Theme>(() => {
+    const theme = getClientConfigKey(ConfigKey.Theme) || defaultTheme()
+    return theme as Theme
+  })
 
   function applyTheme(theme: Theme) {
     document.documentElement.setAttribute("data-theme", theme)
-    currentTheme.value = theme
-  }
-
-  async function persistTheme(theme: Theme) {
-    const {
-      ensureAuthToken,
-      ensureCurrentUser,
-      setCurrentUser,
-    } = useCurrentUser()
-    const currentUser = ensureCurrentUser()
-    let clientConfig = currentUser.client_config[APP_NAME] || {}
-    clientConfig = { ...clientConfig, theme }
-    const authToken = ensureAuthToken()
-    const user = await updateClientConfig(authToken, clientConfig)
-    setCurrentUser(user)
   }
 
   function loadTheme() {
-    const { currentUser } = useCurrentUser()
-    const clientConfig = currentUser.value?.client_config[APP_NAME] || {}
-    const theme = clientConfig.theme || defaultTheme()
-    applyTheme(theme as Theme)
+    applyTheme(currentTheme.value)
   }
 
   const darkModeEnabled = computed(() => currentTheme.value === Theme.Dark)
@@ -57,7 +41,7 @@ export function useTheme() {
       theme = Theme.Light
     }
     applyTheme(theme)
-    await persistTheme(theme)
+    await setClientConfigKey(ConfigKey.Theme, theme)
   }
 
   return {

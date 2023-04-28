@@ -2,10 +2,10 @@
   <div
     v-if="attachment.type === 'image'"
     class="image"
-    :class="{ sensitive: isSensitive }"
-    @click="toggleFilter()"
+    :class="{ sensitive: contentWarningEnabled }"
+    @click="toggleContentWarning()"
   >
-    <button v-if="isSensitive" class="content-warning">
+    <button v-if="contentWarningEnabled" class="content-warning">
       Sensitive content
     </button>
     <img :src="attachment.url">
@@ -21,6 +21,9 @@
 import { ref } from "vue"
 
 import { Attachment } from "@/api/posts"
+import { useClientConfig } from "@/composables/client-config"
+
+const { contentWarningsEnabled } = useClientConfig()
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -28,12 +31,12 @@ const props = defineProps<{
   isSensitive: boolean,
 }>()
 
-const isSensitive = ref(props.isSensitive)
+const contentWarningEnabled = ref(props.isSensitive && contentWarningsEnabled.value)
 
-function toggleFilter() {
+function toggleContentWarning() {
   if (props.isSensitive) {
     // Toggle works only if post is marked as sensitive
-    isSensitive.value = !isSensitive.value
+    contentWarningEnabled.value = !contentWarningEnabled.value
   }
 }
 </script>
