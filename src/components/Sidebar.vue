@@ -106,7 +106,7 @@ $sidebar-icon-size: 20px;
   position: sticky;
   top: $header-height + $block-outer-padding;
   width: $sidebar-width;
-  z-index: 2; /* header + 1 */
+  z-index: 101; /* header + 1 */
 }
 
 .sidebar-link {

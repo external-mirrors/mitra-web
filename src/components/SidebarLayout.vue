@@ -74,7 +74,7 @@ header {
   padding: $body-padding;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 100;
 }
 
 #header {
