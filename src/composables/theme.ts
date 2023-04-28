@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { computed, ref } from "vue"
 
 import { updateClientConfig } from "@/api/settings"
 import { useCurrentUser } from "@/composables/user"
@@ -21,7 +21,7 @@ const currentTheme = ref(defaultTheme())
 
 export function useTheme() {
 
-  function setTheme(theme: Theme) {
+  function applyTheme(theme: Theme) {
     document.documentElement.setAttribute("data-theme", theme)
     currentTheme.value = theme
   }
@@ -44,8 +44,10 @@ export function useTheme() {
     const { currentUser } = useCurrentUser()
     const clientConfig = currentUser.value?.client_config[APP_NAME] || {}
     const theme = clientConfig.theme || defaultTheme()
-    setTheme(theme as Theme)
+    applyTheme(theme as Theme)
   }
+
+  const darkModeEnabled = computed(() => currentTheme.value === Theme.Dark)
 
   async function toggleDarkMode() {
     let theme
@@ -54,11 +56,12 @@ export function useTheme() {
     } else {
       theme = Theme.Light
     }
-    setTheme(theme)
+    applyTheme(theme)
     await persistTheme(theme)
   }
 
   return {
+    darkModeEnabled,
     loadTheme,
     toggleDarkMode,
   }

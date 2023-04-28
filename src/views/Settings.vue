@@ -13,13 +13,16 @@
       </section>
       <section>
         <h2>Appearance</h2>
-        <button
-          class="btn"
-          @click="onToggleDarkMode()"
-          :disabled="isLoading"
-        >
-          Toggle dark mode
-        </button>
+        <div class="appearance-checkbox">
+          <input
+            type="checkbox"
+            id="dark-mode"
+            :checked="darkModeEnabled"
+            @change="onToggleDarkMode()"
+            :disabled="isLoading"
+          >
+          <label for="dark-mode">Enable dark mode</label>
+        </div>
       </section>
       <section>
         <h2>Authentication</h2>
@@ -105,7 +108,7 @@ import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
-const { toggleDarkMode } = useTheme()
+const { darkModeEnabled, toggleDarkMode } = useTheme()
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
 let passwordFormMessage = $ref<string | null>(null)
@@ -152,6 +155,14 @@ section {
 
 form {
   @include content-form;
+}
+
+.appearance-checkbox {
+  margin-top: $block-outer-padding;
+
+  input {
+    margin-right: $input-padding;
+  }
 }
 
 .authentication-methods {

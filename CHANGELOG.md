@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't show disabled login options.
 
+### Changed
+
+- Use checkbox input to switch theme.
+
 ### Fixed
 
 - Move content warning behind the header.
