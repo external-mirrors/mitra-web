@@ -41,6 +41,7 @@
           <span v-for="(method, index) in currentUser.authentication_methods" :key="method">
             <template v-if="method === 'password'">password</template>
             <template v-else-if="method === 'eip4361'">EIP-4361</template>
+            <template v-else-if="method === 'caip122_monero'">CAIP-122 (Monero)</template>
             <template v-if="index !== currentUser.authentication_methods.length - 1">, </template>
           </span>
         </div>

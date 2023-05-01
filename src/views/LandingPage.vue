@@ -22,6 +22,7 @@
           >
             <template v-if="authType === 'password'">Password</template>
             <template v-else-if="authType === 'eip4361'">Ethereum</template>
+            <template v-else-if="authType === 'caip122_monero'">Monero</template>
           </button>
         </div>
         <form class="login-form">
@@ -54,6 +55,33 @@
               v-model="password"
               required
               placeholder="Password"
+            >
+          </div>
+          <div class="form-control" v-if="loginType === 'caip122_monero'">
+            <input
+              id="monero-address"
+              type="text"
+              v-model="moneroAddress"
+              required
+              placeholder="Address"
+            >
+          </div>
+          <div v-if="loginType === 'caip122_monero' && moneroAddress">
+            <textarea
+              id="monero-message"
+              type="text"
+              :value="moneroCaip122Message || ''"
+              disabled
+            >
+            </textarea>
+          </div>
+          <div v-if="loginType === 'caip122_monero'">
+            <input
+              id="monero-signature"
+              type="password"
+              v-model="moneroSignature"
+              required
+              placeholder="Signature"
             >
           </div>
           <div class="form-control" v-if="!instance.registrations && !isRegistered">
@@ -110,6 +138,7 @@ import {
   createUser,
   getAccessToken,
   getCurrentUser,
+  AuthenticationMethod,
 } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/composables/instance"
@@ -119,6 +148,7 @@ import {
   getWallet,
   hasEthereumWallet,
 } from "@/utils/ethereum"
+import { createMoneroCaip122Message } from "@/utils/monero"
 
 const router = useRouter()
 const { setCurrentUser, setAuthToken } = useCurrentUser()
@@ -127,8 +157,10 @@ const { getBlockchainInfo, instance } = $(useInstanceInfo())
 const isRegistered = $ref(true)
 const username = $ref("")
 const password = $ref<string | null>(null)
+const moneroAddress = $ref<string | null>(null)
+const moneroSignature = $ref<string | null>(null)
 const inviteCode = $ref<string | null>(null)
-let loginType = $ref<"password" | "eip4361">("password")
+let loginType = $ref<AuthenticationMethod>(AuthenticationMethod.Password)
 let isLoading = $ref(false)
 let loginErrorMessage = $ref<string | null>(null)
 
@@ -145,21 +177,32 @@ const allowedAuthenticationMethods = computed(() => {
     return []
   }
   if (isWalletRequired()) {
-    return ["eip4361"]
+    return [AuthenticationMethod.Eip4361]
   }
   return instance.authentication_methods
 })
 
 watch($$(instance), () => {
   if (
-    allowedAuthenticationMethods.value.includes("eip4361") &&
+    allowedAuthenticationMethods.value.includes(AuthenticationMethod.Eip4361) &&
     (hasEthereumWallet() || isWalletRequired())
   ) {
     // Switch to EIP-4361 if wallet is present or
     // if registration is token-gated
-    loginType = "eip4361"
+    loginType = AuthenticationMethod.Eip4361
   }
 }, { immediate: true })
+
+const moneroCaip122Message = computed(() => {
+  if (!instance || !moneroAddress) {
+    return null
+  }
+  return createMoneroCaip122Message(
+    moneroAddress,
+    instance.uri,
+    instance.login_message,
+  )
+})
 
 function isUsernameValid(): boolean {
   if (!username) {
@@ -173,8 +216,10 @@ function isLoginFormValid(): boolean {
     return false
   }
   if (isRegistered) {
-    if (loginType === "password") {
+    if (loginType === AuthenticationMethod.Password) {
       return Boolean(username) && Boolean(password)
+    } else if (loginType === AuthenticationMethod.Caip122Monero) {
+      return Boolean(moneroSignature)
     } else {
       return true
     }
@@ -183,8 +228,10 @@ function isLoginFormValid(): boolean {
     if (!username || !isUsernameValid()) {
       return false
     }
-    if (loginType === "password") {
+    if (loginType === AuthenticationMethod.Password) {
       return Boolean(password) && inviteCodeValid
+    } else if (loginType === AuthenticationMethod.Caip122Monero) {
+      return Boolean(moneroSignature) && inviteCodeValid
     } else {
       return inviteCodeValid
     }
@@ -198,7 +245,7 @@ async function register() {
   }
   let userData
   let loginData
-  if (loginType === "password") {
+  if (loginType === AuthenticationMethod.Password) {
     userData = {
       username,
       password,
@@ -207,7 +254,7 @@ async function register() {
       invite_code: inviteCode,
     }
     loginData = { username, password, message: null, signature: null }
-  } else {
+  } else if (loginType === AuthenticationMethod.Eip4361) {
     const signer = await getWallet()
     if (!signer) {
       loginErrorMessage = "wallet not found"
@@ -226,6 +273,19 @@ async function register() {
       invite_code: inviteCode,
     }
     loginData = { username: null, password: null, message, signature }
+  } else if (loginType === AuthenticationMethod.Caip122Monero) {
+    const message = moneroCaip122Message.value
+    const signature = moneroSignature
+    userData = {
+      username,
+      password: null,
+      message,
+      signature,
+      invite_code: inviteCode,
+    }
+    loginData = { username: null, password: null, message, signature }
+  } else {
+    throw new Error("invalid login type")
   }
   isLoading = true
   let user
@@ -250,9 +310,9 @@ async function login() {
     return
   }
   let loginData
-  if (loginType === "password") {
+  if (loginType === AuthenticationMethod.Password) {
     loginData = { username, password, message: null, signature: null }
-  } else {
+  } else if (loginType === AuthenticationMethod.Eip4361) {
     const signer = await getWallet()
     if (!signer) {
       loginErrorMessage = "wallet not found"
@@ -264,6 +324,17 @@ async function login() {
       instance.login_message,
     )
     loginData = { username: null, password: null, message, signature }
+  } else if (loginType === AuthenticationMethod.Caip122Monero) {
+    const message = moneroCaip122Message.value
+    const signature = moneroSignature
+    loginData = {
+      username: null,
+      password: null,
+      message,
+      signature,
+    }
+  } else {
+    throw new Error("invalid login type")
   }
   isLoading = true
   let user
@@ -386,6 +457,7 @@ $landing-text-color: #fff;
   position: relative;
 
   input,
+  textarea,
   .addon {
     background-color: #2E2C2C;
     border: none;
@@ -393,7 +465,8 @@ $landing-text-color: #fff;
     padding: 15px;
   }
 
-  input {
+  input,
+  textarea {
     border-radius: 10px;
     color: $landing-text-color;
     min-width: 100px;

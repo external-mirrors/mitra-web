@@ -37,6 +37,12 @@ export enum Permissions {
   ManageSubscriptionOptions = "manage_subscription_options",
 }
 
+export enum AuthenticationMethod {
+  Password = "password",
+  Eip4361 = "eip4361",
+  Caip122Monero = "caip122_monero",
+}
+
 export interface Profile {
   id: string;
   username: string;
@@ -83,7 +89,7 @@ export function defaultProfile(): Profile {
 export interface User extends Profile {
   source: Source;
   role: Role,
-  authentication_methods: string[];
+  authentication_methods: AuthenticationMethod[];
   client_config: { [clientName: string]: { [property: string]: any } },
 }
 
@@ -146,7 +152,7 @@ interface UserCreateForm {
 }
 
 export async function createUser(
-  loginType: "password" | "eip4361",
+  loginType: AuthenticationMethod,
   userData: UserCreateForm,
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts`
@@ -173,7 +179,7 @@ interface LoginForm {
 }
 
 export async function getAccessToken(
-  loginType: "password" | "eip4361",
+  loginType: AuthenticationMethod,
   loginData: LoginForm,
 ): Promise<string> {
   const url = `${BACKEND_URL}/oauth/token`

@@ -1,5 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
+import { AuthenticationMethod } from "./users"
 
 interface Features {
   gate: boolean;
@@ -40,7 +41,7 @@ export interface InstanceInfo {
       supported_mime_types: string[],
     },
   },
-  authentication_methods: string[],
+  authentication_methods: AuthenticationMethod[],
   login_message: string;
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
