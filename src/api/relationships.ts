@@ -16,11 +16,11 @@ export interface Relationship {
 
 export async function follow(
   authToken: string,
-  profileId: string,
+  accountId: string,
   showReposts: boolean,
   showReplies: boolean,
 ): Promise<Relationship> {
-  const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/follow`
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/follow`
   const response = await http(url, {
     method: "POST",
     json: {
@@ -39,12 +39,12 @@ export async function follow(
 
 export async function getRelationship(
   authToken: string,
-  profileId: string,
+  accountId: string,
 ): Promise<Relationship> {
   const url = `${BACKEND_URL}/api/v1/accounts/relationships`
   const response = await http(url, {
     method: "GET",
-    queryParams: { "id[]": profileId },
+    queryParams: { "id[]": accountId },
     authToken,
   })
   const data = await response.json()

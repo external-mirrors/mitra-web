@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Don't show disabled login options.
 - Add option to disable content warnings.
 - Support "Sign In With Monero".
+- Added "Mute" and "Unmute" actions to profile menu ([#7](https://codeberg.org/silverpill/mitra-web/pulls/7)).
 
 ### Changed
 
