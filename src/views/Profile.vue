@@ -100,6 +100,12 @@
                 <li v-if="canShowReplies()">
                   <button @click="onFollow(undefined, true)">Show replies</button>
                 </li>
+                <li v-if="!isMuted()">
+                  <button @click="onMute()">Mute</button>
+                </li>
+                <li v-if="isMuted()">
+                  <button @click="onUnmute()">Unmute</button>
+                </li>
                 <li v-if="isAdmin()">
                   <button
                     title="Copy profile ID"
@@ -270,6 +276,8 @@ import { Post, getProfileTimeline } from "@/api/posts"
 import {
   follow,
   unfollow,
+  mute,
+  unmute,
   Relationship,
   getRelationship,
   getFollowers,
@@ -445,6 +453,13 @@ function isSubscriber(): boolean {
   return relationship.subscription_from
 }
 
+function isMuted(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.muting
+}
+
 function canFollow(): boolean {
   if (!relationship) {
     return false
@@ -511,6 +526,26 @@ async function onUnfollow() {
     return
   }
   relationship = await unfollow(
+    ensureAuthToken(),
+    profile.id,
+  )
+}
+
+async function onMute() {
+  if (!currentUser || !profile) {
+    return
+  }
+  relationship = await mute(
+    ensureAuthToken(),
+    profile.id,
+  )
+}
+
+async function onUnmute() {
+  if (!currentUser || !profile) {
+    return
+  }
+  relationship = await unmute(
     ensureAuthToken(),
     profile.id,
   )
