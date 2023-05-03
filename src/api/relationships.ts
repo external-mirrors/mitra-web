@@ -11,6 +11,7 @@ export interface Relationship {
   subscription_from: boolean,
   showing_reblogs: boolean,
   showing_replies: boolean,
+  muting: boolean,
 }
 
 export async function follow(
@@ -58,6 +59,40 @@ export async function unfollow(
   accountId: string,
 ): Promise<Relationship> {
   const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/unfollow`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.error_description)
+  } else {
+    return data
+  }
+}
+
+export async function mute(
+  authToken: string,
+  accountId: string,
+): Promise<Relationship> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/mute`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await response.json()
+  if (response.status !== 200) {
+    throw new Error(data.error_description)
+  } else {
+    return data
+  }
+}
+
+export async function unmute(
+  authToken: string,
+  accountId: string,
+): Promise<Relationship> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/unmute`
   const response = await http(url, {
     method: "POST",
     authToken,
