@@ -615,7 +615,6 @@ function canManageSubscriptions(): boolean {
 
 function canSubscribe(): boolean {
   return (
-    isSubscriptionsFeatureEnabled() &&
     profile !== null &&
     getSubscriptionOption(profile) !== null &&
     !isCurrentUser()
