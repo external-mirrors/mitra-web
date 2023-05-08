@@ -146,20 +146,20 @@
               </button>
               <template v-if="canSubscribe()">
                 <a
-                  v-if="typeof profile.getSubscriptionPageLocation() === 'string'"
+                  v-if="typeof getSubscriptionOption(profile).location === 'string'"
                   class="btn"
                   title="Pay for subscription"
-                  :href="profile.getSubscriptionPageLocation() as string"
+                  :href="getSubscriptionOption(profile).location as string"
                   target="_blank"
                   rel="noreferrer"
                 >
                   Subscribe
                 </a>
                 <router-link
-                  v-else-if="profile.getSubscriptionPageLocation() !== null"
+                  v-else-if="getSubscriptionOption(profile) !== null"
                   class="btn"
                   title="Pay for subscription"
-                  :to="profile.getSubscriptionPageLocation()"
+                  :to="getSubscriptionOption(profile).location"
                 >
                   Subscribe
                 </router-link>
@@ -304,6 +304,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSignedActivity } from "@/composables/signed-activity"
+import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
 import { hasEthereumWallet } from "@/utils/ethereum"
@@ -316,6 +317,7 @@ const {
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
+const { getSubscriptionOption } = useSubscribe()
 
 let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
@@ -615,7 +617,7 @@ function canSubscribe(): boolean {
   return (
     isSubscriptionsFeatureEnabled() &&
     profile !== null &&
-    profile.getSubscriptionPageLocation() !== null &&
+    getSubscriptionOption(profile) !== null &&
     !isCurrentUser()
   )
 }

@@ -1,5 +1,3 @@
-import { RouteLocationRaw } from "vue-router"
-
 import { BACKEND_URL } from "@/constants"
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { handleResponse, http, PAGE_SIZE } from "./common"
@@ -115,27 +113,6 @@ export class ProfileWrapper {
     for (const field of this.identity_proofs) {
       if (field.name === "$ETH") {
         return field.value
-      }
-    }
-    return null
-  }
-
-  getSubscriptionPageLocation(): string | RouteLocationRaw | null {
-    for (const option of this.payment_options) {
-      if (
-        option.type === "link" &&
-        (option.name === "EthereumSubscription" || option.name === "MoneroSubscription") &&
-        option.href
-      ) {
-        return option.href
-      } else if (
-        option.type === "ethereum-subscription" ||
-        option.type === "monero-subscription"
-      ) {
-        return {
-          name: "profile-by-acct-subscription",
-          params: { acct: this.acct },
-        }
       }
     }
     return null

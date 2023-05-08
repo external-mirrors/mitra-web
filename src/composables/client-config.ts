@@ -5,8 +5,8 @@ import { useCurrentUser } from "@/composables/user"
 import { APP_NAME } from "@/constants"
 
 export enum ConfigKey {
-    Theme = "theme",
-    ContentWarningsEnabled = "contentWarningsEnabled",
+  Theme = "theme",
+  ContentWarningsEnabled = "contentWarningsEnabled",
 }
 
 export function useClientConfig() {
