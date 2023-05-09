@@ -147,7 +147,7 @@
               <template v-if="canSubscribe()">
                 <universal-link
                   :to="getSubscriptionOption(profile).location"
-                  title="Pay for subscription"
+                  title="Become a subscriber"
                   class="btn"
                 >
                   <template #link-content>Subscribe</template>

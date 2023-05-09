@@ -23,8 +23,9 @@ function copyAddress() {
 
 .crypto-address {
   background-color: var(--widget-background-color);
-  border-radius: 10px;
+  border-radius: calc($icon-size / 2);
   display: flex;
+  line-height: $icon-size;
 
   input {
     background-color: inherit;
@@ -33,7 +34,6 @@ function copyAddress() {
     color: var(--text-color);
     font-family: monospace;
     font-size: 12px;
-    line-height: 20px;
     max-width: 200px;
     padding: 0 7px;
     width: 100%;

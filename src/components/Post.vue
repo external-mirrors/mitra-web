@@ -216,14 +216,22 @@
       </div>
       <div class="crypto-widget">
         <crypto-address
-          v-if="selectedPaymentOption"
+          v-if="selectedPaymentOption?.address"
           :address="selectedPaymentOption.address"
         ></crypto-address>
+        <universal-link
+          v-if="selectedPaymentOption?.subscription"
+          :to="selectedPaymentOption.subscription"
+          title="Become a subscriber"
+          class="subscribe-btn"
+        >
+          <template #link-content>subscribe</template>
+        </universal-link>
         <button
           v-for="option in getPaymentOptions()"
           :key="option.code"
           class="icon"
-          :title="'Send '+ option.name"
+          :title="'Send ' + option.name"
           @click="togglePaymentAddress(option)"
         >
           <img :src="getCryptoIconUrl(option)">
@@ -242,7 +250,7 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
 import { $, $computed, $ref } from "vue/macros"
-import { useRouter } from "vue-router"
+import { useRouter, RouteLocationRaw } from "vue-router"
 
 import {
   makePermanent,
@@ -273,7 +281,9 @@ import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
+import UniversalLink from "@/components/UniversalLink.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
@@ -282,12 +292,14 @@ import { formatDateTime, humanizeDate } from "@/utils/dates"
 interface PaymentOption {
   code: string;
   name: string;
-  address: string;
+  address: string | null;
+  subscription: string | RouteLocationRaw | null;
 }
 
 const router = useRouter()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getActorAddress, getBlockchainInfo, instance } = $(useInstanceInfo())
+const { getSubscriptionOption } = useSubscribe()
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -476,7 +488,7 @@ async function onDeletePost() {
 }
 
 function getPaymentOptions(): PaymentOption[] {
-  const options = []
+  const options: PaymentOption[] = []
   for (const field of props.post.account.fields) {
     if (!field.name.startsWith("$")) {
       // Not a symbol
@@ -489,7 +501,41 @@ function getPaymentOptions(): PaymentOption[] {
       continue
     }
     const address = field.value.trim()
-    options.push({ code: currency[0], name: currency[1], address })
+    options.push({
+      code: currency[0],
+      name: currency[1],
+      address,
+      subscription: null,
+    })
+  }
+  const subscriptionOption = getSubscriptionOption(props.post.account)
+  if (subscriptionOption) {
+    // TODO: use CAIP-2 ID -> symbol mapping
+    const currency = CRYPTOCURRENCIES.find(([code]) => {
+      if (subscriptionOption.type === "ethereum" && code === "ETH") {
+        return true
+      } else if (subscriptionOption.type === "monero" && code === "XMR") {
+        return true
+      } else {
+        return false
+      }
+    })
+    if (!currency) {
+      throw new Error("invalid subscription type")
+    }
+    const option = options.find((option) => {
+      return option.code === currency[0]
+    })
+    if (option) {
+      option.subscription = subscriptionOption.location
+    } else {
+      options.push({
+        code: currency[0],
+        name: currency[1],
+        address: null,
+        subscription: subscriptionOption.location,
+      })
+    }
   }
   return options
 }
@@ -745,6 +791,15 @@ async function onMintToken() {
   .crypto-address {
     max-width: 200px;
     width: 100%;
+  }
+
+  .subscribe-btn {
+    background-color: var(--widget-background-color);
+    border-radius: calc($icon-size / 2);
+    font-family: monospace;
+    font-size: 12px;
+    line-height: $icon-size;
+    padding: 0 7px;
   }
 
   .icon img {
