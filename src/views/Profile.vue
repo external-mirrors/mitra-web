@@ -145,24 +145,13 @@
                 <template v-else>Unfollow</template>
               </button>
               <template v-if="canSubscribe()">
-                <a
-                  v-if="typeof getSubscriptionOption(profile).location === 'string'"
-                  class="btn"
-                  title="Pay for subscription"
-                  :href="getSubscriptionOption(profile).location as string"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Subscribe
-                </a>
-                <router-link
-                  v-else-if="getSubscriptionOption(profile) !== null"
-                  class="btn"
-                  title="Pay for subscription"
+                <universal-link
                   :to="getSubscriptionOption(profile).location"
+                  title="Pay for subscription"
+                  class="btn"
                 >
-                  Subscribe
-                </router-link>
+                  <template #link-content>Subscribe</template>
+                </universal-link>
               </template>
             </div>
           </div>
@@ -301,6 +290,7 @@ import PostList from "@/components/PostList.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import UniversalLink from "@/components/UniversalLink.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSignedActivity } from "@/composables/signed-activity"
