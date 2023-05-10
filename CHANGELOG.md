@@ -9,10 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed build target to `es2015`.
+- Build project with Vite instead of Vue CLI.
 
 ### Fixed
 
 - Show subscription button if blockchain integration is disabled.
+
+### Deprecated
+
+- `VUE_APP_BACKEND_URL` and `PORT` environment variables (replaced with `VITE_BACKEND_URL` and `VITE_PORT`).
 
 ## [1.23.0] - 2023-05-03
 

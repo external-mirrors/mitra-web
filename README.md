@@ -21,13 +21,13 @@ npx allow-scripts
 Set backend URL:
 
 ```
-echo "VUE_APP_BACKEND_URL=https://mydomain.tld" > .env.local
+echo "VITE_BACKEND_URL=https://mydomain.tld" > .env.local
 ```
 
 Or un-set it if both frontend and backend will run on the same URL:
 
 ```
-echo "VUE_APP_BACKEND_URL=" > .env.local
+echo "VITE_BACKEND_URL=" > .env.local
 ```
 
 Compile:

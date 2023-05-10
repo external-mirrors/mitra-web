@@ -4,12 +4,16 @@
   "description": "Mitra web UI",
   "license": "AGPL-3.0",
   "private": true,
+  "engines": {
+    "node": ">=12.2.0 || <16.0.0"
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "NODE_OPTIONS=--max_old_space_size=4096 vue-cli-service build --no-module",
-    "test:unit": "vue-cli-service test:unit",
+    "serve": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vite-jest",
     "test": "npm run test:unit",
-    "lint:js": "vue-cli-service lint --no-fix",
+    "lint:js": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
     "lint:css": "stylelint 'src/**/*.{vue,scss}'",
     "lint": "npm run typecheck && npm run lint:js && npm run lint:css",
     "start": "npm run serve",
@@ -25,7 +29,7 @@
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
-    "@lavamoat/allow-scripts": "^2.0.3",
+    "@lavamoat/allow-scripts": "~2.0.3",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
     "@types/chai": "^4.2.11",
     "@types/luxon": "^1.26.5",
@@ -35,32 +39,30 @@
     "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
-    "@vue/cli-plugin-eslint": "~5.0.8",
-    "@vue/cli-plugin-router": "~5.0.8",
-    "@vue/cli-plugin-typescript": "~5.0.8",
-    "@vue/cli-plugin-unit-mocha": "~5.0.8",
-    "@vue/cli-service": "~5.0.8",
+    "@vitejs/plugin-vue": "^2.3.3",
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^8.0.0",
     "@vue/test-utils": "^2.1.0",
     "chai": "^4.1.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.20.0",
+    "jest": "^27.5.1",
     "sass": "~1.49.10",
-    "sass-loader": "^12.6.0",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
     "stylelint": "^13.13.1",
     "stylelint-config-sass-guidelines": "^8.0.0",
+    "ts-jest": "^27.1.5",
     "typescript": "~4.5.5",
+    "vite": "^2.9.15",
+    "vite-jest": "^0.1.4",
+    "vite-plugin-html": "~2.0.6",
     "vue-tsc": "^0.35.0"
   },
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "@vue/cli-plugin-eslint>yorkie": false,
-      "@vue/cli-plugin-unit-mocha>mochapack>@babel/runtime-corejs2>core-js": false,
-      "@vue/cli-plugin-unit-mocha>mochapack>nodent-runtime": false
+      "vite>esbuild": false
     }
   }
 }

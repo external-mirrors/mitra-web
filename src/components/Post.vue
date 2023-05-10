@@ -226,7 +226,7 @@
           :title="'Send '+ option.name"
           @click="togglePaymentAddress(option)"
         >
-          <img :src="require('@/assets/cryptoicons/' + option.code.toLowerCase() + '.svg')">
+          <img :src="getCryptoIconUrl(option)">
         </button>
       </div>
     </div>
@@ -489,6 +489,11 @@ function getPaymentOptions(): PaymentOption[] {
     items.push({ code, name, address })
   }
   return items
+}
+
+function getCryptoIconUrl(option: PaymentOption): string {
+  // require doesn't work with Vite: https://stackoverflow.com/a/71135980
+  return new URL(`../assets/cryptoicons/${option.code.toLowerCase()}.svg`, import.meta.url).href
 }
 
 function togglePaymentAddress(payment: PaymentOption) {
