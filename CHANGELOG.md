@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Show subscription button if blockchain integration is disabled.
+- Don't show "Mute" action on user's own profile page.
 
 ### Deprecated
 

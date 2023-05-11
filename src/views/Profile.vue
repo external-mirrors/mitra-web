@@ -101,10 +101,10 @@
                 <li v-if="canShowReplies()">
                   <button @click="onFollow(undefined, true)">Show replies</button>
                 </li>
-                <li v-if="!isMuted()">
+                <li v-if="canMute()">
                   <button @click="onMute()">Mute</button>
                 </li>
-                <li v-if="isMuted()">
+                <li v-if="canUnmute()">
                   <button @click="onUnmute()">Unmute</button>
                 </li>
                 <li v-if="isAdmin()">
@@ -522,6 +522,20 @@ async function onUnfollow() {
     ensureAuthToken(),
     profile.id,
   )
+}
+
+function canMute(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return !relationship.muting
+}
+
+function canUnmute(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.muting
 }
 
 async function onMute() {
