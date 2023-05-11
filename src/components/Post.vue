@@ -216,8 +216,8 @@
       </div>
       <div class="crypto-widget">
         <crypto-address
-          v-if="selectedPaymentAddress"
-          :address="selectedPaymentAddress"
+          v-if="selectedPaymentOption"
+          :address="selectedPaymentOption.address"
         ></crypto-address>
         <button
           v-for="option in getPaymentOptions()"
@@ -306,7 +306,7 @@ const emit = defineEmits<{
 
 let commentFormVisible = $ref(false)
 let menuVisible = $ref(false)
-let selectedPaymentAddress = $ref<string | null>(null)
+let selectedPaymentOption = $ref<PaymentOption | null>(null)
 let isWaitingForToken = $ref(false)
 
 const blockchain = $computed(() => getBlockchainInfo())
@@ -476,19 +476,22 @@ async function onDeletePost() {
 }
 
 function getPaymentOptions(): PaymentOption[] {
-  const items = []
-  for (const [code, name] of CRYPTOCURRENCIES) {
-    const symbol = `$${code}`
-    const field = props.post.account.fields.find(item => {
-      return item.name.toLowerCase() === symbol.toLowerCase()
+  const options = []
+  for (const field of props.post.account.fields) {
+    if (!field.name.startsWith("$")) {
+      // Not a symbol
+      continue
+    }
+    const currency = CRYPTOCURRENCIES.find(([code, name]) => {
+      return `$${code}` === field.name.toUpperCase()
     })
-    if (!field) {
+    if (!currency) {
       continue
     }
     const address = field.value.trim()
-    items.push({ code, name, address })
+    options.push({ code: currency[0], name: currency[1], address })
   }
-  return items
+  return options
 }
 
 function getCryptoIconUrl(option: PaymentOption): string {
@@ -496,8 +499,8 @@ function getCryptoIconUrl(option: PaymentOption): string {
   return new URL(`../assets/cryptoicons/${option.code.toLowerCase()}.svg`, import.meta.url).href
 }
 
-function togglePaymentAddress(payment: PaymentOption) {
-  selectedPaymentAddress = selectedPaymentAddress === payment.address ? null : payment.address
+function togglePaymentAddress(option: PaymentOption) {
+  selectedPaymentOption = selectedPaymentOption?.code === option.code ? null : option
 }
 
 function isTokenized(): boolean {

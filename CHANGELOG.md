@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Changed build target to `es2015`.
 - Build project with Vite instead of Vue CLI.
+- Show donation buttons in the same order as profile fields.
 
 ### Fixed
 
