@@ -1,9 +1,11 @@
 /* color-to-filter converter https://codepen.io/sosuke/pen/Pjoqqp */
 
-$background-color: #f3f2ed;
-
 $text-font: Helvetica, Arial, sans-serif;
 $text-font-size: 15px;
+
+/* Light theme */
+
+$background-color: #f3f2ed;
 
 $text-color: #333;
 $text-colorizer: invert(17%) sepia(0%) saturate(0%) hue-rotate(356deg) brightness(101%) contrast(91%);
@@ -15,10 +17,6 @@ $link-color: #484747;
 $link-colorizer: invert(27%) sepia(2%) saturate(0%) hue-rotate(58deg) brightness(96%) contrast(94%);
 $link-hover-color: #000000;
 $link-hover-colorizer: invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brightness(96%) contrast(104%);
-$warning-color: #C87000;
-$warning-colorizer: invert(51%) sepia(61%) saturate(3100%) hue-rotate(12deg) brightness(88%) contrast(103%);
-$error-color: #FF4D4D;
-$greentext-color: #789922;
 
 $btn-background-color: $text-color;
 $btn-background-hover-color: #fff;
@@ -39,9 +37,6 @@ $widget-background-color: #eee;
 $highlight-color: #FFA500;
 $loader-color: #999;
 $shadow-color: #B7B5B5;
-
-$gem-color: #9678c3;
-$gem-colorizer: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
 
 /* Dark theme */
 
@@ -77,3 +72,28 @@ $dark-widget-background-color: #1A1A1A;
 $dark-highlight-color: #B37400;
 $dark-loader-color: #666666;
 $dark-shadow-color: #666;
+
+/* Misc */
+
+$warning-color: #C87000;
+$warning-colorizer: invert(51%) sepia(61%) saturate(3100%) hue-rotate(12deg) brightness(88%) contrast(103%);
+$error-color: #FF4D4D;
+$greentext-color: #789922;
+$gem-color: #9678c3;
+$gem-colorizer: invert(51%) sepia(48%) saturate(437%) hue-rotate(222deg) brightness(92%) contrast(84%);
+
+/* Landing page */
+
+$landing-background-color: #000;
+$landing-background-image: url("@/assets/startpage.png");
+$landing-text-color: #fff;
+$landing-accent-color: #7DFF54;
+
+$landing-block-background-color: #1A1818;
+$landing-btn-text-color: #fff;
+$landing-btn-background-color: #3D3D3D;
+$landing-input-background-color: #2E2C2C;
+$landing-input-addon-color: #B3B3B3;
+$landing-login-btn-background-color: linear-gradient(to right, #FF5959, #FF5EAD, #D835FE, #D963FF);
+$landing-login-btn-background-hover-color: linear-gradient(to right, #FF7373, #FF78BA, #DD4FFE, #DF7DFF);
+$landing-login-btn-shadow-color: #BB5CC7;

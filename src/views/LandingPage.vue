@@ -358,11 +358,9 @@ async function login() {
 @import "../styles/layout";
 @import "../styles/theme";
 
-$landing-text-color: #fff;
-
 .landing-page {
-  background-color: #000;
-  background-image: url("../assets/startpage.png");
+  background-color: $landing-background-color;
+  background-image: $landing-background-image;
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
@@ -403,7 +401,7 @@ $landing-text-color: #fff;
   }
 
   .arrow {
-    color: #7DFF54;
+    color: $landing-accent-color;
 
     &:hover {
       color: $landing-text-color;
@@ -412,7 +410,7 @@ $landing-text-color: #fff;
 }
 
 .login-form-group {
-  background-color: #1A1818;
+  background-color: $landing-block-background-color;
   border-radius: 10px;
   box-sizing: border-box;
   display: flex;
@@ -429,8 +427,8 @@ $landing-text-color: #fff;
   display: flex;
 
   button {
-    border: 1px solid #3D3D3D;
-    color: #fff;
+    border: 1px solid $landing-btn-background-color;
+    color: $landing-btn-text-color;
     padding: 10px;
     width: 100%;
 
@@ -445,7 +443,7 @@ $landing-text-color: #fff;
     }
 
     &.active {
-      background-color: #3D3D3D;
+      background-color: $landing-btn-background-color;
     }
   }
 }
@@ -459,7 +457,7 @@ $landing-text-color: #fff;
   input,
   textarea,
   .addon {
-    background-color: #2E2C2C;
+    background-color: $landing-input-background-color;
     border: none;
     line-height: 18px;
     padding: 15px;
@@ -472,7 +470,7 @@ $landing-text-color: #fff;
     min-width: 100px;
 
     &::placeholder {
-      color: #B3B3B3;
+      color: $landing-input-addon-color;
     }
   }
 
@@ -487,7 +485,7 @@ $landing-text-color: #fff;
 
     .addon {
       border-radius: 0 10px 10px 0;
-      color: #B3B3B3;
+      color: $landing-input-addon-color;
       flex-shrink: 0;
       max-width: 40%;
       overflow: hidden;
@@ -509,11 +507,10 @@ $landing-text-color: #fff;
   }
 
   button[type="submit"] {
-    background: linear-gradient(to right, #FF5959, #FF5EAD, #D835FE, #D963FF);
-    background-color: #000;
+    background: $landing-login-btn-background-color;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 2px 16px -5px #BB5CC7;
+    box-shadow: 0 2px 16px -5px $landing-login-btn-shadow-color;
     color: $landing-text-color;
     cursor: pointer;
     display: block;
@@ -523,7 +520,7 @@ $landing-text-color: #fff;
     padding: 10px 60px;
 
     &:not([disabled]):hover {
-      background: linear-gradient(to right, #FF7373, #FF78BA, #DD4FFE, #DF7DFF);
+      background: $landing-login-btn-background-hover-color;
     }
   }
 
