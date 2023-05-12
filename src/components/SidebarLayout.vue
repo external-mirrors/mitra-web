@@ -73,6 +73,8 @@ function showHomeTimeline() {
 <style scoped lang="scss">
 @import "../styles/layout";
 
+$header-z-index: 100;
+
 header {
   background-color: var(--background-color);
   box-sizing: border-box;
@@ -81,7 +83,7 @@ header {
   padding: $body-padding;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: $header-z-index;
 }
 
 #header {
@@ -173,7 +175,7 @@ header {
   position: sticky;
   top: 0;
   width: $wide-content-width;
-  z-index: 1;
+  z-index: $header-z-index;
 }
 
 .instance-info {
