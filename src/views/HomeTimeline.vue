@@ -43,6 +43,7 @@ function insertPost(post: Post) {
 async function loadTimeline() {
   isLoading = true
   const authToken = ensureAuthToken()
+  window.scrollTo({ top: 0, behavior: "smooth" })
   try {
     posts = await getHomeTimeline(authToken)
   } catch (error: any) {
