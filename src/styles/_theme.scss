@@ -6,6 +6,7 @@ $text-font-size: 15px;
 /* Light theme */
 
 $background-color: #f3f2ed;
+$background-image: none;
 
 $text-color: #333;
 $text-colorizer: invert(17%) sepia(0%) saturate(0%) hue-rotate(356deg) brightness(101%) contrast(91%);
@@ -41,6 +42,7 @@ $shadow-color: #B7B5B5;
 /* Dark theme */
 
 $dark-background-color: #12110C;
+$dark-background-image: none;
 
 $dark-text-color: #cccccc;
 $dark-text-colorizer: invert(94%) sepia(14%) saturate(0%) hue-rotate(228deg) brightness(83%) contrast(96%);

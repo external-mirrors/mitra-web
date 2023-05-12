@@ -171,10 +171,11 @@ header {
 
 #header-public {
   background-color: var(--background-color);
-  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
   position: sticky;
   top: 0;
-  width: $wide-content-width;
   z-index: $header-z-index;
 }
 

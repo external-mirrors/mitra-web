@@ -94,7 +94,6 @@ async function logout() {
 $sidebar-icon-size: 20px;
 
 .sidebar {
-  background-color: var(--background-color);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -158,10 +157,13 @@ $sidebar-icon-size: 20px;
 
 @media screen and (max-width: $screen-breakpoint-small) {
   .sidebar {
+    background-color: var(--background-color);
+    box-sizing: content-box;
     flex-direction: row;
     gap: 0;
     justify-content: space-between;
-    padding-bottom: $body-padding;
+    margin: 0 (0 - $body-padding);
+    padding: 0 $body-padding $body-padding;
     top: $header-height;
     width: 100%;
   }

@@ -29,6 +29,7 @@ watch($$(currentUser), () => {
 
 :root {
   --background-color: #{$background-color};
+  --background-image: #{$background-image};
   --text-color: #{$text-color};
   --text-colorizer: #{$text-colorizer};
   --secondary-text-color: #{$secondary-text-color};
@@ -61,6 +62,7 @@ watch($$(currentUser), () => {
 
 [data-theme="dark"] {
   --background-color: #{$dark-background-color};
+  --background-image: #{$dark-background-image};
   --text-color: #{$dark-text-color};
   --text-colorizer: #{$dark-text-colorizer};
   --secondary-text-color: #{$dark-secondary-text-color};
@@ -92,7 +94,8 @@ watch($$(currentUser), () => {
 }
 
 html {
-  background: var(--background-color);
+  background-color: var(--background-color);
+  background-image: var(--background-image);
   color: var(--text-color);
   font-family: $text-font;
   font-size: $text-font-size;
