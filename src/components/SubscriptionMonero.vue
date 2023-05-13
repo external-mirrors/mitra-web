@@ -98,9 +98,17 @@
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
         <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
         <template v-else-if="invoice.status === 'forwarded'">Payment completed</template>
+        <template v-else-if="invoice.status === 'cancelled'">Payment cancelled</template>
       </div>
       <button
-        v-if="invoice.status === 'forwarded' || invoice.status === 'timeout'"
+        v-if="invoice.status === 'open'"
+        class="btn"
+        @click="onCancelInvoice()"
+      >
+        Cancel
+      </button>
+      <button
+        v-else-if="invoice.status === 'forwarded' || invoice.status === 'timeout' || invoice.status === 'cancelled'"
         class="btn"
         @click="closeInvoice()"
       >
@@ -120,6 +128,7 @@ import { DateTime } from "luxon"
 import { searchProfilesByAcct } from "@/api/search"
 import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
 import {
+  cancelInvoice,
   createInvoice,
   formatXmrAmount,
   getInvoice,
@@ -278,6 +287,14 @@ function watchInvoice() {
       subscriptionDetails = await findSubscription(sender.id, recipient.id)
     }
   }, 10000)
+}
+
+async function onCancelInvoice() {
+  if (!invoice) {
+    throw new Error("invoice doesn't exist")
+  }
+  await cancelInvoice(invoice.id)
+  closeInvoice()
 }
 
 function closeInvoice() {

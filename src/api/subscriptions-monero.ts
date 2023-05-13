@@ -1,7 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { http, handleResponse } from "./common"
 import {
   formatAmount,
   getPricePerMonth as _getPricePerMonth,
@@ -95,4 +95,15 @@ export async function getInvoice(
   } else {
     return data
   }
+}
+
+export async function cancelInvoice(
+  invoiceId: string,
+): Promise<Invoice> {
+  const url = `${BACKEND_URL}/api/v1/subscriptions/invoices/${invoiceId}`
+  const response = await http(url, {
+    method: "DELETE",
+  })
+  const data = await handleResponse(response)
+  return data
 }
