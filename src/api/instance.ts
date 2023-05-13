@@ -8,7 +8,7 @@ interface Features {
   subscriptions: boolean;
 }
 
-interface ChainMetadata {
+export interface EthereumChainMetadata {
   chain_name: string;
   currency_name: string;
   currency_symbol: string;
@@ -17,9 +17,13 @@ interface ChainMetadata {
   explorer_url: string | null;
 }
 
+export interface MoneroChainMetadata {
+  description: string | null,
+}
+
 export interface BlockchainInfo {
   chain_id: string;
-  chain_metadata: ChainMetadata | null;
+  chain_metadata: { [prop: string]: any } | null;
   contract_address: string | null;
   features: Features;
 }

@@ -68,6 +68,12 @@
         <label>Amount</label>
         <div>{{ formatXmrAmount(paymentAmount) }} XMR</div>
       </div>
+      <div
+        v-if="paymentMessage"
+        class="payment-message"
+        v-html="paymentMessage"
+      >
+      </div>
       <button
         type="submit"
         class="btn primary"
@@ -120,7 +126,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { computed, onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
@@ -141,6 +147,7 @@ import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"
@@ -154,6 +161,7 @@ const props = defineProps<{
 
 const route = useRoute()
 const { currentUser } = $(useCurrentUser())
+const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const recipient = new ProfileWrapper(props.profile)
 const senderAcct = $ref("")
 let senderError = $ref<string | null>(null)
@@ -240,6 +248,15 @@ const paymentAmount = $computed<number | null>(() => {
     return null
   }
   return getPaymentAmount(subscriptionOption.price, paymentDuration)
+})
+
+const paymentMessage = computed<string | null>(() => {
+  const blockchain = getBlockchainInfo()
+  if (blockchain) {
+    return getMoneroChainMetadata(blockchain)?.description || null
+  } else {
+    return null
+  }
 })
 
 function canCreateInvoice(): boolean {
@@ -437,6 +454,12 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   .payment-amount {
     font-size: 16px;
     font-weight: bold;
+  }
+
+  .payment-message {
+    :deep(a) {
+      @include block-link;
+    }
   }
 }
 

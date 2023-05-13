@@ -71,6 +71,7 @@ const { currentUser, authToken } = $(useCurrentUser())
 const {
   getActorAddress,
   getBlockchainInfo,
+  getEthereumChainMetadata,
   instance,
 } = $(useInstanceInfo())
 
@@ -104,7 +105,10 @@ const actorAddress = $computed<string>(() => {
 
 const transactionUrl = $computed<string | null>(() => {
   const blockchain = getBlockchainInfo()
-  const explorerUrl = blockchain?.chain_metadata?.explorer_url
+  if (!blockchain) {
+    return null
+  }
+  const explorerUrl = getEthereumChainMetadata(blockchain)?.explorer_url
   if (!explorerUrl || !post?.token_tx_id) {
     return null
   }

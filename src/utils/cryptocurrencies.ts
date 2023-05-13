@@ -22,3 +22,11 @@ export const CRYPTOCURRENCIES = [
   // https://zips.z.cash/zip-0321
   ["ZEC", "Zcash", "zcash"],
 ]
+
+export function isEthereumChain(chainId: string): boolean {
+  return chainId.startsWith("eip155")
+}
+
+export function isMoneroChain(chainId: string): boolean {
+  return chainId.startsWith("monero")
+}

@@ -23,6 +23,7 @@ import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
+import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())
@@ -57,13 +58,13 @@ function isEthereum(): boolean {
   if (!blockchain) {
     return false
   }
-  return blockchain.chain_id.startsWith("eip155")
+  return isEthereumChain(blockchain.chain_id)
 }
 
 function isMonero(): boolean {
   if (!blockchain) {
     return false
   }
-  return blockchain.chain_id.startsWith("monero")
+  return isMoneroChain(blockchain.chain_id)
 }
 </script>

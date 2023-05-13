@@ -15,6 +15,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionSettingsEthereum from "@/components/SubscriptionSettingsEthereum.vue"
 import SubscriptionSettingsMonero from "@/components/SubscriptionSettingsMonero.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
 
 const { getBlockchainInfo } = $(useInstanceInfo())
 
@@ -24,14 +25,14 @@ function isEthereum(): boolean {
   if (!blockchain) {
     return false
   }
-  return blockchain.chain_id.startsWith("eip155")
+  return isEthereumChain(blockchain.chain_id)
 }
 
 function isMonero(): boolean {
   if (!blockchain) {
     return false
   }
-  return blockchain.chain_id.startsWith("monero")
+  return isMoneroChain(blockchain.chain_id)
 }
 </script>
 
