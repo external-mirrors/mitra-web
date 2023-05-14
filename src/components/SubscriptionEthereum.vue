@@ -61,7 +61,7 @@
         <input type="number" id="duration" v-model="paymentDuration" min="1">
         <span>months</span>
       </div>
-      <div>
+      <div v-if="subscriptionConfig !== null">
         <div class="payment-amount">
           <label>Amount</label>
           <div>{{ getPaymentAmount() }} {{ subscriptionConfig.tokenSymbol }}</div>

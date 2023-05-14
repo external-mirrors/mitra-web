@@ -4,7 +4,7 @@
       <template v-if="subscriptionOption !== null">
         <span>Subscriptions are enabled</span>
         <div class="info-item">
-          {{ getPricePerMonth(subscriptionOption.price) }} XMR per month
+          {{ getPricePerMonth(subscriptionOption.price as number) }} XMR per month
         </div>
         <div class="info-item">
           {{ ensureCurrentUser().subscribers_count }} subscribers

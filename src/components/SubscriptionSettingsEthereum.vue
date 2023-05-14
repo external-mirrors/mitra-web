@@ -31,7 +31,7 @@
       <div class="price">
         <label for="price">Price</label>
         <input type="number" id="price" v-model="subscriptionPrice" min="0.00">
-        <span>{{ subscriptionToken.symbol }} per month</span>
+        <span v-if="subscriptionToken">{{ subscriptionToken.symbol }} per month</span>
       </div>
       <button
         class="btn primary"

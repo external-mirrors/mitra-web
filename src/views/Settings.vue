@@ -1,5 +1,5 @@
 <template>
-  <sidebar-layout>
+  <sidebar-layout v-if="currentUser">
     <template #content>
       <h1>Settings</h1>
       <section>

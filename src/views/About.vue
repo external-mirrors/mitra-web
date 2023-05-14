@@ -1,6 +1,6 @@
 <template>
-  <sidebar-layout v-if="currentUser">
-    <template #content v-if="instance">
+  <sidebar-layout v-if="currentUser && instance">
+    <template #content>
       <h1>{{ instance.title }}</h1>
       <div class="description static-text" v-html="instance.description"></div>
       <details class="technical-info static-text">

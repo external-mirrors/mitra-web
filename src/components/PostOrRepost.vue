@@ -15,7 +15,7 @@
       :post="post.reblog"
       :highlighted="false"
       :in-thread="false"
-      @post-deleted="onPostDeleted(post.reblog.id); onPostDeleted(post.id)"
+      @post-deleted="onPostDeleted((post.reblog as PostObject).id); onPostDeleted(post.id)"
     ></post>
   </template>
   <post

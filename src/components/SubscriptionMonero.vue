@@ -46,7 +46,7 @@
           <template v-if="!isSubscribed()">
             You are not subscribed yet
           </template>
-          <template v-else>
+          <template v-else-if="subscriptionDetails">
             <div>
               Subscription expires
               {{ formatDate(subscriptionDetails.expires_at) }}
@@ -168,7 +168,7 @@ let senderError = $ref<string | null>(null)
 let sender = $ref(new ProfileWrapper(currentUser || defaultProfile()))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
-const paymentDuration = $ref<number>(1)
+const paymentDuration = $ref<number | "">(1)
 let invoice = $ref<Invoice | null>(null)
 
 let isLoading = $ref(false)
@@ -243,9 +243,12 @@ function canSubscribe(): boolean {
   )
 }
 
-const paymentAmount = $computed<number | null>(() => {
+const paymentAmount = $computed<number>(() => {
   if (!subscriptionOption?.price) {
-    return null
+    return 0
+  }
+  if (paymentDuration === "") {
+    return 0
   }
   return getPaymentAmount(subscriptionOption.price, paymentDuration)
 })
@@ -260,11 +263,11 @@ const paymentMessage = computed<string | null>(() => {
 })
 
 function canCreateInvoice(): boolean {
-  return paymentAmount !== null
+  return paymentAmount !== 0
 }
 
 async function onCreateInvoice() {
-  if (paymentAmount === null) {
+  if (paymentAmount === 0) {
     return
   }
   isLoading = true

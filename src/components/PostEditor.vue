@@ -80,7 +80,7 @@
               <button
                 class="icon"
                 :title="display"
-                @click="hideVisibilityMenu(); visibility = value"
+                @click="hideVisibilityMenu(); visibility = value as Visibility"
               >
                 <visibility-icon :visibility="value"></visibility-icon>
                 <span>{{ display }}</span>

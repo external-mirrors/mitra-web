@@ -57,7 +57,7 @@
     "vite": "^2.9.15",
     "vite-jest": "^0.1.4",
     "vite-plugin-html": "~2.0.6",
-    "vue-tsc": "^0.35.0"
+    "vue-tsc": "~1.2.1"
   },
   "lavamoat": {
     "allowScripts": {

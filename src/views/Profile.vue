@@ -144,15 +144,14 @@
                 <template v-if="isFollowRequestPending()">Cancel follow request</template>
                 <template v-else>Unfollow</template>
               </button>
-              <template v-if="canSubscribe()">
-                <universal-link
-                  :to="getSubscriptionOption(profile).location"
-                  title="Become a subscriber"
-                  class="btn"
-                >
-                  <template #link-content>Subscribe</template>
-                </universal-link>
-              </template>
+              <universal-link
+                v-if="canSubscribe()"
+                :to="subscriptionPageLocation"
+                title="Become a subscriber"
+                class="btn"
+              >
+                <template #link-content>Subscribe</template>
+              </universal-link>
             </div>
           </div>
           <div class="bio" v-html="profile.note"></div>
@@ -258,7 +257,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { computed, onMounted } from "vue"
 import { $, $ref, $computed } from "vue/macros"
 import { useRoute } from "vue-router"
 
@@ -617,10 +616,17 @@ function canManageSubscriptions(): boolean {
   )
 }
 
+const subscriptionPageLocation = computed(() => {
+  if (!profile) {
+    return null
+  }
+  const option = getSubscriptionOption(profile)
+  return option?.location || null
+})
+
 function canSubscribe(): boolean {
   return (
-    profile !== null &&
-    getSubscriptionOption(profile) !== null &&
+    subscriptionPageLocation.value !== null &&
     !isCurrentUser()
   )
 }

@@ -31,7 +31,7 @@
         title="Go to previous post"
         @mouseover="highlight(post.in_reply_to_id)"
         @mouseleave="highlight(null)"
-        @click.prevent="scrollTo(post.in_reply_to_id)"
+        @click.prevent="scrollTo(post.in_reply_to_id as string)"
       >
         <img src="@/assets/tabler/corner-left-up.svg">
       </a>
