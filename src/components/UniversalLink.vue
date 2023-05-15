@@ -18,16 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
 import { RouteLocationRaw } from "vue-router"
 
 /* eslint-disable-next-line no-undef */
-const props = defineProps<{
-  to: any,
+defineProps<{
+  to: string | RouteLocationRaw,
   title: string,
 }>()
-
-// Prop type check is broken
-// Invalid prop: type check failed for prop "to". Expected String | Null, got Object
-const to = computed(() => props.to as string | RouteLocationRaw)
 </script>

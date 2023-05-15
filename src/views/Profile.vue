@@ -145,7 +145,7 @@
                 <template v-else>Unfollow</template>
               </button>
               <universal-link
-                v-if="canSubscribe()"
+                v-if="subscriptionPageLocation && canSubscribe()"
                 :to="subscriptionPageLocation"
                 title="Become a subscriber"
                 class="btn"
