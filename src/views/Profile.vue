@@ -394,6 +394,7 @@ async function switchTab(name: string) {
     const subscriptions = await getReceivedSubscriptions(
       ensureAuthToken(),
       profile.id,
+      false,
     )
     followList = subscriptions.map((subscription) => subscription.sender)
     followListNextPageUrl = null

@@ -103,9 +103,14 @@ export interface Subscription {
 export async function getReceivedSubscriptions(
   authToken: string,
   accountId: string,
+  includeExpired: boolean,
 ): Promise<Subscription[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/subscribers`
-  const response = await http(url, { authToken })
+  const response = await http(url, {
+    method: "GET",
+    queryParams: { include_expired: includeExpired },
+    authToken,
+  })
   const data = await response.json()
   return data
 }

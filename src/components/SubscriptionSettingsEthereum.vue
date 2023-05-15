@@ -203,6 +203,7 @@ async function loadSubscriptionSettings() {
     subscriptions = await getReceivedSubscriptions(
       ensureAuthToken(),
       profile.id,
+      true,
     )
   } else {
     subscriptionsEnabled = false

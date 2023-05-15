@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed broken subscription detection when accessing subscription page as guest.
+- Don't display subscribers with expired subscriptions in subscriber list.
 
 ## [1.24.0] - 2023-05-14
 
