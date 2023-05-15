@@ -183,8 +183,13 @@ onMounted(async () => {
     return option.type === "monero-subscription" && option.price !== undefined
   }) || null
   if (subscriptionOption && sender.id !== "") {
-    subscriptionDetails = await findSubscription(sender.id, recipient.id)
+    await loadSubscriptionDetails()
   }
+  isLoading = false
+})
+
+async function loadSubscriptionDetails() {
+  subscriptionDetails = await findSubscription(sender.id, recipient.id)
   const invoiceId = (
     route.query.invoice_id ||
     localStorage.getItem(getInvoiceIdStorageKey())
@@ -195,8 +200,7 @@ onMounted(async () => {
       watchInvoice()
     }
   }
-  isLoading = false
-})
+}
 
 // Human-readable subscription price
 const subscriptionPrice = $computed<number | null>(() => {
@@ -219,6 +223,7 @@ async function identifySender() {
     if (profile && profile.id !== recipient.id) {
       sender = new ProfileWrapper(profile)
       senderError = null
+      await loadSubscriptionDetails()
     } else {
       senderError = "Profile not found"
     }

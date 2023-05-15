@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed broken subscription detection when accessing subscription page as guest.
+
 ## [1.24.0] - 2023-05-14
 
 ### Added
