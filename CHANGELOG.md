@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Update local timeline page to work with new API.
+
 ## [1.24.1] - 2023-05-15
 
 ### Fixed

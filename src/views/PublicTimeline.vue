@@ -24,13 +24,13 @@ let isLoading = $ref(false)
 onMounted(async () => {
   const authToken = ensureAuthToken()
   isLoading = true
-  posts = await getPublicTimeline(authToken)
+  posts = await getPublicTimeline(authToken, true)
   isLoading = false
 })
 
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
-  const nextPage = await getPublicTimeline(authToken, maxId)
+  const nextPage = await getPublicTimeline(authToken, true, maxId)
   posts = [...posts, ...nextPage]
 }
 </script>

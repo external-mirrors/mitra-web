@@ -93,10 +93,15 @@ export async function getHomeTimeline(
 
 export async function getPublicTimeline(
   authToken: string,
+  onlyLocal: boolean,
   maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/timelines/public`
-  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const queryParams = {
+    local: onlyLocal,
+    max_id: maxId,
+    limit: PAGE_SIZE,
+  }
   const response = await http(url, {
     method: "GET",
     queryParams,
