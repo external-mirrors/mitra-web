@@ -105,12 +105,18 @@ async function onAddAlias() {
     5,
   )
   if (profiles.length === 0) {
-    newAliasError = "Profile not found"
+    newAliasError = "profile not found"
     isLoading = false
     return
   }
   if (profiles.length === 1 && profiles[0].acct === newAlias) {
-    aliases = await addAlias(ensureAuthToken(), newAlias)
+    try {
+      aliases = await addAlias(ensureAuthToken(), newAlias)
+    } catch (error: any) {
+      newAliasError = error.message
+      isLoading = false
+      return
+    }
     newAlias = ""
   } else {
     newAliasSuggestions = profiles
