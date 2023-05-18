@@ -62,13 +62,13 @@ export interface Profile {
   statuses_count: number;
 }
 
-export function defaultProfile(): Profile {
+export function defaultProfile(fields: Partial<Profile> = {}): Profile {
   return {
     id: "",
     username: "",
     acct: "",
     url: "",
-    display_name: "You",
+    display_name: "",
     note: null,
     avatar: null,
     header: null,
@@ -81,6 +81,7 @@ export function defaultProfile(): Profile {
     following_count: 0,
     subscribers_count: 0,
     statuses_count: 0,
+    ...fields,
   }
 }
 
@@ -347,6 +348,7 @@ export async function createIdentityProof(
 
 export interface Aliases {
   declared: Profile[],
+  declared_all: { id: string, account: Profile | null }[],
   verified: Profile[],
 }
 

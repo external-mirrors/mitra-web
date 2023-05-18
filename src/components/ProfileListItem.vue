@@ -3,13 +3,15 @@
     <avatar :profile="profile"></avatar>
     <div class="name">
       <profile-display-name :profile="profile"></profile-display-name>
-      <div class="actor-address">@{{ getActorAddress(profile) }}</div>
+      <div v-if="profile.id" class="actor-address">@{{ getActorAddress(profile) }}</div>
+      <!-- Fallback for dummy profiles -->
+      <div v-else class="actor-address">{{ profile.url }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { $computed } from "vue/macros"
+import { computed } from "vue"
 
 import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
@@ -23,7 +25,7 @@ const props = defineProps<{
   profile: Profile,
 }>()
 
-const profile = $computed(() => new ProfileWrapper(props.profile))
+const profile = computed(() => new ProfileWrapper(props.profile))
 </script>
 
 <style scoped lang="scss">

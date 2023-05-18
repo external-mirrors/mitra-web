@@ -2,15 +2,20 @@
   <sidebar-layout>
     <template #content>
       <h1>Aliases</h1>
-      <section v-if="aliases.declared.length > 0">
+      <section v-if="aliases.declared_all.length > 0">
         <h2>Not verified</h2>
-        <router-link
-          v-for="profile in aliases.declared"
-          :key="profile.id"
-          :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
-        >
-          <profile-list-item :profile="profile"></profile-list-item>
-        </router-link>
+        <template v-for="alias in aliases.declared_all" :key="alias.id">
+          <router-link
+            v-if="alias.account !== null"
+            :to="{ name: 'profile-by-acct', params: { acct: alias.account.acct } }"
+          >
+            <profile-list-item :profile="alias.account"></profile-list-item>
+          </router-link>
+          <profile-list-item
+            v-else
+            :profile="defaultProfile({ display_name: 'Unknown', url: alias.id })"
+          ></profile-list-item>
+        </template>
       </section>
       <section v-if="aliases.verified.length > 0">
         <h2>Verified</h2>
@@ -67,7 +72,7 @@ import { $, $ref } from "vue/macros"
 
 import { searchProfilesByAcct } from "@/api/search"
 import { addAlias } from "@/api/settings"
-import { getAliases, Aliases, Profile } from "@/api/users"
+import { defaultProfile, getAliases, Aliases, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -75,7 +80,7 @@ import { useCurrentUser } from "@/composables/user"
 
 const { ensureCurrentUser, ensureAuthToken } = $(useCurrentUser())
 
-let aliases = $ref<Aliases>({ declared: [], verified: [] })
+let aliases = $ref<Aliases>({ declared: [], declared_all: [], verified: [] })
 let isLoading = $ref(false)
 let newAlias = $ref<string>("")
 let newAliasSuggestions = $ref<Profile[]>([])

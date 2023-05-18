@@ -21,7 +21,7 @@ const avatarUrl = computed<string>(() => {
   const profile = props.profile
   if (profile.avatar) {
     return profile.avatar
-  } else if (profile.acct === "") {
+  } else if (profile.id === "") {
     return UNNAMED
   } else {
     return makeBlockie(profile.acct)
