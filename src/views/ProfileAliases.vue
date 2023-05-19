@@ -4,7 +4,7 @@
       <h1>Identities</h1>
       <section v-if="aliases.declared_all.length > 0">
         <h2>Declared aliases</h2>
-        <template v-for="alias in aliases.declared_all" :key="alias.id">
+        <div class="profile-group" v-for="alias in aliases.declared_all" :key="alias.id">
           <router-link
             v-if="alias.account !== null"
             :to="{ name: 'profile-by-acct', params: { acct: alias.account.acct } }"
@@ -15,7 +15,13 @@
             v-else
             :profile="defaultProfile({ display_name: 'Unknown', url: alias.id })"
           ></profile-list-item>
-        </template>
+          <button class="remove-alias icon" @click="onRemoveAlias(alias.id)">
+            <img
+              title="Remove alias"
+              src="@/assets/feather/x.svg"
+            >
+          </button>
+        </div>
       </section>
       <section v-if="aliases.verified.length > 0">
         <h2>Verified aliases</h2>
@@ -71,7 +77,7 @@ import { onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 
 import { searchProfilesByAcct } from "@/api/search"
-import { addAlias } from "@/api/settings"
+import { addAlias, removeAlias } from "@/api/settings"
 import { defaultProfile, getAliases, Aliases, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
@@ -123,6 +129,12 @@ async function onAddAlias() {
   }
   isLoading = false
 }
+
+async function onRemoveAlias(actorId: string) {
+  isLoading = true
+  aliases = await removeAlias(ensureAuthToken(), actorId)
+  isLoading = false
+}
 </script>
 
 <style scoped lang="scss">
@@ -136,6 +148,37 @@ section {
 
 .profile {
   margin-bottom: $block-outer-padding;
+}
+
+.profile-group {
+  margin-bottom: $block-outer-padding;
+  position: relative;
+
+  .profile {
+    margin-bottom: 0;
+  }
+
+  .remove-alias {
+    align-items: center;
+    display: flex;
+    padding: calc($block-inner-padding / 2);
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    img {
+      filter: var(--secondary-text-colorizer);
+      height: $icon-size;
+      min-width: $icon-size;
+      width: $icon-size;
+    }
+
+    &:hover {
+      img {
+        filter: var(--secondary-text-hover-colorizer);
+      }
+    }
+  }
 }
 
 form {

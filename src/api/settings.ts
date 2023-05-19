@@ -1,5 +1,5 @@
 import { APP_NAME, BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { Aliases, User } from "./users"
 
 export async function updateClientConfig(
@@ -48,12 +48,22 @@ export async function addAlias(
     json: { acct: acct },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function removeAlias(
+  authToken: string,
+  actorId: string,
+): Promise<Aliases> {
+  const url = `${BACKEND_URL}/api/v1/settings/aliases/remove`
+  const response = await http(url, {
+    method: "POST",
+    json: { actor_id: actorId },
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
 }
 
 async function downloadBlob(blob: Blob, name: string) {
