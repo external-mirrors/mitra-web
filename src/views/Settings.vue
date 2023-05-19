@@ -68,9 +68,9 @@
         </form>
       </section>
       <section>
-        <h2>Aliases</h2>
+        <h2>Identities</h2>
         <router-link class="btn" :to="{ name: 'settings-aliases' }">
-          Manage aliases
+          Manage identities
         </router-link>
       </section>
       <section>

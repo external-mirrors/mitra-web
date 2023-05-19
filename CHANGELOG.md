@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Update local timeline page to work with new API.
 - Implement error handling for "add alias" operation.
+- Rename "Aliases" page to "Identities".
 
 ## [1.24.1] - 2023-05-15
 

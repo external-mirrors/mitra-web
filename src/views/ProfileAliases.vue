@@ -1,9 +1,9 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Aliases</h1>
+      <h1>Identities</h1>
       <section v-if="aliases.declared_all.length > 0">
-        <h2>Not verified</h2>
+        <h2>Declared aliases</h2>
         <template v-for="alias in aliases.declared_all" :key="alias.id">
           <router-link
             v-if="alias.account !== null"
@@ -18,7 +18,7 @@
         </template>
       </section>
       <section v-if="aliases.verified.length > 0">
-        <h2>Verified</h2>
+        <h2>Verified aliases</h2>
         <router-link
           v-for="profile in aliases.verified"
           :key="profile.id"
