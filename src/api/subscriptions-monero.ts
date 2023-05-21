@@ -63,6 +63,7 @@ export interface Invoice {
 export async function createInvoice(
   senderId: string,
   recipientId: string,
+  chainId: string,
   amount: number,
 ): Promise<Invoice> {
   const url = `${BACKEND_URL}/api/v1/subscriptions/invoices`
@@ -71,6 +72,7 @@ export async function createInvoice(
     json: {
       sender_id: senderId,
       recipient_id: recipientId,
+      chain_id: chainId,
       amount,
     },
   })

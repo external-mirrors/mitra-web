@@ -275,11 +275,16 @@ async function onCreateInvoice() {
   if (paymentAmount === 0) {
     return
   }
+  const blockchain = getBlockchainInfo()
+  if (!blockchain) {
+    return
+  }
   isLoading = true
   try {
     invoice = await createInvoice(
       sender.id,
       recipient.id,
+      blockchain.chain_id,
       paymentAmount,
     )
   } catch (error: any) {
