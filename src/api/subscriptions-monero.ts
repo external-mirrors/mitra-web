@@ -1,6 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
+import { floatToBigNumber } from "@/utils/numbers"
 import { http, handleResponse } from "./common"
 import {
   formatAmount,
@@ -17,6 +18,10 @@ export function formatXmrAmount(value: number | BigNumber): number {
     value = BigNumber.from(value)
   }
   return formatAmount(value, MONERO_DECIMALS).toUnsafeFloat()
+}
+
+export function parseXmrAmount(value: number): number {
+  return floatToBigNumber(value, MONERO_DECIMALS).toNumber()
 }
 
 export function getPricePerSec(pricePerMonth: number): number {
@@ -36,6 +41,15 @@ export function getPaymentAmount(
   const pricePerSecInt = BigNumber.from(pricePerSec)
   const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
   return Math.round(pricePerMonthInt.toNumber() * durationMonths)
+}
+
+export function getSubscriptionDuration(
+  pricePerSec: number,
+  amount: number,
+): number {
+  const pricePerSecInt = BigNumber.from(pricePerSec)
+  const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
+  return parseFloat((amount / pricePerMonthInt.toNumber()).toFixed(2))
 }
 
 export async function registerMoneroSubscriptionOption(

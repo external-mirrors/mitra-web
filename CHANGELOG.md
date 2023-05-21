@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Show unresolved aliases on "Aliases" page.
 - Add button for removing declared aliases.
+- Allow to edit payment amount on subscription page.
 
 ### Changed
 

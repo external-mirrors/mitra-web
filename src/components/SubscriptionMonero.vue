@@ -59,14 +59,42 @@
       </template>
     </div>
     <form class="payment" v-if="canSubscribe()">
-      <div class="duration">
+      <div class="duration" @click="editDuration()">
         <label for="duration">Duration</label>
-        <input type="number" id="duration" v-model="paymentDuration" min="1">
+        <input
+          v-if="!isAmountEditable"
+          type="number"
+          id="duration"
+          v-model="paymentDurationInputValue"
+          min="1"
+        >
+        <span
+          v-else
+          class="editable-value"
+          title="Click to edit"
+        >
+          {{ paymentDuration }}
+        </span>
         <span>months</span>
       </div>
-      <div class="payment-amount">
-        <label>Amount</label>
-        <div>{{ formatXmrAmount(paymentAmount) }} XMR</div>
+      <div class="payment-amount" @click="editAmount()">
+        <label for="amount">Amount</label>
+        <input
+          v-if="isAmountEditable && subscriptionPrice"
+          type="number"
+          id="amount"
+          v-model="paymentAmountInputValue"
+          :step="subscriptionPrice"
+          min="0"
+        >
+        <span
+          v-else
+          class="editable-value"
+          title="Click to edit"
+        >
+          {{ formatXmrAmount(paymentAmount) }}
+        </span>
+        <span>XMR</span>
       </div>
       <div
         v-if="paymentMessage"
@@ -140,6 +168,8 @@ import {
   getInvoice,
   getPaymentAmount,
   getPricePerMonth,
+  getSubscriptionDuration,
+  parseXmrAmount,
   Invoice,
 } from "@/api/subscriptions-monero"
 import { defaultProfile, Profile, ProfilePaymentOption, ProfileWrapper } from "@/api/users"
@@ -168,7 +198,9 @@ let senderError = $ref<string | null>(null)
 let sender = $ref(new ProfileWrapper(currentUser || defaultProfile({ display_name: "You" })))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
-const paymentDuration = $ref<number | "">(1)
+let paymentDurationInputValue = $ref<number | "">(1)
+let paymentAmountInputValue = $ref<number | "">(0)
+let isAmountEditable = $ref(false)
 let invoice = $ref<Invoice | null>(null)
 
 let isLoading = $ref(false)
@@ -248,14 +280,58 @@ function canSubscribe(): boolean {
   )
 }
 
+function editDuration() {
+  if (!isAmountEditable) {
+    return
+  }
+  paymentDurationInputValue = paymentDuration.value
+  isAmountEditable = false
+}
+
+const paymentDuration = computed<number>(() => {
+  if (!subscriptionOption?.price) {
+    return 0
+  }
+  if (!isAmountEditable) {
+    if (paymentDurationInputValue === "") {
+      return 0
+    }
+    return paymentDurationInputValue
+  }
+  if (paymentAmountInputValue === "") {
+    return 0
+  }
+  return getSubscriptionDuration(
+    subscriptionOption.price,
+    parseXmrAmount(paymentAmountInputValue),
+  )
+})
+
+function editAmount() {
+  if (isAmountEditable) {
+    return
+  }
+  paymentAmountInputValue = formatXmrAmount(paymentAmount)
+  isAmountEditable = true
+}
+
 const paymentAmount = $computed<number>(() => {
   if (!subscriptionOption?.price) {
     return 0
   }
-  if (paymentDuration === "") {
+  if (isAmountEditable) {
+    if (paymentAmountInputValue === "") {
+      return 0
+    }
+    return parseXmrAmount(paymentAmountInputValue)
+  }
+  if (paymentDurationInputValue === "") {
     return 0
   }
-  return getPaymentAmount(subscriptionOption.price, paymentDuration)
+  return getPaymentAmount(
+    subscriptionOption.price,
+    paymentDurationInputValue,
+  )
 })
 
 const paymentMessage = computed<string | null>(() => {
@@ -448,25 +524,19 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   .payment-amount {
     align-items: center;
     display: flex;
-    gap: $input-padding;
-    justify-content: center;
-  }
-
-  .duration {
-    font-size: 16px;
-
-    label {
-      font-weight: bold;
-    }
-
-    input {
-      width: 100px;
-    }
-  }
-
-  .payment-amount {
     font-size: 16px;
     font-weight: bold;
+    gap: $input-padding;
+    justify-content: center;
+
+    input {
+      font-size: inherit;
+      width: 100px;
+    }
+
+    .editable-value {
+      cursor: pointer;
+    }
   }
 
   .payment-message {
