@@ -184,6 +184,7 @@ import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"
 
 const INVOICE_ID_STORAGE_KEY = "invoice"
+const PAYMENT_AMOUNT_MIN = 0.001
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -345,7 +346,7 @@ const paymentMessage = computed<string | null>(() => {
 })
 
 function canCreateInvoice(): boolean {
-  return paymentAmount !== 0
+  return paymentAmount !== 0 && paymentAmount >= parseXmrAmount(PAYMENT_AMOUNT_MIN)
 }
 
 async function onCreateInvoice() {

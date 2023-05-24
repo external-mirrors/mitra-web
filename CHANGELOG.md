@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Implement error handling for "add alias" operation.
 - Rename "Aliases" page to "Identities".
 - Send Monero chain ID when creating invoice.
+- Set minimum payment amount to 0.001 XMR.
 
 ## [1.24.1] - 2023-05-15
 
