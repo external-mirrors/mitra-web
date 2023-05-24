@@ -115,7 +115,7 @@
       </button>
     </form>
     <div class="invoice" v-if="invoice">
-      <template v-if="invoice.status === 'open'">
+      <template v-if="invoice.status === 'open' || invoice.status === 'underpaid'">
         <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
         <a
           class="payment-address"
@@ -133,6 +133,7 @@
         <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
         <template v-else-if="invoice.status === 'forwarded'">Payment completed</template>
         <template v-else-if="invoice.status === 'cancelled'">Payment cancelled</template>
+        <template v-else-if="invoice.status === 'underpaid'">Payment amount is too small</template>
       </div>
       <button
         v-if="invoice.status === 'open'"
