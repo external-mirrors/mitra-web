@@ -13,12 +13,21 @@
         ref="postFormContentRef"
         v-show="preview === null"
         v-model="content"
-        @input="saveLocalDraft()"
+        @input="onContentInput()"
         rows="1"
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
         @paste="onPaste($event)"
       ></textarea>
+      <div class="mention-suggestions" v-if="mentionSuggestions.length > 0">
+        <button
+          v-for="profile in mentionSuggestions"
+          :key="profile.id"
+          @click.prevent="autocompleteMention(profile)"
+        >
+          @{{ profile.acct }}
+        </button>
+      </div>
       <post-content
         v-if="preview"
         :post="preview"
@@ -148,7 +157,8 @@ import {
   Visibility,
   VISIBILITY_MAP,
 } from "@/api/posts"
-import { User } from "@/api/users"
+import { searchProfilesByAcct } from "@/api/search"
+import { Profile, User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
@@ -156,6 +166,7 @@ import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { setupAutoResize, triggerResize } from "@/utils/autoresize"
+import { debounce } from "@/utils/debounce"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const visibilityMap = Object.entries(VISIBILITY_MAP)
@@ -182,6 +193,8 @@ let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 let isSensitive = $ref(false)
 
+let mentionSuggestions = $ref<Profile[]>([])
+let mentionPosition = $ref<[number, number] | null>(null)
 let visibilityMenuVisible = $ref(false)
 let preview = $ref<Post | null>(null)
 let isLoading = $ref(false)
@@ -230,6 +243,54 @@ function saveLocalDraft() {
 
 function removeLocalDraft() {
   localStorage.removeItem(getLocalDraftKey())
+}
+
+async function suggestMentions() {
+  if (postFormContentRef === null) {
+    return
+  }
+  const currentPosition = postFormContentRef.selectionStart
+  const contentBefore = content.substring(0, currentPosition)
+  // "d" flag requires FF 88+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
+  /* eslint-disable-next-line no-empty-character-class */
+  const mentionRegexp = /(^|\s)@(?<name>\w+)$/d
+  const match = mentionRegexp.exec(contentBefore)
+  const mentionText = match?.groups?.name
+  if (mentionText && mentionText.length >= 2) {
+    const indices = (match as any).indices.groups.name
+    const results = await searchProfilesByAcct(
+      ensureAuthToken(),
+      mentionText,
+      false,
+      4,
+    )
+    if (results.length !== 1 || results[0].acct !== mentionText) {
+      mentionSuggestions = results
+      mentionPosition = indices
+      return
+    }
+  }
+  mentionSuggestions = []
+}
+
+const suggestMentionsDebounced = debounce(suggestMentions, 500)
+
+async function autocompleteMention(profile: Profile) {
+  if (postFormContentRef !== null && mentionPosition !== null) {
+    const [start, stop] = mentionPosition
+    content = content.substring(0, start) + profile.acct + content.substring(stop)
+    mentionSuggestions = []
+    await nextTick()
+    const newPosition = start + profile.acct.length
+    postFormContentRef.focus()
+    postFormContentRef.selectionEnd = newPosition
+  }
+}
+
+function onContentInput() {
+  saveLocalDraft()
+  suggestMentionsDebounced()
 }
 
 async function onPaste(event: ClipboardEvent) {
@@ -411,6 +472,21 @@ $line-height: 1.5;
   line-height: $line-height;
   padding: $block-inner-padding;
   width: 100%;
+}
+
+.mention-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $input-padding;
+  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+
+  button {
+    background-color: var(--background-color);
+    border-radius: $btn-border-radius;
+    overflow: hidden;
+    padding: calc($input-padding / 2);
+    text-overflow: ellipsis;
+  }
 }
 
 .attachments {

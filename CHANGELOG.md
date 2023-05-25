@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add button for removing declared aliases.
 - Allow to edit payment amount on subscription page.
 - Show error message if invoice status is "underpaid".
+- Auto-suggest mentions in post editor.
 
 ### Changed
 
