@@ -72,11 +72,13 @@ function showHomeTimeline() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 
 $header-z-index: 100;
 
 header {
-  background-color: var(--background-color);
+  @include main-background;
+
   box-sizing: border-box;
   height: $header-height;
   margin-bottom: $block-outer-padding;
@@ -170,7 +172,8 @@ header {
 }
 
 #header-public {
-  background-color: var(--background-color);
+  @include main-background;
+
   box-sizing: border-box;
   display: flex;
   justify-content: center;

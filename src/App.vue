@@ -25,6 +25,7 @@ watch($$(currentUser), () => {
 <style lang="scss">
 @import "styles/reset";
 @import "styles/layout";
+@import "styles/mixins";
 @import "styles/theme";
 
 :root {
@@ -94,8 +95,8 @@ watch($$(currentUser), () => {
 }
 
 html {
-  background-color: var(--background-color);
-  background-image: var(--background-image);
+  @include main-background;
+
   color: var(--text-color);
   font-family: $text-font;
   font-size: $text-font-size;
