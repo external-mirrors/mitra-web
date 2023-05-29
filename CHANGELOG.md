@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Display Mitra logo in favicon.
+
 ### Changed
 
 - Make custom background visible in header.
