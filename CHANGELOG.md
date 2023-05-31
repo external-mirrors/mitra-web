@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Make custom background visible in header.
+- Update payment page to handle "completed" and "failed" invoice statuses.
 
 ## [1.25.0] - 2023-05-25
 

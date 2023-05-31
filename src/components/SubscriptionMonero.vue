@@ -131,9 +131,11 @@
         </template>
         <template v-else-if="invoice.status === 'paid'">Processing payment</template>
         <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
-        <template v-else-if="invoice.status === 'forwarded'">Payment completed</template>
+        <template v-else-if="invoice.status === 'forwarded'">Processing payment</template>
         <template v-else-if="invoice.status === 'cancelled'">Payment cancelled</template>
         <template v-else-if="invoice.status === 'underpaid'">Payment amount is too small</template>
+        <template v-else-if="invoice.status === 'completed'">Payment completed</template>
+        <template v-else-if="invoice.status === 'failed'">Processing payment</template>
       </div>
       <button
         v-if="invoice.status === 'open'"
@@ -143,7 +145,7 @@
         Cancel
       </button>
       <button
-        v-else-if="invoice.status === 'forwarded' || invoice.status === 'timeout' || invoice.status === 'cancelled'"
+        v-else-if="invoice.status === 'completed' || invoice.status === 'timeout' || invoice.status === 'cancelled'"
         class="btn"
         @click="closeInvoice()"
       >
@@ -389,7 +391,7 @@ function watchInvoice() {
       return
     }
     invoice = await getInvoice(invoice.id)
-    if (invoice.status === "forwarded") {
+    if (invoice.status === "completed") {
       // Stop watching and refresh subscription details
       clearInterval(watcher)
       subscriptionDetails = await findSubscription(sender.id, recipient.id)
