@@ -130,13 +130,28 @@
     </form>
     <div class="invoice" v-if="invoice">
       <template v-if="invoice.status === 'open' || invoice.status === 'underpaid'">
-        <div>Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:</div>
+        <div class="payment-header">
+          Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:
+          <a
+            class="payment-request-toggle"
+            title="Show additional information"
+            @click="paymentRequestVisible = !paymentRequestVisible"
+          >
+            <img src="@/assets/feather/chevron-down.svg">
+          </a>
+        </div>
         <a
           class="payment-address"
           :href="getPaymentUri(invoice)"
         >
           {{ invoice.payment_address }}
         </a>
+        <code
+          v-if="paymentRequestVisible"
+          class="payment-request"
+        >
+          {{ getPaymentRequest(invoice) }}
+        </code>
         <qr-code :url="getPaymentUri(invoice)"></qr-code>
       </template>
       <div class="invoice-status">
@@ -170,14 +185,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
 import { getRelationship, Relationship } from "@/api/relationships"
 import { searchProfilesByAcct, searchProfilesByAcctPublic } from "@/api/search"
-import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
+import {
+  findSubscription,
+  SubscriptionDetails,
+  DAYS_IN_MONTH,
+} from "@/api/subscriptions-common"
 import {
   cancelInvoice,
   createInvoice,
@@ -198,7 +217,10 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { formatDate } from "@/utils/dates"
-import { createMoneroPaymentUri } from "@/utils/monero"
+import {
+  createMoneroPaymentRequest,
+  createMoneroPaymentUri,
+} from "@/utils/monero"
 import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const INVOICE_ID_STORAGE_KEY = "invoice"
@@ -224,6 +246,7 @@ let paymentDurationInputValue = $ref<number | "">(1)
 let paymentAmountInputValue = $ref<number | "">(0)
 let isAmountEditable = $ref(false)
 let invoice = $ref<Invoice | null>(null)
+const paymentRequestVisible = ref(false)
 
 let isLoading = $ref(false)
 
@@ -501,6 +524,20 @@ function getPaymentUri(invoice: Invoice): string {
   )
 }
 
+function getPaymentRequest(invoice: Invoice): string {
+  if (subscriptionPrice === null) {
+    return ""
+  }
+  return createMoneroPaymentRequest(
+    `Subscription to @${recipient.acct}`,
+    subscriptionPrice,
+    DAYS_IN_MONTH,
+    invoice.payment_address,
+    // TODO: use created_at
+    invoice.expires_at,
+  )
+}
+
 function getPaymentMinutesLeft(invoice: Invoice): number {
   const expiresAt = DateTime.fromISO(invoice.expires_at)
   const now = DateTime.now()
@@ -633,7 +670,33 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   gap: $block-inner-padding;
   padding-bottom: $block-inner-padding;
 
+  .payment-header {
+    box-sizing: border-box;
+    padding: 0 $block-inner-padding;
+    position: relative;
+    width: 100%;
+  }
+
+  .payment-request-toggle {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1em;
+
+    img {
+      filter: var(--text-colorizer);
+      vertical-align: middle;
+    }
+  }
+
   .payment-address {
+    font-family: monospace;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .payment-request {
     font-family: monospace;
     max-width: 100%;
     word-wrap: break-word;
