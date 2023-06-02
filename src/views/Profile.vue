@@ -835,6 +835,11 @@ $avatar-size: 170px;
   :deep(a) {
     @include block-link;
   }
+
+  :deep(ul),
+  :deep(ol) {
+    list-style-position: inside;
+  }
 }
 
 .extra-fields {
