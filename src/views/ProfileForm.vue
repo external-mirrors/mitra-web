@@ -251,6 +251,10 @@ async function save() {
     gap: $input-padding;
   }
 
+  input {
+    width: 100%;
+  }
+
   .input-group:last-child {
     margin-bottom: 0;
   }

@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fix indentation of list items in profile bio.
+- Fix text overflow in avatar image upload input.
 
 ## [1.25.0] - 2023-05-25
 
