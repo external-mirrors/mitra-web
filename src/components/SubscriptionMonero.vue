@@ -129,13 +129,11 @@
         <template v-if="invoice.status === 'open'">
           Waiting for payment ({{ getPaymentMinutesLeft(invoice) }} minutes left)
         </template>
-        <template v-else-if="invoice.status === 'paid'">Processing payment</template>
+        <template v-else-if="invoice.status === 'paid' || invoice.status === 'forwarded' || invoice.status === 'failed'">Processing payment</template>
         <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
-        <template v-else-if="invoice.status === 'forwarded'">Processing payment</template>
         <template v-else-if="invoice.status === 'cancelled'">Payment cancelled</template>
         <template v-else-if="invoice.status === 'underpaid'">Payment amount is too small</template>
         <template v-else-if="invoice.status === 'completed'">Payment completed</template>
-        <template v-else-if="invoice.status === 'failed'">Processing payment</template>
       </div>
       <button
         v-if="invoice.status === 'open'"
@@ -152,7 +150,7 @@
         OK
       </button>
     </div>
-    <loader v-if="isLoading"></loader>
+    <loader v-if="isLoaderVisible()"></loader>
   </div>
 </template>
 
@@ -223,6 +221,15 @@ onMounted(async () => {
   }
   isLoading = false
 })
+
+function isLoaderVisible(): boolean {
+  return (
+    isLoading ||
+    invoice?.status === "paid" ||
+    invoice?.status === "forwarded" ||
+    invoice?.status === "failed"
+  )
+}
 
 async function loadSubscriptionDetails() {
   subscriptionDetails = await findSubscription(sender.id, recipient.id)
