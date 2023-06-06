@@ -32,8 +32,13 @@ $display-name-line-height: 1.4;
 
   :deep(.emoji) {
     height: $display-name-line-height * 0.8em;
-    vertical-align: text-bottom;
     width: $display-name-line-height * 0.8em;
+
+    img {
+      height: inherit;
+      vertical-align: text-bottom;
+      width: inherit;
+    }
   }
 }
 </style>

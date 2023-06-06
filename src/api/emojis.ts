@@ -10,7 +10,7 @@ export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
       return emoji.shortcode === shortcode
     })
     if (emoji) {
-      return `<img class="emoji" title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}">`
+      return `<span class="emoji"><img title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}"></span>`
     } else {
       return match
     }

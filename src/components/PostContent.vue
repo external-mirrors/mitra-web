@@ -160,15 +160,28 @@ function getContent(): string {
   }
 
   :deep(.emoji) {
+    display: inline-block;
     height: 24px;
+    position: relative;
     vertical-align: text-bottom;
     width: 24px;
 
-    &:hover {
-      height: 48px;
-      transition: 100ms linear;
-      transition-delay: 0.5s;
-      width: 48px;
+    img {
+      height: inherit;
+      left: 0;
+      max-width: none;
+      position: absolute;
+      top: 0;
+      width: inherit;
+
+      &:hover {
+        height: 48px;
+        left: -50%;
+        top: -50%;
+        transition: 100ms linear;
+        transition-delay: 0.5s;
+        width: 48px;
+      }
     }
   }
 }
