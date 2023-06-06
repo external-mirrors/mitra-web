@@ -4,7 +4,8 @@ export interface CustomEmoji {
 }
 
 export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
-  return text.replace(/:([\w.]+):/g, (match, shortcode) => {
+  // Regex must match the one used at backend
+  return text.replace(/:([a-zA-Z0-9._-]+):/g, (match, shortcode) => {
     const emoji = emojis.find((emoji) => {
       return emoji.shortcode === shortcode
     })
