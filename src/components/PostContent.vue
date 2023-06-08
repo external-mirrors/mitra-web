@@ -173,6 +173,7 @@ function getContent(): string {
       position: absolute;
       top: 0;
       width: inherit;
+      z-index: 0;
 
       &:hover {
         height: 48px;
@@ -181,6 +182,7 @@ function getContent(): string {
         transition: 100ms linear;
         transition-delay: 0.5s;
         width: 48px;
+        z-index: 1;
       }
     }
   }
