@@ -254,7 +254,7 @@ async function suggestMentions() {
   // "d" flag requires FF 88+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
   /* eslint-disable-next-line no-empty-character-class */
-  const mentionRegexp = /(^|\s)@(?<name>\w+)$/d
+  const mentionRegexp = /(^|\s)@(?<name>\S+)$/d
   const match = mentionRegexp.exec(contentBefore)
   const mentionText = match?.groups?.name
   if (mentionText && mentionText.length >= 2) {

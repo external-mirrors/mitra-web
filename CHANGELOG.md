@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fix emoji shortcode replacement regex.
+- Fix mention auto-suggestion not working when domain part is present.
 
 ## [1.26.0] - 2023-06-04
 
