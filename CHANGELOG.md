@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added manifest.json and multi-resolution icons ([#10](https://codeberg.org/silverpill/mitra-web/pulls/10)).
+
 ### Changed
 
 - Enlarge custom emojis without moving surrounding text.

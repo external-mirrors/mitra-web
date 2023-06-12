@@ -4,7 +4,7 @@
     "start_url": "/home",
     "display": "standalone",
     "background_color": "#000",
-    "description": "Federated social network with monetization features.",
+    "description": "Federated social network.",
     "icons": [
         {
             "src": "/icons/logo-white-72x72.png",
