@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Display error messages on minisign identity verification page.
+
 ## [1.27.0] - 2023-06-13
 
 ### Added

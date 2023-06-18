@@ -3,23 +3,33 @@
     <template #content>
       <h1>Link minisign key</h1>
       <form class="identity-proof">
-        <input
+        <textarea
           type="text"
           id="key"
-          placeholder="Public key (minisign -G)"
+          placeholder="Public key (minisign -R -p minisign.pub)"
           v-model="key"
+        ></textarea>
+        <button
+          v-if="did === null"
+          type="button"
+          class="btn"
+          :disabled="!canGetClaim()"
+          @click.prevent="getClaim()"
         >
+          Generate message
+        </button>
         <code v-if="identityClaim" class="message">
           {{ identityClaim }}
         </code>
-        <input
+        <textarea
           type="text"
           id="signature"
-          placeholder="Signature (minisign -Sm data.txt)"
+          placeholder="Signature (minisign -S -m message.json -x message.json.sig)"
           v-model="signature"
           v-if="did"
-        >
+        ></textarea>
         <button
+          v-if="did !== null"
           type="submit"
           class="btn"
           :disabled="!canSubmit()"
@@ -27,6 +37,7 @@
         >
           Submit
         </button>
+        <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
     </template>
   </sidebar-layout>
@@ -47,41 +58,65 @@ const key = $ref("")
 const signature = $ref("")
 let did = $ref<string | null>(null)
 let identityClaim = $ref<string | null>(null)
+let errorMessage = $ref<string | null>(null)
 
-function canSubmit(): boolean {
-  return (did === null && key.length > 0) || (did !== null && signature.length > 0)
+function canGetClaim(): boolean {
+  return did === null && key.length > 0
 }
 
-async function submit() {
-  if (currentUser === null) {
+async function getClaim() {
+  if (currentUser === null || did !== null) {
     return
   }
   const authToken = ensureAuthToken()
-  if (did === null && key.length > 0) {
-    const data = await getIdentityClaim(authToken, "minisign", key)
-    did = data.did
-    identityClaim = data.claim
-  } else if (did !== null && signature.length > 0) {
+  let data
+  try {
+    data = await getIdentityClaim(authToken, "minisign", key)
+  } catch (error: any) {
+    errorMessage = error.message
+    return
+  }
+  console.log(data)
+  errorMessage = null
+  did = data.did
+  identityClaim = data.claim
+}
+
+function canSubmit(): boolean {
+  return did !== null && signature.length > 0
+}
+
+async function submit() {
+  if (currentUser === null || did === null) {
+    return
+  }
+  const authToken = ensureAuthToken()
+  try {
     await createIdentityProof(
       authToken,
       did,
       signature,
     )
-    router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
+  } catch (error: any) {
+    errorMessage = error.message
+    return
   }
+  errorMessage = null
+  router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
 }
 </script>
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
+@import "../styles/theme";
 
 .identity-proof {
-  display: flex;
-  flex-direction: column;
-  gap: $block-inner-padding;
+  @include content-form;
 }
 
 .message {
+  width: 100%;
   word-wrap: break-word;
 }
 </style>

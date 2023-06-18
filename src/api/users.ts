@@ -320,7 +320,7 @@ export async function getIdentityClaim(
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const queryParams = { proof_type: proofType, signer }
   const response = await http(url, { authToken, queryParams })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -338,12 +338,8 @@ export async function createIdentityProof(
     },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export interface Aliases {
