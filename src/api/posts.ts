@@ -61,6 +61,7 @@ export interface Post {
   reblog: Post | null;
   visibility: Visibility;
   sensitive: boolean;
+  pinned: boolean;
   replies_count: number;
   favourites_count: number;
   reblogs_count: number;
@@ -130,12 +131,14 @@ export async function getTagTimeline(
 export async function getProfileTimeline(
   authToken: string | null,
   authorId: string,
-  excludeReplies?: boolean,
+  excludeReplies: boolean,
+  onlyPinned: boolean,
   maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
   const queryParams = {
     exclude_replies: excludeReplies,
+    pinned: onlyPinned,
     max_id: maxId,
     limit: PAGE_SIZE,
   }
@@ -183,6 +186,7 @@ export async function previewPost(
     reblog: null,
     visibility: Visibility.Public,
     sensitive: false,
+    pinned: false,
     replies_count: 0,
     favourites_count: 0,
     reblogs_count: 0,
@@ -292,6 +296,26 @@ export async function deleteRepost(
   postId: string,
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unreblog`
+  const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function pinPost(
+  authToken: string,
+  postId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/pin`
+  const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function unpinPost(
+  authToken: string,
+  postId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unpin`
   const response = await http(url, { method: "POST", authToken })
   const data = await handleResponse(response)
   return data

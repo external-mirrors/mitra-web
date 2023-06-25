@@ -210,7 +210,7 @@
         </div>
       </div>
       <div class="tab-bar" v-if="profile">
-        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies'">
+        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
           <a
             :class="{ active: tabName === 'posts' }"
             @click="switchTab('posts')"
@@ -223,6 +223,12 @@
           >
             Posts and replies
           </a>
+          <a
+            :class="{ active: tabName === 'posts-featured' }"
+            @click="switchTab('posts-featured')"
+          >
+            Featured
+          </a>
         </template>
         <span v-else-if="tabName === 'followers'" class="active">Followers</span>
         <span v-else-if="tabName === 'following'" class="active">Following</span>
@@ -231,7 +237,7 @@
       <loader v-if="isLoading"></loader>
       <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
         <post-list
-          v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
+          v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'"
           ref="postListRef"
           :posts="posts"
           @load-next-page="loadNextPage"
@@ -375,12 +381,21 @@ async function switchTab(name: string) {
       authToken,
       profile.id,
       true,
+      false,
     )
   } else if (tabName === "posts-with-replies") {
     posts = await getProfileTimeline(
       authToken,
       profile.id,
       false,
+      false,
+    )
+  } else if (tabName === "posts-featured") {
+    posts = await getProfileTimeline(
+      authToken,
+      profile.id,
+      false,
+      true,
     )
   } else if (tabName === "followers" && isCurrentUser()) {
     const page = await getFollowers(
@@ -660,6 +675,7 @@ async function loadNextPage(maxId: string) {
     authToken,
     profile.id,
     tabName !== "posts-with-replies",
+    tabName === "posts-featured",
     maxId,
   )
   posts = [...posts, ...nextPage]

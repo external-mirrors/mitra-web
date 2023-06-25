@@ -41,6 +41,13 @@
       >
         <visibility-icon :visibility="post.visibility"></visibility-icon>
       </span>
+      <span
+        v-if="post.pinned"
+        class="icon icon-small"
+        title="Featured"
+      >
+        <img src="@/assets/tabler/pin.svg">
+      </span>
       <span v-if="post.edited_at">edited</span>
       <a
         class="timestamp"
@@ -182,6 +189,26 @@
           <img src="@/assets/feather/more-horizontal.svg">
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
+          <li v-if="canPin()">
+            <button
+              class="icon"
+              title="Add to featured"
+              @click="hideMenu(); onPin()"
+            >
+              <img src="@/assets/tabler/pin.svg">
+              <span>Add to featured</span>
+            </button>
+          </li>
+          <li v-if="canUnpin()">
+            <button
+              class="icon"
+              title="Remove from featured"
+              @click="hideMenu(); onUnpin()"
+            >
+              <img src="@/assets/tabler/pinned-off.svg">
+              <span>Remove from featured</span>
+            </button>
+          </li>
           <li v-if="canSaveToIpfs()">
             <button
               class="icon"
@@ -259,15 +286,18 @@ import {
   onTokenMinted,
 } from "@/api/nft"
 import {
-  VISIBILITY_MAP,
-  Mention,
-  Post,
   getPost,
   deletePost,
   favourite,
   unfavourite,
   createRepost,
   deleteRepost,
+  pinPost,
+  unpinPost,
+  Mention,
+  Post,
+  Visibility,
+  VISIBILITY_MAP,
 } from "@/api/posts"
 import {
   Permissions,
@@ -441,6 +471,34 @@ function toggleMenu() {
 
 function hideMenu() {
   menuVisible = false
+}
+
+function canPin(): boolean {
+  return (
+    props.post.account.id === currentUser?.id &&
+    props.post.visibility === Visibility.Public &&
+    !props.post.pinned
+  )
+}
+
+async function onPin() {
+  const authToken = ensureAuthToken()
+  const { pinned } = await pinPost(authToken, props.post.id)
+  props.post.pinned = pinned
+}
+
+function canUnpin(): boolean {
+  return (
+    props.post.account.id === currentUser?.id &&
+    props.post.visibility === Visibility.Public &&
+    props.post.pinned
+  )
+}
+
+async function onUnpin() {
+  const authToken = ensureAuthToken()
+  const { pinned } = await unpinPost(authToken, props.post.id)
+  props.post.pinned = pinned
 }
 
 function getIpfsUrl(): string | null {
