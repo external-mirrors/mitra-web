@@ -32,6 +32,9 @@ const emit = defineEmits<{
   (event: "load-next-page", maxId: string): void,
 }>()
 
+/* eslint-disable-next-line no-undef */
+defineExpose({ resetPagination })
+
 let initialPostCount: number | null = null
 let isNextPageLoading = $ref(false)
 
@@ -50,6 +53,10 @@ function onPostDeleted(postId: string) {
 
 function isPageFull(): boolean {
   return initialPostCount === null ? false : initialPostCount >= PAGE_SIZE
+}
+
+function resetPagination() {
+  initialPostCount = null
 }
 
 function loadNextPage() {

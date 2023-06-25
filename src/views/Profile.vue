@@ -232,6 +232,7 @@
       <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
         <post-list
           v-if="tabName === 'posts' || tabName === 'posts-with-replies'"
+          ref="postListRef"
           :posts="posts"
           @load-next-page="loadNextPage"
         ></post-list>
@@ -308,6 +309,8 @@ const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
 const { getSubscriptionOption } = useSubscribe()
 
+const postListRef = $ref<InstanceType<typeof PostList> | null>(null)
+
 let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
 let aliases = $ref<Profile[]>([])
@@ -364,6 +367,9 @@ async function switchTab(name: string) {
   }
   isLoading = true
   tabName = name
+  if (postListRef !== null) {
+    postListRef.resetPagination()
+  }
   if (tabName === "posts") {
     posts = await getProfileTimeline(
       authToken,
