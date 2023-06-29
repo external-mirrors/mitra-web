@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Make identity proof submission work with new API.
+
 ## [1.28.0] - 2023-06-26
 
 ### Added
@@ -18,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Fixed pagination button bug in on profile page.
+- Fixed pagination button bug on profile page.
 
 ## [1.27.0] - 2023-06-13
 

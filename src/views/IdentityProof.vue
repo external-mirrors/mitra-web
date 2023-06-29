@@ -91,9 +91,11 @@ async function submit() {
     return
   }
   const authToken = ensureAuthToken()
+  const proofType = "minisign"
   try {
     await createIdentityProof(
       authToken,
+      proofType,
       did,
       signature,
     )

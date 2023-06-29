@@ -13,14 +13,16 @@ async function verifyEthereumAddress(): Promise<User | null> {
   }
   const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
+  const proofType = "ethereum"
   const { did, claim } = await getIdentityClaim(
     authToken,
-    "ethereum",
+    proofType,
     walletAddress,
   )
   const signature = await getWalletSignature(signer, claim)
   const user = await createIdentityProof(
     authToken,
+    proofType,
     did,
     signature,
   )

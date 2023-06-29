@@ -326,6 +326,7 @@ export async function getIdentityClaim(
 
 export async function createIdentityProof(
   authToken: string,
+  proofType: "ethereum" | "minisign",
   did: string,
   signature: string,
 ): Promise<User> {
@@ -333,6 +334,7 @@ export async function createIdentityProof(
   const response = await http(url, {
     method: "POST",
     json: {
+      proof_type: proofType,
       did: did,
       signature: signature.replace(/^0x/, ""),
     },
