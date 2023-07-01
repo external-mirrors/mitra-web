@@ -73,9 +73,11 @@ export async function configureSubscriptions(
 
 export async function onSubscriptionsEnabled(
   authToken: string,
+  chainId: string,
 ): Promise<User> {
   return await registerSubscriptionOption(authToken, {
     type: "ethereum",
+    chain_id: chainId,
     price: null,
     payout_address: null,
   })

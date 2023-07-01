@@ -54,11 +54,13 @@ export function getSubscriptionDuration(
 
 export async function registerMoneroSubscriptionOption(
   authToken: string,
+  chainId: string,
   price: number,
   payoutAddress: string,
 ): Promise<User> {
   return await registerSubscriptionOption(authToken, {
     type: "monero",
+    chain_id: chainId,
     price,
     payout_address: payoutAddress,
   })

@@ -70,6 +70,7 @@ import {
   getPricePerSec,
 } from "@/api/subscriptions-monero"
 import Loader from "@/components/Loader.vue"
+import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
@@ -78,6 +79,7 @@ const {
   ensureCurrentUser,
   setCurrentUser,
 } = $(useCurrentUser())
+const { getBlockchainInfo } = $(useInstanceInfo())
 
 let isLoading = $ref(false)
 let subscriptionOption = $ref<SubscriptionOption | null>(null)
@@ -129,11 +131,16 @@ function isFormValid(): boolean {
 }
 
 async function saveSubscriptionSettings() {
+  const blockchain = getBlockchainInfo()
+  if (blockchain === null) {
+    return
+  }
   isLoading = true
   let user
   try {
     user = await registerMoneroSubscriptionOption(
       ensureAuthToken(),
+      blockchain.chain_id,
       getPricePerSec(subscriptionPrice),
       subscriptionPayoutAddress,
     )

@@ -31,6 +31,7 @@ export function formatAmount(
 
 export interface SubscriptionOption {
   type: string;
+  chain_id: string | null;
   price: number | null;
   payout_address: string | null;
 }

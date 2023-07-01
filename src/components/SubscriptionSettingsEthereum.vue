@@ -198,7 +198,10 @@ async function loadSubscriptionSettings() {
   if (subscriptionConfig !== null) {
     subscriptionsEnabled = true
     // Ensure server is aware of subscription configuration
-    await onSubscriptionsEnabled(ensureAuthToken())
+    await onSubscriptionsEnabled(
+      ensureAuthToken(),
+      blockchain.chain_id,
+    )
     await loadSubscriptionOption()
     subscriptions = await getReceivedSubscriptions(
       ensureAuthToken(),
@@ -269,7 +272,10 @@ async function onEnableSubscriptions() {
     signer,
     walletAddress,
   )
-  const user = await onSubscriptionsEnabled(authToken)
+  const user = await onSubscriptionsEnabled(
+    authToken,
+    blockchain.chain_id,
+  )
   setCurrentUser(user)
   // Reload subscription option info
   await loadSubscriptionOption()
