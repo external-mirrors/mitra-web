@@ -7,7 +7,18 @@
         @post-created="insertPost"
       ></post-editor>
       <loader v-if="isLoading"></loader>
-      <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
+      <div
+        v-if="posts.length === 0 && !isLoading"
+        class="timeline-empty"
+      >
+        <h1 v-if="instance">Welcome to {{ instance.title }}!</h1>
+        <span v-if="!canCreatePost()">Your account is in read-only mode</span>
+        <router-link class="btn secondary" :to="{ name: 'profile-directory' }">Browse profile directory</router-link>
+      </div>
+      <post-list
+        :posts="posts"
+        @load-next-page="loadNextPage"
+      ></post-list>
     </template>
   </sidebar-layout>
 </template>
@@ -23,10 +34,12 @@ import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { onInvalidAuthToken, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
+const { instance } = useInstanceInfo()
 
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
@@ -79,5 +92,21 @@ onMounted(async () => {
 
 .loader {
   margin: $block-outer-padding auto;
+}
+
+.timeline-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $block-outer-padding;
+
+  h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  span {
+    font-size: 1.2rem;
+  }
 }
 </style>
