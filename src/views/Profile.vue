@@ -242,8 +242,9 @@
           :posts="posts"
           @load-next-page="loadNextPage"
         ></post-list>
-        <template v-else-if="tabName === 'followers' || tabName === 'following' || tabName === 'subscribers'">
+        <template v-else-if="tabName === 'followers' || tabName === 'following'">
           <router-link
+            class="profile-list-item"
             v-for="profile in followList"
             :key="profile.id"
             :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
@@ -257,6 +258,19 @@
           >
             Show more profiles
           </button>
+        </template>
+        <template v-else-if="tabName === 'subscribers'">
+          <router-link
+            class="profile-list-item subscriber"
+            v-for="subscription in subscriptions"
+            :key="subscription.id"
+            :to="{ name: 'profile-by-acct', params: { acct: subscription.sender.acct } }"
+          >
+            <profile-list-item :profile="subscription.sender"></profile-list-item>
+            <div class="subscription-info">
+              Subscription expires {{ formatDate(subscription.expires_at) }}
+            </div>
+          </router-link>
         </template>
       </div>
     </template>
@@ -279,7 +293,7 @@ import {
   getFollowers,
   getFollowing,
 } from "@/api/relationships"
-import { getReceivedSubscriptions } from "@/api/subscriptions-common"
+import { getReceivedSubscriptions, Subscription } from "@/api/subscriptions-common"
 import {
   getAliases,
   getProfile,
@@ -303,6 +317,7 @@ import { useSignedActivity } from "@/composables/signed-activity"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
+import { formatDate } from "@/utils/dates"
 import { hasEthereumWallet } from "@/utils/ethereum"
 
 const route = useRoute()
@@ -328,6 +343,7 @@ let isLoading = $ref(false)
 let posts = $ref<Post[]>([])
 let followList = $ref<Profile[]>([])
 let followListNextPageUrl = $ref<string | null>(null)
+let subscriptions = $ref<Subscription[]>([])
 
 onMounted(async () => {
   isLoading = true
@@ -412,13 +428,11 @@ async function switchTab(name: string) {
     followList = page.profiles
     followListNextPageUrl = page.nextPageUrl
   } else if (tabName === "subscribers" && isCurrentUser()) {
-    const subscriptions = await getReceivedSubscriptions(
+    subscriptions = await getReceivedSubscriptions(
       ensureAuthToken(),
       profile.id,
       false,
     )
-    followList = subscriptions.map((subscription) => subscription.sender)
-    followListNextPageUrl = null
   }
   isLoading = false
 }
@@ -947,9 +961,22 @@ $avatar-size: 170px;
   }
 }
 
-/* profile-list-item */
-.profile {
+.profile-list-item {
+  display: block;
   margin-bottom: $block-outer-padding;
+}
+
+.subscriber {
+  .profile {
+    border-radius: $block-border-radius $block-border-radius 0 0;
+  }
+
+  .subscription-info {
+    background-color: var(--block-background-color);
+    border-radius: 0 0 $block-border-radius $block-border-radius;
+    color: var(--text-color); /* override link color */
+    padding: 0 $block-inner-padding $block-inner-padding;
+  }
 }
 
 .loader {
