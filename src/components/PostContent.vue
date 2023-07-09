@@ -138,7 +138,8 @@ function getContent(): string {
   }
 
   :deep(ul),
-  :deep(ol) {
+  :deep(ol),
+  :deep(li) {
     list-style-position: inside;
   }
 
