@@ -14,7 +14,7 @@ async function verifyEthereumAddress(): Promise<User | null> {
   const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
   const proofType = "ethereum"
-  const { did, claim } = await getIdentityClaim(
+  const { did, claim, created_at } = await getIdentityClaim(
     authToken,
     proofType,
     walletAddress,
@@ -25,6 +25,7 @@ async function verifyEthereumAddress(): Promise<User | null> {
     proofType,
     did,
     signature,
+    created_at,
   )
   setCurrentUser(user)
   return user

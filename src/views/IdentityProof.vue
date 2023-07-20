@@ -10,7 +10,7 @@
           v-model="key"
         ></textarea>
         <button
-          v-if="did === null"
+          v-if="identityClaim === null"
           type="button"
           class="btn"
           :disabled="!canGetClaim()"
@@ -18,18 +18,20 @@
         >
           Generate message
         </button>
-        <code v-if="identityClaim" class="message">
-          {{ identityClaim }}
-        </code>
+        <div v-if="identityClaim" class="message">
+          <code v class="message">
+            printf {{ identityClaim.claim }} | xxd -r -p > message
+          </code>
+        </div>
         <textarea
           type="text"
           id="signature"
-          placeholder="Signature (minisign -S -m message.json -x message.json.sig)"
+          placeholder="Signature (minisign -S -l -m message -x message.sig)"
           v-model="signature"
-          v-if="did"
+          v-if="identityClaim"
         ></textarea>
         <button
-          v-if="did !== null"
+          v-if="identityClaim !== null"
           type="submit"
           class="btn"
           :disabled="!canSubmit()"
@@ -47,57 +49,60 @@
 import { $, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import { createIdentityProof, getIdentityClaim } from "@/api/users"
+import {
+  createIdentityProof,
+  getIdentityClaim,
+  IdentityClaim,
+} from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
+
+const PROOF_TYPE = "minisign-unhashed"
 
 const router = useRouter()
 const { ensureAuthToken, currentUser } = $(useCurrentUser())
 
 const key = $ref("")
 const signature = $ref("")
-let did = $ref<string | null>(null)
-let identityClaim = $ref<string | null>(null)
+let identityClaim = $ref<IdentityClaim | null>(null)
 let errorMessage = $ref<string | null>(null)
 
 function canGetClaim(): boolean {
-  return did === null && key.length > 0
+  return identityClaim === null && key.length > 0
 }
 
 async function getClaim() {
-  if (currentUser === null || did !== null) {
+  if (currentUser === null || identityClaim !== null) {
     return
   }
   const authToken = ensureAuthToken()
   let data
   try {
-    data = await getIdentityClaim(authToken, "minisign", key)
+    data = await getIdentityClaim(authToken, PROOF_TYPE, key)
   } catch (error: any) {
     errorMessage = error.message
     return
   }
-  console.log(data)
   errorMessage = null
-  did = data.did
-  identityClaim = data.claim
+  identityClaim = data
 }
 
 function canSubmit(): boolean {
-  return did !== null && signature.length > 0
+  return identityClaim !== null && signature.length > 0
 }
 
 async function submit() {
-  if (currentUser === null || did === null) {
+  if (currentUser === null || identityClaim === null) {
     return
   }
   const authToken = ensureAuthToken()
-  const proofType = "minisign"
   try {
     await createIdentityProof(
       authToken,
-      proofType,
-      did,
+      PROOF_TYPE,
+      identityClaim.did,
       signature,
+      identityClaim.created_at,
     )
   } catch (error: any) {
     errorMessage = error.message

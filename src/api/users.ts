@@ -312,11 +312,17 @@ export async function sendSignedActivity(
   }
 }
 
+export interface IdentityClaim {
+  did: string,
+  claim: string,
+  created_at: string,
+}
+
 export async function getIdentityClaim(
   authToken: string,
-  proofType: "ethereum" | "minisign",
+  proofType: "ethereum" | "minisign" | "minisign-unhashed",
   signer: string,
-): Promise<{ did: string, claim: string }> {
+): Promise<IdentityClaim> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const queryParams = { proof_type: proofType, signer }
   const response = await http(url, { authToken, queryParams })
@@ -326,9 +332,10 @@ export async function getIdentityClaim(
 
 export async function createIdentityProof(
   authToken: string,
-  proofType: "ethereum" | "minisign",
+  proofType: "ethereum" | "minisign" | "minisign-unhashed",
   did: string,
   signature: string,
+  createdAt: string,
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
   const response = await http(url, {
@@ -337,6 +344,7 @@ export async function createIdentityProof(
       proof_type: proofType,
       did: did,
       signature: signature.replace(/^0x/, ""),
+      created_at: createdAt,
     },
     authToken,
   })
