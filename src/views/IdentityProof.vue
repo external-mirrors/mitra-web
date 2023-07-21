@@ -3,42 +3,52 @@
     <template #content>
       <h1>Link minisign key</h1>
       <form class="identity-proof">
-        <textarea
-          type="text"
-          id="key"
-          placeholder="Public key (minisign -R -p minisign.pub)"
-          v-model="key"
-        ></textarea>
-        <button
-          v-if="identityClaim === null"
-          type="button"
-          class="btn"
-          :disabled="!canGetClaim()"
-          @click.prevent="getClaim()"
-        >
-          Generate message
-        </button>
-        <div v-if="identityClaim" class="message">
-          <code v class="message">
-            printf {{ identityClaim.claim }} | xxd -r -p > message
+        <template v-if="identityClaim === null">
+          <h2>Step 1: Public key</h2>
+          <code v-if="identityClaim === null">
+            $ minisign -R -f -p minisign.pub
+            <br>
+            $ cat minisign.pub
           </code>
-        </div>
-        <textarea
-          type="text"
-          id="signature"
-          placeholder="Signature (minisign -S -l -m message -x message.sig)"
-          v-model="signature"
-          v-if="identityClaim"
-        ></textarea>
-        <button
-          v-if="identityClaim !== null"
-          type="submit"
-          class="btn"
-          :disabled="!canSubmit()"
-          @click.prevent="submit()"
-        >
-          Submit
-        </button>
+          <textarea
+            type="text"
+            id="key"
+            placeholder="Paste public key"
+            v-model="key"
+          ></textarea>
+          <button
+            type="button"
+            class="btn"
+            :disabled="!canGetClaim()"
+            @click.prevent="getClaim()"
+          >
+            Generate message
+          </button>
+        </template>
+        <template v-else>
+          <h2>Step 2: Signature</h2>
+          <code>
+            $ printf {{ identityClaim.claim }} | xxd -r -p > message
+            <br>
+            $ minisign -S -l -m message -x message.sig
+            <br>
+            $ cat message.sig
+          </code>
+          <textarea
+            type="text"
+            id="signature"
+            placeholder="Paste signature"
+            v-model="signature"
+          ></textarea>
+          <button
+            type="submit"
+            class="btn"
+            :disabled="!canSubmit()"
+            @click.prevent="submit()"
+          >
+            Submit
+          </button>
+        </template>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
     </template>
@@ -120,9 +130,18 @@ async function submit() {
 
 .identity-proof {
   @include content-form;
+
+  h2 {
+    margin: 0;
+  }
 }
 
-.message {
+code {
+  background-color: var(--widget-background-color);
+  border-radius: $btn-border-radius;
+  box-sizing: border-box;
+  display: block;
+  padding: $input-padding;
   width: 100%;
   word-wrap: break-word;
 }
