@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Use new minisign identity proof generation algorithm.
 - Redesign minisign identity proof generation page.
 
+### Changed
+
+- Changed license ID to `AGPL-3.0-only`.
+
 ## [1.30.0] - 2023-07-18
 
 ### Fixed

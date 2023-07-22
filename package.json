@@ -2,7 +2,7 @@
   "name": "mitra-web",
   "version": "1.30.0",
   "description": "Mitra web UI",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-only",
   "private": true,
   "engines": {
     "node": ">=12.2.0 || <16.0.0"
