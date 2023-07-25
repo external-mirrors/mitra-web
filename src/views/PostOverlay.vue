@@ -1,11 +1,14 @@
 <template>
   <div v-if="post && token" class="post-overlay wide">
-    <div v-if="canGoBack()" class="back-btn-wrapper">
-      <a class="back-btn" title="Back" @click="goBack()">
+    <div class="token">
+      <a
+        v-if="canGoBack()"
+        class="back-btn"
+        title="Back"
+        @click="goBack()"
+      >
         <img src="@/assets/feather/arrow-left.svg">
       </a>
-    </div>
-    <div class="token">
       <div class="token-content">
         <div class="token-description" v-html="token.description"></div>
         <div class="token-image" v-if="imageUrl">
@@ -147,19 +150,15 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   min-height: 100vh;
 }
 
-.back-btn-wrapper {
-  left: 0;
-  padding-left: inherit;
-  padding-right: inherit;
-  position: absolute;
-  right: 0;
-  top: $body-padding;
+.token {
+  margin: 0 auto;
+  max-width: 100%;
+  width: $page-width;
 
   .back-btn {
     display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    width: $page-width;
+    position: absolute;
+    top: $body-padding;
 
     img {
       filter: var(--text-colorizer);
@@ -167,12 +166,6 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
       width: 40px;
     }
   }
-}
-
-.token {
-  margin: 0 auto;
-  max-width: 100%;
-  width: $page-width;
 }
 
 .token-content {

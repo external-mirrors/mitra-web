@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Changed license ID to `AGPL-3.0-only`.
 
+### Fixed
+
+- Prevent "Back" button from occluding post title on token page.
+
 ## [1.30.0] - 2023-07-18
 
 ### Fixed
