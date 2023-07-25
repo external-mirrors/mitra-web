@@ -57,6 +57,14 @@
                     Atom feed
                   </a>
                 </li>
+                <li>
+                  <router-link
+                    title="View gallery"
+                    :to="{ name: 'profile-gallery' }"
+                  >
+                    View gallery
+                  </router-link>
+                </li>
                 <li v-if="canVerifyEthereumAddress()">
                   <button
                     title="Link ethereum address"
@@ -398,11 +406,13 @@ async function switchTab(name: string) {
       profile.id,
       true,
       false,
+      false,
     )
   } else if (tabName === "posts-with-replies") {
     posts = await getProfileTimeline(
       authToken,
       profile.id,
+      false,
       false,
       false,
     )
@@ -412,6 +422,7 @@ async function switchTab(name: string) {
       profile.id,
       false,
       true,
+      false,
     )
   } else if (tabName === "followers" && isCurrentUser()) {
     const page = await getFollowers(
@@ -690,6 +701,7 @@ async function loadNextPage(maxId: string) {
     profile.id,
     tabName !== "posts-with-replies",
     tabName === "posts-featured",
+    false,
     maxId,
   )
   posts = [...posts, ...nextPage]

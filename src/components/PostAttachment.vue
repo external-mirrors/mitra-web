@@ -68,6 +68,8 @@ a {
 
   > img {
     display: block;
+    height: 100%;
+    object-fit: cover;
     width: 100%;
   }
 

@@ -133,12 +133,14 @@ export async function getProfileTimeline(
   authorId: string,
   excludeReplies: boolean,
   onlyPinned: boolean,
+  onlyMedia: boolean,
   maxId?: string,
 ): Promise<Post[]> {
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
   const queryParams = {
     exclude_replies: excludeReplies,
     pinned: onlyPinned,
+    only_media: onlyMedia,
     max_id: maxId,
     limit: PAGE_SIZE,
   }

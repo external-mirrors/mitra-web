@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
 import EthereumPage from "@/views/Ethereum.vue"
+import Gallery from "@/views/Gallery.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
 import ImportFollows from "@/views/ImportFollows.vue"
@@ -117,6 +118,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/@:acct(.*)/subscription",
     name: "profile-by-acct-subscription",
     component: SubscriptionPage,
+    meta: { },
+  },
+  {
+    path: "/@:acct(.*)/gallery",
+    name: "profile-gallery",
+    component: Gallery,
     meta: { },
   },
   {

@@ -816,6 +816,7 @@ async function onMintToken() {
   align-items: center;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: calc($block-inner-padding / 2);
   padding: 0 $block-inner-padding $block-inner-padding;
 
@@ -868,11 +869,5 @@ async function onMintToken() {
 
 .post-form {
   border-top: 1px solid var(--separator-color);
-}
-
-@media screen and (max-width: $screen-breakpoint-small) {
-  .post-footer {
-    flex-wrap: wrap;
-  }
 }
 </style>
