@@ -17,6 +17,7 @@ export interface ProfilePaymentOption {
   href?: string,
   chain_id?: string,
   price?: number,
+  object_id?: string,
 }
 
 interface Source {
@@ -93,6 +94,10 @@ export interface User extends Profile {
   client_config: { [clientName: string]: { [property: string]: any } },
 }
 
+export function isRemoteProfile(profile: Profile): boolean {
+  return profile.username !== profile.acct
+}
+
 export interface ProfileWrapper extends Profile {}
 export class ProfileWrapper {
 
@@ -118,6 +123,10 @@ export class ProfileWrapper {
       }
     }
     return null
+  }
+
+  isLocal(): boolean {
+    return !isRemoteProfile(this)
   }
 
 }

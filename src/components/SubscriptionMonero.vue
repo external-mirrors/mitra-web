@@ -58,6 +58,17 @@
         Subscription is not available.
       </template>
     </div>
+    <div v-if="!recipient.isLocal() && subscriptionOption">
+      <a
+        v-if="canSubscribeRemote()"
+        class="btn primary"
+        :href="subscriptionOption.object_id"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Pay
+      </a>
+    </div>
     <form class="payment" v-if="canSubscribe()">
       <div class="duration" @click="editDuration()">
         <label for="duration">Duration</label>
@@ -160,6 +171,7 @@ import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
+import { getRelationship, Relationship } from "@/api/relationships"
 import { searchProfilesByAcct } from "@/api/search"
 import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
 import {
@@ -194,7 +206,7 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
-const { currentUser } = $(useCurrentUser())
+const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const { getSubscriptionOption } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)
@@ -203,6 +215,7 @@ let senderError = $ref<string | null>(null)
 let sender = $ref(new ProfileWrapper(currentUser || defaultProfile({ display_name: "You" })))
 let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
+let relationship = $ref<Relationship | null>(null)
 let paymentDurationInputValue = $ref<number | "">(1)
 let paymentAmountInputValue = $ref<number | "">(0)
 let isAmountEditable = $ref(false)
@@ -224,7 +237,12 @@ onMounted(async () => {
   ) {
     subscriptionOption = option
     if (sender.id !== "") {
-      await loadSubscriptionDetails()
+      if (recipient.isLocal()) {
+        await loadSubscriptionDetails()
+      } else {
+        // Only authenticated users may view remote subscriptions
+        relationship = await getRelationship(ensureAuthToken(), recipient.id)
+      }
     }
   }
   isLoading = false
@@ -283,6 +301,12 @@ async function identifySender() {
 }
 
 function isSubscribed(): boolean {
+  if (!recipient.isLocal()) {
+    if (relationship === null) {
+      return false
+    }
+    return relationship.subscription_to
+  }
   if (subscriptionDetails === null) {
     return false
   }
@@ -294,8 +318,17 @@ function canSubscribe(): boolean {
   return (
     sender.id !== "" &&
     sender.id !== recipient.id &&
+    recipient.isLocal() &&
     subscriptionPrice !== null &&
     invoice === null
+  )
+}
+
+function canSubscribeRemote(): boolean {
+  return (
+    !recipient.isLocal() &&
+    subscriptionOption !== null &&
+    subscriptionOption.object_id !== undefined
   )
 }
 
