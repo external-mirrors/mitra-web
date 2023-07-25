@@ -14,10 +14,6 @@
 @import "../styles/layout";
 
 .page {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: row;
-  gap: $content-gap;
   margin: 0 auto;
   max-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   padding-top: 20vh;
