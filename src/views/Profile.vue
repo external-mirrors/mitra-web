@@ -57,14 +57,6 @@
                     Atom feed
                   </a>
                 </li>
-                <li>
-                  <router-link
-                    title="View gallery"
-                    :to="{ name: 'profile-gallery' }"
-                  >
-                    View gallery
-                  </router-link>
-                </li>
                 <li v-if="canVerifyEthereumAddress()">
                   <button
                     title="Link ethereum address"
@@ -220,27 +212,39 @@
       <div class="tab-bar" v-if="profile">
         <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
           <a
+            class="tab"
             :class="{ active: tabName === 'posts' }"
             @click="switchTab('posts')"
           >
             Posts
           </a>
           <a
+            class="tab"
             :class="{ active: tabName === 'posts-with-replies' }"
             @click="switchTab('posts-with-replies')"
           >
             Posts and replies
           </a>
           <a
+            class="tab"
             :class="{ active: tabName === 'posts-featured' }"
             @click="switchTab('posts-featured')"
           >
             Featured
           </a>
+          <router-link class="tab" :to="{ name: 'profile-gallery' }">
+            Gallery
+          </router-link>
         </template>
-        <span v-else-if="tabName === 'followers'" class="active">Followers</span>
-        <span v-else-if="tabName === 'following'" class="active">Following</span>
-        <span v-else-if="tabName === 'subscribers'" class="active">Subscribers</span>
+        <span v-else-if="tabName === 'followers'" class="tab active">
+          Followers
+        </span>
+        <span v-else-if="tabName === 'following'" class="tab active">
+          Following
+        </span>
+        <span v-else-if="tabName === 'subscribers'" class="tab active">
+          Subscribers
+        </span>
       </div>
       <loader v-if="isLoading"></loader>
       <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
@@ -957,14 +961,15 @@ $avatar-size: 170px;
 .tab-bar {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: $block-outer-padding;
 
-  a,
-  span {
+  .tab {
     border-radius: $block-border-radius;
+    box-sizing: border-box;
+    flex-grow: 1;
     padding: calc($block-inner-padding / 2);
     text-align: center;
-    width: 100%;
 
     &.active {
       background-color: var(--block-background-color);
@@ -998,5 +1003,11 @@ $avatar-size: 170px;
 .not-found {
   font-size: 20px;
   text-align: center;
+}
+
+@media screen and (max-width: $screen-breakpoint-small) {
+  .tab {
+    flex-basis: 50%;
+  }
 }
 </style>
