@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed license ID to `AGPL-3.0-only`.
+- Added canonicalization step to activity signing procedure.
 
 ### Fixed
 

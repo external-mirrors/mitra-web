@@ -271,12 +271,11 @@ export async function updateProfile(
 
 interface ActivityParams {
   type: "update",
-  [key: string]: any,
 }
 
 interface UnsignedActivity {
   params: ActivityParams,
-  message: string,
+  value: { [key: string]: any },
 }
 
 export async function getUnsignedUpdate(
@@ -291,6 +290,7 @@ export async function getUnsignedUpdate(
 export async function sendSignedActivity(
   authToken: string,
   activityParams: ActivityParams,
+  activityValue: { [key: string]: any },
   walletAddress: string,
   signature: string,
 ): Promise<void> {
@@ -299,6 +299,7 @@ export async function sendSignedActivity(
     method: "POST",
     json: {
       params: activityParams,
+      value: activityValue,
       signer: createDidFromEthereumAddress(walletAddress),
       signature: signature.replace(/0x/, ""),
     },

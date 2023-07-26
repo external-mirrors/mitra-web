@@ -1,3 +1,5 @@
+import canonicalize from "canonicalize"
+
 import {
   getUnsignedUpdate,
   sendSignedActivity,
@@ -16,11 +18,16 @@ async function signUpdateActivity(): Promise<void> {
   }
   const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
-  const { params, message } = await getUnsignedUpdate(authToken)
+  const { value, params } = await getUnsignedUpdate(authToken)
+  const message = canonicalize(value)
+  if (!message) {
+    throw new Error("canonicalization error")
+  }
   const signature = await getWalletSignature(signer, message)
   await sendSignedActivity(
     authToken,
     params,
+    value,
     walletAddress,
     signature,
   )
