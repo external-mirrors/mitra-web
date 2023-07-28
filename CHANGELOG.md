@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `.m4v` extension to the list of supported media types.
+
 ## [1.31.0] - 2023-07-26
 
 ### Added

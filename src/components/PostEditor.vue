@@ -316,8 +316,12 @@ function getAcceptedMediaTypes(): string {
   if (!instance) {
     return ""
   }
-  return instance.configuration.media_attachments.supported_mime_types
-    .join(",")
+  const types = [...instance.configuration.media_attachments.supported_mime_types]
+  if (types.includes("video/x-m4v")) {
+    // Some OSes don't associate .m4v files with video/x-m4v media type
+    types.push(".m4v")
+  }
+  return types.join(",")
 }
 
 function selectAttachment() {
