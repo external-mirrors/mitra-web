@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { Profile } from "./users"
 
 export interface Relationship {
@@ -29,12 +29,8 @@ export async function follow(
     },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function getRelationship(
@@ -47,10 +43,7 @@ export async function getRelationship(
     queryParams: { "id[]": accountId },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data[0]
 }
 
@@ -63,12 +56,8 @@ export async function unfollow(
     method: "POST",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function mute(
@@ -80,12 +69,8 @@ export async function mute(
     method: "POST",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function unmute(
@@ -97,12 +82,8 @@ export async function unmute(
     method: "POST",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 interface ProfileListPage {
@@ -129,7 +110,7 @@ export async function getFollowers(
     url = `${BACKEND_URL}/api/v1/accounts/${accountId}/followers`
   }
   const response = await http(url, { authToken })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return {
     profiles: data,
     nextPageUrl: getNextPageUrl(response),
@@ -145,7 +126,7 @@ export async function getFollowing(
     url = `${BACKEND_URL}/api/v1/accounts/${accountId}/following`
   }
   const response = await http(url, { authToken })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return {
     profiles: data,
     nextPageUrl: getNextPageUrl(response),

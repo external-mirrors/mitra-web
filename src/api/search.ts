@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 
 import { createDidFromEthereumAddress } from "@/utils/did"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { Post, Tag } from "./posts"
 import { Profile } from "./users"
 
@@ -21,10 +21,7 @@ export async function getSearchResults(
     queryParams: { q: query },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -40,10 +37,7 @@ export async function searchProfilesByAcct(
     queryParams: { q: acct, resolve, limit },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -55,9 +49,6 @@ export async function searchProfilesByEthereumAddress(
     method: "GET",
     queryParams: { did: createDidFromEthereumAddress(walletAddress) },
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }

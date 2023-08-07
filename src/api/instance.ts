@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { AuthenticationMethod, Profile } from "./users"
 
 interface Features {
@@ -55,6 +55,6 @@ export interface InstanceInfo {
 export async function getInstanceInfo(): Promise<InstanceInfo> {
   const url = `${BACKEND_URL}/api/v1/instance`
   const response = await http(url)
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }

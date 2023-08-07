@@ -2,7 +2,7 @@ import { BigNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
 import { floatToBigNumber } from "@/utils/numbers"
-import { http, handleResponse } from "./common"
+import { handleResponse, http } from "./common"
 import {
   formatAmount,
   getPricePerMonth as _getPricePerMonth,
@@ -92,12 +92,8 @@ export async function createInvoice(
       amount,
     },
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function getInvoice(
@@ -107,12 +103,8 @@ export async function getInvoice(
   const response = await http(url, {
     method: "GET",
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function cancelInvoice(

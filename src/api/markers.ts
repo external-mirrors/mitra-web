@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 
 export interface Marker {
   last_read_id: string;
@@ -17,10 +17,7 @@ export async function getNotificationMarker(
     queryParams: { "timeline[]": "notifications" },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data.notifications
 }
 
@@ -34,9 +31,6 @@ export async function updateNotificationMarker(
     json: { "notifications[last_read_id]": lastReadId },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data.notifications
 }

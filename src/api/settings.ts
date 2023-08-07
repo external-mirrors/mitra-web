@@ -12,12 +12,8 @@ export async function updateClientConfig(
     json: { [APP_NAME]: clientConfig },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function changePassword(
@@ -30,12 +26,8 @@ export async function changePassword(
     json: { new_password: newPassword },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function addAlias(
@@ -109,10 +101,7 @@ export async function importFollows(
     authToken,
     json: { follows_csv: followsCsv },
   })
-  if (response.status !== 204) {
-    const data = await response.json()
-    throw new Error(data.error_description)
-  }
+  await handleResponse(response, 204)
 }
 
 export async function moveFollowers(
@@ -126,10 +115,6 @@ export async function moveFollowers(
     authToken,
     json: { from_actor_id: fromActorId, followers_csv: followersCsv },
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }

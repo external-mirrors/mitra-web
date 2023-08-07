@@ -5,7 +5,7 @@ import { DateTime } from "luxon"
 import { BACKEND_URL } from "@/constants"
 import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { Contracts, getContract } from "./contracts"
 import {
   formatAmount,
@@ -45,12 +45,8 @@ export async function getSubscriptionAuthorization(
     authToken,
     queryParams: { price: pricePerSec.toString() },
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function configureSubscriptions(

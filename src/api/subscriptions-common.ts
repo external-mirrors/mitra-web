@@ -2,7 +2,7 @@ import { BigNumber, FixedNumber } from "@ethersproject/bignumber"
 
 import { BACKEND_URL } from "@/constants"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 import { Profile, User } from "./users"
 
 const SECONDS_IN_DAY = 3600 * 24
@@ -44,12 +44,8 @@ export async function getSubscriptionOptions(
     method: "GET",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function registerSubscriptionOption(
@@ -62,12 +58,8 @@ export async function registerSubscriptionOption(
     authToken,
     json: subscriptionOption,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export interface SubscriptionDetails {
@@ -84,14 +76,11 @@ export async function findSubscription(
     method: "GET",
     queryParams: { sender_id: senderId, recipient_id: recipientId },
   })
-  const data = await response.json()
-  if (response.status === 200) {
-    return data
-  } else if (response.status === 404) {
+  if (response.status === 404) {
     return null
-  } else {
-    throw new Error(data.error_description)
   }
+  const data = await handleResponse(response)
+  return data
 }
 
 export interface Subscription {
@@ -112,6 +101,6 @@ export async function getReceivedSubscriptions(
     queryParams: { include_expired: includeExpired },
     authToken,
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }

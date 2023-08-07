@@ -1,7 +1,7 @@
 import { Contract, Signer } from "ethers"
 
 import { BACKEND_URL } from "@/constants"
-import { http } from "./common"
+import { handleResponse, http } from "./common"
 
 export enum Contracts {
   Minter = "IMinter",
@@ -15,7 +15,7 @@ async function getContractAbi(contractName: string): Promise<any> {
   const response = await http(url, {
     method: "GET",
   })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data.abi
 }
 

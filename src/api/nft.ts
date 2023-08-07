@@ -3,8 +3,8 @@ import { TransactionResponse } from "@ethersproject/abstract-provider"
 
 import { BACKEND_URL } from "@/constants"
 import { EthereumSignature } from "@/utils/ethereum"
-import { http } from "./common"
-import { Contracts, getContract } from "./contracts"
+import { handleResponse, http } from "./common"
+import { getContract, Contracts } from "./contracts"
 import { Post } from "./posts"
 
 export async function makePermanent(
@@ -16,12 +16,8 @@ export async function makePermanent(
     method: "POST",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function getMintingAuthorization(
@@ -33,12 +29,8 @@ export async function getMintingAuthorization(
     method: "GET",
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export interface TokenMetadata {
@@ -77,12 +69,8 @@ export async function onTokenMinted(
     json: { transaction_id: transactionId.replace(/0x/, "") },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function getTokenMetadata(url: string): Promise<TokenMetadata> {
@@ -90,5 +78,6 @@ export async function getTokenMetadata(url: string): Promise<TokenMetadata> {
     method: "GET",
     credentials: "omit",
   })
-  return await response.json()
+  const data = await handleResponse(response)
+  return data
 }

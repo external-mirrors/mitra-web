@@ -151,12 +151,8 @@ export async function createUser(
       ...userData,
     },
   })
-  const data = await response.json()
-  if (response.status !== 201) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response, 201)
+  return data
 }
 
 interface LoginForm {
@@ -179,12 +175,8 @@ export async function getAccessToken(
     method: "POST",
     json: tokenRequestData,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data.access_token
-  }
+  const data = await handleResponse(response)
+  return data.access_token
 }
 
 export async function revokeAccessToken(
@@ -196,10 +188,7 @@ export async function revokeAccessToken(
     authToken,
     json: { token: authToken },
   })
-  if (response.status !== 200) {
-    const data = await response.json()
-    throw new Error(data.error_description)
-  }
+  await handleResponse(response)
 }
 
 export async function getCurrentUser(authToken: string): Promise<User> {
@@ -215,10 +204,7 @@ export async function lookupProfile(
 ): Promise<Profile> {
   const url = `${BACKEND_URL}/api/v1/accounts/lookup`
   const response = await http(url, { authToken, queryParams: { acct } })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -228,10 +214,7 @@ export async function getProfile(
 ): Promise<Profile> {
   const url = `${BACKEND_URL}/api/v1/accounts/${profileId}`
   const response = await http(url, { authToken })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
 
@@ -242,7 +225,7 @@ export async function getProfiles(
   const url = `${BACKEND_URL}/api/v1/directory`
   const queryParams = { offset, limit: PAGE_SIZE }
   const response = await http(url, { queryParams, authToken })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -271,12 +254,8 @@ export async function updateProfile(
     json: profileData,
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 interface ActivityParams {
@@ -293,7 +272,7 @@ export async function getUnsignedUpdate(
 ): Promise<UnsignedActivity> {
   const url = `${BACKEND_URL}/api/v1/accounts/signed_update`
   const response = await http(url, { authToken })
-  const data = await response.json()
+  const data = await handleResponse(response)
   return data
 }
 
@@ -315,12 +294,8 @@ export async function sendSignedActivity(
     },
     authToken,
   })
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  } else {
-    return data
-  }
+  const data = await handleResponse(response)
+  return data
 }
 
 export interface IdentityClaim {
@@ -372,9 +347,6 @@ export interface Aliases {
 export async function getAliases(profileId: string): Promise<Aliases> {
   const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/aliases/all`
   const response = await http(url)
-  const data = await response.json()
-  if (response.status !== 200) {
-    throw new Error(data.error_description)
-  }
+  const data = await handleResponse(response)
   return data
 }
