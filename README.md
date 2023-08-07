@@ -1,8 +1,16 @@
 # Mitra Web
 
-Default frontend for [Mitra](https://codeberg.org/silverpill/mitra). Mitra includes a dark mode feature for visual accessibility.
+Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
 <img width="650" src="screenshot.png" alt="screenshot">
+
+Mitra Web UI includes a dark mode feature for visual accessibility.
+
+## Compatibility
+
+The latest version of Mitra Web UI is compatible with the latest version of Mitra server and the version before it.
+
+Compatibility with previous versions is not guaranteed.
 
 ## Requirements
 
