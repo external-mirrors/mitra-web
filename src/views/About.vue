@@ -14,7 +14,7 @@
   <static-page v-else-if="currentUser === null && instance" class="wide">
     <template #heading>{{ instance.title }}</template>
     <template #text>
-      <div v-html="instance.description"></div>
+      <div class="description" v-html="instance.description"></div>
     </template>
   </static-page>
 </template>
@@ -45,9 +45,15 @@ function getMitraVersion(apiVersion: string): string {
 @import "../styles/layout";
 @import "../styles/theme";
 
+.description {
+  word-wrap: break-word;
+}
+
 /* Internal page */
-.content .description {
-  font-size: 18px;
+.content {
+  .description {
+    font-size: 18px;
+  }
 }
 
 .technical-info {
