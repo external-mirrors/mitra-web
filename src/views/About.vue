@@ -51,6 +51,11 @@ function getMitraVersion(apiVersion: string): string {
 
 /* Internal page */
 .content {
+  h1 {
+    font-size: 18px * 2.5;
+    margin-bottom: calc($block-outer-padding / 2);
+  }
+
   .description {
     font-size: 18px;
   }
@@ -58,7 +63,7 @@ function getMitraVersion(apiVersion: string): string {
 
 .technical-info {
   font-size: 18px;
-  margin-top: 25px;
+  margin-top: $block-outer-padding;
 
   summary {
     font-weight: bold;

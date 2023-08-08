@@ -124,27 +124,27 @@ h6 {
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2.2em;
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.6em;
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1.4em;
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: 1.2em;
 }
 
 h5 {
-  font-size: 1.1rem;
+  font-size: 1.1em;
 }
 
 h6 {
-  font-size: 1rem;
+  font-size: 1em;
 }
 
 .static-text {
