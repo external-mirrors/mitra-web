@@ -3,6 +3,12 @@
     <template #content>
       <h1>{{ instance.title }}</h1>
       <div class="description static-text" v-html="instance.description"></div>
+      <template v-if="instance.contact_account">
+        <h2 class="staff-header">Administered by</h2>
+        <router-link :to="{ name: 'profile-by-acct', params: { acct: instance.contact_account.acct } }">
+          <profile-list-item :profile="instance.contact_account"></profile-list-item>
+        </router-link>
+      </template>
       <details class="technical-info static-text">
         <summary>Technical Info</summary>
         mitra version: {{ getMitraVersion(instance.version) }}
@@ -15,6 +21,12 @@
     <template #heading>{{ instance.title }}</template>
     <template #text>
       <div class="description" v-html="instance.description"></div>
+      <template v-if="instance.contact_account">
+        <h2 class="staff-header">Administered by</h2>
+        <router-link :to="{ name: 'profile-by-acct', params: { acct: instance.contact_account.acct } }">
+          <profile-list-item :profile="instance.contact_account"></profile-list-item>
+        </router-link>
+      </template>
     </template>
   </static-page>
 </template>
@@ -23,6 +35,7 @@
 import { $ } from "vue/macros"
 
 import { APP_VERSION } from "@/constants"
+import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import StaticPage from "@/components/StaticPage.vue"
 import { useCurrentUser } from "@/composables/user"
@@ -59,14 +72,30 @@ function getMitraVersion(apiVersion: string): string {
   .description {
     font-size: 18px;
   }
+
+  .staff-header {
+    margin-top: $block-outer-padding;
+  }
+
+  .technical-info {
+    font-size: 18px;
+    margin-top: $block-outer-padding;
+
+    summary {
+      font-weight: bold;
+    }
+  }
 }
 
-.technical-info {
-  font-size: 18px;
-  margin-top: $block-outer-padding;
+/* Public page */
+.page-content {
+  .profile {
+    line-height: normal;
 
-  summary {
-    font-weight: bold;
+    :deep(.avatar) {
+      height: 3em;
+      width: 3em;
+    }
   }
 }
 </style>

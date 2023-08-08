@@ -1,6 +1,6 @@
 import { BACKEND_URL } from "@/constants"
 import { http } from "./common"
-import { AuthenticationMethod } from "./users"
+import { AuthenticationMethod, Profile } from "./users"
 
 interface Features {
   gate: boolean;
@@ -45,6 +45,7 @@ export interface InstanceInfo {
       supported_mime_types: string[],
     },
   },
+  contact_account: Profile | null,
   authentication_methods: AuthenticationMethod[],
   login_message: string;
   blockchains: BlockchainInfo[];
