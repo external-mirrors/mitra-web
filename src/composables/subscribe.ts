@@ -1,6 +1,6 @@
 import { RouteLocationRaw } from "vue-router"
 
-import { Profile } from "@/api/users"
+import { Profile, ProfilePaymentOption } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
 
 interface SubscriptionLink {
@@ -43,7 +43,18 @@ export function useSubscribe() {
     return null
   }
 
+  function getSubscriptionOption(
+    profile: Profile,
+  ): ProfilePaymentOption | null {
+    // Use first option if there are many
+    const subscriptionOption = profile.payment_options.find((option) => {
+      return option.type === "ethereum-subscription" || option.type === "monero-subscription"
+    }) || null
+    return subscriptionOption
+  }
+
   return {
     getSubscriptionLink,
+    getSubscriptionOption,
   }
 }

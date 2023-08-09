@@ -15,6 +15,7 @@ export interface ProfilePaymentOption {
   type: string,
   name?: string,
   href?: string,
+  chain_id?: string,
   price?: number,
 }
 

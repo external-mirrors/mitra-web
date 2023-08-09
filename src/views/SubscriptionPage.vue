@@ -10,27 +10,27 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue"
-import { $, $computed, $ref } from "vue/macros"
+import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import {
   lookupProfile,
   getProfile,
   Profile,
+  ProfilePaymentOption,
 } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
-import { useInstanceInfo } from "@/composables/instance"
+import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
 
 const route = useRoute()
 const { authToken } = $(useCurrentUser())
-const { getBlockchainInfo } = $(useInstanceInfo())
+const { getSubscriptionOption } = useSubscribe()
 let profile = $ref<Profile | null>(null)
-
-const blockchain = $computed(() => getBlockchainInfo())
+let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
 
 onMounted(async () => {
   // Recipient
@@ -45,6 +45,7 @@ onMounted(async () => {
       route.params.profileId as string,
     )
   }
+  subscriptionOption = getSubscriptionOption(profile)
 })
 
 function isLocalUser(): boolean {
@@ -55,16 +56,16 @@ function isLocalUser(): boolean {
 }
 
 function isEthereum(): boolean {
-  if (!blockchain) {
+  if (!subscriptionOption?.chain_id) {
     return false
   }
-  return isEthereumChain(blockchain.chain_id)
+  return isEthereumChain(subscriptionOption.chain_id)
 }
 
 function isMonero(): boolean {
-  if (!blockchain) {
+  if (!subscriptionOption?.chain_id) {
     return false
   }
-  return isMoneroChain(blockchain.chain_id)
+  return isMoneroChain(subscriptionOption.chain_id)
 }
 </script>

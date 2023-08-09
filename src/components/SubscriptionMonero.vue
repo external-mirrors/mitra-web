@@ -179,9 +179,11 @@ import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { formatDate } from "@/utils/dates"
 import { createMoneroPaymentUri } from "@/utils/monero"
+import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const INVOICE_ID_STORAGE_KEY = "invoice"
 const PAYMENT_AMOUNT_MIN = 0.001
@@ -194,6 +196,7 @@ const props = defineProps<{
 const route = useRoute()
 const { currentUser } = $(useCurrentUser())
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
+const { getSubscriptionOption } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)
 const senderAcct = $ref("")
 let senderError = $ref<string | null>(null)
@@ -213,11 +216,16 @@ function getInvoiceIdStorageKey(): string {
 
 onMounted(async () => {
   isLoading = true
-  subscriptionOption = recipient.payment_options.find((option) => {
-    return option.type === "monero-subscription" && option.price !== undefined
-  }) || null
-  if (subscriptionOption && sender.id !== "") {
-    await loadSubscriptionDetails()
+  const option = getSubscriptionOption(recipient)
+  if (
+    option !== null &&
+    option.chain_id !== undefined &&
+    isMoneroChain(option.chain_id)
+  ) {
+    subscriptionOption = option
+    if (sender.id !== "") {
+      await loadSubscriptionDetails()
+    }
   }
   isLoading = false
 })
@@ -347,7 +355,7 @@ const paymentAmount = $computed<number>(() => {
 
 const paymentMessage = computed<string | null>(() => {
   const blockchain = getBlockchainInfo()
-  if (blockchain) {
+  if (blockchain && blockchain.chain_id === subscriptionOption?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.description || null
   } else {
     return null
@@ -362,8 +370,7 @@ async function onCreateInvoice() {
   if (paymentAmount === 0) {
     return
   }
-  const blockchain = getBlockchainInfo()
-  if (!blockchain) {
+  if (!subscriptionOption || !subscriptionOption.chain_id) {
     return
   }
   isLoading = true
@@ -371,7 +378,7 @@ async function onCreateInvoice() {
     invoice = await createInvoice(
       sender.id,
       recipient.id,
-      blockchain.chain_id,
+      subscriptionOption.chain_id,
       paymentAmount,
     )
   } catch (error: any) {
