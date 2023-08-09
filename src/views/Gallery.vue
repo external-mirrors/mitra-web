@@ -9,7 +9,10 @@
         <img src="@/assets/feather/arrow-left.svg">
       </router-link>
       <h1><profile-display-name :profile="profile"></profile-display-name> gallery</h1>
-      <div class="post-grid">
+      <div
+        v-if="posts.length > 0"
+        class="post-grid"
+      >
         <router-link
           v-for="post in posts"
           class="post"
@@ -24,6 +27,9 @@
           </post-attachment>
         </router-link>
       </div>
+      <h2 v-else-if="!isLoading" class="empty">
+        No media found
+      </h2>
       <loader v-if="isLoading"></loader>
     </div>
   </div>
@@ -92,7 +98,8 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   }
 
   h1 {
-    margin: $block-outer-padding 0;
+    margin-bottom: $block-outer-padding * 2;
+    margin-top: $block-outer-padding * 2 - $body-padding;
     text-align: center;
   }
 }
@@ -111,6 +118,10 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
       height: 100%;
     }
   }
+}
+
+.empty {
+  text-align: center;
 }
 
 .loader {
