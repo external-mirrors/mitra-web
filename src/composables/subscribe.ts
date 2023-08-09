@@ -3,7 +3,7 @@ import { RouteLocationRaw } from "vue-router"
 import { Profile } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
 
-interface SubscriptionOption {
+interface SubscriptionLink {
   type: "ethereum" | "monero",
   location: string | RouteLocationRaw,
 }
@@ -11,7 +11,7 @@ interface SubscriptionOption {
 export function useSubscribe() {
   const { getBlockchainInfo } = useInstanceInfo()
 
-  function getSubscriptionOption(profile: Profile): SubscriptionOption | null {
+  function getSubscriptionLink(profile: Profile): SubscriptionLink | null {
     for (const option of profile.payment_options) {
       if (
         option.type === "link" &&
@@ -44,6 +44,6 @@ export function useSubscribe() {
   }
 
   return {
-    getSubscriptionOption,
+    getSubscriptionLink,
   }
 }

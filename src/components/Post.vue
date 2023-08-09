@@ -329,7 +329,7 @@ interface PaymentOption {
 const router = useRouter()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getActorAddress, getBlockchainInfo, instance } = $(useInstanceInfo())
-const { getSubscriptionOption } = useSubscribe()
+const { getSubscriptionLink } = useSubscribe()
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
@@ -566,13 +566,13 @@ function getPaymentOptions(): PaymentOption[] {
       subscription: null,
     })
   }
-  const subscriptionOption = getSubscriptionOption(props.post.account)
-  if (subscriptionOption) {
+  const subscriptionLink = getSubscriptionLink(props.post.account)
+  if (subscriptionLink) {
     // TODO: use CAIP-2 ID -> symbol mapping
     const currency = CRYPTOCURRENCIES.find(([code]) => {
-      if (subscriptionOption.type === "ethereum" && code === "ETH") {
+      if (subscriptionLink.type === "ethereum" && code === "ETH") {
         return true
-      } else if (subscriptionOption.type === "monero" && code === "XMR") {
+      } else if (subscriptionLink.type === "monero" && code === "XMR") {
         return true
       } else {
         return false
@@ -585,13 +585,13 @@ function getPaymentOptions(): PaymentOption[] {
       return option.code === currency[0]
     })
     if (option) {
-      option.subscription = subscriptionOption.location
+      option.subscription = subscriptionLink.location
     } else {
       options.push({
         code: currency[0],
         name: currency[1],
         address: null,
-        subscription: subscriptionOption.location,
+        subscription: subscriptionLink.location,
       })
     }
   }

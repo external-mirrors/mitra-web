@@ -340,7 +340,7 @@ const {
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
-const { getSubscriptionOption } = useSubscribe()
+const { getSubscriptionLink } = useSubscribe()
 
 const postListRef = $ref<InstanceType<typeof PostList> | null>(null)
 
@@ -671,8 +671,8 @@ const subscriptionPageLocation = computed(() => {
   if (!profile) {
     return null
   }
-  const option = getSubscriptionOption(profile)
-  return option?.location || null
+  const link = getSubscriptionLink(profile)
+  return link?.location || null
 })
 
 function canSubscribe(): boolean {
