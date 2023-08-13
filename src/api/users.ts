@@ -1,5 +1,4 @@
 import { BACKEND_URL } from "@/constants"
-import { createDidFromEthereumAddress } from "@/utils/did"
 import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
 
@@ -280,8 +279,8 @@ export async function sendSignedActivity(
   authToken: string,
   activityParams: ActivityParams,
   activityValue: { [key: string]: any },
-  walletAddress: string,
-  signature: string,
+  signer: string,
+  signatureHex: string,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/accounts/send_activity`
   const response = await http(url, {
@@ -289,8 +288,8 @@ export async function sendSignedActivity(
     json: {
       params: activityParams,
       value: activityValue,
-      signer: createDidFromEthereumAddress(walletAddress),
-      signature: signature.replace(/0x/, ""),
+      signer: signer,
+      signature: signatureHex,
     },
     authToken,
   })

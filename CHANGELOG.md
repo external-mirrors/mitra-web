@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed style of "not found" messages.
+- Add FEP-8b32 integrity proof to C2S activities.
 
 ### Fixed
 

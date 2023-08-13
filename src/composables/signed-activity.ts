@@ -5,7 +5,26 @@ import {
   sendSignedActivity,
 } from "@/api/users"
 import { useCurrentUser } from "@/composables/user"
+import { createDidFromEthereumAddress } from "@/utils/did"
+import { hexToBytes, encodeMultibase } from "@/utils/encodings"
 import { getWallet, getWalletSignature } from "@/utils/ethereum"
+
+function addIntegrityProof(
+  object: any,
+  verificationMethod: string,
+  signature: string,
+): any {
+  const signatureBytes = hexToBytes(signature)
+  const proof = {
+    type: "MitraJcsEip191Signature2022",
+    proofPurpose: "assertionMethod",
+    verificationMethod: verificationMethod,
+    created: (new Date()).toISOString(),
+    proofValue: encodeMultibase(signatureBytes),
+  }
+  object.proof = proof
+  return object
+}
 
 async function signUpdateActivity(): Promise<void> {
   const { ensureAuthToken } = useCurrentUser()
@@ -24,12 +43,15 @@ async function signUpdateActivity(): Promise<void> {
     throw new Error("canonicalization error")
   }
   const signature = await getWalletSignature(signer, message)
+  const signatureHex = signature.replace(/0x/, "")
+  const verificationMethod = createDidFromEthereumAddress(walletAddress)
+  const signedValue = addIntegrityProof(value, verificationMethod, signatureHex)
   await sendSignedActivity(
     authToken,
     params,
-    value,
-    walletAddress,
-    signature,
+    signedValue,
+    verificationMethod,
+    signatureHex,
   )
 }
 

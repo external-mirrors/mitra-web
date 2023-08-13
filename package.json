@@ -21,6 +21,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "bs58": "^5.0.0",
     "canonicalize": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.5.4",
