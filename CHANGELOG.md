@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Always verify status code of HTTP responses.
 
+### Fixed
+
+- Make dropdown menu items fully clickable.
+
 ## [1.32.0] - 2023-08-10
 
 ### Added

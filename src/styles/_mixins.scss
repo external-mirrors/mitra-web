@@ -117,6 +117,12 @@
     position: absolute;
     white-space: nowrap;
     z-index: 3;
+
+    li > a,
+    li > button {
+      display: inline-block;
+      width: 100%;
+    }
   }
 }
 

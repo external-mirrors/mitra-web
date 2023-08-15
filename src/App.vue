@@ -226,6 +226,7 @@ button {
   font-family: $text-font;
   font-size: $text-font-size;
   padding: 0;
+  text-align: left;
 
   &:hover {
     color: var(--link-hover-color);
@@ -247,6 +248,7 @@ button {
   font-size: $text-font-size;
   font-weight: bold;
   padding: $input-padding 30px;
+  text-align: center;
   white-space: nowrap;
 
   &:hover {
