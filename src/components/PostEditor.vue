@@ -12,8 +12,8 @@
         id="content"
         ref="postFormContentRef"
         v-show="preview === null"
-        v-model="content"
-        @input="onContentInput()"
+        :value="content"
+        @input="onContentInput"
         rows="1"
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
@@ -165,7 +165,7 @@ import PostContent from "@/components/PostContent.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
-import { setupAutoResize, triggerResize } from "@/utils/autoresize"
+import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
 import { debounce } from "@/utils/debounce"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
@@ -217,6 +217,7 @@ if (props.inReplyTo && content.length === 0) {
     .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
     .join(" ")
 }
+
 if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
   visibility = Visibility.Direct
 }
@@ -224,7 +225,7 @@ if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
 onMounted(() => {
   if (postFormContentRef) {
     setupAutoResize(postFormContentRef)
-    triggerResize(postFormContentRef)
+    resizeTextArea(postFormContentRef)
   }
 })
 
@@ -288,7 +289,8 @@ async function autocompleteMention(profile: Profile) {
   }
 }
 
-function onContentInput() {
+function onContentInput(event: Event) {
+  content = (event.target as HTMLTextAreaElement).value
   saveLocalDraft()
   suggestMentionsDebounced()
 }
@@ -435,7 +437,7 @@ async function publish() {
   preview = null
   if (postFormContentRef) {
     await nextTick()
-    triggerResize(postFormContentRef)
+    resizeTextArea(postFormContentRef)
   }
   emit("post-created", post)
 }

@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Make dropdown menu items fully clickable.
+- Prevent auto-suggestions from appearing on reply form opening.
 
 ## [1.32.0] - 2023-08-10
 
