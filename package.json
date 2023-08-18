@@ -10,6 +10,7 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
+    "dist": "./scripts/dist.js",
     "preview": "vite preview",
     "test:unit": "vite-jest",
     "test": "npm run test:unit",
