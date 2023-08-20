@@ -430,6 +430,7 @@ async function login() {
     border: 1px solid $landing-btn-background-color;
     color: $landing-btn-text-color;
     padding: 10px;
+    text-align: center;
     width: 100%;
 
     &:first-child {
@@ -518,6 +519,7 @@ async function login() {
     font-weight: bold;
     height: 48px;
     padding: 10px 60px;
+    text-align: center;
 
     &:not([disabled]):hover {
       background: $landing-login-btn-background-hover-color;

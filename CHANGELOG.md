@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix button text alignment on landing page.
+
 ## [1.33.0] - 2023-08-17
 
 ### Changed
