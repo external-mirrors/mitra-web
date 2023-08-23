@@ -39,6 +39,17 @@
             </div>
           </div>
         </div>
+        <div class="input-group">
+          <input
+            type="checkbox"
+            id="locked"
+            v-model="form.locked"
+          >
+          <label for="locked">
+            Lock account
+            <div class="sub-label">Requires you to manually approve followers</div>
+          </label>
+        </div>
         <div class="extra-fields input-group">
           <label>
             Additional info
@@ -132,11 +143,12 @@ function getFieldsAttributes() {
 const form = $ref<ProfileUpdateData>({
   display_name: profile.display_name,
   note: profile.source.note,
-  fields_attributes: getFieldsAttributes(),
   avatar: null,
   avatar_media_type: null,
   header: null,
   header_media_type: null,
+  locked: profile.locked,
+  fields_attributes: getFieldsAttributes(),
 })
 const images = $ref({
   avatar: profile.avatar,

@@ -214,6 +214,10 @@ input[type="file"] {
   padding: 2px 1px;
 }
 
+input[type="checkbox"] {
+  margin-right: $input-padding;
+}
+
 textarea {
   resize: vertical;
 }

@@ -159,9 +159,8 @@
     width: 100%;
 
     label {
-      display: block;
+      display: inline-block;
       font-weight: bold;
-      margin-bottom: $input-padding;
     }
 
     .sub-label {
@@ -175,7 +174,13 @@
     input[type="text"],
     textarea {
       border-radius: $btn-border-radius;
+      margin-top: $input-padding;
       width: 100%;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 0.1em;
+      vertical-align: top;
     }
   }
 

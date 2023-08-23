@@ -184,10 +184,6 @@ form {
 
 .appearance-checkbox {
   margin-top: $block-outer-padding;
-
-  input {
-    margin-right: $input-padding;
-  }
 }
 
 .authentication-methods {

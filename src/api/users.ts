@@ -240,6 +240,7 @@ export interface ProfileUpdateData {
   avatar_media_type: string | null;
   header: string | null;
   header_media_type: string | null;
+  locked: boolean,
   fields_attributes: ProfileFieldAttrs[];
 }
 

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display follow request notifications.
 - Display "No posts found" label when profile timeline is empty.
+- Add "Lock account" checkbox to profile form.
 
 ### Changed
 
