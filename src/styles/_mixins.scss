@@ -6,6 +6,14 @@
   background-size: cover;
 }
 
+@mixin content-list-header {
+  background-color: var(--block-background-color);
+  border-radius: $block-border-radius;
+  font-weight: bold;
+  padding: calc($block-inner-padding / 2);
+  text-align: center;
+}
+
 @mixin content-message {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;

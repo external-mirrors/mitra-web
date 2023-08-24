@@ -57,6 +57,14 @@
                     Atom feed
                   </a>
                 </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    title="View follow requests"
+                    :to="{ name: 'follow-request-list' }"
+                  >
+                    View follow requests
+                  </router-link>
+                </li>
                 <li v-if="canVerifyEthereumAddress()">
                   <button
                     title="Link ethereum address"
@@ -132,6 +140,12 @@
               >
                 Edit profile
               </router-link>
+              <button v-if="canAcceptFollowRequest()" class="btn" @click="onAcceptFollowRequest()">
+                Accept follow request
+              </button>
+              <button v-if="canAcceptFollowRequest()" class="btn" @click="onRejectFollowRequest()">
+                Reject follow request
+              </button>
               <button v-if="canFollow()" class="follow btn" @click="onFollow()">
                 <span>Follow</span>
                 <img
@@ -306,6 +320,8 @@ import { useRoute } from "vue-router"
 
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
+  acceptFollowRequest,
+  rejectFollowRequest,
   follow,
   unfollow,
   mute,
@@ -511,6 +527,33 @@ function isMuted(): boolean {
     return false
   }
   return relationship.muting
+}
+
+function canAcceptFollowRequest(): boolean {
+  if (!relationship) {
+    return false
+  }
+  return relationship.requested_by
+}
+
+async function onAcceptFollowRequest() {
+  if (!profile) {
+    return
+  }
+  relationship = await acceptFollowRequest(
+    ensureAuthToken(),
+    profile.id,
+  )
+}
+
+async function onRejectFollowRequest() {
+  if (!profile) {
+    return
+  }
+  relationship = await rejectFollowRequest(
+    ensureAuthToken(),
+    profile.id,
+  )
 }
 
 function canFollow(): boolean {
@@ -865,7 +908,9 @@ $avatar-size: 170px;
 
   .buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: $block-inner-padding;
+    max-width: 100%;
   }
 }
 
@@ -975,6 +1020,8 @@ $avatar-size: 170px;
   margin-bottom: $block-outer-padding;
 
   .tab {
+    /* same styles used in content-list-header mixin */
+
     border-radius: $block-border-radius;
     box-sizing: border-box;
     flex-grow: 1;

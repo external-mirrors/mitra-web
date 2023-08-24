@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
 import AboutPage from "@/views/About.vue"
 import EthereumPage from "@/views/Ethereum.vue"
+import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
@@ -136,6 +137,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/search",
     name: "search",
     component: SearchResultList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/follow-requests",
+    name: "follow-request-list",
+    component: FollowRequestList,
     meta: { onlyAuthenticated: true },
   },
   {

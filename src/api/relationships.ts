@@ -7,6 +7,7 @@ export interface Relationship {
   following: boolean,
   followed_by: boolean,
   requested: boolean,
+  requested_by: boolean,
   subscription_to: boolean,
   subscription_from: boolean,
   showing_reblogs: boolean,
@@ -131,4 +132,45 @@ export async function getFollowing(
     profiles: data,
     nextPageUrl: getNextPageUrl(response),
   }
+}
+
+export async function getFollowRequests(
+  authToken: string,
+  url?: string,
+): Promise<ProfileListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/follow_requests`
+  }
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
+}
+
+export async function acceptFollowRequest(
+  authToken: string,
+  accountId: string,
+): Promise<Relationship> {
+  const url = `${BACKEND_URL}/api/v1/follow_requests/${accountId}/authorize`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function rejectFollowRequest(
+  authToken: string,
+  accountId: string,
+): Promise<Relationship> {
+  const url = `${BACKEND_URL}/api/v1/follow_requests/${accountId}/reject`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
 }
