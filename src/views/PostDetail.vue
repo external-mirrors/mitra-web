@@ -2,7 +2,7 @@
   <sidebar-layout>
     <template #content>
       <div v-if="!isLoading && thread.length === 0" class="not-found">
-        Not found
+        Post not found
       </div>
       <post
         v-for="(post, index) in thread"
@@ -111,10 +111,10 @@ function onPostDeleted(postIndex: number) {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 
 .not-found {
-  font-size: 20px;
-  text-align: center;
+  @include content-message;
 }
 
 .post {

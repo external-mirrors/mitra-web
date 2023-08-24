@@ -6,6 +6,13 @@
   background-size: cover;
 }
 
+@mixin content-message {
+  background-color: var(--block-background-color);
+  border-radius: $block-border-radius;
+  padding: $block-inner-padding;
+  text-align: left;
+}
+
 @mixin floating-avatar {
   display: block;
   height: 0;

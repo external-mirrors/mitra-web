@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display follow request notifications.
 
+### Changed
+
+- Changed style of "not found" messages.
+
 ### Fixed
 
 - Fix test overflow in action element.

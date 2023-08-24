@@ -45,12 +45,12 @@ async function loadNextPage(maxId: string) {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 @import "../styles/theme";
 
 .tag-name {
-  background-color: var(--block-background-color);
-  border-radius: $block-border-radius;
+  @include content-message;
+
   margin-bottom: $block-outer-padding;
-  padding: $block-inner-padding;
 }
 </style>

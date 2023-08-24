@@ -1001,8 +1001,7 @@ $avatar-size: 170px;
 }
 
 .not-found {
-  font-size: 20px;
-  text-align: center;
+  @include content-message;
 }
 
 @media screen and (max-width: $screen-breakpoint-small) {

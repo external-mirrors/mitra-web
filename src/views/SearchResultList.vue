@@ -86,16 +86,16 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 
-.search-message,
+.search-message {
+  @include content-message;
+}
+
 .search-result-list {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
-}
-
-.search-message {
-  padding: $block-inner-padding;
 }
 
 .loader {
