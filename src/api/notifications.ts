@@ -6,7 +6,7 @@ import { Profile } from "./users"
 
 export interface Notification {
   id: string;
-  type: "follow" | "reply" | "favourite";
+  type: string;
   account: Profile;
   status: Post | null;
   created_at: string;

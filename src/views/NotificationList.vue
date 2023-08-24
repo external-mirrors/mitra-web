@@ -8,6 +8,7 @@
       >
         <div class="action">
           <img v-if="notification.type === 'follow'" src="@/assets/feather/user-plus.svg">
+          <img v-else-if="notification.type === 'follow_request'" src="@/assets/feather/user-plus.svg">
           <img v-else-if="notification.type === 'reply'" src="@/assets/forkawesome/comment-o.svg">
           <img v-else-if="notification.type === 'favourite'" src="@/assets/forkawesome/thumbs-o-up.svg">
           <img v-else-if="notification.type === 'mention'" src="@/assets/forkawesome/comment-o.svg">
@@ -26,6 +27,7 @@
             </profile-display-name>
           </router-link>
           <span v-if="notification.type === 'follow'">followed you</span>
+          <span v-else-if="notification.type === 'follow_request'">sent a follow request</span>
           <span v-else-if="notification.type === 'reply'">replied to your post</span>
           <span v-else-if="notification.type === 'favourite'">liked your post</span>
           <span v-else-if="notification.type === 'mention'">mentioned you</span>
