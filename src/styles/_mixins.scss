@@ -57,6 +57,9 @@
 
   a {
     margin-right: $whitespace;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
