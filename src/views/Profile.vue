@@ -247,13 +247,20 @@
         </span>
       </div>
       <loader v-if="isLoading"></loader>
-      <div :style="{ visibility: isLoading ? 'hidden' : 'visible' }">
-        <post-list
-          v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'"
-          ref="postListRef"
-          :posts="posts"
-          @load-next-page="loadNextPage"
-        ></post-list>
+      <div
+        v-if="profile"
+        :style="{ visibility: isLoading ? 'hidden' : 'visible' }"
+      >
+        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
+          <div v-if="posts.length === 0" class="empty-list">
+            No posts found
+          </div>
+          <post-list
+            ref="postListRef"
+            :posts="posts"
+            @load-next-page="loadNextPage"
+          ></post-list>
+        </template>
         <template v-else-if="tabName === 'followers' || tabName === 'following'">
           <router-link
             class="profile-list-item"
@@ -1002,6 +1009,13 @@ $avatar-size: 170px;
 
 .not-found {
   @include content-message;
+}
+
+.empty-list {
+  @include content-message;
+
+  background-color: transparent;
+  text-align: center;
 }
 
 @media screen and (max-width: $screen-breakpoint-small) {
