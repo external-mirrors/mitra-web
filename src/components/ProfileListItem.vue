@@ -1,12 +1,15 @@
 <template>
   <div class="profile">
-    <avatar :profile="profile"></avatar>
-    <div class="name">
-      <profile-display-name :profile="profile"></profile-display-name>
-      <div v-if="profile.id" class="actor-address">@{{ getActorAddress(profile) }}</div>
-      <!-- Fallback for dummy profiles -->
-      <div v-else class="actor-address">{{ profile.url }}</div>
+    <div class="profile-info-group">
+      <avatar :profile="profile"></avatar>
+      <div class="name">
+        <profile-display-name :profile="profile"></profile-display-name>
+        <div v-if="profile.id" class="actor-address">@{{ getActorAddress(profile) }}</div>
+        <!-- Fallback for dummy profiles -->
+        <div v-else class="actor-address">{{ profile.url }}</div>
+      </div>
     </div>
+    <slot name="profile-footer"></slot>
   </div>
 </template>
 
@@ -33,13 +36,16 @@ const profile = computed(() => new ProfileWrapper(props.profile))
 @import "../styles/theme";
 
 .profile {
-  align-items: center;
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
-  display: flex;
-  flex-direction: row;
   padding: $block-inner-padding;
   text-align: left;
+}
+
+.profile-info-group {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 
   .avatar {
     height: $avatar-size;

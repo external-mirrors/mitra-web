@@ -280,15 +280,18 @@
         </template>
         <template v-else-if="tabName === 'subscribers'">
           <router-link
-            class="profile-list-item subscriber"
+            class="profile-list-item"
             v-for="subscription in subscriptions"
             :key="subscription.id"
             :to="{ name: 'profile-by-acct', params: { acct: subscription.sender.acct } }"
           >
-            <profile-list-item :profile="subscription.sender"></profile-list-item>
-            <div class="subscription-info">
-              Subscription expires {{ formatDate(subscription.expires_at) }}
-            </div>
+            <profile-list-item :profile="subscription.sender">
+              <template #profile-footer>
+                <div class="subscription-info">
+                  Subscription expires {{ formatDate(subscription.expires_at) }}
+                </div>
+              </template>
+            </profile-list-item>
           </router-link>
         </template>
       </div>
@@ -990,17 +993,9 @@ $avatar-size: 170px;
   margin-bottom: $block-outer-padding;
 }
 
-.subscriber {
-  .profile {
-    border-radius: $block-border-radius $block-border-radius 0 0;
-  }
-
-  .subscription-info {
-    background-color: var(--block-background-color);
-    border-radius: 0 0 $block-border-radius $block-border-radius;
-    color: var(--text-color); /* override link color */
-    padding: 0 $block-inner-padding $block-inner-padding;
-  }
+.subscription-info {
+  color: var(--text-color); /* override link color */
+  margin-top: $block-inner-padding;
 }
 
 .loader {
