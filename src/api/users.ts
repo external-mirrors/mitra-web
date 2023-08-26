@@ -262,7 +262,6 @@ interface ActivityParams {
 }
 
 interface UnsignedActivity {
-  params: ActivityParams,
   value: { [key: string]: any },
 }
 
@@ -277,7 +276,6 @@ export async function getUnsignedUpdate(
 
 export async function sendSignedActivity(
   authToken: string,
-  activityParams: ActivityParams,
   activityValue: { [key: string]: any },
   signer: string,
   signatureHex: string,
@@ -286,7 +284,6 @@ export async function sendSignedActivity(
   const response = await http(url, {
     method: "POST",
     json: {
-      params: activityParams,
       value: activityValue,
       signer: signer,
       signature: signatureHex,

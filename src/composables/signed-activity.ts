@@ -37,7 +37,7 @@ async function signUpdateActivity(): Promise<void> {
   }
   const walletAddress = await signer.getAddress()
   const authToken = ensureAuthToken()
-  const { value, params } = await getUnsignedUpdate(authToken)
+  const { value } = await getUnsignedUpdate(authToken)
   const message = canonicalize(value)
   if (!message) {
     throw new Error("canonicalization error")
@@ -48,7 +48,6 @@ async function signUpdateActivity(): Promise<void> {
   const signedValue = addIntegrityProof(value, verificationMethod, signatureHex)
   await sendSignedActivity(
     authToken,
-    params,
     signedValue,
     verificationMethod,
     signatureHex,
