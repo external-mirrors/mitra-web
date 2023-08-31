@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fix test overflow in action element.
+- Fix incorrect notification count after deletion of a post.
 
 ## [1.33.1] - 2023-08-20
 

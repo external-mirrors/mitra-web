@@ -22,7 +22,7 @@ export function useNotifications() {
     let unreadCount = 0
     if (lastReadId.value) {
       for (const notification of notifications.value) {
-        if (notification.id === lastReadId.value) {
+        if (parseInt(notification.id) <= parseInt(lastReadId.value)) {
           break
         }
         unreadCount += 1
