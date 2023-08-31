@@ -60,6 +60,7 @@ function configureInlineLinks() {
     const links = postContentRef.querySelectorAll("a")
     for (const linkElement of Array.from(links)) {
       if (linkedPost.uri === linkElement.getAttribute("href")) {
+        linkElement.dataset.objectLink = "true"
         linkElement.addEventListener("click", (event: Event) => {
           event.preventDefault()
           router.push({ name: "post", params: { postId: linkedPost.id } })
@@ -127,7 +128,14 @@ function getContent(): string {
   }
 
   :deep(a) {
-    @include block-link;
+    @include block-external-link;
+
+    /* data-object-link is set by configureInlineLinks() */
+    &.hashtag,
+    &.mention,
+    &[data-object-link="true"] {
+      @include block-link;
+    }
   }
 
   :deep(pre),

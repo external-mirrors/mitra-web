@@ -940,7 +940,7 @@ $avatar-size: 170px;
   word-wrap: break-word;
 
   :deep(a) {
-    @include block-link;
+    @include block-external-link;
   }
 
   :deep(ul),

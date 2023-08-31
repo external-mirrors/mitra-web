@@ -54,6 +54,8 @@ watch($$(currentUser), () => {
   --block-background-color: #{$block-background-color};
   --block-link-color: #{$block-link-color};
   --block-link-hover-color: #{$block-link-hover-color};
+  --block-external-link-color: #{$block-external-link-color};
+  --block-external-link-hover-color: #{$block-external-link-hover-color};
   --separator-color: #{$separator-color};
   --widget-background-color: #{$widget-background-color};
   --highlight-color: #{$highlight-color};
@@ -87,6 +89,8 @@ watch($$(currentUser), () => {
   --block-background-color: #{$dark-block-background-color};
   --block-link-color: #{$dark-block-link-color};
   --block-link-hover-color: #{$dark-block-link-hover-color};
+  --block-external-link-color: #{$dark-block-external-link-color};
+  --block-external-link-hover-color: #{$dark-block-external-link-hover-color};
   --separator-color: #{$dark-separator-color};
   --widget-background-color: #{$dark-widget-background-color};
   --highlight-color: #{$dark-highlight-color};

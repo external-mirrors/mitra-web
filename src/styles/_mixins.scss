@@ -54,6 +54,14 @@
   }
 }
 
+@mixin block-external-link {
+  color: var(--block-external-link-color);
+
+  &:hover {
+    color: var(--block-external-link-hover-color);
+  }
+}
+
 @mixin post-action {
   align-items: center;
   display: flex;
