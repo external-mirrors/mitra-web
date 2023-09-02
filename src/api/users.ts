@@ -291,8 +291,7 @@ export async function sendSignedActivity(
     },
     authToken,
   })
-  const data = await handleResponse(response)
-  return data
+  await handleResponse(response)
 }
 
 export interface IdentityClaim {
