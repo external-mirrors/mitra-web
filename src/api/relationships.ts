@@ -34,6 +34,7 @@ export async function follow(
   return data
 }
 
+// TODO: remove or replace with getRelationships()[0]
 export async function getRelationship(
   authToken: string,
   accountId: string,
@@ -46,6 +47,24 @@ export async function getRelationship(
   })
   const data = await handleResponse(response)
   return data[0]
+}
+
+export async function getRelationships(
+  authToken: string,
+  profileIds: string[],
+): Promise<Relationship[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/relationships`
+  const queryParams = profileIds.reduce((params, value, index) => {
+    params[`id[${index}]`] = value
+    return params
+  }, <{ [key: string]: string }>{})
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
 }
 
 export async function unfollow(

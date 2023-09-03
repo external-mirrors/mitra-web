@@ -29,6 +29,7 @@ import { $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import { Post, getHomeTimeline } from "@/api/posts"
+import { getRelationships } from "@/api/relationships"
 import { Permissions } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -53,12 +54,25 @@ function insertPost(post: Post) {
   posts = [post, ...posts]
 }
 
+async function addRelationships(posts: Post[]): Promise<void> {
+  const uniqueAuthors = [...new Set(posts.map((post) => post.account.id))]
+  const authToken = ensureAuthToken()
+  const relationships = await getRelationships(authToken, uniqueAuthors)
+  for (const relationship of relationships) {
+    const postsByAuthor = posts.filter(post => post.account.id === relationship.id)
+    for (const post of postsByAuthor) {
+      post.relationship = relationship
+    }
+  }
+}
+
 async function loadTimeline() {
   isLoading = true
   const authToken = ensureAuthToken()
   window.scrollTo({ top: 0, behavior: "smooth" })
+  let page
   try {
-    posts = await getHomeTimeline(authToken)
+    page = await getHomeTimeline(authToken)
   } catch (error: any) {
     console.error("timeline loading error:", error.message)
     if (error.message === "access token is invalid") {
@@ -69,12 +83,15 @@ async function loadTimeline() {
       throw error
     }
   }
+  await addRelationships(page)
+  posts = page
   isLoading = false
 }
 
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
   const nextPage = await getHomeTimeline(authToken, maxId)
+  await addRelationships(nextPage)
   posts = [...posts, ...nextPage]
 }
 

@@ -182,7 +182,7 @@
       </a>
       <div
         class="dropdown-menu-wrapper"
-        v-if="canSaveToIpfs() || canMintToken() || canDeletePost()"
+        v-if="canSaveToIpfs() || canMintToken() || canDeletePost() || canMute()"
         v-click-away="hideMenu"
       >
         <button class="icon" title="More" @click="toggleMenu()">
@@ -237,6 +237,16 @@
             >
               <img src="@/assets/feather/trash.svg">
               <span>Delete post</span>
+            </button>
+          </li>
+          <li v-if="canMute()">
+            <button
+              class="icon"
+              title="Mute author"
+              @click="hideMenu(); onMute()"
+            >
+              <img src="@/assets/feather/volume-x.svg">
+              <span>Mute author</span>
             </button>
           </li>
         </menu>
@@ -299,6 +309,7 @@ import {
   Visibility,
   VISIBILITY_MAP,
 } from "@/api/posts"
+import { mute } from "@/api/relationships"
 import {
   Permissions,
   Profile,
@@ -543,6 +554,20 @@ async function onDeletePost() {
     await deletePost(authToken, props.post.id)
     emit("post-deleted")
   }
+}
+
+function canMute(): boolean {
+  return (
+    props.post.account.id !== currentUser?.id &&
+    // Don't show menu item if post.relationship property is not set
+    !!props.post.relationship &&
+    !props.post.relationship.muting
+  )
+}
+
+async function onMute() {
+  const authToken = ensureAuthToken()
+  props.post.relationship = await mute(authToken, props.post.account.id)
 }
 
 function getPaymentOptions(): PaymentOption[] {

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add "Mute author" to post dropdown menu.
+
 ### Changed
 
 - Ignore response body of `/api/v1/accounts/send_activity` endpoint.

@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
+import { Relationship } from "./relationships"
 import { defaultProfile, Profile } from "./users"
 
 export interface Attachment {
@@ -75,6 +76,9 @@ export interface Post {
   token_id: number | null;
   token_tx_id: string | null;
   links: Post[];
+
+  // Data added by client
+  relationship?: Relationship | null;
 }
 
 export async function getHomeTimeline(
