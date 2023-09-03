@@ -1,9 +1,7 @@
 import canonicalize from "canonicalize"
 
-import {
-  getUnsignedUpdate,
-  sendSignedActivity,
-} from "@/api/users"
+import { sendSignedActivity } from "@/api/c2s"
+import { getUnsignedUpdate } from "@/api/users"
 import { useCurrentUser } from "@/composables/user"
 import { createDidFromEthereumAddress } from "@/utils/did"
 import { hexToBytes, encodeMultibase } from "@/utils/encodings"
@@ -27,7 +25,7 @@ function addIntegrityProof(
 }
 
 async function signUpdateActivity(): Promise<void> {
-  const { ensureAuthToken } = useCurrentUser()
+  const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()
   if (!confirm("This action will sign a message with your wallet and send it to your followers. Continue?")) {
     return
   }
@@ -46,11 +44,10 @@ async function signUpdateActivity(): Promise<void> {
   const signatureHex = signature.replace(/0x/, "")
   const verificationMethod = createDidFromEthereumAddress(walletAddress)
   const signedValue = addIntegrityProof(value, verificationMethod, signatureHex)
+  const currentUser = ensureCurrentUser()
   await sendSignedActivity(
-    authToken,
+    currentUser.username,
     signedValue,
-    verificationMethod,
-    signatureHex,
   )
 }
 
