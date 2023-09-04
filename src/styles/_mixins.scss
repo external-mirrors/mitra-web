@@ -136,10 +136,12 @@
     white-space: nowrap;
     z-index: 3;
 
-    li > a,
-    li > button {
-      display: inline-block;
-      width: 100%;
+    li {
+      display: flex;  /* all children become blocks */
+
+      > * {
+        width: 100%;
+      }
     }
   }
 }

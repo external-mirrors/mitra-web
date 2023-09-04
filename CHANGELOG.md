@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Ignore response body of `/api/v1/accounts/send_activity` endpoint.
 
+### Fixed
+
+- Fix post dropdown menu styles.
+
 ## [1.34.0] - 2023-08-31
 
 ### Added
