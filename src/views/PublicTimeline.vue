@@ -1,6 +1,9 @@
 <template>
   <sidebar-layout>
     <template #content>
+      <div v-if="!isLoading && posts.length === 0" class="content-message">
+        No posts found
+      </div>
       <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
       <loader v-if="isLoading"></loader>
     </template>
@@ -17,26 +20,34 @@ import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
 
-const { ensureAuthToken } = useCurrentUser()
+const { authToken } = useCurrentUser()
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
 
 onMounted(async () => {
-  const authToken = ensureAuthToken()
   isLoading = true
-  posts = await getPublicTimeline(authToken, true)
+  try {
+    posts = await getPublicTimeline(authToken.value, true)
+  } catch (error) {
+    // Authentication required?
+    console.error(error)
+  }
   isLoading = false
 })
 
 async function loadNextPage(maxId: string) {
-  const authToken = ensureAuthToken()
-  const nextPage = await getPublicTimeline(authToken, true, maxId)
+  const nextPage = await getPublicTimeline(authToken.value, true, maxId)
   posts = [...posts, ...nextPage]
 }
 </script>
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
+
+.content-message {
+  @include content-message;
+}
 
 .loader {
   margin: $block-outer-padding auto;

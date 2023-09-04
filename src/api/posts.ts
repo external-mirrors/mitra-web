@@ -97,7 +97,7 @@ export async function getHomeTimeline(
 }
 
 export async function getPublicTimeline(
-  authToken: string,
+  authToken: string | null,
   onlyLocal: boolean,
   maxId?: string,
 ): Promise<Post[]> {
