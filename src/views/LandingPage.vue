@@ -63,17 +63,24 @@
               type="text"
               v-model="moneroAddress"
               required
-              placeholder="Address"
+              placeholder="Monero address"
             >
+            <div class="form-message">
+              The primary address of your Monero account.
+            </div>
           </div>
           <div v-if="loginType === 'caip122_monero' && moneroAddress">
             <textarea
               id="monero-message"
               type="text"
               :value="moneroCaip122Message || ''"
-              disabled
+              @click="selectCaip122Message"
+              readonly
             >
             </textarea>
+            <div class="form-message">
+              Sign this message using your Monero wallet.
+            </div>
           </div>
           <div v-if="loginType === 'caip122_monero'">
             <input
@@ -203,6 +210,11 @@ const moneroCaip122Message = computed(() => {
     instance.login_message,
   )
 })
+
+function selectCaip122Message(event: MouseEvent) {
+  const textarea = event?.target as HTMLTextAreaElement
+  textarea.select()
+}
 
 function isUsernameValid(): boolean {
   if (!username) {
