@@ -52,6 +52,9 @@
               {{ formatDate(subscriptionDetails.expires_at) }}
             </div>
           </template>
+          <template v-else>
+            Subscription is active
+          </template>
         </div>
       </template>
       <template v-else>
@@ -60,7 +63,7 @@
     </div>
     <div v-if="!recipient.isLocal() && subscriptionOption">
       <a
-        v-if="canSubscribeRemote()"
+        v-if="canPreviewRemote()"
         class="btn primary"
         :href="subscriptionOption.object_id"
         target="_blank"
@@ -137,7 +140,8 @@
         <qr-code :url="getPaymentUri(invoice)"></qr-code>
       </template>
       <div class="invoice-status">
-        <template v-if="invoice.status === 'open'">
+        <template v-if="invoice.status === 'requested'">Awaiting response</template>
+        <template v-else-if="invoice.status === 'open'">
           Waiting for payment ({{ getPaymentMinutesLeft(invoice) }} minutes left)
         </template>
         <template v-else-if="invoice.status === 'paid' || invoice.status === 'forwarded' || invoice.status === 'failed'">Processing payment</template>
@@ -237,9 +241,9 @@ onMounted(async () => {
   ) {
     subscriptionOption = option
     if (sender.id !== "") {
-      if (recipient.isLocal()) {
-        await loadSubscriptionDetails()
-      } else {
+      await loadSubscriptionDetails()
+      if (subscriptionDetails === null && currentUser !== null) {
+        // Pre FEP-0837
         // Only authenticated users may view remote subscriptions
         relationship = await getRelationship(ensureAuthToken(), recipient.id)
       }
@@ -265,7 +269,11 @@ async function loadSubscriptionDetails() {
   )
   if (invoiceId) {
     invoice = await getInvoice(invoiceId as string)
-    if (invoice && invoice.status !== "forwarded") {
+    if (
+      invoice &&
+      invoice.status !== "completed" &&
+      invoice.status !== "cancelled"
+    ) {
       watchInvoice()
     }
   }
@@ -318,17 +326,19 @@ function canSubscribe(): boolean {
   return (
     sender.id !== "" &&
     sender.id !== recipient.id &&
-    recipient.isLocal() &&
+    subscriptionOption !== null &&
+    (recipient.isLocal() || Boolean(subscriptionOption.fep_0837_enabled)) &&
     subscriptionPrice !== null &&
     invoice === null
   )
 }
 
-function canSubscribeRemote(): boolean {
+function canPreviewRemote(): boolean {
   return (
     !recipient.isLocal() &&
     subscriptionOption !== null &&
-    subscriptionOption.object_id !== undefined
+    subscriptionOption.object_id !== undefined &&
+    !subscriptionOption.fep_0837_enabled
   )
 }
 

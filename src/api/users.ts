@@ -17,6 +17,7 @@ export interface ProfilePaymentOption {
   chain_id?: string,
   price?: number,
   object_id?: string,
+  fep_0837_enabled?: boolean,
 }
 
 interface Source {
