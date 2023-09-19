@@ -18,6 +18,7 @@
         required
         :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
         @paste="onPaste($event)"
+        @keyup.ctrl.enter="publish()"
       ></textarea>
       <div class="mention-suggestions" v-if="mentionSuggestions.length > 0">
         <button
