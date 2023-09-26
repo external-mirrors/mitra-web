@@ -48,6 +48,9 @@ export interface InstanceInfo {
   contact_account: Profile | null,
   authentication_methods: AuthenticationMethod[],
   login_message: string;
+  allow_unauthenticated?: {
+    timeline_local: boolean,
+  },
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }

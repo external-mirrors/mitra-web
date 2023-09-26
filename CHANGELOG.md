@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add "Explore" link to landing page is local timeline is accessible to guests.
+
 ## [1.36.0] - 2023-09-19
 
 ### Added

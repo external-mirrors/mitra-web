@@ -5,9 +5,20 @@
         <h1 class="instance-title">{{ instance.title }}</h1>
         <div class="instance-description">
           {{ instance.short_description }}
-          <br>
-          <router-link :to="{ name: 'about' }">Learn more <span class="arrow">&gt;&gt;</span></router-link>
         </div>
+        <router-link
+          :to="{ name: 'about' }"
+          class="instance-link"
+        >
+          Learn more <span class="arrow">&gt;&gt;</span>
+        </router-link>
+        <router-link
+          v-if="instance.allow_unauthenticated?.timeline_local"
+          class="instance-link"
+          :to="{ name: 'local' }"
+        >
+          Explore <span class="arrow">&gt;&gt;</span>
+        </router-link>
       </div>
       <div v-if="instance" class="login-form-group">
         <div
@@ -392,6 +403,10 @@ async function login() {
 }
 
 .instance-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  gap: 20px;
   max-width: $wide-content-width;
   min-width: 0;
 }
@@ -399,18 +414,13 @@ async function login() {
 .instance-title {
   font-size: 90px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin: 0;
   text-transform: uppercase;
   word-wrap: break-word;
 }
 
-.instance-description {
-  font-size: 24px;
-  line-height: 1.75;
-
-  a {
-    color: $landing-text-color;
-  }
+.instance-link {
+  color: $landing-text-color;
 
   .arrow {
     color: $landing-accent-color;
