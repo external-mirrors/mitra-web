@@ -1,5 +1,5 @@
 export const ENV = import.meta.env.NODE_ENV
 
-export const BACKEND_URL = __VUE_APP_BACKEND_URL__ ?? import.meta.env.VITE_BACKEND_URL
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 export const APP_NAME = "mitra-web"
 export const APP_VERSION = __APP_VERSION__

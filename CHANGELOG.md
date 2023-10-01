@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Removed
+
+- Drop support for `PORT` environment variable.
+- Drop support for `VUE_APP_BACKEND_URL` environment variable.
+
 ## [1.36.1] - 2023-09-28
 
 ### Added

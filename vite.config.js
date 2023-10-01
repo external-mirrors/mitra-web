@@ -28,10 +28,9 @@ export default ({ mode }) => {
     },
     define: {
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-      __VUE_APP_BACKEND_URL__: JSON.stringify(env.VUE_APP_BACKEND_URL),
     },
     server: {
-      port: env.PORT || env.VITE_PORT,
+      port: env.VITE_PORT,
     },
   })
 }
