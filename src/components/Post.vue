@@ -182,13 +182,22 @@
       </a>
       <div
         class="dropdown-menu-wrapper"
-        v-if="canSaveToIpfs() || canMintToken() || canDeletePost() || canMute()"
         v-click-away="hideMenu"
       >
         <button class="icon" title="More" @click="toggleMenu()">
           <img src="@/assets/feather/more-horizontal.svg">
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
+          <li>
+            <button
+              class="icon"
+              title="Copy link to post"
+              @click="hideMenu(); copyPostUri()"
+            >
+              <img src="@/assets/feather/link.svg">
+              <span>Copy link to post</span>
+            </button>
+          </li>
           <li v-if="canPin()">
             <button
               class="icon"
@@ -482,6 +491,10 @@ function toggleMenu() {
 
 function hideMenu() {
   menuVisible = false
+}
+
+function copyPostUri(): void {
+  navigator.clipboard.writeText(props.post.uri)
 }
 
 function canPin(): boolean {
