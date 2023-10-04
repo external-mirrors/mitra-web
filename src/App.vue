@@ -279,6 +279,7 @@ button {
 
 menu {
   list-style: none;
+  margin: 0;
 }
 
 .wide {
