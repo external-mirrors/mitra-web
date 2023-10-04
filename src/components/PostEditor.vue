@@ -578,6 +578,10 @@ $line-height: 1.5;
 
 .dropdown-menu-wrapper {
   @include block-dropdown-menu;
+
+  button.icon {
+    gap: calc($block-inner-padding / 2);
+  }
 }
 
 .submit-btn-wrapper {

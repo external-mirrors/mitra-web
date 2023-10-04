@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Increase gap between icon and text in post menu.
+
 ## [2.0.0] - 2023-10-02
 
 ### Removed

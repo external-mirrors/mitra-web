@@ -864,6 +864,10 @@ async function onMintToken() {
 
 .dropdown-menu-wrapper {
   @include block-dropdown-menu;
+
+  button.icon {
+    gap: calc($block-inner-padding / 2);
+  }
 }
 
 .crypto-widget {
