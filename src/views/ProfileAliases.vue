@@ -40,7 +40,7 @@
             <input
               id="alias"
               type="text"
-              v-model="newAlias"
+              v-model.trim="newAlias"
               placeholder="Fediverse address"
               @input="newAliasSuggestions = []; newAliasError = null"
             >

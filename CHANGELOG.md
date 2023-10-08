@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Increase gap between icon and text in post menu.
+- Remove whitespace from entered alias in "Add alias" form.
 
 ### Fixed
 
