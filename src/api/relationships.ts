@@ -38,6 +38,9 @@ export async function getRelationships(
   authToken: string,
   profileIds: string[],
 ): Promise<Relationship[]> {
+  if (profileIds.length === 0) {
+    return []
+  }
   const url = `${BACKEND_URL}/api/v1/accounts/relationships`
   const queryParams = profileIds.reduce((params, value, index) => {
     params[`id[${index}]`] = value
