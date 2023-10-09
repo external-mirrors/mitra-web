@@ -268,7 +268,15 @@ async function loadSubscriptionDetails() {
     localStorage.getItem(getInvoiceIdStorageKey())
   )
   if (invoiceId) {
-    invoice = await getInvoice(invoiceId as string)
+    const lastInvoice = await getInvoice(invoiceId as string)
+    if (
+      lastInvoice.sender_id !== sender.id ||
+      lastInvoice.recipient_id !== recipient.id
+    ) {
+      // Invoice created by different user
+      return
+    }
+    invoice = lastInvoice
     if (
       invoice &&
       invoice.status !== "completed" &&

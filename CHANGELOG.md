@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Fix vertical position of dropdown menus.
 - Fix timeline loading error when post list is empty.
+- Ignore cached invoice if sender or recipient differ from selected ones.
 
 ## [2.0.0] - 2023-10-02
 
