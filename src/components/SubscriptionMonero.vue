@@ -176,7 +176,7 @@ import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
 import { getRelationship, Relationship } from "@/api/relationships"
-import { searchProfilesByAcct } from "@/api/search"
+import { searchProfilesByAcct, searchProfilesByAcctPublic } from "@/api/search"
 import { findSubscription, SubscriptionDetails } from "@/api/subscriptions-common"
 import {
   cancelInvoice,
@@ -300,6 +300,12 @@ async function identifySender() {
     return
   }
   isLoading = true
+  try {
+    await searchProfilesByAcctPublic(senderAcct, true)
+  } catch (error: any) {
+    // Ignore error
+    // TODO: Make single API call
+  }
   const profiles = await searchProfilesByAcct(null, senderAcct)
   if (profiles.length > 1) {
     senderError = "Please provide full address"

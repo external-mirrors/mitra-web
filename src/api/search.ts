@@ -41,6 +41,21 @@ export async function searchProfilesByAcct(
   return data
 }
 
+// Rate limited API endpoint
+export async function searchProfilesByAcctPublic(
+  acct: string,
+  resolve: boolean = false,
+  limit = 40,
+): Promise<Profile[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/search_public`
+  const response = await http(url, {
+    method: "GET",
+    queryParams: { q: acct, resolve, limit },
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function searchProfilesByEthereumAddress(
   walletAddress: string,
 ): Promise<Profile[]> {
