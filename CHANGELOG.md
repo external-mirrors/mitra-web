@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Convert "Copy link to post" button to a link.
 
+### Fixed
+
+- Hide payment description if recipient is remote account.
+
 ## [2.1.0] - 2023-10-10
 
 ### Added

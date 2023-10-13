@@ -411,6 +411,9 @@ const paymentAmount = $computed<number>(() => {
 })
 
 const paymentMessage = computed<string | null>(() => {
+  if (!recipient.isLocal()) {
+    return null
+  }
   const blockchain = getBlockchainInfo()
   if (blockchain && blockchain.chain_id === subscriptionOption?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.description || null
