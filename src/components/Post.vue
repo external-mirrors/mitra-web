@@ -189,14 +189,15 @@
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
           <li>
-            <button
+            <a
+              :href="post.uri"
               class="icon"
               title="Copy link to post"
-              @click="hideMenu(); copyPostUri()"
+              @click.prevent="hideMenu(); copyPostUri()"
             >
               <img src="@/assets/feather/link.svg">
               <span>Copy link to post</span>
-            </button>
+            </a>
           </li>
           <li v-if="canPin()">
             <button
