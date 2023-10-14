@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Convert "Copy link to post" button to a link.
+- Unlock next page button on home timeline in case of error.
 
 ### Fixed
 

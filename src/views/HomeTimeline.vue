@@ -66,13 +66,22 @@ async function addRelationships(posts: Post[]): Promise<void> {
   }
 }
 
+async function loadTimelinePage(
+  authToken: string,
+  maxId?: string,
+): Promise<Post[]> {
+  const page = await getHomeTimeline(authToken, maxId)
+  await addRelationships(page)
+  return page
+}
+
 async function loadTimeline() {
   isLoading = true
   const authToken = ensureAuthToken()
   window.scrollTo({ top: 0, behavior: "smooth" })
   let page
   try {
-    page = await getHomeTimeline(authToken)
+    page = await loadTimelinePage(authToken)
   } catch (error: any) {
     console.error("timeline loading error:", error.message)
     if (error.message === "access token is invalid") {
@@ -83,15 +92,19 @@ async function loadTimeline() {
       throw error
     }
   }
-  await addRelationships(page)
   posts = page
   isLoading = false
 }
 
 async function loadNextPage(maxId: string) {
   const authToken = ensureAuthToken()
-  const nextPage = await getHomeTimeline(authToken, maxId)
-  await addRelationships(nextPage)
+  let nextPage: Post[] = []
+  try {
+    nextPage = await loadTimelinePage(authToken, maxId)
+  } catch (error: any) {
+    console.error("timeline loading error:", error.message)
+  }
+  // Always update array to remove "loading" status
   posts = [...posts, ...nextPage]
 }
 
