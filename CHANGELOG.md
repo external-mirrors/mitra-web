@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Hide payment description if recipient is remote account.
+- Prevent sidebar from obscuring header.
 
 ## [2.1.0] - 2023-10-10
 
