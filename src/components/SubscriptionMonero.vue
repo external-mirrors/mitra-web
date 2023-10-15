@@ -323,14 +323,16 @@ async function identifySender() {
 }
 
 function isSubscribed(): boolean {
-  if (!recipient.isLocal()) {
-    if (relationship === null) {
+  if (subscriptionDetails === null) {
+    if (!recipient.isLocal()) {
+      // Pre-FEP-0837 remote subscriptions are simply relationships
+      if (relationship === null) {
+        return false
+      }
+      return relationship.subscription_to
+    } else {
       return false
     }
-    return relationship.subscription_to
-  }
-  if (subscriptionDetails === null) {
-    return false
   }
   const expiresAt = DateTime.fromISO(subscriptionDetails.expires_at)
   return DateTime.now() < expiresAt
