@@ -70,7 +70,7 @@
         @{{ mention.username }}
       </a>
     </div>
-    <post-content :post="post"></post-content>
+    <post-content v-if="post.content" :post="post"></post-content>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
       <post-attachment
         v-for="attachment in post.media_attachments"
@@ -94,8 +94,8 @@
           @{{ getActorAddress(linkedPost.account) }}
         </span>
       </div>
-      <post-content :post="linkedPost"></post-content>
-      <div class="quote-attachments" v-if="linkedPost.media_attachments.length > 0">
+      <post-content v-if="linkedPost.content" :post="linkedPost"></post-content>
+      <div class="post-attachments" v-if="linkedPost.media_attachments.length > 0">
         <post-attachment
           v-for="attachment in linkedPost.media_attachments"
           :attachment="attachment"
@@ -805,9 +805,14 @@ async function onMintToken() {
   }
 }
 
-.post-attachments,
-.quote-attachments {
-  padding: 0 $block-inner-padding $block-inner-padding;
+.post-content {
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
+}
+
+.post-attachments {
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
 }
 
 .post-quote {

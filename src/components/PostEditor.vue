@@ -31,6 +31,7 @@
       </div>
       <post-content
         v-if="preview"
+        class="preview"
         :post="preview"
         @click.prevent=""
       ></post-content>
@@ -494,6 +495,10 @@ $line-height: 1.5;
     padding: calc($input-padding / 2);
     text-overflow: ellipsis;
   }
+}
+
+.preview {
+  padding: $block-inner-padding;
 }
 
 .attachments {

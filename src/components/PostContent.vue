@@ -86,7 +86,6 @@ function getContent(): string {
 .post-content {
   color: var(--text-color);
   line-height: 1.5;
-  padding: $block-inner-padding;
   word-wrap: break-word;
 
   :deep(p) {
