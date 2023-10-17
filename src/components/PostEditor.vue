@@ -410,7 +410,6 @@ async function publish() {
     inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     isSensitive: isSensitive,
-    mentions: [],
     attachments: attachments,
   }
   isLoading = true

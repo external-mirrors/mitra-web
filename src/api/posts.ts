@@ -214,7 +214,6 @@ export interface PostData {
   inReplyToId: string | null;
   visibility: string;
   isSensitive: boolean;
-  mentions: string[];
   attachments: Attachment[];
 }
 
@@ -231,7 +230,6 @@ export async function createPost(
     in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,
     sensitive: postData.isSensitive,
-    mentions: postData.mentions,
   }
   const response = await http(url, {
     method: "POST",
