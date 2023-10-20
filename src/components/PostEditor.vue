@@ -109,23 +109,26 @@
           <img src="@/assets/feather/alert-triangle.svg">
         </button>
         <div class="toolbar-space"></div>
+        <div
+          class="character-counter"
+          title="Characters left"
+        >
+          {{ getCharacterCount() }}
+        </div>
         <button
           v-if="canPreview()"
           type="button"
-          class="icon"
+          class="icon btn-small"
           title="Toggle preview"
           @click="togglePreview()"
         >
           <img v-if="preview === null" src="@/assets/feather/eye.svg">
           <img v-else src="@/assets/feather/eye-off.svg">
         </button>
-        <div class="character-counter" title="Characters left">
-          {{ getCharacterCount() }}
-        </div>
         <button
           type="submit"
           v-if="inReplyTo"
-          class="submit-btn-small"
+          class="btn-small"
           :disabled="!canPublish()"
           @click.prevent="publish()"
         >
@@ -545,7 +548,9 @@ $line-height: 1.5;
   color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: calc($block-inner-padding / 2);
+  justify-content: right;
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 
   .toolbar-space {
@@ -565,11 +570,7 @@ $line-height: 1.5;
     }
   }
 
-  .character-counter {
-    font-weight: bold;
-  }
-
-  .submit-btn-small {
+  .btn-small {
     font-weight: bold;
     margin-left: calc($block-inner-padding / 2);
 

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Unlock next page button on home timeline in case of error.
 - Remove extra whitespace in posts without text.
 - Remove extra whitespace around "Publish" button.
+- Move preview button to the right of character counter.
 
 ### Fixed
 
