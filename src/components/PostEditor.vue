@@ -571,7 +571,7 @@ $line-height: 1.5;
 
   .submit-btn-small {
     font-weight: bold;
-    margin-left: $block-inner-padding;
+    margin-left: calc($block-inner-padding / 2);
 
     &[disabled] {
       color: var(--btn-disabled-text-color);
