@@ -289,6 +289,7 @@
       v-if="commentFormVisible"
       :in-reply-to="post"
       @post-created="onCommentCreated"
+      @post-editor-closed="commentFormVisible = false"
     >
     </post-editor>
   </div>

@@ -126,9 +126,16 @@
           <img v-else src="@/assets/feather/eye-off.svg">
         </button>
         <button
+          v-if="inReplyTo"
+          class="icon btn-small"
+          @click.prevent="cancel()"
+        >
+          Cancel
+        </button>
+        <button
           type="submit"
           v-if="inReplyTo"
-          class="btn-small"
+          class="icon btn-small"
           :disabled="!canPublish()"
           @click.prevent="publish()"
         >
@@ -188,6 +195,7 @@ const props = defineProps<{
 /* eslint-disable-next-line no-undef, func-call-spacing */
 const emit = defineEmits<{
   (event: "post-created", post: Post): void,
+  (event: "post-editor-closed"): void,
 }>()
 
 const postFormContentRef = $ref<HTMLTextAreaElement | null>(null)
@@ -403,6 +411,10 @@ async function togglePreview() {
   }
 }
 
+function cancel() {
+  emit("post-editor-closed")
+}
+
 function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading && !isAttachmentLoading
 }
@@ -574,9 +586,21 @@ $line-height: 1.5;
     font-weight: bold;
     margin-left: calc($block-inner-padding / 2);
 
+    &[type="submit"] {
+      color: var(--link-color);
+
+      &:hover {
+        color: var(--link-hover-color);
+      }
+    }
+
     &[disabled] {
       color: var(--btn-disabled-text-color);
       cursor: initial;
+    }
+
+    @media screen and (max-width: $screen-breakpoint-x-small) {
+      margin-left: 0;
     }
   }
 }
