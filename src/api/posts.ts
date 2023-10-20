@@ -78,6 +78,7 @@ export interface Post {
   links: Post[];
 
   // Data added by client
+  contentSource?: string | null,
   relationship?: Relationship | null;
 }
 
@@ -246,6 +247,38 @@ export async function getPost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}`
   const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function getPostSource(
+  authToken: string,
+  postId: string,
+): Promise<string> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/source`
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data.text
+}
+
+export async function updatePost(
+  authToken: string,
+  postId: string,
+  content: string,
+  attachments: Attachment[],
+  isSensitive: boolean,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}`
+  const response = await http(url, {
+    method: "PUT",
+    authToken,
+    json: {
+      status: content,
+      content_type: "text/markdown",
+      "media_ids[]": attachments.map((attachment) => attachment.id),
+      sensitive: isSensitive,
+    },
+  })
   const data = await handleResponse(response)
   return data
 }

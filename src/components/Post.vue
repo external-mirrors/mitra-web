@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!editorVisible"
     class="post"
     :class="{ highlighted: highlighted }"
     :data-post-id="post.id"
@@ -239,6 +240,16 @@
               <span>Mint NFT</span>
             </button>
           </li>
+          <li v-if="canEditPost()">
+            <button
+              class="icon"
+              title="Edit post"
+              @click="hideMenu(); onEditPost()"
+            >
+              <img src="@/assets/feather/edit-3.svg">
+              <span>Edit post</span>
+            </button>
+          </li>
           <li v-if="canDeletePost()">
             <button
               class="icon"
@@ -287,16 +298,28 @@
     </div>
     <post-editor
       v-if="commentFormVisible"
+      class="comment-form"
+      :post="null"
       :in-reply-to="post"
-      @post-created="onCommentCreated"
+      @post-saved="onCommentCreated"
       @post-editor-closed="commentFormVisible = false"
     >
     </post-editor>
   </div>
+  <post-editor
+    v-else
+    class="post-edit-form"
+    :post="post"
+    :in-reply-to="null"
+    @post-saved="onPostUpdated"
+    @post-editor-closed="editorVisible = false"
+  >
+  </post-editor>
 </template>
 
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
+import { ref } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
@@ -308,6 +331,7 @@ import {
 } from "@/api/nft"
 import {
   getPost,
+  getPostSource,
   deletePost,
   favourite,
   unfavourite,
@@ -369,6 +393,7 @@ const emit = defineEmits<{
 }>()
 
 let commentFormVisible = $ref(false)
+const editorVisible = ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentOption = $ref<PaymentOption | null>(null)
 let isWaitingForToken = $ref(false)
@@ -557,6 +582,22 @@ async function saveToIpfs() {
   const authToken = ensureAuthToken()
   const { ipfs_cid } = await makePermanent(authToken, props.post.id)
   props.post.ipfs_cid = ipfs_cid
+}
+
+function canEditPost(): boolean {
+  return props.post.account.id === currentUser?.id
+}
+
+async function onEditPost() {
+  const authToken = ensureAuthToken()
+  const contentSource = await getPostSource(authToken, props.post.id)
+  props.post.contentSource = contentSource
+  editorVisible.value = true
+}
+
+function onPostUpdated(updatedPost: Post) {
+  Object.assign(props.post, updatedPost)
+  editorVisible.value = false
 }
 
 function canDeletePost(): boolean {
@@ -916,7 +957,7 @@ async function onMintToken() {
   }
 }
 
-.post-form {
+.comment-form {
   border-top: 1px solid var(--separator-color);
 }
 </style>

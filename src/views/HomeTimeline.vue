@@ -3,8 +3,9 @@
     <template #content>
       <post-editor
         v-if="canCreatePost()"
+        :post="null"
         :in-reply-to="null"
-        @post-created="insertPost"
+        @post-saved="insertPost"
       ></post-editor>
       <loader v-if="isLoading"></loader>
       <div

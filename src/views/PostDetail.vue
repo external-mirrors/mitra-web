@@ -117,7 +117,8 @@ function onPostDeleted(postIndex: number) {
   @include content-message;
 }
 
-.post {
+.post,
+.post-edit-form {
   margin: 0 0 $block-outer-padding;
 }
 

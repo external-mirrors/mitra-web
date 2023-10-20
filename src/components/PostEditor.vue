@@ -147,22 +147,34 @@
     <div v-if="!inReplyTo" class="submit-btn-wrapper">
       <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       <button
+        v-if="post"
+        class="btn secondary"
+        @click.prevent="cancel()"
+      >
+        Cancel
+      </button>
+      <button
         class="btn"
         type="submit"
         :disabled="!canPublish()"
         @click.prevent="publish()"
-      >Publish</button>
+      >
+        <template v-if="post">Update</template>
+        <template v-else>Publish</template>
+      </button>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
+/* eslint-disable vue/no-setup-props-destructure */
 import { nextTick, onMounted } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 
 import {
   createPost,
   previewPost,
+  updatePost,
   uploadAttachment,
   Attachment,
   Mention,
@@ -190,12 +202,13 @@ const { instance, getActorAddress } = $(useInstanceInfo())
 
 /* eslint-disable-next-line no-undef */
 const props = defineProps<{
+  post: Post | null,
   inReplyTo: Post | null,
 }>()
 
 /* eslint-disable-next-line no-undef, func-call-spacing */
 const emit = defineEmits<{
-  (event: "post-created", post: Post): void,
+  (event: "post-saved", post: Post): void,
   (event: "post-editor-closed"): void,
 }>()
 
@@ -218,6 +231,13 @@ let errorMessage = $ref<string | null>(null)
 const author = $computed<User | null>(() => {
   return currentUser
 })
+
+if (props.post) {
+  content = props.post.contentSource || ""
+  attachments = props.post.media_attachments
+  visibility = props.post.visibility
+  isSensitive = props.post.sensitive
+}
 
 if (props.inReplyTo && content.length === 0) {
   const mentions: Mention[] = [
@@ -380,8 +400,10 @@ function removeAttachment(index: number) {
 
 function canChangeVisibility(): boolean {
   return (
-    props.inReplyTo === null ||
-    props.inReplyTo.visibility === Visibility.Public
+    props.post === null && (
+      props.inReplyTo === null ||
+      props.inReplyTo.visibility === Visibility.Public
+    )
   )
 }
 
@@ -435,10 +457,20 @@ async function publish() {
   isLoading = true
   let post
   try {
-    post = await createPost(
-      ensureAuthToken(),
-      postData,
-    )
+    if (props.post !== null) {
+      post = await updatePost(
+        ensureAuthToken(),
+        props.post.id,
+        content,
+        attachments,
+        isSensitive,
+      )
+    } else {
+      post = await createPost(
+        ensureAuthToken(),
+        postData,
+      )
+    }
   } catch (error: any) {
     errorMessage = error.message
     isLoading = false
@@ -460,7 +492,7 @@ async function publish() {
     await nextTick()
     resizeTextArea(postFormContentRef)
   }
-  emit("post-created", post)
+  emit("post-saved", post)
 }
 </script>
 
@@ -622,6 +654,7 @@ $line-height: 1.5;
   align-items: center;
   display: flex;
   flex-direction: row;
+  gap: $block-outer-padding;
   justify-content: flex-end;
   margin-top: calc($block-inner-padding / 1.5);
 

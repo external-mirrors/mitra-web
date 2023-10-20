@@ -93,7 +93,6 @@ onMounted(async () => {
 }
 
 .search-result-list {
-  background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
 }
@@ -107,11 +106,19 @@ onMounted(async () => {
 }
 
 .search-result {
+  background-color: var(--block-background-color);
   border-bottom: 1px solid var(--separator-color);
   display: block;
 
+  &:first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
   &:last-child {
     border-bottom: none;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
   }
 }
 
