@@ -110,6 +110,7 @@
         </button>
         <div class="toolbar-space"></div>
         <div
+          v-if="isCharacterCounterVisible()"
           class="character-counter"
           title="Characters left"
         >
@@ -397,6 +398,10 @@ function getCharacterCount(): number {
     return 0
   }
   return (instance.configuration.statuses.max_characters - content.length)
+}
+
+function isCharacterCounterVisible(): boolean {
+  return getCharacterCount() < 100
 }
 
 function canPreview(): boolean {
