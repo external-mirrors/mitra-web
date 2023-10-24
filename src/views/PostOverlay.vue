@@ -42,7 +42,7 @@
           target="_blank"
           rel="noreferrer"
         >
-          <img src="@/assets/ipfs.svg">
+          <img src="@/assets/extra-icons/ipfs.svg">
           <div>{{ post.ipfs_cid }}</div>
         </a>
         <div class="created-at">

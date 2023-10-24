@@ -164,7 +164,7 @@
         target="_blank"
         rel="noreferrer"
       >
-        <img src="@/assets/ipfs.svg">
+        <img src="@/assets/extra-icons/ipfs.svg">
       </a>
       <router-link
         v-if="isTokenized()"
@@ -226,7 +226,7 @@
               title="Save to IPFS"
               @click="hideMenu(); saveToIpfs()"
             >
-              <img src="@/assets/ipfs.svg">
+              <img src="@/assets/extra-icons/ipfs.svg">
               <span>Save to IPFS</span>
             </button>
           </li>
