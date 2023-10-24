@@ -11,4 +11,9 @@ describe("Cryptocurrency utils", () => {
     const currency = getCurrencyByLabel("$XMR")
     expect(currency).to.deep.equal(MONERO)
   })
+
+  it("Should find LN by label", () => {
+    const currency = getCurrencyByLabel("LUD16")
+    expect(currency?.code).to.equal("LN")
+  })
 })

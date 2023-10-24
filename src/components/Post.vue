@@ -629,10 +629,6 @@ async function onMute() {
 function getPaymentOptions(): PaymentOption[] {
   const options: PaymentOption[] = []
   for (const field of props.post.account.fields) {
-    if (!field.name.startsWith("$")) {
-      // Not a symbol
-      continue
-    }
     const currency = getCurrencyByLabel(field.name)
     if (!currency) {
       continue
@@ -676,7 +672,11 @@ function getPaymentOptions(): PaymentOption[] {
 
 function getCryptoIconUrl(code: string): string {
   // require doesn't work with Vite: https://stackoverflow.com/a/71135980
-  return new URL(`../assets/cryptoicons/${code.toLowerCase()}.svg`, import.meta.url).href
+  if (code === "LN") {
+    return new URL("../assets/extra-icons/lightning.svg", import.meta.url).href
+  } else {
+    return new URL(`../assets/cryptoicons/${code.toLowerCase()}.svg`, import.meta.url).href
+  }
 }
 
 function togglePaymentAddress(option: PaymentOption) {

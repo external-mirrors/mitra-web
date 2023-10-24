@@ -38,6 +38,9 @@ export function getCurrencyByLabel(label: string): Currency | null {
   if (currency) {
     return { code: currency[0], name: currency[1] }
   }
+  if (["lightning address", "lud16"].includes(label.toLowerCase())) {
+    return { code: "LN", name: "Bitcoin Lightning" }
+  }
   return null
 }
 
