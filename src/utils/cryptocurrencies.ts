@@ -1,5 +1,5 @@
 // Currency code; currency name; payment URI scheme
-export const CRYPTOCURRENCIES = [
+const CRYPTOCURRENCIES = [
   // https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki
   ["BTC", "Bitcoin", "bitcoin"],
 
@@ -22,6 +22,24 @@ export const CRYPTOCURRENCIES = [
   // https://zips.z.cash/zip-0321
   ["ZEC", "Zcash", "zcash"],
 ]
+
+export interface Currency {
+  code: string,
+  name: string,
+}
+
+export const MONERO = { code: "XMR", name: "Monero" }
+export const ETHEREUM = { code: "ETH", name: "Ethereum" }
+
+export function getCurrencyByLabel(label: string): Currency | null {
+  const currency = CRYPTOCURRENCIES.find(([code, name]) => {
+    return `$${code}` === label.toUpperCase()
+  })
+  if (currency) {
+    return { code: currency[0], name: currency[1] }
+  }
+  return null
+}
 
 export function isEthereumChain(chainId: string): boolean {
   return chainId.startsWith("eip155")

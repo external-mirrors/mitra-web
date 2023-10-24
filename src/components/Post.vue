@@ -292,7 +292,7 @@
           :title="'Send ' + option.name"
           @click="togglePaymentAddress(option)"
         >
-          <img :src="getCryptoIconUrl(option)">
+          <img :src="getCryptoIconUrl(option.code)">
         </button>
       </div>
     </div>
@@ -361,7 +361,7 @@ import UniversalLink from "@/components/UniversalLink.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
-import { CRYPTOCURRENCIES } from "@/utils/cryptocurrencies"
+import { getCurrencyByLabel, Currency, ETHEREUM, MONERO } from "@/utils/cryptocurrencies"
 import { getWallet } from "@/utils/ethereum"
 import { formatDateTime, humanizeDate } from "@/utils/dates"
 
@@ -633,16 +633,14 @@ function getPaymentOptions(): PaymentOption[] {
       // Not a symbol
       continue
     }
-    const currency = CRYPTOCURRENCIES.find(([code, name]) => {
-      return `$${code}` === field.name.toUpperCase()
-    })
+    const currency = getCurrencyByLabel(field.name)
     if (!currency) {
       continue
     }
     const address = field.value.trim()
     options.push({
-      code: currency[0],
-      name: currency[1],
+      code: currency.code,
+      name: currency.name,
       address,
       subscription: null,
     })
@@ -650,27 +648,24 @@ function getPaymentOptions(): PaymentOption[] {
   const subscriptionLink = getSubscriptionLink(props.post.account)
   if (subscriptionLink) {
     // TODO: use CAIP-2 ID -> symbol mapping
-    const currency = CRYPTOCURRENCIES.find(([code]) => {
-      if (subscriptionLink.type === "ethereum" && code === "ETH") {
-        return true
-      } else if (subscriptionLink.type === "monero" && code === "XMR") {
-        return true
-      } else {
-        return false
-      }
-    })
-    if (!currency) {
+    let currency: Currency
+    if (subscriptionLink.type === "ethereum") {
+      currency = ETHEREUM
+    } else if (subscriptionLink.type === "monero") {
+      currency = MONERO
+    } else {
       throw new Error("invalid subscription type")
     }
     const option = options.find((option) => {
-      return option.code === currency[0]
+      return option.code === currency.code
     })
     if (option) {
+      // Add subscription link if option already exists
       option.subscription = subscriptionLink.location
     } else {
       options.push({
-        code: currency[0],
-        name: currency[1],
+        code: currency.code,
+        name: currency.name,
         address: null,
         subscription: subscriptionLink.location,
       })
@@ -679,9 +674,9 @@ function getPaymentOptions(): PaymentOption[] {
   return options
 }
 
-function getCryptoIconUrl(option: PaymentOption): string {
+function getCryptoIconUrl(code: string): string {
   // require doesn't work with Vite: https://stackoverflow.com/a/71135980
-  return new URL(`../assets/cryptoicons/${option.code.toLowerCase()}.svg`, import.meta.url).href
+  return new URL(`../assets/cryptoicons/${code.toLowerCase()}.svg`, import.meta.url).href
 }
 
 function togglePaymentAddress(option: PaymentOption) {
