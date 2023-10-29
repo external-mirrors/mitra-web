@@ -1,5 +1,12 @@
 {
   "extends": "stylelint-config-sass-guidelines",
+  "customSyntax": "postcss-scss",
+  "overrides": [
+    {
+      "files": ["**/*.vue"],
+      "customSyntax": "postcss-html"
+    }
+  ],
   "rules": {
     "color-hex-case": null,
     "color-hex-length": null,
