@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display donation button if profile has LN address.
 - Implement Monero Payment Requests.
 
+### Changed
+
+- Use single API call to identify payment sender.
+
 ### Fixed
 
 - Display "Mute author" menu item if post is reposted.

@@ -191,7 +191,7 @@ import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
 import { getRelationship, Relationship } from "@/api/relationships"
-import { searchProfilesByAcct, searchProfilesByAcctPublic } from "@/api/search"
+import { searchProfilesByAcct } from "@/api/search"
 import {
   findSubscription,
   SubscriptionDetails,
@@ -323,13 +323,21 @@ async function identifySender() {
     return
   }
   isLoading = true
+  let profiles
   try {
-    await searchProfilesByAcctPublic(senderAcct, true)
+    profiles = await searchProfilesByAcct(
+      null,
+      senderAcct,
+      true,
+    )
   } catch (error: any) {
-    // Ignore error
-    // TODO: Make single API call
+    if (error.message === "Too Many Requests") {
+      senderError = "Too many requests"
+      isLoading = false
+      return
+    }
+    throw error
   }
-  const profiles = await searchProfilesByAcct(null, senderAcct)
   if (profiles.length > 1) {
     senderError = "Please provide full address"
   } else {

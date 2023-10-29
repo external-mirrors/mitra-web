@@ -31,26 +31,17 @@ export async function searchProfilesByAcct(
   resolve: boolean = false,
   limit = 40,
 ): Promise<Profile[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/search`
+  let url
+  if (authToken === null) {
+    // Rate limited API endpoint
+    url = `${BACKEND_URL}/api/v1/accounts/search_public`
+  } else {
+    url = `${BACKEND_URL}/api/v1/accounts/search`
+  }
   const response = await http(url, {
     method: "GET",
     queryParams: { q: acct, resolve, limit },
     authToken,
-  })
-  const data = await handleResponse(response)
-  return data
-}
-
-// Rate limited API endpoint
-export async function searchProfilesByAcctPublic(
-  acct: string,
-  resolve: boolean = false,
-  limit = 40,
-): Promise<Profile[]> {
-  const url = `${BACKEND_URL}/api/v1/accounts/search_public`
-  const response = await http(url, {
-    method: "GET",
-    queryParams: { q: acct, resolve, limit },
   })
   const data = await handleResponse(response)
   return data
