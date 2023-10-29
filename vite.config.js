@@ -1,14 +1,16 @@
+import dns from "dns"
 import * as path from "path"
 import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { injectHtml } from "vite-plugin-html"
 
+// TODO: switch to 127.0.0.1
+dns.setDefaultResultOrder("verbatim")
+
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  // "import.meta" is not available in the configured target environment ("es2015")
-  // This bug could have been fixed in a newer version of Vite
+  // import.meta.env is only available in application code
   const env = loadEnv(mode, process.cwd(), "")
-
   return defineConfig({
     plugins: [
       vue({
@@ -31,6 +33,11 @@ export default ({ mode }) => {
     },
     server: {
       port: env.VITE_PORT,
+    },
+    test: {
+      environment: "jsdom",
+      globals: true,
+      watch: false,
     },
   })
 }
