@@ -56,13 +56,23 @@ function insertPost(post: Post) {
 }
 
 async function addRelationships(posts: Post[]): Promise<void> {
-  const uniqueAuthors = [...new Set(posts.map((post) => post.account.id))]
+  const authors = posts.flatMap((post) => {
+    const result = [post.account.id]
+    if (post.reblog) {
+      result.push(post.reblog.account.id)
+    }
+    return result
+  })
   const authToken = ensureAuthToken()
-  const relationships = await getRelationships(authToken, uniqueAuthors)
+  const relationships = await getRelationships(authToken, authors)
   for (const relationship of relationships) {
-    const postsByAuthor = posts.filter(post => post.account.id === relationship.id)
-    for (const post of postsByAuthor) {
-      post.relationship = relationship
+    for (const post of posts) {
+      if (post.account.id === relationship.id) {
+        post.relationship = relationship
+      }
+      if (post.reblog && post.reblog.account.id === relationship.id) {
+        post.reblog.relationship = relationship
+      }
     }
   }
 }

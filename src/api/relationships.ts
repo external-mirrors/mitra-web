@@ -42,7 +42,8 @@ export async function getRelationships(
     return []
   }
   const url = `${BACKEND_URL}/api/v1/accounts/relationships`
-  const queryParams = profileIds.reduce((params, value, index) => {
+  const uniqueProfileIds = [...new Set(profileIds)]
+  const queryParams = uniqueProfileIds.reduce((params, value, index) => {
     params[`id[${index}]`] = value
     return params
   }, <{ [key: string]: string }>{})
