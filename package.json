@@ -34,7 +34,7 @@
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
-    "@lavamoat/allow-scripts": "~2.0.3",
+    "@lavamoat/allow-scripts": "^2.5.1",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
     "@types/chai": "^4.2.11",
     "@types/luxon": "^1.26.5",
