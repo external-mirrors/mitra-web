@@ -21,7 +21,6 @@
 import { computed } from "vue"
 import { RouteLocationRaw } from "vue-router"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   to: any,
   title: string,

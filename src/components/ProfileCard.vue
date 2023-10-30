@@ -30,7 +30,6 @@ import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useInstanceInfo } from "@/composables/instance"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
   compact: boolean,

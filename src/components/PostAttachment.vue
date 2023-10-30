@@ -25,7 +25,6 @@ import { useClientConfig } from "@/composables/client-config"
 
 const { contentWarningsEnabled } = useClientConfig()
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   attachment: Attachment,
   isSensitive: boolean,

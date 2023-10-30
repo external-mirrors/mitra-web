@@ -226,7 +226,6 @@ import { isMoneroChain } from "@/utils/cryptocurrencies"
 const INVOICE_ID_STORAGE_KEY = "invoice"
 const PAYMENT_AMOUNT_MIN = 0.001
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
 }>()

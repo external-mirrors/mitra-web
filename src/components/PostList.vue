@@ -23,16 +23,14 @@ import { PAGE_SIZE } from "@/api/common"
 import { Post as PostObject } from "@/api/posts"
 import PostOrRepost from "@/components/PostOrRepost.vue"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   posts: PostObject[],
 }>()
-/* eslint-disable-next-line no-undef, func-call-spacing */
+/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "load-next-page", maxId: string): void,
 }>()
 
-/* eslint-disable-next-line no-undef */
 defineExpose({ resetPagination })
 
 let initialPostCount: number | null = null

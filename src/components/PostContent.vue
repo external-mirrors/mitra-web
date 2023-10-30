@@ -15,7 +15,6 @@ import { addGreentext } from "@/utils/greentext"
 const router = useRouter()
 const { currentUser } = $(useCurrentUser())
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   post: Post,
 }>()

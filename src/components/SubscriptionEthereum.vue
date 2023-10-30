@@ -131,7 +131,6 @@ import { useCurrentUser } from "@/composables/user"
 import { useWallet } from "@/composables/wallet"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
 }>()

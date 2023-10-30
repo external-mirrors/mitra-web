@@ -259,10 +259,6 @@ export async function updateProfile(
   return data
 }
 
-interface ActivityParams {
-  type: "update",
-}
-
 interface UnsignedActivity {
   value: { [key: string]: any },
 }

@@ -12,7 +12,6 @@ import { onMounted } from "vue"
 import { $ref } from "vue/macros"
 import QRCode from "qrcode"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   url: string,
 }>()

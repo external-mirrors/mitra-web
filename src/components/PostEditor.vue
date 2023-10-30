@@ -200,13 +200,12 @@ const POST_CONTENT_STORAGE_KEY = "post_content"
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   post: Post | null,
   inReplyTo: Post | null,
 }>()
 
-/* eslint-disable-next-line no-undef, func-call-spacing */
+/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "post-saved", post: Post): void,
   (event: "post-editor-closed"): void,
@@ -288,7 +287,6 @@ async function suggestMentions() {
   const contentBefore = content.substring(0, currentPosition)
   // "d" flag requires FF 88+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
-  /* eslint-disable-next-line no-empty-character-class */
   const mentionRegexp = /(^|\s)@(?<name>\S+)$/d
   const match = mentionRegexp.exec(contentBefore)
   const mentionText = match?.groups?.name

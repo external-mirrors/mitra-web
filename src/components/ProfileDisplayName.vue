@@ -10,7 +10,6 @@
 import { replaceShortcodes } from "@/api/emojis"
 import { ProfileWrapper } from "@/api/users"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: ProfileWrapper,
 }>()

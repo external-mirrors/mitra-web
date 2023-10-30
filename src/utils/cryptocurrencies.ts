@@ -32,7 +32,7 @@ export const MONERO = { code: "XMR", name: "Monero" }
 export const ETHEREUM = { code: "ETH", name: "Ethereum" }
 
 export function getCurrencyByLabel(label: string): Currency | null {
-  const currency = CRYPTOCURRENCIES.find(([code, name]) => {
+  const currency = CRYPTOCURRENCIES.find(([code]) => {
     return `$${code}` === label.toUpperCase()
   })
   if (currency) {

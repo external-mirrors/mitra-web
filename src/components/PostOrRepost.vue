@@ -36,11 +36,10 @@ import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useInstanceInfo } from "@/composables/instance"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   post: PostObject,
 }>()
-/* eslint-disable-next-line no-undef */
+
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
 const { getActorAddress } = $(useInstanceInfo())

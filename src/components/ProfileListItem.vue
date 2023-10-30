@@ -23,7 +23,6 @@ import { useInstanceInfo } from "@/composables/instance"
 
 const { getActorAddress } = useInstanceInfo()
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
 }>()

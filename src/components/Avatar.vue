@@ -10,7 +10,6 @@ import makeBlockie from "ethereum-blockies-base64"
 
 import { Profile } from "@/api/users"
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   profile: Profile,
 }>()

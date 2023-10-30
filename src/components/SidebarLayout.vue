@@ -53,7 +53,6 @@ const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { loadNotifications } = $(useNotifications())
 const { loadTheme } = useTheme()
 
-/* eslint-disable-next-line no-undef */
 const emit = defineEmits<{(event: "reload-home"): void}>()
 
 onMounted(() => {

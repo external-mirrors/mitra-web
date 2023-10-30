@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   address: string,
 }>()

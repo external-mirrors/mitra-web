@@ -3,17 +3,15 @@ import { TransactionResponse } from "@ethersproject/abstract-provider"
 import { DateTime } from "luxon"
 
 import { BACKEND_URL } from "@/constants"
-import { ethereumAddressMatch, EthereumSignature } from "@/utils/ethereum"
-import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
+import { EthereumSignature } from "@/utils/ethereum"
 import { handleResponse, http } from "./common"
 import { Contracts, getContract } from "./contracts"
 import {
   formatAmount,
   getPricePerMonth,
-  getPricePerSec,
   registerSubscriptionOption,
 } from "./subscriptions-common"
-import { Profile, User } from "./users"
+import { User } from "./users"
 
 export interface SubscriptionToken {
   address: string;
@@ -81,11 +79,11 @@ export async function onSubscriptionsEnabled(
 
 export class SubscriptionConfig {
 
-  recipientAddress: string;
-  tokenAddress: string;
-  tokenSymbol: string;
-  private tokenDecimals: number;
-  private price: BigNumber; // per second
+  recipientAddress: string
+  tokenAddress: string
+  tokenSymbol: string
+  private tokenDecimals: number
+  private price: BigNumber // per second
 
   constructor(
     recipientAddress: string,

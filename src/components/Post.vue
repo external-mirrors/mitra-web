@@ -377,14 +377,13 @@ const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getActorAddress, getBlockchainInfo, instance } = $(useInstanceInfo())
 const { getSubscriptionLink } = useSubscribe()
 
-/* eslint-disable-next-line no-undef */
 const props = defineProps<{
   post: Post,
   highlighted: boolean,
   inThread: boolean,
 }>()
 
-/* eslint-disable-next-line no-undef, func-call-spacing */
+/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "highlight", postId: string | null): void,
   (event: "navigate-to", postId: string): void,

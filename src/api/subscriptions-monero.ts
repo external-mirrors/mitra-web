@@ -9,7 +9,7 @@ import {
   getPricePerSec as _getPricePerSec,
   registerSubscriptionOption,
 } from "./subscriptions-common"
-import { Profile, User } from "./users"
+import { User } from "./users"
 
 const MONERO_DECIMALS = 12
 
