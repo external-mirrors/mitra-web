@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display donation button if profile has LN address.
 - Implement Monero Payment Requests.
+- Allow to remove profile images.
 
 ### Changed
 

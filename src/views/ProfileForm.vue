@@ -24,18 +24,33 @@
               <input
                 type="file"
                 id="avatar"
+                ref="avatarInputRef"
                 accept="image/*"
                 @change="onFilePicked('avatar', $event)"
               >
+              <button
+                v-if="images.avatar !== null"
+                @click.prevent="onFileRemoved('avatar')"
+              >
+                Remove
+              </button>
             </div>
             <div class="input-group">
               <label for="banner">Banner</label>
               <input
                 type="file"
                 id="banner"
+                ref="bannerInputRef"
                 accept="image/*"
                 @change="onFilePicked('header', $event)"
               >
+              <button
+                v-if="images.header !== null"
+                ref="headerInputRef"
+                @click.prevent="onFileRemoved('header')"
+              >
+                Remove
+              </button>
             </div>
           </div>
         </div>
@@ -105,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onMounted, ref } from "vue"
 import { $, $computed, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
@@ -156,6 +171,8 @@ const images = $ref({
 })
 
 const bioInputRef = $ref<HTMLTextAreaElement | null>(null)
+const avatarInputRef = ref<HTMLInputElement | null>(null)
+const bannerInputRef = ref<HTMLInputElement | null>(null)
 
 onMounted(() => {
   if (bioInputRef) {
@@ -189,6 +206,21 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
   const imageData = dataUrlToBase64(imageDataUrl)
   form[fieldName] = imageData.data
   form[`${fieldName}_media_type`] = imageData.mediaType
+}
+
+function onFileRemoved(fieldName: "avatar" | "header") {
+  // Clear inputs
+  if (fieldName === "avatar" && avatarInputRef.value !== null) {
+    avatarInputRef.value.value = ""
+  }
+  if (fieldName === "header" && bannerInputRef.value !== null) {
+    bannerInputRef.value.value = ""
+  }
+  // Remove preview
+  images[fieldName] = null
+  // Empty string removes the image from profile
+  form[fieldName] = ""
+  form[`${fieldName}_media_type`] = null
 }
 
 function isValidExtraField(index: number): boolean {
@@ -269,6 +301,13 @@ async function save() {
 
   .input-group:last-child {
     margin-bottom: 0;
+  }
+
+  button {
+    @include block-link;
+
+    margin-top: calc($input-padding / 2);
+    text-decoration: underline;
   }
 }
 
