@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Update follower status automatically after following remote profile.
+
 ### Changed
 
 - Use invoice creation date as a starting date for Monero Payment Request.

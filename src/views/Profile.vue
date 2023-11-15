@@ -615,6 +615,21 @@ async function onFollow(showReposts?: boolean, showReplies?: boolean) {
     showReposts ?? relationship.showing_reblogs,
     showReplies ?? relationship.showing_replies,
   )
+  if (
+    showReposts === undefined &&
+    showReplies === undefined &&
+    !relationship.following
+  ) {
+    // Update follower status after 5 secs
+    setTimeout(async () => {
+      if (profile) {
+        relationship = await getRelationship(
+          ensureAuthToken(),
+          profile.id,
+        )
+      }
+    }, 5000)
+  }
 }
 
 async function onUnfollow() {
