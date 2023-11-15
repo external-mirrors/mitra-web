@@ -73,6 +73,7 @@ export interface Invoice {
   payment_address: string,
   amount: number,
   status: string,
+  created_at: string,
   expires_at: string,
 }
 

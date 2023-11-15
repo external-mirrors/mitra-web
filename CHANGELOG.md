@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use invoice creation date as a starting date for Monero Payment Request.
+
 ## [2.3.0] - 2023-11-07
 
 ### Added

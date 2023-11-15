@@ -540,8 +540,7 @@ function getPaymentRequest(invoice: Invoice): string {
     subscriptionPrice,
     DAYS_IN_MONTH,
     invoice.payment_address,
-    // TODO: use created_at
-    invoice.expires_at,
+    invoice.created_at,
   )
 }
 
