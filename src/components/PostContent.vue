@@ -40,6 +40,7 @@ function configureInlineLinks() {
         event.preventDefault()
         router.push({ name: "profile-by-acct", params: { acct: mention.acct } })
       })
+      mentionElement.dataset.internalLink = "true"
     }
   }
   const hashtags = postContentRef.getElementsByClassName("hashtag")
@@ -54,17 +55,18 @@ function configureInlineLinks() {
         event.preventDefault()
         router.push({ name: "tag", params: { tagName: hashtag.name } })
       })
+      hashtagElement.dataset.internalLink = "true"
     }
   }
   for (const linkedPost of props.post.links) {
     const links = postContentRef.querySelectorAll("a")
     for (const linkElement of Array.from(links)) {
       if (linkedPost.uri === linkElement.getAttribute("href")) {
-        linkElement.dataset.objectLink = "true"
         linkElement.addEventListener("click", (event: Event) => {
           event.preventDefault()
           router.push({ name: "post", params: { postId: linkedPost.id } })
         })
+        linkElement.dataset.internalLink = "true"
       }
     }
   }
@@ -131,9 +133,7 @@ function getContent(): string {
     @include block-external-link;
 
     /* data-object-link is set by configureInlineLinks() */
-    &.hashtag,
-    &.mention,
-    &[data-object-link="true"] {
+    &[data-internal-link="true"] {
       @include block-link;
     }
   }

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Display broken mentions as external links.
+
 ## [2.4.0] - 2023-11-16
 
 ### Added
