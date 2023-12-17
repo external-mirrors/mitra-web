@@ -478,7 +478,7 @@ async function switchTab(name: string) {
   isLoading = false
 }
 
-const actorAddress = $computed<string>(() => {
+const actorAddress = computed<string>(() => {
   if (!profile) {
     return ""
   }
@@ -558,7 +558,8 @@ async function onRejectFollowRequest() {
 
 function canFollow(): boolean {
   if (!relationship) {
-    return false
+    // Show 'Follow' button to guests too
+    return true
   }
   return !relationship.following && !relationship.requested
 }
@@ -606,7 +607,12 @@ function canShowReplies(): boolean {
 }
 
 async function onFollow(showReposts?: boolean, showReplies?: boolean) {
-  if (!currentUser || !profile || !relationship) {
+  if (!currentUser) {
+    // Viewing as guest
+    alert(`You can follow this account from your Fediverse server: @${actorAddress.value}`)
+    return
+  }
+  if (!profile || !relationship) {
     return
   }
   relationship = await follow(
