@@ -621,12 +621,16 @@ async function onFollow(showReposts?: boolean, showReplies?: boolean) {
     !relationship.following
   ) {
     // Update follower status after 5 secs
-    setTimeout(async () => {
-      if (profile) {
+    let count = 0
+    const intervalId = setInterval(async () => {
+      if (profile && relationship && !relationship.following && count < 5) {
         relationship = await getRelationship(
           ensureAuthToken(),
           profile.id,
         )
+        count += 1
+      } else {
+        clearInterval(intervalId)
       }
     }, 5000)
   }
