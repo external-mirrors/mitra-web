@@ -33,6 +33,9 @@ function configureInlineLinks() {
   }
   const mentions = postContentRef.getElementsByClassName("mention")
   for (const mentionElement of Array.from(mentions)) {
+    if (!(mentionElement instanceof HTMLElement)) {
+      continue
+    }
     const mention = props.post.mentions
       .find((mention) => mentionElement.getAttribute("href") === mention.url)
     if (mention) {
@@ -45,6 +48,9 @@ function configureInlineLinks() {
   }
   const hashtags = postContentRef.getElementsByClassName("hashtag")
   for (const hashtagElement of Array.from(hashtags)) {
+    if (!(hashtagElement instanceof HTMLElement)) {
+      continue
+    }
     const hashtag = props.post.tags
       .find((tag) => {
         const innerText = (hashtagElement as HTMLElement).innerText
