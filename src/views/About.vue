@@ -98,4 +98,13 @@ function getMitraVersion(apiVersion: string): string {
     }
   }
 }
+
+:deep(.page-content) {
+  @if $about-background-color != transparent {
+    background-color: $about-background-color;
+    border-radius: $block-border-radius;
+    margin: -$block-inner-padding;
+    padding: $block-inner-padding;
+  }
+}
 </style>
