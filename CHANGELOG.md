@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Make multiple requests when refreshing follower status.
 
+### Fixed
+
+- Fix incorrect admin avatar size on About page.
+
 ## [2.5.0] - 2023-12-14
 
 ### Changed

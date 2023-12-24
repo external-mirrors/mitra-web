@@ -47,9 +47,9 @@ const profile = computed(() => new ProfileWrapper(props.profile))
   flex-direction: row;
 
   .avatar {
+    flex-shrink: 0;
     height: $avatar-size;
     margin-right: $block-inner-padding;
-    min-width: $avatar-size;
     width: $avatar-size;
   }
 
