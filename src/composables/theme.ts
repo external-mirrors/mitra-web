@@ -8,6 +8,7 @@ enum Theme {
 }
 
 function defaultTheme(): Theme {
+  // Doesn't work in Firefox if privacy.resistFingerprinting is set to true
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     return Theme.Dark
   } else {

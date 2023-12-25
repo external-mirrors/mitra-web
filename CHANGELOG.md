@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display "Follow" button to guests.
 - Make background color of public About page customizable.
+- Enable detection of preferred color scheme on About page.
 
 ### Changed
 

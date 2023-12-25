@@ -10,6 +10,18 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import { onMounted } from "vue"
+
+import { useTheme } from "@/composables/theme"
+
+const { loadTheme } = useTheme()
+
+onMounted(() => {
+  loadTheme()
+})
+</script>
+
 <style scoped lang="scss">
 @import "../styles/layout";
 

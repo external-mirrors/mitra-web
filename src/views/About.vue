@@ -32,8 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { $ } from "vue/macros"
-
 import { APP_VERSION } from "@/constants"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -41,8 +39,8 @@ import StaticPage from "@/components/StaticPage.vue"
 import { useCurrentUser } from "@/composables/user"
 import { useInstanceInfo } from "@/composables/instance"
 
-const { currentUser } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { currentUser } = useCurrentUser()
+const { instance } = useInstanceInfo()
 
 function getMitraVersion(apiVersion: string): string {
   const match = apiVersion.match(/.+Mitra ([\d.]+)/)
