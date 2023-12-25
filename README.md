@@ -46,6 +46,12 @@ npm run build
 
 This will produce a static website in the `/dist` directory.
 
+### Customization
+
+Color scheme can be adjusted by changing variables in [src/styles/_theme.scss](./src/styles/_theme.scss). This file includes parameters of both light and dark modes.
+
+Rebuild the application after making changes.
+
 ## Development
 
 ### Compiles and hot-reloads for development
