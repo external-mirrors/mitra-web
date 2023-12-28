@@ -47,6 +47,7 @@ export interface Profile {
   id: string;
   username: string;
   acct: string;
+  actor_id: string,
   url: string;
   display_name: string | null;
   note: string | null;
@@ -69,6 +70,7 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
     id: "",
     username: "",
     acct: "",
+    actor_id: "",
     url: "",
     display_name: "",
     note: null,

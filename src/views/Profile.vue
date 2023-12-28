@@ -123,6 +123,14 @@
                     Copy profile ID
                   </button>
                 </li>
+                <li v-if="isAdmin()">
+                  <button
+                    title="Copy actor ID"
+                    @click="hideProfileMenu(); copyActorId()"
+                  >
+                    Copy actor ID
+                  </button>
+                </li>
               </menu>
             </div>
           </div>
@@ -772,6 +780,13 @@ function copyProfileId(): void {
     return
   }
   navigator.clipboard.writeText(profile.id)
+}
+
+function copyActorId(): void {
+  if (!profile) {
+    return
+  }
+  navigator.clipboard.writeText(profile.actor_id)
 }
 
 async function loadNextPage(maxId: string) {
