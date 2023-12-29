@@ -438,7 +438,12 @@ function getReplyMentions(): Mention[] {
   if (props.post.in_reply_to_id === null) {
     return []
   }
-  return props.post.mentions
+  if (props.post.in_reply_to_account_id === props.post.account.id) {
+    // Self-reply
+    return [props.post.account, ...props.post.mentions]
+  } else {
+    return props.post.mentions
+  }
 }
 
 function getQuoteAuthor(post: Post): ProfileWrapper {

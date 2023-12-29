@@ -59,6 +59,7 @@ export interface Post {
   account: Profile;
   content: string;
   in_reply_to_id: string | null;
+  in_reply_to_account_id: string | null,
   reblog: Post | null;
   visibility: Visibility;
   sensitive: boolean;
@@ -190,6 +191,7 @@ export async function previewPost(
     account: defaultProfile(),
     content: data.content,
     in_reply_to_id: null,
+    in_reply_to_account_id: null,
     reblog: null,
     visibility: Visibility.Public,
     sensitive: false,
