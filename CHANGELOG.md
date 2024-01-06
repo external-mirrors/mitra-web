@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add "Copy actor ID" menu item to profile menu (only for admins).
 - Display reply indicator when replying to one's own post.
 
+### Changed
+
+- Add loader to tag timeline.
+
 ## [2.6.0] - 2023-12-25
 
 ### Added
