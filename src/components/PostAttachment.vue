@@ -3,12 +3,23 @@
     v-if="attachment.type === 'image'"
     class="image"
     :class="{ sensitive: contentWarningEnabled }"
-    @click="toggleContentWarning()"
   >
-    <button v-if="contentWarningEnabled" class="content-warning">
+    <button
+      v-if="contentWarningEnabled"
+      class="show-image"
+      @click="showImage()"
+    >
       Sensitive content
     </button>
-    <img :src="attachment.url">
+    <button
+      v-else-if="isSensitive"
+      class="hide-image"
+      title="Hide image"
+      @click="hideImage()"
+    >
+      <img src="@/assets/feather/eye-off.svg">
+    </button>
+    <img :src="attachment.url" @click="onImageClick()">
   </div>
   <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
   <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
@@ -32,10 +43,18 @@ const props = defineProps<{
 
 const contentWarningEnabled = ref(props.isSensitive && contentWarningsEnabled.value)
 
-function toggleContentWarning() {
-  if (props.isSensitive) {
-    // Toggle works only if post is marked as sensitive
-    contentWarningEnabled.value = !contentWarningEnabled.value
+function showImage() {
+  contentWarningEnabled.value = false
+}
+
+function hideImage() {
+  contentWarningEnabled.value = true
+}
+
+function onImageClick() {
+  if (props.isSensitive && contentWarningEnabled.value === true) {
+    // If post is marked as sensitive, hide content warning
+    showImage()
   }
 }
 </script>
@@ -50,18 +69,36 @@ a {
   word-wrap: break-word;
 }
 
+button {
+  background-color: var(--block-background-color);
+  border-radius: $btn-border-radius;
+  display: flex;
+  padding: $input-padding;
+
+  img {
+    filter: var(--link-colorizer);
+    height: $icon-size;
+    width: $icon-size;
+  }
+}
+
 .image {
   overflow: hidden;
   position: relative;
 
-  .content-warning {
-    background-color: var(--block-background-color);
-    border-radius: $btn-border-radius;
+  .show-image {
     left: 50%;
-    padding: $input-padding;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .hide-image {
+    left: $body-padding;
+    padding: $input-padding;
+    position: absolute;
+    top: $body-padding;
     z-index: 1;
   }
 
