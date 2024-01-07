@@ -73,8 +73,6 @@ function showHomeTimeline() {
 @import "../styles/layout";
 @import "../styles/mixins";
 
-$header-z-index: 100;
-
 header {
   @include main-background;
 
