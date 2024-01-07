@@ -20,6 +20,16 @@
       <img src="@/assets/feather/eye-off.svg">
     </button>
     <img :src="attachment.url" @click="onImageClick()">
+    <div
+      v-if="lightboxOpen"
+      class="lightbox"
+      @click="closeLightbox()"
+    >
+      <button title="Close">
+        <img src="@/assets/feather/x.svg">
+      </button>
+      <img :src="attachment.url">
+    </div>
   </div>
   <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
   <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
@@ -42,6 +52,7 @@ const props = defineProps<{
 }>()
 
 const contentWarningEnabled = ref(props.isSensitive && contentWarningsEnabled.value)
+const lightboxOpen = ref(false)
 
 function showImage() {
   contentWarningEnabled.value = false
@@ -51,10 +62,20 @@ function hideImage() {
   contentWarningEnabled.value = true
 }
 
+function openLightbox() {
+  lightboxOpen.value = true
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false
+}
+
 function onImageClick() {
   if (props.isSensitive && contentWarningEnabled.value === true) {
     // If post is marked as sensitive, hide content warning
     showImage()
+  } else {
+    openLightbox()
   }
 }
 </script>
@@ -103,6 +124,7 @@ button {
   }
 
   > img {
+    cursor: zoom-in;
     display: block;
     height: 100%;
     object-fit: cover;
@@ -110,7 +132,34 @@ button {
   }
 
   &.sensitive > img {
+    cursor: initial;
     filter: blur(50px);
+  }
+}
+
+.lightbox {
+  background-color: rgb(0 0 0 / 75%);
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: $body-padding;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: $header-z-index + 1;
+
+  button {
+    position: absolute;
+    right: $body-padding;
+    top: $body-padding;
+  }
+
+  > img {
+    background-color: var(--block-background-color);
+    object-fit: contain;
   }
 }
 

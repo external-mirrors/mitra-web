@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add "Copy actor ID" menu item to profile menu (only for admins).
 - Display reply indicator when replying to one's own post.
 - Add "Hide image" button to images with content warning.
+- Show lightbox when clicking on image attachment.
 
 ### Changed
 

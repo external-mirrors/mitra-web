@@ -105,6 +105,10 @@ html {
   font-family: $text-font;
   font-size: $text-font-size;
   min-height: 100%;
+
+  &:has(.lightbox) {
+    overflow: hidden;
+  }
 }
 
 a {
