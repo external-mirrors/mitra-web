@@ -88,16 +88,7 @@ function onImageClick() {
 @import "../styles/mixins";
 
 button {
-  background-color: var(--block-background-color);
-  border-radius: $btn-border-radius;
-  display: flex;
-  padding: $input-padding;
-
-  img {
-    filter: var(--link-colorizer);
-    height: $icon-size;
-    width: $icon-size;
-  }
+  @include media-btn;
 }
 
 .image {

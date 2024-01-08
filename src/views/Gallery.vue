@@ -82,7 +82,7 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
+@import "../styles/mixins";
 
 $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 
@@ -128,20 +128,12 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 }
 
 .post-link {
-  /* See also: button in PostAttachment.vue */
-  background-color: var(--block-background-color);
-  border-radius: $btn-border-radius;
-  color: var(--link-color);
-  display: flex;
-  padding: $input-padding;
+  @include media-btn;
+
+  /* Same positioning is used PostAttachment.vue */
   position: absolute;
   right: $body-padding;
   top: $body-padding;
-
-  img {
-    filter: var(--link-colorizer);
-    width: $icon-size;
-  }
 }
 
 .empty {

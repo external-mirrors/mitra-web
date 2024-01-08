@@ -128,6 +128,28 @@
   }
 }
 
+@mixin media-btn {
+  background-color: var(--block-background-color);
+  border-radius: $btn-border-radius;
+  color: var(--link-color);
+  display: flex;
+  padding: $input-padding;
+
+  img {
+    filter: var(--link-colorizer);
+    height: $icon-size;
+    width: $icon-size;
+  }
+
+  &:hover {
+    color: var(--link-hover-color);
+
+    img {
+      filter: var(--link-hover-colorizer);
+    }
+  }
+}
+
 @mixin block-dropdown-menu {
   position: relative;
 
