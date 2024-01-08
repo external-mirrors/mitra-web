@@ -13,11 +13,10 @@
         v-if="posts.length > 0"
         class="post-grid"
       >
-        <router-link
+        <div
           v-for="post in posts"
           class="post"
           :key="post.id"
-          :to="{ name: 'post', params: { postId: post.id }}"
         >
           <post-attachment
             class="media"
@@ -25,7 +24,14 @@
             :is-sensitive="post.sensitive"
           >
           </post-attachment>
-        </router-link>
+          <router-link
+            class="post-link"
+            title="View post"
+            :to="{ name: 'post', params: { postId: post.id }}"
+          >
+            <img src="@/assets/forkawesome/comment-o.svg">
+          </router-link>
+        </div>
       </div>
       <h2 v-else-if="!isLoading" class="empty">
         No media found
@@ -113,10 +119,28 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   .post {
     height: 30vh;
     min-width: 0;
+    position: relative;
 
     .media {
       height: 100%;
     }
+  }
+}
+
+.post-link {
+  /* See also: button in PostAttachment.vue */
+  background-color: var(--block-background-color);
+  border-radius: $btn-border-radius;
+  color: var(--link-color);
+  display: flex;
+  padding: $input-padding;
+  position: absolute;
+  right: $body-padding;
+  top: $body-padding;
+
+  img {
+    filter: var(--link-colorizer);
+    width: $icon-size;
   }
 }
 
