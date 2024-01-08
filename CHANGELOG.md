@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Add loader to tag timeline.
+- Change representation of an attachment of unknown type.
 
 ## [2.6.0] - 2023-12-25
 

@@ -33,9 +33,12 @@
   </div>
   <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
   <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
-  <div v-else>
-    &bull; <a :href="attachment.url">{{ attachment.url }}</a>
-  </div>
+  <table v-else class="document">
+    <tr>
+      <td><img src="@/assets/feather/file.svg"></td>
+      <td><a :href="attachment.url">{{ attachment.url }}</a></td>
+    </tr>
+  </table>
 </template>
 
 <script setup lang="ts">
@@ -83,12 +86,6 @@ function onImageClick() {
 <style scoped lang="scss">
 @import "../styles/layout";
 @import "../styles/mixins";
-
-a {
-  @include block-link;
-
-  word-wrap: break-word;
-}
 
 button {
   background-color: var(--block-background-color);
@@ -166,5 +163,31 @@ button {
 audio,
 video {
   width: 100%;
+}
+
+.document {
+  table-layout: fixed;
+  width: 100%;
+
+  td {
+    border: 1px solid var(--separator-color);
+    padding: $input-padding;
+  }
+
+  td:first-child {
+    width: $icon-size * 2;
+
+    img {
+      filter: var(--secondary-text-colorizer);
+      vertical-align: middle;
+      width: 100%;
+    }
+  }
+
+  a {
+    @include block-link;
+
+    word-wrap: break-word;
+  }
 }
 </style>
