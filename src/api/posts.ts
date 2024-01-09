@@ -8,6 +8,7 @@ export interface Attachment {
   id: string;
   type: string;
   url: string;
+  description: string | null,
 }
 
 export async function uploadAttachment(

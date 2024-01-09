@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display reply indicator when replying to one's own post.
 - Add "Hide image" button to images with content warning.
 - Show lightbox when clicking on image attachment.
+- Added alt text to attached images.
 
 ### Changed
 

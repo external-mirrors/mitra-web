@@ -19,7 +19,12 @@
     >
       <img src="@/assets/feather/eye-off.svg">
     </button>
-    <img :src="attachment.url" @click="onImageClick()">
+    <img
+      :src="attachment.url"
+      :alt="attachment.description || undefined"
+      :title="attachment.description || undefined"
+      @click="onImageClick()"
+    >
     <div
       v-if="lightboxOpen"
       class="lightbox"
@@ -28,7 +33,11 @@
       <button title="Close">
         <img src="@/assets/feather/x.svg">
       </button>
-      <img :src="attachment.url">
+      <img
+        :src="attachment.url"
+        :alt="attachment.description || undefined"
+        :title="attachment.description || undefined"
+      >
     </div>
   </div>
   <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
