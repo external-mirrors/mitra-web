@@ -5,6 +5,7 @@
         v-if="canCreatePost()"
         :post="null"
         :in-reply-to="null"
+        :repost-of="null"
         @post-saved="insertPost"
       ></post-editor>
       <loader v-if="isLoading"></loader>

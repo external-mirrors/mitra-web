@@ -16,7 +16,7 @@
         @input="onContentInput"
         rows="1"
         required
-        :placeholder="inReplyTo ? 'Your reply' : 'What\'s on your mind?'"
+        :placeholder="inReplyTo ? 'Your reply' : (repostOf ? 'Your comment' : 'What\'s on your mind?')"
         @paste="onPaste($event)"
         @keyup.ctrl.enter="publish()"
       ></textarea>
@@ -140,7 +140,8 @@
           :disabled="!canPublish()"
           @click.prevent="publish()"
         >
-          Publish
+          <template v-if="repostOf">Repost</template>
+          <template v-else>Publish</template>
         </button>
       </div>
     </div>
@@ -203,6 +204,7 @@ const { instance, getActorAddress } = $(useInstanceInfo())
 const props = defineProps<{
   post: Post | null,
   inReplyTo: Post | null,
+  repostOf: Post | null,
 }>()
 
 /* eslint-disable-next-line func-call-spacing */
@@ -228,7 +230,9 @@ let isAttachmentLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
 const author = computed<User | null>(() => currentUser)
-const isEditorEmbedded = computed(() => props.inReplyTo !== null)
+const isEditorEmbedded = computed(() => {
+  return props.inReplyTo !== null || props.repostOf !== null
+})
 
 if (props.post) {
   content = props.post.contentSource || ""
@@ -443,6 +447,10 @@ function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading && !isAttachmentLoading
 }
 
+function getObjectLink(post: Post): string {
+  return `\n\n RE: [[${post.uri}]]\n\n@${post.account.acct}`
+}
+
 async function publish() {
   const postData = {
     content: content,
@@ -450,6 +458,10 @@ async function publish() {
     visibility: visibility,
     isSensitive: isSensitive,
     attachments: attachments,
+  }
+  if (props.repostOf) {
+    // Append object link markup
+    postData.content = postData.content + getObjectLink(props.repostOf)
   }
   isLoading = true
   let post

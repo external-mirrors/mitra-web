@@ -240,6 +240,16 @@
               <span>Mint NFT</span>
             </button>
           </li>
+          <li v-if="canRepostWithComment()">
+            <button
+              class="icon"
+              title="Repost with comment"
+              @click="hideMenu(); onRepostWithComment()"
+            >
+              <img src="@/assets/tabler/quote.svg">
+              <span>Repost with comment</span>
+            </button>
+          </li>
           <li v-if="canEditPost()">
             <button
               class="icon"
@@ -301,8 +311,19 @@
       class="comment-form"
       :post="null"
       :in-reply-to="post"
+      :repost-of="null"
       @post-saved="onReplyCreated"
       @post-editor-closed="replyFormVisible = false"
+    >
+    </post-editor>
+    <post-editor
+      v-if="repostFormVisible"
+      class="comment-form"
+      :post="null"
+      :in-reply-to="null"
+      :repost-of="post"
+      @post-saved="onRepostCreated"
+      @post-editor-closed="repostFormVisible = false"
     >
     </post-editor>
   </div>
@@ -311,6 +332,7 @@
     class="post-edit-form"
     :post="post"
     :in-reply-to="null"
+    :repost-of="null"
     @post-saved="onPostUpdated"
     @post-editor-closed="editorVisible = false"
   >
@@ -392,6 +414,7 @@ const emit = defineEmits<{
 }>()
 
 const replyFormVisible = ref(false)
+const repostFormVisible = ref(false)
 const editorVisible = ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentOption = $ref<PaymentOption | null>(null)
@@ -463,7 +486,22 @@ function toggleReplyForm() {
 
 function onReplyCreated(post: Post) {
   replyFormVisible.value = false
+  repostFormVisible.value = false
   emit("comment-created", post)
+}
+
+function canRepostWithComment(): boolean {
+  return props.inThread && canReply()
+}
+
+async function onRepostWithComment() {
+  replyFormVisible.value = false
+  repostFormVisible.value = true
+}
+
+function onRepostCreated() {
+  repostFormVisible.value = false
+  router.push({ name: "home" })
 }
 
 function canRepost(): boolean {
