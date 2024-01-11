@@ -20,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Change representation of an attachment of unknown type.
 - Allow interactions with images in Gallery.
 
+### Fixed
+
+- Fix alignment of "Copy link to post" menu item.
+
 ## [2.6.0] - 2023-12-25
 
 ### Added

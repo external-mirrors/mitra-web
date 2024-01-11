@@ -925,6 +925,7 @@ async function onMintToken() {
 .dropdown-menu-wrapper {
   @include block-dropdown-menu;
 
+  a.icon,
   button.icon {
     gap: calc($block-inner-padding / 2);
   }
