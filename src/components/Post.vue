@@ -119,7 +119,7 @@
         v-else-if="inThread && canReply()"
         class="icon"
         title="Reply"
-        @click="commentFormVisible = !commentFormVisible"
+        @click="toggleReplyForm()"
       >
         <img src="@/assets/forkawesome/comment-o.svg">
         <span>{{ post.replies_count }}</span>
@@ -297,12 +297,12 @@
       </div>
     </div>
     <post-editor
-      v-if="commentFormVisible"
+      v-if="replyFormVisible"
       class="comment-form"
       :post="null"
       :in-reply-to="post"
-      @post-saved="onCommentCreated"
-      @post-editor-closed="commentFormVisible = false"
+      @post-saved="onReplyCreated"
+      @post-editor-closed="replyFormVisible = false"
     >
     </post-editor>
   </div>
@@ -391,7 +391,7 @@ const emit = defineEmits<{
   (event: "post-deleted"): void,
 }>()
 
-let commentFormVisible = $ref(false)
+const replyFormVisible = ref(false)
 const editorVisible = ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentOption = $ref<PaymentOption | null>(null)
@@ -457,8 +457,12 @@ function canReply(): boolean {
   return currentUser.role.permissions.includes(Permissions.CreatePost)
 }
 
-function onCommentCreated(post: Post) {
-  commentFormVisible = false
+function toggleReplyForm() {
+  replyFormVisible.value = !replyFormVisible.value
+}
+
+function onReplyCreated(post: Post) {
+  replyFormVisible.value = false
   emit("comment-created", post)
 }
 

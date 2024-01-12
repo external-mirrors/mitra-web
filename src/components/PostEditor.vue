@@ -1,5 +1,5 @@
 <template>
-  <form class="post-form" :class="{ reply: inReplyTo }">
+  <form class="post-form">
     <router-link
       v-if="author"
       class="floating-avatar"
@@ -127,7 +127,7 @@
           <img v-else src="@/assets/feather/eye-off.svg">
         </button>
         <button
-          v-if="inReplyTo"
+          v-if="isEditorEmbedded"
           class="icon btn-small"
           @click.prevent="cancel()"
         >
@@ -135,7 +135,7 @@
         </button>
         <button
           type="submit"
-          v-if="inReplyTo"
+          v-if="isEditorEmbedded"
           class="icon btn-small"
           :disabled="!canPublish()"
           @click.prevent="publish()"
@@ -144,7 +144,7 @@
         </button>
       </div>
     </div>
-    <div v-if="!inReplyTo" class="submit-btn-wrapper">
+    <div v-if="!isEditorEmbedded" class="submit-btn-wrapper">
       <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       <button
         v-if="post"
@@ -168,8 +168,8 @@
 
 <script setup lang="ts">
 /* eslint-disable vue/no-setup-props-destructure */
-import { nextTick, onMounted } from "vue"
-import { $, $computed, $ref } from "vue/macros"
+import { computed, nextTick, onMounted } from "vue"
+import { $, $ref } from "vue/macros"
 
 import {
   createPost,
@@ -227,9 +227,8 @@ let isLoading = $ref(false)
 let isAttachmentLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
-const author = $computed<User | null>(() => {
-  return currentUser
-})
+const author = computed<User | null>(() => currentUser)
+const isEditorEmbedded = computed(() => props.inReplyTo !== null)
 
 if (props.post) {
   content = props.post.contentSource || ""
@@ -472,7 +471,7 @@ async function publish() {
   } catch (error: any) {
     errorMessage = error.message
     isLoading = false
-    if (props.inReplyTo !== null) {
+    if (isEditorEmbedded.value === true) {
       // Show alert if there's no errorbox
       alert(errorMessage)
     }
@@ -659,12 +658,6 @@ $line-height: 1.5;
   .error-message {
     color: $error-color;
     margin-right: $block-inner-padding;
-  }
-}
-
-.post-form.reply {
-  textarea {
-    height: calc(1.5em + #{2 * $block-inner-padding});
   }
 }
 </style>
