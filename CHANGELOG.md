@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Add ⚡ to the list of supported Bitcoin Lightning labels.
-- Disable follow button while request is being processed.
+- Disable follow, unfollow, like and repost buttons while request is being processed.
 
 ### Fixed
 

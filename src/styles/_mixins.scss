@@ -114,8 +114,10 @@
   }
 
   button.icon[disabled] {
+    color: var(--secondary-text-disabled-color);
+
     img {
-      filter: var(--secondary-text-colorizer);
+      filter: var(--secondary-text-disabled-colorizer);
     }
   }
 

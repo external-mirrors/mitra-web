@@ -132,6 +132,7 @@
         v-if="canRepost()"
         class="icon"
         :class="{ highlighted: post.reblogged }"
+        :disabled="isProcessingRepost"
         title="Repost"
         @click="toggleRepost()"
       >
@@ -146,6 +147,7 @@
         v-if="canLike()"
         class="icon"
         :class="{ highlighted: post.favourited }"
+        :disabled="isProcessingLike"
         title="Like"
         @click="toggleLike()"
       >
@@ -416,6 +418,8 @@ const emit = defineEmits<{
 const replyFormVisible = ref(false)
 const repostFormVisible = ref(false)
 const editorVisible = ref(false)
+const isProcessingRepost = ref(false)
+const isProcessingLike = ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentOption = $ref<PaymentOption | null>(null)
 let isWaitingForToken = $ref(false)
@@ -519,6 +523,7 @@ async function toggleRepost() {
     return
   }
   const authToken = ensureAuthToken()
+  isProcessingRepost.value = true
   let updatedPost
   try {
     if (props.post.reblogged) {
@@ -527,9 +532,11 @@ async function toggleRepost() {
       updatedPost = await createRepost(authToken, props.post.id)
     }
   } catch (error) {
+    isProcessingRepost.value = false
     console.log(error)
     return
   }
+  isProcessingRepost.value = false
   props.post.reblogs_count = updatedPost.reblogs_count
   props.post.reblogged = updatedPost.reblogged
 }
@@ -543,6 +550,7 @@ async function toggleLike() {
     return
   }
   const authToken = ensureAuthToken()
+  isProcessingLike.value = true
   let updatedPost
   try {
     if (props.post.favourited) {
@@ -551,9 +559,11 @@ async function toggleLike() {
       updatedPost = await favourite(authToken, props.post.id)
     }
   } catch (error) {
+    isProcessingLike.value = false
     console.log(error)
     return
   }
+  isProcessingLike.value = false
   props.post.favourites_count = updatedPost.favourites_count
   props.post.favourited = updatedPost.favourited
 }

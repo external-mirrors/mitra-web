@@ -37,6 +37,8 @@ watch($$(currentUser), () => {
   --secondary-text-colorizer: #{$secondary-text-colorizer};
   --secondary-text-hover-color: #{$secondary-text-hover-color};
   --secondary-text-hover-colorizer: #{$secondary-text-hover-colorizer};
+  --secondary-text-disabled-color: #{$secondary-text-disabled-color};
+  --secondary-text-disabled-colorizer: #{$secondary-text-disabled-colorizer};
   --link-color: #{$link-color};
   --link-colorizer: #{$link-colorizer};
   --link-hover-color: #{$link-hover-color};
@@ -72,6 +74,8 @@ watch($$(currentUser), () => {
   --secondary-text-colorizer: #{$dark-secondary-text-colorizer};
   --secondary-text-hover-color: #{$dark-secondary-text-hover-color};
   --secondary-text-hover-colorizer: #{$dark-secondary-text-hover-colorizer};
+  --secondary-text-disabled-color: #{$dark-secondary-text-disabled-color};
+  --secondary-text-disabled-colorizer: #{$dark-secondary-text-disabled-colorizer};
   --link-color: #{$dark-link-color};
   --link-colorizer: #{$dark-link-colorizer};
   --link-hover-color: #{$dark-link-hover-color};

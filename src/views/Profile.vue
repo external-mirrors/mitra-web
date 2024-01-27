@@ -157,7 +157,7 @@
               <button
                 v-if="canFollow()"
                 class="follow btn"
-                :disabled="followButtonLoading"
+                :disabled="isProcessingFollow"
                 @click="onFollow()"
               >
                 <span>Follow</span>
@@ -170,7 +170,7 @@
               <button
                 v-if="canUnfollow()"
                 class="unfollow btn"
-                :disabled="unfollowButtonLoading"
+                :disabled="isProcessingUnfollow"
                 @click="onUnfollow()"
               >
                 <template v-if="isFollowRequestPending()">Cancel follow request</template>
@@ -393,8 +393,8 @@ let relationship = $ref<Relationship | null>(null)
 let aliases = $ref<Profile[]>([])
 
 let profileMenuVisible = $ref(false)
-const followButtonLoading = ref(false)
-const unfollowButtonLoading = ref(false)
+const isProcessingFollow = ref(false)
+const isProcessingUnfollow = ref(false)
 
 let tabName = $ref("posts")
 let isLoading = $ref(false)
@@ -638,14 +638,14 @@ async function onFollow(showReposts?: boolean, showReplies?: boolean) {
   if (!profile || !relationship) {
     return
   }
-  followButtonLoading.value = true
+  isProcessingFollow.value = true
   relationship = await follow(
     ensureAuthToken(),
     profile.id,
     showReposts ?? relationship.showing_reblogs,
     showReplies ?? relationship.showing_replies,
   )
-  followButtonLoading.value = false
+  isProcessingFollow.value = false
   if (
     showReposts === undefined &&
     showReplies === undefined &&
@@ -671,12 +671,12 @@ async function onUnfollow() {
   if (!currentUser || !profile) {
     return
   }
-  unfollowButtonLoading.value = true
+  isProcessingUnfollow.value = true
   relationship = await unfollow(
     ensureAuthToken(),
     profile.id,
   )
-  unfollowButtonLoading.value = false
+  isProcessingUnfollow.value = false
 }
 
 function canMute(): boolean {
