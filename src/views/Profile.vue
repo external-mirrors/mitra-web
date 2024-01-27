@@ -565,9 +565,12 @@ async function onRejectFollowRequest() {
 }
 
 function canFollow(): boolean {
-  if (!relationship) {
-    // Show 'Follow' button to guests too
+  if (currentUser === null) {
+    // Show 'Follow' button to guests
     return true
+  }
+  if (!relationship) {
+    return false
   }
   return !relationship.following && !relationship.requested
 }
