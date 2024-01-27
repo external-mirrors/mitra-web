@@ -186,6 +186,10 @@
       background-color: transparent;
       border: 1px solid var(--btn-background-color);
     }
+
+    &[disabled] {
+      border: 1px solid transparent;
+    }
   }
 }
 

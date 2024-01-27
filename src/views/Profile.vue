@@ -154,7 +154,12 @@
               <button v-if="canAcceptFollowRequest()" class="btn" @click="onRejectFollowRequest()">
                 Reject follow request
               </button>
-              <button v-if="canFollow()" class="follow btn" @click="onFollow()">
+              <button
+                v-if="canFollow()"
+                class="follow btn"
+                :disabled="followButtonLoading"
+                @click="onFollow()"
+              >
                 <span>Follow</span>
                 <img
                   v-if="profile.locked"
@@ -162,7 +167,12 @@
                   src="@/assets/forkawesome/lock.svg"
                 >
               </button>
-              <button v-if="canUnfollow()" class="unfollow btn" @click="onUnfollow()">
+              <button
+                v-if="canUnfollow()"
+                class="unfollow btn"
+                :disabled="unfollowButtonLoading"
+                @click="onUnfollow()"
+              >
                 <template v-if="isFollowRequestPending()">Cancel follow request</template>
                 <template v-else>Unfollow</template>
               </button>
@@ -322,7 +332,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { $, $ref, $computed } from "vue/macros"
 import { useRoute } from "vue-router"
 
@@ -383,6 +393,8 @@ let relationship = $ref<Relationship | null>(null)
 let aliases = $ref<Profile[]>([])
 
 let profileMenuVisible = $ref(false)
+const followButtonLoading = ref(false)
+const unfollowButtonLoading = ref(false)
 
 let tabName = $ref("posts")
 let isLoading = $ref(false)
@@ -626,12 +638,14 @@ async function onFollow(showReposts?: boolean, showReplies?: boolean) {
   if (!profile || !relationship) {
     return
   }
+  followButtonLoading.value = true
   relationship = await follow(
     ensureAuthToken(),
     profile.id,
     showReposts ?? relationship.showing_reblogs,
     showReplies ?? relationship.showing_replies,
   )
+  followButtonLoading.value = false
   if (
     showReposts === undefined &&
     showReplies === undefined &&
@@ -657,10 +671,12 @@ async function onUnfollow() {
   if (!currentUser || !profile) {
     return
   }
+  unfollowButtonLoading.value = true
   relationship = await unfollow(
     ensureAuthToken(),
     profile.id,
   )
+  unfollowButtonLoading.value = false
 }
 
 function canMute(): boolean {
