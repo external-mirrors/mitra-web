@@ -465,7 +465,10 @@ function getReplyMentions(): Mention[] {
   if (props.post.in_reply_to_id === null) {
     return []
   }
-  if (props.post.in_reply_to_account_id === props.post.account.id) {
+  if (
+    props.post.in_reply_to_account_id === props.post.account.id &&
+    props.post.mentions.every((mention) => mention.id !== props.post.account.id)
+  ) {
     // Self-reply
     return [props.post.account, ...props.post.mentions]
   } else {
