@@ -18,16 +18,18 @@
       >
         Show more profiles
       </button>
+      <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onMounted, ref } from "vue"
 import { $ref } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
+import Loader from "@/components/Loader.vue"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
@@ -36,11 +38,14 @@ const { ensureAuthToken } = useCurrentUser()
 
 let profiles = $ref<Profile[]>([])
 let initialProfileCount = $ref<number | null>(null)
+const isLoading = ref(false)
 
 onMounted(async () => {
+  isLoading.value = true
   const authToken = ensureAuthToken()
   profiles = await getProfiles(authToken)
   initialProfileCount = profiles.length
+  isLoading.value = false
 })
 
 function isPageFull(): boolean {
@@ -75,5 +80,9 @@ async function loadNextPage() {
 
 .next-btn {
   margin-bottom: $block-outer-padding;
+}
+
+.loader {
+  margin: $block-outer-padding auto;
 }
 </style>
