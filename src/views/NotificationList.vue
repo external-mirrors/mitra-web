@@ -70,7 +70,6 @@
 
 <script setup lang="ts">
 import { watch } from "vue"
-import { $, $$ } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
 import { getNotifications, Notification } from "@/api/notifications"
@@ -86,9 +85,9 @@ import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
 const { getActorAddress } = useInstanceInfo()
-let { notifications, updateUnreadNotificationCount } = $(useNotifications())
+const { notifications, updateUnreadNotificationCount } = useNotifications()
 
-watch($$(notifications), async () => {
+watch(notifications, async () => {
   // Update notification timeline marker
   await updateUnreadNotificationCount(ensureAuthToken())
 }, { immediate: true })
@@ -103,17 +102,17 @@ function getSenderInfo(notification: Notification): string {
 }
 
 function onPostDeleted(notificationIndex: number) {
-  notifications.splice(notificationIndex, 1)
+  notifications.value.splice(notificationIndex, 1)
 }
 
 function isPageFull(): boolean {
-  return notifications.length >= PAGE_SIZE
+  return notifications.value.length >= PAGE_SIZE
 }
 
 async function loadNextPage() {
-  const maxId = notifications[notifications.length - 1].id
+  const maxId = notifications.value[notifications.value.length - 1].id
   const newItems = await getNotifications(ensureAuthToken(), maxId)
-  notifications = [...notifications, ...newItems]
+  notifications.value = [...notifications.value, ...newItems]
 }
 </script>
 
