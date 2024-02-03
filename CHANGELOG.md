@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Add loader to profile directory page.
 
+### Fixed
+
+- Don't reload notification list after navigating to notifications page.
+
 ## [2.8.0] - 2024-01-29
 
 ### Added

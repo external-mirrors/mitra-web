@@ -41,13 +41,14 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 
 import { Permissions } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
 
+const route = useRoute()
 const router = useRouter()
 const {
   currentUser,
@@ -58,7 +59,7 @@ const { getBlockchainInfo } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 
 onMounted(async () => {
-  if (isUserAuthenticated()) {
+  if (isUserAuthenticated() && route.name !== "notifications") {
     await loadNotifications(ensureAuthToken())
   }
 })
