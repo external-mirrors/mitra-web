@@ -191,17 +191,26 @@
             <div
               v-for="field in fields"
               class="field"
-              :class="{ verified: field.verified_at }"
+              :class="{ verified: field.verified_at, legacy: field.is_legacy_proof && isCurrentUser() }"
               :key="field.name"
             >
               <div class="name" :title="field.name">{{ field.name }}</div>
               <div class="value" v-html="field.value"></div>
-              <div class="verified-icon" v-if="field.verified_at">
-                <img
-                  src="@/assets/forkawesome/check.svg"
-                  title="Verified"
-                >
+              <div
+                class="verified-icon"
+                v-if="field.verified_at && !field.is_legacy_proof"
+                title="Verified"
+              >
+                <img src="@/assets/forkawesome/check.svg">
               </div>
+              <a
+                class="verified-icon"
+                v-if="field.verified_at && field.is_legacy_proof"
+                title="Re-verify"
+                @click="updateIdentityProof(field.name)"
+              >
+                <img src="@/assets/forkawesome/refresh.svg">
+              </a>
             </div>
           </div>
           <div v-if="isLocalUser()" class="stats">
@@ -333,8 +342,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
-import { $, $ref, $computed } from "vue/macros"
-import { useRoute } from "vue-router"
+import { $, $ref } from "vue/macros"
+import { useRoute, useRouter } from "vue-router"
 
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
@@ -377,6 +386,7 @@ import { formatDate } from "@/utils/dates"
 import { hasEthereumWallet } from "@/utils/ethereum"
 
 const route = useRoute()
+const router = useRouter()
 const {
   authToken,
   currentUser,
@@ -505,7 +515,7 @@ const actorAddress = computed<string>(() => {
   return getActorAddress(profile)
 })
 
-const fields = $computed<ProfileField[]>(() => {
+const fields = computed<ProfileField[]>(() => {
   if (!profile) {
     return []
   }
@@ -728,7 +738,7 @@ function isLocalUser(): boolean {
   return profile.username === profile.acct
 }
 
-const feedUrl = $computed<string>(() => {
+const feedUrl = computed<string>(() => {
   if (!profile || !isLocalUser()) {
     return ""
   }
@@ -806,6 +816,18 @@ function copyActorId(): void {
     return
   }
   navigator.clipboard.writeText(profile.actor_id)
+}
+
+async function updateIdentityProof(fieldName: string) {
+  if (fieldName === "$ETH") {
+    if (!canVerifyEthereumAddress()) {
+      alert("Ethereum wallet is not detected")
+      return
+    }
+    await onVerifyEthereumAddress()
+  } else if (fieldName === "Key") {
+    router.push({ name: "identity-proof" })
+  }
 }
 
 async function loadNextPage(maxId: string) {
@@ -1031,7 +1053,7 @@ $avatar-size: 170px;
       text-overflow: ellipsis;
     }
 
-    &.verified .value {
+    &.verified {
       font-weight: bold;
     }
 
@@ -1041,6 +1063,15 @@ $avatar-size: 170px;
       height: 1em;
       min-width: 1em;
       width: 1em;
+    }
+
+    &.legacy {
+      color: var(--secondary-text-color);
+
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      .verified-icon img {
+        filter: var(--secondary-text-colorizer);
+      }
     }
   }
 

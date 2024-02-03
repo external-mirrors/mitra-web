@@ -8,6 +8,7 @@ export interface ProfileField {
   name: string;
   value: string;
   verified_at: string | null;
+  is_legacy_proof: boolean,
 }
 
 export interface ProfilePaymentOption {
