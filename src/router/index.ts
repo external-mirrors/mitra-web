@@ -74,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
+    path: "/network",
+    name: "network",
+    component: PublicTimeline,
+    meta: { onlyAuthenticated: true },
+  },
+  {
     path: "/post/:postId",
     name: "post",
     component: PostDetail,

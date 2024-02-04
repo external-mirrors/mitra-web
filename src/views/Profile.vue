@@ -391,6 +391,7 @@ const {
   authToken,
   currentUser,
   ensureAuthToken,
+  isAdmin,
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
@@ -795,13 +796,6 @@ function canSubscribe(): boolean {
     subscriptionPageLocation.value !== null &&
     !isCurrentUser()
   )
-}
-
-function isAdmin(): boolean {
-  if (!currentUser) {
-    return false
-  }
-  return currentUser.role.permissions.includes(Permissions.DeleteAnyProfile)
 }
 
 function copyProfileId(): void {

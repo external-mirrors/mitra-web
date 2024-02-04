@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import { $ref } from "vue/macros"
+import { useRoute } from "vue-router"
 
 import { Post, getPublicTimeline } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
@@ -20,6 +21,7 @@ import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
 
+const route = useRoute()
 const { authToken } = useCurrentUser()
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
@@ -27,7 +29,10 @@ let isLoading = $ref(false)
 onMounted(async () => {
   isLoading = true
   try {
-    posts = await getPublicTimeline(authToken.value, true)
+    posts = await getPublicTimeline(
+      authToken.value,
+      route.name === "local",
+    )
   } catch (error) {
     // Authentication required?
     console.error(error)
@@ -36,7 +41,11 @@ onMounted(async () => {
 })
 
 async function loadNextPage(maxId: string) {
-  const nextPage = await getPublicTimeline(authToken.value, true, maxId)
+  const nextPage = await getPublicTimeline(
+    authToken.value,
+    route.name === "local",
+    maxId,
+  )
   posts = [...posts, ...nextPage]
 }
 </script>

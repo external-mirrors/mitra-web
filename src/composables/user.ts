@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-import { User, getCurrentUser, revokeAccessToken } from "@/api/users"
+import { Permissions, User, getCurrentUser, revokeAccessToken } from "@/api/users"
 
 const AUTH_TOKEN_STORAGE_KEY = "auth_token"
 
@@ -68,6 +68,15 @@ export function useCurrentUser() {
     clearAuthToken()
   }
 
+  function isAdmin(): boolean {
+    if (currentUser.value === null) {
+      return false
+    }
+    return currentUser.value
+      .role.permissions
+      .includes(Permissions.DeleteAnyProfile)
+  }
+
   return {
     currentUser,
     ensureCurrentUser,
@@ -78,5 +87,6 @@ export function useCurrentUser() {
     isAuthenticated,
     endUserSession,
     onInvalidAuthToken,
+    isAdmin,
   }
 }

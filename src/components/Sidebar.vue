@@ -11,6 +11,14 @@
       <div class="icon"><img src="@/assets/feather/server.svg"></div>
       <span>Local</span>
     </router-link>
+    <router-link
+      v-if="isAdmin()"
+      class="sidebar-link"
+      :to="{ name: 'network' }"
+    >
+      <div class="icon"><img src="@/assets/feather/globe.svg"></div>
+      <span>Network</span>
+    </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><img src="@/assets/feather/users.svg"></div>
       <span>Profile directory</span>
@@ -54,6 +62,7 @@ const {
   currentUser,
   endUserSession,
   ensureAuthToken,
+  isAdmin,
 } = $(useCurrentUser())
 const { getBlockchainInfo } = $(useInstanceInfo())
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
