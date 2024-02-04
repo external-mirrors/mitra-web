@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add loader to profile directory page.
 - Suggest re-verification if identity proof is outdated.
 - Add "Network" timeline.
+- Display "Admin" badge if logged in user is admin.
 
 ### Changed
 

@@ -17,6 +17,7 @@
             <div class="avatar-group">
               <avatar :profile="profile"></avatar>
               <div class="badges">
+                <div class="badge" v-if="isAdmin()">Admin</div>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"
