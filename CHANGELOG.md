@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Redirect unauthanticated users from local timeline to landing page if timeline is locked.
+- Convert instance name in welcome text into About page link.
 
 ### Fixed
 

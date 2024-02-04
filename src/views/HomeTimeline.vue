@@ -13,7 +13,9 @@
         v-if="posts.length === 0 && !isLoading"
         class="timeline-empty"
       >
-        <h1 v-if="instance">Welcome to {{ instance.title }}!</h1>
+        <h1 v-if="instance">
+          Welcome to <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>!
+        </h1>
         <span v-if="!canCreatePost()">Your account is in read-only mode</span>
         <router-link class="btn secondary" :to="{ name: 'profile-directory' }">Browse profile directory</router-link>
       </div>
