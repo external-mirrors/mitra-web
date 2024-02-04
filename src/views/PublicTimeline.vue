@@ -28,15 +28,10 @@ let isLoading = $ref(false)
 
 onMounted(async () => {
   isLoading = true
-  try {
-    posts = await getPublicTimeline(
-      authToken.value,
-      route.name === "local",
-    )
-  } catch (error) {
-    // Authentication required?
-    console.error(error)
-  }
+  posts = await getPublicTimeline(
+    authToken.value,
+    route.name === "local",
+  )
   isLoading = false
 })
 

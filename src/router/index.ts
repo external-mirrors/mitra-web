@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 
+import { Permissions } from "@/api/users"
+import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
+
 import AboutPage from "@/views/About.vue"
 import EthereumPage from "@/views/Ethereum.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
@@ -22,9 +26,6 @@ import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
-
-import { Permissions } from "@/api/users"
-import { useCurrentUser } from "@/composables/user"
 
 async function authGuard(to: any) {
   const { isAuthenticated } = useCurrentUser()
@@ -72,6 +73,17 @@ const routes: Array<RouteRecordRaw> = [
     name: "local",
     component: PublicTimeline,
     meta: { },
+    beforeEnter: () => {
+      const { currentUser } = useCurrentUser()
+      const { instance } = useInstanceInfo()
+      if (
+        currentUser.value !== null ||
+        instance.value?.allow_unauthenticated.timeline_local
+      ) {
+        return true
+      }
+      return { name: "landing-page" }
+    },
   },
   {
     path: "/network",

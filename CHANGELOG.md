@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Suggest re-verification if identity proof is outdated.
 - Add "Network" timeline.
 
+### Changed
+
+- Redirect unauthanticated users from local timeline to landing page if timeline is locked.
+
 ### Fixed
 
 - Don't reload notification list after navigating to notifications page.

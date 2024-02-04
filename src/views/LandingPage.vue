@@ -13,7 +13,7 @@
           Learn more <span class="arrow">&gt;&gt;</span>
         </router-link>
         <router-link
-          v-if="instance.allow_unauthenticated?.timeline_local"
+          v-if="instance.allow_unauthenticated.timeline_local"
           class="instance-link"
           :to="{ name: 'local' }"
         >
