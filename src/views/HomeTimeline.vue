@@ -32,8 +32,7 @@ import { onMounted } from "vue"
 import { $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import { Post, getHomeTimeline } from "@/api/posts"
-import { getRelationships } from "@/api/relationships"
+import { Post, addRelationships, getHomeTimeline } from "@/api/posts"
 import { Permissions } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -58,34 +57,12 @@ function insertPost(post: Post) {
   posts = [post, ...posts]
 }
 
-async function addRelationships(posts: Post[]): Promise<void> {
-  const authors = posts.flatMap((post) => {
-    const result = [post.account.id]
-    if (post.reblog) {
-      result.push(post.reblog.account.id)
-    }
-    return result
-  })
-  const authToken = ensureAuthToken()
-  const relationships = await getRelationships(authToken, authors)
-  for (const relationship of relationships) {
-    for (const post of posts) {
-      if (post.account.id === relationship.id) {
-        post.relationship = relationship
-      }
-      if (post.reblog && post.reblog.account.id === relationship.id) {
-        post.reblog.relationship = relationship
-      }
-    }
-  }
-}
-
 async function loadTimelinePage(
   authToken: string,
   maxId?: string,
 ): Promise<Post[]> {
   const page = await getHomeTimeline(authToken, maxId)
-  await addRelationships(page)
+  await addRelationships(authToken, page)
   return page
 }
 

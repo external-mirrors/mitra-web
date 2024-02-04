@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
-import { Relationship } from "./relationships"
+import { getRelationships, Relationship } from "./relationships"
 import { defaultProfile, Profile } from "./users"
 
 export interface Attachment {
@@ -168,6 +168,30 @@ export async function getPostThread(
   const response = await http(url, { authToken })
   const data = await handleResponse(response)
   return data
+}
+
+export async function addRelationships(
+  authToken: string,
+  posts: Post[],
+): Promise<void> {
+  const authors = posts.flatMap((post) => {
+    const result = [post.account.id]
+    if (post.reblog) {
+      result.push(post.reblog.account.id)
+    }
+    return result
+  })
+  const relationships = await getRelationships(authToken, authors)
+  for (const relationship of relationships) {
+    for (const post of posts) {
+      if (post.account.id === relationship.id) {
+        post.relationship = relationship
+      }
+      if (post.reblog && post.reblog.account.id === relationship.id) {
+        post.reblog.relationship = relationship
+      }
+    }
+  }
 }
 
 export async function previewPost(

@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add "Network" timeline.
 - Display "Admin" badge if logged in user is admin.
 - Support sign-up notifications.
+- Add "Mute author" to post dropdown menu at local and network timelines.
 
 ### Changed
 

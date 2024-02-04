@@ -15,7 +15,7 @@ import { onMounted } from "vue"
 import { $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { Post, getPublicTimeline } from "@/api/posts"
+import { Post, addRelationships, getPublicTimeline } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -26,21 +26,29 @@ const { authToken } = useCurrentUser()
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
 
+async function loadTimelinePage(
+  authToken: string | null,
+  maxId?: string,
+): Promise<Post[]> {
+  const page = await getPublicTimeline(
+    authToken,
+    route.name === "local",
+    maxId,
+  )
+  if (authToken !== null) {
+    await addRelationships(authToken, page)
+  }
+  return page
+}
+
 onMounted(async () => {
   isLoading = true
-  posts = await getPublicTimeline(
-    authToken.value,
-    route.name === "local",
-  )
+  posts = await loadTimelinePage(authToken.value)
   isLoading = false
 })
 
 async function loadNextPage(maxId: string) {
-  const nextPage = await getPublicTimeline(
-    authToken.value,
-    route.name === "local",
-    maxId,
-  )
+  const nextPage = await loadTimelinePage(authToken.value, maxId)
   posts = [...posts, ...nextPage]
 }
 </script>
