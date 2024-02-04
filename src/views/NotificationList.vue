@@ -18,6 +18,7 @@
             src="@/assets/tabler/coin.svg"
           >
           <img v-else-if="notification.type === 'move'" src="@/assets/feather/truck.svg">
+          <img v-else-if="notification.type === 'admin.sign_up'" src="@/assets/feather/user-check.svg">
           <router-link
             :title="getSenderInfo(notification)"
             :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
@@ -35,6 +36,7 @@
           <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
           <span v-else-if="notification.type === 'subscription_expiration'">subscription expired</span>
           <span v-else-if="notification.type === 'move'">moved to a new instance</span>
+          <span v-else-if="notification.type === 'admin.sign_up'">signed up</span>
         </div>
         <post
           v-if="notification.status"
