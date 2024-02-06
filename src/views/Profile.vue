@@ -17,7 +17,7 @@
             <div class="avatar-group">
               <avatar :profile="profile"></avatar>
               <div class="badges">
-                <div class="badge" v-if="isAdmin()">Admin</div>
+                <div class="badge" v-if="isAdminProfile()">Admin</div>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"
@@ -531,6 +531,10 @@ function isCurrentUser(): boolean {
     return false
   }
   return currentUser.id === profile.id
+}
+
+function isAdminProfile(): boolean {
+  return isCurrentUser() && isAdmin()
 }
 
 function isFollowedBy(): boolean {

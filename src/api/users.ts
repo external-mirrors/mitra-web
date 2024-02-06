@@ -97,6 +97,10 @@ export interface User extends Profile {
   client_config: { [clientName: string]: { [property: string]: any } },
 }
 
+export function hasAdminPermissions(user: User): boolean {
+  return user.role.permissions.includes(Permissions.DeleteAnyProfile)
+}
+
 export function isRemoteProfile(profile: Profile): boolean {
   return profile.username !== profile.acct
 }
