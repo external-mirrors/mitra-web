@@ -61,17 +61,6 @@
         Subscription is not available.
       </template>
     </div>
-    <div v-if="!recipient.isLocal() && subscriptionOption">
-      <a
-        v-if="canPreviewRemote()"
-        class="btn primary"
-        :href="subscriptionOption.object_id"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Pay
-      </a>
-    </div>
     <form class="payment" v-if="canSubscribe()">
       <div class="duration" @click="editDuration()">
         <label for="duration">Duration</label>
@@ -373,18 +362,8 @@ function canSubscribe(): boolean {
     sender.id !== "" &&
     sender.id !== recipient.id &&
     subscriptionOption !== null &&
-    (recipient.isLocal() || Boolean(subscriptionOption.fep_0837_enabled)) &&
     subscriptionPrice !== null &&
     invoice === null
-  )
-}
-
-function canPreviewRemote(): boolean {
-  return (
-    !recipient.isLocal() &&
-    subscriptionOption !== null &&
-    subscriptionOption.object_id !== undefined &&
-    !subscriptionOption.fep_0837_enabled
   )
 }
 
