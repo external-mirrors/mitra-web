@@ -86,8 +86,8 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/network",
-    name: "network",
+    path: "/federated",
+    name: "known-network",
     component: PublicTimeline,
     meta: { onlyAuthenticated: true },
   },

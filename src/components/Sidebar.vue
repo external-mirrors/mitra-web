@@ -14,10 +14,10 @@
     <router-link
       v-if="isAdmin()"
       class="sidebar-link"
-      :to="{ name: 'network' }"
+      :to="{ name: 'known-network' }"
     >
       <div class="icon"><img src="@/assets/feather/globe.svg"></div>
-      <span>Network</span>
+      <span>Federated</span>
     </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><img src="@/assets/feather/users.svg"></div>
