@@ -197,21 +197,23 @@
             >
               <div class="name" :title="field.name">{{ field.name }}</div>
               <div class="value" v-html="field.value"></div>
-              <div
-                class="verified-icon"
-                v-if="field.verified_at && !field.is_legacy_proof"
-                title="Verified"
-              >
-                <img src="@/assets/forkawesome/check.svg">
-              </div>
-              <a
-                class="verified-icon"
-                v-if="field.verified_at && field.is_legacy_proof"
-                title="Re-verify"
-                @click="updateIdentityProof(field.name)"
-              >
-                <img src="@/assets/forkawesome/refresh.svg">
-              </a>
+              <template v-if="field.verified_at">
+                <a
+                  class="verified-icon"
+                  v-if="field.is_legacy_proof && isCurrentUser()"
+                  title="Re-verify"
+                  @click="updateIdentityProof(field.name)"
+                >
+                  <img src="@/assets/forkawesome/refresh.svg">
+                </a>
+                <div
+                  class="verified-icon"
+                  v-else
+                  title="Verified"
+                >
+                  <img src="@/assets/forkawesome/check.svg">
+                </div>
+              </template>
             </div>
           </div>
           <div v-if="isLocalUser()" class="stats">
