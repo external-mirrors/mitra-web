@@ -54,6 +54,7 @@ export interface Profile {
   avatar: string | null;
   header: string | null;
   locked: boolean;
+  bot: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
@@ -77,6 +78,7 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
     avatar: null,
     header: null,
     locked: false,
+    bot: false,
     identity_proofs: [],
     payment_options: [],
     fields: [],

@@ -18,6 +18,7 @@
               <avatar :profile="profile"></avatar>
               <div class="badges">
                 <div class="badge" v-if="isAdminProfile()">Admin</div>
+                <div class="badge" v-if="profile.bot">Automated</div>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"
