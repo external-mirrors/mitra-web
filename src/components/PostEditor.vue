@@ -40,6 +40,7 @@
           v-for="(attachment, index) in attachments"
           :attachment="attachment"
           :key="attachment.id"
+          @attachment-updated="onAttachmentUpdated(index, $event)"
           @attachment-removed="onAttachmentRemoved(index)"
         ></post-editor-attachment>
       </div>
@@ -385,6 +386,10 @@ async function addAttachment(file: File) {
   }
   attachments.push(attachment)
   isAttachmentLoading = false
+}
+
+function onAttachmentUpdated(index: number, attachment: Attachment) {
+  Object.assign(attachments[index], attachment)
 }
 
 function onAttachmentRemoved(index: number) {

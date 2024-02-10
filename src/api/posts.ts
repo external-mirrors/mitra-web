@@ -26,6 +26,21 @@ export async function uploadAttachment(
   return data
 }
 
+export async function updateAttachment(
+  authToken: string,
+  attachmentId: string,
+  description: string | null,
+): Promise<Attachment> {
+  const url = `${BACKEND_URL}/api/v1/media/${attachmentId}`
+  const response = await http(url, {
+    method: "PUT",
+    json: { description: description },
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export enum Visibility {
   Public = "public",
   Followers = "private",

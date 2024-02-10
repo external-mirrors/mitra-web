@@ -7,22 +7,65 @@
     >
       <img src="@/assets/feather/x.svg">
     </button>
+    <div
+      v-if="attachment.type === 'image'"
+      class="attachment-description"
+    >
+      <button
+        v-if="description === null"
+        @click.prevent="editDescription()"
+      >
+        Click here to edit description
+      </button>
+      <form v-else @submit.prevent="updateDescription()">
+        <input
+          type="text"
+          v-model.trim="description"
+          placeholder="Enter image description"
+        >
+        <button type="submit">Save</button>
+      </form>
+    </div>
     <img v-if="attachment.type === 'image'" :src="attachment.url">
     <div v-else class="placeholder">{{ attachment.url }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Attachment } from "@/api/posts"
+import { ref } from "vue"
+import { updateAttachment, Attachment } from "@/api/posts"
+import { useCurrentUser } from "@/composables/user"
 
-defineProps<{
+const props = defineProps<{
   attachment: Attachment,
 }>()
 
 /* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "attachment-removed"): void,
+  (event: "attachment-updated", attachment: Attachment): void,
 }>()
+
+const { ensureAuthToken } = useCurrentUser()
+
+const description = ref<string | null>(null)
+
+function editDescription() {
+  description.value = props.attachment.description || ""
+}
+
+async function updateDescription() {
+  if (description.value === "") {
+    description.value = null
+  }
+  const attachment = await updateAttachment(
+    ensureAuthToken(),
+    props.attachment.id,
+    description.value,
+  )
+  description.value = null
+  emit("attachment-updated", attachment)
+}
 
 function removeAttachment() {
   emit("attachment-removed")
@@ -31,6 +74,7 @@ function removeAttachment() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/theme";
 
 .attachment {
   display: flex;
@@ -61,6 +105,42 @@ function removeAttachment() {
     text-align: center;
     width: 100%;
     word-wrap: break-word;
+  }
+}
+
+.attachment-description {
+  background-color: var(--block-background-color);
+  border-radius: $btn-border-radius;
+  bottom: $block-inner-padding;
+  box-shadow: $btn-shadow-size var(--shadow-color);
+  left: $block-inner-padding;
+  margin: 0 auto;
+  opacity: 0.8;
+  position: absolute;
+  right: $block-inner-padding;
+
+  > button {
+    border-radius: inherit;
+    padding: $input-padding;
+    text-align: center;
+    width: 100%;
+  }
+
+  form {
+    display: flex;
+
+    input {
+      border: none;
+      border-radius: $btn-border-radius 0 0 $btn-border-radius;
+    }
+
+    button {
+      border-left: 1px solid var(--separator-color);
+      border-radius: 0 $btn-border-radius $btn-border-radius 0;
+      font-size: $text-font-size;
+      font-weight: bold;
+      padding: $input-padding;
+    }
   }
 }
 </style>

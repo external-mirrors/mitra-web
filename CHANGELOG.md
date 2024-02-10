@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Display "Automated" badge if account is a bot.
+- Allow editing image descriptions.
 
 ### Changed
 
