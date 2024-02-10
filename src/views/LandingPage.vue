@@ -10,14 +10,14 @@
           :to="{ name: 'about' }"
           class="instance-link"
         >
-          Learn more <span class="arrow">&gt;&gt;</span>
+          Learn more <img class="arrow" src="@/assets/arrow_long.svg">
         </router-link>
         <router-link
           v-if="instance.allow_unauthenticated.timeline_local"
           class="instance-link"
           :to="{ name: 'local' }"
         >
-          Explore <span class="arrow">&gt;&gt;</span>
+          Explore <img class="arrow" src="@/assets/arrow_long.svg">
         </router-link>
       </div>
       <div v-if="instance" class="login-form-group">
@@ -423,10 +423,12 @@ async function login() {
   color: $landing-text-color;
 
   .arrow {
-    color: $landing-accent-color;
+    filter: $landing-accent-colorizer;
+    height: 1em;
+    vertical-align: middle;
 
     &:hover {
-      color: $landing-text-color;
+      filter: $landing-text-colorizer;
     }
   }
 }
