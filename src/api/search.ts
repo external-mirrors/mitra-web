@@ -31,13 +31,7 @@ export async function searchProfilesByAcct(
   resolve: boolean = false,
   limit = 40,
 ): Promise<Profile[]> {
-  let url
-  if (authToken === null) {
-    // Rate limited API endpoint
-    url = `${BACKEND_URL}/api/v1/accounts/search_public`
-  } else {
-    url = `${BACKEND_URL}/api/v1/accounts/search`
-  }
+  const url = `${BACKEND_URL}/api/v1/accounts/search`
   const response = await http(url, {
     method: "GET",
     queryParams: { q: acct, resolve, limit },

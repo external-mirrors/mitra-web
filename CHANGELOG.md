@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Changed arrow shape on landing page.
 - Inline SVGs on landing page.
+- Stop using `/api/v1/accounts/search_public` API endpoint.
 
 ### Fixed
 
