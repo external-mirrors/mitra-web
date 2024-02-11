@@ -236,7 +236,7 @@ const isEditorEmbedded = computed(() => {
 
 if (props.post) {
   content = props.post.contentSource || ""
-  attachments = props.post.media_attachments
+  attachments = [...props.post.media_attachments]
   visibility = props.post.visibility
   isSensitive = props.post.sensitive
 }
