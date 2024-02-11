@@ -36,21 +36,12 @@
         @click.prevent=""
       ></post-content>
       <div v-if="attachments.length > 0" class="attachments">
-        <div
+        <post-editor-attachment
           v-for="(attachment, index) in attachments"
-          class="attachment"
+          :attachment="attachment"
           :key="attachment.id"
-        >
-          <button
-            class="remove-attachment"
-            title="Remove attachment"
-            @click.prevent="removeAttachment(index)"
-          >
-            <img src="@/assets/feather/x.svg">
-          </button>
-          <img v-if="attachment.type === 'image'" :src="attachment.url">
-          <div v-else class="placeholder">{{ attachment.url }}</div>
-        </div>
+          @attachment-removed="onAttachmentRemoved(index)"
+        ></post-editor-attachment>
       </div>
       <div class="toolbar">
         <button
@@ -188,6 +179,7 @@ import { Profile, User } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
+import PostEditorAttachment from "@/components/PostEditorAttachment.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
@@ -395,7 +387,7 @@ async function addAttachment(file: File) {
   isAttachmentLoading = false
 }
 
-function removeAttachment(index: number) {
+function onAttachmentRemoved(index: number) {
   attachments.splice(index, 1)
 }
 
@@ -563,38 +555,6 @@ $line-height: 1.5;
 
 .attachments {
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;
-}
-
-.attachment {
-  display: flex;
-  position: relative;
-
-  .remove-attachment {
-    background-color: var(--btn-background-color);
-    display: flex;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    img {
-      filter: var(--btn-text-colorizer);
-      height: $icon-size;
-      width: $icon-size;
-    }
-  }
-
-  > img {
-    width: 100%;
-  }
-
-  .placeholder {
-    background-color: var(--background-color);
-    box-sizing: border-box;
-    padding: $block-inner-padding;
-    text-align: center;
-    width: 100%;
-    word-wrap: break-word;
-  }
 }
 
 .toolbar {
