@@ -95,6 +95,8 @@ function removeAttachment() {
   }
 
   > img {
+    min-height: 100px;
+    object-fit: contain;
     width: 100%;
   }
 
