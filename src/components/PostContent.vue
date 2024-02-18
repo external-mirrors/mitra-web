@@ -46,7 +46,7 @@ function configureInlineLinks() {
       mentionElement.dataset.internalLink = "true"
     }
   }
-  const hashtags = postContentRef.getElementsByClassName("hashtag")
+  const hashtags = postContentRef.querySelectorAll('.hashtag, [rel~="tag"]')
   for (const hashtagElement of Array.from(hashtags)) {
     if (!(hashtagElement instanceof HTMLElement)) {
       continue
