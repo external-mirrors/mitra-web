@@ -12,7 +12,7 @@
       <span>Local</span>
     </router-link>
     <router-link
-      v-if="isAdmin()"
+      v-if="canViewFederatedTimeline()"
       class="sidebar-link"
       :to="{ name: 'known-network' }"
     >
@@ -64,7 +64,7 @@ const {
   ensureAuthToken,
   isAdmin,
 } = $(useCurrentUser())
-const { getBlockchainInfo } = $(useInstanceInfo())
+const { getBlockchainInfo, instance } = useInstanceInfo()
 const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
 
 onMounted(async () => {
@@ -80,6 +80,11 @@ function isUserAuthenticated(): boolean {
 const unreadNotificationCount = $computed<number>(() => {
   return getUnreadNotificationCount()
 })
+
+function canViewFederatedTimeline(): boolean {
+  const federatedTimelineRestricted = instance.value?.federated_timeline_restricted ?? true
+  return !federatedTimelineRestricted || isAdmin()
+}
 
 function canManageSubscriptions(): boolean {
   const blockchain = getBlockchainInfo()

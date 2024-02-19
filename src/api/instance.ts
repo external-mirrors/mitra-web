@@ -51,6 +51,7 @@ export interface InstanceInfo {
   allow_unauthenticated: {
     timeline_local: boolean,
   },
+  federated_timeline_restricted: boolean,
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }

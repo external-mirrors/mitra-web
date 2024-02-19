@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Display federated timeline to all users unless `federated_timeline_restricted` is set to `true`.
+
 ### Changed
 
 - Detect hashtags marked by rel=tag in post content.

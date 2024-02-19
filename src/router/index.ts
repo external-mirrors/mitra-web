@@ -90,6 +90,15 @@ const routes: Array<RouteRecordRaw> = [
     name: "known-network",
     component: PublicTimeline,
     meta: { onlyAuthenticated: true },
+    beforeEnter: () => {
+      const { isAdmin } = useCurrentUser()
+      const { instance } = useInstanceInfo()
+      const federatedTimelineRestricted = instance.value?.federated_timeline_restricted ?? true
+      if (!federatedTimelineRestricted || isAdmin()) {
+        return true
+      }
+      return { name: "home" }
+    },
   },
   {
     path: "/post/:postId",
