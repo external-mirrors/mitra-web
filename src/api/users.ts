@@ -54,6 +54,7 @@ export interface Profile {
   avatar: string | null;
   header: string | null;
   locked: boolean;
+  mention_policy: "none" | "only_known" | null,
   bot: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
@@ -78,6 +79,7 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
     avatar: null,
     header: null,
     locked: false,
+    mention_policy: "none",
     bot: false,
     identity_proofs: [],
     payment_options: [],
@@ -250,6 +252,7 @@ export interface ProfileUpdateData {
   header: string | null;
   header_media_type: string | null;
   locked: boolean,
+  mention_policy: "none" | "only_known",
   fields_attributes: ProfileFieldAttrs[];
 }
 

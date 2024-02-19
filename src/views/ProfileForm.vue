@@ -65,6 +65,23 @@
             <div class="sub-label">Requires you to manually approve followers</div>
           </label>
         </div>
+        <div class="input-group">
+          <label for="mention_policy">
+            Accept mentions from
+          </label>
+          <select
+            id="mention_policy"
+            v-model="form.mention_policy"
+          >
+            <option
+              v-for="policy in MENTION_POLICIES"
+              :value="policy.value"
+              :key="policy.value"
+            >
+              {{ policy.name }}
+            </option>
+          </select>
+        </div>
         <div class="extra-fields input-group">
           <label>
             Additional info
@@ -136,6 +153,11 @@ import { useCurrentUser } from "@/composables/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
+const MENTION_POLICIES = [
+  { name: "Everybody", value: "none" },
+  { name: "Only known users", value: "only_known" },
+]
+
 const router = useRouter()
 const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser())
 
@@ -163,6 +185,7 @@ const form = $ref<ProfileUpdateData>({
   header: null,
   header_media_type: null,
   locked: profile.locked,
+  mention_policy: profile.mention_policy || "none",
   fields_attributes: getFieldsAttributes(),
 })
 const images = $ref({

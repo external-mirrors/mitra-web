@@ -228,6 +228,11 @@
       margin-top: 0.1em;
       vertical-align: top;
     }
+
+    select {
+      display: block;
+      margin-top: $input-padding;
+    }
   }
 
   .error-message {
