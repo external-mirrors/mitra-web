@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Detect hashtags marked by rel=tag in post content.
+- Use textarea for editing image descriptions.
 
 ## [2.10.0] - 2024-02-17
 

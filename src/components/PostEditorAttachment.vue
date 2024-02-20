@@ -18,11 +18,11 @@
         Click here to edit description
       </button>
       <form v-else @submit.prevent="updateDescription()">
-        <input
-          type="text"
+        <textarea
           v-model.trim="description"
+          rows="1"
           placeholder="Enter image description"
-        >
+        ></textarea>
         <button type="submit">Save</button>
       </form>
     </div>
@@ -131,12 +131,13 @@ function removeAttachment() {
   form {
     display: flex;
 
-    input {
+    textarea {
       border: none;
       border-radius: $btn-border-radius 0 0 $btn-border-radius;
+      overflow-x: hidden;
     }
 
-    button {
+    button[type="submit"] {
       border-left: 1px solid var(--separator-color);
       border-radius: 0 $btn-border-radius $btn-border-radius 0;
       font-size: $text-font-size;
