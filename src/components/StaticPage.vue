@@ -2,7 +2,7 @@
   <div class="page">
     <div class="page-content">
       <router-link class="back" to="/" title="Back">
-        <img src="@/assets/feather/arrow-left.svg">
+        <icon-arrow-left></icon-arrow-left>
       </router-link>
       <h1 class="page-heading"><slot name="heading"></slot></h1>
       <div class="static-text"><slot name="text"></slot></div>
@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 
+import IconArrowLeft from "@/assets/feather/arrow-left.svg?component"
 import { useTheme } from "@/composables/theme"
 
 const { loadTheme } = useTheme()
@@ -40,9 +41,9 @@ onMounted(() => {
   position: absolute;
   top: $body-padding;
 
-  img {
-    filter: var(--text-colorizer);
+  svg {
     height: 40px;
+    stroke: var(--text-color);
     width: 40px;
   }
 }

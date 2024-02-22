@@ -10,14 +10,14 @@
           :to="{ name: 'about' }"
           class="instance-link"
         >
-          Learn more <svg-arrow-long class="arrow"></svg-arrow-long>
+          Learn more <icon-arrow-long class="arrow"></icon-arrow-long>
         </router-link>
         <router-link
           v-if="instance.allow_unauthenticated.timeline_local"
           class="instance-link"
           :to="{ name: 'local' }"
         >
-          Explore <svg-arrow-long class="arrow"></svg-arrow-long>
+          Explore <icon-arrow-long class="arrow"></icon-arrow-long>
         </router-link>
       </div>
       <div v-if="instance" class="login-form-group">
@@ -112,7 +112,7 @@
             >
           </div>
           <div class="wallet-required" v-if="loginType === 'eip4361'">
-            <img src="@/assets/forkawesome/ethereum.svg">
+            <icon-ethereum></icon-ethereum>
             <router-link :to="{ name: 'ethereum' }">Ethereum Wallet</router-link> is required
           </div>
           <button
@@ -158,7 +158,8 @@ import {
   getCurrentUser,
   AuthenticationMethod,
 } from "@/api/users"
-import SvgArrowLong from "@/assets/arrow_long.svg?component"
+import IconArrowLong from "@/assets/arrow_long.svg?component"
+import IconEthereum from "@/assets/forkawesome/ethereum.svg?component"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
@@ -565,8 +566,8 @@ async function login() {
     gap: 0.4em;
     justify-content: center;
 
-    img {
-      filter: var(--btn-text-colorizer);
+    svg {
+      fill: var(--btn-text-color);
       height: 1em;
       width: 1em;
     }

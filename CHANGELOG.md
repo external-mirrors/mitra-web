@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Make `Account.mention_policy` field non-nullable.
+- Inline all icons on landing page and "About" page.
 
 ### Fixed
 
