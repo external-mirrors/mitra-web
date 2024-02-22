@@ -158,7 +158,7 @@
               </button>
               <button
                 v-if="canFollow()"
-                class="follow btn"
+                class="btn follow-btn"
                 :disabled="isProcessingFollow"
                 @click="onFollow()"
               >
@@ -171,7 +171,7 @@
               </button>
               <button
                 v-if="canUnfollow()"
-                class="unfollow btn"
+                class="btn unfollow-btn"
                 :disabled="isProcessingUnfollow"
                 @click="onUnfollow()"
               >
@@ -997,7 +997,7 @@ $avatar-size: 170px;
   }
 }
 
-.follow {
+.follow-btn {
   align-items: center;
   display: flex;
   gap: $input-padding;
@@ -1014,6 +1014,12 @@ $avatar-size: 170px;
   &:hover {
     img {
       filter: var(--text-colorizer);
+    }
+  }
+
+  &[disabled] {
+    img {
+      filter: var(--btn-disabled-text-colorizer) !important;
     }
   }
 }

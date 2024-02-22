@@ -31,6 +31,7 @@ $btn-secondary-background-color: #CCCBC6;
 $btn-secondary-text-color: $text-color;
 $btn-disabled-background-color: #ddd;
 $btn-disabled-text-color: #999;
+$btn-disabled-text-colorizer: invert(72%) sepia(0%) saturate(302%) hue-rotate(149deg) brightness(85%) contrast(89%);
 
 $block-background-color: #fff;
 $block-link-color: #7d6a4f;
@@ -71,6 +72,7 @@ $dark-btn-secondary-background-color: #333;
 $dark-btn-secondary-text-color: $dark-text-color;
 $dark-btn-disabled-background-color: #222222;
 $dark-btn-disabled-text-color: #666666;
+$dark-btn-disabled-text-colorizer: invert(43%) sepia(0%) saturate(1963%) hue-rotate(144deg) brightness(89%) contrast(87%);
 
 $dark-block-background-color: #2B2B2B;
 $dark-block-link-color: #D9C6AE;

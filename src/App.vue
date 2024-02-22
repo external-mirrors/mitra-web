@@ -53,6 +53,7 @@ watch($$(currentUser), () => {
   --btn-secondary-text-color: #{$btn-secondary-text-color};
   --btn-disabled-background-color: #{$btn-disabled-background-color};
   --btn-disabled-text-color: #{$btn-disabled-text-color};
+  --btn-disabled-text-colorizer: #{$btn-disabled-text-colorizer};
   --block-background-color: #{$block-background-color};
   --block-link-color: #{$block-link-color};
   --block-link-hover-color: #{$block-link-hover-color};
@@ -90,6 +91,7 @@ watch($$(currentUser), () => {
   --btn-secondary-text-color: #{$dark-btn-secondary-text-color};
   --btn-disabled-background-color: #{$dark-btn-disabled-background-color};
   --btn-disabled-text-color: #{$dark-btn-disabled-text-color};
+  --btn-disabled-text-colorizer: #{$dark-btn-disabled-text-colorizer};
   --block-background-color: #{$dark-block-background-color};
   --block-link-color: #{$dark-block-link-color};
   --block-link-hover-color: #{$dark-block-link-hover-color};
