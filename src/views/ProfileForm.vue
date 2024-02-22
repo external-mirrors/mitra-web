@@ -185,7 +185,7 @@ const form = $ref<ProfileUpdateData>({
   header: null,
   header_media_type: null,
   locked: profile.locked,
-  mention_policy: profile.mention_policy || "none",
+  mention_policy: profile.mention_policy,
   fields_attributes: getFieldsAttributes(),
 })
 const images = $ref({

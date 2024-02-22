@@ -54,7 +54,7 @@ export interface Profile {
   avatar: string | null;
   header: string | null;
   locked: boolean;
-  mention_policy: "none" | "only_known" | null,
+  mention_policy: "none" | "only_known",
   bot: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
