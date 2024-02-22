@@ -101,6 +101,12 @@
       vertical-align: middle;
       width: $icon-size;
     }
+
+    svg {
+      fill: var(--secondary-text-color);
+      height: $icon-size;
+      width: $icon-size;
+    }
   }
 
   a.icon:hover,
@@ -111,6 +117,10 @@
     img {
       filter: var(--secondary-text-hover-colorizer);
     }
+
+    svg {
+      fill: var(--secondary-text-hover-color);
+    }
   }
 
   button.icon[disabled] {
@@ -118,6 +128,10 @@
 
     img {
       filter: var(--secondary-text-disabled-colorizer);
+    }
+
+    svg {
+      fill: var(--secondary-text-disabled-color);
     }
   }
 

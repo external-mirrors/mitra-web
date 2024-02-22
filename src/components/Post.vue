@@ -228,7 +228,7 @@
               title="Save to IPFS"
               @click="hideMenu(); saveToIpfs()"
             >
-              <img src="@/assets/extra-icons/ipfs.svg">
+              <icon-ipfs></icon-ipfs>
               <span>Save to IPFS</span>
             </button>
           </li>
@@ -374,6 +374,7 @@ import {
   Profile,
   ProfileWrapper,
 } from "@/api/users"
+import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import PostAttachment from "@/components/PostAttachment.vue"

@@ -2,12 +2,14 @@
   <div class="crypto-address">
     <input type="text" :value="address" readonly>
     <button class="copy-btn" title="Copy address" @click="copyAddress()">
-      <img src="@/assets/forkawesome/files-o.svg">
+      <icon-copy></icon-copy>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import IconCopy from "@/assets/forkawesome/files-o.svg?component"
+
 const props = defineProps<{
   address: string,
 }>()
@@ -45,15 +47,15 @@ function copyAddress() {
     padding: 3px 7px 3px 0;
     width: $icon-size;
 
-    img {
-      filter: var(--link-colorizer);
+    svg {
+      fill: var(--link-color);
       height: 100%;
       object-fit: contain;
       width: 100%;
     }
 
-    &:hover img {
-      filter: var(--link-hover-colorizer);
+    &:hover svg {
+      fill: var(--link-hover-color);
     }
   }
 }

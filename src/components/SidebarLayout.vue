@@ -7,7 +7,7 @@
           :to="{ name: 'home' }"
           @click.prevent="showHomeTimeline()"
         >
-          <img src="@/assets/feather/home.svg">
+          <icon-home></icon-home>
           <span>Home</span>
         </router-link>
         <search />
@@ -39,6 +39,7 @@ import { onMounted } from "vue"
 import { $ } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
+import IconHome from "@/assets/feather/home.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
@@ -115,10 +116,10 @@ header {
     height: 100%;
     padding: 7px $body-padding;
 
-    img {
-      filter: var(--text-colorizer);
+    svg {
       height: 1.2em;
       margin-right: 5px;
+      stroke: var(--text-color);
       width: 1.2em;
     }
 
@@ -130,8 +131,8 @@ header {
       background-color: var(--btn-background-color);
       color: var(--btn-text-color);
 
-      img {
-        filter: var(--btn-text-colorizer);
+      svg {
+        stroke: var(--btn-text-color);
       }
     }
   }
