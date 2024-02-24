@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Support "People I follow and my followers" mention policy.
+- Add "Mute author" to post dropdown menu at tag timeline.
 
 ### Changed
 

@@ -15,36 +15,43 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { Post, getTagTimeline } from "@/api/posts"
+import { addRelationships, getTagTimeline, Post } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
-const { authToken } = $(useCurrentUser())
-let posts = $ref<Post[]>([])
+const { authToken } = useCurrentUser()
+const posts = ref<Post[]>([])
 const isLoading = ref(false)
 
-onMounted(async () => {
-  isLoading.value = true
-  posts = await getTagTimeline(
-    authToken,
-    route.params.tagName as string,
-  )
-  isLoading.value = false
-})
-
-async function loadNextPage(maxId: string) {
-  const nextPage = await getTagTimeline(
+async function loadTimelinePage(
+  authToken: string | null,
+  maxId?: string,
+): Promise<Post[]> {
+  const page = await getTagTimeline(
     authToken,
     route.params.tagName as string,
     maxId,
   )
-  posts = [...posts, ...nextPage]
+  if (authToken !== null) {
+    await addRelationships(authToken, page)
+  }
+  return page
+}
+
+onMounted(async () => {
+  isLoading.value = true
+  posts.value = await loadTimelinePage(authToken.value)
+  isLoading.value = false
+})
+
+async function loadNextPage(maxId: string) {
+  const nextPage = await loadTimelinePage(authToken.value, maxId)
+  posts.value = [...posts.value, ...nextPage]
 }
 </script>
 
