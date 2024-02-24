@@ -6,10 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Support "People I follow and my followers" mention policy.
+
 ### Changed
 
 - Make `Account.mention_policy` field non-nullable.
 - Inline some SVG icons.
+- Rename "Only known users" mention policy to "Everybody except new accounts".
 
 ### Fixed
 
