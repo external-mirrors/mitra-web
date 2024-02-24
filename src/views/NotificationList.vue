@@ -75,6 +75,7 @@ import { onMounted } from "vue"
 
 import { PAGE_SIZE } from "@/api/common"
 import { getNotifications, Notification } from "@/api/notifications"
+import { addRelationships } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
@@ -94,11 +95,17 @@ const {
 } = useNotifications()
 
 onMounted(async () => {
+  const authToken = ensureAuthToken()
   if (notifications.value.length === 0) {
-    await loadNotifications(ensureAuthToken())
+    await loadNotifications(authToken)
   }
   // Update notification timeline marker
-  await updateUnreadNotificationCount(ensureAuthToken())
+  await updateUnreadNotificationCount(authToken)
+  // Add relationships
+  const posts = notifications.value.flatMap((notification) => {
+    return notification.status !== null ? [notification.status] : []
+  })
+  await addRelationships(authToken, posts)
 })
 
 function getSender(notification: Notification): ProfileWrapper {
