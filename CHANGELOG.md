@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Make `Account.mention_policy` field non-nullable.
 - Inline some SVG icons.
 - Rename "Only known users" mention policy to "Everybody except new accounts".
+- Display "Unmute author" menu item when post author is muted.
 
 ### Fixed
 

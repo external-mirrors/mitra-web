@@ -276,10 +276,20 @@
             <button
               class="icon"
               title="Mute author"
-              @click="hideMenu(); onMute()"
+              @click="onMute()"
             >
               <img src="@/assets/feather/volume-x.svg">
               <span>Mute author</span>
+            </button>
+          </li>
+          <li v-if="canUnmute()">
+            <button
+              class="icon"
+              title="Unmute author"
+              @click="onUnmute()"
+            >
+              <img src="@/assets/feather/volume-2.svg">
+              <span>Unmute author</span>
             </button>
           </li>
         </menu>
@@ -368,7 +378,7 @@ import {
   Visibility,
   VISIBILITY_MAP,
 } from "@/api/posts"
-import { mute } from "@/api/relationships"
+import { mute, unmute } from "@/api/relationships"
 import {
   Permissions,
   Profile,
@@ -684,6 +694,20 @@ function canMute(): boolean {
 async function onMute() {
   const authToken = ensureAuthToken()
   props.post.relationship = await mute(authToken, props.post.account.id)
+}
+
+function canUnmute(): boolean {
+  return (
+    props.post.account.id !== currentUser?.id &&
+    // Don't show menu item if post.relationship property is not set
+    !!props.post.relationship &&
+    props.post.relationship.muting
+  )
+}
+
+async function onUnmute() {
+  const authToken = ensureAuthToken()
+  props.post.relationship = await unmute(authToken, props.post.account.id)
 }
 
 function getPaymentOptions(): PaymentOption[] {
