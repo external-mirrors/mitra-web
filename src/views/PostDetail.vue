@@ -25,7 +25,11 @@ import { nextTick, onMounted } from "vue"
 import { $, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 
-import { Post as PostObject, getPostThread } from "@/api/posts"
+import {
+  addRelationships,
+  getPostThread,
+  Post as PostObject,
+} from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -38,11 +42,21 @@ let selectedId = $ref(route.params.postId as string)
 let highlightedId = $ref<string | null>(null)
 let thread = $ref<PostObject[]>([])
 let isLoading = $ref(true)
-const loaded = $ref(getPostThread(authToken, selectedId))
+
+async function loadThread(
+  authToken: string | null,
+  selectedId: string,
+): Promise<PostObject[]> {
+  const posts = await getPostThread(authToken, selectedId)
+  if (authToken !== null) {
+    await addRelationships(authToken, posts)
+  }
+  return posts
+}
 
 onMounted(async () => {
   try {
-    thread = await loaded
+    thread = await loadThread(authToken, selectedId)
   } catch (error: any) {
     if (error.message === "post not found") {
       // Show "not found" text
