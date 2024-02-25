@@ -156,7 +156,7 @@ import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 const MENTION_POLICIES = [
   { name: "Everybody", value: "none" },
   { name: "Everybody except new accounts", value: "only_known" },
-  { name: "People I follow and my followers", value: "only_connected" },
+  { name: "People I follow and my followers", value: "only_contacts" },
 ]
 
 const router = useRouter()

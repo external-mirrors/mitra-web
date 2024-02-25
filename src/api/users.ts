@@ -54,7 +54,7 @@ export interface Profile {
   avatar: string | null;
   header: string | null;
   locked: boolean;
-  mention_policy: "none" | "only_known" | "only_connected",
+  mention_policy: "none" | "only_known" | "only_contacts",
   bot: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
@@ -252,7 +252,7 @@ export interface ProfileUpdateData {
   header: string | null;
   header_media_type: string | null;
   locked: boolean,
-  mention_policy: "none" | "only_known" | "only_connected",
+  mention_policy: "none" | "only_known" | "only_contacts",
   fields_attributes: ProfileFieldAttrs[];
 }
 
