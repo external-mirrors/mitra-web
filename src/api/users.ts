@@ -93,11 +93,13 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
   }
 }
 
+export type ClientConfigValue = string | boolean
+
 export interface User extends Profile {
   source: Source;
   role: Role,
   authentication_methods: AuthenticationMethod[];
-  client_config: { [clientName: string]: { [property: string]: any } },
+  client_config: { [clientName: string]: { [property: string]: ClientConfigValue } },
 }
 
 export function hasAdminPermissions(user: User): boolean {

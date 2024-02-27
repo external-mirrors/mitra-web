@@ -1,6 +1,7 @@
 import { computed } from "vue"
 
 import { updateClientConfig } from "@/api/settings"
+import { ClientConfigValue } from "@/api/users"
 import { useCurrentUser } from "@/composables/user"
 import { APP_NAME } from "@/constants"
 
@@ -11,14 +12,19 @@ export enum ConfigKey {
 
 export function useClientConfig() {
 
-  function getClientConfigKey(key: ConfigKey): any {
+  function getClientConfigKey(
+    key: ConfigKey,
+  ): ClientConfigValue | undefined {
     const { currentUser } = useCurrentUser()
     const clientConfig = currentUser.value?.client_config[APP_NAME] || {}
     const value = clientConfig[key]
     return value
   }
 
-  async function setClientConfigKey(key: ConfigKey, value: any) {
+  async function setClientConfigKey(
+    key: ConfigKey,
+    value: ClientConfigValue,
+  ) {
     const {
       ensureAuthToken,
       ensureCurrentUser,
@@ -33,7 +39,8 @@ export function useClientConfig() {
   }
 
   const contentWarningsEnabled = computed(() => {
-    return getClientConfigKey(ConfigKey.ContentWarningsEnabled) ?? true
+    const value = getClientConfigKey(ConfigKey.ContentWarningsEnabled) ?? true
+    return value as boolean
   })
 
   return {

@@ -1,10 +1,10 @@
 import { APP_NAME, BACKEND_URL } from "@/constants"
 import { handleResponse, http } from "./common"
-import { Aliases, User } from "./users"
+import { Aliases, ClientConfigValue, User } from "./users"
 
 export async function updateClientConfig(
   authToken: string,
-  clientConfig: { [property: string]: any },
+  clientConfig: { [property: string]: ClientConfigValue },
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/settings/client_config`
   const response = await http(url, {
