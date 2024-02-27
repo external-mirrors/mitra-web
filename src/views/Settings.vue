@@ -33,6 +33,16 @@
           >
           <label for="content-warnings">Enable content warnings</label>
         </div>
+        <div class="appearance-checkbox">
+          <input
+            type="checkbox"
+            id="ctrl-enter"
+            :checked="ctrlEnterEnabled"
+            @change="onToggleCtrlEnter()"
+            :disabled="isLoading"
+          >
+          <label for="ctrl-enter">Send messages with Ctrl+Enter</label>
+        </div>
       </section>
       <section>
         <h2>Authentication</h2>
@@ -121,6 +131,7 @@ import { useCurrentUser } from "@/composables/user"
 
 const {
   contentWarningsEnabled,
+  ctrlEnterEnabled,
   setClientConfigKey,
 } = useClientConfig()
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
@@ -141,6 +152,15 @@ async function onToggleContentWarnings() {
   await setClientConfigKey(
     ConfigKey.ContentWarningsEnabled,
     !contentWarningsEnabled.value,
+  )
+  isLoading = false
+}
+
+async function onToggleCtrlEnter() {
+  isLoading = true
+  await setClientConfigKey(
+    ConfigKey.CtrlEnterEnabled,
+    !ctrlEnterEnabled.value,
   )
   isLoading = false
 }

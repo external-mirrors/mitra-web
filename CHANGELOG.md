@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add option to disable sending with Ctrl-Enter.
+
+### Changed
+
+- Disable sending with Ctrl-Enter by default.
+
 ## [2.12.0] - 2024-02-26
 
 ### Added

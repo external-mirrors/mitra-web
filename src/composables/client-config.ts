@@ -8,6 +8,7 @@ import { APP_NAME } from "@/constants"
 export enum ConfigKey {
   Theme = "theme",
   ContentWarningsEnabled = "contentWarningsEnabled",
+  CtrlEnterEnabled = "ctrlEnterEnabled",
 }
 
 export function useClientConfig() {
@@ -43,9 +44,15 @@ export function useClientConfig() {
     return value as boolean
   })
 
+  const ctrlEnterEnabled = computed(() => {
+    const value = getClientConfigKey(ConfigKey.CtrlEnterEnabled) ?? false
+    return value as boolean
+  })
+
   return {
     getClientConfigKey,
     setClientConfigKey,
     contentWarningsEnabled,
+    ctrlEnterEnabled,
   }
 }

@@ -18,7 +18,7 @@
         required
         :placeholder="inReplyTo ? 'Your reply' : (repostOf ? 'Your comment' : 'What\'s on your mind?')"
         @paste="onPaste($event)"
-        @keyup.ctrl.enter="publish()"
+        @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
       <div class="mention-suggestions" v-if="mentionSuggestions.length > 0">
         <button
@@ -182,6 +182,7 @@ import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditorAttachment from "@/components/PostEditorAttachment.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
+import { useClientConfig } from "@/composables/client-config"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
@@ -191,6 +192,7 @@ import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 const visibilityMap = Object.entries(VISIBILITY_MAP)
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
+const { ctrlEnterEnabled } = useClientConfig()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance, getActorAddress } = $(useInstanceInfo())
 
@@ -499,6 +501,12 @@ async function publish() {
     resizeTextArea(postFormContentRef)
   }
   emit("post-saved", post)
+}
+
+async function onCtrlEnter() {
+  if (ctrlEnterEnabled.value) {
+    await publish()
+  }
 }
 </script>
 
