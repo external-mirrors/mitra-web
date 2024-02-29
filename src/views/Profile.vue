@@ -159,13 +159,13 @@
               <button
                 v-if="canFollow()"
                 class="btn follow-btn"
+                :title="profile.locked ? 'Manually approves followers' : undefined"
                 :disabled="isProcessingFollow"
                 @click="onFollow()"
               >
                 <span>Follow</span>
                 <img
                   v-if="profile.locked"
-                  title="Manually approves followers"
                   src="@/assets/forkawesome/lock.svg"
                 >
               </button>

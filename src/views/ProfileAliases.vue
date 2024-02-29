@@ -15,11 +15,12 @@
             v-else
             :profile="defaultProfile({ display_name: 'Unknown', url: alias.id })"
           ></profile-list-item>
-          <button class="remove-alias icon" @click="onRemoveAlias(alias.id)">
-            <img
-              title="Remove alias"
-              src="@/assets/feather/x.svg"
-            >
+          <button
+            class="remove-alias icon"
+            title="Remove alias"
+            @click="onRemoveAlias(alias.id)"
+          >
+            <img src="@/assets/feather/x.svg">
           </button>
         </div>
       </section>
