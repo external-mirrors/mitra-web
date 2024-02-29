@@ -33,7 +33,6 @@ export interface InstanceInfo {
   title: string;
   short_description: string;
   description: string;
-  description_source: string;
   version: string;
   registrations: boolean;
   configuration: {
