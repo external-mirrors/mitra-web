@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Disable sending with Ctrl-Enter by default.
 - Add alt text to attached images in post editor.
+- Inline cryptocurrency SVG icons.
 
 ## [2.12.0] - 2024-02-26
 

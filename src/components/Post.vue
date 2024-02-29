@@ -314,7 +314,7 @@
           :title="'Send ' + option.name"
           @click="togglePaymentAddress(option)"
         >
-          <img :src="getCryptoIconUrl(option.code)">
+          <crypto-icon :code="option.code"></crypto-icon>
         </button>
       </div>
     </div>
@@ -387,6 +387,7 @@ import {
 import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
+import CryptoIcon from "@/components/CryptoIcon.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -752,15 +753,6 @@ function getPaymentOptions(): PaymentOption[] {
     }
   }
   return options
-}
-
-function getCryptoIconUrl(code: string): string {
-  // require doesn't work with Vite: https://stackoverflow.com/a/71135980
-  if (code === "LN") {
-    return new URL("../assets/extra-icons/lightning.svg", import.meta.url).href
-  } else {
-    return new URL(`../assets/cryptoicons/${code.toLowerCase()}.svg`, import.meta.url).href
-  }
 }
 
 function togglePaymentAddress(option: PaymentOption) {

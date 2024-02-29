@@ -1,35 +1,48 @@
+export enum CurrencyCode {
+  Bitcoin = "BTC",
+  BitcoinCash = "BCH",
+  Dash = "DASH",
+  Dogecoin = "DOGE",
+  Ethereum = "ETH",
+  Litecoin = "LTC",
+  Monero = "XMR",
+  Zcash = "ZEC",
+
+  BitcoinLightning = "LN",
+}
+
 // Currency code; currency name; payment URI scheme
-const CRYPTOCURRENCIES = [
+const CRYPTOCURRENCIES: [CurrencyCode, string, string][] = [
   // https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki
-  ["BTC", "Bitcoin", "bitcoin"],
+  [CurrencyCode.Bitcoin, "Bitcoin", "bitcoin"],
 
   // https://bitcoincashstandards.org/
-  ["BCH", "Bitcoin Cash", "bitcoincash"],
+  [CurrencyCode.BitcoinCash, "Bitcoin Cash", "bitcoincash"],
 
-  ["DASH", "Dash", "dash"],
-  ["DOGE", "Dogecoin", "dogecoin"],
+  [CurrencyCode.Dash, "Dash", "dash"],
+  [CurrencyCode.Dogecoin, "Dogecoin", "dogecoin"],
 
   // https://eips.ethereum.org/EIPS/eip-681
   // Not supported by MetaMask https://github.com/MetaMask/metamask-extension/issues/5125
-  ["ETH", "Ethereum", "ethereum"],
+  [CurrencyCode.Ethereum, "Ethereum", "ethereum"],
 
   // https://electrum-ltc.org/litecoin_URIs.html
-  ["LTC", "Litecoin", "litecoin"],
+  [CurrencyCode.Litecoin, "Litecoin", "litecoin"],
 
   // https://github.com/monero-project/monero/wiki/URI-Formatting
-  ["XMR", "Monero", "monero"],
+  [CurrencyCode.Monero, "Monero", "monero"],
 
   // https://zips.z.cash/zip-0321
-  ["ZEC", "Zcash", "zcash"],
+  [CurrencyCode.Zcash, "Zcash", "zcash"],
 ]
 
 export interface Currency {
-  code: string,
+  code: CurrencyCode,
   name: string,
 }
 
-export const MONERO = { code: "XMR", name: "Monero" }
-export const ETHEREUM = { code: "ETH", name: "Ethereum" }
+export const MONERO: Currency = { code: CurrencyCode.Monero, name: "Monero" }
+export const ETHEREUM: Currency = { code: CurrencyCode.Ethereum, name: "Ethereum" }
 
 export function getCurrencyByLabel(label: string): Currency | null {
   const currency = CRYPTOCURRENCIES.find(([code]) => {
@@ -39,7 +52,7 @@ export function getCurrencyByLabel(label: string): Currency | null {
     return { code: currency[0], name: currency[1] }
   }
   if (["⚡", "lightning address", "lud16"].includes(label.toLowerCase())) {
-    return { code: "LN", name: "Bitcoin Lightning" }
+    return { code: CurrencyCode.BitcoinLightning, name: "Bitcoin Lightning" }
   }
   return null
 }
