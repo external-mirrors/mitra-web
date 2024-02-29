@@ -26,7 +26,12 @@
         <button type="submit">Save</button>
       </form>
     </div>
-    <img v-if="attachment.type === 'image'" :src="attachment.url">
+    <img
+      v-if="attachment.type === 'image'"
+      :alt="attachment.description || undefined"
+      :title="attachment.description || undefined"
+      :src="attachment.url"
+    >
     <div v-else class="placeholder">{{ attachment.url }}</div>
   </div>
 </template>
