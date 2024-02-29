@@ -22,16 +22,15 @@ function getDisplayNameHtml(): string {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/layout";
 @import "../styles/theme";
 
-$display-name-line-height: 1.4;
-
 .display-name {
-  line-height: $display-name-line-height;
+  line-height: $emoji-line-height;
 
   :deep(.emoji) {
-    height: $display-name-line-height * 0.8em;
-    width: $display-name-line-height * 0.8em;
+    height: $emoji-line-height * 0.8em;
+    width: $emoji-line-height * 0.8em;
 
     img {
       height: inherit;
