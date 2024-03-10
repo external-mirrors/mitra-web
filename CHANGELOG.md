@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Add option to disable sending with Ctrl-Enter.
+- Display notifications with `emoji_reaction` type.
 
 ### Changed
 

@@ -1,14 +1,21 @@
 import { BACKEND_URL } from "@/constants"
 
 import { handleResponse, http, PAGE_SIZE } from "./common"
+import { CustomEmoji } from "./emojis"
 import { Post } from "./posts"
 import { Profile } from "./users"
+
+interface EmojiReaction {
+  content: string,
+  emoji: CustomEmoji | null,
+}
 
 export interface Notification {
   id: string;
   type: string;
   account: Profile;
   status: Post | null;
+  reaction: EmojiReaction | null,
   created_at: string;
 }
 

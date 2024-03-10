@@ -11,6 +11,12 @@
           <img v-else-if="notification.type === 'follow_request'" src="@/assets/feather/user-plus.svg">
           <img v-else-if="notification.type === 'reply'" src="@/assets/forkawesome/comment-o.svg">
           <img v-else-if="notification.type === 'favourite'" src="@/assets/forkawesome/thumbs-o-up.svg">
+          <span
+            v-else-if="notification.type === 'emoji_reaction'"
+            class="emoji-reaction"
+            v-html="getReactionHtml(notification)"
+          >
+          </span>
           <img v-else-if="notification.type === 'mention'" src="@/assets/forkawesome/comment-o.svg">
           <img v-else-if="notification.type === 'reblog'" src="@/assets/feather/repeat.svg">
           <img
@@ -31,6 +37,7 @@
           <span v-else-if="notification.type === 'follow_request'">sent a follow request</span>
           <span v-else-if="notification.type === 'reply'">replied to your post</span>
           <span v-else-if="notification.type === 'favourite'">liked your post</span>
+          <span v-else-if="notification.type === 'emoji_reaction'">reacted to your post</span>
           <span v-else-if="notification.type === 'mention'">mentioned you</span>
           <span v-else-if="notification.type === 'reblog'">reposted your post</span>
           <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
@@ -74,6 +81,7 @@
 import { onMounted } from "vue"
 
 import { PAGE_SIZE } from "@/api/common"
+import { replaceShortcodes } from "@/api/emojis"
 import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
@@ -107,6 +115,17 @@ onMounted(async () => {
   })
   await addRelationships(authToken, posts)
 })
+
+function getReactionHtml(notification: Notification): string {
+  if (notification.reaction === null) {
+    return ""
+  }
+  let content = notification.reaction.content
+  if (notification.reaction.emoji !== null) {
+    content = replaceShortcodes(content, [notification.reaction.emoji])
+  }
+  return content
+}
 
 function getSender(notification: Notification): ProfileWrapper {
   return new ProfileWrapper(notification.account)
@@ -143,6 +162,12 @@ async function loadNextPage() {
 
 .action {
   @include post-action;
+
+  .emoji-reaction {
+    @include emoji-inline;
+
+    margin-right: calc($icon-size / 2);
+  }
 }
 
 .profile {
