@@ -16,6 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add alt text to attached images in post editor.
 - Inline cryptocurrency SVG icons.
 
+### Fixed
+
+- Preserve aspect ratio of custom emojis.
+
 ## [2.12.0] - 2024-02-26
 
 ### Added

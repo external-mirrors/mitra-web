@@ -254,3 +254,20 @@
     color: $error-color;
   }
 }
+
+/* Without zoom-in effect */
+@mixin emoji-inline {
+  line-height: $emoji-line-height;
+
+  :deep(.emoji) {
+    height: $emoji-line-height * 0.8em;
+    width: $emoji-line-height * 0.8em;
+
+    img {
+      height: inherit;
+      object-fit: contain;
+      vertical-align: text-bottom;
+      width: inherit;
+    }
+  }
+}

@@ -183,6 +183,7 @@ function getContent(): string {
       height: inherit;
       left: 0;
       max-width: none;
+      object-fit: contain;
       position: absolute;
       top: 0;
       width: inherit;

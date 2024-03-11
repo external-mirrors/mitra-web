@@ -23,20 +23,10 @@ function getDisplayNameHtml(): string {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 @import "../styles/theme";
 
 .display-name {
-  line-height: $emoji-line-height;
-
-  :deep(.emoji) {
-    height: $emoji-line-height * 0.8em;
-    width: $emoji-line-height * 0.8em;
-
-    img {
-      height: inherit;
-      vertical-align: text-bottom;
-      width: inherit;
-    }
-  }
+  @include emoji-inline;
 }
 </style>
