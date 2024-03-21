@@ -26,7 +26,7 @@
           <img v-else-if="notification.type === 'move'" src="@/assets/feather/truck.svg">
           <img v-else-if="notification.type === 'admin.sign_up'" src="@/assets/feather/user-check.svg">
           <router-link
-            :title="getSenderInfo(notification)"
+            :title="'@' + getActorAddress(notification.account)"
             :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
             class="display-name-link"
           >
@@ -129,11 +129,6 @@ function getReactionHtml(notification: Notification): string {
 
 function getSender(notification: Notification): ProfileWrapper {
   return new ProfileWrapper(notification.account)
-}
-
-function getSenderInfo(notification: Notification): string {
-  const senderName = getSender(notification).getDisplayName()
-  return `${senderName} (${getActorAddress(notification.account)})`
 }
 
 function onPostDeleted(notificationIndex: number) {

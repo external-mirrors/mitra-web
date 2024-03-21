@@ -18,12 +18,11 @@
       <a
         class="display-name-link"
         :href="post.account.url"
-        :title="author.getDisplayName()"
         @click="openProfile($event, post.account)"
       >
         <profile-display-name :profile="author"></profile-display-name>
       </a>
-      <div class="actor-address" :title="'@' + getActorAddress(post.account)">
+      <div class="actor-address">
         @{{ getActorAddress(post.account) }}
       </div>
       <a
@@ -65,7 +64,7 @@
         v-for="mention in getReplyMentions()"
         :key="mention.id"
         :href="mention.url"
-        :title="getActorAddress(mention)"
+        :title="'@' + getActorAddress(mention)"
         @click="openProfile($event, mention)"
       >
         @{{ mention.username }}

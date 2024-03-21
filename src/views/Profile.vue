@@ -22,7 +22,7 @@
                 <div
                   class="badge"
                   v-if="aliases.length > 0"
-                  :title="aliases.map(profile => '@' + profile.acct).join(', ')"
+                  :title="aliases.map(profile => profile.url).join(', ')"
                 >
                   Alias
                 </div>

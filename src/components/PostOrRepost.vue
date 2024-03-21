@@ -4,7 +4,7 @@
       <img src="@/assets/feather/repeat.svg">
       <router-link
         :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
-        :title="getActorAddress(post.account)"
+        :title="'@' + getActorAddress(post.account)"
         class="display-name-link"
       >
         <profile-display-name :profile="author"></profile-display-name>
