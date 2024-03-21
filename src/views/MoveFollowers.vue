@@ -39,9 +39,11 @@ import { useRouter } from "vue-router"
 
 import { moveFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
 
 const fromActorId = $ref("")
@@ -73,7 +75,7 @@ async function move() {
   isLoading = false
   errorMessage = null
   setCurrentUser(user)
-  router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
+  router.push(getActorLocation("profile", currentUser))
 }
 </script>
 

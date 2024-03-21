@@ -4,7 +4,7 @@
       <router-link
         class="back-btn"
         title="Back"
-        :to="{ name: 'profile-by-acct', params: { acct: profile.acct }}"
+        :to="getActorLocation('profile', profile)"
       >
         <img src="@/assets/feather/arrow-left.svg">
       </router-link>
@@ -50,10 +50,12 @@ import { getProfile, lookupProfile, ProfileWrapper } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
+const { getActorLocation } = useActorHandle()
 const { authToken } = useCurrentUser()
 const { loadTheme } = useTheme()
 

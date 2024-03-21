@@ -70,10 +70,12 @@ import {
   getPricePerSec,
 } from "@/api/subscriptions-monero"
 import Loader from "@/components/Loader.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const {
   ensureAuthToken,
   ensureCurrentUser,
@@ -111,10 +113,8 @@ async function loadSubscriptionSettings() {
 }
 
 function getSubscriptionPagePath(): string {
-  const route = router.resolve({
-    name: "profile-subscription-by-acct",
-    params: { acct: ensureCurrentUser().acct },
-  })
+  const route = router.resolve(
+    getActorLocation("profile-subscription", ensureCurrentUser()))
   return route.fullPath
 }
 

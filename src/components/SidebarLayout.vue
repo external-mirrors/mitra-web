@@ -15,7 +15,7 @@
       <div id="profile">
         <router-link
           class="profile-link"
-          :to="{ name: 'profile-by-acct', params: { acct: currentUser.acct }}"
+          :to="getActorLocation('profile', currentUser)"
         >
           <avatar :profile="currentUser"></avatar>
           <div class="profile-name">@{{ currentUser.username }}</div>
@@ -44,12 +44,14 @@ import Avatar from "@/components/Avatar.vue"
 import InstanceInfo from "@/components/InstanceInfo.vue"
 import Search from "@/components/Search.vue"
 import Sidebar from "@/components/Sidebar.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useNotifications } from "@/composables/notifications"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { loadNotifications } = $(useNotifications())
 const { loadTheme } = useTheme()

@@ -4,7 +4,7 @@
       <avatar :profile="profile"></avatar>
       <div class="name">
         <profile-display-name :profile="profile"></profile-display-name>
-        <div v-if="profile.id" class="actor-address">@{{ getActorAddress(profile) }}</div>
+        <div v-if="profile.id" class="actor-address">{{ getActorHandle(profile) }}</div>
         <!-- Fallback for dummy profiles -->
         <div v-else class="actor-address">{{ profile.url }}</div>
       </div>
@@ -21,7 +21,7 @@ import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useActorHandle } from "@/composables/handle"
 
-const { getActorAddress } = useActorHandle()
+const { getActorHandle } = useActorHandle()
 
 const props = defineProps<{
   profile: Profile,

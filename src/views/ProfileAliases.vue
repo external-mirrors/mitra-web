@@ -7,7 +7,7 @@
         <div class="profile-group" v-for="alias in aliases.declared_all" :key="alias.id">
           <router-link
             v-if="alias.account !== null"
-            :to="{ name: 'profile-by-acct', params: { acct: alias.account.acct } }"
+            :to="getActorLocation('profile', alias.account)"
           >
             <profile-list-item :profile="alias.account"></profile-list-item>
           </router-link>
@@ -29,7 +29,7 @@
         <router-link
           v-for="profile in aliases.verified"
           :key="profile.id"
-          :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
+          :to="getActorLocation('profile', profile)"
         >
           <profile-list-item :profile="profile"></profile-list-item>
         </router-link>
@@ -83,8 +83,10 @@ import { defaultProfile, getAliases, Aliases, Profile } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
+const { getActorLocation } = useActorHandle()
 const { ensureCurrentUser, ensureAuthToken } = $(useCurrentUser())
 
 let aliases = $ref<Aliases>({ declared: [], declared_all: [], verified: [] })

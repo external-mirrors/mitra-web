@@ -14,7 +14,7 @@
           class="search-result"
           v-for="profile in profiles"
           :key="profile.id"
-          :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
+          :to="getActorLocation('profile', profile)"
         >
           <profile-list-item :profile="profile"></profile-list-item>
         </router-link>
@@ -50,9 +50,11 @@ import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
+const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 
 let searchQuery = $ref<string | null>(null)

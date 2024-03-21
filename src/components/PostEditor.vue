@@ -3,7 +3,7 @@
     <router-link
       v-if="author"
       class="floating-avatar"
-      :to="{ name: 'profile-by-acct', params: { acct: author.acct }}"
+      :to="getActorLocation('profile', author)"
     >
       <avatar :profile="author"></avatar>
     </router-link>
@@ -194,7 +194,7 @@ const visibilityMap = Object.entries(VISIBILITY_MAP)
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { instance } = $(useInstanceInfo())
 
@@ -245,7 +245,9 @@ if (props.inReplyTo && content.length === 0) {
   ]
   content = mentions
     .filter(mention => mention.id !== currentUser?.id)
-    .map(mention => "@" + getActorAddress(mention))
+    .map(mention => getActorHandle(mention))
+    // Remove non-webfinger handles
+    .filter(mention => mention.startsWith("@"))
     // Remove duplicates
     .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
     .join(" ")
@@ -312,6 +314,7 @@ const suggestMentionsDebounced = debounce(suggestMentions, 500)
 async function autocompleteMention(profile: Profile) {
   if (postFormContentRef !== null && mentionPosition !== null) {
     const [start, stop] = mentionPosition
+    // Suggested profile is expected to have webfinger address
     content = content.substring(0, start) + profile.acct + content.substring(stop)
     mentionSuggestions = []
     await nextTick()
@@ -449,7 +452,12 @@ function canPublish(): boolean {
 }
 
 function getObjectLink(post: Post): string {
-  return `\n\n RE: [[${post.uri}]]\n\n@${post.account.acct}`
+  let markup = `\n\n RE: [[${post.uri}]]`
+  if (!post.account.acct.includes("://")) {
+    // Insert mention only if acct is a webfinger address
+    markup += `\n\n@${post.account.acct}`
+  }
+  return markup
 }
 
 async function publish() {

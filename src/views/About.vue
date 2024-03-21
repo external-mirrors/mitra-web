@@ -5,7 +5,7 @@
       <div class="description static-text" v-html="instance.description"></div>
       <template v-if="instance.contact_account">
         <h2 class="staff-header">Administered by</h2>
-        <router-link :to="{ name: 'profile-by-acct', params: { acct: instance.contact_account.acct } }">
+        <router-link :to="getActorLocation('profile', instance.contact_account)">
           <profile-list-item :profile="instance.contact_account"></profile-list-item>
         </router-link>
       </template>
@@ -23,7 +23,7 @@
       <div class="description" v-html="instance.description"></div>
       <template v-if="instance.contact_account">
         <h2 class="staff-header">Administered by</h2>
-        <router-link :to="{ name: 'profile-by-acct', params: { acct: instance.contact_account.acct } }">
+        <router-link :to="getActorLocation('profile', instance.contact_account)">
           <profile-list-item :profile="instance.contact_account"></profile-list-item>
         </router-link>
       </template>
@@ -36,9 +36,11 @@ import { APP_VERSION } from "@/constants"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import StaticPage from "@/components/StaticPage.vue"
-import { useCurrentUser } from "@/composables/user"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
+import { useCurrentUser } from "@/composables/user"
 
+const { getActorLocation } = useActorHandle()
 const { currentUser } = useCurrentUser()
 const { instance } = useInstanceInfo()
 

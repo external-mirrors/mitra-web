@@ -140,7 +140,7 @@
             <div class="name-group">
               <profile-display-name :profile="profile">
               </profile-display-name>
-              <div class="actor-address">@{{ actorAddress }}</div>
+              <div class="actor-address">{{ actorHandle }}</div>
             </div>
             <div class="buttons">
               <router-link
@@ -277,7 +277,7 @@
           >
             Featured
           </a>
-          <router-link class="tab" :to="{ name: 'profile-gallery-by-acct', params: { acct: profile.acct } }">
+          <router-link class="tab" :to="getActorLocation('profile-gallery', profile)">
             Gallery
           </router-link>
         </template>
@@ -311,7 +311,7 @@
             class="profile-list-item"
             v-for="profile in followList"
             :key="profile.id"
-            :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
+            :to="getActorLocation('profile', profile)"
           >
             <profile-list-item :profile="profile"></profile-list-item>
           </router-link>
@@ -328,7 +328,7 @@
             class="profile-list-item"
             v-for="subscription in subscriptions"
             :key="subscription.id"
-            :to="{ name: 'profile-by-acct', params: { acct: subscription.sender.acct } }"
+            :to="getActorLocation('profile', subscription.sender)"
           >
             <profile-list-item :profile="subscription.sender">
               <template #profile-footer>
@@ -399,7 +399,7 @@ const {
   isAdmin,
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const { getBlockchainInfo } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
 
@@ -515,11 +515,11 @@ async function switchTab(name: string) {
   isLoading = false
 }
 
-const actorAddress = computed<string>(() => {
+const actorHandle = computed<string>(() => {
   if (!profile) {
     return ""
   }
-  return getActorAddress(profile)
+  return getActorHandle(profile)
 })
 
 const fields = computed<ProfileField[]>(() => {
@@ -653,7 +653,7 @@ function canShowReplies(): boolean {
 async function onFollow(showReposts?: boolean, showReplies?: boolean) {
   if (!currentUser) {
     // Viewing as guest
-    alert(`You can follow this account from your Fediverse server: @${actorAddress.value}`)
+    alert(`You can follow this account from your Fediverse server: ${actorHandle.value}`)
     return
   }
   if (!profile || !relationship) {

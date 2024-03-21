@@ -65,11 +65,13 @@ import {
   IdentityClaim,
 } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
 const PROOF_TYPE = "minisign-unhashed"
 
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const { ensureAuthToken, currentUser } = $(useCurrentUser())
 
 const key = $ref("")
@@ -119,7 +121,7 @@ async function submit() {
     return
   }
   errorMessage = null
-  router.push({ name: "profile-by-acct", params: { acct: currentUser.acct } })
+  router.push(getActorLocation("profile", currentUser))
 }
 </script>
 

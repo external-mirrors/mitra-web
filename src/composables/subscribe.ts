@@ -1,6 +1,7 @@
 import { RouteLocationRaw } from "vue-router"
 
 import { Profile, ProfilePaymentOption } from "@/api/users"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 
 interface SubscriptionLink {
@@ -9,6 +10,7 @@ interface SubscriptionLink {
 }
 
 export function useSubscribe() {
+  const { getActorLocation } = useActorHandle()
   const { getBlockchainInfo } = useInstanceInfo()
 
   function getSubscriptionLink(profile: Profile): SubscriptionLink | null {
@@ -33,10 +35,7 @@ export function useSubscribe() {
         }
         return {
           type: option.type === "ethereum-subscription" ? "ethereum" : "monero",
-          location: {
-            name: "profile-subscription-by-acct",
-            params: { acct: profile.acct },
-          },
+          location: getActorLocation("profile-subscription", profile),
         }
       }
     }

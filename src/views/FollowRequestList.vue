@@ -9,7 +9,7 @@
         <router-link
           v-for="profile in profiles"
           :key="profile.id"
-          :to="{ name: 'profile-by-acct', params: { acct: profile.acct } }"
+          :to="getActorLocation('profile', profile)"
         >
           <profile-list-item :profile="profile"></profile-list-item>
         </router-link>
@@ -34,8 +34,10 @@ import { Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
+const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 
 const profiles = ref<Profile[]>([])

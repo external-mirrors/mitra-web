@@ -26,8 +26,8 @@
           <img v-else-if="notification.type === 'move'" src="@/assets/feather/truck.svg">
           <img v-else-if="notification.type === 'admin.sign_up'" src="@/assets/feather/user-check.svg">
           <router-link
-            :title="'@' + getActorAddress(notification.account)"
-            :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
+            :title="getActorHandle(getSender(notification))"
+            :to="getActorLocation('profile', notification.account)"
             class="display-name-link"
           >
             <profile-display-name :profile="getSender(notification)">
@@ -55,14 +55,14 @@
         <router-link
           v-else
           class="profile"
-          :to="{ name: 'profile-by-acct', params: { acct: notification.account.acct } }"
+          :to="getActorLocation('profile', notification.account)"
         >
           <div class="floating-avatar">
             <avatar :profile="notification.account"></avatar>
           </div>
           <profile-display-name :profile="getSender(notification)">
           </profile-display-name>
-          <div class="actor-address">@{{ getActorAddress(notification.account) }}</div>
+          <div class="actor-address">{{ getActorHandle(notification.account) }}</div>
           <div class="timestamp">{{ humanizeDate(notification.created_at) }}</div>
         </router-link>
       </div>
@@ -95,7 +95,7 @@ import { useCurrentUser } from "@/composables/user"
 import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const {
   loadNotifications,
   notifications,

@@ -4,7 +4,7 @@
       <component
         class="profile-card"
         :is="sender.id ? 'router-link' : 'div'"
-        :to="{ name: 'profile-by-acct', params: { acct: sender.acct } }"
+        :to="getActorLocation('profile', sender)"
       >
         <avatar :profile="sender"></avatar>
         <profile-display-name :profile="sender"></profile-display-name>
@@ -14,7 +14,7 @@
       </div>
       <router-link
         class="profile-card"
-        :to="{ name: 'profile-by-acct', params: { acct: recipient.acct }}"
+        :to="getActorLocation('profile', recipient)"
       >
         <avatar :profile="recipient"></avatar>
         <profile-display-name :profile="recipient"></profile-display-name>
@@ -202,6 +202,7 @@ import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
@@ -220,6 +221,7 @@ const props = defineProps<{
 }>()
 
 const route = useRoute()
+const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const { getSubscriptionOption } = useSubscribe()

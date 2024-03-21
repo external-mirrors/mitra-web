@@ -3,8 +3,8 @@
     <div class="action">
       <img src="@/assets/feather/repeat.svg">
       <router-link
-        :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
-        :title="'@' + getActorAddress(post.account)"
+        :to="getActorLocation('profile', post.account)"
+        :title="getActorHandle(post.account)"
         class="display-name-link"
       >
         <profile-display-name :profile="author"></profile-display-name>
@@ -42,7 +42,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 
 const author = computed(() => new ProfileWrapper(props.post.account))
 

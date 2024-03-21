@@ -23,7 +23,7 @@
         <profile-display-name :profile="author"></profile-display-name>
       </a>
       <div class="actor-address">
-        @{{ getActorAddress(post.account) }}
+        {{ getActorHandle(post.account) }}
       </div>
       <a
         v-if="inThread && post.in_reply_to_id"
@@ -64,7 +64,7 @@
         v-for="mention in getReplyMentions()"
         :key="mention.id"
         :href="mention.url"
-        :title="'@' + getActorAddress(mention)"
+        :title="getActorHandle(mention)"
         @click="openProfile($event, mention)"
       >
         @{{ mention.username }}
@@ -91,7 +91,7 @@
         <profile-display-name :profile="getQuoteAuthor(linkedPost)">
         </profile-display-name>
         <span class="actor-address">
-          @{{ getActorAddress(linkedPost.account) }}
+          {{ getActorHandle(linkedPost.account) }}
         </span>
       </div>
       <post-content v-if="linkedPost.content" :post="linkedPost"></post-content>
@@ -409,7 +409,7 @@ interface PaymentOption {
 }
 
 const router = useRouter()
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
 const { getBlockchainInfo, instance } = $(useInstanceInfo())
 const { getSubscriptionLink } = useSubscribe()
@@ -446,7 +446,7 @@ function openProfile(event: Event, profile: Mention | Profile) {
     return
   }
   event.preventDefault()
-  router.push({ name: "profile-by-acct", params: { acct: profile.acct } })
+  router.push(getActorLocation("profile", profile))
 }
 
 function highlight(postId: string | null) {

@@ -8,7 +8,7 @@
         <avatar :profile="profile"></avatar>
         <div class="name-group">
           <profile-display-name :profile="profile"></profile-display-name>
-          <div class="actor-address">@{{ getActorAddress(profile) }}</div>
+          <div class="actor-address">{{ getActorHandle(profile) }}</div>
         </div>
       </div>
       <div v-if="!compact" class="bio" v-html="profile.note"></div>
@@ -35,7 +35,7 @@ const props = defineProps<{
   compact: boolean,
 }>()
 
-const { getActorAddress } = useActorHandle()
+const { getActorHandle } = useActorHandle()
 
 const profile = computed(() => new ProfileWrapper(props.profile))
 </script>

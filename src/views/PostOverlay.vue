@@ -18,10 +18,10 @@
       <div class="token-info">
         <router-link
           class="profile"
-          :to="{ name: 'profile-by-acct', params: { acct: post.account.acct }}"
+          :to="getActorLocation('profile', post.account)"
         >
           <avatar :profile="post.account"></avatar>
-          <div class="actor-address">@{{ actorAddress }}</div>
+          <div class="actor-address">{{ getActorHandle(post.account) }}</div>
         </router-link>
         <a
           v-if="transactionUrl"
@@ -71,7 +71,7 @@ import { formatDate } from "@/utils/dates"
 
 const route = useRoute()
 const router = useRouter()
-const { getActorAddress } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, authToken } = $(useCurrentUser())
 const {
   getBlockchainInfo,
@@ -99,13 +99,6 @@ function canGoBack(): boolean {
 function goBack() {
   router.back()
 }
-
-const actorAddress = $computed<string>(() => {
-  if (!post) {
-    return ""
-  }
-  return getActorAddress(post.account)
-})
 
 const transactionUrl = $computed<string | null>(() => {
   const blockchain = getBlockchainInfo()

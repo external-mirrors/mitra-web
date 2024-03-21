@@ -149,6 +149,7 @@ import {
 } from "@/api/users"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
@@ -160,6 +161,7 @@ const MENTION_POLICIES = [
 ]
 
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser())
 
 const profile = ensureCurrentUser()
@@ -292,7 +294,7 @@ async function save() {
   }
   isLoading = false
   setCurrentUser(user)
-  router.push({ name: "profile-by-acct", params: { acct: user.acct } })
+  router.push(getActorLocation("profile", user))
 }
 </script>
 

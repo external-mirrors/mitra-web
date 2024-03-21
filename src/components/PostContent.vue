@@ -9,10 +9,12 @@ import { useRouter } from "vue-router"
 
 import { replaceShortcodes } from "@/api/emojis"
 import { Post } from "@/api/posts"
+import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 import { addGreentext } from "@/utils/greentext"
 
 const router = useRouter()
+const { getActorLocation } = useActorHandle()
 const { currentUser } = $(useCurrentUser())
 
 const props = defineProps<{
@@ -41,7 +43,7 @@ function configureInlineLinks() {
     if (mention) {
       mentionElement.addEventListener("click", (event: Event) => {
         event.preventDefault()
-        router.push({ name: "profile-by-acct", params: { acct: mention.acct } })
+        router.push(getActorLocation("profile", mention))
       })
       mentionElement.dataset.internalLink = "true"
     }
