@@ -7,8 +7,6 @@ import {
   MoneroChainMetadata,
   getInstanceInfo,
 } from "@/api/instance"
-import { Mention } from "@/api/posts"
-import { Profile } from "@/api/users"
 import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
 
 const instance = ref<InstanceInfo | null>(null)
@@ -17,17 +15,6 @@ export function useInstanceInfo() {
 
   async function loadInstanceInfo(): Promise<void> {
     instance.value = await getInstanceInfo()
-  }
-
-  function getActorAddress(profile: Profile | Mention): string {
-    if (profile.acct.includes("@")) {
-      // Remote account
-      return `${profile.acct}`
-    }
-    if (instance.value === null) {
-      return `${profile.username}`
-    }
-    return `${profile.username}@${instance.value.uri}`
   }
 
   function getBlockchainInfo(): BlockchainInfo | null {
@@ -63,7 +50,6 @@ export function useInstanceInfo() {
   return {
     instance,
     loadInstanceInfo,
-    getActorAddress,
     getBlockchainInfo,
     getEthereumChainMetadata,
     getMoneroChainMetadata,

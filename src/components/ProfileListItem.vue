@@ -19,9 +19,9 @@ import { computed } from "vue"
 import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useInstanceInfo } from "@/composables/instance"
+import { useActorHandle } from "@/composables/handle"
 
-const { getActorAddress } = useInstanceInfo()
+const { getActorAddress } = useActorHandle()
 
 const props = defineProps<{
   profile: Profile,

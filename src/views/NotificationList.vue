@@ -89,13 +89,13 @@ import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import { useInstanceInfo } from "@/composables/instance"
+import { useActorHandle } from "@/composables/handle"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
 import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
-const { getActorAddress } = useInstanceInfo()
+const { getActorAddress } = useActorHandle()
 const {
   loadNotifications,
   notifications,

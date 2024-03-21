@@ -381,6 +381,7 @@ import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSignedActivity } from "@/composables/signed-activity"
 import { useSubscribe } from "@/composables/subscribe"
@@ -398,7 +399,8 @@ const {
   isAdmin,
 } = $(useCurrentUser())
 const { verifyEthereumAddress } = useEthereumAddressVerification()
-const { getActorAddress, getBlockchainInfo } = $(useInstanceInfo())
+const { getActorAddress } = useActorHandle()
+const { getBlockchainInfo } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
 
 const postListRef = $ref<InstanceType<typeof PostList> | null>(null)

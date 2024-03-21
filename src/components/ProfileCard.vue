@@ -23,21 +23,21 @@
 </template>
 
 <script setup lang="ts">
-import { $computed } from "vue/macros"
+import { computed } from "vue"
 
 import { Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useInstanceInfo } from "@/composables/instance"
+import { useActorHandle } from "@/composables/handle"
 
 const props = defineProps<{
   profile: Profile,
   compact: boolean,
 }>()
 
-const { getActorAddress } = useInstanceInfo()
+const { getActorAddress } = useActorHandle()
 
-const profile = $computed(() => new ProfileWrapper(props.profile))
+const profile = computed(() => new ProfileWrapper(props.profile))
 </script>
 
 <style scoped lang="scss">

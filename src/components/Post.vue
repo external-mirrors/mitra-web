@@ -394,6 +394,7 @@ import PostEditor from "@/components/PostEditor.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
@@ -409,8 +410,9 @@ interface PaymentOption {
 }
 
 const router = useRouter()
+const { getActorAddress } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { getActorAddress, getBlockchainInfo, instance } = $(useInstanceInfo())
+const { getBlockchainInfo, instance } = $(useInstanceInfo())
 const { getSubscriptionLink } = useSubscribe()
 
 const props = defineProps<{

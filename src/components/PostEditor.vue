@@ -183,6 +183,7 @@ import PostContent from "@/components/PostContent.vue"
 import PostEditorAttachment from "@/components/PostEditorAttachment.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import { useClientConfig } from "@/composables/client-config"
+import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
@@ -193,8 +194,9 @@ const visibilityMap = Object.entries(VISIBILITY_MAP)
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
+const { getActorAddress } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { instance, getActorAddress } = $(useInstanceInfo())
+const { instance } = $(useInstanceInfo())
 
 const props = defineProps<{
   post: Post | null,

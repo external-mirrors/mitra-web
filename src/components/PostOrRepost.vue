@@ -28,13 +28,13 @@
 </template>
 
 <script setup lang="ts">
-import { $, $computed } from "vue/macros"
+import { computed } from "vue"
 
 import type { Post as PostObject } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
-import { useInstanceInfo } from "@/composables/instance"
+import { useActorHandle } from "@/composables/handle"
 
 const props = defineProps<{
   post: PostObject,
@@ -42,9 +42,9 @@ const props = defineProps<{
 
 const emit = defineEmits<{(event: "post-deleted", postId: string): void}>()
 
-const { getActorAddress } = $(useInstanceInfo())
+const { getActorAddress } = useActorHandle()
 
-const author = $computed(() => new ProfileWrapper(props.post.account))
+const author = computed(() => new ProfileWrapper(props.post.account))
 
 function onPostDeleted(postId: string) {
   emit("post-deleted", postId)
