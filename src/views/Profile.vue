@@ -277,7 +277,7 @@
           >
             Featured
           </a>
-          <router-link class="tab" :to="{ name: 'profile-gallery', params: { acct: profile.acct } }">
+          <router-link class="tab" :to="{ name: 'profile-gallery-by-acct', params: { acct: profile.acct } }">
             Gallery
           </router-link>
         </template>

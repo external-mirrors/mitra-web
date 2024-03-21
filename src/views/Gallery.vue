@@ -46,7 +46,7 @@ import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
 import { getProfileTimeline, Post as PostObject } from "@/api/posts"
-import { lookupProfile, ProfileWrapper } from "@/api/users"
+import { getProfile, lookupProfile, ProfileWrapper } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
@@ -64,10 +64,18 @@ const isLoading = ref(false)
 onMounted(async () => {
   isLoading.value = true
   loadTheme()
-  const _profile = await lookupProfile(
-    authToken.value,
-    route.params.acct as string,
-  )
+  let _profile
+  if (route.params.acct) {
+    _profile = await lookupProfile(
+      authToken.value,
+      route.params.acct as string,
+    )
+  } else {
+    _profile = await getProfile(
+      authToken.value,
+      route.params.profileId as string,
+    )
+  }
   profile.value = new ProfileWrapper(_profile)
   posts.value = await getProfileTimeline(
     authToken.value,

@@ -144,13 +144,19 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/@:acct(.*)/subscription",
-    name: "profile-by-acct-subscription",
+    name: "profile-subscription-by-acct",
     component: SubscriptionPage,
     meta: { },
   },
   {
-    path: "/@:acct(.*)/gallery",
+    path: "/profile/:profileId/gallery",
     name: "profile-gallery",
+    component: Gallery,
+    meta: { },
+  },
+  {
+    path: "/@:acct(.*)/gallery",
+    name: "profile-gallery-by-acct",
     component: Gallery,
     meta: { },
   },

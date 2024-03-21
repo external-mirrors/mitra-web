@@ -34,7 +34,7 @@ export function useSubscribe() {
         return {
           type: option.type === "ethereum-subscription" ? "ethereum" : "monero",
           location: {
-            name: "profile-by-acct-subscription",
+            name: "profile-subscription-by-acct",
             params: { acct: profile.acct },
           },
         }
