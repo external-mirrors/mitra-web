@@ -25,7 +25,7 @@
                 type="file"
                 id="avatar"
                 ref="avatarInputRef"
-                accept="image/*"
+                :accept="getAcceptedMediaTypes()"
                 @change="onFilePicked('avatar', $event)"
               >
               <button
@@ -41,7 +41,7 @@
                 type="file"
                 id="banner"
                 ref="bannerInputRef"
-                accept="image/*"
+                :accept="getAcceptedMediaTypes()"
                 @change="onFilePicked('header', $event)"
               >
               <button
@@ -138,7 +138,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { $, $computed, $ref } from "vue/macros"
+import { $computed, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import {
@@ -150,6 +150,7 @@ import {
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
@@ -162,7 +163,8 @@ const MENTION_POLICIES = [
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = $(useCurrentUser())
+const { instance } = useInstanceInfo()
+const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = useCurrentUser()
 
 const profile = ensureCurrentUser()
 let isLoading = $ref(false)
@@ -220,6 +222,16 @@ function onBioUpdate(event: Event) {
   if (value) {
     form.note = value
   }
+}
+
+function getAcceptedMediaTypes(): string {
+  if (instance.value === null) {
+    return ""
+  }
+  return instance.value
+    .configuration.media_attachments.supported_mime_types
+    .filter(mediaType => mediaType.startsWith("image/"))
+    .join(",")
 }
 
 async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
