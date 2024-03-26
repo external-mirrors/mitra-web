@@ -6,7 +6,7 @@
         title="Back"
         :to="getActorLocation('profile', profile)"
       >
-        <img src="@/assets/feather/arrow-left.svg">
+        <icon-arrow-left></icon-arrow-left>
       </router-link>
       <h1><profile-display-name :profile="profile"></profile-display-name> gallery</h1>
       <div
@@ -29,7 +29,7 @@
             title="View post"
             :to="{ name: 'post', params: { postId: post.id }}"
           >
-            <img src="@/assets/forkawesome/comment-o.svg">
+            <icon-comment></icon-comment>
           </router-link>
         </div>
       </div>
@@ -47,6 +47,8 @@ import { useRoute } from "vue-router"
 
 import { getProfileTimeline, Post as PostObject } from "@/api/posts"
 import { getProfile, lookupProfile, ProfileWrapper } from "@/api/users"
+import IconArrowLeft from "@/assets/feather/arrow-left.svg?component"
+import IconComment from "@/assets/forkawesome/comment-o.svg?component"
 import Loader from "@/components/Loader.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
@@ -106,9 +108,9 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
     position: absolute;
     top: $body-padding;
 
-    img {
-      filter: var(--text-colorizer);
+    svg {
       height: 40px;
+      stroke: var(--text-color);
       width: 40px;
     }
   }

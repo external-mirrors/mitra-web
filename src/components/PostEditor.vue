@@ -52,7 +52,7 @@
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
         >
-          <img v-if="!isAttachmentLoading" src="@/assets/feather/paperclip.svg">
+          <icon-attach v-if="!isAttachmentLoading"></icon-attach>
           <loader v-else></loader>
           <input
             type="file"
@@ -98,7 +98,7 @@
           :title="isSensitive ? 'Remove content warning' : 'Add content warning'"
           @click="isSensitive = !isSensitive"
         >
-          <img src="@/assets/feather/alert-triangle.svg">
+          <icon-alert></icon-alert>
         </button>
         <div class="toolbar-space"></div>
         <div
@@ -115,8 +115,8 @@
           title="Toggle preview"
           @click="togglePreview()"
         >
-          <img v-if="preview === null" src="@/assets/feather/eye.svg">
-          <img v-else src="@/assets/feather/eye-off.svg">
+          <icon-show v-if="preview === null"></icon-show>
+          <icon-hide v-else></icon-hide>
         </button>
         <button
           v-if="isEditorEmbedded"
@@ -177,6 +177,10 @@ import {
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile, User } from "@/api/users"
+import IconAlert from "@/assets/feather/alert-triangle.svg?component"
+import IconShow from "@/assets/feather/eye.svg?component"
+import IconHide from "@/assets/feather/eye-off.svg?component"
+import IconAttach from "@/assets/feather/paperclip.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
@@ -606,8 +610,8 @@ $line-height: 1.5;
   .icon.warning {
     color: $warning-color;
 
-    img {
-      filter: $warning-colorizer;
+    svg {
+      stroke: $warning-color;
     }
   }
 

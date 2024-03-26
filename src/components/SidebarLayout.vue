@@ -279,7 +279,7 @@ header {
 
 @media screen and (max-width: $screen-breakpoint-x-small) {
   #nav .home-btn {
-    img {
+    svg {
       margin-right: 0;
     }
 

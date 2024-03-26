@@ -10,7 +10,7 @@
         <profile-display-name :profile="sender"></profile-display-name>
       </component>
       <div class="separator">
-        <img src="@/assets/feather/arrow-right.svg">
+        <icon-arrow-right></icon-arrow-right>
       </div>
       <router-link
         class="profile-card"
@@ -126,7 +126,7 @@
             title="Show additional information"
             @click="paymentRequestVisible = !paymentRequestVisible"
           >
-            <img src="@/assets/feather/chevron-down.svg">
+            <icon-chevron-down></icon-chevron-down>
           </a>
         </div>
         <a
@@ -198,6 +198,8 @@ import {
   Invoice,
 } from "@/api/subscriptions-monero"
 import { defaultProfile, Profile, ProfilePaymentOption, ProfileWrapper } from "@/api/users"
+import IconArrowRight from "@/assets/feather/arrow-right.svg?component"
+import IconChevronDown from "@/assets/feather/chevron-down.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
@@ -563,11 +565,11 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
     padding: $block-inner-padding;
   }
 
-  .separator img {
-    filter: var(--text-colorizer);
+  .separator svg {
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;
+    stroke: var(--text-color);
     width: $icon-size;
   }
 
@@ -671,8 +673,8 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
     top: 0;
     width: 1em;
 
-    img {
-      filter: var(--text-colorizer);
+    svg {
+      stroke: var(--text-color);
       vertical-align: middle;
     }
   }

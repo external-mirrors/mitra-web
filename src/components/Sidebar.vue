@@ -2,13 +2,13 @@
   <div v-if="isUserAuthenticated()" class="sidebar">
     <router-link class="sidebar-link" to="/notifications">
       <div class="icon">
-        <img src="@/assets/feather/bell.svg">
+        <icon-bell></icon-bell>
         <div v-if="unreadNotificationCount > 0" class="icon-badge">{{ unreadNotificationCount }}</div>
       </div>
       <span>Notifications</span>
     </router-link>
     <router-link class="sidebar-link" to="/local">
-      <div class="icon"><img src="@/assets/feather/server.svg"></div>
+      <div class="icon"><icon-server></icon-server></div>
       <span>Local</span>
     </router-link>
     <router-link
@@ -16,11 +16,11 @@
       class="sidebar-link"
       :to="{ name: 'known-network' }"
     >
-      <div class="icon"><img src="@/assets/feather/globe.svg"></div>
+      <div class="icon"><icon-globe></icon-globe></div>
       <span>Federated</span>
     </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
-      <div class="icon"><img src="@/assets/feather/users.svg"></div>
+      <div class="icon"><icon-users></icon-users></div>
       <span>Profile directory</span>
     </router-link>
     <router-link
@@ -28,19 +28,19 @@
       class="sidebar-link"
       :to="{ name: 'subscriptions-settings' }"
     >
-      <div class="icon"><img src="@/assets/tabler/coin.svg"></div>
+      <div class="icon"><icon-payment></icon-payment></div>
       <span>Subscriptions</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
-      <div class="icon"><img src="@/assets/feather/settings.svg"></div>
+      <div class="icon"><icon-settings></icon-settings></div>
       <span>Settings</span>
     </router-link>
     <router-link class="sidebar-link" to="/about">
-      <div class="icon"><img src="@/assets/feather/help-circle.svg"></div>
+      <div class="icon"><icon-help></icon-help></div>
       <span>About</span>
     </router-link>
     <a class="sidebar-link" @click="logout()">
-      <div class="icon"><img src="@/assets/feather/log-out.svg"></div>
+      <div class="icon"><icon-logout></icon-logout></div>
       <span>Logout</span>
     </a>
   </div>
@@ -52,6 +52,14 @@ import { $, $computed } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
 import { Permissions } from "@/api/users"
+import IconBell from "@/assets/feather/bell.svg?component"
+import IconGlobe from "@/assets/feather/globe.svg?component"
+import IconHelp from "@/assets/feather/help-circle.svg?component"
+import IconLogout from "@/assets/feather/log-out.svg?component"
+import IconServer from "@/assets/feather/server.svg?component"
+import IconSettings from "@/assets/feather/settings.svg?component"
+import IconUsers from "@/assets/feather/users.svg?component"
+import IconPayment from "@/assets/tabler/coin.svg?component"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
@@ -135,9 +143,9 @@ $sidebar-icon-size: 20px;
     text-align: center;
     width: $sidebar-icon-size + 5px;
 
-    img {
-      filter: var(--link-colorizer);
+    svg {
       height: $sidebar-icon-size;
+      stroke: var(--link-color);
       width: $sidebar-icon-size;
     }
 
@@ -156,16 +164,16 @@ $sidebar-icon-size: 20px;
   }
 
   &:hover {
-    img {
-      filter: var(--link-hover-colorizer);
+    svg {
+      stroke: var(--link-hover-color);
     }
   }
 
   &.router-link-exact-active {
     color: var(--link-hover-color);
 
-    img {
-      filter: var(--link-hover-colorizer);
+    svg {
+      stroke: var(--link-hover-color);
     }
   }
 }

@@ -33,7 +33,7 @@
         @mouseleave="highlight(null)"
         @click.prevent="scrollTo(post.in_reply_to_id as string)"
       >
-        <img src="@/assets/tabler/corner-left-up.svg">
+        <icon-left-up></icon-left-up>
       </a>
       <span
         class="icon icon-small"
@@ -46,7 +46,7 @@
         class="icon icon-small"
         title="Featured"
       >
-        <img src="@/assets/tabler/pin.svg">
+        <icon-pin></icon-pin>
       </span>
       <span v-if="post.edited_at">edited</span>
       <a
@@ -111,7 +111,7 @@
         title="View replies"
         :to="{ name: 'post', params: { postId: post.id }}"
       >
-        <img src="@/assets/forkawesome/comment-o.svg">
+        <icon-comment></icon-comment>
         <span>{{ post.replies_count }}</span>
       </router-link>
       <button
@@ -120,11 +120,11 @@
         title="Reply"
         @click="toggleReplyForm()"
       >
-        <img src="@/assets/forkawesome/comment-o.svg">
+        <icon-comment></icon-comment>
         <span>{{ post.replies_count }}</span>
       </button>
       <span v-else class="icon">
-        <img src="@/assets/forkawesome/comment-o.svg">
+        <icon-comment></icon-comment>
         <span>{{ post.replies_count }}</span>
       </span>
       <button
@@ -135,11 +135,11 @@
         :title="post.reblogged ? 'Delete repost' : 'Repost'"
         @click="toggleRepost()"
       >
-        <img src="@/assets/feather/repeat.svg">
+        <icon-repost></icon-repost>
         <span>{{ post.reblogs_count }}</span>
       </button>
       <span v-else class="icon">
-        <img src="@/assets/feather/repeat.svg">
+        <icon-repost></icon-repost>
         <span>{{ post.reblogs_count }}</span>
       </span>
       <button
@@ -150,11 +150,11 @@
         :title="post.favourited ? 'Unlike': 'Like'"
         @click="toggleLike()"
       >
-        <img src="@/assets/forkawesome/thumbs-o-up.svg">
+        <icon-like></icon-like>
         <span>{{ post.favourites_count }}</span>
       </button>
       <span v-else class="icon">
-        <img src="@/assets/forkawesome/thumbs-o-up.svg">
+        <icon-like></icon-like>
         <span>{{ post.favourites_count }}</span>
       </span>
       <a
@@ -165,14 +165,14 @@
         target="_blank"
         rel="noreferrer"
       >
-        <img src="@/assets/extra-icons/ipfs.svg">
+        <icon-ipfs></icon-ipfs>
       </a>
       <div
         class="dropdown-menu-wrapper"
         v-click-away="hideMenu"
       >
         <button class="icon" title="More" @click="toggleMenu()">
-          <img src="@/assets/feather/more-horizontal.svg">
+          <icon-more></icon-more>
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
           <li>
@@ -182,7 +182,7 @@
               title="Copy link to post"
               @click.prevent="hideMenu(); copyPostUri()"
             >
-              <img src="@/assets/feather/link.svg">
+              <icon-link></icon-link>
               <span>Copy link to post</span>
             </a>
           </li>
@@ -192,7 +192,7 @@
               title="Add to featured"
               @click="hideMenu(); onPin()"
             >
-              <img src="@/assets/tabler/pin.svg">
+              <icon-pin></icon-pin>
               <span>Add to featured</span>
             </button>
           </li>
@@ -202,7 +202,7 @@
               title="Remove from featured"
               @click="hideMenu(); onUnpin()"
             >
-              <img src="@/assets/tabler/pinned-off.svg">
+              <icon-unpin></icon-unpin>
               <span>Remove from featured</span>
             </button>
           </li>
@@ -222,7 +222,7 @@
               title="Repost with comment"
               @click="hideMenu(); onRepostWithComment()"
             >
-              <img src="@/assets/tabler/quote.svg">
+              <icon-quote></icon-quote>
               <span>Repost with comment</span>
             </button>
           </li>
@@ -232,7 +232,7 @@
               title="Edit post"
               @click="hideMenu(); onEditPost()"
             >
-              <img src="@/assets/feather/edit-3.svg">
+              <icon-edit></icon-edit>
               <span>Edit post</span>
             </button>
           </li>
@@ -242,7 +242,7 @@
               title="Delete post"
               @click="hideMenu(); onDeletePost()"
             >
-              <img src="@/assets/feather/trash.svg">
+              <icon-trash></icon-trash>
               <span>Delete post</span>
             </button>
           </li>
@@ -252,7 +252,7 @@
               title="Mute author"
               @click="onMute()"
             >
-              <img src="@/assets/feather/volume-x.svg">
+              <icon-mute></icon-mute>
               <span>Mute author</span>
             </button>
           </li>
@@ -262,7 +262,7 @@
               title="Unmute author"
               @click="onUnmute()"
             >
-              <img src="@/assets/feather/volume-2.svg">
+              <icon-unmute></icon-unmute>
               <span>Unmute author</span>
             </button>
           </li>
@@ -353,6 +353,19 @@ import {
   ProfileWrapper,
 } from "@/api/users"
 import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
+import IconEdit from "@/assets/feather/edit-3.svg?component"
+import IconLink from "@/assets/feather/link.svg?component"
+import IconMore from "@/assets/feather/more-horizontal.svg?component"
+import IconRepost from "@/assets/feather/repeat.svg?component"
+import IconTrash from "@/assets/feather/trash.svg?component"
+import IconMute from "@/assets/feather/volume-x.svg?component"
+import IconUnmute from "@/assets/feather/volume-2.svg?component"
+import IconComment from "@/assets/forkawesome/comment-o.svg?component"
+import IconLike from "@/assets/forkawesome/thumbs-o-up.svg?component"
+import IconLeftUp from "@/assets/tabler/corner-left-up.svg?component"
+import IconPin from "@/assets/tabler/pin.svg?component"
+import IconUnpin from "@/assets/tabler/pinned-off.svg?component"
+import IconQuote from "@/assets/tabler/quote.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import CryptoIcon from "@/components/CryptoIcon.vue"
@@ -898,7 +911,7 @@ function togglePaymentAddress(option: PaymentOption) {
     padding: 0 7px;
   }
 
-  .icon img {
+  .icon svg {
     /* Make filled icons lighter to match line icons */
     opacity: 0.75;
   }

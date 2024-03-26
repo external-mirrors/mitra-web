@@ -11,7 +11,7 @@
         <div class="wallet-address">{{ walletAddress ? walletAddress.toLowerCase() : '?' }}</div>
       </component>
       <div class="separator">
-        <img src="@/assets/feather/arrow-right.svg">
+        <icon-arrow-right></icon-arrow-right>
       </div>
       <router-link
         class="profile-card"
@@ -77,7 +77,7 @@
           </output>
           <span>{{ subscriptionConfig.tokenSymbol }}</span>
           <button @click.prevent="refreshTokenBalance()">
-            <img src="@/assets/feather/refresh-ccw.svg">
+            <icon-refresh></icon-refresh>
           </button>
         </div>
       </div>
@@ -123,6 +123,8 @@ import {
   SubscriptionConfig,
   SubscriptionState,
 } from "@/api/subscriptions-ethereum"
+import IconArrowRight from "@/assets/feather/arrow-right.svg?component"
+import IconRefresh from "@/assets/feather/refresh-ccw.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
@@ -390,11 +392,11 @@ async function onCancelSubscription() {
     padding: $block-inner-padding;
   }
 
-  .separator img {
-    filter: var(--text-colorizer);
+  .separator svg {
     height: $icon-size;
     min-width: $icon-size;
     object-fit: contain;
+    stroke: var(--text-color);
     width: $icon-size;
   }
 
@@ -482,10 +484,10 @@ async function onCancelSubscription() {
       opacity: 0.5;
     }
 
-    img {
-      filter: var(--secondary-text-colorizer);
+    svg {
       height: 1em;
       min-width: 1em;
+      stroke: var(--secondary-text-color);
     }
 
     &.error {

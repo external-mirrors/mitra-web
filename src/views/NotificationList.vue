@@ -7,24 +7,23 @@
         :key="notification.id"
       >
         <div class="action">
-          <img v-if="notification.type === 'follow'" src="@/assets/feather/user-plus.svg">
-          <img v-else-if="notification.type === 'follow_request'" src="@/assets/feather/user-plus.svg">
-          <img v-else-if="notification.type === 'reply'" src="@/assets/forkawesome/comment-o.svg">
-          <img v-else-if="notification.type === 'favourite'" src="@/assets/forkawesome/thumbs-o-up.svg">
+          <icon-user-plus v-if="notification.type === 'follow'"></icon-user-plus>
+          <icon-user-plus v-else-if="notification.type === 'follow_request'"></icon-user-plus>
+          <icon-comment v-else-if="notification.type === 'reply'"></icon-comment>
+          <icon-like v-else-if="notification.type === 'favourite'"></icon-like>
           <span
             v-else-if="notification.type === 'emoji_reaction'"
             class="emoji-reaction"
             v-html="getReactionHtml(notification)"
           >
           </span>
-          <img v-else-if="notification.type === 'mention'" src="@/assets/forkawesome/comment-o.svg">
-          <img v-else-if="notification.type === 'reblog'" src="@/assets/feather/repeat.svg">
-          <img
+          <icon-comment v-else-if="notification.type === 'mention'"></icon-comment>
+          <icon-repost v-else-if="notification.type === 'reblog'"></icon-repost>
+          <icon-payment
             v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
-            src="@/assets/tabler/coin.svg"
-          >
-          <img v-else-if="notification.type === 'move'" src="@/assets/feather/truck.svg">
-          <img v-else-if="notification.type === 'admin.sign_up'" src="@/assets/feather/user-check.svg">
+          ></icon-payment>
+          <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
+          <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
           <router-link
             :title="getActorHandle(getSender(notification))"
             :to="getActorLocation('profile', notification.account)"
@@ -85,6 +84,13 @@ import { replaceShortcodes } from "@/api/emojis"
 import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
+import IconUserCheck from "@/assets/feather/user-check.svg?component"
+import IconUserPlus from "@/assets/feather/user-plus.svg?component"
+import IconRepost from "@/assets/feather/repeat.svg?component"
+import IconTruck from "@/assets/feather/truck.svg?component"
+import IconComment from "@/assets/forkawesome/comment-o.svg?component"
+import IconLike from "@/assets/forkawesome/thumbs-o-up.svg?component"
+import IconPayment from "@/assets/tabler/coin.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"

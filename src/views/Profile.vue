@@ -37,7 +37,7 @@
               v-click-away="hideProfileMenu"
             >
               <button title="More" @click="toggleProfileMenu()">
-                <img src="@/assets/feather/more-vertical.svg">
+                <icon-more></icon-more>
               </button>
               <menu v-if="profileMenuVisible" class="dropdown-menu">
                 <li v-if="!isLocalUser()">
@@ -164,10 +164,7 @@
                 @click="onFollow()"
               >
                 <span>Follow</span>
-                <img
-                  v-if="profile.locked"
-                  src="@/assets/forkawesome/lock.svg"
-                >
+                <icon-lock v-if="profile.locked"></icon-lock>
               </button>
               <button
                 v-if="canUnfollow()"
@@ -205,14 +202,14 @@
                   title="Re-verify"
                   @click="updateIdentityProof(field.name)"
                 >
-                  <img src="@/assets/forkawesome/refresh.svg">
+                  <icon-refresh></icon-refresh>
                 </a>
                 <div
                   class="verified-icon"
                   v-else
                   title="Verified"
                 >
-                  <img src="@/assets/forkawesome/check.svg">
+                  <icon-check></icon-check>
                 </div>
               </template>
             </div>
@@ -373,6 +370,10 @@ import {
   ProfileWrapper,
   EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
+import IconMore from "@/assets/feather/more-vertical.svg?component"
+import IconCheck from "@/assets/forkawesome/check.svg?component"
+import IconLock from "@/assets/forkawesome/lock.svg?component"
+import IconRefresh from "@/assets/forkawesome/refresh.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
@@ -948,16 +949,16 @@ $avatar-size: 170px;
     @include block-dropdown-menu;
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
-    button img {
-      filter: var(--link-colorizer);
+    button svg {
       height: 32px;
       min-width: 20px;
       object-fit: none;
+      stroke: var(--link-color);
       width: 20px;
 
       /* stylelint-disable-next-line selector-max-compound-selectors */
       &:hover {
-        filter: var(--link-hover-colorizer);
+        stroke: var(--link-hover-color);
       }
     }
 
@@ -1004,24 +1005,24 @@ $avatar-size: 170px;
   display: flex;
   gap: $input-padding;
 
-  img {
+  svg {
     $icon-size: 1em;
 
-    filter: var(--btn-text-colorizer);
+    fill: var(--btn-text-color);
     height: $icon-size;
     min-width: $icon-size;
     width: $icon-size;
   }
 
   &:hover {
-    img {
-      filter: var(--text-colorizer);
+    svg {
+      fill: var(--text-color);
     }
   }
 
   &[disabled] {
-    img {
-      filter: var(--btn-disabled-text-colorizer) !important;
+    svg {
+      fill: var(--btn-disabled-text-color) !important;
     }
   }
 }
@@ -1068,8 +1069,8 @@ $avatar-size: 170px;
     }
 
     /* stylelint-disable-next-line selector-max-compound-selectors */
-    .verified-icon img {
-      filter: var(--text-colorizer);
+    .verified-icon svg {
+      fill: var(--text-color);
       height: 1em;
       min-width: 1em;
       width: 1em;
@@ -1079,8 +1080,8 @@ $avatar-size: 170px;
       color: var(--secondary-text-color);
 
       /* stylelint-disable-next-line selector-max-compound-selectors */
-      .verified-icon img {
-        filter: var(--secondary-text-colorizer);
+      .verified-icon svg {
+        fill: var(--secondary-text-color);
       }
     }
   }

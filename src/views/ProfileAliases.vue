@@ -20,7 +20,7 @@
             title="Remove alias"
             @click="onRemoveAlias(alias.id)"
           >
-            <img src="@/assets/feather/x.svg">
+            <icon-delete></icon-delete>
           </button>
         </div>
       </section>
@@ -80,6 +80,7 @@ import { $, $ref } from "vue/macros"
 import { searchProfilesByAcct } from "@/api/search"
 import { addAlias, removeAlias } from "@/api/settings"
 import { defaultProfile, getAliases, Aliases, Profile } from "@/api/users"
+import IconDelete from "@/assets/feather/x.svg?component"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -169,16 +170,16 @@ section {
     right: 0;
     top: 0;
 
-    img {
-      filter: var(--secondary-text-colorizer);
+    svg {
       height: $icon-size;
       min-width: $icon-size;
+      stroke: var(--secondary-text-color);
       width: $icon-size;
     }
 
     &:hover {
-      img {
-        filter: var(--secondary-text-hover-colorizer);
+      svg {
+        stroke: var(--secondary-text-hover-color);
       }
     }
   }

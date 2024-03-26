@@ -1,7 +1,7 @@
 <template>
   <template v-if="post.reblog">
     <div class="action">
-      <img src="@/assets/feather/repeat.svg">
+      <icon-repost></icon-repost>
       <router-link
         :to="getActorLocation('profile', post.account)"
         :title="getActorHandle(post.account)"
@@ -32,6 +32,7 @@ import { computed } from "vue"
 
 import type { Post as PostObject } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
+import IconRepost from "@/assets/feather/repeat.svg?component"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useActorHandle } from "@/composables/handle"

@@ -2,10 +2,10 @@
   <form class="search" @submit.prevent="search()">
     <input type="search" placeholder="Search..." v-model="q">
     <button v-if="q" type="button" @click="clear()">
-      <img src="@/assets/feather/delete.svg">
+      <icon-delete></icon-delete>
     </button>
     <button type="submit" :disabled="!q">
-      <img src="@/assets/feather/search.svg">
+      <icon-search></icon-search>
     </button>
   </form>
 </template>
@@ -13,6 +13,9 @@
 <script setup lang="ts">
 import { $ref } from "vue/macros"
 import { useRouter } from "vue-router"
+
+import IconDelete from "@/assets/feather/delete.svg?component"
+import IconSearch from "@/assets/feather/search.svg?component"
 
 const router = useRouter()
 let q = $ref("")
@@ -59,11 +62,11 @@ button {
   font-size: 15px;
   height: 100%;
 
-  img {
-    filter: var(--text-colorizer);
+  svg {
     height: 1.2em;
     min-width: 1.2em;
     object-fit: contain;
+    stroke: var(--text-color);
     vertical-align: middle;
     width: 1.2em;
   }

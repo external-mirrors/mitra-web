@@ -5,7 +5,7 @@
       title="Remove attachment"
       @click.prevent="removeAttachment()"
     >
-      <img src="@/assets/feather/x.svg">
+      <icon-remove></icon-remove>
     </button>
     <div
       v-if="attachment.type === 'image'"
@@ -38,7 +38,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
+
 import { updateAttachment, Attachment } from "@/api/posts"
+import IconRemove from "@/assets/feather/x.svg?component"
 import { useCurrentUser } from "@/composables/user"
 
 const props = defineProps<{
@@ -92,9 +94,9 @@ function removeAttachment() {
     right: 0;
     top: 0;
 
-    img {
-      filter: var(--btn-text-colorizer);
+    svg {
       height: $icon-size;
+      stroke: var(--btn-text-color);
       width: $icon-size;
     }
   }

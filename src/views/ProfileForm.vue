@@ -109,7 +109,7 @@
               @click="removeExtraField(index)"
             >
               <div class="remove-icon">
-                <img src="@/assets/feather/x-circle.svg">
+                <icon-remove></icon-remove>
               </div>
             </a>
           </div>
@@ -119,7 +119,7 @@
             class="add-extra-field"
             @click="addExtraField()"
           >
-            <img src="@/assets/feather/plus-circle.svg">
+            <icon-add></icon-add>
             Add new item
           </button>
         </div>
@@ -147,6 +147,8 @@ import {
   updateProfile,
   EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
+import IconAdd from "@/assets/feather/plus-circle.svg?component"
+import IconRemove from "@/assets/feather/x-circle.svg?component"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -380,8 +382,10 @@ async function save() {
       width: $icon-size;
 
       /* stylelint-disable-next-line selector-max-compound-selectors */
-      img {
-        filter: var(--link-hover-colorizer);
+      svg {
+        height: inherit;
+        stroke: var(--link-hover-color);
+        width: inherit;
       }
     }
   }
@@ -399,16 +403,15 @@ async function save() {
   align-items: center;
   display: flex;
 
-  img {
-    filter: var(--link-colorizer);
+  svg {
     height: $icon-size;
     margin-right: 5px;
-    vertical-align: middle;
+    stroke: var(--link-color);
     width: $icon-size;
   }
 
-  &:hover img {
-    filter: var(--link-hover-colorizer);
+  &:hover svg {
+    stroke: var(--link-hover-color);
   }
 }
 </style>

@@ -17,7 +17,7 @@
       title="Hide image"
       @click="hideImage()"
     >
-      <img src="@/assets/feather/eye-off.svg">
+      <icon-hide></icon-hide>
     </button>
     <img
       :src="attachment.url"
@@ -31,7 +31,7 @@
       @click="closeLightbox()"
     >
       <button title="Close">
-        <img src="@/assets/feather/x.svg">
+        <icon-close></icon-close>
       </button>
       <img
         :src="attachment.url"
@@ -44,7 +44,7 @@
   <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
   <table v-else class="document">
     <tr>
-      <td><img src="@/assets/feather/file.svg"></td>
+      <td><icon-file></icon-file></td>
       <td><a :href="attachment.url">{{ attachment.url }}</a></td>
     </tr>
   </table>
@@ -54,6 +54,9 @@
 import { ref } from "vue"
 
 import { Attachment } from "@/api/posts"
+import IconHide from "@/assets/feather/eye-off.svg?component"
+import IconFile from "@/assets/feather/file.svg?component"
+import IconClose from "@/assets/feather/x.svg?component"
 import { useClientConfig } from "@/composables/client-config"
 
 const { contentWarningsEnabled } = useClientConfig()
@@ -177,8 +180,9 @@ video {
   td:first-child {
     width: $icon-size * 2;
 
-    img {
-      filter: var(--secondary-text-colorizer);
+    svg {
+      height: 100%;
+      stroke: var(--secondary-text-color);
       vertical-align: middle;
       width: 100%;
     }
