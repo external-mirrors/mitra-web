@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Display handle with '@' in account link tooltips.
+- Change tooltip text on "Like" and "Repost" buttons after completing action.
 
 ### Fixed
 

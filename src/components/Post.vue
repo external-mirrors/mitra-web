@@ -132,7 +132,7 @@
         class="icon"
         :class="{ highlighted: post.reblogged }"
         :disabled="isProcessingRepost"
-        title="Repost"
+        :title="post.reblogged ? 'Delete repost' : 'Repost'"
         @click="toggleRepost()"
       >
         <img src="@/assets/feather/repeat.svg">
@@ -147,7 +147,7 @@
         class="icon"
         :class="{ highlighted: post.favourited }"
         :disabled="isProcessingLike"
-        title="Like"
+        :title="post.favourited ? 'Unlike': 'Like'"
         @click="toggleLike()"
       >
         <img src="@/assets/forkawesome/thumbs-o-up.svg">
