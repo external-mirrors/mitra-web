@@ -333,12 +333,14 @@ async function save() {
     gap: $input-padding;
   }
 
-  input {
-    width: 100%;
-  }
+  .input-group {
+    label {
+      margin-bottom: 0;
+    }
 
-  .input-group:last-child {
-    margin-bottom: 0;
+    input {
+      width: 100%;
+    }
   }
 
   button {
