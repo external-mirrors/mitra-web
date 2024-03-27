@@ -167,21 +167,6 @@
       >
         <img src="@/assets/extra-icons/ipfs.svg">
       </a>
-      <router-link
-        v-if="isTokenized()"
-        class="icon tokenized"
-        title="View token"
-        :to="{ name: 'post-overlay', params: { postId: post.id }}"
-      >
-        <img src="@/assets/forkawesome/diamond.svg">
-      </router-link>
-      <a
-        v-if="isWaitingForToken"
-        class="icon tokenize-progress"
-        title="Tokenizing..."
-      >
-        <img src="@/assets/forkawesome/diamond.svg">
-      </a>
       <div
         class="dropdown-menu-wrapper"
         v-click-away="hideMenu"
@@ -229,16 +214,6 @@
             >
               <icon-ipfs></icon-ipfs>
               <span>Save to IPFS</span>
-            </button>
-          </li>
-          <li v-if="canMintToken()">
-            <button
-              class="icon"
-              title="Mint NFT"
-              @click="hideMenu(); onMintToken()"
-            >
-              <img src="@/assets/forkawesome/diamond.svg">
-              <span>Mint NFT</span>
             </button>
           </li>
           <li v-if="canRepostWithComment()">
@@ -357,13 +332,6 @@ import { $, $computed, $ref } from "vue/macros"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
 import {
-  makePermanent,
-  getMintingAuthorization,
-  mintToken,
-  onTokenMinted,
-} from "@/api/nft"
-import {
-  getPost,
   getPostSource,
   deletePost,
   favourite,
@@ -372,6 +340,7 @@ import {
   deleteRepost,
   pinPost,
   unpinPost,
+  makePermanent,
   Mention,
   Post,
   Visibility,
@@ -398,7 +367,6 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { getCurrencyByLabel, Currency, ETHEREUM, MONERO } from "@/utils/cryptocurrencies"
-import { getWallet } from "@/utils/ethereum"
 import { formatDateTime, humanizeDate } from "@/utils/dates"
 
 interface PaymentOption {
@@ -411,7 +379,7 @@ interface PaymentOption {
 const router = useRouter()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { getBlockchainInfo, instance } = $(useInstanceInfo())
+const { instance } = $(useInstanceInfo())
 const { getSubscriptionLink } = useSubscribe()
 
 const props = defineProps<{
@@ -435,9 +403,7 @@ const isProcessingRepost = ref(false)
 const isProcessingLike = ref(false)
 let menuVisible = $ref(false)
 let selectedPaymentOption = $ref<PaymentOption | null>(null)
-let isWaitingForToken = $ref(false)
 
-const blockchain = $computed(() => getBlockchainInfo())
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
 function openProfile(event: Event, profile: Mention | Profile) {
@@ -628,9 +594,7 @@ function getIpfsUrl(): string | null {
   const gatewayUrl = instance?.ipfs_gateway_url
   if (
     !gatewayUrl ||
-    props.post.ipfs_cid === null ||
-    isTokenized() ||
-    isWaitingForToken
+    props.post.ipfs_cid === null
   ) {
     return null
   }
@@ -642,8 +606,7 @@ function canSaveToIpfs(): boolean {
     Boolean(instance?.ipfs_gateway_url) &&
     props.post.account.id === currentUser?.id &&
     props.post.visibility === "public" &&
-    props.post.ipfs_cid === null &&
-    !isWaitingForToken
+    props.post.ipfs_cid === null
   )
 }
 
@@ -758,85 +721,6 @@ function getPaymentOptions(): PaymentOption[] {
 
 function togglePaymentAddress(option: PaymentOption) {
   selectedPaymentOption = selectedPaymentOption?.code === option.code ? null : option
-}
-
-function isTokenized(): boolean {
-  return props.post.token_id !== null
-}
-
-function canMintToken(): boolean {
-  return (
-    Boolean(instance?.ipfs_gateway_url) &&
-    Boolean(blockchain?.contract_address) &&
-    Boolean(blockchain?.features.minter) &&
-    props.post.account.id === currentUser?.id &&
-    props.post.visibility === "public" &&
-    author.getVerifiedEthereumAddress() !== null &&
-    !isTokenized() &&
-    !isWaitingForToken
-  )
-}
-
-async function onMintToken() {
-  if (
-    !instance ||
-    !blockchain?.contract_address
-  ) {
-    return
-  }
-  if (isTokenized() || isWaitingForToken) {
-    return
-  }
-  const authorAddress = author.getVerifiedEthereumAddress()
-  if (!authorAddress) {
-    return
-  }
-  const authToken = ensureAuthToken()
-  isWaitingForToken = true
-  if (props.post.ipfs_cid === null) {
-    const { ipfs_cid } = await makePermanent(authToken, props.post.id)
-    props.post.ipfs_cid = ipfs_cid
-  }
-  const tokenUri = `ipfs://${props.post.ipfs_cid}`
-  console.info("token URI:", tokenUri)
-  let signature
-  try {
-    signature = await getMintingAuthorization(authToken, props.post.id)
-  } catch (error) {
-    console.log(error)
-    isWaitingForToken = false
-    return
-  }
-  const signer = await getWallet()
-  if (!signer) {
-    isWaitingForToken = false
-    return
-  }
-  try {
-    const transaction = await mintToken(
-      blockchain.contract_address,
-      signer,
-      authorAddress,
-      tokenUri,
-      signature,
-    )
-    await onTokenMinted(authToken, props.post.id, transaction.hash)
-  } catch (error) {
-    // User has rejected tx
-    isWaitingForToken = false
-    return
-  }
-  // Wait until the server sees the tx
-  const intervalId = setInterval(async () => {
-    const updatedPost = await getPost(authToken, props.post.id)
-    if (updatedPost.token_id) {
-      clearInterval(intervalId)
-      isWaitingForToken = false
-      // Update post
-      props.post.token_id = updatedPost.token_id
-      props.post.token_tx_id = updatedPost.token_tx_id
-    }
-  }, 5000)
 }
 </script>
 
@@ -977,16 +861,6 @@ async function onMintToken() {
   flex-wrap: wrap;
   gap: calc($block-inner-padding / 2);
   padding: 0 $block-inner-padding $block-inner-padding;
-
-  .icon {
-    &.tokenized img {
-      filter: $gem-colorizer;
-    }
-
-    &.tokenize-progress img {
-      animation: spin 1s linear infinite;
-    }
-  }
 }
 
 @keyframes spin {

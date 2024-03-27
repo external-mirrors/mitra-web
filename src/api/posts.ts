@@ -90,8 +90,6 @@ export interface Post {
   favourited: boolean;
   reblogged: boolean;
   ipfs_cid: string | null;
-  token_id: number | null;
-  token_tx_id: string | null;
   links: Post[];
 
   // Data added by client
@@ -246,8 +244,6 @@ export async function previewPost(
     favourited: false,
     reblogged: false,
     ipfs_cid: null,
-    token_id: null,
-    token_tx_id: null,
     links: [],
   }
 }
@@ -396,6 +392,19 @@ export async function unpinPost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unpin`
   const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function makePermanent(
+  authToken: string,
+  postId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/make_permanent`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
   const data = await handleResponse(response)
   return data
 }

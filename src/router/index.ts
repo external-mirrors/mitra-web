@@ -19,7 +19,6 @@ import ProfileDirectory from "@/views/ProfileDirectory.vue"
 import ProfileView from "@/views/Profile.vue"
 import ProfileForm from "@/views/ProfileForm.vue"
 import PostDetail from "@/views/PostDetail.vue"
-import PostOverlay from "@/views/PostOverlay.vue"
 import PublicTimeline from "@/views/PublicTimeline.vue"
 import SettingsPage from "@/views/Settings.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
@@ -104,12 +103,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/post/:postId",
     name: "post",
     component: PostDetail,
-    meta: { },
-  },
-  {
-    path: "/post-overlay/:postId",
-    name: "post-overlay",
-    component: PostOverlay,
     meta: { },
   },
   {
