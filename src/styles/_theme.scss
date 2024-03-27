@@ -1,5 +1,3 @@
-/* color-to-filter converter https://codepen.io/sosuke/pen/Pjoqqp */
-
 $text-font: Helvetica, Arial, sans-serif;
 $text-font-size: 15px;
 
@@ -9,29 +7,20 @@ $background-color: #f3f2ed;
 $background-image: none;
 
 $text-color: #333;
-$text-colorizer: invert(17%) sepia(0%) saturate(0%) hue-rotate(356deg) brightness(101%) contrast(91%);
 $secondary-text-color: #999;
-$secondary-text-colorizer: invert(54%) sepia(57%) saturate(0%) hue-rotate(198deg) brightness(99%) contrast(101%);
 $secondary-text-hover-color: #666;
-$secondary-text-hover-colorizer: invert(42%) sepia(1%) saturate(220%) hue-rotate(314deg) brightness(92%) contrast(94%);
 $secondary-text-disabled-color: #B3B3B3;
-$secondary-text-disabled-colorizer: invert(89%) sepia(0%) saturate(158%) hue-rotate(136deg) brightness(82%) contrast(87%);
 $link-color: #484747;
-$link-colorizer: invert(27%) sepia(2%) saturate(0%) hue-rotate(58deg) brightness(96%) contrast(94%);
 $link-hover-color: #000000;
-$link-hover-colorizer: invert(0%) sepia(0%) saturate(0%) hue-rotate(324deg) brightness(96%) contrast(104%);
 
 $btn-background-color: $text-color;
 $btn-background-hover-color: #fff;
 $btn-text-color: #fff;
-$btn-text-colorizer: invert(99%) sepia(74%) saturate(252%) hue-rotate(137deg) brightness(116%) contrast(100%);
 $btn-text-hover-color: $text-color;
-$btn-text-hover-colorizer: $text-colorizer;
 $btn-secondary-background-color: #CCCBC6;
 $btn-secondary-text-color: $text-color;
 $btn-disabled-background-color: #ddd;
 $btn-disabled-text-color: #999;
-$btn-disabled-text-colorizer: invert(72%) sepia(0%) saturate(302%) hue-rotate(149deg) brightness(85%) contrast(89%);
 
 $block-background-color: #fff;
 $block-link-color: #7d6a4f;
@@ -50,29 +39,20 @@ $dark-background-color: #12110C;
 $dark-background-image: none;
 
 $dark-text-color: #cccccc;
-$dark-text-colorizer: invert(94%) sepia(14%) saturate(0%) hue-rotate(228deg) brightness(83%) contrast(96%);
 $dark-secondary-text-color: #8C8C8C;
-$dark-secondary-text-colorizer: invert(62%) sepia(0%) saturate(610%) hue-rotate(189deg) brightness(90%) contrast(86%);
 $dark-secondary-text-hover-color: #B3B3B3;
-$dark-secondary-text-hover-colorizer: invert(73%) sepia(1%) saturate(0%) hue-rotate(210deg) brightness(100%) contrast(89%);
 $dark-secondary-text-disabled-color: #707070;
-$dark-secondary-text-disabled-colorizer: invert(46%) sepia(1%) saturate(0%) hue-rotate(314deg) brightness(94%) contrast(92%);
 $dark-link-color: #b7b8b8;
-$dark-link-colorizer: invert(80%) sepia(4%) saturate(52%) hue-rotate(131deg) brightness(94%) contrast(85%);
 $dark-link-hover-color: #fff;
-$dark-link-hover-colorizer: invert(100%) sepia(0%) saturate(7500%) hue-rotate(199deg) brightness(109%) contrast(105%);
 
 $dark-btn-background-color: $dark-text-color;
 $dark-btn-background-hover-color: #4D4D4D;
 $dark-btn-text-color: #000;
-$dark-btn-text-colorizer: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(97%) contrast(103%);
 $dark-btn-text-hover-color: $dark-text-color;
-$dark-btn-text-hover-colorizer: $dark-text-colorizer;
 $dark-btn-secondary-background-color: #333;
 $dark-btn-secondary-text-color: $dark-text-color;
 $dark-btn-disabled-background-color: #222222;
 $dark-btn-disabled-text-color: #666666;
-$dark-btn-disabled-text-colorizer: invert(43%) sepia(0%) saturate(1963%) hue-rotate(144deg) brightness(89%) contrast(87%);
 
 $dark-block-background-color: #2B2B2B;
 $dark-block-link-color: #D9C6AE;
@@ -88,7 +68,6 @@ $dark-shadow-color: #666;
 /* Misc */
 
 $warning-color: #C87000;
-$warning-colorizer: invert(51%) sepia(61%) saturate(3100%) hue-rotate(12deg) brightness(88%) contrast(103%);
 $error-color: #FF4D4D;
 $greentext-color: #789922;
 
@@ -97,9 +76,7 @@ $greentext-color: #789922;
 $landing-background-color: #000;
 $landing-background-image: url("@/assets/startpage.png");
 $landing-text-color: #fff;
-$landing-text-colorizer: invert(100%) sepia(35%) saturate(0%) hue-rotate(297deg) brightness(113%) contrast(100%);
 $landing-accent-color: #7DFF54;
-$landing-accent-colorizer: invert(77%) sepia(26%) saturate(1000%) hue-rotate(56deg) brightness(107%) contrast(103%);
 
 $landing-block-background-color: #1A1818;
 $landing-btn-text-color: #fff;
