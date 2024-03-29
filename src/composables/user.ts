@@ -2,9 +2,8 @@ import { ref } from "vue"
 
 import {
   hasAdminPermissions,
-  User,
   getCurrentUser,
-  revokeAccessToken,
+  User,
 } from "@/api/users"
 
 const AUTH_TOKEN_STORAGE_KEY = "auth_token"
@@ -60,8 +59,7 @@ export function useCurrentUser() {
     return currentUser.value !== null
   }
 
-  async function endUserSession() {
-    await revokeAccessToken(ensureAuthToken())
+  function endSession() {
     setCurrentUser(null)
     clearAuthToken()
     // Also remove other local data
@@ -88,7 +86,7 @@ export function useCurrentUser() {
     ensureAuthToken,
     setAuthToken,
     isAuthenticated,
-    endUserSession,
+    endSession,
     onInvalidAuthToken,
     isAdmin,
   }

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Add ID-based route for gallery.
 - Added support for actors without webfinger address.
+- Added "Delete account" button to settings page.
 
 ### Changed
 

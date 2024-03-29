@@ -103,6 +103,15 @@
         </table>
       </section>
       <section>
+        <h2>Delete account</h2>
+        <button
+          class="btn"
+          @click="onDeleteAccount()"
+        >
+          Delete account
+        </button>
+      </section>
+      <section>
         <h2>Experiments</h2>
         <details class="experiments">
           <summary>This section contains experimental features. Use at your own risk.</summary>
@@ -121,20 +130,32 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { $ref } from "vue/macros"
+import { useRouter } from "vue-router"
 
-import { changePassword, exportFollowers, exportFollows } from "@/api/settings"
+import {
+  changePassword,
+  deleteAccount,
+  exportFollowers,
+  exportFollows,
+} from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
+const router = useRouter()
 const {
   contentWarningsEnabled,
   ctrlEnterEnabled,
   setClientConfigKey,
 } = useClientConfig()
-const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const {
+  currentUser,
+  endSession,
+  ensureAuthToken,
+  setCurrentUser,
+} = useCurrentUser()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
@@ -176,6 +197,15 @@ async function onChangePassword() {
   newPassword = ""
   newPasswordConfirmation = ""
   passwordFormMessage = "Password changed"
+}
+
+async function onDeleteAccount() {
+  const authToken = ensureAuthToken()
+  if (confirm("Are you sure you want to delete your account? This can not be undone.")) {
+    await deleteAccount(authToken)
+    endSession()
+    router.push({ name: "landing-page" })
+  }
 }
 
 async function onExportFollows() {

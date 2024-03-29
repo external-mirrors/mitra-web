@@ -51,7 +51,7 @@ import { onMounted } from "vue"
 import { $, $computed } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
-import { Permissions } from "@/api/users"
+import { revokeAccessToken, Permissions } from "@/api/users"
 import IconBell from "@/assets/feather/bell.svg?component"
 import IconGlobe from "@/assets/feather/globe.svg?component"
 import IconHelp from "@/assets/feather/help-circle.svg?component"
@@ -68,7 +68,7 @@ const route = useRoute()
 const router = useRouter()
 const {
   currentUser,
-  endUserSession,
+  endSession,
   ensureAuthToken,
   isAdmin,
 } = $(useCurrentUser())
@@ -105,7 +105,8 @@ function canManageSubscriptions(): boolean {
 }
 
 async function logout() {
-  await endUserSession()
+  await revokeAccessToken(ensureAuthToken())
+  endSession()
   router.push({ name: "landing-page" })
 }
 </script>

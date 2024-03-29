@@ -118,3 +118,14 @@ export async function moveFollowers(
   const data = await handleResponse(response)
   return data
 }
+
+export async function deleteAccount(
+  authToken: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/settings/delete_account`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}
