@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't allow profile image upload if media type is not supported.
 - Fixed position of extra field removal button in profile form.
+- Fixed authentication error occurring after logging out.
 
 ## [2.13.0] - 2024-03-12
 

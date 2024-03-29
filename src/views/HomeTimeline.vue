@@ -42,15 +42,19 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
-const { onInvalidAuthToken, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
+const { currentUser, ensureAuthToken, onInvalidAuthToken } = useCurrentUser()
 const { instance } = useInstanceInfo()
 
 let posts = $ref<Post[]>([])
 let isLoading = $ref(false)
 
 function canCreatePost(): boolean {
-  const user = ensureCurrentUser()
-  return user.role.permissions.includes(Permissions.CreatePost)
+  if (currentUser.value === null) {
+    // User has logged out
+    return false
+  }
+  return currentUser.value
+    .role.permissions.includes(Permissions.CreatePost)
 }
 
 function insertPost(post: Post) {
