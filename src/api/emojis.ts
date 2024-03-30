@@ -1,6 +1,14 @@
+import { BACKEND_URL } from "@/constants"
+
+import { handleResponse, http } from "./common"
+
 export interface CustomEmoji {
   shortcode: string,
   url: string,
+}
+
+export function getEmojiShortcode(name: string): string {
+  return `:${name}:`
 }
 
 export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
@@ -15,4 +23,13 @@ export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
       return match
     }
   })
+}
+
+export async function getCustomEmojis(): Promise<CustomEmoji[]> {
+  const url = `${BACKEND_URL}/api/v1/custom_emojis`
+  const response = await http(url, {
+    method: "GET",
+  })
+  const data = await handleResponse(response)
+  return data
 }

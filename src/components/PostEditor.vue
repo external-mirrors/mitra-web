@@ -100,6 +100,23 @@
         >
           <icon-alert></icon-alert>
         </button>
+        <div
+          class="dropdown-menu-wrapper"
+          v-click-away="hideEmojiPicker"
+        >
+          <button
+            type="button"
+            class="icon"
+            title="Insert emoji"
+            @click="toggleEmojiPicker"
+          >
+            <icon-smile></icon-smile>
+          </button>
+          <emoji-picker
+            v-if="emojiPickerVisible"
+            @emoji-picked="insertEmoji($event)"
+          ></emoji-picker>
+        </div>
         <div class="toolbar-space"></div>
         <div
           v-if="isCharacterCounterVisible()"
@@ -161,9 +178,10 @@
 
 <script setup lang="ts">
 /* eslint-disable vue/no-setup-props-destructure */
-import { computed, nextTick, onMounted } from "vue"
+import { computed, nextTick, onMounted, ref } from "vue"
 import { $, $ref } from "vue/macros"
 
+import { getEmojiShortcode } from "@/api/emojis"
 import {
   createPost,
   previewPost,
@@ -181,7 +199,9 @@ import IconAlert from "@/assets/feather/alert-triangle.svg?component"
 import IconShow from "@/assets/feather/eye.svg?component"
 import IconHide from "@/assets/feather/eye-off.svg?component"
 import IconAttach from "@/assets/feather/paperclip.svg?component"
+import IconSmile from "@/assets/feather/smile.svg?component"
 import Avatar from "@/components/Avatar.vue"
+import EmojiPicker from "@/components/EmojiPicker.vue"
 import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditorAttachment from "@/components/PostEditorAttachment.vue"
@@ -225,6 +245,7 @@ let isSensitive = $ref(false)
 let mentionSuggestions = $ref<Profile[]>([])
 let mentionPosition = $ref<[number, number] | null>(null)
 let visibilityMenuVisible = $ref(false)
+const emojiPickerVisible = ref(false)
 let preview = $ref<Post | null>(null)
 let isLoading = $ref(false)
 let isAttachmentLoading = $ref(false)
@@ -315,16 +336,23 @@ async function suggestMentions() {
 
 const suggestMentionsDebounced = debounce(suggestMentions, 500)
 
+async function insertText(start: number, stop: number, text: string) {
+  if (postFormContentRef === null) {
+    throw new Error("editor doesn't exist")
+  }
+  content = content.substring(0, start) + text + content.substring(stop)
+  await nextTick()
+  const newPosition = start + text.length
+  postFormContentRef.focus()
+  postFormContentRef.selectionEnd = newPosition
+}
+
 async function autocompleteMention(profile: Profile) {
   if (postFormContentRef !== null && mentionPosition !== null) {
     const [start, stop] = mentionPosition
     // Suggested profile is expected to have webfinger address
-    content = content.substring(0, start) + profile.acct + content.substring(stop)
+    await insertText(start, stop, profile.acct)
     mentionSuggestions = []
-    await nextTick()
-    const newPosition = start + profile.acct.length
-    postFormContentRef.focus()
-    postFormContentRef.selectionEnd = newPosition
   }
 }
 
@@ -422,6 +450,24 @@ function toggleVisibilityMenu() {
 
 function hideVisibilityMenu() {
   visibilityMenuVisible = false
+}
+
+function toggleEmojiPicker() {
+  emojiPickerVisible.value = !emojiPickerVisible.value
+}
+
+function hideEmojiPicker() {
+  emojiPickerVisible.value = false
+}
+
+async function insertEmoji(name: string) {
+  if (postFormContentRef === null) {
+    throw new Error("editor doesn't exist")
+  }
+  const position = postFormContentRef.selectionStart
+  const shortcode = getEmojiShortcode(name)
+  await insertText(position, position, shortcode)
+  hideEmojiPicker()
 }
 
 function getCharacterCount(): number {

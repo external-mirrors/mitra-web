@@ -176,10 +176,10 @@ function getContent(): string {
 
   :deep(.emoji) {
     display: inline-block;
-    height: 24px;
+    height: $emoji-size;
     position: relative;
     vertical-align: text-bottom;
-    width: 24px;
+    width: $emoji-size;
 
     img {
       height: inherit;
@@ -192,12 +192,12 @@ function getContent(): string {
       z-index: 0;
 
       &:hover {
-        height: 48px;
+        height: $emoji-size * 2;
         left: -50%;
         top: -50%;
         transition: 100ms linear;
         transition-delay: 0.5s;
-        width: 48px;
+        width: $emoji-size * 2;
         z-index: 1;
       }
     }
