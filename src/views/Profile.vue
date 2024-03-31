@@ -962,7 +962,7 @@ $avatar-size: 170px;
       }
     }
 
-    .dropdown-menu {
+    menu {
       right: 0;
     }
   }
