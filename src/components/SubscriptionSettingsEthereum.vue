@@ -82,8 +82,6 @@
 import { onMounted, watch } from "vue"
 import { $, $$, $computed, $ref } from "vue/macros"
 
-import { DateTime } from "luxon"
-
 import { ProfileWrapper } from "@/api/users"
 import {
   getPricePerSec,
@@ -110,6 +108,7 @@ import { useEthereumAddressVerification } from "@/composables/ethereum-address-v
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { useWallet } from "@/composables/wallet"
+import { isPastDate } from "@/utils/dates"
 import { ethereumAddressMatch } from "@/utils/ethereum"
 
 const { ensureAuthToken, ensureCurrentUser, setCurrentUser } = $(useCurrentUser())
@@ -283,8 +282,7 @@ async function onEnableSubscriptions() {
 }
 
 function isSubscriptionActive(subscription: Subscription): boolean {
-  const expiresAt = DateTime.fromISO(subscription.expires_at)
-  return expiresAt > DateTime.now()
+  return !isPastDate(subscription.expires_at)
 }
 
 function onSubscriberSelected(subscription: Subscription) {

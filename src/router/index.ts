@@ -23,6 +23,7 @@ import PublicTimeline from "@/views/PublicTimeline.vue"
 import SettingsPage from "@/views/Settings.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
+import SubscriberView from "@/views/Subscriber.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 
@@ -152,6 +153,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "profile-gallery-by-acct",
     component: Gallery,
     meta: { },
+  },
+  {
+    path: "/subscriber/:profileId",
+    name: "subscriber",
+    component: SubscriberView,
+    meta: { onlyAuthenticated: true },
   },
   {
     path: "/profile-directory",

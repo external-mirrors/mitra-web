@@ -37,6 +37,7 @@ const profile = computed(() => new ProfileWrapper(props.profile))
 .profile {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
+  color: var(--text-color);
   padding: $block-inner-padding;
   text-align: left;
 }

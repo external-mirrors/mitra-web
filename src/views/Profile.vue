@@ -325,7 +325,7 @@
             class="profile-list-item"
             v-for="subscription in subscriptions"
             :key="subscription.id"
-            :to="getActorLocation('profile', subscription.sender)"
+            :to="{ name: 'subscriber', params: { profileId: subscription.sender.id } }"
           >
             <profile-list-item :profile="subscription.sender">
               <template #profile-footer>
@@ -1142,7 +1142,6 @@ $avatar-size: 170px;
 }
 
 .subscription-info {
-  color: var(--text-color); /* override link color */
   margin-top: $block-inner-padding;
 }
 

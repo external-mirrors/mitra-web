@@ -208,7 +208,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
-import { formatDate } from "@/utils/dates"
+import { formatDate, isPastDate } from "@/utils/dates"
 import {
   createMoneroPaymentRequest,
   createMoneroPaymentUri,
@@ -357,8 +357,7 @@ function isSubscribed(): boolean {
       return false
     }
   }
-  const expiresAt = DateTime.fromISO(subscriptionDetails.expires_at)
-  return DateTime.now() < expiresAt
+  return !isPastDate(subscriptionDetails.expires_at)
 }
 
 function canSubscribe(): boolean {
