@@ -6,8 +6,8 @@ import { handleResponse, http } from "./common"
 import { Profile, User } from "./users"
 
 export const DAYS_IN_MONTH = 30
-const SECONDS_IN_DAY = 3600 * 24
-const SECONDS_IN_MONTH = SECONDS_IN_DAY * DAYS_IN_MONTH
+export const SECONDS_IN_DAY = 3600 * 24
+export const SECONDS_IN_MONTH = SECONDS_IN_DAY * DAYS_IN_MONTH
 
 export function getPricePerSec(
   pricePerMonth: number,

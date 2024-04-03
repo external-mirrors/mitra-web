@@ -8,6 +8,7 @@ import {
   getPricePerMonth as _getPricePerMonth,
   getPricePerSec as _getPricePerSec,
   registerSubscriptionOption,
+  SubscriptionDetails,
 } from "./subscriptions-common"
 import { User } from "./users"
 
@@ -114,6 +115,24 @@ export async function cancelInvoice(
   const url = `${BACKEND_URL}/api/v1/subscriptions/invoices/${invoiceId}`
   const response = await http(url, {
     method: "DELETE",
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function extendSubscription(
+  authToken: string,
+  subscriberId: string,
+  duration: number,
+): Promise<SubscriptionDetails> {
+  const url = `${BACKEND_URL}/api/v1/subscriptions`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: {
+      subscriber_id: subscriberId,
+      duration,
+    },
   })
   const data = await handleResponse(response)
   return data

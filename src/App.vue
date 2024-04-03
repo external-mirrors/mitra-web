@@ -175,7 +175,8 @@ h6 {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-family: $text-font;
   font-size: $text-font-size;
 }

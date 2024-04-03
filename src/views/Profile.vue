@@ -99,6 +99,13 @@
                     Manage subscriptions
                   </router-link>
                 </li>
+                <li v-if="canViewSubscriber()">
+                  <router-link
+                    :to="{ name: 'subscriber', params: { profileId: profile.id } }"
+                  >
+                    Subscriber details
+                  </router-link>
+                </li>
                 <li v-if="canHideReposts()">
                   <button @click="onFollow(false, undefined)">Hide reposts</button>
                 </li>
@@ -402,7 +409,7 @@ const {
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { getBlockchainInfo } = useInstanceInfo()
-const { getSubscriptionLink } = useSubscribe()
+const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
 
 const postListRef = $ref<InstanceType<typeof PostList> | null>(null)
 
@@ -806,6 +813,14 @@ function canSubscribe(): boolean {
   return (
     subscriptionPageLocation.value !== null &&
     !isCurrentUser()
+  )
+}
+
+function canViewSubscriber(): boolean {
+  return (
+    currentUser !== null &&
+    !isCurrentUser() &&
+    getSubscriptionOption(currentUser) !== null
   )
 }
 
