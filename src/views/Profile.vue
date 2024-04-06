@@ -1115,6 +1115,7 @@ $avatar-size: 170px;
   text-align: center;
 
   .stats-item {
+    align-items: baseline;
     display: flex;
     gap: 5px;
 
@@ -1123,7 +1124,6 @@ $avatar-size: 170px;
     }
 
     .label {
-      align-self: flex-end;
       color: var(--secondary-text-color);
     }
   }
