@@ -54,6 +54,7 @@
         <router-link
           v-else
           class="profile"
+          :title="getActorHandle(notification.account)"
           :to="getActorLocation('profile', notification.account)"
         >
           <div class="floating-avatar">

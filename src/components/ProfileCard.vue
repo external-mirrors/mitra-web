@@ -8,7 +8,12 @@
         <avatar :profile="profile"></avatar>
         <div class="name-group">
           <profile-display-name :profile="profile"></profile-display-name>
-          <div class="actor-address">{{ getActorHandle(profile) }}</div>
+          <div
+            class="actor-address"
+            :title="getActorHandle(profile)"
+          >
+            {{ getActorHandle(profile) }}
+          </div>
         </div>
       </div>
       <div v-if="!compact" class="bio" v-html="profile.note"></div>

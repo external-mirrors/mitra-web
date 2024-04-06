@@ -4,7 +4,13 @@
       <avatar :profile="profile"></avatar>
       <div class="name">
         <profile-display-name :profile="profile"></profile-display-name>
-        <div v-if="profile.id" class="actor-address">{{ getActorHandle(profile) }}</div>
+        <div
+          v-if="profile.id"
+          class="actor-address"
+          :title="getActorHandle(profile)"
+        >
+          {{ getActorHandle(profile) }}
+        </div>
         <!-- Fallback for dummy profiles -->
         <div v-else class="actor-address">{{ profile.url }}</div>
       </div>

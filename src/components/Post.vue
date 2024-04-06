@@ -22,7 +22,10 @@
       >
         <profile-display-name :profile="author"></profile-display-name>
       </a>
-      <div class="actor-address">
+      <div
+        class="actor-address"
+        :title="getActorHandle(post.account)"
+      >
         {{ getActorHandle(post.account) }}
       </div>
       <a
@@ -90,7 +93,10 @@
         <avatar :profile="linkedPost.account"></avatar>
         <profile-display-name :profile="getQuoteAuthor(linkedPost)">
         </profile-display-name>
-        <span class="actor-address">
+        <span
+          class="actor-address"
+          :title="getActorHandle(linkedPost.account)"
+        >
           {{ getActorHandle(linkedPost.account) }}
         </span>
       </div>
