@@ -68,6 +68,7 @@
         <div class="input-group">
           <label for="mention_policy">
             Accept mentions from
+            <div class="sub-label">Applies to direct messages and public posts</div>
           </label>
           <select
             id="mention_policy"
