@@ -1,20 +1,29 @@
 <template>
   <menu class="emoji-picker">
     <li v-if="isLoading"><loader></loader></li>
-    <li v-else-if="customEmojis.length === 0">No custom emojis</li>
-    <li v-else class="custom-emojis">
-      <div class="emoji-grid">
-        <button
-          class="emoji"
-          v-for="emoji in customEmojis"
-          :key="emoji.shortcode"
-          :title="getEmojiShortcode(emoji.shortcode)"
-          @click.prevent="pick(emoji)"
+    <template v-else>
+      <li class="search">
+        <input
+          type="search"
+          placeholder="Search..."
+          v-model="searchQuery"
         >
-          <img loading="lazy" :src="emoji.url">
-        </button>
-      </div>
-    </li>
+      </li>
+      <li v-if="getEmojjList().length === 0">No emojis found</li>
+      <li v-else class="custom-emojis">
+        <div class="emoji-grid">
+          <button
+            class="emoji"
+            v-for="emoji in getEmojjList()"
+            :key="emoji.shortcode"
+            :title="getEmojiShortcode(emoji.shortcode)"
+            @click.prevent="pick(emoji)"
+          >
+            <img loading="lazy" :src="emoji.url">
+          </button>
+        </div>
+      </li>
+    </template>
   </menu>
 </template>
 
@@ -30,7 +39,16 @@ const emit = defineEmits<{
 }>()
 
 const customEmojis = ref<CustomEmoji[]>([])
+const searchQuery = ref<string>("")
 const isLoading = ref(false)
+
+function getEmojjList() {
+  if (searchQuery.value === "") {
+    return customEmojis.value
+  }
+  return customEmojis.value
+    .filter(emoji => emoji.shortcode.includes(searchQuery.value))
+}
 
 function pick(emoji: CustomEmoji) {
   emit("emoji-picked", emoji.shortcode)
@@ -47,6 +65,8 @@ onMounted(async () => {
 @import "../styles/layout";
 
 .emoji-picker {
+  min-width: 120px;
+
   .custom-emojis {
     max-height: 200px;
     overflow-y: scroll;
@@ -64,6 +84,13 @@ onMounted(async () => {
       height: $emoji-size;
       width: $emoji-size;
     }
+  }
+}
+
+.search {
+  input {
+    border: 1px solid var(--separator-color);
+    border-radius: $btn-border-radius;
   }
 }
 
