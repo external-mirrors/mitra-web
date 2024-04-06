@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added "Subscriber details" page.
 - Allow to add subscribers and extend existing subscriptions.
 
+### Fixed
+
+- Make notification counter visible on small screens.
+
 ## [2.14.0] - 2024-03-30
 
 ### Added

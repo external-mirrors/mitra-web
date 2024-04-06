@@ -126,7 +126,7 @@ $sidebar-icon-size: 20px;
   position: sticky;
   top: $header-height + $block-outer-padding;
   width: $sidebar-width;
-  z-index: $header-z-index - 1; /* header should be on top */
+  z-index: $header-z-index + 1; /* sidebar is on top to make notification counter visible on small screens */
 }
 
 .sidebar-link {
