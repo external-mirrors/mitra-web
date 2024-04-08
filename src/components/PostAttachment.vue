@@ -149,7 +149,7 @@ button {
   right: 0;
   top: 0;
   width: 100%;
-  z-index: $header-z-index + 1;
+  z-index: $header-z-index + 2; /* image must be above sidebar */
 
   button {
     position: absolute;

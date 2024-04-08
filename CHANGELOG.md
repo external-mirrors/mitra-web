@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Don't publish post if Enter is pressed in emoji search box.
+- Display lightbox above sidebar.
 
 ## [2.15.0] - 2024-04-07
 
