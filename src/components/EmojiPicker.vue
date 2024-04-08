@@ -7,6 +7,7 @@
           type="search"
           placeholder="Search..."
           v-model="searchQuery"
+          @keydown.enter.prevent
         >
       </li>
       <li v-if="getEmojjList().length === 0">No emojis found</li>
