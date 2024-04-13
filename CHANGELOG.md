@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Display error if username in login form contains invalid characters.
+
 ### Fixed
 
 - Added space between posts in search results.

@@ -52,7 +52,7 @@
               <div class="addon">@{{ instance.uri }}</div>
             </div>
             <div
-              v-if="!isRegistered"
+              v-if="!isUsernameValid()"
               class="form-message"
               :class="{ error: !isUsernameValid() }"
             >
@@ -242,7 +242,7 @@ function isLoginFormValid(): boolean {
   }
   if (isRegistered) {
     if (loginType === AuthenticationMethod.Password) {
-      return Boolean(username) && Boolean(password)
+      return Boolean(username) && isUsernameValid() && Boolean(password)
     } else if (loginType === AuthenticationMethod.Caip122Monero) {
       return Boolean(moneroSignature)
     } else {
