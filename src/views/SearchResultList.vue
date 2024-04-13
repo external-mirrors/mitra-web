@@ -24,6 +24,7 @@
           :highlighted="false"
           :in-thread="false"
           :key="post.id"
+          @post-deleted="onPostDeleted(post.id)"
         ></post>
         <router-link
           class="search-result tag"
@@ -64,6 +65,11 @@ let errorMessage = $ref("")
 let profiles = $ref<Profile[]>([])
 let posts = $ref<PostObject[]>([])
 let tags = $ref<Tag[]>([])
+
+function onPostDeleted(postId: string) {
+  const postIndex = posts.findIndex((post) => post.id === postId)
+  posts.splice(postIndex, 1)
+}
 
 onMounted(async () => {
   const q = route.query?.q
@@ -122,6 +128,10 @@ onMounted(async () => {
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
   }
+}
+
+.post {
+  margin-bottom: $block-outer-padding;
 }
 
 .tag {
