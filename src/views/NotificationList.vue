@@ -5,6 +5,7 @@
         class="notification"
         v-for="(notification, index) in notifications"
         :key="notification.id"
+        :class="{ collapsed: isGrouped(index) }"
       >
         <div class="action">
           <icon-user-plus v-if="notification.type === 'follow'"></icon-user-plus>
@@ -45,14 +46,14 @@
           <span v-else-if="notification.type === 'admin.sign_up'">signed up</span>
         </div>
         <post
-          v-if="notification.status"
+          v-if="notification.status !== null && !isGrouped(index)"
           :post="notification.status"
           :highlighted="false"
           :in-thread="false"
           @post-deleted="onPostDeleted(index)"
         ></post>
         <router-link
-          v-else
+          v-else-if="notification.status === null"
           class="profile"
           :title="getActorHandle(notification.account)"
           :to="getActorLocation('profile', notification.account)"
@@ -147,6 +148,19 @@ function getSender(notification: Notification): ProfileWrapper {
   return new ProfileWrapper(notification.account)
 }
 
+function isGrouped(notificationIndex: number) {
+  const current = notifications.value[notificationIndex]
+  if (!current || !current.status) {
+    return false
+  }
+  if (notificationIndex % PAGE_SIZE === PAGE_SIZE - 1) {
+    // Never collapse last post in a page
+    return false
+  }
+  const next = notifications.value[notificationIndex + 1]
+  return current.status.id === next?.status?.id
+}
+
 function onPostDeleted(notificationIndex: number) {
   notifications.value.splice(notificationIndex, 1)
 }
@@ -169,7 +183,7 @@ async function loadNextPage() {
 @import "../styles/mixins";
 @import "../styles/theme";
 
-.notification {
+.notification:not(.collapsed) {
   margin-bottom: $block-outer-padding;
 }
 
