@@ -110,6 +110,7 @@ const {
 } = useNotifications()
 
 onMounted(async () => {
+  window.scrollTo({ top: 0 })
   const authToken = ensureAuthToken()
   if (notifications.value.length === 0) {
     await loadNotifications(authToken)
