@@ -91,14 +91,6 @@
                     Send signed update
                   </button>
                 </li>
-                <li v-if="canManageSubscriptions()">
-                  <router-link
-                    title="Manage subscriptions"
-                    :to="{ name: 'subscriptions-settings' }"
-                  >
-                    Manage subscriptions
-                  </router-link>
-                </li>
                 <li v-if="canViewSubscriber()">
                   <router-link
                     :to="{ name: 'subscriber', params: { profileId: profile.id } }"
@@ -371,7 +363,6 @@ import {
   getAliases,
   getProfile,
   lookupProfile,
-  Permissions,
   Profile,
   ProfileField,
   ProfileWrapper,
@@ -789,16 +780,6 @@ async function onSignActivity() {
 function isSubscriptionsFeatureEnabled(): boolean {
   const blockchain = getBlockchainInfo()
   return Boolean(blockchain?.features.subscriptions)
-}
-
-function canManageSubscriptions(): boolean {
-  return (
-    isSubscriptionsFeatureEnabled() &&
-    profile !== null &&
-    currentUser !== null &&
-    isCurrentUser() &&
-    currentUser.role.permissions.includes(Permissions.ManageSubscriptionOptions)
-  )
 }
 
 const subscriptionPageLocation = computed(() => {
