@@ -132,6 +132,11 @@
                     Copy actor ID
                   </button>
                 </li>
+                <li v-if="canLoadLatestPosts()">
+                  <button @click="hideProfileMenu(); onLoadLatestPosts()">
+                    Load latest posts
+                  </button>
+                </li>
               </menu>
             </div>
           </div>
@@ -362,6 +367,7 @@ import { getReceivedSubscriptions, Subscription } from "@/api/subscriptions-comm
 import {
   getAliases,
   getProfile,
+  loadLatestPosts,
   lookupProfile,
   Profile,
   ProfileField,
@@ -817,6 +823,26 @@ function copyActorId(): void {
     return
   }
   navigator.clipboard.writeText(profile.actor_id)
+}
+
+function canLoadLatestPosts(): boolean {
+  return (
+    profile !== null &&
+    currentUser !== null &&
+    !isLocalUser() &&
+    isAdmin()
+  )
+}
+
+async function onLoadLatestPosts() {
+  if (!profile) {
+    return
+  }
+  alert("Reload the page in a few minutes")
+  await loadLatestPosts(
+    ensureAuthToken(),
+    profile.id,
+  )
 }
 
 async function updateIdentityProof(fieldName: string) {

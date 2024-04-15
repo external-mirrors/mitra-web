@@ -356,3 +356,15 @@ export async function getAliases(profileId: string): Promise<Aliases> {
   const data = await handleResponse(response)
   return data
 }
+
+export async function loadLatestPosts(
+  authToken: string,
+  accountId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/load_activities`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}
