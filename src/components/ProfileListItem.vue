@@ -66,6 +66,7 @@ const profile = computed(() => new ProfileWrapper(props.profile))
 
   .display-name {
     color: var(--text-color);
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
   }

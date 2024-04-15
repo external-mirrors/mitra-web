@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added space between posts in search results.
 - Update search results when post is deleted.
+- Fixed text overflow in follower list.
 
 ## [2.15.1] - 2024-04-09
 
