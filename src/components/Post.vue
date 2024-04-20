@@ -29,7 +29,7 @@
       >
         {{ getActorHandle(post.account) }}
       </div>
-      <a
+      <button
         v-if="inThread && post.in_reply_to_id"
         class="icon"
         title="Go to previous post"
@@ -38,7 +38,7 @@
         @click.prevent="scrollTo(post.in_reply_to_id as string)"
       >
         <icon-left-up></icon-left-up>
-      </a>
+      </button>
       <span
         class="icon icon-small"
         :title="getVisibilityDisplay()"
