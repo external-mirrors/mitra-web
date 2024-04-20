@@ -7,22 +7,24 @@
     :id="post.id"
   >
     <div class="post-header">
-      <a
+      <universal-link
         class="floating-avatar"
-        :href="post.account.url"
+        :to="getProfileLocation(post.account)"
         :title="author.getDisplayName()"
-        @click="openProfile($event, post.account)"
       >
-        <avatar :profile="post.account"></avatar>
-      </a>
-      <a
+        <template #link-content>
+          <avatar :profile="post.account"></avatar>
+        </template>
+      </universal-link>
+      <universal-link
         class="display-name-link"
-        :href="post.account.url"
+        :to="getProfileLocation(post.account)"
         :title="author.getDisplayName()"
-        @click="openProfile($event, post.account)"
       >
-        <profile-display-name :profile="author"></profile-display-name>
-      </a>
+        <template #link-content>
+          <profile-display-name :profile="author"></profile-display-name>
+        </template>
+      </universal-link>
       <div
         class="actor-address"
         :title="getActorHandle(post.account)"
@@ -53,26 +55,38 @@
         <icon-pin></icon-pin>
       </span>
       <span v-if="post.edited_at">edited</span>
-      <a
+      <router-link
+        v-if="currentUser && inThread"
         class="timestamp"
-        :href="post.uri"
+        :to="{ name: 'post', params: { postId: post.id } }"
         :title="formatDateTime(post.created_at)"
-        @click="openPost($event, post.id)"
+        @click.capture.prevent="scrollTo(post.id)"
       >
         {{ humanizeDate(post.created_at) }}
-      </a>
+      </router-link>
+      <universal-link
+        v-else
+        class="timestamp"
+        :to="getPostLocation(post)"
+        :title="formatDateTime(post.created_at)"
+      >
+        <template #link-content>
+          {{ humanizeDate(post.created_at) }}
+        </template>
+      </universal-link>
     </div>
     <div class="post-subheader" v-if="getReplyMentions().length > 0">
       <span>replying to</span>
-      <a
+      <universal-link
         v-for="mention in getReplyMentions()"
         :key="mention.id"
-        :href="mention.url"
+        :to="getProfileLocation(mention)"
         :title="getActorHandle(mention)"
-        @click="openProfile($event, mention)"
       >
-        @{{ mention.username }}
-      </a>
+        <template #link-content>
+          @{{ mention.username }}
+        </template>
+      </universal-link>
     </div>
     <post-content v-if="post.content" :post="post"></post-content>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
@@ -83,15 +97,16 @@
         :key="attachment.id"
       ></post-attachment>
     </div>
-    <a
+    <universal-link
       v-for="linkedPost in post.links"
       class="post-quote"
-      :href="linkedPost.uri"
+      :to="getPostLocation(linkedPost)"
       :key="linkedPost.id"
-      @click="openPost($event, linkedPost.id, true)"
     >
-      <post-preview :post="linkedPost"></post-preview>
-    </a>
+      <template #link-content>
+        <post-preview :post="linkedPost"></post-preview>
+      </template>
+    </universal-link>
     <div class="post-footer">
       <router-link
         v-if="!inThread"
@@ -408,13 +423,20 @@ let selectedPaymentOption = $ref<PaymentOption | null>(null)
 
 const author = $computed(() => new ProfileWrapper(props.post.account))
 
-function openProfile(event: Event, profile: Mention | Profile) {
+function getProfileLocation(profile: Mention | Profile): string | RouteLocationRaw {
   if (currentUser === null) {
-    // Viewing as guest; do not override click handler
-    return
+    // Viewing as guest
+    return profile.url
   }
-  event.preventDefault()
-  router.push(getActorLocation("profile", profile))
+  return getActorLocation("profile", profile)
+}
+
+function getPostLocation(post: Post): string | RouteLocationRaw {
+  if (currentUser === null) {
+    // Viewing as guest
+    return post.uri
+  }
+  return { name: "post", params: { postId: post.id } }
 }
 
 function highlight(postId: string | null) {
@@ -423,19 +445,6 @@ function highlight(postId: string | null) {
 
 function scrollTo(postId: string) {
   emit("navigate-to", postId)
-}
-
-function openPost(event: Event, postId: string, forcePush = false) {
-  if (currentUser === null) {
-    // Viewing as guest; do not override click handler
-    return
-  }
-  event.preventDefault()
-  if (props.inThread && !forcePush) {
-    scrollTo(postId)
-  } else {
-    router.push({ name: "post", params: { postId: postId } })
-  }
 }
 
 function getVisibilityDisplay(): string {

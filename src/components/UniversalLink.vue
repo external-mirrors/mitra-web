@@ -23,7 +23,7 @@ import { RouteLocationRaw } from "vue-router"
 
 const props = defineProps<{
   to: any,
-  title: string,
+  title?: string,
 }>()
 
 // Prop type check is broken (during navigation, not initial load)
