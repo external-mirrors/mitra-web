@@ -90,26 +90,7 @@
       :key="linkedPost.id"
       @click="openPost($event, linkedPost.id, true)"
     >
-      <div class="quote-header">
-        <avatar :profile="linkedPost.account"></avatar>
-        <profile-display-name :profile="getQuoteAuthor(linkedPost)">
-        </profile-display-name>
-        <span
-          class="actor-address"
-          :title="getActorHandle(linkedPost.account)"
-        >
-          {{ getActorHandle(linkedPost.account) }}
-        </span>
-      </div>
-      <post-content v-if="linkedPost.content" :post="linkedPost"></post-content>
-      <div class="post-attachments" v-if="linkedPost.media_attachments.length > 0">
-        <post-attachment
-          v-for="attachment in linkedPost.media_attachments"
-          :attachment="attachment"
-          :is-sensitive="linkedPost.sensitive"
-          :key="attachment.id"
-        ></post-attachment>
-      </div>
+      <post-preview :post="linkedPost"></post-preview>
     </a>
     <div class="post-footer">
       <router-link
@@ -379,6 +360,7 @@ import CryptoIcon from "@/components/CryptoIcon.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
+import PostPreview from "@/components/PostPreview.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
@@ -473,10 +455,6 @@ function getReplyMentions(): Mention[] {
   } else {
     return props.post.mentions
   }
-}
-
-function getQuoteAuthor(post: Post): ProfileWrapper {
-  return new ProfileWrapper(post.account)
 }
 
 function canReply(): boolean {
@@ -834,41 +812,12 @@ function togglePaymentAddress(option: PaymentOption) {
 }
 
 .post-quote {
-  border: 1px solid var(--separator-color);
-  border-radius: $block-border-radius;
   color: inherit;
   display: block;
   margin: 0 $block-inner-padding $block-inner-padding;
 
   &:hover {
     color: inherit;
-  }
-}
-
-.quote-header {
-  align-items: center;
-  color: var(--secondary-text-color);
-  display: flex;
-  flex-direction: row;
-  gap: calc($block-inner-padding / 2);
-  padding: $block-inner-padding $block-inner-padding 0;
-
-  .avatar {
-    height: $icon-size;
-    width: $icon-size;
-  }
-
-  .display-name {
-    color: var(--text-color);
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .actor-address {
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 
