@@ -18,6 +18,7 @@
       <a
         class="display-name-link"
         :href="post.account.url"
+        :title="author.getDisplayName()"
         @click="openProfile($event, post.account)"
       >
         <profile-display-name :profile="author"></profile-display-name>
