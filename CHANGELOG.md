@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Add tooltip to display name in post block.
 - Use internal links in post block when user is logged in.
+- Add whitespace when inserting custom emoji.
 
 ## [2.16.0] - 2024-04-16
 

@@ -465,8 +465,12 @@ async function insertEmoji(name: string) {
     throw new Error("editor doesn't exist")
   }
   const position = postFormContentRef.selectionStart
-  const shortcode = getEmojiShortcode(name)
-  await insertText(position, position, shortcode)
+  // Add whitespace before and after shortcode
+  let text = `${getEmojiShortcode(name)} `
+  if (position !== 0 && !/\s/.test(content.charAt(position - 1))) {
+    text = " " + text
+  }
+  await insertText(position, position, text)
   hideEmojiPicker()
 }
 
