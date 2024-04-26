@@ -77,6 +77,19 @@ export async function unfollow(
   return data
 }
 
+export async function removeFollower(
+  authToken: string,
+  accountId: string,
+): Promise<Relationship> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/remove_from_followers`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function mute(
   authToken: string,
   accountId: string,

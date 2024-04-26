@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added "Remove from followers" item to profile menu.
+
 ### Changed
 
 - Add tooltip to display name in post block.

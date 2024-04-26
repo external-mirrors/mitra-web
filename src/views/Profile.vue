@@ -110,6 +110,9 @@
                 <li v-if="canShowReplies()">
                   <button @click="onFollow(undefined, true)">Show replies</button>
                 </li>
+                <li v-if="isFollowedBy()">
+                  <button @click="onRemoveFollower()">Remove from followers</button>
+                </li>
                 <li v-if="canMute()">
                   <button @click="onMute()">Mute</button>
                 </li>
@@ -362,6 +365,7 @@ import {
   getRelationship,
   getFollowers,
   getFollowing,
+  removeFollower,
 } from "@/api/relationships"
 import { getReceivedSubscriptions, Subscription } from "@/api/subscriptions-common"
 import {
@@ -703,6 +707,18 @@ async function onUnfollow() {
     profile.id,
   )
   isProcessingUnfollow.value = false
+}
+
+async function onRemoveFollower() {
+  if (!currentUser || !profile) {
+    return
+  }
+  if (confirm(`Are you sure you want to remove ${profile.getDisplayName()} from followers?`)) {
+    relationship = await removeFollower(
+      ensureAuthToken(),
+      profile.id,
+    )
+  }
 }
 
 function canMute(): boolean {
