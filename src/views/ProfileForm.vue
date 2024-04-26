@@ -415,4 +415,12 @@ async function save() {
     stroke: var(--link-hover-color);
   }
 }
+
+@media (hover: none) {
+  .extra-field {
+    .remove-extra-field {
+      display: flex;
+    }
+  }
+}
 </style>

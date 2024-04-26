@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add whitespace when inserting custom emoji.
 - Change quote background color on hover.
 
+### Fixed
+
+- Don't hide extra field removal button if device does not support hover.
+
 ## [2.16.0] - 2024-04-16
 
 ### Added
