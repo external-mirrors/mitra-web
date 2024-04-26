@@ -49,6 +49,10 @@ const author = computed(() => new ProfileWrapper(props.post.account))
 .post-preview {
   border: 1px solid var(--separator-color);
   border-radius: $block-border-radius;
+
+  &:hover {
+    background-color: var(--widget-background-color);
+  }
 }
 
 .post-preview-header {
