@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added "Remove from followers" item to profile menu.
+- Added loading indicator to notification list.
 
 ### Changed
 

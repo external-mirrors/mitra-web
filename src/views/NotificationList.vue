@@ -73,12 +73,13 @@
       >
         Show more notifications
       </button>
+      <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onMounted, ref } from "vue"
 
 import { PAGE_SIZE } from "@/api/common"
 import { replaceShortcodes } from "@/api/emojis"
@@ -93,6 +94,7 @@ import IconComment from "@/assets/forkawesome/comment-o.svg?component"
 import IconLike from "@/assets/forkawesome/thumbs-o-up.svg?component"
 import IconPayment from "@/assets/tabler/coin.svg?component"
 import Avatar from "@/components/Avatar.vue"
+import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -109,11 +111,15 @@ const {
   updateUnreadNotificationCount,
 } = useNotifications()
 
+const isLoading = ref(false)
+
 onMounted(async () => {
   window.scrollTo({ top: 0 })
   const authToken = ensureAuthToken()
   if (notifications.value.length === 0) {
+    isLoading.value = true
     await loadNotifications(authToken)
+    isLoading.value = false
   }
   // Update notification timeline marker
   await updateUnreadNotificationCount(authToken)
@@ -214,5 +220,9 @@ async function loadNextPage() {
 
 .next-btn {
   margin-bottom: $block-outer-padding;
+}
+
+.loader {
+  margin: $block-outer-padding auto;
 }
 </style>
