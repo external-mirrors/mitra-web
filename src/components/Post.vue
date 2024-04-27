@@ -60,9 +60,10 @@
         class="timestamp"
         :to="{ name: 'post', params: { postId: post.id } }"
         :title="formatDateTime(post.created_at)"
-        @click.capture.prevent="scrollTo(post.id)"
       >
-        {{ humanizeDate(post.created_at) }}
+        <span @click.prevent="scrollTo(post.id)">
+          {{ humanizeDate(post.created_at) }}
+        </span>
       </router-link>
       <universal-link
         v-else
