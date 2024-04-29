@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Hide mention suggestions in preview mode.
+
 ### Fixed
 
 - Fix bio field update bug in profile form.

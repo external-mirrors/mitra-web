@@ -242,7 +242,7 @@ let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 let isSensitive = $ref(false)
 
-let mentionSuggestions = $ref<Profile[]>([])
+const mentionSuggestions = ref<Profile[]>([])
 let mentionPosition = $ref<[number, number] | null>(null)
 let visibilityMenuVisible = $ref(false)
 const emojiPickerVisible = ref(false)
@@ -326,12 +326,12 @@ async function suggestMentions() {
       4,
     )
     if (results.length !== 1 || results[0].acct !== mentionText) {
-      mentionSuggestions = results
+      mentionSuggestions.value = results
       mentionPosition = indices
       return
     }
   }
-  mentionSuggestions = []
+  mentionSuggestions.value = []
 }
 
 const suggestMentionsDebounced = debounce(suggestMentions, 500)
@@ -352,7 +352,7 @@ async function autocompleteMention(profile: Profile) {
     const [start, stop] = mentionPosition
     // Suggested profile is expected to have webfinger address
     await insertText(start, stop, profile.acct)
-    mentionSuggestions = []
+    mentionSuggestions.value = []
   }
 }
 
@@ -491,6 +491,7 @@ function canPreview(): boolean {
 
 async function togglePreview() {
   if (preview === null) {
+    mentionSuggestions.value = []
     preview = await previewPost(ensureAuthToken(), content)
   } else {
     preview = null
