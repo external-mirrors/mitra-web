@@ -222,9 +222,7 @@ const profilePreview = $computed<Profile>(() => {
 
 function onBioUpdate(event: Event) {
   const value = (event.target as HTMLTextAreaElement).value
-  if (value) {
-    form.note = value
-  }
+  form.note = value || ""
 }
 
 function getAcceptedMediaTypes(): string {
