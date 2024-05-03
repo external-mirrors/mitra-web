@@ -1,9 +1,17 @@
 <template>
-  <component :is="icon"></component>
+  <component :is="getIcon()"></component>
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue"
+import IconBitcoin from "@/assets/cryptoicons/btc.svg?component"
+import IconBitcoinCash from "@/assets/cryptoicons/bch.svg?component"
+import IconDash from "@/assets/cryptoicons/dash.svg?component"
+import IconDogecoin from "@/assets/cryptoicons/doge.svg?component"
+import IconEthereum from "@/assets/forkawesome/ethereum.svg?component"
+import IconLitecoin from "@/assets/cryptoicons/ltc.svg?component"
+import IconMonero from "@/assets/cryptoicons/xmr.svg?component"
+import IconZcash from "@/assets/cryptoicons/zec.svg?component"
+import IconBitcoinLightning from "@/assets/extra-icons/lightning.svg?component"
 
 import { CurrencyCode } from "@/utils/cryptocurrencies"
 
@@ -11,28 +19,28 @@ const props = defineProps<{
   code: string,
 }>()
 
-const icon = defineAsyncComponent(() => {
+function getIcon() {
   switch (props.code) {
     case CurrencyCode.Bitcoin:
-      return import("@/assets/cryptoicons/btc.svg?component")
+      return IconBitcoin
     case CurrencyCode.BitcoinCash:
-      return import("@/assets/cryptoicons/bch.svg?component")
+      return IconBitcoinCash
     case CurrencyCode.Dash:
-      return import("@/assets/cryptoicons/dash.svg?component")
+      return IconDash
     case CurrencyCode.Dogecoin:
-      return import("@/assets/cryptoicons/doge.svg?component")
+      return IconDogecoin
     case CurrencyCode.Ethereum:
-      return import("@/assets/forkawesome/ethereum.svg?component")
+      return IconEthereum
     case CurrencyCode.Litecoin:
-      return import("@/assets/cryptoicons/ltc.svg?component")
+      return IconLitecoin
     case CurrencyCode.Monero:
-      return import("@/assets/cryptoicons/xmr.svg?component")
+      return IconMonero
     case CurrencyCode.Zcash:
-      return import("@/assets/cryptoicons/zec.svg?component")
+      return IconZcash
     case CurrencyCode.BitcoinLightning:
-      return import("@/assets/extra-icons/lightning.svg?component")
+      return IconBitcoinLightning
     default:
       throw Error("unexpected currency code")
   }
-})
+}
 </script>
