@@ -69,6 +69,7 @@
       <button
         v-if="isPageFull()"
         class="btn secondary next-btn"
+        :disabled="isNextPageLoading"
         @click="loadNextPage()"
       >
         Show more notifications
@@ -112,6 +113,7 @@ const {
 } = useNotifications()
 
 const isLoading = ref(false)
+const isNextPageLoading = ref(false)
 
 onMounted(async () => {
   window.scrollTo({ top: 0 })
@@ -155,8 +157,10 @@ function isPageFull(): boolean {
 
 async function loadNextPage() {
   const maxId = notifications.value[notifications.value.length - 1].id
+  isNextPageLoading.value = true
   const newItems = await getNotifications(ensureAuthToken(), maxId)
   notifications.value = [...notifications.value, ...newItems]
+  isNextPageLoading.value = false
 }
 </script>
 
