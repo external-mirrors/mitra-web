@@ -194,6 +194,8 @@ async function loadNextPage() {
     @include emoji-inline;
 
     margin-right: calc($icon-size / 2);
+    text-align: center;
+    width: $icon-size;
   }
 }
 

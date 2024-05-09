@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Rename "Move followers" to "Import followers".
 
+### Fixed
+
+- Fix alignment of unicode emojis in emoji reaction notifications.
+
 ## [2.18.0] - 2024-05-07
 
 ### Added
