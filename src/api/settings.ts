@@ -104,12 +104,12 @@ export async function importFollows(
   await handleResponse(response, 204)
 }
 
-export async function moveFollowers(
+export async function importFollowers(
   authToken: string,
   fromActorId: string,
   followersCsv: string,
 ): Promise<User> {
-  const url = `${BACKEND_URL}/api/v1/settings/move_followers`
+  const url = `${BACKEND_URL}/api/v1/settings/import_followers`
   const response = await http(url, {
     method: "POST",
     authToken,

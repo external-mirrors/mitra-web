@@ -10,9 +10,9 @@ import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
+import ImportFollowers from "@/views/ImportFollowers.vue"
 import ImportFollows from "@/views/ImportFollows.vue"
 import LandingPage from "@/views/LandingPage.vue"
-import MoveFollowers from "@/views/MoveFollowers.vue"
 import NotificationList from "@/views/NotificationList.vue"
 import ProfileAliases from "@/views/ProfileAliases.vue"
 import ProfileDirectory from "@/views/ProfileDirectory.vue"
@@ -197,15 +197,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyAuthenticated: true },
   },
   {
-    path: "/settings/move-followers",
-    name: "move-followers",
-    component: MoveFollowers,
-    meta: { onlyAuthenticated: true },
-  },
-  {
     path: "/settings/identity-proof",
     name: "identity-proof",
     component: IdentityProof,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/import-followers",
+    name: "import-followers",
+    component: ImportFollowers,
     meta: { onlyAuthenticated: true },
   },
   {

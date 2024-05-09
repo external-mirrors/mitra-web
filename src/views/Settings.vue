@@ -119,8 +119,8 @@
             <router-link class="btn" :to="{ name: 'import-follows' }">
               Import follows
             </router-link>
-            <router-link class="btn" :to="{ name: 'move-followers' }">
-              Move followers
+            <router-link class="btn" :to="{ name: 'import-followers' }">
+              Import followers
             </router-link>
           </div>
         </details>

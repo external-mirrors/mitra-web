@@ -1,8 +1,8 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Move followers</h1>
-      <form class="move-followers">
+      <h1>Import followers</h1>
+      <form>
         <div class="input-group">
           <input
             type="text"
@@ -22,10 +22,10 @@
         <button
           type="submit"
           class="btn"
-          :disabled="!canMove() || isLoading"
-          @click.prevent="move()"
+          :disabled="!canImport() || isLoading"
+          @click.prevent="submit()"
         >
-          Move
+          Import
         </button>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
@@ -37,7 +37,7 @@
 import { $, $ref } from "vue/macros"
 import { useRouter } from "vue-router"
 
-import { moveFollowers } from "@/api/settings"
+import { importFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
@@ -51,18 +51,18 @@ const followersCsv = $ref("")
 let isLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
-function canMove(): boolean {
+function canImport(): boolean {
   return fromActorId.length > 0 && followersCsv.length > 0
 }
 
-async function move() {
+async function submit() {
   if (currentUser === null) {
     return
   }
   let user
   isLoading = true
   try {
-    user = await moveFollowers(
+    user = await importFollowers(
       ensureAuthToken(),
       fromActorId,
       followersCsv,
