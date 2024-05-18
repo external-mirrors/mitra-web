@@ -161,6 +161,10 @@ function getContent(): string {
     list-style-type: disc;
   }
 
+  :deep(li li) {
+    padding-left: 20px;
+  }
+
   :deep(.greentext) {
     color: $greentext-color;
   }
