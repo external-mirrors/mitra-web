@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fix alignment of unicode emojis in emoji reaction notifications.
+- Fix hiding of mention suggestions in preview mode.
 
 ## [2.18.0] - 2024-05-07
 

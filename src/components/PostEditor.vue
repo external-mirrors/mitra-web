@@ -20,7 +20,10 @@
         @paste="onPaste($event)"
         @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
-      <div class="mention-suggestions" v-if="mentionSuggestions.length > 0">
+      <div
+        class="mention-suggestions"
+        v-if="mentionSuggestions.length > 0 && preview === null"
+      >
         <button
           v-for="profile in mentionSuggestions"
           :key="profile.id"
@@ -491,7 +494,6 @@ function canPreview(): boolean {
 
 async function togglePreview() {
   if (preview === null) {
-    mentionSuggestions.value = []
     preview = await previewPost(ensureAuthToken(), content)
   } else {
     preview = null
