@@ -10,7 +10,7 @@
     <div class="textarea-group">
       <textarea
         id="content"
-        ref="postFormContentRef"
+        ref="contentInputElement"
         v-show="preview === null"
         :value="content"
         @input="onContentInput"
@@ -22,10 +22,10 @@
       ></textarea>
       <div
         class="mention-suggestions"
-        v-if="mentionSuggestions.length > 0 && preview === null"
+        v-if="mentionSuggestionList.length > 0 && preview === null"
       >
         <button
-          v-for="profile in mentionSuggestions"
+          v-for="profile in mentionSuggestionList"
           :key="profile.id"
           @click.prevent="autocompleteMention(profile)"
         >
@@ -59,7 +59,7 @@
           <loader v-else></loader>
           <input
             type="file"
-            ref="attachmentUploadInputRef"
+            ref="attachmentUploadInput"
             :accept="getAcceptedMediaTypes()"
             style="display: none;"
             @change="onAttachmentUpload($event)"
@@ -182,7 +182,7 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-setup-props-destructure */
 import { computed, nextTick, onMounted, ref } from "vue"
-import { $, $ref } from "vue/macros"
+import { $ref } from "vue/macros"
 
 import { getEmojiShortcode } from "@/api/emojis"
 import {
@@ -222,8 +222,8 @@ const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { currentUser, ensureAuthToken } = useCurrentUser()
+const { instance } = useInstanceInfo()
 
 const props = defineProps<{
   post: Post | null,
@@ -237,16 +237,16 @@ const emit = defineEmits<{
   (event: "post-editor-closed"): void,
 }>()
 
-const postFormContentRef = $ref<HTMLTextAreaElement | null>(null)
-const attachmentUploadInputRef = $ref<HTMLInputElement | null>(null)
+const contentInputElement = ref<HTMLTextAreaElement | null>(null)
+const attachmentUploadInput = ref<HTMLInputElement | null>(null)
 
-let content = $ref(loadLocalDraft())
+const content = ref(loadLocalDraft())
 let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 let isSensitive = $ref(false)
 
-const mentionSuggestions = ref<Profile[]>([])
-let mentionPosition = $ref<[number, number] | null>(null)
+const mentionSuggestionList = ref<Profile[]>([])
+const mentionPosition = ref<[number, number] | null>(null)
 let visibilityMenuVisible = $ref(false)
 const emojiPickerVisible = ref(false)
 let preview = $ref<Post | null>(null)
@@ -254,25 +254,25 @@ let isLoading = $ref(false)
 let isAttachmentLoading = $ref(false)
 let errorMessage = $ref<string | null>(null)
 
-const author = computed<User | null>(() => currentUser)
+const author = computed<User | null>(() => currentUser.value)
 const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
 })
 
 if (props.post) {
-  content = props.post.contentSource || ""
+  content.value = props.post.contentSource || ""
   attachments = [...props.post.media_attachments]
   visibility = props.post.visibility
   isSensitive = props.post.sensitive
 }
 
-if (props.inReplyTo && content.length === 0) {
+if (props.inReplyTo && content.value.length === 0) {
   const mentions: Mention[] = [
     props.inReplyTo.account,
     ...props.inReplyTo.mentions,
   ]
-  content = mentions
-    .filter(mention => mention.id !== currentUser?.id)
+  content.value = mentions
+    .filter(mention => mention.id !== currentUser.value?.id)
     .map(mention => getActorHandle(mention))
     // Remove non-webfinger handles
     .filter(mention => mention.startsWith("@"))
@@ -286,9 +286,9 @@ if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
 }
 
 onMounted(() => {
-  if (postFormContentRef) {
-    setupAutoResize(postFormContentRef)
-    resizeTextArea(postFormContentRef)
+  if (contentInputElement.value) {
+    setupAutoResize(contentInputElement.value)
+    resizeTextArea(contentInputElement.value)
   }
 })
 
@@ -302,7 +302,7 @@ function loadLocalDraft(): string {
 }
 
 function saveLocalDraft() {
-  localStorage.setItem(getLocalDraftKey(), content)
+  localStorage.setItem(getLocalDraftKey(), content.value)
 }
 
 function removeLocalDraft() {
@@ -310,11 +310,11 @@ function removeLocalDraft() {
 }
 
 async function suggestMentions() {
-  if (postFormContentRef === null) {
+  if (contentInputElement.value === null) {
     return
   }
-  const currentPosition = postFormContentRef.selectionStart
-  const contentBefore = content.substring(0, currentPosition)
+  const currentPosition = contentInputElement.value.selectionStart
+  const contentBefore = content.value.substring(0, currentPosition)
   // "d" flag requires FF 88+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
   const mentionRegexp = /(^|\s)@(?<name>\S+)$/d
@@ -329,38 +329,41 @@ async function suggestMentions() {
       4,
     )
     if (results.length !== 1 || results[0].acct !== mentionText) {
-      mentionSuggestions.value = results
-      mentionPosition = indices
+      mentionSuggestionList.value = results
+      mentionPosition.value = indices
       return
     }
   }
-  mentionSuggestions.value = []
+  mentionSuggestionList.value = []
 }
 
 const suggestMentionsDebounced = debounce(suggestMentions, 500)
 
 async function insertText(start: number, stop: number, text: string) {
-  if (postFormContentRef === null) {
+  if (contentInputElement.value === null) {
     throw new Error("editor doesn't exist")
   }
-  content = content.substring(0, start) + text + content.substring(stop)
+  content.value =
+    content.value.substring(0, start) +
+    text +
+    content.value.substring(stop)
   await nextTick()
   const newPosition = start + text.length
-  postFormContentRef.focus()
-  postFormContentRef.selectionEnd = newPosition
+  contentInputElement.value.focus()
+  contentInputElement.value.selectionEnd = newPosition
 }
 
 async function autocompleteMention(profile: Profile) {
-  if (postFormContentRef !== null && mentionPosition !== null) {
-    const [start, stop] = mentionPosition
+  if (contentInputElement.value !== null && mentionPosition.value !== null) {
+    const [start, stop] = mentionPosition.value
     // Suggested profile is expected to have webfinger address
     await insertText(start, stop, profile.acct)
-    mentionSuggestions.value = []
+    mentionSuggestionList.value = []
   }
 }
 
 function onContentInput(event: Event) {
-  content = (event.target as HTMLTextAreaElement).value
+  content.value = (event.target as HTMLTextAreaElement).value
   saveLocalDraft()
   suggestMentionsDebounced()
 }
@@ -375,20 +378,20 @@ async function onPaste(event: ClipboardEvent) {
 }
 
 function canAttachFile(): boolean {
-  if (!instance) {
+  if (!instance.value) {
     return false
   }
   return (
-    attachments.length < instance.configuration.statuses.max_media_attachments &&
+    attachments.length < instance.value.configuration.statuses.max_media_attachments &&
     !isAttachmentLoading
   )
 }
 
 function getAcceptedMediaTypes(): string {
-  if (!instance) {
+  if (!instance.value) {
     return ""
   }
-  const types = [...instance.configuration.media_attachments.supported_mime_types]
+  const types = [...instance.value.configuration.media_attachments.supported_mime_types]
   if (types.includes("video/x-m4v")) {
     // Some OSes don't associate .m4v files with video/x-m4v media type
     types.push(".m4v")
@@ -397,8 +400,8 @@ function getAcceptedMediaTypes(): string {
 }
 
 function selectAttachment() {
-  if (attachmentUploadInputRef) {
-    attachmentUploadInputRef.click()
+  if (attachmentUploadInput.value) {
+    attachmentUploadInput.value.click()
   }
 }
 
@@ -464,13 +467,13 @@ function hideEmojiPicker() {
 }
 
 async function insertEmoji(name: string) {
-  if (postFormContentRef === null) {
+  if (contentInputElement.value === null) {
     throw new Error("editor doesn't exist")
   }
-  const position = postFormContentRef.selectionStart
+  const position = contentInputElement.value.selectionStart
   // Add whitespace before and after shortcode
   let text = `${getEmojiShortcode(name)} `
-  if (position !== 0 && !/\s/.test(content.charAt(position - 1))) {
+  if (position !== 0 && !/\s/.test(content.value.charAt(position - 1))) {
     text = " " + text
   }
   await insertText(position, position, text)
@@ -478,10 +481,10 @@ async function insertEmoji(name: string) {
 }
 
 function getCharacterCount(): number {
-  if (!instance) {
+  if (!instance.value) {
     return 0
   }
-  return (instance.configuration.statuses.max_characters - content.length)
+  return (instance.value.configuration.statuses.max_characters - content.value.length)
 }
 
 function isCharacterCounterVisible(): boolean {
@@ -489,12 +492,12 @@ function isCharacterCounterVisible(): boolean {
 }
 
 function canPreview(): boolean {
-  return content.length > 0
+  return content.value.length > 0
 }
 
 async function togglePreview() {
   if (preview === null) {
-    preview = await previewPost(ensureAuthToken(), content)
+    preview = await previewPost(ensureAuthToken(), content.value)
   } else {
     preview = null
   }
@@ -519,7 +522,7 @@ function getObjectLink(post: Post): string {
 
 async function publish() {
   const postData = {
-    content: content,
+    content: content.value,
     inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility,
     isSensitive: isSensitive,
@@ -536,7 +539,7 @@ async function publish() {
       post = await updatePost(
         ensureAuthToken(),
         props.post.id,
-        content,
+        content.value,
         attachments,
         isSensitive,
       )
@@ -559,13 +562,13 @@ async function publish() {
   errorMessage = null
   isLoading = false
   removeLocalDraft()
-  content = ""
+  content.value = ""
   isSensitive = false
   attachments = []
   preview = null
-  if (postFormContentRef) {
+  if (contentInputElement.value) {
     await nextTick()
-    resizeTextArea(postFormContentRef)
+    resizeTextArea(contentInputElement.value)
   }
   emit("post-saved", post)
 }
