@@ -126,7 +126,7 @@ $sidebar-icon-size: 20px;
   position: sticky;
   top: $header-height + $block-outer-padding;
   width: $sidebar-width;
-  z-index: $header-z-index + 1; /* sidebar is on top to make notification counter visible on small screens */
+  z-index: $header-z-index - 1; /* sidebar is below header to avoid overlap on short screens */
 }
 
 .sidebar-link {
@@ -190,6 +190,7 @@ $sidebar-icon-size: 20px;
     padding: 0 $body-padding $body-padding;
     top: $header-height;
     width: 100%;
+    z-index: $header-z-index + 1; /* sidebar is on top to make notification counter visible on small screens */
   }
 
   .sidebar-link {
