@@ -13,7 +13,7 @@
           <icon-comment v-else-if="notification.type === 'reply'"></icon-comment>
           <icon-like v-else-if="notification.type === 'favourite'"></icon-like>
           <span
-            v-else-if="notification.type === 'emoji_reaction'"
+            v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'"
             class="emoji-reaction"
             v-html="getReactionHtml(notification)"
           >
