@@ -60,6 +60,13 @@ export interface Tag {
   url: string;
 }
 
+interface PleromaEmojiReaction {
+  name: string,
+  url: string | null,
+  count: number,
+  me: boolean,
+}
+
 export interface Post {
   id: string;
   uri: string;
@@ -84,6 +91,7 @@ export interface Post {
   reblogged: boolean;
 
   pleroma: {
+    emoji_reactions: PleromaEmojiReaction[],
     quote: { id: string } | null,
   },
 
@@ -243,7 +251,10 @@ export async function previewPost(
     emojis: data.emojis,
     favourited: false,
     reblogged: false,
-    pleroma: { quote: null },
+    pleroma: {
+      emoji_reactions: [],
+      quote: null,
+    },
     ipfs_cid: null,
     links: [],
   }
@@ -354,6 +365,28 @@ export async function unfavourite(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unfavourite`
   const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function createReaction(
+  authToken: string,
+  postId: string,
+  content: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${content}`
+  const response = await http(url, { method: "PUT", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function deleteReaction(
+  authToken: string,
+  postId: string,
+  content: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${content}`
+  const response = await http(url, { method: "DELETE", authToken })
   const data = await handleResponse(response)
   return data
 }

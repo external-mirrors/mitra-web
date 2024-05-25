@@ -115,6 +115,33 @@
         <post-preview :post="linkedPost"></post-preview>
       </template>
     </universal-link>
+    <div class="post-reactions" v-if="post.favourites_count > 0 || post.pleroma.emoji_reactions.length > 0">
+      <button
+        v-if="post.favourites_count > 0"
+        class="reaction"
+        :class="{ reacted: post.favourited }"
+        @click="toggleLike()"
+        :disabled="!canLike()"
+      >
+        <span class="unicode-emoji">👍</span>
+        <span>{{ post.favourites_count }}</span>
+      </button>
+      <button
+        v-for="reaction in post.pleroma.emoji_reactions"
+        :key="reaction.name"
+        class="reaction"
+        :class="{ reacted: hasReacted(reaction.name) }"
+        @click="onToggleReaction(reaction.name)"
+        :disabled="!canReact()"
+      >
+        <span
+          v-if="reaction.url"
+          v-html="replaceShortcodes(getEmojiShortcode(reaction.name), [{shortcode: reaction.name, url: reaction.url}])"
+        ></span>
+        <span v-else class="unicode-emoji">{{ reaction.name }}</span>
+        <span>{{ reaction.count }}</span>
+      </button>
+    </div>
     <div class="post-footer">
       <router-link
         v-if="!inThread"
@@ -162,12 +189,25 @@
         @click="toggleLike()"
       >
         <icon-like></icon-like>
-        <span>{{ post.favourites_count }}</span>
       </button>
-      <span v-else class="icon">
-        <icon-like></icon-like>
-        <span>{{ post.favourites_count }}</span>
-      </span>
+      <div
+        v-if="canReact()"
+        class="dropdown-menu-wrapper"
+        v-click-away="hideEmojiPicker"
+      >
+        <button
+          type="button"
+          class="icon"
+          :title="$t('post.react_with_emoji')"
+          @click="toggleEmojiPicker"
+        >
+          <icon-smile></icon-smile>
+        </button>
+        <emoji-picker
+          v-if="emojiPickerVisible"
+          @emoji-picked="onToggleReaction($event)"
+        ></emoji-picker>
+      </div>
       <a
         v-if="getIpfsUrl()"
         class="icon"
@@ -342,6 +382,7 @@ import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
+import { getEmojiShortcode, replaceShortcodes } from "@/api/emojis"
 import {
   getPostSource,
   deletePost,
@@ -352,6 +393,8 @@ import {
   pinPost,
   unpinPost,
   loadConversation,
+  createReaction,
+  deleteReaction,
   makePermanent,
   Mention,
   Post,
@@ -378,9 +421,11 @@ import IconLeftUp from "@/assets/tabler/corner-left-up.svg?component"
 import IconPin from "@/assets/tabler/pin.svg?component"
 import IconUnpin from "@/assets/tabler/pinned-off.svg?component"
 import IconQuote from "@/assets/tabler/quote.svg?component"
+import IconSmile from "@/assets/feather/smile.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import CryptoIcon from "@/components/CryptoIcon.vue"
+import EmojiPicker from "@/components/EmojiPicker.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -431,6 +476,7 @@ const repostFormVisible = ref(false)
 const editorVisible = ref(false)
 const isProcessingRepost = ref(false)
 const isProcessingLike = ref(false)
+const emojiPickerVisible = ref(false)
 const menuVisible = ref(false)
 const selectedPaymentOption = ref<PaymentOption | null>(null)
 
@@ -572,6 +618,40 @@ async function toggleLike() {
   isProcessingLike.value = false
   props.post.favourites_count = updatedPost.favourites_count
   props.post.favourited = updatedPost.favourited
+}
+
+function canReact(): boolean {
+  return currentUser.value !== null
+}
+
+function hasReacted(content: string): boolean {
+  const reaction = props.post.pleroma.emoji_reactions
+    .find((reaction) => reaction.name === content)
+  return reaction?.me || false
+}
+
+async function onToggleReaction(content: string) {
+  if (currentUser.value === null) {
+    return
+  }
+  const authToken = ensureAuthToken()
+  if (hasReacted(content)) {
+    const updatedPost = await deleteReaction(authToken, props.post.id, content)
+    props.post.favourites_count = updatedPost.favourites_count
+    props.post.pleroma = updatedPost.pleroma
+  } else {
+    const updatedPost = await createReaction(authToken, props.post.id, content)
+    props.post.favourites_count = updatedPost.favourites_count
+    props.post.pleroma = updatedPost.pleroma
+  }
+}
+
+function toggleEmojiPicker() {
+  emojiPickerVisible.value = !emojiPickerVisible.value
+}
+
+function hideEmojiPicker() {
+  emojiPickerVisible.value = false
 }
 
 function toggleMenu() {
@@ -860,6 +940,53 @@ function togglePaymentAddress(option: PaymentOption) {
 
   &:hover {
     color: inherit;
+  }
+}
+
+.post-reactions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $input-padding;
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
+}
+
+.reaction {
+  align-items: center;
+  background-color: var(--widget-background-color);
+  border: 1px solid var(--widget-background-color);
+  border-radius: $btn-border-radius;
+  display: flex;
+  flex-direction: row;
+  gap: $whitespace;
+  padding: calc($input-padding / 2);
+
+  &.reacted {
+    background-color: var(--widget-active-background-color);
+    border: 1px solid var(--widget-active-border-color);
+  }
+
+  &:not(:disabled):hover {
+    background-color: var(--widget-active-background-color);
+  }
+
+  .unicode-emoji {
+    font-size: calc($emoji-size / $emoji-line-height);
+    line-height: $emoji-line-height;
+  }
+
+  :deep(.emoji) {
+    display: inline-block;
+    height: $emoji-size;
+    width: $emoji-size;
+
+    img {
+      height: inherit;
+      object-fit: contain;
+      vertical-align: middle;
+      width: inherit;
+    }
   }
 }
 
