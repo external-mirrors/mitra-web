@@ -119,6 +119,20 @@ export async function importFollowers(
   return data
 }
 
+export async function moveFollowers(
+  authToken: string,
+  targetAcct: string,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/settings/move_followers`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { target_acct: targetAcct },
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function deleteAccount(
   authToken: string,
 ): Promise<void> {

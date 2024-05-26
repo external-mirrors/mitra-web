@@ -13,6 +13,7 @@ import IdentityProof from "@/views/IdentityProof.vue"
 import ImportFollowers from "@/views/ImportFollowers.vue"
 import ImportFollows from "@/views/ImportFollows.vue"
 import LandingPage from "@/views/LandingPage.vue"
+import MoveFollowers from "@/views/MoveFollowers.vue"
 import NotificationList from "@/views/NotificationList.vue"
 import ProfileAliases from "@/views/ProfileAliases.vue"
 import ProfileDirectory from "@/views/ProfileDirectory.vue"
@@ -212,6 +213,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings/import-follows",
     name: "import-follows",
     component: ImportFollows,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/move-followers",
+    name: "move-followers",
+    component: MoveFollowers,
     meta: { onlyAuthenticated: true },
   },
   {

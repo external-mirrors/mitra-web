@@ -122,6 +122,9 @@
             <router-link class="btn" :to="{ name: 'import-followers' }">
               Import followers
             </router-link>
+            <router-link class="btn" :to="{ name: 'move-followers' }">
+              Move followers
+            </router-link>
           </div>
         </details>
       </section>

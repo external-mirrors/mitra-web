@@ -1,0 +1,80 @@
+<template>
+  <sidebar-layout>
+    <template #content>
+      <h1>Move followers</h1>
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            id="target"
+            placeholder="Target address"
+            v-model="target"
+          >
+        </div>
+        <button
+          type="submit"
+          class="btn"
+          :disabled="!canMove() || isLoading"
+          @click.prevent="submit()"
+        >
+          Move
+        </button>
+        <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
+      </form>
+    </template>
+  </sidebar-layout>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+
+import { moveFollowers } from "@/api/settings"
+import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
+import { useCurrentUser } from "@/composables/user"
+
+const router = useRouter()
+const { getActorLocation } = useActorHandle()
+const { currentUser, ensureAuthToken, setCurrentUser } = useCurrentUser()
+
+const target = ref("")
+const isLoading = ref(false)
+const errorMessage = ref<string | null>(null)
+
+function canMove(): boolean {
+  return target.value.length > 0
+}
+
+async function submit() {
+  if (currentUser.value === null) {
+    return
+  }
+  let user
+  isLoading.value = true
+  try {
+    user = await moveFollowers(
+      ensureAuthToken(),
+      target.value.replace(/^@/, ""),
+    )
+  } catch (error: any) {
+    isLoading.value = false
+    errorMessage.value = error.message
+    return
+  }
+  isLoading.value = false
+  errorMessage.value = null
+  setCurrentUser(user)
+  router.push(getActorLocation("profile", user))
+}
+</script>
+
+<style scoped lang="scss">
+@import "../styles/layout";
+@import "../styles/mixins";
+@import "../styles/theme";
+
+form {
+  @include content-form;
+}
+</style>
