@@ -2,6 +2,7 @@
   <sidebar-layout>
     <template #content>
       <h1>Identities</h1>
+      <section>If you want to move from another account to this one, here you can create an alias, which is required before you can proceed with moving followers from the old account to this one.</section>
       <section v-if="aliases.declared_all.length > 0">
         <h2>Declared aliases</h2>
         <div class="profile-group" v-for="alias in aliases.declared_all" :key="alias.id">
