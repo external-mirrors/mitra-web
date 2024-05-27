@@ -305,7 +305,7 @@
             No posts found
           </div>
           <post-list
-            ref="postListRef"
+            ref="postListElement"
             :posts="posts"
             @load-next-page="loadNextPage"
           ></post-list>
@@ -412,7 +412,7 @@ const { getActorHandle, getActorLocation } = useActorHandle()
 const { getBlockchainInfo } = useInstanceInfo()
 const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
 
-const postListRef = $ref<InstanceType<typeof PostList> | null>(null)
+const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 
 let profile = $ref<ProfileWrapper | null>(null)
 let relationship = $ref<Relationship | null>(null)
@@ -473,8 +473,8 @@ async function switchTab(name: string) {
   }
   isLoading = true
   tabName = name
-  if (postListRef !== null) {
-    postListRef.resetPagination()
+  if (postListElement.value !== null) {
+    postListElement.value.resetPagination()
   }
   if (tabName === "posts") {
     posts = await getProfileTimeline(

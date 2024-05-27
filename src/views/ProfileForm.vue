@@ -11,7 +11,7 @@
           <label for="bio">Bio</label>
           <textarea
             id="bio"
-            ref="bioInputRef"
+            ref="bioInputElement"
             :value="form.note || ''"
             @input="onBioUpdate($event)"
           ></textarea>
@@ -24,7 +24,7 @@
               <input
                 type="file"
                 id="avatar"
-                ref="avatarInputRef"
+                ref="avatarInputElement"
                 :accept="getAcceptedMediaTypes()"
                 @change="onFilePicked('avatar', $event)"
               >
@@ -40,13 +40,12 @@
               <input
                 type="file"
                 id="banner"
-                ref="bannerInputRef"
+                ref="bannerInputElement"
                 :accept="getAcceptedMediaTypes()"
                 @change="onFilePicked('header', $event)"
               >
               <button
                 v-if="images.header !== null"
-                ref="headerInputRef"
                 @click.prevent="onFileRemoved('header')"
               >
                 Remove
@@ -201,13 +200,13 @@ const images = $ref({
   header: profile.header,
 })
 
-const bioInputRef = $ref<HTMLTextAreaElement | null>(null)
-const avatarInputRef = ref<HTMLInputElement | null>(null)
-const bannerInputRef = ref<HTMLInputElement | null>(null)
+const bioInputElement = ref<HTMLTextAreaElement | null>(null)
+const avatarInputElement = ref<HTMLInputElement | null>(null)
+const bannerInputElement = ref<HTMLInputElement | null>(null)
 
 onMounted(() => {
-  if (bioInputRef) {
-    setupAutoResize(bioInputRef)
+  if (bioInputElement.value !== null) {
+    setupAutoResize(bioInputElement.value)
   }
 })
 
@@ -249,11 +248,11 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
 
 function onFileRemoved(fieldName: "avatar" | "header") {
   // Clear inputs
-  if (fieldName === "avatar" && avatarInputRef.value !== null) {
-    avatarInputRef.value.value = ""
+  if (fieldName === "avatar" && avatarInputElement.value !== null) {
+    avatarInputElement.value.value = ""
   }
-  if (fieldName === "header" && bannerInputRef.value !== null) {
-    bannerInputRef.value.value = ""
+  if (fieldName === "header" && bannerInputElement.value !== null) {
+    bannerInputElement.value.value = ""
   }
   // Remove preview
   images[fieldName] = null

@@ -1,10 +1,10 @@
 <template>
-  <div class="post-content" ref="postContentRef" v-html="getContent()"></div>
+  <div class="post-content" ref="postContentElement" v-html="getContent()"></div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
+import { $ } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import { replaceShortcodes } from "@/api/emojis"
@@ -21,7 +21,7 @@ const props = defineProps<{
   post: Post,
 }>()
 
-const postContentRef = $ref<HTMLElement | null>(null)
+const postContentElement = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   if (currentUser !== null) {
@@ -30,10 +30,10 @@ onMounted(() => {
 })
 
 function configureInlineLinks() {
-  if (postContentRef === null) {
+  if (postContentElement.value === null) {
     return
   }
-  const mentions = postContentRef.getElementsByClassName("mention")
+  const mentions = postContentElement.value.getElementsByClassName("mention")
   for (const mentionElement of Array.from(mentions)) {
     if (!(mentionElement instanceof HTMLElement)) {
       continue
@@ -48,7 +48,7 @@ function configureInlineLinks() {
       mentionElement.dataset.internalLink = "true"
     }
   }
-  const hashtags = postContentRef.querySelectorAll('.hashtag, [rel~="tag"]')
+  const hashtags = postContentElement.value.querySelectorAll('.hashtag, [rel~="tag"]')
   for (const hashtagElement of Array.from(hashtags)) {
     if (!(hashtagElement instanceof HTMLElement)) {
       continue
@@ -67,7 +67,7 @@ function configureInlineLinks() {
     }
   }
   for (const linkedPost of props.post.links) {
-    const links = postContentRef.querySelectorAll("a")
+    const links = postContentElement.value.querySelectorAll("a")
     for (const linkElement of Array.from(links)) {
       if (linkedPost.uri === linkElement.getAttribute("href")) {
         linkElement.addEventListener("click", (event: Event) => {

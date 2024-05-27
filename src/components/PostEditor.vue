@@ -59,7 +59,7 @@
           <loader v-else></loader>
           <input
             type="file"
-            ref="attachmentUploadInput"
+            ref="attachmentUploaderElement"
             :accept="getAcceptedMediaTypes()"
             style="display: none;"
             @change="onAttachmentUpload($event)"
@@ -238,7 +238,7 @@ const emit = defineEmits<{
 }>()
 
 const contentInputElement = ref<HTMLTextAreaElement | null>(null)
-const attachmentUploadInput = ref<HTMLInputElement | null>(null)
+const attachmentUploaderElement = ref<HTMLInputElement | null>(null)
 
 const content = ref(loadLocalDraft())
 let attachments = $ref<Attachment[]>([])
@@ -400,8 +400,8 @@ function getAcceptedMediaTypes(): string {
 }
 
 function selectAttachment() {
-  if (attachmentUploadInput.value) {
-    attachmentUploadInput.value.click()
+  if (attachmentUploaderElement.value) {
+    attachmentUploaderElement.value.click()
   }
 }
 
