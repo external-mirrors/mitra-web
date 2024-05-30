@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Hide signature field in Monero login form if address field is empty.
 
+### Fixed
+
+- Fixed missing description in emoji reaction notification.
+
 ## [2.20.0] - 2024-05-28
 
 ### Added

@@ -37,7 +37,7 @@
           <span v-else-if="notification.type === 'follow_request'">sent a follow request</span>
           <span v-else-if="notification.type === 'reply'">replied to your post</span>
           <span v-else-if="notification.type === 'favourite'">liked your post</span>
-          <span v-else-if="notification.type === 'emoji_reaction'">reacted to your post</span>
+          <span v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'">reacted to your post</span>
           <span v-else-if="notification.type === 'mention'">mentioned you</span>
           <span v-else-if="notification.type === 'reblog'">reposted your post</span>
           <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
