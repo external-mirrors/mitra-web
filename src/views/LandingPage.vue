@@ -93,7 +93,7 @@
               Sign this message using your Monero wallet.
             </div>
           </div>
-          <div v-if="loginType === 'caip122_monero'">
+          <div v-if="loginType === 'caip122_monero' && moneroAddress">
             <input
               id="monero-signature"
               type="password"
