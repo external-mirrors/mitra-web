@@ -83,14 +83,6 @@
                     Link minisign key
                   </router-link>
                 </li>
-                <li v-if="canVerifyEthereumAddress()">
-                  <button
-                    title="Send signed update"
-                    @click="hideProfileMenu(); onSignActivity()"
-                  >
-                    Send signed update
-                  </button>
-                </li>
                 <li v-if="canViewSubscriber()">
                   <router-link
                     :to="{ name: 'subscriber', params: { profileId: profile.id } }"
@@ -392,7 +384,6 @@ import UniversalLink from "@/components/UniversalLink.vue"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
-import { useSignedActivity } from "@/composables/signed-activity"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
@@ -789,14 +780,6 @@ async function onVerifyEthereumAddress() {
   if (user) {
     profile.identity_proofs = user.identity_proofs
   }
-}
-
-async function onSignActivity() {
-  if (!profile || !isCurrentUser()) {
-    return
-  }
-  const { signUpdateActivity } = useSignedActivity()
-  await signUpdateActivity()
 }
 
 function isSubscriptionsFeatureEnabled(): boolean {

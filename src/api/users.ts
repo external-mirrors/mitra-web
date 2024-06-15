@@ -272,38 +272,6 @@ export async function updateProfile(
   return data
 }
 
-interface UnsignedActivity {
-  value: { [key: string]: any },
-}
-
-export async function getUnsignedUpdate(
-  authToken: string,
-): Promise<UnsignedActivity> {
-  const url = `${BACKEND_URL}/api/v1/accounts/signed_update`
-  const response = await http(url, { authToken })
-  const data = await handleResponse(response)
-  return data
-}
-
-export async function sendSignedActivity(
-  authToken: string,
-  activityValue: { [key: string]: any },
-  signer: string,
-  signatureHex: string,
-): Promise<void> {
-  const url = `${BACKEND_URL}/api/v1/accounts/send_activity`
-  const response = await http(url, {
-    method: "POST",
-    json: {
-      value: activityValue,
-      signer: signer,
-      signature: signatureHex,
-    },
-    authToken,
-  })
-  await handleResponse(response)
-}
-
 export interface IdentityClaim {
   did: string,
   claim: string,
