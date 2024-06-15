@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added zoom-in effect to images in custom emoji notifications.
+
 ### Changed
 
 - Display error message if attachment upload fails with code `413 Request Entity Too Large`.

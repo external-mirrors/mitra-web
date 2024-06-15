@@ -290,6 +290,7 @@
   }
 }
 
+// Doesn't work properly inside elements with overflow:hidden
 @mixin emoji-zoom {
   display: inline-block;
   position: relative;

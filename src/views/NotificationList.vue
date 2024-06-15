@@ -196,6 +196,10 @@ async function loadNextPage() {
     margin-right: calc($icon-size / 2);
     text-align: center;
     width: $icon-size;
+
+    :deep(.emoji) {
+      @include emoji-zoom;
+    }
   }
 }
 
