@@ -240,7 +240,7 @@ const emit = defineEmits<{
 const contentInputElement = ref<HTMLTextAreaElement | null>(null)
 const attachmentUploaderElement = ref<HTMLInputElement | null>(null)
 
-const content = ref(loadLocalDraft())
+const content = ref("")
 let attachments = $ref<Attachment[]>([])
 let visibility = $ref(Visibility.Public)
 let isSensitive = $ref(false)
@@ -260,10 +260,14 @@ const isEditorEmbedded = computed(() => {
 })
 
 if (props.post) {
+  // Editing post
   content.value = props.post.contentSource || ""
   attachments = [...props.post.media_attachments]
   visibility = props.post.visibility
   isSensitive = props.post.sensitive
+} else {
+  // Writing new post
+  content.value = loadLocalDraft()
 }
 
 if (props.inReplyTo && content.value.length === 0) {
@@ -364,8 +368,10 @@ async function autocompleteMention(profile: Profile) {
 
 function onContentInput(event: Event) {
   content.value = (event.target as HTMLTextAreaElement).value
-  saveLocalDraft()
   suggestMentionsDebounced()
+  if (props.post === null) {
+    saveLocalDraft()
+  }
 }
 
 async function onPaste(event: ClipboardEvent) {
@@ -561,11 +567,13 @@ async function publish() {
   // Refresh editor
   errorMessage = null
   isLoading = false
-  removeLocalDraft()
   content.value = ""
   isSensitive = false
   attachments = []
   preview = null
+  if (props.post === null) {
+    removeLocalDraft()
+  }
   if (contentInputElement.value) {
     await nextTick()
     resizeTextArea(contentInputElement.value)
