@@ -179,32 +179,10 @@ function getContent(): string {
   }
 
   :deep(.emoji) {
-    display: inline-block;
+    @include emoji-zoom;
+
     height: $emoji-size;
-    position: relative;
-    vertical-align: text-bottom;
     width: $emoji-size;
-
-    img {
-      height: inherit;
-      left: 0;
-      max-width: none;
-      object-fit: contain;
-      position: absolute;
-      top: 0;
-      width: inherit;
-      z-index: 0;
-
-      &:hover {
-        height: $emoji-size * 2;
-        left: -50%;
-        top: -50%;
-        transition: 100ms linear;
-        transition-delay: 0.5s;
-        width: $emoji-size * 2;
-        z-index: 1;
-      }
-    }
   }
 }
 </style>
