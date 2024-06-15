@@ -84,9 +84,11 @@ export async function handleResponse(
     if (response.headers.get("Content-Type") === "application/json") {
       const data = await response.json()
       errorDescription = data.error_description
+    } else if (response.status === 413) {
+      errorDescription = "request body is too large"
     } else {
       // Unexpected response
-      errorDescription = response.statusText
+      errorDescription = response.statusText || "unknown error"
     }
     throw new Error(errorDescription)
   }
