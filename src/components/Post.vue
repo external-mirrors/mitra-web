@@ -485,7 +485,11 @@ function onReplyCreated(post: Post) {
 }
 
 function canRepostWithComment(): boolean {
-  return props.inThread && canReply()
+  return (
+    props.inThread &&
+    props.post.visibility === Visibility.Public &&
+    canReply()
+  )
 }
 
 async function onRepostWithComment() {
