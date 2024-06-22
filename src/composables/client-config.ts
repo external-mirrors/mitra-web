@@ -6,6 +6,7 @@ import { useCurrentUser } from "@/composables/user"
 import { APP_NAME } from "@/constants"
 
 export enum ConfigKey {
+  Locale = "locale",
   Theme = "theme",
   ContentWarningsEnabled = "contentWarningsEnabled",
   CtrlEnterEnabled = "ctrlEnterEnabled",

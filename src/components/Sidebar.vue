@@ -5,11 +5,11 @@
         <icon-bell></icon-bell>
         <div v-if="unreadNotificationCount > 0" class="icon-badge">{{ unreadNotificationCount }}</div>
       </div>
-      <span>Notifications</span>
+      <span>{{ $t('sidebar.notifications') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/local">
       <div class="icon"><icon-server></icon-server></div>
-      <span>Local</span>
+      <span>{{ $t('sidebar.local') }}</span>
     </router-link>
     <router-link
       v-if="canViewFederatedTimeline()"
@@ -17,11 +17,11 @@
       :to="{ name: 'known-network' }"
     >
       <div class="icon"><icon-globe></icon-globe></div>
-      <span>Federated</span>
+      <span>{{ $t('sidebar.federated') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><icon-users></icon-users></div>
-      <span>Profile directory</span>
+      <span>{{ $t('sidebar.profileDirectory') }}</span>
     </router-link>
     <router-link
       v-if="canManageSubscriptions()"
@@ -29,19 +29,19 @@
       :to="{ name: 'subscriptions-settings' }"
     >
       <div class="icon"><icon-payment></icon-payment></div>
-      <span>Subscriptions</span>
+      <span>{{ $t('sidebar.subscriptions') }}</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
       <div class="icon"><icon-settings></icon-settings></div>
-      <span>Settings</span>
+      <span>{{ $t('sidebar.settings') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/about">
       <div class="icon"><icon-help></icon-help></div>
-      <span>About</span>
+      <span>{{ $t('sidebar.about') }}</span>
     </router-link>
     <a class="sidebar-link" @click="logout()">
       <div class="icon"><icon-logout></icon-logout></div>
-      <span>Logout</span>
+      <span>{{ $t('sidebar.logout') }}</span>
     </a>
   </div>
 </template>

@@ -1,0 +1,12 @@
+{
+  "sidebar": {
+    "notifications": "Notifications",
+    "local": "Local",
+    "federated": "Federated",
+    "profileDirectory": "Profile directory",
+    "subscriptions": "Subscriptions",
+    "settings": "Settings",
+    "about": "About",
+    "logout": "Logout"
+  }
+}

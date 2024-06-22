@@ -125,6 +125,21 @@
             <router-link class="btn" :to="{ name: 'move-followers' }">
               Move followers
             </router-link>
+            <form>
+              <label for="locale">Language:</label>
+              <select
+                id="locale"
+                :value="locale"
+                @change="onChangeLocale"
+                :disabled="isLoading"
+              >
+                <option
+                  v-for="(localeName, code) in SUPPORTED_LOCALES"
+                  :key="code"
+                  :value="code"
+                >{{ localeName }}</option>
+              </select>
+            </form>
           </div>
         </details>
       </section>
@@ -134,6 +149,7 @@
 
 <script setup lang="ts">
 import { $ref } from "vue/macros"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import {
@@ -144,9 +160,11 @@ import {
 } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
+import { useLocales, SUPPORTED_LOCALES } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
+const { locale } = useI18n({ useScope: "global" })
 const router = useRouter()
 const {
   contentWarningsEnabled,
@@ -159,6 +177,7 @@ const {
   ensureAuthToken,
   setCurrentUser,
 } = useCurrentUser()
+const { changePreferredLocale } = useLocales()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
 let newPassword = $ref("")
 let newPasswordConfirmation = $ref("")
@@ -219,6 +238,13 @@ async function onExportFollows() {
 async function onExportFollowers() {
   const authToken = ensureAuthToken()
   await exportFollowers(authToken)
+}
+
+async function onChangeLocale(event: Event) {
+  isLoading = true
+  const newLocale = (event.target as HTMLInputElement).value
+  await changePreferredLocale(newLocale)
+  isLoading = false
 }
 </script>
 
