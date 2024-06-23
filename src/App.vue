@@ -4,20 +4,21 @@
 
 <script setup lang="ts">
 import { watch } from "vue"
-import { $, $$ } from "vue/macros"
 import { useRoute } from "vue-router"
 
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
-const { currentUser } = $(useCurrentUser())
+const { currentUser } = useCurrentUser()
 const { loadInstanceInfo } = useInstanceInfo()
 
 loadInstanceInfo()
 
-watch($$(currentUser), () => {
-  const title = currentUser ? `@${currentUser.username}` : "Federated social network"
+watch(currentUser, () => {
+  const title = currentUser.value
+    ? `@${currentUser.value.username}`
+    : "Federated social network"
   document.title = `Mitra | ${title}`
 }, { immediate: true })
 </script>
