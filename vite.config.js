@@ -1,8 +1,11 @@
 import dns from "dns"
 import * as path from "path"
+import { fileURLToPath } from "url"
+
 import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
 import { injectHtml } from "vite-plugin-html"
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 
 import svgLoader from "./src/svg-loader.ts"
 
@@ -25,6 +28,11 @@ export default ({ mode }) => {
         },
       }),
       svgLoader(),
+      // Optimize build, prevent unsafe-eval
+      // https://vue-i18n.intlify.dev/guide/advanced/optimization#how-to-configure
+      VueI18nPlugin({
+        include: path.resolve(path.dirname(fileURLToPath(import.meta.url)), "@/src/locales/**"),
+      }),
     ],
     resolve: {
       alias: {
