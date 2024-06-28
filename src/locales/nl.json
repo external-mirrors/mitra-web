@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "home": "Startpagina",
+        "search": "Zoeken…",
+        "notifications": "Meldingen",
+        "local": "Lokaal",
+        "federated": "Gedecentraliseerd",
+        "profile_directory": "Profielmap",
+        "subscriptions": "Abonnementen",
+        "settings": "Instellingen",
+        "about": "Over",
+        "logout": "Uitloggen"
+    },
+    "editor": {
+        "prompt": "Wat gaat er door je hoofd?",
+        "prompt_reply": "Mijn antwoord",
+        "prompt_repost": "Mijn reactie",
+        "publish": "Plaatsen",
+        "update": "Bijwerken",
+        "cancel": "Annuleren",
+        "repost": "Herplaatsen"
+    }
+}
