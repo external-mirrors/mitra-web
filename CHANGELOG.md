@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Prepare strings for translation.
 
+### Fixed
+
+- Use ellipsis character in search box.
+
 ## [2.23.0] - 2024-06-23
 
 ### Added
