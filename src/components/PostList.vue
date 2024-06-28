@@ -16,8 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue"
-import { $ref } from "vue/macros"
+import { ref, watch } from "vue"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Post as PostObject } from "@/api/posts"
@@ -34,13 +33,13 @@ const emit = defineEmits<{
 defineExpose({ resetPagination })
 
 let initialPostCount: number | null = null
-let isNextPageLoading = $ref(false)
+const isNextPageLoading = ref(false)
 
 watch(() => props.posts, (posts) => {
   if (initialPostCount === null) {
     initialPostCount = posts.length
   }
-  isNextPageLoading = false
+  isNextPageLoading.value = false
 })
 
 function onPostDeleted(postId: string) {
@@ -60,7 +59,7 @@ function resetPagination() {
 function loadNextPage() {
   if (props.posts.length > 0) {
     const maxId = props.posts[props.posts.length - 1].id
-    isNextPageLoading = true
+    isNextPageLoading.value = true
     emit("load-next-page", maxId)
   }
 }

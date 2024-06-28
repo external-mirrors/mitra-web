@@ -7,11 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { $ } from "vue/macros"
-
 import { useInstanceInfo } from "@/composables/instance"
 
-const { instance } = $(useInstanceInfo())
+const { instance } = useInstanceInfo()
 </script>
 
 <style scoped lang="scss">

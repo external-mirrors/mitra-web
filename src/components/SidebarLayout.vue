@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue"
-import { $ } from "vue/macros"
 import { useRoute, useRouter } from "vue-router"
 
 import IconHome from "@/assets/feather/home.svg?component"
@@ -52,8 +51,8 @@ import { useCurrentUser } from "@/composables/user"
 const route = useRoute()
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { loadNotifications } = $(useNotifications())
+const { currentUser, ensureAuthToken } = useCurrentUser()
+const { loadNotifications } = useNotifications()
 const { loadTheme } = useTheme()
 
 const emit = defineEmits<{(event: "reload-home"): void}>()

@@ -47,8 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $, $computed } from "vue/macros"
+import { computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 
 import { revokeAccessToken, Permissions } from "@/api/users"
@@ -71,9 +70,9 @@ const {
   endSession,
   ensureAuthToken,
   isAdmin,
-} = $(useCurrentUser())
+} = useCurrentUser()
 const { getBlockchainInfo, instance } = useInstanceInfo()
-const { loadNotifications, getUnreadNotificationCount } = $(useNotifications())
+const { loadNotifications, getUnreadNotificationCount } = useNotifications()
 
 onMounted(async () => {
   if (isUserAuthenticated() && route.name !== "notifications") {
@@ -82,10 +81,10 @@ onMounted(async () => {
 })
 
 function isUserAuthenticated(): boolean {
-  return currentUser !== null
+  return currentUser.value !== null
 }
 
-const unreadNotificationCount = $computed<number>(() => {
+const unreadNotificationCount = computed<number>(() => {
   return getUnreadNotificationCount()
 })
 
@@ -99,8 +98,8 @@ function canManageSubscriptions(): boolean {
   const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
   return (
     isSubscriptionsFeatureEnabled &&
-    currentUser !== null &&
-    currentUser.role.permissions.includes(Permissions.ManageSubscriptionOptions)
+    currentUser.value !== null &&
+    currentUser.value.role.permissions.includes(Permissions.ManageSubscriptionOptions)
   )
 }
 

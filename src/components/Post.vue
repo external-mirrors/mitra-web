@@ -331,8 +331,7 @@
 
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
-import { ref } from "vue"
-import { $, $computed, $ref } from "vue/macros"
+import { computed, ref } from "vue"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
 import {
@@ -396,8 +395,8 @@ interface PaymentOption {
 
 const router = useRouter()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
-const { instance } = $(useInstanceInfo())
+const { currentUser, ensureAuthToken } = useCurrentUser()
+const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
 
 const props = defineProps<{
@@ -419,13 +418,13 @@ const repostFormVisible = ref(false)
 const editorVisible = ref(false)
 const isProcessingRepost = ref(false)
 const isProcessingLike = ref(false)
-let menuVisible = $ref(false)
-let selectedPaymentOption = $ref<PaymentOption | null>(null)
+const menuVisible = ref(false)
+const selectedPaymentOption = ref<PaymentOption | null>(null)
 
-const author = $computed(() => new ProfileWrapper(props.post.account))
+const author = computed(() => new ProfileWrapper(props.post.account))
 
 function getProfileLocation(profile: Mention | Profile): string | RouteLocationRaw {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     // Viewing as guest
     return profile.url
   }
@@ -433,7 +432,7 @@ function getProfileLocation(profile: Mention | Profile): string | RouteLocationR
 }
 
 function getPostLocation(post: Post): string | RouteLocationRaw {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     // Viewing as guest
     return post.uri
   }
@@ -468,10 +467,10 @@ function getReplyMentions(): Mention[] {
 }
 
 function canReply(): boolean {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     return false
   }
-  return currentUser.role.permissions.includes(Permissions.CreatePost)
+  return currentUser.value.role.permissions.includes(Permissions.CreatePost)
 }
 
 function toggleReplyForm() {
@@ -503,17 +502,17 @@ function onRepostCreated() {
 }
 
 function canRepost(): boolean {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     return false
   }
   return (
     props.post.visibility === "public" &&
-    currentUser.role.permissions.includes(Permissions.CreatePost)
+    currentUser.value.role.permissions.includes(Permissions.CreatePost)
   )
 }
 
 async function toggleRepost() {
-  if (!currentUser) {
+  if (currentUser.value === null) {
     return
   }
   const authToken = ensureAuthToken()
@@ -536,11 +535,11 @@ async function toggleRepost() {
 }
 
 function canLike(): boolean {
-  return currentUser !== null
+  return currentUser.value !== null
 }
 
 async function toggleLike() {
-  if (!currentUser) {
+  if (currentUser.value === null) {
     return
   }
   const authToken = ensureAuthToken()
@@ -563,11 +562,11 @@ async function toggleLike() {
 }
 
 function toggleMenu() {
-  menuVisible = !menuVisible
+  menuVisible.value = !menuVisible.value
 }
 
 function hideMenu() {
-  menuVisible = false
+  menuVisible.value = false
 }
 
 function copyPostUri(): void {
@@ -576,7 +575,7 @@ function copyPostUri(): void {
 
 function canPin(): boolean {
   return (
-    props.post.account.id === currentUser?.id &&
+    props.post.account.id === currentUser.value?.id &&
     props.post.visibility === Visibility.Public &&
     !props.post.pinned
   )
@@ -590,7 +589,7 @@ async function onPin() {
 
 function canUnpin(): boolean {
   return (
-    props.post.account.id === currentUser?.id &&
+    props.post.account.id === currentUser.value?.id &&
     props.post.visibility === Visibility.Public &&
     props.post.pinned
   )
@@ -603,7 +602,7 @@ async function onUnpin() {
 }
 
 function getIpfsUrl(): string | null {
-  const gatewayUrl = instance?.ipfs_gateway_url
+  const gatewayUrl = instance.value?.ipfs_gateway_url
   if (
     !gatewayUrl ||
     props.post.ipfs_cid === null
@@ -615,15 +614,15 @@ function getIpfsUrl(): string | null {
 
 function canSaveToIpfs(): boolean {
   return (
-    Boolean(instance?.ipfs_gateway_url) &&
-    props.post.account.id === currentUser?.id &&
+    Boolean(instance.value?.ipfs_gateway_url) &&
+    props.post.account.id === currentUser.value?.id &&
     props.post.visibility === "public" &&
     props.post.ipfs_cid === null
   )
 }
 
 async function saveToIpfs() {
-  if (!currentUser || !instance || !instance.ipfs_gateway_url) {
+  if (!currentUser.value || !instance.value || !instance.value.ipfs_gateway_url) {
     return
   }
   const authToken = ensureAuthToken()
@@ -632,7 +631,7 @@ async function saveToIpfs() {
 }
 
 function canEditPost(): boolean {
-  return props.post.account.id === currentUser?.id
+  return props.post.account.id === currentUser.value?.id
 }
 
 async function onEditPost() {
@@ -648,7 +647,7 @@ function onPostUpdated(updatedPost: Post) {
 }
 
 function canDeletePost(): boolean {
-  return props.post.account.id === currentUser?.id
+  return props.post.account.id === currentUser.value?.id
 }
 
 async function onDeletePost() {
@@ -661,7 +660,7 @@ async function onDeletePost() {
 
 function canMute(): boolean {
   return (
-    props.post.account.id !== currentUser?.id &&
+    props.post.account.id !== currentUser.value?.id &&
     // Don't show menu item if post.relationship property is not set
     !!props.post.relationship &&
     !props.post.relationship.muting
@@ -675,7 +674,7 @@ async function onMute() {
 
 function canUnmute(): boolean {
   return (
-    props.post.account.id !== currentUser?.id &&
+    props.post.account.id !== currentUser.value?.id &&
     // Don't show menu item if post.relationship property is not set
     !!props.post.relationship &&
     props.post.relationship.muting
@@ -732,7 +731,9 @@ function getPaymentOptions(): PaymentOption[] {
 }
 
 function togglePaymentAddress(option: PaymentOption) {
-  selectedPaymentOption = selectedPaymentOption?.code === option.code ? null : option
+  selectedPaymentOption.value = option.code === selectedPaymentOption.value?.code
+    ? null
+    : option
 }
 </script>
 

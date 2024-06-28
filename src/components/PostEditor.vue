@@ -38,9 +38,9 @@
         :post="preview"
         @click.prevent=""
       ></post-content>
-      <div v-if="attachments.length > 0" class="attachments">
+      <div v-if="attachmentList.length > 0" class="attachments">
         <post-editor-attachment
-          v-for="(attachment, index) in attachments"
+          v-for="(attachment, index) in attachmentList"
           :attachment="attachment"
           :key="attachment.id"
           @attachment-updated="onAttachmentUpdated(index, $event)"
@@ -182,7 +182,6 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-setup-props-destructure */
 import { computed, nextTick, onMounted, ref } from "vue"
-import { $ref } from "vue/macros"
 
 import { getEmojiShortcode } from "@/api/emojis"
 import {
@@ -241,18 +240,18 @@ const contentInputElement = ref<HTMLTextAreaElement | null>(null)
 const attachmentUploaderElement = ref<HTMLInputElement | null>(null)
 
 const content = ref("")
-let attachments = $ref<Attachment[]>([])
-let visibility = $ref(Visibility.Public)
-let isSensitive = $ref(false)
+const attachmentList = ref<Attachment[]>([])
+const visibility = ref(Visibility.Public)
+const isSensitive = ref(false)
 
 const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
-let visibilityMenuVisible = $ref(false)
+const visibilityMenuVisible = ref(false)
 const emojiPickerVisible = ref(false)
-let preview = $ref<Post | null>(null)
-let isLoading = $ref(false)
-let isAttachmentLoading = $ref(false)
-let errorMessage = $ref<string | null>(null)
+const preview = ref<Post | null>(null)
+const isLoading = ref(false)
+const isAttachmentLoading = ref(false)
+const errorMessage = ref<string | null>(null)
 
 const author = computed<User | null>(() => currentUser.value)
 const isEditorEmbedded = computed(() => {
@@ -262,9 +261,9 @@ const isEditorEmbedded = computed(() => {
 if (props.post) {
   // Editing post
   content.value = props.post.contentSource || ""
-  attachments = [...props.post.media_attachments]
-  visibility = props.post.visibility
-  isSensitive = props.post.sensitive
+  attachmentList.value = [...props.post.media_attachments]
+  visibility.value = props.post.visibility
+  isSensitive.value = props.post.sensitive
 } else {
   // Writing new post
   content.value = loadLocalDraft()
@@ -286,7 +285,7 @@ if (props.inReplyTo && content.value.length === 0) {
 }
 
 if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
-  visibility = Visibility.Direct
+  visibility.value = Visibility.Direct
 }
 
 onMounted(() => {
@@ -388,8 +387,8 @@ function canAttachFile(): boolean {
     return false
   }
   return (
-    attachments.length < instance.value.configuration.statuses.max_media_attachments &&
-    !isAttachmentLoading
+    attachmentList.value.length < instance.value.configuration.statuses.max_media_attachments &&
+    !isAttachmentLoading.value
   )
 }
 
@@ -420,7 +419,7 @@ async function onAttachmentUpload(event: Event) {
 }
 
 async function addAttachment(file: File) {
-  isAttachmentLoading = true
+  isAttachmentLoading.value = true
   const imageDataUrl = await fileToDataUrl(file)
   const imageData = dataUrlToBase64(imageDataUrl)
   let attachment
@@ -431,20 +430,20 @@ async function addAttachment(file: File) {
       imageData.mediaType,
     )
   } catch (error: any) {
-    isAttachmentLoading = false
+    isAttachmentLoading.value = false
     alert(error.message)
     return
   }
-  attachments.push(attachment)
-  isAttachmentLoading = false
+  attachmentList.value.push(attachment)
+  isAttachmentLoading.value = false
 }
 
 function onAttachmentUpdated(index: number, attachment: Attachment) {
-  Object.assign(attachments[index], attachment)
+  Object.assign(attachmentList.value[index], attachment)
 }
 
 function onAttachmentRemoved(index: number) {
-  attachments.splice(index, 1)
+  attachmentList.value.splice(index, 1)
 }
 
 function canChangeVisibility(): boolean {
@@ -457,11 +456,11 @@ function canChangeVisibility(): boolean {
 }
 
 function toggleVisibilityMenu() {
-  visibilityMenuVisible = !visibilityMenuVisible
+  visibilityMenuVisible.value = !visibilityMenuVisible.value
 }
 
 function hideVisibilityMenu() {
-  visibilityMenuVisible = false
+  visibilityMenuVisible.value = false
 }
 
 function toggleEmojiPicker() {
@@ -502,10 +501,10 @@ function canPreview(): boolean {
 }
 
 async function togglePreview() {
-  if (preview === null) {
-    preview = await previewPost(ensureAuthToken(), content.value)
+  if (preview.value === null) {
+    preview.value = await previewPost(ensureAuthToken(), content.value)
   } else {
-    preview = null
+    preview.value = null
   }
 }
 
@@ -514,7 +513,7 @@ function cancel() {
 }
 
 function canPublish(): boolean {
-  return getCharacterCount() >= 0 && !isLoading && !isAttachmentLoading
+  return getCharacterCount() >= 0 && !isLoading.value && !isAttachmentLoading.value
 }
 
 function getObjectLink(post: Post): string {
@@ -530,15 +529,15 @@ async function publish() {
   const postData = {
     content: content.value,
     inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
-    visibility: visibility,
-    isSensitive: isSensitive,
-    attachments: attachments,
+    visibility: visibility.value,
+    isSensitive: isSensitive.value,
+    attachments: attachmentList.value,
   }
   if (props.repostOf) {
     // Append object link markup
     postData.content = postData.content + getObjectLink(props.repostOf)
   }
-  isLoading = true
+  isLoading.value = true
   let post
   try {
     if (props.post !== null) {
@@ -546,8 +545,8 @@ async function publish() {
         ensureAuthToken(),
         props.post.id,
         content.value,
-        attachments,
-        isSensitive,
+        attachmentList.value,
+        isSensitive.value,
       )
     } else {
       post = await createPost(
@@ -556,21 +555,21 @@ async function publish() {
       )
     }
   } catch (error: any) {
-    errorMessage = error.message
-    isLoading = false
+    errorMessage.value = error.message
+    isLoading.value = false
     if (isEditorEmbedded.value === true) {
       // Show alert if there's no errorbox
-      alert(errorMessage)
+      alert(error.message)
     }
     return
   }
   // Refresh editor
-  errorMessage = null
-  isLoading = false
+  errorMessage.value = null
+  isLoading.value = false
   content.value = ""
-  isSensitive = false
-  attachments = []
-  preview = null
+  isSensitive.value = false
+  attachmentList.value = []
+  preview.value = null
   if (props.post === null) {
     removeLocalDraft()
   }

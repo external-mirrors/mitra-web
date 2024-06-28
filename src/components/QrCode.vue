@@ -8,18 +8,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import QRCode from "qrcode"
 
 const props = defineProps<{
   url: string,
 }>()
 
-let qrSvg = $ref<string | null>(null)
+const qrSvg = ref<string | null>(null)
 
 onMounted(async () => {
-  qrSvg = await QRCode.toString(props.url, { type: "svg" })
+  qrSvg.value = await QRCode.toString(props.url, { type: "svg" })
 })
 </script>
 

@@ -11,21 +11,21 @@
 </template>
 
 <script setup lang="ts">
-import { $ref } from "vue/macros"
+import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 import IconDelete from "@/assets/feather/delete.svg?component"
 import IconSearch from "@/assets/feather/search.svg?component"
 
 const router = useRouter()
-let q = $ref("")
+const q = ref("")
 
 function clear() {
-  q = ""
+  q.value = ""
 }
 
 function search() {
-  router.push({ name: "search", query: { q: q } })
+  router.push({ name: "search", query: { q: q.value } })
 }
 </script>
 
