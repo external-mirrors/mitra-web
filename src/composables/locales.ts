@@ -4,7 +4,7 @@ import { useClientConfig, ConfigKey } from "@/composables/client-config"
 
 export const SUPPORTED_LOCALES = {
   en: "English",
-  fr: "Français",
+  nl: "Nederlands",
 }
 
 export function useLocales() {
