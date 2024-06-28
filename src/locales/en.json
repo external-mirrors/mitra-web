@@ -1,12 +1,23 @@
 {
-  "sidebar": {
+  "navigation": {
+    "home": "Home",
+    "search": "Search...",
     "notifications": "Notifications",
     "local": "Local",
     "federated": "Federated",
-    "profileDirectory": "Profile directory",
+    "profile_directory": "Profile directory",
     "subscriptions": "Subscriptions",
     "settings": "Settings",
     "about": "About",
     "logout": "Logout"
+  },
+  "editor": {
+    "prompt": "What's on your mind?",
+    "prompt_reply": "Your reply",
+    "prompt_repost": "Your comment",
+    "publish": "Publish",
+    "update": "Update",
+    "cancel": "Cancel",
+    "repost": "Repost"
   }
 }

@@ -1,6 +1,10 @@
 <template>
   <form class="search" @submit.prevent="search()">
-    <input type="search" placeholder="Search..." v-model="q">
+    <input
+      type="search"
+      :placeholder="$t('navigation.search')"
+      v-model="q"
+    >
     <button v-if="q" type="button" @click="clear()">
       <icon-delete></icon-delete>
     </button>

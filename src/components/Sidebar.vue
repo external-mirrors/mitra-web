@@ -5,11 +5,11 @@
         <icon-bell></icon-bell>
         <div v-if="unreadNotificationCount > 0" class="icon-badge">{{ unreadNotificationCount }}</div>
       </div>
-      <span>{{ $t('sidebar.notifications') }}</span>
+      <span>{{ $t('navigation.notifications') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/local">
       <div class="icon"><icon-server></icon-server></div>
-      <span>{{ $t('sidebar.local') }}</span>
+      <span>{{ $t('navigation.local') }}</span>
     </router-link>
     <router-link
       v-if="canViewFederatedTimeline()"
@@ -17,11 +17,11 @@
       :to="{ name: 'known-network' }"
     >
       <div class="icon"><icon-globe></icon-globe></div>
-      <span>{{ $t('sidebar.federated') }}</span>
+      <span>{{ $t('navigation.federated') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/profile-directory">
       <div class="icon"><icon-users></icon-users></div>
-      <span>{{ $t('sidebar.profileDirectory') }}</span>
+      <span>{{ $t('navigation.profile_directory') }}</span>
     </router-link>
     <router-link
       v-if="canManageSubscriptions()"
@@ -29,19 +29,19 @@
       :to="{ name: 'subscriptions-settings' }"
     >
       <div class="icon"><icon-payment></icon-payment></div>
-      <span>{{ $t('sidebar.subscriptions') }}</span>
+      <span>{{ $t('navigation.subscriptions') }}</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
       <div class="icon"><icon-settings></icon-settings></div>
-      <span>{{ $t('sidebar.settings') }}</span>
+      <span>{{ $t('navigation.settings') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/about">
       <div class="icon"><icon-help></icon-help></div>
-      <span>{{ $t('sidebar.about') }}</span>
+      <span>{{ $t('navigation.about') }}</span>
     </router-link>
     <a class="sidebar-link" @click="logout()">
       <div class="icon"><icon-logout></icon-logout></div>
-      <span>{{ $t('sidebar.logout') }}</span>
+      <span>{{ $t('navigation.logout') }}</span>
     </a>
   </div>
 </template>

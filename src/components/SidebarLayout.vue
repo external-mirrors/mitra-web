@@ -8,7 +8,7 @@
           @click.prevent="showHomeTimeline()"
         >
           <icon-home></icon-home>
-          <span>Home</span>
+          <span>{{ $t('navigation.home') }}</span>
         </router-link>
         <search />
       </div>

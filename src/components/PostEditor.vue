@@ -16,7 +16,7 @@
         @input="onContentInput"
         rows="1"
         required
-        :placeholder="inReplyTo ? 'Your reply' : (repostOf ? 'Your comment' : 'What\'s on your mind?')"
+        :placeholder="inReplyTo ? $t('editor.prompt_reply') : (repostOf ? $t('editor.prompt_repost') : $t('editor.prompt'))"
         @paste="onPaste($event)"
         @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
@@ -143,7 +143,7 @@
           class="icon btn-small"
           @click.prevent="cancel()"
         >
-          Cancel
+          {{ $t('editor.cancel') }}
         </button>
         <button
           type="submit"
@@ -152,8 +152,8 @@
           :disabled="!canPublish()"
           @click.prevent="publish()"
         >
-          <template v-if="repostOf">Repost</template>
-          <template v-else>Publish</template>
+          <template v-if="repostOf">{{ $t('editor.repost') }}</template>
+          <template v-else>{{ $t('editor.publish') }}</template>
         </button>
       </div>
     </div>
@@ -164,7 +164,7 @@
         class="btn secondary"
         @click.prevent="cancel()"
       >
-        Cancel
+        {{ $t('editor.cancel') }}
       </button>
       <button
         class="btn"
@@ -172,8 +172,8 @@
         :disabled="!canPublish()"
         @click.prevent="publish()"
       >
-        <template v-if="post">Update</template>
-        <template v-else>Publish</template>
+        <template v-if="post">{{ $t('editor.update') }}</template>
+        <template v-else>{{ $t('editor.publish') }}</template>
       </button>
     </div>
   </form>
