@@ -472,6 +472,7 @@ async function switchTab(name: string) {
       authToken,
       profile.id,
       true,
+      false, // with reposts
       false,
       false,
     )
@@ -480,6 +481,7 @@ async function switchTab(name: string) {
       authToken,
       profile.id,
       false,
+      true, // without reposts
       false,
       false,
     )
@@ -488,6 +490,7 @@ async function switchTab(name: string) {
       authToken,
       profile.id,
       false,
+      false, // with reposts
       true,
       false,
     )
@@ -864,6 +867,7 @@ async function loadNextPage(maxId: string) {
     authToken,
     profile.id,
     tabName !== "posts-with-replies",
+    tabName === "posts-with-replies",
     tabName === "posts-featured",
     false,
     maxId,

@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added Dutch translation.
 
+### Changed
+
+- Hide reposts from "Posts and Replies" tab.
+
 ### Fixed
 
 - Use ellipsis character in search box.

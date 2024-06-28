@@ -85,6 +85,7 @@ onMounted(async () => {
     authToken.value,
     profile.value.id,
     false,
+    false, // with reposts
     false,
     true,
   )

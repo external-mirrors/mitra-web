@@ -152,6 +152,7 @@ export async function getProfileTimeline(
   authToken: string | null,
   authorId: string,
   excludeReplies: boolean,
+  exclideReposts: boolean,
   onlyPinned: boolean,
   onlyMedia: boolean,
   maxId?: string,
@@ -159,6 +160,7 @@ export async function getProfileTimeline(
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
   const queryParams = {
     exclude_replies: excludeReplies,
+    exclude_reblogs: exclideReposts,
     pinned: onlyPinned,
     only_media: onlyMedia,
     max_id: maxId,
