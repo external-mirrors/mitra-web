@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added Dutch translation.
+- Added Dutch translation ([#22](https://codeberg.org/silverpill/mitra-web/pulls/22)).
 
 ### Changed
 
