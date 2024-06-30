@@ -71,3 +71,7 @@ npm run test
 ```
 npm run lint
 ```
+
+## Localization
+
+Messages are stored in [src/locales](./src/locales) and can be edited using [Weblate](https://translate.codeberg.org/projects/mitra-web/main/).
