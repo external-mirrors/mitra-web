@@ -1,1 +1,7 @@
-{}
+{
+    "navigation": {
+        "search": "Suche.…",
+        "notifications": "Benachrichtigungen",
+        "profile_directory": "Profil Verzeichnis"
+    }
+}
