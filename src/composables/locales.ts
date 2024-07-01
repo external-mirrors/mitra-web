@@ -5,6 +5,7 @@ import { useClientConfig, ConfigKey } from "@/composables/client-config"
 const LANGUAGES = [
   "en",
   "nl",
+  "zh-Hans",
 ]
 
 export const LOCALE_MAP = Object.fromEntries(LANGUAGES.map((code) => {
