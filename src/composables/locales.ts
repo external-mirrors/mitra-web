@@ -2,10 +2,15 @@ import { useI18n } from "vue-i18n"
 
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
 
-export const SUPPORTED_LOCALES = {
-  en: "English",
-  nl: "Nederlands",
-}
+const LANGUAGES = [
+  "en",
+  "nl",
+]
+
+export const LOCALE_MAP = Object.fromEntries(LANGUAGES.map((code) => {
+  const nameGenerator = new Intl.DisplayNames(code, { type: "language" })
+  return [code, nameGenerator.of(code)]
+}))
 
 export function useLocales() {
   const { availableLocales, locale, setLocaleMessage } = useI18n({ useScope: "global" })

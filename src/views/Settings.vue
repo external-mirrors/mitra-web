@@ -134,7 +134,7 @@
                 :disabled="isLoading"
               >
                 <option
-                  v-for="(localeName, code) in SUPPORTED_LOCALES"
+                  v-for="(localeName, code) in LOCALE_MAP"
                   :key="code"
                   :value="code"
                 >{{ localeName }}</option>
@@ -160,7 +160,7 @@ import {
 } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
-import { useLocales, SUPPORTED_LOCALES } from "@/composables/locales"
+import { useLocales, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
