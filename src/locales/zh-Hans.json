@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "local": "本站",
+        "federated": "联合",
+        "profile_directory": "用户列表",
+        "subscriptions": "订阅",
+        "settings": "设置",
+        "about": "关于",
+        "logout": "登出",
+        "home": "主页",
+        "search": "搜索…",
+        "notifications": "通知"
+    },
+    "editor": {
+        "prompt": "在想什么呢？",
+        "prompt_reply": "你的回复",
+        "prompt_repost": "你的评论",
+        "publish": "发布",
+        "update": "更新",
+        "cancel": "取消",
+        "repost": "转发"
+    }
+}
