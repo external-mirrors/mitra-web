@@ -47,7 +47,6 @@ function search() {
 }
 
 input[type="search"] {
-  appearance: none;
   background-color: transparent;
   border: none;
   box-sizing: border-box;

@@ -222,6 +222,11 @@ input[type="checkbox"] {
   margin-right: $input-padding;
 }
 
+input[type="search"] {
+  // Fix background color in webkit browsers
+  appearance: textfield;
+}
+
 textarea {
   resize: vertical;
 }
