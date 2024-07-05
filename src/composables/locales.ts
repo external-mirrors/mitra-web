@@ -5,6 +5,8 @@ import { useClientConfig, ConfigKey } from "@/composables/client-config"
 const LANGUAGES = [
   "de",
   "en",
+  "es",
+  "ja",
   "nl",
   "zh-Hans",
 ]
