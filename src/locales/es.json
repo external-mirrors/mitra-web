@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "logout": "Cerrar sesión",
+        "notifications": "Notificaciones",
+        "local": "Local",
+        "federated": "Federada",
+        "profile_directory": "Directorio de perfiles",
+        "subscriptions": "Suscripciones",
+        "settings": "Ajustes",
+        "about": "Acerca de",
+        "home": "Inicio",
+        "search": "Buscar…"
+    },
+    "editor": {
+        "prompt": "¿Qué estás pensando?",
+        "prompt_reply": "Tu respuesta",
+        "prompt_repost": "Tu comentario",
+        "publish": "Publicar",
+        "update": "Actualizar",
+        "cancel": "Cancelar",
+        "repost": "Repostear"
+    }
+}

@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "search": "検索…",
+        "notifications": "通知",
+        "local": "ローカル",
+        "federated": "連合ネットワーク",
+        "subscriptions": "購読",
+        "settings": "設定",
+        "home": "ホーム",
+        "profile_directory": "ユーザプロフィール帳",
+        "about": "インスタンス紹介",
+        "logout": "ログアウト"
+    },
+    "editor": {
+        "prompt": "何を考えている？",
+        "prompt_reply": "あなたの返事",
+        "prompt_repost": "あなたのコメント",
+        "publish": "投稿",
+        "update": "アップデート",
+        "cancel": "キャンセル",
+        "repost": "リポスト"
+    }
+}
