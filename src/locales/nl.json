@@ -19,5 +19,18 @@
         "update": "Bijwerken",
         "cancel": "Annuleren",
         "repost": "Herplaatsen"
+    },
+    "about": {
+        "administered_by": "Beheerd door",
+        "technical_info": "Technische informatie"
+    },
+    "welcome": {
+        "welcome": "Welkom bij {0}!",
+        "browse_directory": "Door profiel bladeren",
+        "read_only_mode": "Uw account staat in de alleen-lezen modus"
+    },
+    "post": {
+        "replying_to": "antwoordend op",
+        "timestamp_minutes": "nu | {n} minuten geleden | {n} minuten geleden"
     }
 }
