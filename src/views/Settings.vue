@@ -43,6 +43,21 @@
           >
           <label for="ctrl-enter">Send messages with Ctrl+Enter</label>
         </div>
+        <form class="appearance-form">
+          <label for="locale">Language:</label>
+          <select
+            id="locale"
+            :value="locale"
+            @change="onChangeLocale"
+            :disabled="isLoading"
+          >
+            <option
+              v-for="(localeName, code) in LOCALE_MAP"
+              :key="code"
+              :value="code"
+            >{{ localeName }}</option>
+          </select>
+        </form>
       </section>
       <section>
         <h2>Authentication</h2>
@@ -125,21 +140,6 @@
             <router-link class="btn" :to="{ name: 'move-followers' }">
               Move followers
             </router-link>
-            <form>
-              <label for="locale">Language:</label>
-              <select
-                id="locale"
-                :value="locale"
-                @change="onChangeLocale"
-                :disabled="isLoading"
-              >
-                <option
-                  v-for="(localeName, code) in LOCALE_MAP"
-                  :key="code"
-                  :value="code"
-                >{{ localeName }}</option>
-              </select>
-            </form>
           </div>
         </details>
       </section>
@@ -261,7 +261,8 @@ form {
   @include content-form;
 }
 
-.appearance-checkbox {
+.appearance-checkbox,
+.appearance-form {
   margin-top: $block-outer-padding;
 }
 
