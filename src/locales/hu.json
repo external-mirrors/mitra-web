@@ -1,1 +1,23 @@
-{}
+{
+    "editor": {
+        "repost": "Reposzt",
+        "cancel": "Törölje",
+        "update": "Frissítés",
+        "publish": "Közzététel",
+        "prompt_repost": "Az Ön megjegyzése",
+        "prompt_reply": "Az Ön válasza",
+        "prompt": "Mi jár a fejedben?"
+    },
+    "navigation": {
+        "home": "Home",
+        "logout": "Kijelentkezés",
+        "about": "A oldalról",
+        "settings": "Beállítások",
+        "subscriptions": "Előfizetések",
+        "profile_directory": "Profil könyvtár",
+        "federated": "Szövetségi",
+        "search": "Keresés…",
+        "notifications": "Értesítések",
+        "local": "Helyi"
+    }
+}
