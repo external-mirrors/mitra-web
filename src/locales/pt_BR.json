@@ -1,1 +1,23 @@
-{}
+{
+    "editor": {
+        "repost": "Repostagem",
+        "prompt_repost": "Seu comentário",
+        "cancel": "Cancelar",
+        "update": "Atualização",
+        "publish": "Publicar",
+        "prompt_reply": "Sua resposta",
+        "prompt": "O que está em sua mente?"
+    },
+    "navigation": {
+        "about": "Sobre",
+        "settings": "Configurações",
+        "subscriptions": "Assinaturas",
+        "profile_directory": "Diretório de perfil",
+        "federated": "Federado",
+        "local": "Locais",
+        "search": "Pesquisar…",
+        "home": "Início",
+        "logout": "Sair",
+        "notifications": "Notificações"
+    }
+}
