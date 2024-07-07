@@ -33,6 +33,7 @@
         "replying_to": "antwoordend op",
         "timestamp_minutes": "nu | {n} minuten geleden | {n} minuten geleden",
         "timestamp_hours": "{n} uur geleden | {n} uur geleden",
-        "timestamp_days": "{n} dag geleden | {n} dagen geleden"
+        "timestamp_days": "{n} dag geleden | {n} dagen geleden",
+        "next_page": "Toon meer berichten"
     }
 }
