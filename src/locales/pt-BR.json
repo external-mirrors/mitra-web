@@ -19,5 +19,21 @@
         "home": "Início",
         "logout": "Sair",
         "notifications": "Notificações"
+    },
+    "about": {
+        "administered_by": "Administrado por",
+        "technical_info": "Informações técnicas"
+    },
+    "welcome": {
+        "read_only_mode": "Sua conta está no modo somente leitura",
+        "browse_directory": "Navegar no diretório de perfis",
+        "welcome": "Bem-vindo ao {0}!"
+    },
+    "post": {
+        "replying_to": "respondendo a",
+        "timestamp_hours": "{n} hora atrás | {n} horas atrás",
+        "timestamp_days": "{n} dia atrás | {n} dias atrás",
+        "next_page": "Mostrar mais postagens",
+        "timestamp_minutes": "agora | {n} minute ago | {n} minutos atrás"
     }
 }
