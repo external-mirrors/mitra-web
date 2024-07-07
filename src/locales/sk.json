@@ -19,5 +19,21 @@
         "home": "Domov",
         "search": "Vyhľadávanie…",
         "notifications": "Oznámenia"
+    },
+    "about": {
+        "technical_info": "Technické informácie",
+        "administered_by": "Spravuje"
+    },
+    "welcome": {
+        "welcome": "Vitajte v {0}!",
+        "read_only_mode": "Vaše konto je v režime len na čítanie",
+        "browse_directory": "Prehľadávať adresár profilov"
+    },
+    "post": {
+        "replying_to": "odpovedať na",
+        "timestamp_minutes": "teraz | pred {n} minútami | pred {n} minútami",
+        "timestamp_hours": "pred {n} hodinou | pred {n} hodinami",
+        "timestamp_days": "pred {n} dňami | pred {n} dňami",
+        "next_page": "Zobraziť viac príspevkov"
     }
 }
