@@ -269,14 +269,18 @@ if (props.post) {
 }
 
 function inlineMentions(mentions: Mention[]): string {
-  return mentions
+  const handles = mentions
     .filter(mention => mention.id !== currentUser.value?.id)
     .map(mention => getActorHandle(mention))
     // Remove non-webfinger handles
-    .filter(mention => mention.startsWith("@"))
+    .filter(handle => handle.startsWith("@"))
     // Remove duplicates
-    .filter((mention, index, mentions) => mentions.indexOf(mention) === index)
-    .join(" ")
+    .filter((handle, index, handles) => handles.indexOf(handle) === index)
+  if (handles.length === 0) {
+    return ""
+  } else {
+    return handles.join(" ") + " "
+  }
 }
 
 if (props.inReplyTo && content.value.length === 0) {
