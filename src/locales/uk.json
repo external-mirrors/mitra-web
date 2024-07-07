@@ -1,1 +1,23 @@
-{}
+{
+    "editor": {
+        "repost": "Перепост",
+        "cancel": "Скасувати",
+        "update": "Оновлення",
+        "publish": "Публікувати",
+        "prompt_repost": "Ваш коментар",
+        "prompt_reply": "Ваша відповідь",
+        "prompt": "Що у вас на думці?"
+    },
+    "navigation": {
+        "logout": "Вийти з системи",
+        "about": "Про",
+        "settings": "Параметри",
+        "subscriptions": "Підписки",
+        "profile_directory": "Каталог профілю",
+        "federated": "Федеративна",
+        "local": "Місцевий",
+        "notifications": "Сповіщення",
+        "search": "Обшук…",
+        "home": "Головна"
+    }
+}
