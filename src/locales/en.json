@@ -1,4 +1,8 @@
 {
+  "about": {
+    "administered_by": "Administered by",
+    "technical_info": "Technical Info"
+  },
   "navigation": {
     "home": "Home",
     "search": "Search…",
@@ -11,6 +15,11 @@
     "about": "About",
     "logout": "Logout"
   },
+  "welcome": {
+    "welcome": "Welcome to {0}!",
+    "read_only_mode": "Your account is in read-only mode",
+    "browse_directory": "Browse profile directory"
+  },
   "editor": {
     "prompt": "What's on your mind?",
     "prompt_reply": "Your reply",
@@ -21,8 +30,10 @@
     "repost": "Repost"
   },
   "post": {
+    "replying_to": "replying to",
     "timestamp_minutes": "now | {n} minute ago | {n} minutes ago",
     "timestamp_hours": "{n} hour ago | {n} hours ago",
-    "timestamp_days": "{n} day ago | {n} days ago"
+    "timestamp_days": "{n} day ago | {n} days ago",
+    "next_page": "Show more posts"
   }
 }

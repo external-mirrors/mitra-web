@@ -11,7 +11,7 @@
     :disabled="isNextPageLoading"
     @click="loadNextPage()"
   >
-    Show more posts
+    {{ $t('post.next_page') }}
   </button>
 </template>
 

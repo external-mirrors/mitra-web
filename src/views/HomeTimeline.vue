@@ -14,10 +14,14 @@
         class="timeline-empty"
       >
         <h1 v-if="instance">
-          Welcome to <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>!
+          <i18n-t keypath="welcome.welcome">
+            <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>
+          </i18n-t>
         </h1>
-        <span v-if="!canCreatePost()">Your account is in read-only mode</span>
-        <router-link class="btn secondary" :to="{ name: 'profile-directory' }">Browse profile directory</router-link>
+        <span v-if="!canCreatePost()">{{ $t('welcome.read_only_mode') }}</span>
+        <router-link class="btn secondary" :to="{ name: 'profile-directory' }">
+          {{ $t('welcome.browse_directory') }}
+        </router-link>
       </div>
       <post-list
         :posts="posts"

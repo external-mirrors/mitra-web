@@ -4,13 +4,13 @@
       <h1>{{ instance.title }}</h1>
       <div class="description static-text" v-html="instance.description"></div>
       <template v-if="instance.contact_account">
-        <h2 class="staff-header">Administered by</h2>
+        <h2 class="staff-header">{{ $t('about.administered_by') }}</h2>
         <router-link :to="getActorLocation('profile', instance.contact_account)">
           <profile-list-item :profile="instance.contact_account"></profile-list-item>
         </router-link>
       </template>
       <details class="technical-info static-text">
-        <summary>Technical Info</summary>
+        <summary>{{ $t('about.technical_info') }}</summary>
         mitra version: {{ getMitraVersion(instance.version) }}
         <br>
         mitra-web version: {{ APP_VERSION }}
@@ -22,7 +22,7 @@
     <template #text>
       <div class="description" v-html="instance.description"></div>
       <template v-if="instance.contact_account">
-        <h2 class="staff-header">Administered by</h2>
+        <h2 class="staff-header">{{ $t('about.administered_by') }}</h2>
         <router-link :to="getActorLocation('profile', instance.contact_account)">
           <profile-list-item :profile="instance.contact_account"></profile-list-item>
         </router-link>

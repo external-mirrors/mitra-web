@@ -77,7 +77,7 @@
       </universal-link>
     </div>
     <div class="post-subheader" v-if="getReplyMentions().length > 0">
-      <span>replying to</span>
+      <span>{{ $t('post.replying_to') }}</span>
       <universal-link
         v-for="mention in getReplyMentions()"
         :key="mention.id"
