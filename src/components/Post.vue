@@ -62,7 +62,7 @@
         :title="formatDateTime(post.created_at)"
       >
         <span @click.prevent="scrollTo(post.id)">
-          {{ humanizeDate(post.created_at) }}
+          <timestamp :date="post.created_at"></timestamp>
         </span>
       </router-link>
       <universal-link
@@ -72,7 +72,7 @@
         :title="formatDateTime(post.created_at)"
       >
         <template #link-content>
-          {{ humanizeDate(post.created_at) }}
+          <timestamp :date="post.created_at"></timestamp>
         </template>
       </universal-link>
     </div>
@@ -377,6 +377,7 @@ import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import PostPreview from "@/components/PostPreview.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import Timestamp from "@/components/Timestamp.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -384,7 +385,7 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { getCurrencyByLabel, Currency, ETHEREUM, MONERO } from "@/utils/cryptocurrencies"
-import { formatDateTime, humanizeDate } from "@/utils/dates"
+import { formatDateTime } from "@/utils/dates"
 
 interface PaymentOption {
   code: string;

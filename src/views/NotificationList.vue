@@ -64,7 +64,9 @@
           <profile-display-name :profile="getSender(notification)">
           </profile-display-name>
           <div class="actor-address">{{ getActorHandle(notification.account) }}</div>
-          <div class="timestamp">{{ humanizeDate(notification.created_at) }}</div>
+          <div class="timestamp">
+            <timestamp :date="notification.created_at"></timestamp>
+          </div>
         </router-link>
       </div>
       <button
@@ -100,10 +102,10 @@ import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import Timestamp from "@/components/Timestamp.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
-import { humanizeDate } from "@/utils/dates"
 
 const { ensureAuthToken } = useCurrentUser()
 const { getActorHandle, getActorLocation } = useActorHandle()
