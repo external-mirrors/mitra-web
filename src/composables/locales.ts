@@ -3,11 +3,21 @@ import { useI18n } from "vue-i18n"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
 
 const LANGUAGES = [
+  "cs",
   "de",
   "en",
   "es",
+  "hu",
   "ja",
   "nl",
+  "pl",
+  "pt",
+  "pt-BR",
+  "ro",
+  "sk",
+  "sl",
+  "sv",
+  "uk",
   "zh-Hans",
 ]
 

@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added new translations ([#24](https://codeberg.org/silverpill/mitra-web/pulls/24), [#25](https://codeberg.org/silverpill/mitra-web/pulls/25), [#26](https://codeberg.org/silverpill/mitra-web/pulls/26)).
+- Added new translations ([#24](https://codeberg.org/silverpill/mitra-web/pulls/24), [#25](https://codeberg.org/silverpill/mitra-web/pulls/25), [#27](https://codeberg.org/silverpill/mitra-web/pulls/27), [#28](https://codeberg.org/silverpill/mitra-web/pulls/28)).
 
 ### Changed
 
