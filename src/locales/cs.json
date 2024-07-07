@@ -19,5 +19,21 @@
         "prompt_reply": "Vaše reakce",
         "prompt": "Co vás trápí?",
         "publish": "Zveřejnit"
+    },
+    "welcome": {
+        "welcome": "Vítejte v {0}!",
+        "browse_directory": "Procházet adresář profilů",
+        "read_only_mode": "Váš účet je v režimu pouze pro čtení"
+    },
+    "about": {
+        "technical_info": "Technické informace",
+        "administered_by": "Spravuje"
+    },
+    "post": {
+        "next_page": "Zobrazit další příspěvky",
+        "timestamp_hours": "před {n} hodinou | před {n} hodinami",
+        "timestamp_minutes": "nyní | {n} před minutou | {n} před minutami",
+        "replying_to": "odpovídat na",
+        "timestamp_days": "před {n} dny | před {n} dny"
     }
 }
