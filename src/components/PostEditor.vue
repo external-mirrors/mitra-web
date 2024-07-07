@@ -196,7 +196,7 @@ import {
   VISIBILITY_MAP,
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
-import { Profile, User } from "@/api/users"
+import { Profile } from "@/api/users"
 import IconAlert from "@/assets/feather/alert-triangle.svg?component"
 import IconShow from "@/assets/feather/eye.svg?component"
 import IconHide from "@/assets/feather/eye-off.svg?component"
@@ -268,12 +268,8 @@ if (props.post) {
   content.value = loadLocalDraft()
 }
 
-if (props.inReplyTo && content.value.length === 0) {
-  const mentions: Mention[] = [
-    props.inReplyTo.account,
-    ...props.inReplyTo.mentions,
-  ]
-  content.value = mentions
+function inlineMentions(mentions: Mention[]): string {
+  return mentions
     .filter(mention => mention.id !== currentUser.value?.id)
     .map(mention => getActorHandle(mention))
     // Remove non-webfinger handles
@@ -283,8 +279,21 @@ if (props.inReplyTo && content.value.length === 0) {
     .join(" ")
 }
 
+if (props.inReplyTo && content.value.length === 0) {
+  const mentions: Mention[] = [
+    props.inReplyTo.account,
+    ...props.inReplyTo.mentions,
+  ]
+  content.value = inlineMentions(mentions)
+}
+
 if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
   visibility.value = Visibility.Direct
+}
+
+if (props.repostOf && content.value.length === 0) {
+  const mentions = [props.repostOf.account]
+  content.value = inlineMentions(mentions)
 }
 
 onMounted(() => {
@@ -516,14 +525,7 @@ function canPublish(): boolean {
 }
 
 function getObjectLink(post: Post): string {
-  let markup = `\n\n RE: [[${post.uri}]]`
-  if (
-    post.account.id !== currentUser.value?.id &&
-    // Insert mention only if acct is a webfinger address
-    !post.account.acct.includes("://")
-  ) {
-    markup += `\n\n@${post.account.acct}`
-  }
+  const markup = `\n\n RE: [[${post.uri}]]`
   return markup
 }
 

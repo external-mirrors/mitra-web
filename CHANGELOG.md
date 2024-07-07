@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- Insert mention at the beginning of quote post.
 - Don't insert mention when quoting one's own post.
 
 ### Fixed
