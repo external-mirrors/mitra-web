@@ -528,11 +528,6 @@ function canPublish(): boolean {
   return getCharacterCount() >= 0 && !isLoading.value && !isAttachmentLoading.value
 }
 
-function getObjectLink(post: Post): string {
-  const markup = `\n\n RE: [[${post.uri}]]`
-  return markup
-}
-
 async function publish() {
   const postData = {
     content: content.value,
@@ -540,10 +535,7 @@ async function publish() {
     visibility: visibility.value,
     isSensitive: isSensitive.value,
     attachments: attachmentList.value,
-  }
-  if (props.repostOf) {
-    // Append object link markup
-    postData.content = postData.content + getObjectLink(props.repostOf)
+    quoteId: props.repostOf ? props.repostOf.id : null,
   }
   isLoading.value = true
   let post
@@ -555,6 +547,7 @@ async function publish() {
         content.value,
         attachmentList.value,
         isSensitive.value,
+        props.post.pleroma.quote?.id ?? null,
       )
     } else {
       post = await createPost(

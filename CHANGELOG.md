@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Update post timestamp in real time.
+- Use Pleroma Quote API to create reposts with comments.
 
 ## [2.25.0] - 2024-07-10
 

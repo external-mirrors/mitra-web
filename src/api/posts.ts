@@ -89,6 +89,11 @@ export interface Post {
   emojis: CustomEmoji[];
   favourited: boolean;
   reblogged: boolean;
+
+  pleroma: {
+    quote: { id: string } | null,
+  },
+
   ipfs_cid: string | null;
   links: Post[];
 
@@ -245,6 +250,7 @@ export async function previewPost(
     emojis: data.emojis,
     favourited: false,
     reblogged: false,
+    pleroma: { quote: null },
     ipfs_cid: null,
     links: [],
   }
@@ -256,6 +262,7 @@ export interface PostData {
   visibility: string;
   isSensitive: boolean;
   attachments: Attachment[];
+  quoteId: string | null,
 }
 
 export async function createPost(
@@ -271,6 +278,7 @@ export async function createPost(
     in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,
     sensitive: postData.isSensitive,
+    quote_id: postData.quoteId,
   }
   const response = await http(url, {
     method: "POST",
@@ -307,6 +315,7 @@ export async function updatePost(
   content: string,
   attachments: Attachment[],
   isSensitive: boolean,
+  quoteId: string | null,
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}`
   const response = await http(url, {
@@ -317,6 +326,7 @@ export async function updatePost(
       content_type: "text/markdown",
       "media_ids[]": attachments.map((attachment) => attachment.id),
       sensitive: isSensitive,
+      quote_id: quoteId,
     },
   })
   const data = await handleResponse(response)
