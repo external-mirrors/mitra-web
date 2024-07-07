@@ -23,7 +23,7 @@ const avatarUrl = computed<string>(() => {
   } else if (profile.id === "") {
     return UNNAMED
   } else {
-    return makeBlockie(profile.acct)
+    return makeBlockie(profile.actor_id)
   }
 })
 </script>

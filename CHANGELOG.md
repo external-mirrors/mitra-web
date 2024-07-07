@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Insert mention at the beginning of quote post.
 - Don't insert mention when quoting one's own post.
 - Insert whitespace after inserting mentions in reply or quote post.
+- Use actor ID to generate blockicon.
 
 ### Fixed
 
