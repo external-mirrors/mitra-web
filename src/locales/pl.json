@@ -1,0 +1,23 @@
+{
+    "navigation": {
+        "home": "Strona główna",
+        "logout": "Wyloguj",
+        "about": "Informacje",
+        "settings": "Ustawienia",
+        "subscriptions": "Subskrypcje",
+        "profile_directory": "Katalog profili",
+        "federated": "Federacja",
+        "local": "Lokalny",
+        "notifications": "Powiadomienia",
+        "search": "Szukaj…"
+    },
+    "editor": {
+        "cancel": "Anuluj",
+        "repost": "Post",
+        "update": "Aktualizacje",
+        "publish": "Publikować",
+        "prompt_repost": "Twój komentarz",
+        "prompt_reply": "Twoja odpowiedź",
+        "prompt": "Co ci chodzi po głowie?"
+    }
+}

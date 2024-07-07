@@ -1,0 +1,23 @@
+{
+    "navigation": {
+        "logout": "Odjava",
+        "about": "O",
+        "settings": "Nastavitve",
+        "subscriptions": "Naročnine",
+        "profile_directory": "Imenik profilov",
+        "federated": "Federativni",
+        "local": "Lokalni",
+        "notifications": "Obvestila",
+        "search": "Iskanje…",
+        "home": "Domov"
+    },
+    "editor": {
+        "repost": "Ponovna objava",
+        "cancel": "Prekliči",
+        "update": "Posodobitev",
+        "publish": "Objavite",
+        "prompt_repost": "Vaš komentar",
+        "prompt_reply": "Vaš odgovor",
+        "prompt": "O čem razmišljate?"
+    }
+}

@@ -2,6 +2,22 @@
     "navigation": {
         "search": "Suche.…",
         "notifications": "Benachrichtigungen",
-        "profile_directory": "Profil Verzeichnis"
+        "profile_directory": "Profil Verzeichnis",
+        "federated": "Föderiert",
+        "subscriptions": "Abonnements",
+        "settings": "Einstellungen",
+        "about": "Über",
+        "logout": "Abmelden",
+        "home": "Startseite",
+        "local": "Lokales"
+    },
+    "editor": {
+        "update": "Aktualisierung",
+        "cancel": "Abbrechen",
+        "repost": "Wiederveröffentlichen",
+        "publish": "Veröffentlichen",
+        "prompt_repost": "Dein Kommentar",
+        "prompt_reply": "Deine Antwort",
+        "prompt": "Was ist los?"
     }
 }

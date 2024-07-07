@@ -1,0 +1,23 @@
+{
+    "editor": {
+        "repost": "Repostovať",
+        "cancel": "Zrušiť",
+        "update": "Aktualizácia",
+        "publish": "Publikovať",
+        "prompt_repost": "Váš komentár",
+        "prompt_reply": "Vaša odpoveď",
+        "prompt": "Čo máte na mysli?"
+    },
+    "navigation": {
+        "logout": "Odhlásenie",
+        "about": "O",
+        "settings": "Nastavenia",
+        "subscriptions": "Predplatné",
+        "profile_directory": "Adresár profilov",
+        "federated": "Federatívne",
+        "local": "Miestna stránka",
+        "home": "Domov",
+        "search": "Vyhľadávanie…",
+        "notifications": "Oznámenia"
+    }
+}

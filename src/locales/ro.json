@@ -1,0 +1,23 @@
+{
+    "editor": {
+        "cancel": "Anulează",
+        "update": "Actualiza",
+        "publish": "Publicare",
+        "prompt_repost": "Comentariul dumneavoastră",
+        "prompt_reply": "Răspunsul dumneavoastră",
+        "prompt": "La ce vă gândiți?",
+        "repost": "Reluare"
+    },
+    "navigation": {
+        "logout": "Ieșire",
+        "about": "Despre",
+        "settings": "Setări",
+        "subscriptions": "Abonamente",
+        "profile_directory": "Director profil",
+        "federated": "Federate",
+        "local": "Local",
+        "notifications": "Notificări",
+        "home": "Acasă",
+        "search": "Căutare…"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "editor": {
+        "repost": "Återpublicering",
+        "cancel": "Annullera",
+        "update": "Uppdatering",
+        "publish": "Publicera",
+        "prompt_repost": "Din kommentar",
+        "prompt_reply": "Ditt svar",
+        "prompt": "Vad tänker du på?"
+    },
+    "navigation": {
+        "home": "Hem",
+        "search": "Sök…",
+        "settings": "Inställningar",
+        "logout": "Logga ut",
+        "about": "Om",
+        "subscriptions": "Abonnemang",
+        "profile_directory": "Profil katalog",
+        "federated": "Federerad",
+        "local": "Lokal",
+        "notifications": "Notifieringar"
+    }
+}
