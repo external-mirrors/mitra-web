@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Insert whitespace after inserting mentions in reply or quote post.
 - Use actor ID to generate blockicon.
 - Move language selector to "Appearance" section of Settings page.
+- Enable pluralization of post timestamps.
 
 ### Fixed
 

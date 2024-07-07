@@ -19,5 +19,10 @@
     "update": "Update",
     "cancel": "Cancel",
     "repost": "Repost"
+  },
+  "post": {
+    "timestamp_minutes": "now | {n} minute ago | {n} minutes ago",
+    "timestamp_hours": "{n} hour ago | {n} hours ago",
+    "timestamp_days": "{n} day ago | {n} days ago"
   }
 }
