@@ -19,5 +19,21 @@
         "prompt_repost": "Vaš komentar",
         "prompt_reply": "Vaš odgovor",
         "prompt": "O čem razmišljate?"
+    },
+    "post": {
+        "timestamp_hours": "pred {n} uro | pred {n} urami",
+        "timestamp_minutes": "zdaj | {n} pred minuto | {n} pred minutami",
+        "replying_to": "odgovarjanje na",
+        "next_page": "Pokaži več objav",
+        "timestamp_days": "pred {n} dnevi | pred {n} dnevi"
+    },
+    "welcome": {
+        "browse_directory": "Brskanje po imeniku profilov",
+        "read_only_mode": "Vaš račun je v načinu samo za branje",
+        "welcome": "Dobrodošli v {0}!"
+    },
+    "about": {
+        "technical_info": "Tehnične informacije",
+        "administered_by": "Upravlja"
     }
 }
