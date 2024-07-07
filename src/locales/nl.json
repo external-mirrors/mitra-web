@@ -26,8 +26,8 @@
     },
     "welcome": {
         "welcome": "Welkom bij {0}!",
-        "browse_directory": "Door profiel bladeren",
-        "read_only_mode": "Uw account staat in de alleen-lezen modus"
+        "browse_directory": "Profielmap openen",
+        "read_only_mode": "Uw account staat in de alleen-lezenmodus"
     },
     "post": {
         "replying_to": "antwoordend op",
