@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added new translations ([#24](https://codeberg.org/silverpill/mitra-web/pulls/24), [#25](https://codeberg.org/silverpill/mitra-web/pulls/25), [#26](https://codeberg.org/silverpill/mitra-web/pulls/26)).
 
+### Changed
+
+- Don't insert mention when quoting one's own post.
+
 ### Fixed
 
 - Fixed background color of search input in webkit browsers.

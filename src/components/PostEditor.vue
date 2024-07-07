@@ -1,11 +1,11 @@
 <template>
   <form class="post-form">
     <router-link
-      v-if="author"
+      v-if="currentUser"
       class="floating-avatar"
-      :to="getActorLocation('profile', author)"
+      :to="getActorLocation('profile', currentUser)"
     >
-      <avatar :profile="author"></avatar>
+      <avatar :profile="currentUser"></avatar>
     </router-link>
     <div class="textarea-group">
       <textarea
@@ -253,7 +253,6 @@ const isLoading = ref(false)
 const isAttachmentLoading = ref(false)
 const errorMessage = ref<string | null>(null)
 
-const author = computed<User | null>(() => currentUser.value)
 const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
 })
@@ -518,8 +517,11 @@ function canPublish(): boolean {
 
 function getObjectLink(post: Post): string {
   let markup = `\n\n RE: [[${post.uri}]]`
-  if (!post.account.acct.includes("://")) {
+  if (
+    post.account.id !== currentUser.value?.id &&
     // Insert mention only if acct is a webfinger address
+    !post.account.acct.includes("://")
+  ) {
     markup += `\n\n@${post.account.acct}`
   }
   return markup
