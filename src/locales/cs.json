@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "home": "Domů",
+        "profile_directory": "Adresář profilů",
+        "logout": "Odhlášení",
+        "about": "O",
+        "settings": "Nastavení",
+        "subscriptions": "Předplatné",
+        "federated": "Federativní",
+        "local": "Místní",
+        "notifications": "Oznámení",
+        "search": "Vyhledávání…"
+    },
+    "editor": {
+        "repost": "Přeposlat",
+        "cancel": "Zrušit",
+        "update": "Aktualizace",
+        "prompt_repost": "Váš komentář",
+        "prompt_reply": "Vaše reakce",
+        "prompt": "Co vás trápí?",
+        "publish": "Zveřejnit"
+    }
+}
