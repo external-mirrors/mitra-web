@@ -1,1 +1,23 @@
-{}
+{
+    "navigation": {
+        "search": "Procurar…",
+        "home": "Início",
+        "notifications": "Notificações",
+        "logout": "Sair",
+        "about": "Sobre",
+        "settings": "Configurações",
+        "subscriptions": "Subscrições",
+        "profile_directory": "Diretório de perfis",
+        "federated": "Federado",
+        "local": "Locais"
+    },
+    "editor": {
+        "repost": "Repostagem",
+        "cancel": "Cancelar",
+        "update": "Atualização",
+        "publish": "Publicar",
+        "prompt_repost": "O seu comentário",
+        "prompt_reply": "A sua resposta",
+        "prompt": "O que é que te preocupa?"
+    }
+}
