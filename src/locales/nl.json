@@ -30,10 +30,10 @@
         "read_only_mode": "Uw account staat in de alleen-lezenmodus"
     },
     "post": {
-        "replying_to": "antwoordend op",
+        "replying_to": "in antwoord op",
         "timestamp_minutes": "nu | {n} minuten geleden | {n} minuten geleden",
         "timestamp_hours": "{n} uur geleden | {n} uur geleden",
         "timestamp_days": "{n} dag geleden | {n} dagen geleden",
-        "next_page": "Toon meer berichten"
+        "next_page": "Meer berichten tonen"
     }
 }
