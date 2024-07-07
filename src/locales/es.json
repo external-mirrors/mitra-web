@@ -19,5 +19,21 @@
         "update": "Actualizar",
         "cancel": "Cancelar",
         "repost": "Repostear"
+    },
+    "about": {
+        "administered_by": "Administrado por",
+        "technical_info": "Información técnica"
+    },
+    "welcome": {
+        "welcome": "Bienvenido a {0}!",
+        "read_only_mode": "Su cuenta está en modo de sólo lectura",
+        "browse_directory": "Examinar el directorio de perfiles"
+    },
+    "post": {
+        "replying_to": "respondiendo a",
+        "timestamp_hours": "Hace {n} horas | Hace {n} horas",
+        "timestamp_days": "Hace {n} días | Hace {n} días",
+        "next_page": "Mostrar más entradas",
+        "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos"
     }
 }
