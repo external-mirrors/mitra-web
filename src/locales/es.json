@@ -34,6 +34,10 @@
         "timestamp_hours": "Hace {n} horas | Hace {n} horas",
         "timestamp_days": "Hace {n} días | Hace {n} días",
         "next_page": "Mostrar más entradas",
-        "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos"
+        "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos",
+        "load_replies": "Cargar respuestas"
+    },
+    "misc": {
+        "reload_page": "Recargar la página en unos minutos"
     }
 }
