@@ -19,5 +19,21 @@
         "update": "アップデート",
         "cancel": "キャンセル",
         "repost": "リポスト"
+    },
+    "about": {
+        "administered_by": "主管",
+        "technical_info": "テクニカル情報"
+    },
+    "welcome": {
+        "read_only_mode": "アカウントが読み取り専用になっています",
+        "welcome": "ようこそ {0}!",
+        "browse_directory": "プロフィール一覧"
+    },
+    "post": {
+        "replying_to": "はいとう",
+        "timestamp_minutes": "今 | {n} 分前 | {n} 分前",
+        "timestamp_hours": "{n}時間前｜{n}時間前",
+        "timestamp_days": "{n}日前｜{n}日前",
+        "next_page": "もっと記事を表示する"
     }
 }

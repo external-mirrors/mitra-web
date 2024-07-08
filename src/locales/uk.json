@@ -11,13 +11,29 @@
     "navigation": {
         "logout": "Вийти з системи",
         "about": "Про",
-        "settings": "Параметри",
+        "settings": "Налаштування",
         "subscriptions": "Підписки",
         "profile_directory": "Каталог профілю",
         "federated": "Федеративна",
         "local": "Місцевий",
         "notifications": "Сповіщення",
-        "search": "Обшук…",
+        "search": "Пошук…",
         "home": "Головна"
+    },
+    "post": {
+        "next_page": "Показати більше публікацій",
+        "timestamp_days": "{n} день тому | {n} днів тому",
+        "timestamp_hours": "{n} годину тому | {n} годин тому",
+        "timestamp_minutes": "зараз | {n} хвилину тому | {n} хвилин тому",
+        "replying_to": "відповідаючи на"
+    },
+    "welcome": {
+        "browse_directory": "Перегляд каталогу профілів",
+        "read_only_mode": "Ваш обліковий запис у режимі «тільки для читання»",
+        "welcome": "Ласкаво просимо до {0}!"
+    },
+    "about": {
+        "technical_info": "Технічна інформація",
+        "administered_by": "Адмініструється"
     }
 }

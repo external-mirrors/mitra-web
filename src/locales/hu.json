@@ -19,5 +19,21 @@
         "search": "Keresés…",
         "notifications": "Értesítések",
         "local": "Helyi"
+    },
+    "welcome": {
+        "read_only_mode": "A fiókja csak olvasható módban van",
+        "welcome": "Üdvözöljük a {0}!",
+        "browse_directory": "Profil könyvtár böngészése"
+    },
+    "about": {
+        "technical_info": "Technikai információk",
+        "administered_by": "Kezelője"
+    },
+    "post": {
+        "next_page": "További hozzászólások megjelenítése",
+        "timestamp_days": "{n} nappal ezelőtt | {n} nappal ezelőtt",
+        "timestamp_hours": "{n} órával ezelőtt | {n} órával ezelőtt",
+        "timestamp_minutes": "most | {n} perccel ezelőtt | {n} perccel ezelőtt",
+        "replying_to": "válaszolva"
     }
 }

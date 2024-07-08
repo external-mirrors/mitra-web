@@ -19,5 +19,21 @@
         "prompt_repost": "O seu comentário",
         "prompt_reply": "A sua resposta",
         "prompt": "O que é que te preocupa?"
+    },
+    "post": {
+        "next_page": "Mostrar mais mensagens",
+        "replying_to": "respondendo a",
+        "timestamp_minutes": "agora | {n} minutos atrás | {n} minutos atrás",
+        "timestamp_hours": "{n} horas atrás | {n} horas atrás",
+        "timestamp_days": "{n} dias atrás | {n} dias atrás"
+    },
+    "welcome": {
+        "browse_directory": "Navegar no diretório de perfis",
+        "read_only_mode": "A sua conta está no modo só de leitura",
+        "welcome": "Bem-vindo ao {0}!"
+    },
+    "about": {
+        "technical_info": "Informações técnicas",
+        "administered_by": "Administrado por"
     }
 }

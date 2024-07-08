@@ -19,5 +19,21 @@
         "federated": "Federerad",
         "local": "Lokal",
         "notifications": "Notifieringar"
+    },
+    "about": {
+        "administered_by": "Administreras av",
+        "technical_info": "Teknisk information"
+    },
+    "welcome": {
+        "welcome": "Välkommen till {0}!",
+        "read_only_mode": "Ditt konto är i skrivskyddat läge",
+        "browse_directory": "Bläddra i profilkatalog"
+    },
+    "post": {
+        "replying_to": "svara på",
+        "timestamp_minutes": "nu | {n} minut sedan | {n} minuter sedan",
+        "timestamp_hours": "{n} timme sedan | {n} timmar sedan",
+        "timestamp_days": "{n} dag sedan | {n} dagar sedan",
+        "next_page": "Visa fler inlägg"
     }
 }

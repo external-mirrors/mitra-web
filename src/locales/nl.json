@@ -19,5 +19,21 @@
         "update": "Bijwerken",
         "cancel": "Annuleren",
         "repost": "Herplaatsen"
+    },
+    "about": {
+        "administered_by": "Beheerd door",
+        "technical_info": "Technische informatie"
+    },
+    "welcome": {
+        "welcome": "Welkom bij {0}!",
+        "browse_directory": "Profielmap openen",
+        "read_only_mode": "Uw account staat in de alleen-lezenmodus"
+    },
+    "post": {
+        "replying_to": "in antwoord op",
+        "timestamp_minutes": "nu | {n} minuten geleden | {n} minuten geleden",
+        "timestamp_hours": "{n} uur geleden | {n} uur geleden",
+        "timestamp_days": "{n} dag geleden | {n} dagen geleden",
+        "next_page": "Meer berichten tonen"
     }
 }

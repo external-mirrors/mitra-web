@@ -19,5 +19,21 @@
         "notifications": "Notificări",
         "home": "Acasă",
         "search": "Căutare…"
+    },
+    "about": {
+        "administered_by": "Administrat de",
+        "technical_info": "Informații tehnice"
+    },
+    "welcome": {
+        "welcome": "Bun venit la {0}!",
+        "read_only_mode": "Contul dvs. este în modul numai citire",
+        "browse_directory": "Răsfoiți directorul de profiluri"
+    },
+    "post": {
+        "replying_to": "răspuns la",
+        "timestamp_hours": "{n} oră în urmă | {n} ore în urmă",
+        "timestamp_days": "{n} zile în urmă | {n} zile în urmă",
+        "next_page": "Afișați mai multe mesaje",
+        "timestamp_minutes": "acum | {n} minute în urmă | {n} minute în urmă"
     }
 }

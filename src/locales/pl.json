@@ -19,5 +19,21 @@
         "prompt_repost": "Twój komentarz",
         "prompt_reply": "Twoja odpowiedź",
         "prompt": "Co ci chodzi po głowie?"
+    },
+    "post": {
+        "timestamp_days": "{n} dni temu | {n} dni temuPokaż więcej postów",
+        "timestamp_hours": "{n} godzin temu | {n} godzin temu",
+        "replying_to": "odpowiadając na",
+        "timestamp_minutes": "teraz | {n} minut temu | {n} minut temu",
+        "next_page": "Pokaż więcej postów"
+    },
+    "welcome": {
+        "browse_directory": "Przeglądanie katalogu profili",
+        "read_only_mode": "Twoje konto jest w trybie tylko do odczytu",
+        "welcome": "Witamy w {0}!"
+    },
+    "about": {
+        "technical_info": "Informacje techniczne",
+        "administered_by": "Administrowany przez"
     }
 }

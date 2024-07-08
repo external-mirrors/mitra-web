@@ -19,5 +19,21 @@
         "update": "更新",
         "cancel": "取消",
         "repost": "转发"
+    },
+    "about": {
+        "administered_by": "管理机构",
+        "technical_info": "技术信息"
+    },
+    "welcome": {
+        "welcome": "欢迎来到 {0}！",
+        "read_only_mode": "您的账户处于只读模式",
+        "browse_directory": "浏览简介目录"
+    },
+    "post": {
+        "replying_to": "针对",
+        "timestamp_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
+        "timestamp_hours": "{n}小时前 | {n}小时前",
+        "timestamp_days": "{n}天前 | {n}天前",
+        "next_page": "显示更多帖子"
     }
 }
