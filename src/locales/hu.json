@@ -34,6 +34,10 @@
         "timestamp_days": "{n} nappal ezelőtt | {n} nappal ezelőtt",
         "timestamp_hours": "{n} órával ezelőtt | {n} órával ezelőtt",
         "timestamp_minutes": "most | {n} perccel ezelőtt | {n} perccel ezelőtt",
-        "replying_to": "válaszolva"
+        "replying_to": "válaszolva",
+        "load_replies": "Válaszok betöltése"
+    },
+    "misc": {
+        "reload_page": "Az oldal újratöltése néhány perc múlva"
     }
 }
