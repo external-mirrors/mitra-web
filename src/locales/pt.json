@@ -25,7 +25,8 @@
         "replying_to": "respondendo a",
         "timestamp_minutes": "agora | {n} minutos atrás | {n} minutos atrás",
         "timestamp_hours": "{n} horas atrás | {n} horas atrás",
-        "timestamp_days": "{n} dias atrás | {n} dias atrás"
+        "timestamp_days": "{n} dias atrás | {n} dias atrás",
+        "load_replies": "Carregar respostas"
     },
     "welcome": {
         "browse_directory": "Navegar no diretório de perfis",
@@ -35,5 +36,8 @@
     "about": {
         "technical_info": "Informações técnicas",
         "administered_by": "Administrado por"
+    },
+    "misc": {
+        "reload_page": "Recarregar a página dentro de alguns minutos"
     }
 }
