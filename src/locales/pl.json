@@ -25,7 +25,8 @@
         "timestamp_hours": "{n} godzin temu | {n} godzin temu",
         "replying_to": "odpowiadając na",
         "timestamp_minutes": "teraz | {n} minut temu | {n} minut temu",
-        "next_page": "Pokaż więcej postów"
+        "next_page": "Pokaż więcej postów",
+        "load_replies": "Załaduj odpowiedzi"
     },
     "welcome": {
         "browse_directory": "Przeglądanie katalogu profili",
@@ -35,5 +36,8 @@
     "about": {
         "technical_info": "Informacje techniczne",
         "administered_by": "Administrowany przez"
+    },
+    "misc": {
+        "reload_page": "Przeładuj stronę za kilka minut"
     }
 }
