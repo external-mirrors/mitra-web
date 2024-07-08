@@ -25,7 +25,8 @@
         "timestamp_minutes": "zdaj | {n} pred minuto | {n} pred minutami",
         "replying_to": "odgovarjanje na",
         "next_page": "Pokaži več objav",
-        "timestamp_days": "pred {n} dnevi | pred {n} dnevi"
+        "timestamp_days": "pred {n} dnevi | pred {n} dnevi",
+        "load_replies": "Naloži odgovore"
     },
     "welcome": {
         "browse_directory": "Brskanje po imeniku profilov",
@@ -35,5 +36,8 @@
     "about": {
         "technical_info": "Tehnične informacije",
         "administered_by": "Upravlja"
+    },
+    "misc": {
+        "reload_page": "Ponovno naložite stran v nekaj minutah"
     }
 }
