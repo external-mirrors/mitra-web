@@ -29,11 +29,15 @@
         "replying_to": "antwortend auf",
         "timestamp_minutes": "jetzt | {n} vor einer Minute | {n} vor Minuten",
         "timestamp_hours": "vor {n} Stunden | vor {n} Stunden",
-        "timestamp_days": "vor {n} Tagen | vor {n} Tagen"
+        "timestamp_days": "vor {n} Tagen | vor {n} Tagen",
+        "load_replies": "Antworten laden"
     },
     "welcome": {
         "welcome": "Willkommen bei {0}!",
         "read_only_mode": "Ihr Konto ist im schreibgeschützten Modus",
         "browse_directory": "Profilverzeichnis durchsuchen"
+    },
+    "misc": {
+        "reload_page": "Lade die Seite in ein paar Minuten neu"
     }
 }
