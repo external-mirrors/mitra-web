@@ -410,3 +410,15 @@ export async function makePermanent(
   const data = await handleResponse(response)
   return data
 }
+
+export async function loadConversation(
+  authToken: string,
+  postId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/load_conversation`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}

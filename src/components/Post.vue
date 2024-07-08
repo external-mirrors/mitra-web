@@ -270,6 +270,16 @@
               <span>Unmute author</span>
             </button>
           </li>
+          <li v-if="canLoadConversation()">
+            <button
+              class="icon"
+              :title="$t('post.load_replies')"
+              @click="hideMenu(); onLoadConversation()"
+            >
+              <icon-refresh></icon-refresh>
+              <span>{{ $t('post.load_replies') }}</span>
+            </button>
+          </li>
         </menu>
       </div>
       <div class="crypto-widget">
@@ -332,6 +342,7 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
 import { computed, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
 import {
@@ -343,6 +354,7 @@ import {
   deleteRepost,
   pinPost,
   unpinPost,
+  loadConversation,
   makePermanent,
   Mention,
   Post,
@@ -359,6 +371,7 @@ import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
 import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconLink from "@/assets/feather/link.svg?component"
 import IconMore from "@/assets/feather/more-horizontal.svg?component"
+import IconRefresh from "@/assets/feather/refresh-ccw.svg?component"
 import IconRepost from "@/assets/feather/repeat.svg?component"
 import IconTrash from "@/assets/feather/trash.svg?component"
 import IconMute from "@/assets/feather/volume-x.svg?component"
@@ -395,8 +408,9 @@ interface PaymentOption {
 }
 
 const router = useRouter()
+const { t } = useI18n({ useScope: "global" })
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = useCurrentUser()
+const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
 
@@ -685,6 +699,22 @@ function canUnmute(): boolean {
 async function onUnmute() {
   const authToken = ensureAuthToken()
   props.post.relationship = await unmute(authToken, props.post.account.id)
+}
+
+function canLoadConversation(): boolean {
+  return (
+    currentUser.value !== null &&
+    isAdmin() &&
+    !author.value.isLocal()
+  )
+}
+
+async function onLoadConversation() {
+  alert(t("misc.reload_page"))
+  await loadConversation(
+    ensureAuthToken(),
+    props.post.id,
+  )
 }
 
 function getPaymentOptions(): PaymentOption[] {

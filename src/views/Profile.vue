@@ -343,6 +343,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
 import { $, $ref } from "vue/macros"
+import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
 import { Post, getProfileTimeline } from "@/api/posts"
@@ -392,6 +393,7 @@ import { hasEthereumWallet } from "@/utils/ethereum"
 
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n({ useScope: "global" })
 const {
   authToken,
   currentUser,
@@ -840,7 +842,7 @@ async function onLoadLatestPosts() {
   if (!profile) {
     return
   }
-  alert("Reload the page in a few minutes")
+  alert(t("misc.reload_page"))
   await loadLatestPosts(
     ensureAuthToken(),
     profile.id,
