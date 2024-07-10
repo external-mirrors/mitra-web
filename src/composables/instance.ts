@@ -14,7 +14,9 @@ const instance = ref<InstanceInfo | null>(null)
 export function useInstanceInfo() {
 
   async function loadInstanceInfo(): Promise<void> {
-    instance.value = await getInstanceInfo()
+    if (instance.value === null) {
+      instance.value = await getInstanceInfo()
+    }
   }
 
   function getBlockchainInfo(): BlockchainInfo | null {

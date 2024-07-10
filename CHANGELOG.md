@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed background color of search input in webkit browsers.
+- Prevent redirect to landing when loading local timeline as guest.
 
 ## [2.24.0] - 2024-06-30
 

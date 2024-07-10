@@ -6,16 +6,12 @@
 import { watch } from "vue"
 import { useRoute } from "vue-router"
 
-import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { useLocales } from "@/composables/locales"
 
 const route = useRoute()
 const { currentUser } = useCurrentUser()
-const { loadInstanceInfo } = useInstanceInfo()
 const { getPreferredLocale, changeLocale } = useLocales()
-
-loadInstanceInfo()
 
 watch(currentUser, () => {
   // Change locale to a preferred one

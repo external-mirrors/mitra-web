@@ -28,9 +28,13 @@ import SubscriberView from "@/views/Subscriber.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 
-async function authGuard(to: any) {
+async function defaultGuard(to: any) {
+  const { loadInstanceInfo } = useInstanceInfo()
+  const instanceInfoLoader = loadInstanceInfo()
   const { isAuthenticated } = useCurrentUser()
   const isUserAuthenticated = await isAuthenticated()
+  await instanceInfoLoader
+  // Guards that use meta parameters
   const onlyGuest = to.matched.some((record: RouteRecordRaw) => {
     return record.meta?.onlyGuest
   })
@@ -244,6 +248,6 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(authGuard)
+router.beforeEach(defaultGuard)
 
 export default router
