@@ -32,8 +32,8 @@
     "post": {
         "replying_to": "はいとう",
         "timestamp_minutes": "今 | {n} 分前 | {n} 分前",
-        "timestamp_hours": "{n}時間前｜{n}時間前",
-        "timestamp_days": "{n}日前｜{n}日前",
+        "timestamp_hours": "{n}時間前 | {n}時間前",
+        "timestamp_days": "{n}日前 | {n}日前",
         "next_page": "もっと記事を表示する",
         "load_replies": "返信を読み込む"
     },
