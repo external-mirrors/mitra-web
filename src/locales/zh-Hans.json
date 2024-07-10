@@ -34,6 +34,10 @@
         "timestamp_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
         "timestamp_hours": "{n}小时前 | {n}小时前",
         "timestamp_days": "{n}天前 | {n}天前",
-        "next_page": "显示更多帖子"
+        "next_page": "显示更多帖子",
+        "load_replies": "加载回复"
+    },
+    "misc": {
+        "reload_page": "几分钟后重新加载页面"
     }
 }

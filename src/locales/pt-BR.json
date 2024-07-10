@@ -34,6 +34,10 @@
         "timestamp_hours": "{n} hora atrás | {n} horas atrás",
         "timestamp_days": "{n} dia atrás | {n} dias atrás",
         "next_page": "Mostrar mais postagens",
-        "timestamp_minutes": "agora | {n} minute ago | {n} minutos atrás"
+        "timestamp_minutes": "agora | {n} minute ago | {n} minutos atrás",
+        "load_replies": "Carregar respostas"
+    },
+    "misc": {
+        "reload_page": "Recarregar a página em alguns minutos"
     }
 }

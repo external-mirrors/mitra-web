@@ -34,6 +34,10 @@
         "timestamp_minutes": "teraz | pred {n} minútami | pred {n} minútami",
         "timestamp_hours": "pred {n} hodinou | pred {n} hodinami",
         "timestamp_days": "pred {n} dňami | pred {n} dňami",
-        "next_page": "Zobraziť viac príspevkov"
+        "next_page": "Zobraziť viac príspevkov",
+        "load_replies": "Načítať odpovede"
+    },
+    "misc": {
+        "reload_page": "Načítanie stránky za niekoľko minút"
     }
 }

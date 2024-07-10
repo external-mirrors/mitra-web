@@ -34,6 +34,10 @@
         "timestamp_hours": "{n} oră în urmă | {n} ore în urmă",
         "timestamp_days": "{n} zile în urmă | {n} zile în urmă",
         "next_page": "Afișați mai multe mesaje",
-        "timestamp_minutes": "acum | {n} minute în urmă | {n} minute în urmă"
+        "timestamp_minutes": "acum | {n} minute în urmă | {n} minute în urmă",
+        "load_replies": "Încărcați răspunsurile"
+    },
+    "misc": {
+        "reload_page": "Reîncărcați pagina în câteva minute"
     }
 }

@@ -25,7 +25,8 @@
         "timestamp_days": "{n} день тому | {n} днів тому",
         "timestamp_hours": "{n} годину тому | {n} годин тому",
         "timestamp_minutes": "зараз | {n} хвилину тому | {n} хвилин тому",
-        "replying_to": "відповідаючи на"
+        "replying_to": "відповідаючи на",
+        "load_replies": "Завантажити відповіді"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -35,5 +36,8 @@
     "about": {
         "technical_info": "Технічна інформація",
         "administered_by": "Адмініструється"
+    },
+    "misc": {
+        "reload_page": "Перезавантажити сторінку через кілька хвилин"
     }
 }

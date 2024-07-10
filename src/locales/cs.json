@@ -34,6 +34,10 @@
         "timestamp_hours": "před {n} hodinou | před {n} hodinami",
         "timestamp_minutes": "nyní | {n} před minutou | {n} před minutami",
         "replying_to": "odpovídat na",
-        "timestamp_days": "před {n} dny | před {n} dny"
+        "timestamp_days": "před {n} dny | před {n} dny",
+        "load_replies": "Načíst odpovědi"
+    },
+    "misc": {
+        "reload_page": "Načtení stránky za několik minut"
     }
 }
