@@ -37,6 +37,9 @@
     "next_page": "Show more posts",
     "load_replies": "Load replies"
   },
+  "profile": {
+    "muted": "Muted"
+  },
   "misc": {
     "reload_page": "Reload the page in a few minutes"
   }

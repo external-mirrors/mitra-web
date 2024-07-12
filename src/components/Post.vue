@@ -48,6 +48,13 @@
         <visibility-icon :visibility="post.visibility"></visibility-icon>
       </span>
       <span
+        v-if="canUnmute()"
+        class="icon icon-small"
+        :title="$t('profile.muted')"
+      >
+        <icon-mute></icon-mute>
+      </span>
+      <span
         v-if="post.pinned"
         class="icon icon-small"
         title="Featured"

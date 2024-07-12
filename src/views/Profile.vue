@@ -29,7 +29,7 @@
                 <div class="badge" v-if="isFollowedBy()">Follows you</div>
                 <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
                 <div class="badge" v-if="isSubscriber()">Subscriber</div>
-                <div class="badge" v-if="isMuted()">Muted</div>
+                <div class="badge" v-if="isMuted()">{{ $t('profile.muted') }}</div>
               </div>
             </div>
             <div
