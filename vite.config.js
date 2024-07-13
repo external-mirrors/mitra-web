@@ -1,4 +1,3 @@
-import dns from "dns"
 import * as path from "path"
 import { fileURLToPath } from "url"
 
@@ -8,9 +7,6 @@ import { injectHtml } from "vite-plugin-html"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 
 import svgLoader from "./src/svg-loader.ts"
-
-// TODO: switch to 127.0.0.1
-dns.setDefaultResultOrder("verbatim")
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
