@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon"
+import { onUnmounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 const { t } = useI18n({ useScope: "global" })
@@ -12,9 +13,15 @@ defineProps<{
   date: string,
 }>()
 
+const currentTime = ref(DateTime.now())
+// Triggers re-render every 10 seconds
+const clock = setInterval(() => {
+  currentTime.value = DateTime.now()
+}, 5000)
+
 function humanizeDate(isoDate: string): string {
   const date = DateTime.fromISO(isoDate)
-  const now = DateTime.now()
+  const now = currentTime.value
   const diff = now.diff(date)
   if (diff.as("minutes") < 60) {
     const minutes = Math.round(diff.as("minutes"))
@@ -31,4 +38,8 @@ function humanizeDate(isoDate: string): string {
     return date.toFormat("dd LLL y")
   }
 }
+
+onUnmounted(() => {
+  clearInterval(clock)
+})
 </script>

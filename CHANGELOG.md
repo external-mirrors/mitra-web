@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display indicator when post author is muted.
 
+### Changed
+
+- Update post timestamp in real time.
+
 ## [2.25.0] - 2024-07-10
 
 ### Added
