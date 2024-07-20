@@ -30,6 +30,7 @@
               >
               <button
                 v-if="images.avatar !== null"
+                type="button"
                 @click.prevent="onFileRemoved('avatar')"
               >
                 Remove
@@ -46,6 +47,7 @@
               >
               <button
                 v-if="images.header !== null"
+                type="button"
                 @click.prevent="onFileRemoved('header')"
               >
                 Remove
