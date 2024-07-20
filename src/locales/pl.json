@@ -39,5 +39,8 @@
     },
     "misc": {
         "reload_page": "Przeładuj stronę za kilka minut"
+    },
+    "profile": {
+        "muted": "Wyciszono"
     }
 }
