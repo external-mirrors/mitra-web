@@ -14,7 +14,7 @@ Compatibility with previous versions is not guaranteed.
 
 ## Requirements
 
-- node 16, 18
+- node 18+
 - npm 7+
 
 ## Project setup
