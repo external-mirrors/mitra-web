@@ -2,8 +2,7 @@
   <sidebar-layout v-if="profile">
     <template #content>
       <h1>Subscription</h1>
-      <subscription-ethereum v-if="isEthereum()" :profile="profile"></subscription-ethereum>
-      <subscription-monero v-else-if="isMonero()" :profile="profile"></subscription-monero>
+      <subscription-monero v-if="isMonero()" :profile="profile"></subscription-monero>
       <div v-else>No subscription info</div>
     </template>
   </sidebar-layout>
@@ -22,11 +21,10 @@ import {
   ProfilePaymentOption,
 } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import SubscriptionEthereum from "@/components/SubscriptionEthereum.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
-import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
+import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const route = useRoute()
 const { authToken, currentUser } = $(useCurrentUser())
@@ -53,13 +51,6 @@ onMounted(async () => {
   }
   subscriptionOption = getSubscriptionOption(profile)
 })
-
-function isEthereum(): boolean {
-  if (!subscriptionOption?.chain_id) {
-    return false
-  }
-  return isEthereumChain(subscriptionOption.chain_id)
-}
 
 function isMonero(): boolean {
   if (!subscriptionOption?.chain_id) {

@@ -128,15 +128,6 @@ export class ProfileWrapper {
     return cleanDisplayName || this.username
   }
 
-  getVerifiedEthereumAddress(): string | null {
-    for (const field of this.identity_proofs) {
-      if (field.name === "$ETH") {
-        return field.value
-      }
-    }
-    return null
-  }
-
   isLocal(): boolean {
     return !isRemoteProfile(this)
   }

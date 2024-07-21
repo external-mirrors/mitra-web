@@ -87,7 +87,6 @@ export async function findSubscription(
 export interface Subscription {
   id: number,
   sender: Profile,
-  sender_address: string | null,
   expires_at: string,
 }
 

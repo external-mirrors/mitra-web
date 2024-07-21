@@ -404,7 +404,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
-import { getCurrencyByLabel, Currency, ETHEREUM, MONERO } from "@/utils/cryptocurrencies"
+import { getCurrencyByLabel, Currency, MONERO } from "@/utils/cryptocurrencies"
 import { formatDateTime } from "@/utils/dates"
 
 interface PaymentOption {
@@ -743,9 +743,7 @@ function getPaymentOptions(): PaymentOption[] {
   if (subscriptionLink) {
     // TODO: use CAIP-2 ID -> symbol mapping
     let currency: Currency
-    if (subscriptionLink.type === "ethereum") {
-      currency = ETHEREUM
-    } else if (subscriptionLink.type === "monero") {
+    if (subscriptionLink.type === "monero") {
       currency = MONERO
     } else {
       throw new Error("invalid subscription type")

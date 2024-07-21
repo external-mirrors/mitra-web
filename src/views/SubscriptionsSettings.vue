@@ -2,7 +2,6 @@
   <sidebar-layout>
     <template #content>
       <h1>Manage subscriptions</h1>
-      <subscription-settings-ethereum v-if="isEthereum()"></subscription-settings-ethereum>
       <subscription-settings-monero v-if="isMonero()"></subscription-settings-monero>
     </template>
   </sidebar-layout>
@@ -12,21 +11,13 @@
 import { $, $computed } from "vue/macros"
 
 import SidebarLayout from "@/components/SidebarLayout.vue"
-import SubscriptionSettingsEthereum from "@/components/SubscriptionSettingsEthereum.vue"
 import SubscriptionSettingsMonero from "@/components/SubscriptionSettingsMonero.vue"
 import { useInstanceInfo } from "@/composables/instance"
-import { isEthereumChain, isMoneroChain } from "@/utils/cryptocurrencies"
+import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const { getBlockchainInfo } = $(useInstanceInfo())
 
 const blockchain = $computed(() => getBlockchainInfo())
-
-function isEthereum(): boolean {
-  if (!blockchain) {
-    return false
-  }
-  return isEthereumChain(blockchain.chain_id)
-}
 
 function isMonero(): boolean {
   if (!blockchain) {

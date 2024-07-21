@@ -5,7 +5,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 
 interface SubscriptionLink {
-  type: "ethereum" | "monero",
+  type: "monero",
   location: string | RouteLocationRaw,
 }
 
@@ -17,24 +17,22 @@ export function useSubscribe() {
     for (const option of profile.payment_options) {
       if (
         option.type === "link" &&
-        (option.name === "EthereumSubscription" || option.name === "MoneroSubscription") &&
+        option.name === "MoneroSubscription" &&
         option.href
       ) {
+        // TODO: drop support for pre-FEP-0837 links
         return {
-          type: option.name === "EthereumSubscription" ? "ethereum" : "monero",
+          type: "monero",
           location: option.href,
         }
-      } else if (
-        option.type === "ethereum-subscription" ||
-        option.type === "monero-subscription"
-      ) {
+      } else if (option.type === "monero-subscription") {
         const blockchain = getBlockchainInfo()
         if (!option.object_id && !blockchain?.features.subscriptions) {
           // Local subscription option, but subscription feature is disabled
           continue
         }
         return {
-          type: option.type === "ethereum-subscription" ? "ethereum" : "monero",
+          type: "monero",
           location: getActorLocation("profile-subscription", profile),
         }
       }
@@ -47,7 +45,7 @@ export function useSubscribe() {
   ): ProfilePaymentOption | null {
     // Use first option if there are many
     const subscriptionOption = profile.payment_options.find((option) => {
-      return option.type === "ethereum-subscription" || option.type === "monero-subscription"
+      return option.type === "monero-subscription"
     }) || null
     return subscriptionOption
   }

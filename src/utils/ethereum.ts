@@ -1,20 +1,6 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
-export function parseCAIP2_ChainId(chainId: string): string {
-  const match = chainId.match(/eip155:(\d+)/)
-  if (!match) {
-    throw new Error("invalid chain ID")
-  }
-  const ethereumChainId = parseInt(match[1])
-  // Return chain ID in hex format which is used by wallets
-  return "0x" + ethereumChainId.toString(16)
-}
-
-export function ethereumAddressMatch(address1: string, address2: string): boolean {
-  return address1.toLowerCase() === address2.toLowerCase()
-}
-
 export function hasEthereumWallet(): boolean {
   return Boolean((window as any).ethereum)
 }
@@ -43,24 +29,6 @@ export async function getWallet(
   }
   const signer = provider.getSigner()
   return signer
-}
-
-export interface EthereumSignature {
-  v: number;
-  r: string;
-  s: string;
-}
-
-export async function getWalletAddress(provider: Web3Provider): Promise<string | null> {
-  let walletAddress
-  try {
-    [walletAddress] = await provider.send("eth_requestAccounts", [])
-  } catch (error) {
-    // Access denied
-    console.warn(error)
-    return null
-  }
-  return walletAddress.toLowerCase()
 }
 
 // EIP-191 signature
