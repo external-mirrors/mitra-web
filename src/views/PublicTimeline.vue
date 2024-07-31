@@ -11,8 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
 import { Post, addRelationships, getPublicTimeline } from "@/api/posts"
@@ -23,8 +22,8 @@ import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = useCurrentUser()
-let posts = $ref<Post[]>([])
-let isLoading = $ref(false)
+const posts = ref<Post[]>([])
+const isLoading = ref(false)
 
 async function loadTimelinePage(
   authToken: string | null,
@@ -42,14 +41,14 @@ async function loadTimelinePage(
 }
 
 onMounted(async () => {
-  isLoading = true
-  posts = await loadTimelinePage(authToken.value)
-  isLoading = false
+  isLoading.value = true
+  posts.value = await loadTimelinePage(authToken.value)
+  isLoading.value = false
 })
 
 async function loadNextPage(maxId: string) {
   const nextPage = await loadTimelinePage(authToken.value, maxId)
-  posts = [...posts, ...nextPage]
+  posts.value = [...posts.value, ...nextPage]
 }
 </script>
 

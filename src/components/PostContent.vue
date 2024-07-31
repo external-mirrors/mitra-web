@@ -4,7 +4,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { $ } from "vue/macros"
 import { useRouter } from "vue-router"
 
 import { replaceShortcodes } from "@/api/emojis"
@@ -15,7 +14,7 @@ import { addGreentext } from "@/utils/greentext"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { currentUser } = $(useCurrentUser())
+const { currentUser } = useCurrentUser()
 
 const props = defineProps<{
   post: Post,
@@ -24,7 +23,7 @@ const props = defineProps<{
 const postContentElement = ref<HTMLElement | null>(null)
 
 onMounted(() => {
-  if (currentUser !== null) {
+  if (currentUser.value !== null) {
     configureInlineLinks()
   }
 })

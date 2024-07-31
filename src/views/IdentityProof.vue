@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -72,39 +72,39 @@ const PROOF_TYPE = "minisign-unhashed"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { ensureAuthToken, currentUser } = $(useCurrentUser())
+const { ensureAuthToken, currentUser } = useCurrentUser()
 
-const key = $ref("")
-const signature = $ref("")
-let identityClaim = $ref<IdentityClaim | null>(null)
-let errorMessage = $ref<string | null>(null)
+const key = ref("")
+const signature = ref("")
+const identityClaim = ref<IdentityClaim | null>(null)
+const errorMessage = ref<string | null>(null)
 
 function canGetClaim(): boolean {
-  return identityClaim === null && key.length > 0
+  return identityClaim.value === null && key.value.length > 0
 }
 
 async function getClaim() {
-  if (currentUser === null || identityClaim !== null) {
+  if (currentUser.value === null || identityClaim.value !== null) {
     return
   }
   const authToken = ensureAuthToken()
   let data
   try {
-    data = await getIdentityClaim(authToken, PROOF_TYPE, key)
+    data = await getIdentityClaim(authToken, PROOF_TYPE, key.value)
   } catch (error: any) {
-    errorMessage = error.message
+    errorMessage.value = error.message
     return
   }
-  errorMessage = null
-  identityClaim = data
+  errorMessage.value = null
+  identityClaim.value = data
 }
 
 function canSubmit(): boolean {
-  return identityClaim !== null && signature.length > 0
+  return identityClaim.value !== null && signature.value.length > 0
 }
 
 async function submit() {
-  if (currentUser === null || identityClaim === null) {
+  if (currentUser.value === null || identityClaim.value === null) {
     return
   }
   const authToken = ensureAuthToken()
@@ -112,16 +112,16 @@ async function submit() {
     await createIdentityProof(
       authToken,
       PROOF_TYPE,
-      identityClaim.did,
-      signature,
-      identityClaim.created_at,
+      identityClaim.value.did,
+      signature.value,
+      identityClaim.value.created_at,
     )
   } catch (error: any) {
-    errorMessage = error.message
+    errorMessage.value = error.message
     return
   }
-  errorMessage = null
-  router.push(getActorLocation("profile", currentUser))
+  errorMessage.value = null
+  router.push(getActorLocation("profile", currentUser.value))
 }
 </script>
 

@@ -56,8 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -80,35 +79,38 @@ const {
   ensureAuthToken,
   ensureCurrentUser,
   setCurrentUser,
-} = $(useCurrentUser())
-const { getBlockchainInfo } = $(useInstanceInfo())
+} = useCurrentUser()
+const { getBlockchainInfo } = useInstanceInfo()
 
-let isLoading = $ref(false)
-let subscriptionOption = $ref<SubscriptionOption | null>(null)
-let subscriptionOptionLoaded = $ref(false)
+const isLoading = ref(false)
+const subscriptionOption = ref<SubscriptionOption | null>(null)
+const subscriptionOptionLoaded = ref(false)
 
-let subscriptionPrice = $ref(0.01)
-let subscriptionPayoutAddress = $ref("")
-let isFormVisible = $ref(false)
+const subscriptionPrice = ref(0.01)
+const subscriptionPayoutAddress = ref("")
+const isFormVisible = ref(false)
 
 onMounted(async () => {
-  isLoading = true
+  isLoading.value = true
   await loadSubscriptionSettings()
-  isLoading = false
+  isLoading.value = false
 })
 
 async function loadSubscriptionSettings() {
   const subscriptionOptions = await getSubscriptionOptions(ensureAuthToken())
-  subscriptionOption = subscriptionOptions.find((item) => {
+  subscriptionOption.value = subscriptionOptions.find((item) => {
     return item.type === "monero"
   }) || null
-  subscriptionOptionLoaded = true
-  if (subscriptionOption?.price && subscriptionOption?.payout_address) {
-    subscriptionPrice = getPricePerMonth(subscriptionOption.price)
-    subscriptionPayoutAddress = subscriptionOption.payout_address
+  subscriptionOptionLoaded.value = true
+  if (
+    subscriptionOption.value?.price &&
+    subscriptionOption.value?.payout_address
+  ) {
+    subscriptionPrice.value = getPricePerMonth(subscriptionOption.value.price)
+    subscriptionPayoutAddress.value = subscriptionOption.value.payout_address
   }
-  if (subscriptionOption === null) {
-    isFormVisible = true
+  if (subscriptionOption.value === null) {
+    isFormVisible.value = true
   }
 }
 
@@ -125,8 +127,8 @@ function getSubscriptionPageUrl(): string {
 function isFormValid(): boolean {
   return (
     // Price must be greater than 0 when expressed in piconeros
-    getPricePerSec(subscriptionPrice) > 0 &&
-    subscriptionPayoutAddress.length > 0
+    getPricePerSec(subscriptionPrice.value) > 0 &&
+    subscriptionPayoutAddress.value.length > 0
   )
 }
 
@@ -135,23 +137,23 @@ async function saveSubscriptionSettings() {
   if (blockchain === null) {
     return
   }
-  isLoading = true
+  isLoading.value = true
   let user
   try {
     user = await registerMoneroSubscriptionOption(
       ensureAuthToken(),
       blockchain.chain_id,
-      getPricePerSec(subscriptionPrice),
-      subscriptionPayoutAddress,
+      getPricePerSec(subscriptionPrice.value),
+      subscriptionPayoutAddress.value,
     )
   } catch (error: any) {
-    isLoading = false
+    isLoading.value = false
     return
   }
   setCurrentUser(user)
   await loadSubscriptionSettings()
-  isFormVisible = false
-  isLoading = false
+  isFormVisible.value = false
+  isLoading.value = false
 }
 </script>
 

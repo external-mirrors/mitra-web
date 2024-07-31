@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { $ref } from "vue/macros"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
@@ -38,30 +37,30 @@ import { useCurrentUser } from "@/composables/user"
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 
-let profiles = $ref<Profile[]>([])
-let initialProfileCount = $ref<number | null>(null)
+const profiles = ref<Profile[]>([])
+const initialProfileCount = ref<number | null>(null)
 const isLoading = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
   const authToken = ensureAuthToken()
-  profiles = await getProfiles(authToken)
-  initialProfileCount = profiles.length
+  profiles.value = await getProfiles(authToken)
+  initialProfileCount.value = profiles.value.length
   isLoading.value = false
 })
 
 function isPageFull(): boolean {
-  if (initialProfileCount === null) {
+  if (initialProfileCount.value === null) {
     return false
   }
-  return initialProfileCount >= PAGE_SIZE
+  return initialProfileCount.value >= PAGE_SIZE
 }
 
 async function loadNextPage() {
   const authToken = ensureAuthToken()
-  const offset = profiles.length
+  const offset = profiles.value.length
   const nextPage = await getProfiles(authToken, offset)
-  profiles = [...profiles, ...nextPage]
+  profiles.value = [...profiles.value, ...nextPage]
 }
 </script>
 

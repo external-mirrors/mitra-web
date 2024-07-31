@@ -40,8 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
 import { Post as PostObject, Tag } from "@/api/posts"
@@ -58,36 +57,36 @@ const route = useRoute()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 
-let searchQuery = $ref<string | null>(null)
-let isLoading = $ref(false)
-let errorMessage = $ref("")
+const searchQuery = ref<string | null>(null)
+const isLoading = ref(false)
+const errorMessage = ref("")
 
-let profiles = $ref<Profile[]>([])
-let posts = $ref<PostObject[]>([])
-let tags = $ref<Tag[]>([])
+const profiles = ref<Profile[]>([])
+const posts = ref<PostObject[]>([])
+const tags = ref<Tag[]>([])
 
 function onPostDeleted(postId: string) {
-  const postIndex = posts.findIndex((post) => post.id === postId)
-  posts.splice(postIndex, 1)
+  const postIndex = posts.value.findIndex((post) => post.id === postId)
+  posts.value.splice(postIndex, 1)
 }
 
 onMounted(async () => {
   const q = route.query?.q
   if (typeof q === "string") {
-    isLoading = true
-    searchQuery = q
+    isLoading.value = true
+    searchQuery.value = q
     try {
       const results = await getSearchResults(
         ensureAuthToken(),
-        searchQuery,
+        searchQuery.value,
       )
-      profiles = results.accounts
-      posts = results.statuses
-      tags = results.hashtags
+      profiles.value = results.accounts
+      posts.value = results.statuses
+      tags.value = results.hashtags
     } catch (error: any) {
-      errorMessage = error.message
+      errorMessage.value = error.message
     }
-    isLoading = false
+    isLoading.value = false
   }
 })
 </script>

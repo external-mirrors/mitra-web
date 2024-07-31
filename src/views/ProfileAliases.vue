@@ -75,8 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 
 import { searchProfilesByAcct } from "@/api/search"
 import { addAlias, removeAlias } from "@/api/settings"
@@ -89,56 +88,56 @@ import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 
 const { getActorLocation } = useActorHandle()
-const { ensureCurrentUser, ensureAuthToken } = $(useCurrentUser())
+const { ensureCurrentUser, ensureAuthToken } = useCurrentUser()
 
-let aliases = $ref<Aliases>({ declared: [], declared_all: [], verified: [] })
-let isLoading = $ref(false)
-let newAlias = $ref<string>("")
-let newAliasSuggestions = $ref<Profile[]>([])
-let newAliasError = $ref<string | null>(null)
+const aliases = ref<Aliases>({ declared: [], declared_all: [], verified: [] })
+const isLoading = ref(false)
+const newAlias = ref<string>("")
+const newAliasSuggestions = ref<Profile[]>([])
+const newAliasError = ref<string | null>(null)
 
 onMounted(async () => {
-  isLoading = true
-  aliases = await getAliases(ensureCurrentUser().id)
-  isLoading = false
+  isLoading.value = true
+  aliases.value = await getAliases(ensureCurrentUser().id)
+  isLoading.value = false
 })
 
 function canAddAlias(): boolean {
-  return newAlias.length > 0 && newAliasError === null
+  return newAlias.value.length > 0 && newAliasError.value === null
 }
 
 async function onAddAlias() {
-  isLoading = true
+  isLoading.value = true
   const profiles = await searchProfilesByAcct(
     ensureAuthToken(),
-    newAlias,
+    newAlias.value,
     true,
     5,
   )
   if (profiles.length === 0) {
-    newAliasError = "profile not found"
-    isLoading = false
+    newAliasError.value = "profile not found"
+    isLoading.value = false
     return
   }
-  if (profiles.length === 1 && profiles[0].acct === newAlias) {
+  if (profiles.length === 1 && profiles[0].acct === newAlias.value) {
     try {
-      aliases = await addAlias(ensureAuthToken(), newAlias)
+      aliases.value = await addAlias(ensureAuthToken(), newAlias.value)
     } catch (error: any) {
-      newAliasError = error.message
-      isLoading = false
+      newAliasError.value = error.message
+      isLoading.value = false
       return
     }
-    newAlias = ""
+    newAlias.value = ""
   } else {
-    newAliasSuggestions = profiles
+    newAliasSuggestions.value = profiles
   }
-  isLoading = false
+  isLoading.value = false
 }
 
 async function onRemoveAlias(actorId: string) {
-  isLoading = true
-  aliases = await removeAlias(ensureAuthToken(), actorId)
-  isLoading = false
+  isLoading.value = true
+  aliases.value = await removeAlias(ensureAuthToken(), actorId)
+  isLoading.value = false
 }
 </script>
 

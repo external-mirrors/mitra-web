@@ -9,8 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
 import {
@@ -27,35 +26,36 @@ import { useCurrentUser } from "@/composables/user"
 import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const route = useRoute()
-const { authToken, currentUser } = $(useCurrentUser())
+const { authToken, currentUser } = useCurrentUser()
 const { getSubscriptionOption } = useSubscribe()
-let profile = $ref<Profile | null>(null)
-let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
+
+const profile = ref<Profile | null>(null)
+const subscriptionOption = ref<ProfilePaymentOption | null>(null)
 
 onMounted(async () => {
   // Recipient
   if (route.params.acct) {
-    profile = await lookupProfile(
-      authToken,
+    profile.value = await lookupProfile(
+      authToken.value,
       route.params.acct as string,
     )
   } else {
-    profile = await getProfile(
-      authToken,
+    profile.value = await getProfile(
+      authToken.value,
       route.params.profileId as string,
     )
   }
-  if (isRemoteProfile(profile) && currentUser === null) {
+  if (isRemoteProfile(profile.value) && currentUser.value === null) {
     // Only authenticated users may view remote subscriptions
     return
   }
-  subscriptionOption = getSubscriptionOption(profile)
+  subscriptionOption.value = getSubscriptionOption(profile.value)
 })
 
 function isMonero(): boolean {
-  if (!subscriptionOption?.chain_id) {
+  if (!subscriptionOption.value?.chain_id) {
     return false
   }
-  return isMoneroChain(subscriptionOption.chain_id)
+  return isMoneroChain(subscriptionOption.value.chain_id)
 }
 </script>

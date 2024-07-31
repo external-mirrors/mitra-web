@@ -32,8 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue"
-import { $ref } from "vue/macros"
+import { onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import { Post, addRelationships, getHomeTimeline } from "@/api/posts"
@@ -49,8 +48,8 @@ const router = useRouter()
 const { currentUser, ensureAuthToken, onInvalidAuthToken } = useCurrentUser()
 const { instance } = useInstanceInfo()
 
-let posts = $ref<Post[]>([])
-let isLoading = $ref(false)
+const posts = ref<Post[]>([])
+const isLoading = ref(false)
 
 function canCreatePost(): boolean {
   if (currentUser.value === null) {
@@ -62,7 +61,7 @@ function canCreatePost(): boolean {
 }
 
 function insertPost(post: Post) {
-  posts = [post, ...posts]
+  posts.value = [post, ...posts.value]
 }
 
 async function loadTimelinePage(
@@ -75,7 +74,7 @@ async function loadTimelinePage(
 }
 
 async function loadTimeline() {
-  isLoading = true
+  isLoading.value = true
   const authToken = ensureAuthToken()
   window.scrollTo({ top: 0, behavior: "smooth" })
   let page
@@ -91,8 +90,8 @@ async function loadTimeline() {
       throw error
     }
   }
-  posts = page
-  isLoading = false
+  posts.value = page
+  isLoading.value = false
 }
 
 async function loadNextPage(maxId: string) {
@@ -104,7 +103,7 @@ async function loadNextPage(maxId: string) {
     console.error("timeline loading error:", error.message)
   }
   // Always update array to remove "loading" status
-  posts = [...posts, ...nextPage]
+  posts.value = [...posts.value, ...nextPage]
 }
 
 onMounted(async () => {

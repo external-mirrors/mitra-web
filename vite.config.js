@@ -14,9 +14,7 @@ export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "")
   return defineConfig({
     plugins: [
-      vue({
-        reactivityTransform: true,
-      }),
+      vue(),
       // Not needed in Vite 4.2+
       injectHtml({
         injectData: {

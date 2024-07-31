@@ -148,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { $ref } from "vue/macros"
+import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
@@ -179,46 +179,47 @@ const {
 } = useCurrentUser()
 const { changePreferredLocale } = useLocales()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
-let newPassword = $ref("")
-let newPasswordConfirmation = $ref("")
-let passwordFormMessage = $ref<string | null>(null)
-let isLoading = $ref(false)
+
+const newPassword = ref("")
+const newPasswordConfirmation = ref("")
+const passwordFormMessage = ref<string | null>(null)
+const isLoading = ref(false)
 
 async function onToggleDarkMode() {
-  isLoading = true
+  isLoading.value = true
   await toggleDarkMode()
-  isLoading = false
+  isLoading.value = false
 }
 
 async function onToggleContentWarnings() {
-  isLoading = true
+  isLoading.value = true
   await setClientConfigKey(
     ConfigKey.ContentWarningsEnabled,
     !contentWarningsEnabled.value,
   )
-  isLoading = false
+  isLoading.value = false
 }
 
 async function onToggleCtrlEnter() {
-  isLoading = true
+  isLoading.value = true
   await setClientConfigKey(
     ConfigKey.CtrlEnterEnabled,
     !ctrlEnterEnabled.value,
   )
-  isLoading = false
+  isLoading.value = false
 }
 
 function canChangePassword(): boolean {
-  return newPassword && newPassword === newPasswordConfirmation
+  return Boolean(newPassword.value) && newPassword.value === newPasswordConfirmation.value
 }
 
 async function onChangePassword() {
   const authToken = ensureAuthToken()
-  const user = await changePassword(authToken, newPassword)
+  const user = await changePassword(authToken, newPassword.value)
   setCurrentUser(user)
-  newPassword = ""
-  newPasswordConfirmation = ""
-  passwordFormMessage = "Password changed"
+  newPassword.value = ""
+  newPasswordConfirmation.value = ""
+  passwordFormMessage.value = "Password changed"
 }
 
 async function onDeleteAccount() {
@@ -241,10 +242,10 @@ async function onExportFollowers() {
 }
 
 async function onChangeLocale(event: Event) {
-  isLoading = true
+  isLoading.value = true
   const newLocale = (event.target as HTMLInputElement).value
   await changePreferredLocale(newLocale)
-  isLoading = false
+  isLoading.value = false
 }
 </script>
 

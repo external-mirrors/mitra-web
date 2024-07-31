@@ -342,7 +342,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
-import { $, $ref } from "vue/macros"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
@@ -399,7 +398,7 @@ const {
   currentUser,
   ensureAuthToken,
   isAdmin,
-} = $(useCurrentUser())
+} = useCurrentUser()
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { getBlockchainInfo } = useInstanceInfo()
@@ -407,140 +406,140 @@ const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
 
 const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 
-let profile = $ref<ProfileWrapper | null>(null)
-let relationship = $ref<Relationship | null>(null)
-let aliases = $ref<Profile[]>([])
+const profile = ref<ProfileWrapper | null>(null)
+const relationship = ref<Relationship | null>(null)
+const aliases = ref<Profile[]>([])
 
-let profileMenuVisible = $ref(false)
+const profileMenuVisible = ref(false)
 const isProcessingFollow = ref(false)
 const isProcessingUnfollow = ref(false)
 
-let tabName = $ref("posts")
-let isLoading = $ref(false)
-let posts = $ref<Post[]>([])
-let followList = $ref<Profile[]>([])
-let followListNextPageUrl = $ref<string | null>(null)
-let subscriptions = $ref<Subscription[]>([])
+const tabName = ref("posts")
+const isLoading = ref(false)
+const posts = ref<Post[]>([])
+const followList = ref<Profile[]>([])
+const followListNextPageUrl = ref<string | null>(null)
+const subscriptions = ref<Subscription[]>([])
 
 onMounted(async () => {
-  isLoading = true
+  isLoading.value = true
   try {
     let _profile
     if (route.params.acct) {
       _profile = await lookupProfile(
-        authToken,
+        authToken.value,
         route.params.acct as string,
       )
     } else {
       _profile = await getProfile(
-        authToken,
+        authToken.value,
         route.params.profileId as string,
       )
     }
-    profile = new ProfileWrapper(_profile)
+    profile.value = new ProfileWrapper(_profile)
   } catch (error: any) {
     if (error.message === "profile not found") {
       // Show "not found" text
-      isLoading = false
+      isLoading.value = false
       return
     }
     throw error
   }
-  if (currentUser && !isCurrentUser()) {
-    relationship = await getRelationship(
+  if (currentUser.value && !isCurrentUser()) {
+    relationship.value = await getRelationship(
       ensureAuthToken(),
-      profile.id,
+      profile.value.id,
     )
   }
-  if (profile.identity_proofs.length > 0) {
-    const { verified } = await getAliases(profile.id)
-    aliases = verified
+  if (profile.value.identity_proofs.length > 0) {
+    const { verified } = await getAliases(profile.value.id)
+    aliases.value = verified
   }
   await switchTab("posts")
-  isLoading = false
+  isLoading.value = false
 })
 
 async function switchTab(name: string) {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
-  isLoading = true
-  tabName = name
+  isLoading.value = true
+  tabName.value = name
   if (postListElement.value !== null) {
     postListElement.value.resetPagination()
   }
-  if (tabName === "posts") {
-    posts = await getProfileTimeline(
-      authToken,
-      profile.id,
+  if (tabName.value === "posts") {
+    posts.value = await getProfileTimeline(
+      authToken.value,
+      profile.value.id,
       true,
       false, // with reposts
       false,
       false,
     )
-  } else if (tabName === "posts-with-replies") {
-    posts = await getProfileTimeline(
-      authToken,
-      profile.id,
+  } else if (tabName.value === "posts-with-replies") {
+    posts.value = await getProfileTimeline(
+      authToken.value,
+      profile.value.id,
       false,
       true, // without reposts
       false,
       false,
     )
-  } else if (tabName === "posts-featured") {
-    posts = await getProfileTimeline(
-      authToken,
-      profile.id,
+  } else if (tabName.value === "posts-featured") {
+    posts.value = await getProfileTimeline(
+      authToken.value,
+      profile.value.id,
       false,
       false, // with reposts
       true,
       false,
     )
-  } else if (tabName === "followers" && isCurrentUser()) {
+  } else if (tabName.value === "followers" && isCurrentUser()) {
     const page = await getFollowers(
       ensureAuthToken(),
-      profile.id,
+      profile.value.id,
     )
-    followList = page.profiles
-    followListNextPageUrl = page.nextPageUrl
-  } else if (tabName === "following" && isCurrentUser()) {
+    followList.value = page.profiles
+    followListNextPageUrl.value = page.nextPageUrl
+  } else if (tabName.value === "following" && isCurrentUser()) {
     const page = await getFollowing(
       ensureAuthToken(),
-      profile.id,
+      profile.value.id,
     )
-    followList = page.profiles
-    followListNextPageUrl = page.nextPageUrl
-  } else if (tabName === "subscribers" && isCurrentUser()) {
-    subscriptions = await getReceivedSubscriptions(
+    followList.value = page.profiles
+    followListNextPageUrl.value = page.nextPageUrl
+  } else if (tabName.value === "subscribers" && isCurrentUser()) {
+    subscriptions.value = await getReceivedSubscriptions(
       ensureAuthToken(),
-      profile.id,
+      profile.value.id,
       false,
     )
   }
-  isLoading = false
+  isLoading.value = false
 }
 
 const actorHandle = computed<string>(() => {
-  if (!profile) {
+  if (!profile.value) {
     return ""
   }
-  return getActorHandle(profile)
+  return getActorHandle(profile.value)
 })
 
 const fields = computed<ProfileField[]>(() => {
-  if (!profile) {
+  if (!profile.value) {
     return []
   }
-  return profile.identity_proofs
-    .concat(profile.fields)
+  return profile.value.identity_proofs
+    .concat(profile.value.fields)
     .slice(0, EXTRA_FIELD_COUNT_MAX)
 })
 
 function isCurrentUser(): boolean {
-  if (!currentUser || !profile) {
+  if (!currentUser.value || !profile.value) {
     return false
   }
-  return currentUser.id === profile.id
+  return currentUser.value.id === profile.value.id
 }
 
 function isAdminProfile(): boolean {
@@ -548,142 +547,142 @@ function isAdminProfile(): boolean {
 }
 
 function isFollowedBy(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.followed_by
+  return relationship.value.followed_by
 }
 
 function isSubscriptionValid(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.subscription_to
+  return relationship.value.subscription_to
 }
 
 function isSubscriber(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.subscription_from
+  return relationship.value.subscription_from
 }
 
 function isMuted(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.muting
+  return relationship.value.muting
 }
 
 function canAcceptFollowRequest(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.requested_by
+  return relationship.value.requested_by
 }
 
 async function onAcceptFollowRequest() {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
-  relationship = await acceptFollowRequest(
+  relationship.value = await acceptFollowRequest(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
 }
 
 async function onRejectFollowRequest() {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
-  relationship = await rejectFollowRequest(
+  relationship.value = await rejectFollowRequest(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
 }
 
 function canFollow(): boolean {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     // Show 'Follow' button to guests
     return true
   }
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return !relationship.following && !relationship.requested
+  return !relationship.value.following && !relationship.value.requested
 }
 
 function canUnfollow(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return (relationship.following || relationship.requested)
+  return (relationship.value.following || relationship.value.requested)
 }
 
 function isFollowRequestPending(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.requested
+  return relationship.value.requested
 }
 
 function canHideReposts(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return (relationship.following || relationship.requested) && relationship.showing_reblogs
+  return (relationship.value.following || relationship.value.requested) && relationship.value.showing_reblogs
 }
 
 function canShowReposts(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return (relationship.following || relationship.requested) && !relationship.showing_reblogs
+  return (relationship.value.following || relationship.value.requested) && !relationship.value.showing_reblogs
 }
 
 function canHideReplies(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return (relationship.following || relationship.requested) && relationship.showing_replies
+  return (relationship.value.following || relationship.value.requested) && relationship.value.showing_replies
 }
 
 function canShowReplies(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return (relationship.following || relationship.requested) && !relationship.showing_replies
+  return (relationship.value.following || relationship.value.requested) && !relationship.value.showing_replies
 }
 
 async function onFollow(showReposts?: boolean, showReplies?: boolean) {
-  if (!currentUser) {
+  if (!currentUser.value) {
     // Viewing as guest
     alert(`You can follow this account from your Fediverse server: ${actorHandle.value}`)
     return
   }
-  if (!profile || !relationship) {
+  if (!profile.value || !relationship.value) {
     return
   }
   isProcessingFollow.value = true
-  relationship = await follow(
+  relationship.value = await follow(
     ensureAuthToken(),
-    profile.id,
-    showReposts ?? relationship.showing_reblogs,
-    showReplies ?? relationship.showing_replies,
+    profile.value.id,
+    showReposts ?? relationship.value.showing_reblogs,
+    showReplies ?? relationship.value.showing_replies,
   )
   isProcessingFollow.value = false
   if (
     showReposts === undefined &&
     showReplies === undefined &&
-    !relationship.following
+    !relationship.value.following
   ) {
     // Update follower status after 5 secs
     let count = 0
     const intervalId = setInterval(async () => {
-      if (profile && relationship && !relationship.following && count < 5) {
-        relationship = await getRelationship(
+      if (profile.value && relationship.value && !relationship.value.following && count < 5) {
+        relationship.value = await getRelationship(
           ensureAuthToken(),
-          profile.id,
+          profile.value.id,
         )
         count += 1
       } else {
@@ -694,83 +693,83 @@ async function onFollow(showReposts?: boolean, showReplies?: boolean) {
 }
 
 async function onUnfollow() {
-  if (!currentUser || !profile) {
+  if (!currentUser.value || !profile.value) {
     return
   }
   isProcessingUnfollow.value = true
-  relationship = await unfollow(
+  relationship.value = await unfollow(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
   isProcessingUnfollow.value = false
 }
 
 async function onRemoveFollower() {
-  if (!currentUser || !profile) {
+  if (!currentUser.value || !profile.value) {
     return
   }
-  if (confirm(`Are you sure you want to remove ${profile.getDisplayName()} from followers?`)) {
-    relationship = await removeFollower(
+  if (confirm(`Are you sure you want to remove ${profile.value.getDisplayName()} from followers?`)) {
+    relationship.value = await removeFollower(
       ensureAuthToken(),
-      profile.id,
+      profile.value.id,
     )
   }
 }
 
 function canMute(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return !relationship.muting
+  return !relationship.value.muting
 }
 
 function canUnmute(): boolean {
-  if (!relationship) {
+  if (!relationship.value) {
     return false
   }
-  return relationship.muting
+  return relationship.value.muting
 }
 
 async function onMute() {
-  if (!currentUser || !profile) {
+  if (!currentUser.value || !profile.value) {
     return
   }
-  relationship = await mute(
+  relationship.value = await mute(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
 }
 
 async function onUnmute() {
-  if (!currentUser || !profile) {
+  if (!currentUser.value || !profile.value) {
     return
   }
-  relationship = await unmute(
+  relationship.value = await unmute(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
 }
 
 function toggleProfileMenu() {
-  profileMenuVisible = !profileMenuVisible
+  profileMenuVisible.value = !profileMenuVisible.value
 }
 
 function hideProfileMenu() {
-  profileMenuVisible = false
+  profileMenuVisible.value = false
 }
 
 function isLocalUser(): boolean {
-  if (!profile) {
+  if (!profile.value) {
     return false
   }
-  return profile.username === profile.acct
+  return profile.value.username === profile.value.acct
 }
 
 const feedUrl = computed<string>(() => {
-  if (!profile || !isLocalUser()) {
+  if (!profile.value || !isLocalUser()) {
     return ""
   }
-  return `${BACKEND_URL}/feeds/users/${profile.username}`
+  return `${BACKEND_URL}/feeds/users/${profile.value.username}`
 })
 
 function canVerifyEthereumAddress(): boolean {
@@ -778,12 +777,12 @@ function canVerifyEthereumAddress(): boolean {
 }
 
 async function onVerifyEthereumAddress() {
-  if (!profile || !isCurrentUser()) {
+  if (!profile.value || !isCurrentUser()) {
     return
   }
   const user = await verifyEthereumAddress()
   if (user) {
-    profile.identity_proofs = user.identity_proofs
+    profile.value.identity_proofs = user.identity_proofs
   }
 }
 
@@ -793,10 +792,10 @@ function isSubscriptionsFeatureEnabled(): boolean {
 }
 
 const subscriptionPageLocation = computed(() => {
-  if (!profile) {
+  if (!profile.value) {
     return null
   }
-  const link = getSubscriptionLink(profile)
+  const link = getSubscriptionLink(profile.value)
   return link?.location || null
 })
 
@@ -809,43 +808,43 @@ function canSubscribe(): boolean {
 
 function canViewSubscriber(): boolean {
   return (
-    currentUser !== null &&
+    currentUser.value !== null &&
     !isCurrentUser() &&
-    getSubscriptionOption(currentUser) !== null
+    getSubscriptionOption(currentUser.value) !== null
   )
 }
 
 function copyProfileId(): void {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
-  navigator.clipboard.writeText(profile.id)
+  navigator.clipboard.writeText(profile.value.id)
 }
 
 function copyActorId(): void {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
-  navigator.clipboard.writeText(profile.actor_id)
+  navigator.clipboard.writeText(profile.value.actor_id)
 }
 
 function canLoadLatestPosts(): boolean {
   return (
-    profile !== null &&
-    currentUser !== null &&
+    profile.value !== null &&
+    currentUser.value !== null &&
     !isLocalUser() &&
     isAdmin()
   )
 }
 
 async function onLoadLatestPosts() {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
   alert(t("misc.reload_page"))
   await loadLatestPosts(
     ensureAuthToken(),
-    profile.id,
+    profile.value.id,
   )
 }
 
@@ -862,40 +861,40 @@ async function updateIdentityProof(fieldName: string) {
 }
 
 async function loadNextPage(maxId: string) {
-  if (!profile) {
+  if (!profile.value) {
     return
   }
   const nextPage = await getProfileTimeline(
-    authToken,
-    profile.id,
-    tabName !== "posts-with-replies",
-    tabName === "posts-with-replies",
-    tabName === "posts-featured",
+    authToken.value,
+    profile.value.id,
+    tabName.value !== "posts-with-replies",
+    tabName.value === "posts-with-replies",
+    tabName.value === "posts-featured",
     false,
     maxId,
   )
-  posts = [...posts, ...nextPage]
+  posts.value = [...posts.value, ...nextPage]
 }
 
 async function loadFollowListNextPage() {
-  if (!profile || !followListNextPageUrl) {
+  if (!profile.value || !followListNextPageUrl.value) {
     return
   }
   let loadFollowList
-  if (tabName === "followers") {
+  if (tabName.value === "followers") {
     loadFollowList = getFollowers
-  } else if (tabName === "following") {
+  } else if (tabName.value === "following") {
     loadFollowList = getFollowing
   } else {
     throw new Error("wrong tab")
   }
   const page = await loadFollowList(
     ensureAuthToken(),
-    profile.id,
-    followListNextPageUrl,
+    profile.value.id,
+    followListNextPageUrl.value,
   )
-  followList.push(...page.profiles)
-  followListNextPageUrl = page.nextPageUrl
+  followList.value.push(...page.profiles)
+  followListNextPageUrl.value = page.nextPageUrl
 }
 </script>
 

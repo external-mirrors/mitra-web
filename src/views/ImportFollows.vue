@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 import { importFollows } from "@/api/settings"
@@ -36,34 +36,34 @@ import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { currentUser, ensureAuthToken } = useCurrentUser()
 
-const followsCsv = $ref("")
-let isLoading = $ref(false)
-let errorMessage = $ref<string | null>(null)
+const followsCsv = ref("")
+const isLoading = ref(false)
+const errorMessage = ref<string | null>(null)
 
 function canImport(): boolean {
-  return followsCsv.length > 0
+  return followsCsv.value.length > 0
 }
 
 async function submit() {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     return
   }
-  isLoading = true
+  isLoading.value = true
   try {
     await importFollows(
       ensureAuthToken(),
-      followsCsv,
+      followsCsv.value,
     )
   } catch (error: any) {
-    isLoading = false
-    errorMessage = error.message
+    isLoading.value = false
+    errorMessage.value = error.message
     return
   }
-  isLoading = false
-  errorMessage = null
-  router.push(getActorLocation("profile", currentUser))
+  isLoading.value = false
+  errorMessage.value = null
+  router.push(getActorLocation("profile", currentUser.value))
 }
 </script>
 

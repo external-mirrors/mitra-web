@@ -68,7 +68,7 @@
           v-if="!isAmountEditable"
           type="number"
           id="duration"
-          v-model="paymentDurationInputValue"
+          v-model="paymentDurationInput"
           min="1"
         >
         <span
@@ -86,7 +86,7 @@
           v-if="isAmountEditable && subscriptionPrice"
           type="number"
           id="amount"
-          v-model="paymentAmountInputValue"
+          v-model="paymentAmountInput"
           :step="subscriptionPrice"
           min="0"
         >
@@ -175,7 +175,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
-import { $, $computed, $ref } from "vue/macros"
 import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
@@ -224,60 +223,63 @@ const props = defineProps<{
 
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = $(useCurrentUser())
+const { currentUser, ensureAuthToken } = useCurrentUser()
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const { getSubscriptionOption } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)
-const senderAcct = $ref("")
-let senderError = $ref<string | null>(null)
-let sender = $ref(new ProfileWrapper(currentUser || defaultProfile({ display_name: "You" })))
-let subscriptionOption = $ref<ProfilePaymentOption | null>(null)
-let subscriptionDetails = $ref<SubscriptionDetails | null>(null)
-let relationship = $ref<Relationship | null>(null)
-let paymentDurationInputValue = $ref<number | "">(1)
-let paymentAmountInputValue = $ref<number | "">(0)
-let isAmountEditable = $ref(false)
-let invoice = $ref<Invoice | null>(null)
+const senderAcct = ref("")
+const senderError = ref<string | null>(null)
+const sender = ref(new ProfileWrapper(currentUser.value || defaultProfile({ display_name: "You" })))
+const subscriptionOption = ref<ProfilePaymentOption | null>(null)
+const subscriptionDetails = ref<SubscriptionDetails | null>(null)
+const relationship = ref<Relationship | null>(null)
+const paymentDurationInput = ref<number | "">(1)
+const paymentAmountInput = ref<number | "">(0)
+const isAmountEditable = ref(false)
+const invoice = ref<Invoice | null>(null)
 const paymentRequestVisible = ref(false)
 
-let isLoading = $ref(false)
+const isLoading = ref(false)
 
 function getInvoiceIdStorageKey(): string {
   return `${INVOICE_ID_STORAGE_KEY}_${recipient.id}`
 }
 
 onMounted(async () => {
-  isLoading = true
+  isLoading.value = true
   const option = getSubscriptionOption(recipient)
   if (
     option !== null &&
     option.chain_id !== undefined &&
     isMoneroChain(option.chain_id)
   ) {
-    subscriptionOption = option
-    if (sender.id !== "") {
+    subscriptionOption.value = option
+    if (sender.value.id !== "") {
       await loadSubscriptionDetails()
-      if (subscriptionDetails === null && currentUser !== null) {
+      if (subscriptionDetails.value === null && currentUser.value !== null) {
         // Pre FEP-0837
         // Only authenticated users may view remote subscriptions
-        relationship = await getRelationship(ensureAuthToken(), recipient.id)
+        relationship.value = await getRelationship(ensureAuthToken(), recipient.id)
       }
     }
   }
-  isLoading = false
+  isLoading.value = false
 })
 
 function isLoaderVisible(): boolean {
   return (
-    isLoading ||
-    invoice?.status === "paid" ||
-    invoice?.status === "forwarded" ||
-    invoice?.status === "failed"
+    isLoading.value ||
+    invoice.value?.status === "paid" ||
+    invoice.value?.status === "forwarded" ||
+    invoice.value?.status === "failed"
   )
 }
 
 async function loadSubscriptionDetails() {
-  subscriptionDetails = await findSubscription(sender.id, recipient.id)
+  subscriptionDetails.value = await findSubscription(
+    sender.value.id,
+    recipient.id,
+  )
   const invoiceId = (
     route.query.invoice_id ||
     localStorage.getItem(getInvoiceIdStorageKey())
@@ -285,17 +287,17 @@ async function loadSubscriptionDetails() {
   if (invoiceId) {
     const lastInvoice = await getInvoice(invoiceId as string)
     if (
-      lastInvoice.sender_id !== sender.id ||
+      lastInvoice.sender_id !== sender.value.id ||
       lastInvoice.recipient_id !== recipient.id
     ) {
       // Invoice created by different user
       return
     }
-    invoice = lastInvoice
+    invoice.value = lastInvoice
     if (
-      invoice &&
-      invoice.status !== "completed" &&
-      invoice.status !== "cancelled"
+      invoice.value &&
+      invoice.value.status !== "completed" &&
+      invoice.value.status !== "cancelled"
     ) {
       watchInvoice()
     }
@@ -303,124 +305,124 @@ async function loadSubscriptionDetails() {
 }
 
 // Human-readable subscription price
-const subscriptionPrice = $computed<number | null>(() => {
-  if (!subscriptionOption?.price) {
+const subscriptionPrice = computed<number | null>(() => {
+  if (!subscriptionOption.value?.price) {
     return null
   }
-  return getPricePerMonth(subscriptionOption.price)
+  return getPricePerMonth(subscriptionOption.value.price)
 })
 
 async function identifySender() {
-  if (!senderAcct) {
+  if (!senderAcct.value) {
     return
   }
-  isLoading = true
+  isLoading.value = true
   let profiles
   try {
     profiles = await searchProfilesByAcct(
       null,
-      senderAcct,
+      senderAcct.value,
       true,
     )
   } catch (error: any) {
     if (error.message === "Too Many Requests") {
-      senderError = "Too many requests"
-      isLoading = false
+      senderError.value = "Too many requests"
+      isLoading.value = false
       return
     }
     throw error
   }
   if (profiles.length > 1) {
-    senderError = "Please provide full address"
+    senderError.value = "Please provide full address"
   } else {
     const profile = profiles[0]
     if (profile && profile.id !== recipient.id) {
-      sender = new ProfileWrapper(profile)
-      senderError = null
+      sender.value = new ProfileWrapper(profile)
+      senderError.value = null
       await loadSubscriptionDetails()
     } else {
-      senderError = "Profile not found"
+      senderError.value = "Profile not found"
     }
   }
-  isLoading = false
+  isLoading.value = false
 }
 
 function isSubscribed(): boolean {
-  if (subscriptionDetails === null) {
+  if (subscriptionDetails.value === null) {
     if (!recipient.isLocal()) {
       // Pre-FEP-0837 remote subscriptions are simply relationships
-      if (relationship === null) {
+      if (relationship.value === null) {
         return false
       }
-      return relationship.subscription_to
+      return relationship.value.subscription_to
     } else {
       return false
     }
   }
-  return !isPastDate(subscriptionDetails.expires_at)
+  return !isPastDate(subscriptionDetails.value.expires_at)
 }
 
 function canSubscribe(): boolean {
   return (
-    sender.id !== "" &&
-    sender.id !== recipient.id &&
-    subscriptionOption !== null &&
-    subscriptionPrice !== null &&
-    invoice === null
+    sender.value.id !== "" &&
+    sender.value.id !== recipient.id &&
+    subscriptionOption.value !== null &&
+    subscriptionPrice.value !== null &&
+    invoice.value === null
   )
 }
 
 function editDuration() {
-  if (!isAmountEditable) {
+  if (!isAmountEditable.value) {
     return
   }
-  paymentDurationInputValue = paymentDuration.value
-  isAmountEditable = false
+  paymentDurationInput.value = paymentDuration.value
+  isAmountEditable.value = false
 }
 
 const paymentDuration = computed<number>(() => {
-  if (!subscriptionOption?.price) {
+  if (!subscriptionOption.value?.price) {
     return 0
   }
-  if (!isAmountEditable) {
-    if (paymentDurationInputValue === "") {
+  if (!isAmountEditable.value) {
+    if (paymentDurationInput.value === "") {
       return 0
     }
-    return paymentDurationInputValue
+    return paymentDurationInput.value
   }
-  if (paymentAmountInputValue === "") {
+  if (paymentAmountInput.value === "") {
     return 0
   }
   return getSubscriptionDuration(
-    subscriptionOption.price,
-    parseXmrAmount(paymentAmountInputValue),
+    subscriptionOption.value.price,
+    parseXmrAmount(paymentAmountInput.value),
   )
 })
 
 function editAmount() {
-  if (isAmountEditable) {
+  if (isAmountEditable.value) {
     return
   }
-  paymentAmountInputValue = formatXmrAmount(paymentAmount)
-  isAmountEditable = true
+  paymentAmountInput.value = formatXmrAmount(paymentAmount.value)
+  isAmountEditable.value = true
 }
 
-const paymentAmount = $computed<number>(() => {
-  if (!subscriptionOption?.price) {
+const paymentAmount = computed<number>(() => {
+  if (!subscriptionOption.value?.price) {
     return 0
   }
-  if (isAmountEditable) {
-    if (paymentAmountInputValue === "") {
+  if (isAmountEditable.value) {
+    if (paymentAmountInput.value === "") {
       return 0
     }
-    return parseXmrAmount(paymentAmountInputValue)
+    return parseXmrAmount(paymentAmountInput.value)
   }
-  if (paymentDurationInputValue === "") {
+  if (paymentDurationInput.value === "") {
     return 0
   }
   return getPaymentAmount(
-    subscriptionOption.price,
-    paymentDurationInputValue,
+    subscriptionOption.value.price,
+    paymentDurationInput.value,
   )
 })
 
@@ -429,7 +431,7 @@ const paymentMessage = computed<string | null>(() => {
     return null
   }
   const blockchain = getBlockchainInfo()
-  if (blockchain && blockchain.chain_id === subscriptionOption?.chain_id) {
+  if (blockchain && blockchain.chain_id === subscriptionOption.value?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.description || null
   } else {
     return null
@@ -437,66 +439,72 @@ const paymentMessage = computed<string | null>(() => {
 })
 
 function canCreateInvoice(): boolean {
-  return paymentAmount !== 0 && paymentAmount >= parseXmrAmount(PAYMENT_AMOUNT_MIN)
+  return (
+    paymentAmount.value !== 0 &&
+    paymentAmount.value >= parseXmrAmount(PAYMENT_AMOUNT_MIN)
+  )
 }
 
 async function onCreateInvoice() {
-  if (paymentAmount === 0) {
+  if (paymentAmount.value === 0) {
     return
   }
-  if (!subscriptionOption || !subscriptionOption.chain_id) {
+  if (!subscriptionOption.value?.chain_id) {
     return
   }
-  isLoading = true
+  isLoading.value = true
   try {
-    invoice = await createInvoice(
-      sender.id,
+    invoice.value = await createInvoice(
+      sender.value.id,
       recipient.id,
-      subscriptionOption.chain_id,
-      paymentAmount,
+      subscriptionOption.value.chain_id,
+      paymentAmount.value,
     )
   } catch (error: any) {
     alert(error.message)
-    isLoading = false
+    isLoading.value = false
     return
   }
   // Add invoice ID to current URL
   window.history.pushState(
     {},
     "",
-    `${window.location.pathname}?invoice_id=${invoice.id}`,
+    `${window.location.pathname}?invoice_id=${invoice.value.id}`,
   )
-  localStorage.setItem(getInvoiceIdStorageKey(), invoice.id)
-  isLoading = false
+  localStorage.setItem(getInvoiceIdStorageKey(), invoice.value.id)
+  isLoading.value = false
   watchInvoice()
 }
 
 function watchInvoice() {
   const watcher = setInterval(async () => {
-    if (!invoice) {
+    if (!invoice.value) {
       // Stop watching if invoice was closed
       clearInterval(watcher)
       return
     }
-    invoice = await getInvoice(invoice.id)
-    if (invoice.status === "completed") {
+    invoice.value = await getInvoice(invoice.value.id)
+    if (invoice.value.status === "completed") {
       // Stop watching and refresh subscription details
       clearInterval(watcher)
-      subscriptionDetails = await findSubscription(sender.id, recipient.id)
+      subscriptionDetails.value = await findSubscription(
+        sender.value.id,
+        recipient.id,
+      )
     }
   }, 10000)
 }
 
 async function onCancelInvoice() {
-  if (!invoice) {
+  if (!invoice.value) {
     throw new Error("invoice doesn't exist")
   }
-  await cancelInvoice(invoice.id)
+  await cancelInvoice(invoice.value.id)
   closeInvoice()
 }
 
 function closeInvoice() {
-  invoice = null
+  invoice.value = null
   // Remove invoice ID from current URL
   window.history.pushState(
     {},
@@ -514,12 +522,12 @@ function getPaymentUri(invoice: Invoice): string {
 }
 
 function getPaymentRequest(invoice: Invoice): string {
-  if (subscriptionPrice === null) {
+  if (subscriptionPrice.value === null) {
     return ""
   }
   return createMoneroPaymentRequest(
     `Subscription to @${recipient.acct}`,
-    subscriptionPrice,
+    subscriptionPrice.value,
     DAYS_IN_MONTH,
     invoice.payment_address,
     invoice.created_at,

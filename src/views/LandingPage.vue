@@ -148,8 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue"
-import { $, $$, $ref } from "vue/macros"
+import { computed, ref, watch } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -172,20 +171,20 @@ import { createMoneroCaip122Message } from "@/utils/monero"
 
 const router = useRouter()
 const { setCurrentUser, setAuthToken } = useCurrentUser()
-const { getBlockchainInfo, instance } = $(useInstanceInfo())
+const { getBlockchainInfo, instance } = useInstanceInfo()
 
-const isRegistered = $ref(true)
-const username = $ref("")
-const password = $ref<string | null>(null)
-const moneroAddress = $ref<string | null>(null)
-const moneroSignature = $ref<string | null>(null)
-const inviteCode = $ref<string | null>(null)
-let loginType = $ref<AuthenticationMethod>(AuthenticationMethod.Password)
-let isLoading = $ref(false)
-let loginErrorMessage = $ref<string | null>(null)
+const isRegistered = ref(true)
+const username = ref("")
+const password = ref<string | null>(null)
+const moneroAddress = ref<string | null>(null)
+const moneroSignature = ref<string | null>(null)
+const inviteCode = ref<string | null>(null)
+const loginType = ref<AuthenticationMethod>(AuthenticationMethod.Password)
+const isLoading = ref(false)
+const loginErrorMessage = ref<string | null>(null)
 
 function isWalletRequired(): boolean {
-  if (!instance) {
+  if (!instance.value) {
     return false
   }
   const blockchain = getBlockchainInfo()
@@ -193,34 +192,34 @@ function isWalletRequired(): boolean {
 }
 
 const allowedAuthenticationMethods = computed(() => {
-  if (!instance) {
+  if (!instance.value) {
     return []
   }
   if (isWalletRequired()) {
     return [AuthenticationMethod.Eip4361]
   }
-  return instance.authentication_methods
+  return instance.value.authentication_methods
 })
 
-watch($$(instance), () => {
+watch(instance, () => {
   if (
     allowedAuthenticationMethods.value.includes(AuthenticationMethod.Eip4361) &&
     (hasEthereumWallet() || isWalletRequired())
   ) {
     // Switch to EIP-4361 if wallet is present or
     // if registration is token-gated
-    loginType = AuthenticationMethod.Eip4361
+    loginType.value = AuthenticationMethod.Eip4361
   }
 }, { immediate: true })
 
 const moneroCaip122Message = computed(() => {
-  if (!instance || !moneroAddress) {
+  if (!instance.value || !moneroAddress.value) {
     return null
   }
   return createMoneroCaip122Message(
-    moneroAddress,
-    instance.uri,
-    instance.login_message,
+    moneroAddress.value,
+    instance.value.uri,
+    instance.value.login_message,
   )
 })
 
@@ -230,33 +229,33 @@ function selectCaip122Message(event: MouseEvent) {
 }
 
 function isUsernameValid(): boolean {
-  if (!username) {
+  if (!username.value) {
     return true
   }
-  return /^[a-z0-9_]+$/.test(username)
+  return /^[a-z0-9_]+$/.test(username.value)
 }
 
 function isLoginFormValid(): boolean {
-  if (!instance) {
+  if (!instance.value) {
     return false
   }
-  if (isRegistered) {
-    if (loginType === AuthenticationMethod.Password) {
-      return Boolean(username) && isUsernameValid() && Boolean(password)
-    } else if (loginType === AuthenticationMethod.Caip122Monero) {
-      return Boolean(moneroSignature)
+  if (isRegistered.value) {
+    if (loginType.value === AuthenticationMethod.Password) {
+      return Boolean(username.value) && isUsernameValid() && Boolean(password.value)
+    } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
+      return Boolean(moneroSignature.value)
     } else {
       return true
     }
   } else {
-    const inviteCodeValid = instance.registrations ? true : Boolean(inviteCode)
-    if (!username || !isUsernameValid()) {
+    const inviteCodeValid = instance.value.registrations ? true : Boolean(inviteCode.value)
+    if (!username.value || !isUsernameValid()) {
       return false
     }
-    if (loginType === AuthenticationMethod.Password) {
-      return Boolean(password) && inviteCodeValid
-    } else if (loginType === AuthenticationMethod.Caip122Monero) {
-      return Boolean(moneroSignature) && inviteCodeValid
+    if (loginType.value === AuthenticationMethod.Password) {
+      return Boolean(password.value) && inviteCodeValid
+    } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
+      return Boolean(moneroSignature.value) && inviteCodeValid
     } else {
       return inviteCodeValid
     }
@@ -264,94 +263,60 @@ function isLoginFormValid(): boolean {
 }
 
 async function register() {
-  loginErrorMessage = null
-  if (!instance) {
+  loginErrorMessage.value = null
+  if (!instance.value) {
     return
   }
   let userData
   let loginData
-  if (loginType === AuthenticationMethod.Password) {
+  if (loginType.value === AuthenticationMethod.Password) {
     userData = {
-      username,
-      password,
+      username: username.value,
+      password: password.value,
       message: null,
       signature: null,
-      invite_code: inviteCode,
+      invite_code: inviteCode.value,
     }
-    loginData = { username, password, message: null, signature: null }
-  } else if (loginType === AuthenticationMethod.Eip4361) {
+    loginData = {
+      username: username.value,
+      password: password.value,
+      message: null,
+      signature: null,
+    }
+  } else if (loginType.value === AuthenticationMethod.Eip4361) {
     const signer = await getWallet()
     if (!signer) {
-      loginErrorMessage = "wallet not found"
+      loginErrorMessage.value = "wallet not found"
       return
     }
     const { message, signature } = await createEip4361_SignedMessage(
       signer,
-      instance.uri,
-      instance.login_message,
+      instance.value.uri,
+      instance.value.login_message,
     )
     userData = {
-      username,
+      username: username.value,
       password: null,
       message,
       signature,
-      invite_code: inviteCode,
+      invite_code: inviteCode.value,
     }
-    loginData = { username: null, password: null, message, signature }
-  } else if (loginType === AuthenticationMethod.Caip122Monero) {
-    const message = moneroCaip122Message.value
-    const signature = moneroSignature
-    userData = {
-      username,
+    loginData = {
+      username: null,
       password: null,
       message,
       signature,
-      invite_code: inviteCode,
     }
-    loginData = { username: null, password: null, message, signature }
-  } else {
-    throw new Error("invalid login type")
-  }
-  isLoading = true
-  let user
-  let authToken
-  try {
-    user = await createUser(loginType, userData)
-    authToken = await getAccessToken(loginType, loginData)
-  } catch (error: any) {
-    isLoading = false
-    loginErrorMessage = error.message
-    return
-  }
-  setCurrentUser(user)
-  setAuthToken(authToken)
-  isLoading = false
-  router.push({ name: "home" })
-}
-
-async function login() {
-  loginErrorMessage = null
-  if (!instance) {
-    return
-  }
-  let loginData
-  if (loginType === AuthenticationMethod.Password) {
-    loginData = { username, password, message: null, signature: null }
-  } else if (loginType === AuthenticationMethod.Eip4361) {
-    const signer = await getWallet()
-    if (!signer) {
-      loginErrorMessage = "wallet not found"
-      return
-    }
-    const { message, signature } = await createEip4361_SignedMessage(
-      signer,
-      instance.uri,
-      instance.login_message,
-    )
-    loginData = { username: null, password: null, message, signature }
-  } else if (loginType === AuthenticationMethod.Caip122Monero) {
+  } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
     const message = moneroCaip122Message.value
-    const signature = moneroSignature
+    const signature = moneroSignature.value
+    userData = {
+      username: username.value,
+      password: null,
+      message,
+      signature,
+      invite_code: inviteCode.value,
+    }
     loginData = {
       username: null,
       password: null,
@@ -361,20 +326,79 @@ async function login() {
   } else {
     throw new Error("invalid login type")
   }
-  isLoading = true
+  isLoading.value = true
   let user
   let authToken
   try {
-    authToken = await getAccessToken(loginType, loginData)
-    user = await getCurrentUser(authToken)
+    user = await createUser(loginType.value, userData)
+    authToken = await getAccessToken(loginType.value, loginData)
   } catch (error: any) {
-    isLoading = false
-    loginErrorMessage = error.message
+    isLoading.value = false
+    loginErrorMessage.value = error.message
     return
   }
   setCurrentUser(user)
   setAuthToken(authToken)
-  isLoading = false
+  isLoading.value = false
+  router.push({ name: "home" })
+}
+
+async function login() {
+  loginErrorMessage.value = null
+  if (!instance.value) {
+    return
+  }
+  let loginData
+  if (loginType.value === AuthenticationMethod.Password) {
+    loginData = {
+      username: username.value,
+      password: password.value,
+      message: null,
+      signature: null,
+    }
+  } else if (loginType.value === AuthenticationMethod.Eip4361) {
+    const signer = await getWallet()
+    if (!signer) {
+      loginErrorMessage.value = "wallet not found"
+      return
+    }
+    const { message, signature } = await createEip4361_SignedMessage(
+      signer,
+      instance.value.uri,
+      instance.value.login_message,
+    )
+    loginData = {
+      username: null,
+      password: null,
+      message,
+      signature,
+    }
+  } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
+    const message = moneroCaip122Message.value
+    const signature = moneroSignature.value
+    loginData = {
+      username: null,
+      password: null,
+      message,
+      signature,
+    }
+  } else {
+    throw new Error("invalid login type")
+  }
+  isLoading.value = true
+  let user
+  let authToken
+  try {
+    authToken = await getAccessToken(loginType.value, loginData)
+    user = await getCurrentUser(authToken)
+  } catch (error: any) {
+    isLoading.value = false
+    loginErrorMessage.value = error.message
+    return
+  }
+  setCurrentUser(user)
+  setAuthToken(authToken)
+  isLoading.value = false
   router.push({ name: "home" })
 }
 </script>

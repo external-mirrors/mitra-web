@@ -21,8 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted } from "vue"
-import { $, $ref } from "vue/macros"
+import { nextTick, onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
 import {
@@ -36,12 +35,12 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
-const { authToken } = $(useCurrentUser())
+const { authToken } = useCurrentUser()
 
-let selectedId = $ref(route.params.postId as string)
-let highlightedId = $ref<string | null>(null)
-let thread = $ref<PostObject[]>([])
-let isLoading = $ref(true)
+const selectedId = ref(route.params.postId as string)
+const highlightedId = ref<string | null>(null)
+const thread = ref<PostObject[]>([])
+const isLoading = ref(true)
 
 async function loadThread(
   authToken: string | null,
@@ -56,7 +55,7 @@ async function loadThread(
 
 onMounted(async () => {
   try {
-    thread = await loadThread(authToken, selectedId)
+    thread.value = await loadThread(authToken.value, selectedId.value)
   } catch (error: any) {
     if (error.message === "post not found") {
       // Show "not found" text
@@ -64,11 +63,11 @@ onMounted(async () => {
     }
     throw error
   } finally {
-    isLoading = false
+    isLoading.value = false
   }
   await nextTick()
   // TODO: scrolls to wrong position if posts above it have images
-  scrollTo(selectedId)
+  scrollTo(selectedId.value)
 })
 
 function scrollTo(postId: string, options: any = {}) {
@@ -86,27 +85,27 @@ function scrollTo(postId: string, options: any = {}) {
     left: 0,
     ...options,
   })
-  if (selectedId === postId) {
+  if (selectedId.value === postId) {
     return
   }
   // Update postId in page URL
   window.history.pushState(
     {},
     "",
-    window.location.pathname.replace(selectedId, postId),
+    window.location.pathname.replace(selectedId.value, postId),
   )
-  selectedId = postId
+  selectedId.value = postId
 }
 
 function isHighlighted(post: PostObject): boolean {
-  if (thread.length === 1) {
+  if (thread.value.length === 1) {
     return false
   }
-  return post.id === selectedId || post.id === highlightedId
+  return post.id === selectedId.value || post.id === highlightedId.value
 }
 
 function onPostHighlight(postId: string | null) {
-  highlightedId = postId
+  highlightedId.value = postId
 }
 
 function onPostNavigate(postId: string) {
@@ -115,11 +114,11 @@ function onPostNavigate(postId: string) {
 
 function onCommentCreated(index: number, post: PostObject) {
   // Insert comment after parent post
-  thread.splice(index + 1, 0, post)
+  thread.value.splice(index + 1, 0, post)
 }
 
 function onPostDeleted(postIndex: number) {
-  thread.splice(postIndex, 1)
+  thread.value.splice(postIndex, 1)
 }
 </script>
 

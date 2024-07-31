@@ -139,8 +139,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import { $computed, $ref } from "vue/macros"
+import { computed, onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -171,8 +170,8 @@ const { instance } = useInstanceInfo()
 const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = useCurrentUser()
 
 const profile = ensureCurrentUser()
-let isLoading = $ref(false)
-let errorMessage = $ref<string | null>(null)
+const isLoading = ref(false)
+const errorMessage = ref<string | null>(null)
 
 function getFieldsAttributes() {
   const fields_attributes = []
@@ -186,7 +185,7 @@ function getFieldsAttributes() {
   return fields_attributes
 }
 
-const form = $ref<ProfileUpdateData>({
+const form = ref<ProfileUpdateData>({
   display_name: profile.display_name,
   note: profile.source.note,
   avatar: null,
@@ -197,7 +196,7 @@ const form = $ref<ProfileUpdateData>({
   mention_policy: profile.mention_policy,
   fields_attributes: getFieldsAttributes(),
 })
-const images = $ref({
+const images = ref({
   avatar: profile.avatar,
   header: profile.header,
 })
@@ -212,18 +211,18 @@ onMounted(() => {
   }
 })
 
-const profilePreview = $computed<Profile>(() => {
+const profilePreview = computed<Profile>(() => {
   return {
     ...profile,
-    display_name: form.display_name,
-    avatar: images.avatar,
-    header: images.header,
+    display_name: form.value.display_name,
+    avatar: images.value.avatar,
+    header: images.value.header,
   }
 })
 
 function onBioUpdate(event: Event) {
   const value = (event.target as HTMLTextAreaElement).value
-  form.note = value || ""
+  form.value.note = value || ""
 }
 
 function getAcceptedMediaTypes(): string {
@@ -242,10 +241,10 @@ async function onFilePicked(fieldName: "avatar" | "header", event: Event) {
     return
   }
   const imageDataUrl = await fileToDataUrl(files[0])
-  images[fieldName] = imageDataUrl
+  images.value[fieldName] = imageDataUrl
   const imageData = dataUrlToBase64(imageDataUrl)
-  form[fieldName] = imageData.data
-  form[`${fieldName}_media_type`] = imageData.mediaType
+  form.value[fieldName] = imageData.data
+  form.value[`${fieldName}_media_type`] = imageData.mediaType
 }
 
 function onFileRemoved(fieldName: "avatar" | "header") {
@@ -257,16 +256,16 @@ function onFileRemoved(fieldName: "avatar" | "header") {
     bannerInputElement.value.value = ""
   }
   // Remove preview
-  images[fieldName] = null
+  images.value[fieldName] = null
   // Empty string removes the image from profile
-  form[fieldName] = ""
-  form[`${fieldName}_media_type`] = null
+  form.value[fieldName] = ""
+  form.value[`${fieldName}_media_type`] = null
 }
 
 function isValidExtraField(index: number): boolean {
-  const field = form.fields_attributes[index]
+  const field = form.value.fields_attributes[index]
   for (let prevIndex = 0; prevIndex < index; prevIndex++) {
-    const prevField = form.fields_attributes[prevIndex]
+    const prevField = form.value.fields_attributes[prevIndex]
     if (field.name && field.name === prevField.name) {
       // Label is not unique
       return false
@@ -276,19 +275,19 @@ function isValidExtraField(index: number): boolean {
 }
 
 function removeExtraField(index: number) {
-  form.fields_attributes.splice(index, 1)
+  form.value.fields_attributes.splice(index, 1)
 }
 
 function canAddExtraField(): boolean {
-  return form.fields_attributes.length <= EXTRA_FIELD_COUNT_MAX
+  return form.value.fields_attributes.length <= EXTRA_FIELD_COUNT_MAX
 }
 
 function addExtraField() {
-  form.fields_attributes.push({ name: "", value: "" })
+  form.value.fields_attributes.push({ name: "", value: "" })
 }
 
 function isFormValid(): boolean {
-  if (form.display_name && form.display_name.length > 75) {
+  if (form.value.display_name && form.value.display_name.length > 75) {
     return false
   }
   return true
@@ -296,17 +295,17 @@ function isFormValid(): boolean {
 
 async function save() {
   const authToken = ensureAuthToken()
-  isLoading = true
-  errorMessage = null
+  isLoading.value = true
+  errorMessage.value = null
   let user
   try {
-    user = await updateProfile(authToken, form)
+    user = await updateProfile(authToken, form.value)
   } catch (error: any) {
-    isLoading = false
-    errorMessage = error.message
+    isLoading.value = false
+    errorMessage.value = error.message
     return
   }
-  isLoading = false
+  isLoading.value = false
   setCurrentUser(user)
   router.push(getActorLocation("profile", user))
 }

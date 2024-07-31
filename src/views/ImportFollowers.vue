@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { $, $ref } from "vue/macros"
+import { ref } from "vue"
 import { useRouter } from "vue-router"
 
 import { importFollowers } from "@/api/settings"
@@ -44,38 +44,38 @@ import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken, setCurrentUser } = $(useCurrentUser())
+const { currentUser, ensureAuthToken, setCurrentUser } = useCurrentUser()
 
-const fromActorId = $ref("")
-const followersCsv = $ref("")
-let isLoading = $ref(false)
-let errorMessage = $ref<string | null>(null)
+const fromActorId = ref("")
+const followersCsv = ref("")
+const isLoading = ref(false)
+const errorMessage = ref<string | null>(null)
 
 function canImport(): boolean {
-  return fromActorId.length > 0 && followersCsv.length > 0
+  return fromActorId.value.length > 0 && followersCsv.value.length > 0
 }
 
 async function submit() {
-  if (currentUser === null) {
+  if (currentUser.value === null) {
     return
   }
   let user
-  isLoading = true
+  isLoading.value = true
   try {
     user = await importFollowers(
       ensureAuthToken(),
-      fromActorId,
-      followersCsv,
+      fromActorId.value,
+      followersCsv.value,
     )
   } catch (error: any) {
-    isLoading = false
-    errorMessage = error.message
+    isLoading.value = false
+    errorMessage.value = error.message
     return
   }
-  isLoading = false
-  errorMessage = null
+  isLoading.value = false
+  errorMessage.value = null
   setCurrentUser(user)
-  router.push(getActorLocation("profile", currentUser))
+  router.push(getActorLocation("profile", currentUser.value))
 }
 </script>
 
