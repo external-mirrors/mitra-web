@@ -48,13 +48,6 @@ export enum Visibility {
   Direct = "direct",
 }
 
-export const VISIBILITY_MAP = {
-  [Visibility.Public]: "Public",
-  [Visibility.Followers]: "Followers",
-  [Visibility.Subscribers]: "Subscribers",
-  [Visibility.Direct]: "Direct",
-}
-
 export interface Mention {
   id: string;
   username: string;

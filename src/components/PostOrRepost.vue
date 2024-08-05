@@ -9,7 +9,7 @@
       >
         <profile-display-name :profile="author"></profile-display-name>
       </router-link>
-      <span>reposted</span>
+      <span>{{ $t('post.action_reposted') }}</span>
     </div>
     <post
       :post="post.reblog"

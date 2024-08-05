@@ -2,7 +2,7 @@
   <sidebar-layout>
     <template #content>
       <div class="not-found" v-if="!profile && !isLoading">
-        Profile not found
+        {{ $t('profile.not_found') }}
       </div>
       <div
         class="profile-block"
@@ -17,8 +17,8 @@
             <div class="avatar-group">
               <avatar :profile="profile"></avatar>
               <div class="badges">
-                <div class="badge" v-if="isAdminProfile()">Admin</div>
-                <div class="badge" v-if="profile.bot">Automated</div>
+                <div class="badge" v-if="isAdminProfile()">{{ $t('profile.admin') }}</div>
+                <div class="badge" v-if="profile.bot">{{ $t('profile.automated') }}</div>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"
@@ -26,9 +26,9 @@
                 >
                   Alias
                 </div>
-                <div class="badge" v-if="isFollowedBy()">Follows you</div>
-                <div class="badge" v-if="isSubscriptionValid()">Subscription</div>
-                <div class="badge" v-if="isSubscriber()">Subscriber</div>
+                <div class="badge" v-if="isFollowedBy()">{{ $t('profile.follows_you') }}</div>
+                <div class="badge" v-if="isSubscriptionValid()">{{ $t('profile.subscription') }}</div>
+                <div class="badge" v-if="isSubscriber()">{{ $t('profile.subscriber') }}</div>
                 <div class="badge" v-if="isMuted()">{{ $t('profile.muted') }}</div>
               </div>
             </div>
@@ -36,19 +36,18 @@
               class="dropdown-menu-wrapper"
               v-click-away="hideProfileMenu"
             >
-              <button title="More" @click="toggleProfileMenu()">
+              <button :title="$t('profile.more')" @click="toggleProfileMenu()">
                 <icon-more></icon-more>
               </button>
               <menu v-if="profileMenuVisible" class="dropdown-menu">
                 <li v-if="!isLocalUser()">
                   <a
-                    title="Open profile page"
                     :href="profile.url"
                     target="_blank"
                     rel="noreferrer"
                     @click="hideProfileMenu()"
                   >
-                    Open profile page
+                    {{ $t('profile.open_profile_page') }}
                   </a>
                 </li>
                 <li v-if="isLocalUser()">
@@ -56,80 +55,85 @@
                     :href="feedUrl"
                     target="_blank"
                   >
-                    Atom feed
+                    {{ $t('profile.atom_feed') }}
                   </a>
                 </li>
                 <li v-if="isCurrentUser()">
                   <router-link
-                    title="View follow requests"
                     :to="{ name: 'follow-request-list' }"
                   >
-                    View follow requests
+                    {{ $t('profile.view_follow_requests') }}
                   </router-link>
                 </li>
                 <li v-if="canVerifyEthereumAddress()">
                   <button
-                    title="Link ethereum address"
                     @click="hideProfileMenu(); onVerifyEthereumAddress()"
                   >
-                    Link ethereum address
+                    {{ $t('profile.link_ethereum_address') }}
                   </button>
                 </li>
                 <li v-if="isCurrentUser()">
                   <router-link
-                    title="Link minisign key"
                     :to="{ name: 'identity-proof' }"
                   >
-                    Link minisign key
+                    {{ $t('profile.link_minisign_key') }}
                   </router-link>
                 </li>
                 <li v-if="canViewSubscriber()">
                   <router-link
                     :to="{ name: 'subscriber', params: { profileId: profile.id } }"
                   >
-                    Subscriber details
+                    {{ $t('profile.subscriber_details') }}
                   </router-link>
                 </li>
                 <li v-if="canHideReposts()">
-                  <button @click="onFollow(false, undefined)">Hide reposts</button>
+                  <button @click="onFollow(false, undefined)">
+                    {{ $t('profile.hide_reposts') }}
+                  </button>
                 </li>
                 <li v-if="canShowReposts()">
-                  <button @click="onFollow(true, undefined)">Show reposts</button>
+                  <button @click="onFollow(true, undefined)">
+                    {{ $t('profile.show_reposts') }}
+                  </button>
                 </li>
                 <li v-if="canHideReplies()">
-                  <button @click="onFollow(undefined, false)">Hide replies</button>
+                  <button @click="onFollow(undefined, false)">
+                    {{ $t('profile.hide_replies') }}
+                  </button>
                 </li>
                 <li v-if="canShowReplies()">
-                  <button @click="onFollow(undefined, true)">Show replies</button>
+                  <button @click="onFollow(undefined, true)">
+                    {{ $t('profile.show_replies') }}
+                  </button>
                 </li>
                 <li v-if="isFollowedBy()">
-                  <button @click="onRemoveFollower()">Remove from followers</button>
+                  <button @click="onRemoveFollower()">
+                    {{ $t('profile.remove_from_followers') }}
+                  </button>
                 </li>
                 <li v-if="canMute()">
-                  <button @click="onMute()">Mute</button>
+                  <button @click="onMute()">
+                    {{ $t('profile.mute') }}
+                  </button>
                 </li>
                 <li v-if="canUnmute()">
-                  <button @click="onUnmute()">Unmute</button>
-                </li>
-                <li v-if="isAdmin()">
-                  <button
-                    title="Copy profile ID"
-                    @click="hideProfileMenu(); copyProfileId()"
-                  >
-                    Copy profile ID
+                  <button @click="onUnmute()">
+                    {{ $t('profile.unmute') }}
                   </button>
                 </li>
                 <li v-if="isAdmin()">
-                  <button
-                    title="Copy actor ID"
-                    @click="hideProfileMenu(); copyActorId()"
-                  >
-                    Copy actor ID
+                  <button @click="hideProfileMenu(); copyProfileId()">
+                    {{ $t('profile.copy_profile_id') }}
+                  </button>
+                </li>
+                <li v-if="isAdmin()">
+                  <button @click="hideProfileMenu(); copyActorId()">
+                    {{ $t('profile.copy_actor_id') }}
                   </button>
                 </li>
                 <li v-if="canLoadLatestPosts()">
                   <button @click="hideProfileMenu(); onLoadLatestPosts()">
-                    Load latest posts
+                    {{ $t('profile.load_latest_posts') }}
                   </button>
                 </li>
               </menu>
@@ -147,22 +151,22 @@
                 class="edit-profile btn"
                 :to="{ name: 'settings-profile' }"
               >
-                Edit profile
+                {{ $t('profile.edit_profile') }}
               </router-link>
               <button v-if="canAcceptFollowRequest()" class="btn" @click="onAcceptFollowRequest()">
-                Accept follow request
+                {{ $t('profile.accept_follow_request') }}
               </button>
               <button v-if="canAcceptFollowRequest()" class="btn" @click="onRejectFollowRequest()">
-                Reject follow request
+                {{ $t('profile.reject_follow_request') }}
               </button>
               <button
                 v-if="canFollow()"
                 class="btn follow-btn"
-                :title="profile.locked ? 'Manually approves followers' : undefined"
+                :title="profile.locked ? $t('profile.manually_approves_followers') : undefined"
                 :disabled="isProcessingFollow"
                 @click="onFollow()"
               >
-                <span>Follow</span>
+                <span>{{ $t('profile.follow') }}</span>
                 <icon-lock v-if="profile.locked"></icon-lock>
               </button>
               <button
@@ -171,16 +175,18 @@
                 :disabled="isProcessingUnfollow"
                 @click="onUnfollow()"
               >
-                <template v-if="isFollowRequestPending()">Cancel follow request</template>
-                <template v-else>Unfollow</template>
+                <template v-if="isFollowRequestPending()">
+                  {{ $t('profile.cancel_follow_request') }}
+                </template>
+                <template v-else>{{ $t('profile.unfollow') }}</template>
               </button>
               <universal-link
                 v-if="subscriptionPageLocation && canSubscribe()"
                 :to="subscriptionPageLocation"
-                title="Become a subscriber"
+                :title="$t('profile.subscribe_long')"
                 class="btn"
               >
-                <template #link-content>Subscribe</template>
+                <template #link-content>{{ $t('profile.subscribe') }}</template>
               </universal-link>
             </div>
           </div>
@@ -198,7 +204,7 @@
                 <a
                   class="verified-icon"
                   v-if="field.is_legacy_proof && isCurrentUser()"
-                  title="Re-verify"
+                  :title="$t('profile.renew_verification')"
                   @click="updateIdentityProof(field.name)"
                 >
                   <icon-refresh></icon-refresh>
@@ -206,7 +212,7 @@
                 <div
                   class="verified-icon"
                   v-else
-                  title="Verified"
+                  :title="$t('profile.verified')"
                 >
                   <icon-check></icon-check>
                 </div>
@@ -220,7 +226,7 @@
               @click="isCurrentUser() && switchTab('posts')"
             >
               <span class="value">{{ profile.statuses_count }}</span>
-              <span class="label">posts</span>
+              <span class="label">{{ $t('profile.stats_posts') }}</span>
             </component>
             <component
               class="stats-item"
@@ -228,7 +234,7 @@
               @click="isCurrentUser() && switchTab('followers')"
             >
               <span class="value">{{ profile.followers_count }}</span>
-              <span class="label">followers</span>
+              <span class="label">{{ $t('profile.stats_followers') }}</span>
             </component>
             <component
               class="stats-item"
@@ -236,7 +242,7 @@
               @click="isCurrentUser() && switchTab('following')"
             >
               <span class="value">{{ profile.following_count }}</span>
-              <span class="label">following</span>
+              <span class="label">{{ $t('profile.stats_following') }}</span>
             </component>
             <component
               class="stats-item"
@@ -245,7 +251,7 @@
               @click="isCurrentUser() && switchTab('subscribers')"
             >
               <span class="value">{{ profile.subscribers_count }}</span>
-              <span class="label">subscribers</span>
+              <span class="label">{{ $t('profile.stats_subscribers') }}</span>
             </component>
           </div>
         </div>
@@ -257,34 +263,34 @@
             :class="{ active: tabName === 'posts' }"
             @click="switchTab('posts')"
           >
-            Posts
+            {{ $t('profile.tab_posts') }}
           </a>
           <a
             class="tab"
             :class="{ active: tabName === 'posts-with-replies' }"
             @click="switchTab('posts-with-replies')"
           >
-            Posts and replies
+            {{ $t('profile.tab_posts_and_replies') }}
           </a>
           <a
             class="tab"
             :class="{ active: tabName === 'posts-featured' }"
             @click="switchTab('posts-featured')"
           >
-            Featured
+            {{ $t('profile.tab_featured') }}
           </a>
           <router-link class="tab" :to="getActorLocation('profile-gallery', profile)">
-            Gallery
+            {{ $t('profile.tab_gallery') }}
           </router-link>
         </template>
         <span v-else-if="tabName === 'followers'" class="tab active">
-          Followers
+          {{ $t('profile.tab_followers') }}
         </span>
         <span v-else-if="tabName === 'following'" class="tab active">
-          Following
+          {{ $t('profile.tab_following') }}
         </span>
         <span v-else-if="tabName === 'subscribers'" class="tab active">
-          Subscribers
+          {{ $t('profile.tab_subscribers') }}
         </span>
       </div>
       <loader v-if="isLoading"></loader>
@@ -294,7 +300,7 @@
       >
         <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
           <div v-if="posts.length === 0" class="empty-list">
-            No posts found
+            {{ $t('post_list.no_posts_found') }}
           </div>
           <post-list
             ref="postListElement"
@@ -316,7 +322,7 @@
             class="btn secondary next-btn"
             @click="loadFollowListNextPage()"
           >
-            Show more profiles
+            {{ $t('profile_list.show_more_profiles') }}
           </button>
         </template>
         <template v-else-if="tabName === 'subscribers'">
@@ -329,7 +335,7 @@
             <profile-list-item :profile="subscription.sender">
               <template #profile-footer>
                 <div class="subscription-info">
-                  Subscription expires {{ formatDate(subscription.expires_at) }}
+                  {{ $t('subscriptions.subscription_expires', { date: formatDate(subscription.expires_at) }) }}
                 </div>
               </template>
             </profile-list-item>

@@ -16,7 +16,7 @@
         class="btn secondary next-btn"
         @click="loadNextPage()"
       >
-        Show more profiles
+        {{ $t('profile_list.show_more_profiles') }}
       </button>
       <loader v-if="isLoading"></loader>
     </template>

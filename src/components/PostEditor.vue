@@ -16,7 +16,7 @@
         @input="onContentInput"
         rows="1"
         required
-        :placeholder="inReplyTo ? $t('editor.prompt_reply') : (repostOf ? $t('editor.prompt_repost') : $t('editor.prompt'))"
+        :placeholder="inReplyTo ? $t('post_editor.prompt_reply') : (repostOf ? $t('post_editor.prompt_repost') : $t('post_editor.prompt'))"
         @paste="onPaste($event)"
         @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
@@ -51,7 +51,7 @@
         <button
           type="button"
           class="icon"
-          title="Attach file"
+          :title="$t('post_editor.attach_file')"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
         >
@@ -73,7 +73,7 @@
             v-if="canChangeVisibility()"
             type="button"
             class="icon"
-            title="Change visibility"
+            :title="$t('post_editor.change_visibility')"
             @click="toggleVisibilityMenu()"
           >
             <visibility-icon :visibility="visibility"></visibility-icon>
@@ -98,7 +98,7 @@
           type="button"
           class="icon"
           :class="{ warning: isSensitive }"
-          :title="isSensitive ? 'Remove content warning' : 'Add content warning'"
+          :title="isSensitive ? $t('post_editor.remove_content_warning') : $t('post_editor.add_content_warning')"
           @click="isSensitive = !isSensitive"
         >
           <icon-alert></icon-alert>
@@ -110,7 +110,7 @@
           <button
             type="button"
             class="icon"
-            title="Insert emoji"
+            :title="$t('post_editor.insert_emoji')"
             @click="toggleEmojiPicker"
           >
             <icon-smile></icon-smile>
@@ -124,7 +124,7 @@
         <div
           v-if="isCharacterCounterVisible()"
           class="character-counter"
-          title="Characters left"
+          :title="$t('post_editor.characters_left')"
         >
           {{ getCharacterCount() }}
         </div>
@@ -132,7 +132,7 @@
           v-if="canPreview()"
           type="button"
           class="icon btn-small"
-          title="Toggle preview"
+          :title="$t('post_editor.toggle_preview')"
           @click="togglePreview()"
         >
           <icon-show v-if="preview === null"></icon-show>
@@ -143,7 +143,7 @@
           class="icon btn-small"
           @click.prevent="cancel()"
         >
-          {{ $t('editor.cancel') }}
+          {{ $t('post_editor.cancel') }}
         </button>
         <button
           type="submit"
@@ -152,8 +152,8 @@
           :disabled="!canPublish()"
           @click.prevent="publish()"
         >
-          <template v-if="repostOf">{{ $t('editor.repost') }}</template>
-          <template v-else>{{ $t('editor.publish') }}</template>
+          <template v-if="repostOf">{{ $t('post_editor.repost') }}</template>
+          <template v-else>{{ $t('post_editor.publish') }}</template>
         </button>
       </div>
     </div>
@@ -164,7 +164,7 @@
         class="btn secondary"
         @click.prevent="cancel()"
       >
-        {{ $t('editor.cancel') }}
+        {{ $t('post_editor.cancel') }}
       </button>
       <button
         class="btn"
@@ -172,8 +172,8 @@
         :disabled="!canPublish()"
         @click.prevent="publish()"
       >
-        <template v-if="post">{{ $t('editor.update') }}</template>
-        <template v-else>{{ $t('editor.publish') }}</template>
+        <template v-if="post">{{ $t('post_editor.update') }}</template>
+        <template v-else>{{ $t('post_editor.publish') }}</template>
       </button>
     </div>
   </form>
@@ -193,7 +193,6 @@ import {
   Mention,
   Post,
   Visibility,
-  VISIBILITY_MAP,
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
@@ -212,17 +211,18 @@ import { useClientConfig } from "@/composables/client-config"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
+import { useVisibility } from "@/composables/visibility"
 import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
 import { debounce } from "@/utils/debounce"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
-const visibilityMap = Object.entries(VISIBILITY_MAP)
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = useCurrentUser()
 const { instance } = useInstanceInfo()
+const { VISIBILITY_MAP } = useVisibility()
 
 const props = defineProps<{
   post: Post | null,
@@ -253,6 +253,7 @@ const isLoading = ref(false)
 const isAttachmentLoading = ref(false)
 const errorMessage = ref<string | null>(null)
 
+const visibilityMap = Object.entries(VISIBILITY_MAP)
 const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
 })

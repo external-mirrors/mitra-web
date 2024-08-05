@@ -5,12 +5,14 @@
       <li class="search">
         <input
           type="search"
-          placeholder="Search..."
+          :placeholder="$t('emoji_picker.search')"
           v-model="searchQuery"
           @keydown.enter.prevent
         >
       </li>
-      <li v-if="getEmojjList().length === 0">No emojis found</li>
+      <li v-if="getEmojjList().length === 0">
+        {{ $t('emoji_picker.no_emojis_found') }}
+      </li>
       <li v-else class="custom-emojis">
         <div class="emoji-grid">
           <button

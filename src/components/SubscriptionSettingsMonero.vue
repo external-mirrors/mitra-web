@@ -2,23 +2,21 @@
   <div class="subscription-settings">
     <div class="info" v-if="subscriptionOptionLoaded">
       <template v-if="subscriptionOption !== null">
-        <span>Subscriptions are enabled</span>
+        <span>{{ $t('subscriptions.subscriptions_are_enabled') }}</span>
         <div class="info-item">
-          {{ getPricePerMonth(subscriptionOption.price as number) }} XMR per month
+          {{ getPricePerMonth(subscriptionOption.price as number) }} XMR {{ $t('subscriptions.price_per_month') }}
         </div>
         <div class="info-item">
-          {{ ensureCurrentUser().subscribers_count }} subscribers
+          {{ $t('subscriptions.subscribers', { n: ensureCurrentUser().subscribers_count }) }}
         </div>
       </template>
       <template v-else>
-        Subscriptions are not enabled
+        {{ $t('subscriptions.subscriptions_are_not_enabled') }}
       </template>
     </div>
     <div class="subscription-page" v-if="subscriptionOption !== null && !isFormVisible && !isLoading">
       <div>
-        Subscribers can pay for subscription by navigating to
-        <br>
-        your personal subscription page:
+        {{ $t('subscriptions.subscribers_can_pay') }}
       </div>
       <router-link :to="getSubscriptionPagePath()">
         {{ getSubscriptionPageUrl() }}
@@ -26,20 +24,20 @@
     </div>
     <div class="edit-settings" v-if="!isFormVisible && !isLoading">
       <button class="btn" @click="isFormVisible = true">
-        Edit settings
+        {{ $t('subscriptions.edit_settings') }}
       </button>
     </div>
     <form class="settings" v-if="isFormVisible">
       <div class="price-input-group">
-        <label for="price">Price</label>
+        <label for="price">{{ $t('subscriptions.price') }}</label>
         <input type="number" id="price" v-model="subscriptionPrice" min="0.00" step="0.01">
-        <span>XMR per month</span>
+        <span>XMR {{ $t('subscriptions.price_per_month') }}</span>
       </div>
       <input
         type="text"
         id="payout_address"
         v-model="subscriptionPayoutAddress"
-        placeholder="Payout address"
+        :placeholder="$t('subscriptions.payout_address')"
       >
       <button
         type="submit"
@@ -47,8 +45,12 @@
         :disabled="!isFormValid()"
         @click.prevent="saveSubscriptionSettings()"
       >
-        <template v-if="subscriptionOption">Save</template>
-        <template v-else>Enable subscriptions</template>
+        <template v-if="subscriptionOption">
+          {{ $t('subscriptions.save_settings') }}
+        </template>
+        <template v-else>
+          {{ $t('subscriptions.enable_subscriptions') }}
+        </template>
       </button>
     </form>
     <loader v-if="isLoading"></loader>
@@ -178,6 +180,11 @@ async function saveSubscriptionSettings() {
   display: flex;
   flex-direction: column;
   gap: calc($block-inner-padding / 2);
+
+  div {
+    margin: 0 auto;
+    max-width: 350px;
+  }
 
   a {
     font-size: 16px;

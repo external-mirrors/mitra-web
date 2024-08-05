@@ -2,7 +2,7 @@
   <sidebar-layout>
     <template #content>
       <div v-if="!isLoading && posts.length === 0" class="content-message">
-        No posts found
+        {{ $t('post_list.no_posts_found') }}
       </div>
       <post-list :posts="posts" @load-next-page="loadNextPage"></post-list>
       <loader v-if="isLoading"></loader>

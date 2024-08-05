@@ -9,12 +9,12 @@
       class="show-image"
       @click="showImage()"
     >
-      Sensitive content
+      {{ $t('post.sensitive_content') }}
     </button>
     <button
       v-else-if="isSensitive"
       class="hide-image"
-      title="Hide image"
+      :title="$t('post.hide_image')"
       @click="hideImage()"
     >
       <icon-hide></icon-hide>
@@ -30,7 +30,7 @@
       class="lightbox"
       @click="closeLightbox()"
     >
-      <button title="Close">
+      <button :title="$t('post.close_image')">
         <icon-close></icon-close>
       </button>
       <img

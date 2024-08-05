@@ -11,7 +11,7 @@
         "home": "Inicio",
         "search": "Buscar…"
     },
-    "editor": {
+    "post_editor": {
         "prompt": "¿Qué estás pensando?",
         "prompt_reply": "Tu respuesta",
         "prompt_repost": "Tu comentario",

@@ -1,7 +1,11 @@
 <template>
   <div class="crypto-address">
     <input type="text" :value="address" readonly>
-    <button class="copy-btn" title="Copy address" @click="copyAddress()">
+    <button
+      class="copy-btn"
+      :title="$t('post.copy_coin_address')"
+      @click="copyAddress()"
+    >
       <icon-copy></icon-copy>
     </button>
   </div>

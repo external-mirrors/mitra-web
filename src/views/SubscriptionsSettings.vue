@@ -1,7 +1,7 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Manage subscriptions</h1>
+      <h1>{{ $t('subscriptions.manage_subscriptions') }}</h1>
       <subscription-settings-monero v-if="isMonero()"></subscription-settings-monero>
     </template>
   </sidebar-layout>

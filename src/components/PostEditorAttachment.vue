@@ -2,7 +2,7 @@
   <div class="attachment">
     <button
       class="remove-attachment"
-      title="Remove attachment"
+      :title="$t('post_editor.remove_attachment')"
       @click.prevent="removeAttachment()"
     >
       <icon-remove></icon-remove>
@@ -15,15 +15,15 @@
         v-if="description === null"
         @click.prevent="editDescription()"
       >
-        Click here to edit description
+        {{ $t('post_editor.click_to_edit_description') }}
       </button>
       <form v-else @submit.prevent="updateDescription()">
         <textarea
           v-model.trim="description"
           rows="1"
-          placeholder="Enter image description"
+          :placeholder="$t('post_editor.enter_image_description')"
         ></textarea>
-        <button type="submit">Save</button>
+        <button type="submit">{{ $t('post_editor.save_image_description') }}</button>
       </form>
     </div>
     <img

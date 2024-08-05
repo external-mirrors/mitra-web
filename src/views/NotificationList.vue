@@ -33,17 +33,39 @@
             <profile-display-name :profile="getSender(notification)">
             </profile-display-name>
           </router-link>
-          <span v-if="notification.type === 'follow'">followed you</span>
-          <span v-else-if="notification.type === 'follow_request'">sent a follow request</span>
-          <span v-else-if="notification.type === 'reply'">replied to your post</span>
-          <span v-else-if="notification.type === 'favourite'">liked your post</span>
-          <span v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'">reacted to your post</span>
-          <span v-else-if="notification.type === 'mention'">mentioned you</span>
-          <span v-else-if="notification.type === 'reblog'">reposted your post</span>
-          <span v-else-if="notification.type === 'subscription'">paid for subscription</span>
-          <span v-else-if="notification.type === 'subscription_expiration'">subscription expired</span>
-          <span v-else-if="notification.type === 'move'">moved to a new instance</span>
-          <span v-else-if="notification.type === 'admin.sign_up'">signed up</span>
+          <span v-if="notification.type === 'follow'">
+            {{ $t('notifications.followed_you') }}
+          </span>
+          <span v-else-if="notification.type === 'follow_request'">
+            {{ $t('notifications.sent_a_follow_request') }}
+          </span>
+          <span v-else-if="notification.type === 'reply'">
+            {{ $t('notifications.replied_to_your_post') }}
+          </span>
+          <span v-else-if="notification.type === 'favourite'">
+            {{ $t('notifications.liked_your_post') }}
+          </span>
+          <span v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'">
+            {{ $t('notifications.reacted_to_your_post') }}
+          </span>
+          <span v-else-if="notification.type === 'mention'">
+            {{ $t('notifications.mentioned_you') }}
+          </span>
+          <span v-else-if="notification.type === 'reblog'">
+            {{ $t('notifications.reposted_your_post') }}
+          </span>
+          <span v-else-if="notification.type === 'subscription'">
+            {{ $t('notifications.paid_for_subscription') }}
+          </span>
+          <span v-else-if="notification.type === 'subscription_expiration'">
+            {{ $t('notifications.subscription_expired') }}
+          </span>
+          <span v-else-if="notification.type === 'move'">
+            {{ $t('notifications.moved_to_a_new_instance') }}
+          </span>
+          <span v-else-if="notification.type === 'admin.sign_up'">
+            {{ $t('notifications.signed_up') }}
+          </span>
         </div>
         <post
           v-if="notification.status !== null && !isGrouped(index)"
@@ -75,7 +97,7 @@
         :disabled="isNextPageLoading"
         @click="loadNextPage()"
       >
-        Show more notifications
+        {{ $t('notifications.show_more_notifications') }}
       </button>
       <loader v-if="isLoading"></loader>
     </template>

@@ -11,7 +11,7 @@
         "federated": "Federado",
         "local": "Locais"
     },
-    "editor": {
+    "post_editor": {
         "repost": "Repostagem",
         "cancel": "Cancelar",
         "update": "Atualização",

@@ -1,7 +1,7 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Subscriber details</h1>
+      <h1>{{ $t('subscriptions.subscriber_details') }}</h1>
       <router-link
         v-if="subscriber"
         :to="getActorLocation('profile', subscriber)"
@@ -10,19 +10,22 @@
           <template #profile-footer>
             <div v-if="isSubscriptionLoaded" class="subscription-info">
               <template v-if="subscription">
-                <template v-if="isPastDate(subscription.expires_at)">Subscription expired</template>
-                <template v-else>Subscription expires</template>
-                {{ formatDate(subscription.expires_at) }}
+                <template v-if="isPastDate(subscription.expires_at)">
+                  {{ $t('subscriptions.subscription_expired', { date: formatDate(subscription.expires_at) }) }}
+                </template>
+                <template v-else>
+                  {{ $t('subscriptions.subscription_expires', { date: formatDate(subscription.expires_at) }) }}
+                </template>
               </template>
               <template v-else>
-                Not subscribed yet
+                {{ $t('subscriptions.not_subscribed_yet') }}
               </template>
             </div>
           </template>
         </profile-list-item>
       </router-link>
       <h2 v-if="subscriber">
-        Grant subscription access
+        {{ $t('subscriptions.grant_subscription_access') }}
       </h2>
       <form
         v-if="subscriber"
@@ -36,8 +39,8 @@
             v-model="subscriptionDuration"
           >
           <select v-model="subscriptionDurationUnit">
-            <option>months</option>
-            <option>days</option>
+            <option>{{ $t('subscriptions.unit_months') }}</option>
+            <option>{{ $t('subscriptions.unit_days') }}</option>
           </select>
         </div>
         <button
@@ -45,7 +48,7 @@
           class="btn"
           :disabled="!canExtendSubscription()"
         >
-          Grant
+          {{ $t('subscriptions.grant') }}
         </button>
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       </form>

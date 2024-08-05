@@ -1,18 +1,18 @@
 <template>
   <sidebar-layout v-if="currentUser">
     <template #content>
-      <h1>Settings</h1>
+      <h1>{{ $t('settings.settings') }}</h1>
       <section>
-        <h2>Profile</h2>
+        <h2>{{ $t('settings.profile') }}</h2>
         <router-link
           class="edit-profile btn"
           :to="{ name: 'settings-profile' }"
         >
-          Edit profile
+          {{ $t('settings.edit_profile') }}
         </router-link>
       </section>
       <section>
-        <h2>Appearance</h2>
+        <h2>{{ $t('settings.appearance') }}</h2>
         <div class="appearance-checkbox">
           <input
             type="checkbox"
@@ -21,7 +21,7 @@
             @change="onToggleDarkMode()"
             :disabled="isLoading"
           >
-          <label for="dark-mode">Enable dark mode</label>
+          <label for="dark-mode">{{ $t('settings.enable_dark_mode') }}</label>
         </div>
         <div class="appearance-checkbox">
           <input
@@ -31,7 +31,7 @@
             @change="onToggleContentWarnings()"
             :disabled="isLoading"
           >
-          <label for="content-warnings">Enable content warnings</label>
+          <label for="content-warnings">{{ $t('settings.enable_content_warnings') }}</label>
         </div>
         <div class="appearance-checkbox">
           <input
@@ -41,10 +41,10 @@
             @change="onToggleCtrlEnter()"
             :disabled="isLoading"
           >
-          <label for="ctrl-enter">Send messages with Ctrl+Enter</label>
+          <label for="ctrl-enter">{{ $t('settings.enable_ctrl_enter') }}</label>
         </div>
         <form class="appearance-form">
-          <label for="locale">Language:</label>
+          <label for="locale">{{ $t('settings.language') }}</label>
           <select
             id="locale"
             :value="locale"
@@ -60,24 +60,24 @@
         </form>
       </section>
       <section>
-        <h2>Authentication</h2>
+        <h2>{{ $t('settings.authentication') }}</h2>
         <div class="authentication-methods">
-          Enabled authentication methods:
+          {{ $t('settings.enabled_authentication_methods') }}
           <span v-for="(method, index) in currentUser.authentication_methods" :key="method">
-            <template v-if="method === 'password'">password</template>
+            <template v-if="method === 'password'">{{ $t('settings.authentication_method_password') }}</template>
             <template v-else-if="method === 'eip4361'">EIP-4361</template>
             <template v-else-if="method === 'caip122_monero'">CAIP-122 (Monero)</template>
             <template v-if="index !== currentUser.authentication_methods.length - 1">, </template>
           </span>
         </div>
-        <h3>Change password</h3>
+        <h3>{{ $t('settings.change_password') }}</h3>
         <form @submit.prevent="onChangePassword()">
           <div class="input-group">
-            <label for="new-password">New password</label>
+            <label for="new-password">{{ $t('settings.new_password') }}</label>
             <input id="new-password" type="password" v-model="newPassword">
           </div>
           <div class="input-group">
-            <label for="new-password-confirmation">New password (confirmation)</label>
+            <label for="new-password-confirmation">{{ $t('settings.new_password_confirmation') }}</label>
             <input id="new-password-confirmation" type="password" v-model="newPasswordConfirmation">
           </div>
           <button
@@ -85,7 +85,7 @@
             class="btn"
             :disabled="!canChangePassword()"
           >
-            Save
+            {{ $t('settings.password_save') }}
           </button>
           <div class="password-form-message" v-if="passwordFormMessage">
             {{ passwordFormMessage }}
@@ -93,43 +93,43 @@
         </form>
       </section>
       <section>
-        <h2>Identities</h2>
+        <h2>{{ $t('settings.identities') }}</h2>
         <router-link class="btn" :to="{ name: 'settings-aliases' }">
-          Manage identities
+          {{ $t('settings.manage_identities') }}
         </router-link>
       </section>
       <section>
-        <h2>Export</h2>
+        <h2>{{ $t('settings.export') }}</h2>
         <table class="export">
           <tr>
-            <td>Follows</td>
+            <td>{{ $t("settings.follows") }}</td>
             <td>{{ currentUser.following_count }}</td>
             <td>
-              <a @click="onExportFollows()">download</a>
+              <a @click="onExportFollows()">{{ $t('settings.download') }}</a>
             </td>
           </tr>
           <tr>
-            <td>Followers</td>
+            <td>{{ $t('settings.followers') }}</td>
             <td>{{ currentUser.followers_count }}</td>
             <td>
-              <a @click="onExportFollowers()">download</a>
+              <a @click="onExportFollowers()">{{ $t('settings.download') }}</a>
             </td>
           </tr>
         </table>
       </section>
       <section>
-        <h2>Delete account</h2>
+        <h2>{{ $t('settings.delete_account') }}</h2>
         <button
           class="btn"
           @click="onDeleteAccount()"
         >
-          Delete account
+          {{ $t('settings.delete_account') }}
         </button>
       </section>
       <section>
-        <h2>Experiments</h2>
+        <h2>{{ $t('settings.experiments') }}</h2>
         <details class="experiments">
-          <summary>This section contains experimental features. Use at your own risk.</summary>
+          <summary>{{ $t('settings.experiments_summary') }}</summary>
           <div class="experiments-wrapper">
             <router-link class="btn" :to="{ name: 'import-follows' }">
               Import follows
@@ -164,7 +164,7 @@ import { useLocales, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useCurrentUser } from "@/composables/user"
 
-const { locale } = useI18n({ useScope: "global" })
+const { locale, t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const {
   contentWarningsEnabled,
@@ -219,12 +219,12 @@ async function onChangePassword() {
   setCurrentUser(user)
   newPassword.value = ""
   newPasswordConfirmation.value = ""
-  passwordFormMessage.value = "Password changed"
+  passwordFormMessage.value = t("settings.password_changed")
 }
 
 async function onDeleteAccount() {
   const authToken = ensureAuthToken()
-  if (confirm("Are you sure you want to delete your account? This can not be undone.")) {
+  if (confirm(t("settings.delete_account_confirm"))) {
     await deleteAccount(authToken)
     endSession()
     router.push({ name: "landing-page" })

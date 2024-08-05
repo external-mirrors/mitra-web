@@ -1,9 +1,9 @@
 <template>
   <sidebar-layout v-if="profile">
     <template #content>
-      <h1>Subscription</h1>
+      <h1>{{ $t('subscriptions.subscription') }}</h1>
       <subscription-monero v-if="isMonero()" :profile="profile"></subscription-monero>
-      <div v-else>No subscription info</div>
+      <div v-else>{{ $t('subscriptions.no_subscription_info') }}</div>
     </template>
   </sidebar-layout>
 </template>

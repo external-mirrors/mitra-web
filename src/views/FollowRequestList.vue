@@ -1,9 +1,11 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1 class="content-header">Follow requests</h1>
+      <h1 class="content-header">
+        {{ $t('follow_requests.follow_requests') }}
+      </h1>
       <div v-if="!isLoading && profiles.length === 0" class="content-message">
-        No follow requests found
+        {{ $t('follow_requests.no_follow_requests_found') }}
       </div>
       <div v-if="!isLoading" class="follow-request-list">
         <router-link
@@ -18,7 +20,7 @@
           class="btn secondary next-btn"
           @click="loadNextPage()"
         >
-          Show more requests
+          {{ $t('follow_requests.show_more_requests') }}
         </button>
       </div>
       <loader v-if="isLoading"></loader>

@@ -34,7 +34,7 @@
       <button
         v-if="inThread && post.in_reply_to_id"
         class="icon"
-        title="Go to previous post"
+        :title="$t('post.go_to_previous_post')"
         @mouseover="highlight(post.in_reply_to_id)"
         @mouseleave="highlight(null)"
         @click.prevent="scrollTo(post.in_reply_to_id as string)"
@@ -57,11 +57,11 @@
       <span
         v-if="post.pinned"
         class="icon icon-small"
-        title="Featured"
+        :title="$t('post.featured')"
       >
         <icon-pin></icon-pin>
       </span>
-      <span v-if="post.edited_at">edited</span>
+      <span v-if="post.edited_at">{{ $t('post.edited') }}</span>
       <router-link
         v-if="currentUser && inThread"
         class="timestamp"
@@ -119,7 +119,7 @@
       <router-link
         v-if="!inThread"
         class="icon"
-        title="View replies"
+        :title="$t('post.view_replies')"
         :to="{ name: 'post', params: { postId: post.id }}"
       >
         <icon-comment></icon-comment>
@@ -128,7 +128,7 @@
       <button
         v-else-if="inThread && canReply()"
         class="icon"
-        title="Reply"
+        :title="$t('post.reply')"
         @click="toggleReplyForm()"
       >
         <icon-comment></icon-comment>
@@ -143,7 +143,7 @@
         class="icon"
         :class="{ highlighted: post.reblogged }"
         :disabled="isProcessingRepost"
-        :title="post.reblogged ? 'Delete repost' : 'Repost'"
+        :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"
         @click="toggleRepost()"
       >
         <icon-repost></icon-repost>
@@ -158,7 +158,7 @@
         class="icon"
         :class="{ highlighted: post.favourited }"
         :disabled="isProcessingLike"
-        :title="post.favourited ? 'Unlike': 'Like'"
+        :title="post.favourited ? $t('post.unlike'): $t('post.like')"
         @click="toggleLike()"
       >
         <icon-like></icon-like>
@@ -171,7 +171,7 @@
       <a
         v-if="getIpfsUrl()"
         class="icon"
-        title="Saved to IPFS"
+        :title="$t('post.saved_to_ipfs')"
         :href="getIpfsUrl() || ''"
         target="_blank"
         rel="noreferrer"
@@ -182,7 +182,7 @@
         class="dropdown-menu-wrapper"
         v-click-away="hideMenu"
       >
-        <button class="icon" title="More" @click="toggleMenu()">
+        <button class="icon" :title="$t('post.more')" @click="toggleMenu()">
           <icon-more></icon-more>
         </button>
         <menu v-if="menuVisible" class="dropdown-menu">
@@ -190,97 +190,87 @@
             <a
               :href="post.uri"
               class="icon"
-              title="Copy link to post"
               @click.prevent="hideMenu(); copyPostUri()"
             >
               <icon-link></icon-link>
-              <span>Copy link to post</span>
+              <span>{{ $t('post.copy_link_to_post') }}</span>
             </a>
           </li>
           <li v-if="canPin()">
             <button
               class="icon"
-              title="Add to featured"
               @click="hideMenu(); onPin()"
             >
               <icon-pin></icon-pin>
-              <span>Add to featured</span>
+              <span>{{ $t('post.add_to_featured') }}</span>
             </button>
           </li>
           <li v-if="canUnpin()">
             <button
               class="icon"
-              title="Remove from featured"
               @click="hideMenu(); onUnpin()"
             >
               <icon-unpin></icon-unpin>
-              <span>Remove from featured</span>
+              <span>{{ $t('post.remove_from_featured') }}</span>
             </button>
           </li>
           <li v-if="canSaveToIpfs()">
             <button
               class="icon"
-              title="Save to IPFS"
               @click="hideMenu(); saveToIpfs()"
             >
               <icon-ipfs></icon-ipfs>
-              <span>Save to IPFS</span>
+              <span>{{ $t('post.save_to_ipfs') }}</span>
             </button>
           </li>
           <li v-if="canRepostWithComment()">
             <button
               class="icon"
-              title="Repost with comment"
               @click="hideMenu(); onRepostWithComment()"
             >
               <icon-quote></icon-quote>
-              <span>Repost with comment</span>
+              <span>{{ $t('post.repost_with_comment') }}</span>
             </button>
           </li>
           <li v-if="canEditPost()">
             <button
               class="icon"
-              title="Edit post"
               @click="hideMenu(); onEditPost()"
             >
               <icon-edit></icon-edit>
-              <span>Edit post</span>
+              <span>{{ $t('post.edit_post') }}</span>
             </button>
           </li>
           <li v-if="canDeletePost()">
             <button
               class="icon"
-              title="Delete post"
               @click="hideMenu(); onDeletePost()"
             >
               <icon-trash></icon-trash>
-              <span>Delete post</span>
+              <span>{{ $t('post.delete_post') }}</span>
             </button>
           </li>
           <li v-if="canMute()">
             <button
               class="icon"
-              title="Mute author"
               @click="onMute()"
             >
               <icon-mute></icon-mute>
-              <span>Mute author</span>
+              <span>{{ $t('post.mute_author') }}</span>
             </button>
           </li>
           <li v-if="canUnmute()">
             <button
               class="icon"
-              title="Unmute author"
               @click="onUnmute()"
             >
               <icon-unmute></icon-unmute>
-              <span>Unmute author</span>
+              <span>{{ $t('post.unmute_author') }}</span>
             </button>
           </li>
           <li v-if="canLoadConversation()">
             <button
               class="icon"
-              :title="$t('post.load_replies')"
               @click="hideMenu(); onLoadConversation()"
             >
               <icon-refresh></icon-refresh>
@@ -297,16 +287,16 @@
         <universal-link
           v-if="selectedPaymentOption?.subscription"
           :to="selectedPaymentOption.subscription"
-          title="Become a subscriber"
+          :title="$t('post.become_a_subscriber')"
           class="subscribe-btn"
         >
-          <template #link-content>subscribe</template>
+          <template #link-content>{{ $t('post.subscribe') }}</template>
         </universal-link>
         <button
           v-for="option in getPaymentOptions()"
           :key="option.code"
           class="icon"
-          :title="'Send ' + option.name"
+          :title="$t('post.send_coin', { name: option.name })"
           @click="togglePaymentAddress(option)"
         >
           <crypto-icon :code="option.code"></crypto-icon>
@@ -366,7 +356,6 @@ import {
   Mention,
   Post,
   Visibility,
-  VISIBILITY_MAP,
 } from "@/api/posts"
 import { mute, unmute } from "@/api/relationships"
 import {
@@ -404,6 +393,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
+import { useVisibility } from "@/composables/visibility"
 import { getCurrencyByLabel, Currency, MONERO } from "@/utils/cryptocurrencies"
 import { formatDateTime } from "@/utils/dates"
 
@@ -420,6 +410,7 @@ const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
+const { VISIBILITY_MAP } = useVisibility()
 
 const props = defineProps<{
   post: Post,

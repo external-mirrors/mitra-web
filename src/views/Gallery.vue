@@ -3,12 +3,18 @@
     <div class="page-content">
       <router-link
         class="back-btn"
-        title="Back"
+        :title="$t('gallery.back')"
         :to="getActorLocation('profile', profile)"
       >
         <icon-arrow-left></icon-arrow-left>
       </router-link>
-      <h1><profile-display-name :profile="profile"></profile-display-name> gallery</h1>
+      <h1>
+        <i18n-t keypath="gallery.gallery">
+          <template #name>
+            <profile-display-name :profile="profile"></profile-display-name>
+          </template>
+        </i18n-t>
+      </h1>
       <div
         v-if="posts.length > 0"
         class="post-grid"
@@ -26,7 +32,7 @@
           </post-attachment>
           <router-link
             class="post-link"
-            title="View post"
+            :title="$t('gallery.view_post')"
             :to="{ name: 'post', params: { postId: post.id }}"
           >
             <icon-comment></icon-comment>
@@ -34,7 +40,7 @@
         </div>
       </div>
       <h2 v-else-if="!isLoading" class="empty">
-        No media found
+        {{ $t('gallery.no_media_found') }}
       </h2>
       <loader v-if="isLoading"></loader>
     </div>

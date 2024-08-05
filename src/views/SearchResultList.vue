@@ -4,10 +4,18 @@
       <loader v-if="isLoading"></loader>
       <div v-if="!isLoading" class="search-message">
         <template v-if="errorMessage">{{ errorMessage }}</template>
-        <template v-else-if="profiles.length > 0">{{ profiles.length }} people</template>
-        <template v-else-if="posts.length > 0">{{ posts.length }} posts</template>
-        <template v-else-if="tags.length > 0">{{ tags.length }} tags</template>
-        <template v-else>No results</template>
+        <template v-else-if="profiles.length > 0">
+          {{ $t('search_results.people', { n: profiles.length }) }}
+        </template>
+        <template v-else-if="posts.length > 0">
+          {{ $t('search_results.posts', { n: posts.length }) }}
+        </template>
+        <template v-else-if="tags.length > 0">
+          {{ $t('search_results.tags', { n: tags.length }) }}
+        </template>
+        <template v-else>
+          {{ $t('search_results.no_results') }}
+        </template>
       </div>
       <div v-if="!isLoading" class="search-result-list">
         <router-link

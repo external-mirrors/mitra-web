@@ -11,7 +11,7 @@
         "about": "Over",
         "logout": "Uitloggen"
     },
-    "editor": {
+    "post_editor": {
         "prompt": "Wat gaat er door je hoofd?",
         "prompt_reply": "Mijn antwoord",
         "prompt_repost": "Mijn reactie",

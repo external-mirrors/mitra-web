@@ -2,7 +2,7 @@
   <sidebar-layout>
     <template #content>
       <div v-if="!isLoading && thread.length === 0" class="not-found">
-        Post not found
+        {{ $t('post_list.post_not_found') }}
       </div>
       <post
         v-for="(post, index) in thread"

@@ -11,7 +11,7 @@
         "home": "Startseite",
         "local": "Lokales"
     },
-    "editor": {
+    "post_editor": {
         "update": "Aktualisierung",
         "cancel": "Abbrechen",
         "repost": "Wiederveröffentlichen",

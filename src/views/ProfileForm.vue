@@ -1,14 +1,14 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Edit profile</h1>
+      <h1>{{ $t('profile_editor.edit_profile') }}</h1>
       <form class="profile-form" @submit.prevent="save()">
         <div class="input-group">
-          <label for="display-name">Display name</label>
+          <label for="display-name">{{ $t('profile_editor.display_name') }}</label>
           <input id="display-name" type="text" v-model.trim="form.display_name">
         </div>
         <div class="input-group">
-          <label for="bio">Bio</label>
+          <label for="bio">{{ $t('profile_editor.bio') }}</label>
           <textarea
             id="bio"
             ref="bioInputElement"
@@ -20,7 +20,7 @@
           <profile-card :profile="profilePreview" :compact="true"></profile-card>
           <div class="image-upload-inputs">
             <div class="input-group">
-              <label for="avatar">Avatar</label>
+              <label for="avatar">{{ $t('profile_editor.avatar') }}</label>
               <input
                 type="file"
                 id="avatar"
@@ -33,11 +33,11 @@
                 type="button"
                 @click.prevent="onFileRemoved('avatar')"
               >
-                Remove
+                {{ $t('profile_editor.remove_image') }}
               </button>
             </div>
             <div class="input-group">
-              <label for="banner">Banner</label>
+              <label for="banner">{{ $t('profile_editor.banner') }}</label>
               <input
                 type="file"
                 id="banner"
@@ -50,7 +50,7 @@
                 type="button"
                 @click.prevent="onFileRemoved('header')"
               >
-                Remove
+                {{ $t('profile_editor.remove_image') }}
               </button>
             </div>
           </div>
@@ -62,14 +62,14 @@
             v-model="form.locked"
           >
           <label for="locked">
-            Lock account
-            <div class="sub-label">Requires you to manually approve followers</div>
+            {{ $t('profile_editor.lock_account') }}
+            <div class="sub-label">{{ $t('profile_editor.lock_account_requires') }}</div>
           </label>
         </div>
         <div class="input-group">
           <label for="mention_policy">
-            Accept mentions from
-            <div class="sub-label">Applies to direct messages and public posts</div>
+            {{ $t('profile_editor.accept_mentions_from') }}
+            <div class="sub-label">{{ $t('profile_editor.mention_policy_applies') }}</div>
           </label>
           <select
             id="mention_policy"
@@ -86,8 +86,10 @@
         </div>
         <div class="extra-fields input-group">
           <label>
-            Additional info
-            <div class="sub-label">You can have up to {{ EXTRA_FIELD_COUNT_MAX }} items displayed as a table on your profile</div>
+            {{ $t('profile_editor.additional_info') }}
+            <div class="sub-label">
+              {{ $t('profile_editor.you_can_have_max_fields', { max: EXTRA_FIELD_COUNT_MAX }) }}
+            </div>
           </label>
           <div
             v-for="(field, index) in form.fields_attributes"
@@ -98,16 +100,16 @@
             <input
               type="text"
               v-model.trim="field.name"
-              placeholder="Label"
+              :placeholder="$t('profile_editor.field_label')"
             >
             <input
               type="text"
               v-model.trim="field.value"
-              placeholder="Content"
+              :placeholder="$t('profile_editor.field_content')"
             >
             <a
               class="remove-extra-field"
-              title="Remove item"
+              :title="$t('profile_editor.remove_field')"
               @click="removeExtraField(index)"
             >
               <div class="remove-icon">
@@ -122,7 +124,7 @@
             @click="addExtraField()"
           >
             <icon-add></icon-add>
-            Add new item
+            {{ $t('profile_editor.add_new_field') }}
           </button>
         </div>
         <button
@@ -130,7 +132,7 @@
           class="btn"
           :disabled="!isFormValid() || isLoading"
         >
-          Save
+          {{ $t('profile_editor.save') }}
         </button>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
@@ -140,6 +142,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import {
@@ -158,10 +161,12 @@ import { useCurrentUser } from "@/composables/user"
 import { setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
+const { t } = useI18n({ useScope: "global" })
+
 const MENTION_POLICIES = [
-  { name: "Everybody", value: "none" },
-  { name: "Everybody except new accounts", value: "only_known" },
-  { name: "People I follow and my followers", value: "only_contacts" },
+  { name: t("profile_editor.mention_everybody"), value: "none" },
+  { name: t("profile_editor.mention_everybody_except_new_accounts"), value: "only_known" },
+  { name: t("profile_editor.mention_follows_and_followers"), value: "only_contacts" },
 ]
 
 const router = useRouter()

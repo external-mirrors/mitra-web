@@ -24,7 +24,7 @@
       <input
         type="text"
         v-model="senderAcct"
-        placeholder="Enter your username or Fediverse address (username@example.org)"
+        :placeholder="$t('subscriptions.enter_your_username')"
       >
       <button
         type="submit"
@@ -32,7 +32,7 @@
         :disabled="!senderAcct"
         @click.prevent="identifySender()"
       >
-        Find profile
+        {{ $t('subscriptions.find_profile') }}
       </button>
       <span class="sender-error">{{ senderError }}</span>
     </form>
@@ -40,30 +40,29 @@
       <template v-if="subscriptionPrice">
         <div class="price">
           {{ subscriptionPrice }} XMR
-          <span class="price-subtext">per month</span>
+          <span class="price-subtext">{{ $t('subscriptions.price_per_month') }}</span>
         </div>
         <div class="status">
           <template v-if="!isSubscribed()">
-            You are not subscribed yet
+            {{ $t('subscriptions.you_are_not_subscribed_yet') }}
           </template>
           <template v-else-if="subscriptionDetails">
             <div>
-              Subscription expires
-              {{ formatDate(subscriptionDetails.expires_at) }}
+              {{ $t('subscriptions.subscription_expires', { date: formatDate(subscriptionDetails.expires_at) }) }}
             </div>
           </template>
           <template v-else>
-            Subscription is active
+            {{ $t('subscriptions.subscription_is_active') }}
           </template>
         </div>
       </template>
       <template v-else>
-        Subscription is not available.
+        {{ $t('subscriptions.subscription_is_not_available') }}
       </template>
     </div>
     <form class="payment" v-if="canSubscribe()">
       <div class="duration" @click="editDuration()">
-        <label for="duration">Duration</label>
+        <label for="duration">{{ $t('subscriptions.duration') }}</label>
         <input
           v-if="!isAmountEditable"
           type="number"
@@ -74,14 +73,14 @@
         <span
           v-else
           class="editable-value"
-          title="Click to edit"
+          :title="$t('subscriptions.click_to_edit')"
         >
           {{ paymentDuration }}
         </span>
-        <span>months</span>
+        <span>{{ $t('subscriptions.unit_months') }}</span>
       </div>
       <div class="payment-amount" @click="editAmount()">
-        <label for="amount">Amount</label>
+        <label for="amount">{{ $t('subscriptions.amount') }}</label>
         <input
           v-if="isAmountEditable && subscriptionPrice"
           type="number"
@@ -93,7 +92,7 @@
         <span
           v-else
           class="editable-value"
-          title="Click to edit"
+          :title="$t('subscriptions.click_to_edit')"
         >
           {{ formatXmrAmount(paymentAmount) }}
         </span>
@@ -112,18 +111,20 @@
         @click.prevent="onCreateInvoice()"
       >
         <template v-if="!isSubscribed()">
-          Pay
+          {{ $t('subscriptions.pay') }}
         </template>
-        <template v-else>Extend</template>
+        <template v-else>
+          {{ $t('subscriptions.extend') }}
+        </template>
       </button>
     </form>
     <div class="invoice" v-if="invoice">
       <template v-if="invoice.status === 'open' || invoice.status === 'underpaid'">
         <div class="payment-header">
-          Please send {{ formatXmrAmount(invoice.amount) }} XMR to this address:
+          {{ $t('subscriptions.please_send_to_this_address', { amount: formatXmrAmount(invoice.amount), currency: 'XMR' }) }}
           <a
             class="payment-request-toggle"
-            title="Show additional information"
+            :title="$t('subscriptions.show_additional_payment_information')"
             @click="paymentRequestVisible = !paymentRequestVisible"
           >
             <icon-chevron-down></icon-chevron-down>
@@ -144,29 +145,41 @@
         <qr-code :url="getPaymentUri(invoice)"></qr-code>
       </template>
       <div class="invoice-status">
-        <template v-if="invoice.status === 'requested'">Awaiting response</template>
-        <template v-else-if="invoice.status === 'open'">
-          Waiting for payment ({{ getPaymentMinutesLeft(invoice) }} minutes left)
+        <template v-if="invoice.status === 'requested'">
+          {{ $t('subscriptions.payment_awaiting_response') }}
         </template>
-        <template v-else-if="invoice.status === 'paid' || invoice.status === 'forwarded' || invoice.status === 'failed'">Processing payment</template>
-        <template v-else-if="invoice.status === 'timeout'">Payment timed out</template>
-        <template v-else-if="invoice.status === 'cancelled'">Payment cancelled</template>
-        <template v-else-if="invoice.status === 'underpaid'">Payment amount is too small</template>
-        <template v-else-if="invoice.status === 'completed'">Payment completed</template>
+        <template v-else-if="invoice.status === 'open'">
+          {{ $t('subscriptions.payment_waiting', { n: getPaymentMinutesLeft(invoice) }) }}
+        </template>
+        <template v-else-if="invoice.status === 'paid' || invoice.status === 'forwarded' || invoice.status === 'failed'">
+          {{ $t('subscriptions.payment_processing') }}
+        </template>
+        <template v-else-if="invoice.status === 'timeout'">
+          {{ $t('subscriptions.payment_timed_out') }}
+        </template>
+        <template v-else-if="invoice.status === 'cancelled'">
+          {{ $t('subscriptions.payment_cancelled') }}
+        </template>
+        <template v-else-if="invoice.status === 'underpaid'">
+          {{ $t('subscriptions.payment_amount_is_too_small') }}
+        </template>
+        <template v-else-if="invoice.status === 'completed'">
+          {{ $t('subscriptions.payment_completed') }}
+        </template>
       </div>
       <button
         v-if="invoice.status === 'open'"
         class="btn"
         @click="onCancelInvoice()"
       >
-        Cancel
+        {{ $t('subscriptions.cancel_payment') }}
       </button>
       <button
         v-else-if="invoice.status === 'completed' || invoice.status === 'timeout' || invoice.status === 'cancelled'"
         class="btn"
         @click="closeInvoice()"
       >
-        OK
+        {{ $t('subscriptions.ok_payment') }}
       </button>
     </div>
     <loader v-if="isLoaderVisible()"></loader>
