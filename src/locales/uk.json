@@ -6,7 +6,12 @@
         "publish": "Публікувати",
         "prompt_repost": "Ваш коментар",
         "prompt_reply": "Ваша відповідь",
-        "prompt": "Що у вас на думці?"
+        "prompt": "Що у вас на думці?",
+        "change_visibility": "Змінити видимість",
+        "save_image_description": "Зберегти",
+        "characters_left": "Залишилося знаків",
+        "remove_content_warning": "Видалити попередження про вміст",
+        "add_content_warning": "Додати попередження про вміст"
     },
     "navigation": {
         "logout": "Вийти з системи",
@@ -26,7 +31,29 @@
         "timestamp_hours": "{n} годину тому | {n} годин тому",
         "timestamp_minutes": "зараз | {n} хвилину тому | {n} хвилин тому",
         "replying_to": "відповідаючи на",
-        "load_replies": "Завантажити відповіді"
+        "load_replies": "Завантажити відповіді",
+        "hide_image": "Приховати зображення",
+        "like": "Подобається",
+        "edit_post": "Редагувати допис",
+        "edited": "змінено",
+        "visibility_public": "Публічний",
+        "visibility_subscribers": "Підписники",
+        "visibility_direct": "Прямий",
+        "go_to_previous_post": "До попереднього допису",
+        "close_image": "Закрити",
+        "view_replies": "Переглянути відповіді",
+        "reply": "Відповісти",
+        "repost": "Перепост",
+        "unlike": "Забрати вподобу",
+        "copy_link_to_post": "Скопіювати посилання на допис",
+        "repost_with_comment": "Перепост із коментарем",
+        "delete_post": "Видалити допис",
+        "mute_author": "Ігнорувати автора",
+        "unmute_author": "Розблокувати автора",
+        "sensitive_content": "Делікатний вміст",
+        "saved_to_ipfs": "Збережено в IPFS",
+        "save_to_ipfs": "Зберегти в IPFS",
+        "copy_coin_address": "Скопіювати адресу"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -41,6 +68,113 @@
         "reload_page": "Перезавантажити сторінку через кілька хвилин"
     },
     "profile": {
-        "muted": "Ігнорується"
+        "muted": "Ігнорується",
+        "stats_subscribers": "підписників",
+        "tab_posts": "Дописи",
+        "not_found": "Профіль не знайдено",
+        "admin": "Адміністратор",
+        "mute": "Ігнорувати",
+        "unmute": "Розблокувати",
+        "subscription": "Підписка",
+        "subscriber": "Підписник",
+        "show_replies": "Показати відповіді",
+        "subscribe": "Підписатися",
+        "stats_posts": "дописів",
+        "copy_profile_id": "Скопіювати ID профіля",
+        "copy_actor_id": "Скопіювати actor ID",
+        "unfollow": "Не стежити",
+        "follow": "Стежити",
+        "accept_follow_request": "Погодити запит на стеження",
+        "reject_follow_request": "Відхилити запит на стеження",
+        "cancel_follow_request": "Скасувати запит на стеження",
+        "show_reposts": "Показати більше перепостів",
+        "tab_posts_and_replies": "Дописи і відповіді",
+        "tab_gallery": "Галерея"
+    },
+    "post_list": {
+        "post_not_found": "Допис не знайдено",
+        "no_posts_found": "Не знайдено дописів"
+    },
+    "emoji_picker": {
+        "search": "Пошук…",
+        "no_emojis_found": "Не знайдено емоджі"
+    },
+    "profile_list": {
+        "show_more_profiles": "Показати більше профілів"
+    },
+    "profile_editor": {
+        "bio": "Біографія",
+        "avatar": "Аватар",
+        "remove_image": "Видалити",
+        "mention_everybody": "Усі",
+        "field_label": "Мітка",
+        "field_content": "Вміст",
+        "save": "Зберегти",
+        "mention_everybody_except_new_accounts": "Усі, крім нових облікових записів"
+    },
+    "notifications": {
+        "replied_to_your_post": "відповів на Ваш допис",
+        "sent_a_follow_request": "надіслав запит на стеження",
+        "show_more_notifications": "Показати більше сповіщень"
+    },
+    "settings": {
+        "enable_content_warnings": "Увімкнути попередження про вміст",
+        "settings": "Налаштування",
+        "profile": "Профіль",
+        "language": "Мова",
+        "authentication": "Автентифікація",
+        "authentication_method_password": "пароль",
+        "change_password": "Змінити пароль",
+        "new_password": "Новий пароль",
+        "new_password_confirmation": "Новий пароль (повторно)",
+        "password_save": "Зберегти",
+        "password_changed": "Пароль змінено",
+        "enable_dark_mode": "Увімкнути темний режим",
+        "enable_ctrl_enter": "Надсилати повідомлення за допомогою Ctrl+Enter",
+        "delete_account": "Видалити обліковий запис",
+        "experiments": "Експериментально",
+        "export": "Експорт",
+        "delete_account_confirm": "Ви дійсно хочете видалити свій обліковий запис? Це не можна скасувати.",
+        "experiments_summary": "Цей розділ містить експериментальні функції. Користуйтеся на свій страх і ризик."
+    },
+    "gallery": {
+        "gallery": "Галерея {name}",
+        "back": "Назад",
+        "no_media_found": "Не знайдено медіа"
+    },
+    "search_results": {
+        "no_results": "Нічого не знайдено",
+        "posts": "{n} допис | {n} дописів",
+        "tags": "{n} мітка | {n} міток",
+        "people": "{n} користувачів"
+    },
+    "subscriptions": {
+        "subscription": "Підписка",
+        "find_profile": "Знайти профіль",
+        "price_per_month": "на місяць",
+        "duration": "Тривалість",
+        "payment_processing": "Обробка платежу",
+        "payment_completed": "Оплату завершено",
+        "cancel_payment": "Скасувати",
+        "ok_payment": "Гаразд",
+        "payment_cancelled": "Оплату скасовано",
+        "amount": "Сума",
+        "pay": "Сплатити",
+        "payment_amount_is_too_small": "Сума платежу занадто мала",
+        "payment_waiting": "Очікування платежу (залишилося {n} хвилин)",
+        "subscribers": "{n} підписник | {n} підписників",
+        "show_additional_payment_information": "Показати додаткову інформацію",
+        "edit_settings": "Змінити налаштування",
+        "save_settings": "Зберегти",
+        "unit_months": "місяців",
+        "unit_days": "днів",
+        "grant": "Надати",
+        "extend": "Продовжити",
+        "enter_your_username": "Введіть ім'я користувача або свою адресу Fediverse (username@example.org)"
+    },
+    "follow_requests": {
+        "no_follow_requests_found": "Не знайдено запитів на стеження",
+        "follow_requests": "Запити на стеження",
+        "show_more_requests": "Показати більше запитів"
     }
 }
