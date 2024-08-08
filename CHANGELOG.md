@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Prepare more strings for translation.
 - Updated translations ([#34](https://codeberg.org/silverpill/mitra-web/pulls/34)).
 
+### Fixed
+
+- Adjust height of "bio" field in profile form.
+
 ## [3.0.0] - 2024-07-22
 
 ### Changed

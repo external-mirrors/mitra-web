@@ -158,7 +158,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
-import { setupAutoResize } from "@/utils/autoresize"
+import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const { t } = useI18n({ useScope: "global" })
@@ -213,6 +213,7 @@ const bannerInputElement = ref<HTMLInputElement | null>(null)
 onMounted(() => {
   if (bioInputElement.value !== null) {
     setupAutoResize(bioInputElement.value)
+    resizeTextArea(bioInputElement.value)
   }
 })
 
