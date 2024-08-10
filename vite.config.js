@@ -3,7 +3,6 @@ import { fileURLToPath } from "url"
 
 import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
-import { injectHtml } from "vite-plugin-html"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 
 import svgLoader from "./src/svg-loader.ts"
@@ -15,12 +14,6 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [
       vue(),
-      // Not needed in Vite 4.2+
-      injectHtml({
-        injectData: {
-          __APP_VERSION__: process.env.npm_package_version,
-        },
-      }),
       svgLoader(),
       // Optimize build, prevent unsafe-eval
       // https://vue-i18n.intlify.dev/guide/advanced/optimization#how-to-configure
@@ -34,7 +27,7 @@ export default ({ mode }) => {
       },
     },
     define: {
-      __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+      "import.meta.env.APP_VERSION": JSON.stringify(process.env.npm_package_version),
     },
     server: {
       port: env.VITE_PORT,
