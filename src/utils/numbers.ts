@@ -1,14 +1,12 @@
-import { BigNumber } from "@ethersproject/bignumber"
-
-export function roundBigNumber(value: BigNumber, precision: number): BigNumber {
+export function roundBigNumber(value: bigint, precision: number): bigint {
   const decimals = value.toString().length
-  const divisor = BigNumber.from(10).pow(decimals - precision)
-  const remainder = value.mod(divisor)
-  const midpoint = BigNumber.from(10).pow(Math.max(decimals - precision - 1, 0)).mul(5)
-  if (remainder.gte(midpoint)) {
-    return value.div(divisor).add(1).mul(divisor)
+  const divisor = 10n ** BigInt(decimals - precision)
+  const remainder = value % divisor
+  const midpoint = 10n ** BigInt(Math.max(decimals - precision - 1, 0)) * 5n
+  if (remainder >= midpoint) {
+    return ((value / divisor) + 1n) * divisor
   } else {
-    return value.div(divisor).mul(divisor)
+    return value / divisor * divisor
   }
 }
 
@@ -20,15 +18,15 @@ function getPrecision(value: number): number {
     return 0
   }
   let precision = 0
-  while (Math.round(value * Math.pow(10, precision)) / Math.pow(10, precision) !== value) {
+  while (Math.round(value * 10 ** precision) / 10 ** precision !== value) {
     precision++
   }
   return precision
 }
 
-export function floatToBigNumber(value: number, decimals: number): BigNumber {
+export function floatToBigNumber(value: number, decimals: number): bigint {
   const precision = getPrecision(value)
   const denominator = 10 ** precision
   const numerator = Math.round(value * denominator)
-  return BigNumber.from(10).pow(decimals).mul(numerator).div(denominator)
+  return 10n ** BigInt(decimals) * BigInt(numerator) / BigInt(denominator)
 }

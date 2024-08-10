@@ -1,5 +1,3 @@
-import { BigNumber } from "@ethersproject/bignumber"
-
 import { BACKEND_URL } from "@/constants"
 import { floatToBigNumber } from "@/utils/numbers"
 import { handleResponse, http } from "./common"
@@ -14,23 +12,23 @@ import { User } from "./users"
 
 const MONERO_DECIMALS = 12
 
-export function formatXmrAmount(value: number | BigNumber): number {
+export function formatXmrAmount(value: number | bigint): number {
   if (typeof value === "number") {
-    value = BigNumber.from(value)
+    value = BigInt(value)
   }
   return formatAmount(value, MONERO_DECIMALS).toUnsafeFloat()
 }
 
 export function parseXmrAmount(value: number): number {
-  return floatToBigNumber(value, MONERO_DECIMALS).toNumber()
+  return Number(floatToBigNumber(value, MONERO_DECIMALS))
 }
 
 export function getPricePerSec(pricePerMonth: number): number {
-  return _getPricePerSec(pricePerMonth, MONERO_DECIMALS).toNumber()
+  return Number(_getPricePerSec(pricePerMonth, MONERO_DECIMALS))
 }
 
 export function getPricePerMonth(pricePerSec: number): number {
-  const pricePerSecInt = BigNumber.from(pricePerSec)
+  const pricePerSecInt = BigInt(pricePerSec)
   const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
   return formatXmrAmount(pricePerMonthInt)
 }
@@ -39,18 +37,18 @@ export function getPaymentAmount(
   pricePerSec: number,
   durationMonths: number,
 ): number {
-  const pricePerSecInt = BigNumber.from(pricePerSec)
+  const pricePerSecInt = BigInt(pricePerSec)
   const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
-  return Math.round(pricePerMonthInt.toNumber() * durationMonths)
+  return Math.round(Number(pricePerMonthInt) * durationMonths)
 }
 
 export function getSubscriptionDuration(
   pricePerSec: number,
   amount: number,
 ): number {
-  const pricePerSecInt = BigNumber.from(pricePerSec)
+  const pricePerSecInt = BigInt(pricePerSec)
   const pricePerMonthInt = _getPricePerMonth(pricePerSecInt)
-  return parseFloat((amount / pricePerMonthInt.toNumber()).toFixed(2))
+  return parseFloat((amount / Number(pricePerMonthInt)).toFixed(2))
 }
 
 export async function registerMoneroSubscriptionOption(

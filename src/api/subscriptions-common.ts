@@ -1,4 +1,4 @@
-import { BigNumber, FixedNumber } from "@ethersproject/bignumber"
+import { FixedNumber } from "ethers"
 
 import { BACKEND_URL } from "@/constants"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
@@ -12,19 +12,19 @@ export const SECONDS_IN_MONTH = SECONDS_IN_DAY * DAYS_IN_MONTH
 export function getPricePerSec(
   pricePerMonth: number,
   tokenDecimals: number,
-): BigNumber {
+): bigint {
   const pricePerMonthInt = floatToBigNumber(pricePerMonth, tokenDecimals)
-  return pricePerMonthInt.div(SECONDS_IN_MONTH)
+  return pricePerMonthInt / BigInt(SECONDS_IN_MONTH)
 }
 
 export function getPricePerMonth(
-  pricePerSec: BigNumber,
-): BigNumber {
-  return roundBigNumber(pricePerSec.mul(SECONDS_IN_MONTH), 4)
+  pricePerSec: bigint,
+): bigint {
+  return roundBigNumber(pricePerSec * BigInt(SECONDS_IN_MONTH), 4)
 }
 
 export function formatAmount(
-  value: BigNumber,
+  value: bigint,
   tokenDecimals: number,
 ): FixedNumber {
   return FixedNumber.fromValue(value, tokenDecimals)

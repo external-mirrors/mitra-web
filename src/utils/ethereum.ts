@@ -1,5 +1,4 @@
-import { Signer } from "ethers"
-import { Web3Provider } from "@ethersproject/providers"
+import { BrowserProvider, Signer } from "ethers"
 
 import { generateRandomString } from "./crypto"
 
@@ -10,7 +9,7 @@ export function hasEthereumWallet(): boolean {
 export async function getWallet(): Promise<Signer | null> {
   let provider
   try {
-    provider = new Web3Provider((window as any).ethereum)
+    provider = new BrowserProvider((window as any).ethereum)
   } catch (error) {
     console.log("metamask error:", error)
     return null
@@ -35,7 +34,7 @@ export async function getWalletSignature(
   try {
     signature = await wallet.signMessage(message)
   } catch (error: any) {
-    if (error.code === 4001) {
+    if (error.code === "ACTION_REJECTED") {
       // User rejected the request
       return null
     }

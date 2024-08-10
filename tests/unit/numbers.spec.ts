@@ -1,15 +1,14 @@
 import { expect } from "chai"
-import { BigNumber } from "@ethersproject/bignumber"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
 
 describe("Numbers utils", () => {
   it("Should round big number", () => {
-    const value = BigNumber.from(534985)
-    expect(roundBigNumber(value, 2).toNumber()).to.equal(530000)
-    expect(roundBigNumber(value, 3).toNumber()).to.equal(535000)
-    expect(roundBigNumber(value, 4).toNumber()).to.equal(535000)
-    expect(roundBigNumber(value, 5).toNumber()).to.equal(534990)
-    expect(roundBigNumber(value, 6).toNumber()).to.equal(534985)
+    const value = 534985n
+    expect(roundBigNumber(value, 2)).to.equal(530000n)
+    expect(roundBigNumber(value, 3)).to.equal(535000n)
+    expect(roundBigNumber(value, 4)).to.equal(535000n)
+    expect(roundBigNumber(value, 5)).to.equal(534990n)
+    expect(roundBigNumber(value, 6)).to.equal(534985n)
   })
 
   it("Should convert float to big number", () => {
