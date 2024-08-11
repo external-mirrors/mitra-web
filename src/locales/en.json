@@ -214,7 +214,8 @@
     "people": "{n} people",
     "posts": "{n} post | {n} posts",
     "tags": "{n} tag | {n} tags",
-    "no_results": "No results"
+    "no_results": "No results",
+    "show_more_results": "Show more results"
   },
   "follow_requests": {
     "follow_requests": "Follow requests",

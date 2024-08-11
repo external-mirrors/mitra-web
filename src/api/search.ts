@@ -13,11 +13,12 @@ interface SearchResults {
 export async function getSearchResults(
   authToken: string,
   query: string,
+  offset?: number,
 ): Promise<SearchResults> {
   const url = `${BACKEND_URL}/api/v2/search`
   const response = await http(url, {
     method: "GET",
-    queryParams: { q: query },
+    queryParams: { q: query, offset },
     authToken,
   })
   const data = await handleResponse(response)

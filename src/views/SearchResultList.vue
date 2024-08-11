@@ -43,6 +43,14 @@
           #{{ tag.name }}
         </router-link>
       </div>
+      <button
+        v-if="canLoadNextPage()"
+        class="btn secondary next-btn"
+        :disabled="isNextPageLoading"
+        @click="loadNextPage()"
+      >
+        {{ $t('search_results.show_more_results') }}
+      </button>
     </template>
   </sidebar-layout>
 </template>
@@ -67,11 +75,35 @@ const { ensureAuthToken } = useCurrentUser()
 
 const searchQuery = ref<string | null>(null)
 const isLoading = ref(false)
+const isNextPageLoading = ref(false)
 const errorMessage = ref("")
 
 const profiles = ref<Profile[]>([])
 const posts = ref<PostObject[]>([])
 const tags = ref<Tag[]>([])
+
+function canLoadNextPage(): boolean {
+  const count = profiles.value.length || posts.value.length || tags.value.length
+  return count > 0 && count % 20 === 0
+}
+
+async function loadNextPage() {
+  if (searchQuery.value === null) {
+    return
+  }
+  isNextPageLoading.value = true
+  const authToken = ensureAuthToken()
+  const count = profiles.value.length || posts.value.length || tags.value.length
+  const results = await getSearchResults(
+    authToken,
+    searchQuery.value,
+    count,
+  )
+  profiles.value = [...profiles.value, ...results.accounts]
+  posts.value = [...posts.value, ...results.statuses]
+  tags.value = [...tags.value, ...results.hashtags]
+  isNextPageLoading.value = false
+}
 
 function onPostDeleted(postId: string) {
   const postIndex = posts.value.findIndex((post) => post.id === postId)
@@ -117,6 +149,7 @@ onMounted(async () => {
 }
 
 .search-result-list {
+  margin-bottom: $block-outer-padding;
   margin-top: $block-outer-padding;
 }
 
@@ -143,5 +176,9 @@ onMounted(async () => {
 
 .tag {
   padding: $block-inner-padding;
+}
+
+.next-btn {
+  margin-bottom: $block-outer-padding;
 }
 </style>
