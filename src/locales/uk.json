@@ -69,7 +69,8 @@
         "subscribe": "передплатити",
         "send_coin": "Переказати {name}",
         "more": "Додатково",
-        "become_a_subscriber": "Стати передплатником"
+        "become_a_subscriber": "Стати передплатником",
+        "react_with_emoji": "Реагувати за допомогою емоджі"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -217,7 +218,8 @@
         "no_results": "Нічого не знайдено",
         "posts": "{n} допис | {n} дописів",
         "tags": "{n} мітка | {n} міток",
-        "people": "{n} користувачів"
+        "people": "{n} користувачів",
+        "show_more_results": "Показати більше результатів"
     },
     "subscriptions": {
         "subscription": "Передплата",
