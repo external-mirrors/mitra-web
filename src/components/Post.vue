@@ -115,7 +115,10 @@
         <post-preview :post="linkedPost"></post-preview>
       </template>
     </universal-link>
-    <div class="post-reactions" v-if="post.favourites_count > 0 || post.pleroma.emoji_reactions.length > 0">
+    <div
+      class="post-reactions"
+      :class="{ 'visible': getReactionCount() > 0, 'first-reaction': getReactionCount() === 1 }"
+    >
       <button
         v-if="post.favourites_count > 0"
         class="reaction"
@@ -593,6 +596,10 @@ async function toggleRepost() {
   props.post.reblogged = updatedPost.reblogged
 }
 
+function getReactionCount(): number {
+  return props.post.favourites_count + props.post.pleroma.emoji_reactions.length
+}
+
 function canLike(): boolean {
   return currentUser.value !== null
 }
@@ -944,12 +951,25 @@ function togglePaymentAddress(option: PaymentOption) {
 }
 
 .post-reactions {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: $input-padding;
   margin: $block-inner-padding 0;
   padding: 0 $block-inner-padding;
+  transition: height 0.3s ease-in-out, margin 0.3s ease-in-out;
+
+  /* TODO: use @starting-style */
+  &:not(.visible) {
+    height: 0;
+    margin: 0;
+  }
+
+  &.first-reaction {
+    height: 36px;
+    overflow: hidden;
+  }
 }
 
 .reaction {
