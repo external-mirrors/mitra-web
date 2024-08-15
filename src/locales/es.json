@@ -425,8 +425,10 @@
         }
     },
     "admin": {
-        "delete_user": "Eliminar usuario",
-        "confirm_delete_user": "¿Seguro que quieres eliminar {address}? Esta acción es irreversible."
+        "users": {
+            "delete_user": "Eliminar usuario",
+            "confirm_delete_user": "¿Seguro que quieres eliminar {address}? Esta acción es irreversible."
+        }
     },
     "login": {
         "learn_more": "Más información",

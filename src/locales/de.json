@@ -364,7 +364,9 @@
         "ok": "OK"
     },
     "admin": {
-        "delete_user": "Benutzer löschen"
+        "users": {
+          "delete_user": "Benutzer löschen"
+        }
     },
     "login": {
         "learn_more": "Mehr erfahren",

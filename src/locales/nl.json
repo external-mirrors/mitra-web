@@ -107,8 +107,10 @@
         "reload_page": "Herlaad de pagina over een paar minuten"
     },
     "admin": {
-        "delete_user": "Verwijder gebruiker",
-        "confirm_delete_user": "Bent u zeker dat u {address} wil verwijderen? Dit kan niet ongedaan worden."
+        "users": {
+            "delete_user": "Verwijder gebruiker",
+            "confirm_delete_user": "Bent u zeker dat u {address} wil verwijderen? Dit kan niet ongedaan worden."
+        }
     },
     "login": {
         "learn_more": "Leer meer",

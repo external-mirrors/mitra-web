@@ -1,7 +1,16 @@
 {
   "admin": {
-    "delete_user": "Delete user",
-    "confirm_delete_user": "Are you sure you want to delete {address}? This can not be undone."
+    "administration": "Administration",
+    "users": {
+      "delete_user": "Delete user",
+      "confirm_delete_user": "Are you sure you want to delete {address}? This can not be undone.",
+      "users": "Users",
+      "username": "Username",
+      "account_type": "Account type",
+      "role": "Role",
+      "last_login": "Last login",
+      "actions": "Actions"
+    }
   },
   "login": {
     "learn_more": "Learn more",
@@ -31,6 +40,7 @@
     "bookmarks": "Bookmarks",
     "subscriptions": "Subscriptions",
     "settings": "Settings",
+    "administration": "@:admin.administration",
     "about": "About",
     "logout": "Logout"
   },

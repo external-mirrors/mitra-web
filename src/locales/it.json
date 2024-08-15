@@ -103,8 +103,10 @@
         "poll_duration": "Durata sondaggio"
     },
     "admin": {
-        "delete_user": "Elimina utente",
-        "confirm_delete_user": "Sicuri di voler cancellare {address}? Questa azione non può essere annullata."
+        "users": {
+            "delete_user": "Elimina utente",
+            "confirm_delete_user": "Sicuri di voler cancellare {address}? Questa azione non può essere annullata."
+        }
     },
     "profile": {
         "profile": "Profilo",

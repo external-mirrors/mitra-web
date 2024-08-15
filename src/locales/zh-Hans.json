@@ -415,8 +415,10 @@
         "ok": "确定"
     },
     "admin": {
-        "delete_user": "删除用户",
-        "confirm_delete_user": "您确定要删除 {address} 吗？此操作无法撤销。"
+        "users": {
+            "delete_user": "删除用户",
+            "confirm_delete_user": "您确定要删除 {address} 吗？此操作无法撤销。"
+        }
     },
     "login": {
         "learn_more": "了解详情",

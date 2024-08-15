@@ -31,6 +31,14 @@
       <div class="icon"><icon-settings></icon-settings></div>
       <span>{{ $t('navigation.settings') }}</span>
     </router-link>
+    <router-link
+      v-if="isAdmin()"
+      class="sidebar-link"
+      :to="{ name: 'admin' }"
+    >
+      <div class="icon"><icon-admin></icon-admin></div>
+      <span>{{ $t('navigation.administration') }}</span>
+    </router-link>
     <router-link class="sidebar-link" to="/about">
       <div class="icon"><icon-help></icon-help></div>
       <span>{{ $t('navigation.about') }}</span>
@@ -49,6 +57,7 @@ import { useRoute, useRouter } from "vue-router"
 import { revokeAccessToken } from "@/api/oauth"
 import IconBell from "@/assets/feather/bell.svg?component"
 import IconCommunity from "@/assets/tabler/building-community.svg?component"
+import IconAdmin from "@/assets/tabler/device-analytics.svg?component"
 import IconGlobe from "@/assets/feather/globe.svg?component"
 import IconHelp from "@/assets/feather/help-circle.svg?component"
 import IconLogout from "@/assets/feather/log-out.svg?component"

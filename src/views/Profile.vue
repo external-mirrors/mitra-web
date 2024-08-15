@@ -175,7 +175,7 @@
                 </li>
                 <li v-if="canDeleteProfile()">
                   <button @click="hideProfileMenu(); onAdminDeleteProfile()">
-                    {{ $t('admin.delete_user') }}
+                    {{ $t('admin.users.delete_user') }}
                   </button>
                 </li>
               </menu>
@@ -1012,7 +1012,7 @@ async function onAdminDeleteProfile() {
   if (!profile.value) {
     return
   }
-  if (confirm(t("admin.confirm_delete_user", { address: profile.value.acct }))) {
+  if (confirm(t("admin.users.confirm_delete_user", { address: profile.value.acct }))) {
     const authToken = ensureAuthToken()
     await adminDeleteProfile(authToken, profile.value.id)
     router.push({ name: "home" })

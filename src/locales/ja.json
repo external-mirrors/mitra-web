@@ -404,8 +404,10 @@
         "sign_in": "ログイン"
     },
     "admin": {
-        "delete_user": "ユーザを削除する",
-        "confirm_delete_user": "本当に{address}を削除しますか？取り消すことはできません。"
+        "users": {
+            "delete_user": "ユーザを削除する",
+            "confirm_delete_user": "本当に{address}を削除しますか？取り消すことはできません。"
+        }
     },
     "sessions": {
         "active_sessions": "有効なセッション",

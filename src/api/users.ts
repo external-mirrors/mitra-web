@@ -28,7 +28,7 @@ interface Source {
   language: string,
 }
 
-interface Role {
+export interface Role {
   id: number,
   name: string,
   permissions_names: string[],

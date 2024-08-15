@@ -197,6 +197,20 @@
   }
 }
 
+@mixin content-link-icon {
+  .icon svg {
+    @include standard-icon;
+
+    stroke: var(--link-color);
+  }
+
+  &:hover {
+    .icon svg {
+      stroke: var(--link-hover-color);
+    }
+  }
+}
+
 @mixin media-btn {
   background-color: var(--block-background-color);
   border-radius: $btn-border-radius;

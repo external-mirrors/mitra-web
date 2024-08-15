@@ -382,8 +382,10 @@
         "ok": "OK"
     },
     "admin": {
-        "delete_user": "Usuń użytkownika",
-        "confirm_delete_user": "Czy na pewno chcesz usunąć {address}? Nie można tego cofnąć."
+        "users": {
+            "delete_user": "Usuń użytkownika",
+            "confirm_delete_user": "Czy na pewno chcesz usunąć {address}? Nie można tego cofnąć."
+        }
     },
     "login": {
         "learn_more": "Dowiedz się więcej",

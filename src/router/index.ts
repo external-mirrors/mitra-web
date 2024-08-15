@@ -11,6 +11,8 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 import AboutPage from "@/views/About.vue"
+import Admin from "@/views/Admin.vue"
+import AdminUserList from "@/views/AdminUserList.vue"
 import BookmarkList from "@/views/BookmarkList.vue"
 import CustomFeedList from "@/views/CustomFeedList.vue"
 import CustomFeedSourceList from "@/views/CustomFeedSourceList.vue"
@@ -63,6 +65,11 @@ async function defaultGuard(to: RouteLocationNormalized): Promise<RouteLocationR
   } else if (onlyAuthenticated && !isUserAuthenticated) {
     return { name: "landing-page" }
   }
+}
+
+function adminGuard(): boolean {
+  const { isAdmin } = useCurrentUser()
+  return isAdmin()
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -326,6 +333,20 @@ const routes: Array<RouteRecordRaw> = [
     name: "group-edit",
     component: GroupForm,
     meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
+    meta: { onlyAuthenticated: true },
+    beforeEnter: adminGuard,
+  },
+  {
+    path: "/admin/users",
+    name: "admin-users",
+    component: AdminUserList,
+    meta: { onlyAuthenticated: true },
+    beforeEnter: adminGuard,
   },
   {
     path: "/:pathMatch(.*)*",
