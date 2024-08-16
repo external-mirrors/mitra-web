@@ -18,7 +18,18 @@
         "publish": "投稿",
         "update": "アップデート",
         "cancel": "キャンセル",
-        "repost": "リポスト"
+        "repost": "リポスト",
+        "attach_file": "ファイルを添付",
+        "remove_attachment": "添付ファイルを解除",
+        "click_to_edit_description": "説明を編集するのにここにクリック",
+        "enter_image_description": "画像の説明を入力",
+        "save_image_description": "保存",
+        "change_visibility": "ポスト可視性を変更",
+        "remove_content_warning": "コンテンツ警告を外す",
+        "add_content_warning": "コンテンツ警告を追加",
+        "insert_emoji": "絵文字を入力",
+        "characters_left": "残りの文字",
+        "toggle_preview": "プレビューをトグル"
     },
     "about": {
         "administered_by": "主管",
@@ -35,12 +46,55 @@
         "timestamp_hours": "{n}時間前 | {n}時間前",
         "timestamp_days": "{n}日前 | {n}日前",
         "next_page": "もっと記事を表示する",
-        "load_replies": "返信を読み込む"
+        "load_replies": "返信を読み込む",
+        "go_to_previous_post": "前のポストを訪れる",
+        "visibility_public": "公開",
+        "visibility_followers": "フォロワー",
+        "visibility_subscribers": "購読者",
+        "visibility_direct": "直接",
+        "featured": "固定ポスト",
+        "edited": "編集された",
+        "sensitive_content": "センシティブなコンテンツ",
+        "hide_image": "イメージを非表示",
+        "close_image": "閉じる",
+        "view_replies": "返事を見る",
+        "reply": "返信",
+        "delete_repost": "リポストを削除",
+        "repost": "リポスト",
+        "unlike": "いいねを取り消す",
+        "like": "いいね",
+        "saved_to_ipfs": "IPFSに保存された",
+        "more": "もっと",
+        "add_to_featured": "固定ポストに追加",
+        "remove_from_featured": "固定ポストから外す",
+        "save_to_ipfs": "IPFSに保存",
+        "repost_with_comment": "コメント付きリポスト",
+        "edit_post": "ポストを編集",
+        "delete_post": "ポストを削除",
+        "mute_author": "投稿者をミュート",
+        "become_a_subscriber": "購読者になる",
+        "subscribe": "購読する",
+        "send_coin": "{name} を送金する",
+        "copy_coin_address": "アドレスをコピー",
+        "action_reposted": "リポストされた",
+        "copy_link_to_post": "ポストへのリンクをコピー",
+        "react_with_emoji": "絵文字で反応",
+        "unmute_author": "投稿者を非ミュート"
     },
     "misc": {
         "reload_page": "数分後にページをリロードする"
     },
     "profile": {
-        "muted": "ミュートされた"
+        "muted": "ミュートされた",
+        "not_found": "プロフィールが見つかりません",
+        "admin": "管理者"
+    },
+    "emoji_picker": {
+        "search": "検索…",
+        "no_emojis_found": "絵文字が見つかりません"
+    },
+    "post_list": {
+        "no_posts_found": "ポストはありません",
+        "post_not_found": "ポストを見つかりません"
     }
 }
