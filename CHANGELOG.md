@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added pagination to search results.
 - Display emoji reactions under post.
 - Added picker for emoji reactions.
+- Added list of muted accounts.
 
 ### Changed
 

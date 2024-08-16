@@ -121,6 +121,13 @@
                     {{ $t('profile.unmute') }}
                   </button>
                 </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    :to="{ name: 'mute-list' }"
+                  >
+                    {{ $t('profile.view_muted_accounts') }}
+                  </router-link>
+                </li>
                 <li v-if="isAdmin()">
                   <button @click="hideProfileMenu(); copyProfileId()">
                     {{ $t('profile.copy_profile_id') }}

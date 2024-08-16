@@ -203,3 +203,18 @@ export async function rejectFollowRequest(
   const data = await handleResponse(response)
   return data
 }
+
+export async function getMutes(
+  authToken: string,
+  url?: string,
+): Promise<ProfileListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/mutes`
+  }
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
+}

@@ -2,14 +2,14 @@
   <sidebar-layout>
     <template #content>
       <h1 class="content-header">
-        {{ $t('follow_requests.follow_requests') }}
+        {{ $t('profile_list.muted_accounts') }}
       </h1>
-      <div v-if="!isLoading && profiles.length === 0" class="content-message">
-        {{ $t('follow_requests.no_follow_requests_found') }}
+      <div v-if="!isLoading && profileList.length === 0" class="content-message">
+        {{ $t('profile_list.no_muted_accounts') }}
       </div>
       <div v-if="!isLoading" class="profile-list">
         <router-link
-          v-for="profile in profiles"
+          v-for="profile in profileList"
           :key="profile.id"
           :to="getActorLocation('profile', profile)"
         >
@@ -20,7 +20,7 @@
           class="btn secondary next-btn"
           @click="loadNextPage()"
         >
-          {{ $t('follow_requests.show_more_requests') }}
+          {{ $t('profile_list.show_more_accounts') }}
         </button>
       </div>
       <loader v-if="isLoading"></loader>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-import { getFollowRequests } from "@/api/relationships"
+import { getMutes } from "@/api/relationships"
 import { Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -42,14 +42,14 @@ import { useCurrentUser } from "@/composables/user"
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 
-const profiles = ref<Profile[]>([])
+const profileList = ref<Profile[]>([])
 const nextPageUrl = ref<string | null>(null)
 const isLoading = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
-  const page = await getFollowRequests(ensureAuthToken())
-  profiles.value = page.profiles
+  const page = await getMutes(ensureAuthToken())
+  profileList.value = page.profiles
   nextPageUrl.value = page.nextPageUrl
   isLoading.value = false
 })
@@ -58,11 +58,11 @@ async function loadNextPage() {
   if (nextPageUrl.value === null) {
     return
   }
-  const page = await getFollowRequests(
+  const page = await getMutes(
     ensureAuthToken(),
     nextPageUrl.value,
   )
-  profiles.value.push(...page.profiles)
+  profileList.value.push(...page.profiles)
   nextPageUrl.value = page.nextPageUrl
 }
 </script>

@@ -14,6 +14,7 @@ import ImportFollowers from "@/views/ImportFollowers.vue"
 import ImportFollows from "@/views/ImportFollows.vue"
 import LandingPage from "@/views/LandingPage.vue"
 import MoveFollowers from "@/views/MoveFollowers.vue"
+import MuteList from "@/views/MuteList.vue"
 import NotificationList from "@/views/NotificationList.vue"
 import ProfileAliases from "@/views/ProfileAliases.vue"
 import ProfileDirectory from "@/views/ProfileDirectory.vue"
@@ -181,6 +182,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/follow-requests",
     name: "follow-request-list",
     component: FollowRequestList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/mutes",
+    name: "mute-list",
+    component: MuteList,
     meta: { onlyAuthenticated: true },
   },
   {

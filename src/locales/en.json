@@ -111,6 +111,7 @@
     "remove_from_followers": "Remove from followers",
     "mute": "Mute",
     "unmute": "Unmute",
+    "view_muted_accounts": "View muted accounts",
     "copy_profile_id": "Copy profile ID",
     "copy_actor_id": "Copy actor ID",
     "load_latest_posts": "Load latest posts",
@@ -139,7 +140,10 @@
     "subscription_expires": "Subscription expires {date}"
   },
   "profile_list": {
-    "show_more_profiles": "Show more profiles"
+    "show_more_profiles": "Show more profiles",
+    "muted_accounts": "Muted accounts",
+    "no_muted_accounts": "No muted accounts",
+    "show_more_accounts": "Show more accounts"
   },
   "profile_editor": {
     "edit_profile": "Edit profile",
