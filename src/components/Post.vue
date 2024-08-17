@@ -849,6 +849,9 @@ function togglePaymentAddress(option: PaymentOption) {
 @import "../styles/theme";
 @import "../styles/mixins";
 
+$reaction-border: 1px;
+$reaction-padding: 5px;
+
 .post {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
@@ -960,7 +963,7 @@ function togglePaymentAddress(option: PaymentOption) {
   }
 
   &.first-reaction {
-    height: 36px;
+    height: $emoji-size + $reaction-padding * 2 + $reaction-border * 2;
     overflow: hidden;
   }
 }
@@ -968,12 +971,12 @@ function togglePaymentAddress(option: PaymentOption) {
 .reaction {
   align-items: center;
   background-color: var(--widget-background-color);
-  border: 1px solid var(--widget-background-color);
+  border: $reaction-border solid var(--widget-background-color);
   border-radius: $btn-border-radius;
   display: flex;
   flex-direction: row;
   gap: $whitespace;
-  padding: calc($input-padding / 2);
+  padding: $reaction-padding;
 
   &.reacted {
     background-color: var(--widget-active-background-color);
