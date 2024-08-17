@@ -4,17 +4,26 @@
       <div v-if="!isLoading && thread.length === 0" class="not-found">
         {{ $t('post_list.post_not_found') }}
       </div>
-      <post
+      <template
         v-for="(post, index) in thread"
         :key="post.id"
-        :post="post"
-        :highlighted="isHighlighted(post)"
-        :in-thread="true"
-        @highlight="onPostHighlight($event)"
-        @navigate-to="onPostNavigate($event)"
-        @comment-created="onCommentCreated(index, $event)"
-        @post-deleted="onPostDeleted(index)"
-      ></post>
+      >
+        <div
+          v-if="!post.pleroma.parent_visible"
+          class="post-hidden"
+        >
+          {{ $t('post_list.post_is_not_available') }}
+        </div>
+        <post
+          :post="post"
+          :highlighted="isHighlighted(post)"
+          :in-thread="true"
+          @highlight="onPostHighlight($event)"
+          @navigate-to="onPostNavigate($event)"
+          @comment-created="onCommentCreated(index, $event)"
+          @post-deleted="onPostDeleted(index)"
+        ></post>
+      </template>
       <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
@@ -130,8 +139,16 @@ function onPostDeleted(postIndex: number) {
   @include content-message;
 }
 
+.post-hidden {
+  background-color: var(--block-background-color);
+  border-radius: $block-border-radius;
+  padding: $block-inner-padding;
+  text-align: center;
+}
+
 .post,
-.post-edit-form {
+.post-edit-form,
+.post-hidden {
   margin: 0 0 $block-outer-padding;
 }
 

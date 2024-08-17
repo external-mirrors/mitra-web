@@ -32,7 +32,7 @@
         {{ getActorHandle(post.account) }}
       </div>
       <button
-        v-if="inThread && post.in_reply_to_id"
+        v-if="inThread && post.in_reply_to_id && post.pleroma.parent_visible"
         class="icon"
         :title="$t('post.go_to_previous_post')"
         @mouseover="highlight(post.in_reply_to_id)"
@@ -46,13 +46,6 @@
         :title="getVisibilityDisplay()"
       >
         <visibility-icon :visibility="post.visibility"></visibility-icon>
-      </span>
-      <span
-        v-if="canUnmute()"
-        class="icon icon-small"
-        :title="$t('profile.muted')"
-      >
-        <icon-mute></icon-mute>
       </span>
       <span
         v-if="post.pinned"

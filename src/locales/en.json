@@ -63,7 +63,8 @@
   },
   "post_list": {
     "post_not_found": "Post not found",
-    "no_posts_found": "No posts found"
+    "no_posts_found": "No posts found",
+    "post_is_not_available": "Post is not available"
   },
   "post_editor": {
     "prompt": "What's on your mind?",

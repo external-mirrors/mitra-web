@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display emoji reactions under post.
 - Added picker for emoji reactions.
 - Added list of muted accounts.
+- Display "Post is not available" when post in thread is by muted user.
 
 ### Changed
 
