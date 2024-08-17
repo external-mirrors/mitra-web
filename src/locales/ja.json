@@ -87,7 +87,14 @@
     "profile": {
         "muted": "ミュートされた",
         "not_found": "プロフィールが見つかりません",
-        "admin": "管理者"
+        "admin": "管理者",
+        "automated": "ボット",
+        "follows_you": "フォロワー",
+        "subscription": "購読中",
+        "subscriber": "購読者",
+        "more": "もっと",
+        "open_profile_page": "プロフィールページを開く",
+        "atom_feed": "Atomフィード"
     },
     "emoji_picker": {
         "search": "検索…",
