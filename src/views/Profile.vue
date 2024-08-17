@@ -58,34 +58,6 @@
                     {{ $t('profile.atom_feed') }}
                   </a>
                 </li>
-                <li v-if="isCurrentUser()">
-                  <router-link
-                    :to="{ name: 'follow-request-list' }"
-                  >
-                    {{ $t('profile.view_follow_requests') }}
-                  </router-link>
-                </li>
-                <li v-if="canVerifyEthereumAddress()">
-                  <button
-                    @click="hideProfileMenu(); onVerifyEthereumAddress()"
-                  >
-                    {{ $t('profile.link_ethereum_address') }}
-                  </button>
-                </li>
-                <li v-if="isCurrentUser()">
-                  <router-link
-                    :to="{ name: 'identity-proof' }"
-                  >
-                    {{ $t('profile.link_minisign_key') }}
-                  </router-link>
-                </li>
-                <li v-if="canViewSubscriber()">
-                  <router-link
-                    :to="{ name: 'subscriber', params: { profileId: profile.id } }"
-                  >
-                    {{ $t('profile.subscriber_details') }}
-                  </router-link>
-                </li>
                 <li v-if="canHideReposts()">
                   <button @click="onFollow(false, undefined)">
                     {{ $t('profile.hide_reposts') }}
@@ -111,6 +83,13 @@
                     {{ $t('profile.remove_from_followers') }}
                   </button>
                 </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    :to="{ name: 'follow-request-list' }"
+                  >
+                    {{ $t('profile.view_follow_requests') }}
+                  </router-link>
+                </li>
                 <li v-if="canMute()">
                   <button @click="onMute()">
                     {{ $t('profile.mute') }}
@@ -126,6 +105,27 @@
                     :to="{ name: 'mute-list' }"
                   >
                     {{ $t('profile.view_muted_accounts') }}
+                  </router-link>
+                </li>
+                <li v-if="canViewSubscriber()">
+                  <router-link
+                    :to="{ name: 'subscriber', params: { profileId: profile.id } }"
+                  >
+                    {{ $t('profile.subscriber_details') }}
+                  </router-link>
+                </li>
+                 <li v-if="canVerifyEthereumAddress()">
+                  <button
+                    @click="hideProfileMenu(); onVerifyEthereumAddress()"
+                  >
+                    {{ $t('profile.link_ethereum_address') }}
+                  </button>
+                </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    :to="{ name: 'identity-proof' }"
+                  >
+                    {{ $t('profile.link_minisign_key') }}
                   </router-link>
                 </li>
                 <li v-if="isAdmin()">
