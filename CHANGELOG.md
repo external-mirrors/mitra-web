@@ -16,8 +16,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated translations ([#35](https://codeberg.org/silverpill/mitra-web/pulls/35)).
+- Updated translations ([#35](https://codeberg.org/silverpill/mitra-web/pulls/35), [#37](https://codeberg.org/silverpill/mitra-web/pulls/37)).
 - Changed order of items in profile menu.
+
+### Fixed
+
+- Removed empty Korean translation file.
 
 ## [3.1.0] - 2024-08-08
 

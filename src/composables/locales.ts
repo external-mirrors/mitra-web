@@ -9,7 +9,6 @@ const LANGUAGES = [
   "es",
   "hu",
   "ja",
-  "ko",
   "nl",
   "pl",
   "pt",
