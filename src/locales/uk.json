@@ -131,18 +131,23 @@
         "tab_followers": "Стежать",
         "tab_featured": "Уподобане",
         "tab_subscribers": "Передплатники",
-        "subscription_expires": "Термін дії підписки спливає {date}"
+        "subscription_expires": "Термін дії підписки спливає {date}",
+        "view_muted_accounts": "Переглянути ігноровані облікові записи"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
-        "no_posts_found": "Не знайдено дописів"
+        "no_posts_found": "Не знайдено дописів",
+        "post_is_not_available": "Допис недоступний"
     },
     "emoji_picker": {
         "search": "Пошук…",
         "no_emojis_found": "Не знайдено емоджі"
     },
     "profile_list": {
-        "show_more_profiles": "Показати більше профілів"
+        "show_more_profiles": "Показати більше профілів",
+        "muted_accounts": "Ігноровані облікові записи",
+        "no_muted_accounts": "Немає ігнорованих облікових записів",
+        "show_more_accounts": "Показати більше облікових записів"
     },
     "profile_editor": {
         "bio": "Біографія",
