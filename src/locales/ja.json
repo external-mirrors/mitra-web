@@ -94,7 +94,31 @@
         "subscriber": "購読者",
         "more": "もっと",
         "open_profile_page": "プロフィールページを開く",
-        "atom_feed": "Atomフィード"
+        "atom_feed": "Atomフィード",
+        "link_ethereum_address": "イーサリアムアドレスを繋がる",
+        "view_muted_accounts": "ミュートされたアカウントを見る",
+        "copy_profile_id": "プロフィールIDをコピー",
+        "cancel_follow_request": "フォローリクエストをキャンセル",
+        "edit_profile": "プロフィールを編集",
+        "view_follow_requests": "フォローリクエストを見る",
+        "link_minisign_key": "minisignキーを繋がる",
+        "subscriber_details": "購読者の詳細",
+        "hide_reposts": "リポストを非表示",
+        "show_reposts": "リポストを表示",
+        "hide_replies": "返信を非表示",
+        "show_replies": "返信を表示",
+        "remove_from_followers": "フォロワーから外す",
+        "mute": "ミュート",
+        "unmute": "非ミュート",
+        "copy_actor_id": "アクターIDをコピー",
+        "load_latest_posts": "最新のポストをロード",
+        "reject_follow_request": "フォローリクエストを拒否",
+        "accept_follow_request": "フォローリクエストを承認",
+        "manually_approves_followers": "手動でフォロワーを承認",
+        "follow": "フォロー",
+        "unfollow": "フォローを解除",
+        "subscribe_long": "購読者になる",
+        "subscribe": "購読する"
     },
     "emoji_picker": {
         "search": "検索…",
@@ -102,6 +126,7 @@
     },
     "post_list": {
         "no_posts_found": "ポストはありません",
-        "post_not_found": "ポストを見つかりません"
+        "post_not_found": "ポストを見つかりません",
+        "post_is_not_available": "ポストはアクセスできません"
     }
 }
