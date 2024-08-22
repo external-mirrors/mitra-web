@@ -197,7 +197,7 @@
               </universal-link>
             </div>
           </div>
-          <div class="bio" v-html="profile.note"></div>
+          <div class="bio" v-html="getProfileBio()"></div>
           <div class="extra-fields" v-if="fields.length > 0">
             <div
               v-for="field in fields"
@@ -358,6 +358,7 @@ import { computed, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
+import { replaceShortcodes } from "@/api/emojis"
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
   acceptFollowRequest,
@@ -861,6 +862,14 @@ async function onLoadLatestPosts() {
   )
 }
 
+function getProfileBio(): string {
+  if (!profile.value) {
+    return ""
+  }
+  const bio = profile.value.note || ""
+  return replaceShortcodes(bio, profile.value.emojis)
+}
+
 async function updateIdentityProof(fieldName: string) {
   if (fieldName === "$ETH") {
     if (!canVerifyEthereumAddress()) {
@@ -1067,6 +1076,8 @@ $avatar-size: 170px;
 }
 
 .bio {
+  @include emoji-inline;
+
   white-space: pre-line;
   word-wrap: break-word;
 
