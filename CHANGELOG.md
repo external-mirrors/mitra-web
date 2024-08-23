@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Render custom emojis in profile bio.
+- Added unicode emojis to emoji picker.
 
 ### Changed
 

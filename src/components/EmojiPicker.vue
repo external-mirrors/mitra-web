@@ -18,11 +18,16 @@
           <button
             class="emoji"
             v-for="emoji in getSearchResults()"
-            :key="emoji.shortcode"
-            :title="getEmojiShortcode(emoji.shortcode)"
-            @click.prevent="pick(getEmojiShortcode(emoji.shortcode))"
+            :key="emoji.name"
+            :title="getEmojiShortcode(emoji.name)"
+            @click.prevent="pick(emoji.text)"
           >
-            <img loading="lazy" :src="emoji.url">
+            <template v-if="emoji.url">
+              <img loading="lazy" :src="emoji.url">
+            </template>
+            <template v-else>
+              {{ emoji.text }}
+            </template>
           </button>
         </div>
       </li>
@@ -30,12 +35,23 @@
         <div class="emoji-grid">
           <button
             class="emoji"
-            v-for="emoji in customEmojis"
-            :key="emoji.shortcode"
-            :title="getEmojiShortcode(emoji.shortcode)"
-            @click.prevent="pick(getEmojiShortcode(emoji.shortcode))"
+            v-for="emoji in unicodeEmojiList"
+            :key="emoji.name"
+            :title="getEmojiShortcode(emoji.name)"
+            @click.prevent="pick(emoji.text)"
           >
-            <img loading="lazy" :src="emoji.url">
+            {{ emoji.text }}
+          </button>
+        </div>
+        <div class="emoji-grid" v-if="customEmojiList.length > 0">
+          <button
+            class="emoji"
+            v-for="emoji in customEmojiList"
+            :key="emoji.name"
+            :title="getEmojiShortcode(emoji.name)"
+            @click.prevent="pick(emoji.text)"
+          >
+            <img loading="lazy" :src="emoji.url as string">
           </button>
         </div>
       </li>
@@ -46,7 +62,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-import { getCustomEmojis, getEmojiShortcode, CustomEmoji } from "@/api/emojis"
+import { getCustomEmojis, getEmojiShortcode } from "@/api/emojis"
 import Loader from "@/components/Loader.vue"
 
 /* eslint-disable-next-line func-call-spacing */
@@ -54,13 +70,31 @@ const emit = defineEmits<{
   (event: "emoji-picked", name: string): void,
 }>()
 
-const customEmojis = ref<CustomEmoji[]>([])
+const DEFAULT_EMOJIS = [
+  "❤️",
+  "😆",
+  "🤔",
+  "😢",
+  "😡",
+  "🎉",
+  "💯",
+  "👀",
+]
+
+interface Emoji {
+  name: string,
+  text: string,
+  url: string | null,
+}
+
+const unicodeEmojiList = ref<Emoji[]>([])
+const customEmojiList = ref<Emoji[]>([])
 const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
-function getSearchResults() {
-  return customEmojis.value
-    .filter(emoji => emoji.shortcode.includes(searchQuery.value))
+function getSearchResults(): Emoji[] {
+  return [...unicodeEmojiList.value, ...customEmojiList.value]
+    .filter(emoji => emoji.name.includes(searchQuery.value))
 }
 
 function pick(emojiText: string) {
@@ -69,7 +103,19 @@ function pick(emojiText: string) {
 
 onMounted(async () => {
   isLoading.value = true
-  customEmojis.value = await getCustomEmojis()
+  const { emojiToName } = await import("gemoji")
+  unicodeEmojiList.value = DEFAULT_EMOJIS.map(emoji => {
+    const name = emojiToName[emoji]
+    return { name, text: emoji, url: null }
+  })
+  const customEmojis = await getCustomEmojis()
+  customEmojiList.value = customEmojis.map(emoji => {
+    return {
+      name: emoji.shortcode,
+      text: getEmojiShortcode(emoji.shortcode),
+      url: emoji.url,
+    }
+  })
   isLoading.value = false
 })
 </script>
@@ -102,8 +148,17 @@ onMounted(async () => {
 
   .emoji {
     display: flex;
+    font-size: calc($emoji-size / $emoji-line-height);
     height: $emoji-size;
+    line-height: $emoji-line-height;
+    text-align: center;
     width: $emoji-size;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--separator-color);
+    margin-bottom: calc($block-inner-padding / 2);
+    padding-bottom: calc($block-inner-padding / 2);
   }
 }
 

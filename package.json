@@ -26,6 +26,7 @@
     "canonicalize": "^2.0.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.5.4",
+    "gemoji": "^8.1.0",
     "luxon": "^1.26.0",
     "pako": "^2.1.0",
     "qrcode": "^1.5.1",
