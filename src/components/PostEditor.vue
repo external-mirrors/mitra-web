@@ -183,7 +183,6 @@
 /* eslint-disable vue/no-setup-props-destructure */
 import { computed, nextTick, onMounted, ref } from "vue"
 
-import { getEmojiShortcode } from "@/api/emojis"
 import {
   createPost,
   previewPost,
@@ -484,13 +483,13 @@ function hideEmojiPicker() {
   emojiPickerVisible.value = false
 }
 
-async function insertEmoji(name: string) {
+async function insertEmoji(emojiText: string) {
   if (contentInputElement.value === null) {
     throw new Error("editor doesn't exist")
   }
   const position = contentInputElement.value.selectionStart
-  // Add whitespace before and after shortcode
-  let text = `${getEmojiShortcode(name)} `
+  // Add whitespace before and after emoji
+  let text = `${emojiText} `
   if (position !== 0 && !/\s/.test(content.value.charAt(position - 1))) {
     text = " " + text
   }

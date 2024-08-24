@@ -10,17 +10,30 @@
           @keydown.enter.prevent
         >
       </li>
-      <li v-if="getEmojjList().length === 0">
+      <li v-if="searchQuery.length > 0 && getSearchResults().length === 0">
         {{ $t('emoji_picker.no_emojis_found') }}
       </li>
-      <li v-else class="custom-emojis">
+      <li v-else-if="searchQuery.length > 0" class="emoji-grid-wrapper">
         <div class="emoji-grid">
           <button
             class="emoji"
-            v-for="emoji in getEmojjList()"
+            v-for="emoji in getSearchResults()"
             :key="emoji.shortcode"
             :title="getEmojiShortcode(emoji.shortcode)"
-            @click.prevent="pick(emoji)"
+            @click.prevent="pick(getEmojiShortcode(emoji.shortcode))"
+          >
+            <img loading="lazy" :src="emoji.url">
+          </button>
+        </div>
+      </li>
+      <li v-else class="emoji-grid-wrapper">
+        <div class="emoji-grid">
+          <button
+            class="emoji"
+            v-for="emoji in customEmojis"
+            :key="emoji.shortcode"
+            :title="getEmojiShortcode(emoji.shortcode)"
+            @click.prevent="pick(getEmojiShortcode(emoji.shortcode))"
           >
             <img loading="lazy" :src="emoji.url">
           </button>
@@ -45,16 +58,13 @@ const customEmojis = ref<CustomEmoji[]>([])
 const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
-function getEmojjList() {
-  if (searchQuery.value === "") {
-    return customEmojis.value
-  }
+function getSearchResults() {
   return customEmojis.value
     .filter(emoji => emoji.shortcode.includes(searchQuery.value))
 }
 
-function pick(emoji: CustomEmoji) {
-  emit("emoji-picked", emoji.shortcode)
+function pick(emojiText: string) {
+  emit("emoji-picked", emojiText)
 }
 
 onMounted(async () => {
@@ -69,31 +79,31 @@ onMounted(async () => {
 
 .emoji-picker {
   min-width: 120px;
-
-  .custom-emojis {
-    max-height: 200px;
-    overflow-y: scroll;
-  }
-
-  .emoji-grid {
-    display: grid;
-    gap: calc($block-inner-padding / 2);
-    grid-template-columns: repeat(auto-fit, minmax(min-content, $emoji-size));
-    margin-right: calc($block-inner-padding / 2); /* extra space for scrollbar */
-    max-width: ($emoji-size + calc($block-inner-padding / 2)) * 4;
-
-    .emoji {
-      display: flex;
-      height: $emoji-size;
-      width: $emoji-size;
-    }
-  }
 }
 
 .search {
   input {
     border: 1px solid var(--separator-color);
     border-radius: $btn-border-radius;
+  }
+}
+
+.emoji-grid-wrapper {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.emoji-grid {
+  display: grid;
+  gap: calc($block-inner-padding / 2);
+  grid-template-columns: repeat(auto-fit, minmax(min-content, $emoji-size));
+  margin-right: calc($block-inner-padding / 2); /* extra space for scrollbar */
+  max-width: ($emoji-size + calc($block-inner-padding / 2)) * 4;
+
+  .emoji {
+    display: flex;
+    height: $emoji-size;
+    width: $emoji-size;
   }
 }
 
