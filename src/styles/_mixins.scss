@@ -278,10 +278,12 @@
   line-height: $emoji-line-height;
 
   :deep(.emoji) {
-    height: $emoji-line-height * 0.8em;
-    width: $emoji-line-height * 0.8em;
+    /* TODO: use 'lh' unit https://developer.mozilla.org/en-US/docs/Web/CSS/length */
+    height: $emoji-line-height * 1em;
+    width: $emoji-line-height * 1em;
 
     img {
+      display: inline-block;
       height: inherit;
       object-fit: contain;
       vertical-align: text-bottom;
