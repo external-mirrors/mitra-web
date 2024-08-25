@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Updated translations ([#38](https://codeberg.org/silverpill/mitra-web/pulls/38)).
+- Ignore empty banner image.
 
 ## [3.2.0] - 2024-08-18
 

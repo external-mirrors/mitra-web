@@ -110,6 +110,10 @@ export function isRemoteProfile(profile: Profile): boolean {
   return profile.username !== profile.acct
 }
 
+export function isProfileImageEmpty(url: string): boolean {
+  return url.endsWith("/api/v1/accounts/identicon")
+}
+
 export interface ProfileWrapper extends Profile {}
 export class ProfileWrapper {
 

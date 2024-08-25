@@ -9,8 +9,8 @@
         v-if="profile"
         :data-profile-id="profile.id"
       >
-        <div class="profile-header">
-          <img v-if="profile.header" :src="profile.header">
+        <div class="profile-banner">
+          <img v-if="profile.header && !isProfileImageEmpty(profile.header)" :src="profile.header">
         </div>
         <div class="profile-info-group">
           <div class="avatar-menu-group">
@@ -377,6 +377,7 @@ import { getReceivedSubscriptions, Subscription } from "@/api/subscriptions-comm
 import {
   getAliases,
   getProfile,
+  isProfileImageEmpty,
   loadLatestPosts,
   lookupProfile,
   Profile,
@@ -934,7 +935,7 @@ $avatar-size: 170px;
   border-radius: $block-border-radius;
   margin-bottom: $block-outer-padding;
 
-  .profile-header {
+  .profile-banner {
     background-color: var(--btn-background-color);
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 200px;

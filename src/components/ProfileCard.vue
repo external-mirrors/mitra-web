@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
-    <div class="profile-header">
-      <img v-if="profile.header" :src="profile.header">
+    <div class="profile-banner">
+      <img v-if="profile.header && !isProfileImageEmpty(profile.header)" :src="profile.header">
     </div>
     <div class="profile-info">
       <div class="avatar-row">
@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 
-import { Profile, ProfileWrapper } from "@/api/users"
+import { isProfileImageEmpty, Profile, ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -56,7 +56,7 @@ $profile-padding: calc($block-inner-padding / 2);
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
 
-  .profile-header {
+  .profile-banner {
     background-color: var(--btn-background-color);
     border-radius: $block-border-radius $block-border-radius 0 0;
     height: 100px;
