@@ -20,7 +20,7 @@
       <div v-if="!compact" class="bottom-row">
         <div class="post-count">
           <div class="value">{{ profile.statuses_count }}</div>
-          <div class="name">posts</div>
+          <div class="name">{{ $t('profile.stats_posts') }}</div>
         </div>
       </div>
     </div>

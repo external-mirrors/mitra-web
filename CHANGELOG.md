@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Ignore empty banner image.
 - Display `mention` notification with `reply` subtype as reply notification.
 
+### Fixed
+
+- Translate stats in profile card.
+
 ## [3.2.0] - 2024-08-18
 
 ### Added
