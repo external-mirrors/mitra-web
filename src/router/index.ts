@@ -5,6 +5,7 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 import AboutPage from "@/views/About.vue"
+import BookmarkList from "@/views/BookmarkList.vue"
 import EthereumPage from "@/views/Ethereum.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
@@ -188,6 +189,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/mutes",
     name: "mute-list",
     component: MuteList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/bookmarks",
+    name: "bookmark-list",
+    component: BookmarkList,
     meta: { onlyAuthenticated: true },
   },
   {

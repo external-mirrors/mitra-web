@@ -232,6 +232,24 @@
               <span>{{ $t('post.copy_link_to_post') }}</span>
             </a>
           </li>
+          <li v-if="canCreateBookmark()">
+            <button
+              class="icon"
+              @click="hideMenu(); onCreateBookmark()"
+            >
+              <icon-bookmark></icon-bookmark>
+              <span>{{ $t('post.bookmark') }}</span>
+            </button>
+          </li>
+          <li v-if="canDeleteBookmark()">
+            <button
+              class="icon"
+              @click="hideMenu(); onDeleteBookmark()"
+            >
+              <icon-remove-bookmark></icon-remove-bookmark>
+              <span>{{ $t('post.remove_from_bookmarks') }}</span>
+            </button>
+          </li>
           <li v-if="canPin()">
             <button
               class="icon"
@@ -380,6 +398,8 @@ import { useRouter, RouteLocationRaw } from "vue-router"
 
 import { getEmojiShortcode, replaceShortcodes } from "@/api/emojis"
 import {
+  createBookmark,
+  deleteBookmark,
   getPostSource,
   deletePost,
   favourite,
@@ -413,6 +433,8 @@ import IconMute from "@/assets/feather/volume-x.svg?component"
 import IconUnmute from "@/assets/feather/volume-2.svg?component"
 import IconComment from "@/assets/forkawesome/comment-o.svg?component"
 import IconLike from "@/assets/forkawesome/thumbs-o-up.svg?component"
+import IconBookmark from "@/assets/tabler/bookmark.svg?component"
+import IconRemoveBookmark from "@/assets/tabler/bookmark-off.svg?component"
 import IconLeftUp from "@/assets/tabler/corner-left-up.svg?component"
 import IconPin from "@/assets/tabler/pin.svg?component"
 import IconUnpin from "@/assets/tabler/pinned-off.svg?component"
@@ -664,6 +686,26 @@ function hideMenu() {
 
 function copyPostUri(): void {
   navigator.clipboard.writeText(props.post.uri)
+}
+
+function canCreateBookmark(): boolean {
+  return currentUser.value !== null && !props.post.bookmarked
+}
+
+function canDeleteBookmark(): boolean {
+  return currentUser.value !== null && props.post.bookmarked
+}
+
+async function onCreateBookmark() {
+  const authToken = ensureAuthToken()
+  const { bookmarked } = await createBookmark(authToken, props.post.id)
+  props.post.bookmarked = bookmarked
+}
+
+async function onDeleteBookmark() {
+  const authToken = ensureAuthToken()
+  const { bookmarked } = await deleteBookmark(authToken, props.post.id)
+  props.post.bookmarked = bookmarked
 }
 
 function canPin(): boolean {

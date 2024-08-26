@@ -89,6 +89,7 @@ export interface Post {
   emojis: CustomEmoji[];
   favourited: boolean;
   reblogged: boolean;
+  bookmarked: boolean,
 
   pleroma: {
     emoji_reactions: PleromaEmojiReaction[],
@@ -192,6 +193,21 @@ export async function getPostThread(
   return data
 }
 
+export async function getBookmarks(
+  authToken: string,
+  maxId?: string,
+): Promise<Post[]> {
+  const url = `${BACKEND_URL}/api/v1/bookmarks`
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function addRelationships(
   authToken: string,
   posts: Post[],
@@ -252,6 +268,7 @@ export async function previewPost(
     emojis: data.emojis,
     favourited: false,
     reblogged: false,
+    bookmarked: false,
     pleroma: {
       emoji_reactions: [],
       parent_visible: true,
@@ -411,6 +428,26 @@ export async function deleteRepost(
   postId: string,
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unreblog`
+  const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function createBookmark(
+  authToken: string,
+  postId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/bookmark`
+  const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function deleteBookmark(
+  authToken: string,
+  postId: string,
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unbookmark`
   const response = await http(url, { method: "POST", authToken })
   const data = await handleResponse(response)
   return data

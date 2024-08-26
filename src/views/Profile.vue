@@ -107,6 +107,13 @@
                     {{ $t('profile.view_muted_accounts') }}
                   </router-link>
                 </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    :to="{ name: 'bookmark-list' }"
+                  >
+                    {{ $t('profile.view_bookmarked_posts') }}
+                  </router-link>
+                </li>
                 <li v-if="canViewSubscriber()">
                   <router-link
                     :to="{ name: 'subscriber', params: { profileId: profile.id } }"
