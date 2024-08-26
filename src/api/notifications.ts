@@ -13,6 +13,7 @@ interface EmojiReaction {
 export interface Notification {
   id: string;
   type: string;
+  subtype: string | null,
   account: Profile;
   status: Post | null;
   reaction: EmojiReaction | null,

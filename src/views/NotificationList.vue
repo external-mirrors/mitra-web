@@ -10,7 +10,7 @@
         <div class="action">
           <icon-user-plus v-if="notification.type === 'follow'"></icon-user-plus>
           <icon-user-plus v-else-if="notification.type === 'follow_request'"></icon-user-plus>
-          <icon-comment v-else-if="notification.type === 'reply'"></icon-comment>
+          <icon-comment v-else-if="notification.type === 'reply' || (notification.type === 'mention' && notification.subtype === 'reply')"></icon-comment>
           <icon-like v-else-if="notification.type === 'favourite'"></icon-like>
           <span
             v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'"
@@ -39,7 +39,7 @@
           <span v-else-if="notification.type === 'follow_request'">
             {{ $t('notifications.sent_a_follow_request') }}
           </span>
-          <span v-else-if="notification.type === 'reply'">
+          <span v-else-if="notification.type === 'reply' || (notification.type === 'mention' && notification.subtype === 'reply')">
             {{ $t('notifications.replied_to_your_post') }}
           </span>
           <span v-else-if="notification.type === 'favourite'">
