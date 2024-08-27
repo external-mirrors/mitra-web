@@ -234,7 +234,7 @@
   "subscriptions": {
     "subscription": "Subscription",
     "no_subscription_info": "No subscription info",
-    "enter_your_username": "Enter your username or Fediverse address (username@example.org)",
+    "enter_your_username": "Enter your username or Fediverse address (username{'@'}example.org)",
     "find_profile": "Find profile",
     "price_per_month": "per month",
     "you_are_not_subscribed_yet": "You are not subscribed yet",

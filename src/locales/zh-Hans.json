@@ -264,7 +264,7 @@
         "unit_months": "个月",
         "unit_days": "天",
         "grant": "授予",
-        "enter_your_username": "输入你的用户名或联邦宇宙地址 (username@example.org)",
+        "enter_your_username": "输入你的用户名或联邦宇宙地址 (username{'@'}example.org)",
         "show_additional_payment_information": "显示更多信息",
         "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款："
     }

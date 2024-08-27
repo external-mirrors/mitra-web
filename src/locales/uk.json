@@ -248,7 +248,7 @@
         "unit_days": "днів",
         "grant": "Надати",
         "extend": "Продовжити",
-        "enter_your_username": "Введіть ім'я користувача або свою адресу Fediverse (username@example.org)",
+        "enter_your_username": "Введіть ім'я користувача або свою адресу Fediverse (username{'@'}example.org)",
         "payment_awaiting_response": "Очікування відповіді",
         "click_to_edit": "Натисніть, щоб змінити",
         "manage_subscriptions": "Керування передплатою",
