@@ -23,6 +23,10 @@
       <div class="icon"><icon-users></icon-users></div>
       <span>{{ $t('navigation.profile_directory') }}</span>
     </router-link>
+    <router-link class="sidebar-link" :to="{ name: 'bookmark-list' }">
+      <div class="icon"><icon-bookmarks></icon-bookmarks></div>
+      <span>{{ $t('navigation.bookmarks') }}</span>
+    </router-link>
     <router-link
       v-if="canManageSubscriptions()"
       class="sidebar-link"
@@ -58,6 +62,7 @@ import IconLogout from "@/assets/feather/log-out.svg?component"
 import IconServer from "@/assets/feather/server.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
+import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
 import IconPayment from "@/assets/tabler/coin.svg?component"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"

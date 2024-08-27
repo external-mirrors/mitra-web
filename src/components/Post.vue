@@ -247,7 +247,7 @@
               @click="hideMenu(); onDeleteBookmark()"
             >
               <icon-remove-bookmark></icon-remove-bookmark>
-              <span>{{ $t('post.remove_from_bookmarks') }}</span>
+              <span>{{ $t('post.remove_bookmark') }}</span>
             </button>
           </li>
           <li v-if="canPin()">
