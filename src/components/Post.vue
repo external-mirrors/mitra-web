@@ -224,9 +224,9 @@
         <menu v-if="menuVisible" class="dropdown-menu">
           <li>
             <a
-              :href="post.uri"
+              :href="post.url"
               class="icon"
-              @click.prevent="hideMenu(); copyPostUri()"
+              @click.prevent="hideMenu(); copyPostUrl()"
             >
               <icon-link></icon-link>
               <span>{{ $t('post.copy_link_to_post') }}</span>
@@ -684,8 +684,8 @@ function hideMenu() {
   menuVisible.value = false
 }
 
-function copyPostUri(): void {
-  navigator.clipboard.writeText(props.post.uri)
+function copyPostUrl(): void {
+  navigator.clipboard.writeText(props.post.url)
 }
 
 function canCreateBookmark(): boolean {

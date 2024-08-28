@@ -70,6 +70,7 @@ interface PleromaEmojiReaction {
 export interface Post {
   id: string;
   uri: string;
+  url: string,
   created_at: string;
   edited_at: string | null;
   account: Profile;
@@ -249,6 +250,7 @@ export async function previewPost(
   return {
     id: "",
     uri: "",
+    url: "",
     created_at: "",
     edited_at: null,
     account: defaultProfile(),
