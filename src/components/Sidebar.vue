@@ -32,7 +32,7 @@
       class="sidebar-link"
       :to="{ name: 'subscriptions-settings' }"
     >
-      <div class="icon"><icon-payment></icon-payment></div>
+      <div class="icon"><icon-premium></icon-premium></div>
       <span>{{ $t('navigation.subscriptions') }}</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
@@ -63,7 +63,7 @@ import IconServer from "@/assets/feather/server.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
 import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
-import IconPayment from "@/assets/tabler/coin.svg?component"
+import IconPremium from "@/assets/extra-icons/spark.svg?component"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
