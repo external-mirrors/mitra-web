@@ -29,7 +29,8 @@
         "local": "Місцевий",
         "notifications": "Сповіщення",
         "search": "Пошук…",
-        "home": "Головна"
+        "home": "Головна",
+        "bookmarks": "Закладки"
     },
     "post": {
         "next_page": "Показати більше публікацій",
@@ -70,7 +71,9 @@
         "send_coin": "Переказати {name}",
         "more": "Додатково",
         "become_a_subscriber": "Стати передплатником",
-        "react_with_emoji": "Реагувати за допомогою емоджі"
+        "react_with_emoji": "Реагувати за допомогою емоджі",
+        "bookmark": "Закладка",
+        "remove_bookmark": "Видалити закладку"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
