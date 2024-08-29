@@ -85,7 +85,7 @@
         "remove_bookmark": "ブックマークを取り消す"
     },
     "misc": {
-        "reload_page": "数分後にページをリロードする"
+        "reload_page": "数分後にページを再読み込みしてください"
     },
     "profile": {
         "muted": "ミュートされた",
@@ -159,7 +159,7 @@
         "accept_mentions_from": "メンションの受信設定",
         "mention_policy_applies": "ダイレクトメッセージと公開ポスト両方に適用します",
         "mention_everybody": "みんな",
-        "mention_everybody_except_new_accounts": "新たに作成されたアカウント以外みんな",
+        "mention_everybody_except_new_accounts": "新たに作成されたアカウント以外の全員",
         "mention_follows_and_followers": "フォローしてるアカウントとフォロワーのみ",
         "you_can_have_max_fields": "最大{max}項目をプロフィールに表として表示できます",
         "field_label": "ラベル",
@@ -175,10 +175,10 @@
         "show_more_accounts": "アカウントをもっと表示"
     },
     "notifications": {
-        "subscription_expired": "購読期限切れました",
+        "subscription_expired": "購読期限が切れました",
         "moved_to_a_new_instance": "が新しいインスタンスに引っ越しました",
         "show_more_notifications": "もっと通知を表示する",
-        "followed_you": "にフォローされた",
+        "followed_you": "にフォローされました",
         "sent_a_follow_request": "がフォローリクエストを送りました",
         "signed_up": "が登録しました",
         "replied_to_your_post": "がポストに返信しました",
@@ -197,7 +197,7 @@
         "enable_ctrl_enter": "Ctrl+エンターでメッセージを送信",
         "language": "言語",
         "authentication": "認証",
-        "enabled_authentication_methods": "有効された認証方法：",
+        "enabled_authentication_methods": "有効化された認証方法：",
         "authentication_method_password": "パスワード",
         "change_password": "パスワードを変更",
         "new_password": "新しいパスワード",
@@ -214,7 +214,7 @@
         "delete_account": "アカウントを削除",
         "delete_account_confirm": "本当にアカウントを削除してもよろしいですか？削除を取り消せません。",
         "experiments": "実験",
-        "experiments_summary": "ここに実験的機能が含まれている。自己責任において使いましょう。"
+        "experiments_summary": "ここには実験的機能が含まれています。自己責任において使いましょう。"
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
@@ -241,7 +241,7 @@
         "find_profile": "プロフィールを探す",
         "price_per_month": "月額",
         "you_are_not_subscribed_yet": "まだ購読されていません",
-        "subscription_is_active": "購読は起動された",
+        "subscription_is_active": "購読は有効です",
         "subscription_is_not_available": "購読は利用できません。",
         "duration": "期間",
         "click_to_edit": "編集するのにクリック",
@@ -250,22 +250,22 @@
         "please_send_to_this_address": "{amount} {currency}をこのアドレスに送金して下さい：",
         "show_additional_payment_information": "詳細を表示",
         "payment_awaiting_response": "応答待ち",
-        "payment_waiting": "支払いを待っている（残り {n} 分）",
+        "payment_waiting": "支払いを待っています（残り {n} 分）",
         "amount": "金額",
         "cancel_payment": "キャンセル",
         "ok_payment": "OK",
         "manage_subscriptions": "購読を管理",
-        "subscriptions_are_enabled": "購読は有効されます",
+        "subscriptions_are_enabled": "購読は有効です",
         "subscribers": "購読者 {n} 人 | 購読者 {n} 人",
-        "subscriptions_are_not_enabled": "購読は無効されている",
+        "subscriptions_are_not_enabled": "購読は無効化されています",
         "subscribers_can_pay": "購読者は以下の購読ページから支払えます：",
         "edit_settings": "設定を編集",
         "price": "購読料",
-        "payment_timed_out": "支払いがタイムアウトされた",
-        "payment_cancelled": "支払いはキャンセルされた",
+        "payment_timed_out": "支払いがタイムアウトされました",
+        "payment_cancelled": "支払いはキャンセルされました",
         "payment_amount_is_too_small": "支払い金額は足りません",
         "payment_completed": "支払い完了",
-        "payment_processing": "支払いを処理している",
+        "payment_processing": "支払いを処理しています",
         "payout_address": "支払いの受取アドレス",
         "save_settings": "保存",
         "enable_subscriptions": "購読を有効する",
