@@ -3,9 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue"
+import { onMounted, watch } from "vue"
 import { useRoute } from "vue-router"
 
+import { BACKEND_URL } from "@/constants"
 import { useCurrentUser } from "@/composables/user"
 import { useLocales } from "@/composables/locales"
 
@@ -23,6 +24,14 @@ watch(currentUser, () => {
     : "Federated social network"
   document.title = `Mitra | ${title}`
 }, { immediate: true })
+
+onMounted(() => {
+  // https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
+  const link = document.createElement("link")
+  link.href = `${BACKEND_URL}/assets/custom.css`
+  link.rel = "stylesheet"
+  document.head.append(link)
+})
 </script>
 
 <style lang="scss">

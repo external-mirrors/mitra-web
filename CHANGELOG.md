@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Define CSS variables for landing page customization.
+- Attempt to load custom stylesheet when loading app.
 
 ### Changed
 
