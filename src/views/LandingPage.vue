@@ -408,12 +408,12 @@ async function login() {
 @import "../styles/theme";
 
 .landing-page {
-  background-color: $landing-background-color;
-  background-image: $landing-background-image;
+  background-color: var(--landing-background-color);
+  background-image: var(--landing-background-image);
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
-  color: $landing-text-color;
+  color: var(--landing-text-color);
   min-height: 100vh;
   padding-top: 20vh;
 }
@@ -446,22 +446,22 @@ async function login() {
 }
 
 .instance-link {
-  color: $landing-text-color;
+  color: var(--landing-text-color);
 
   .arrow {
-    fill: $landing-accent-color;
+    fill: var(--landing-accent-color);
     height: 1em;
     vertical-align: middle;
     width: auto;
 
     &:hover {
-      fill: $landing-text-color;
+      fill: var(--landing-text-color);
     }
   }
 }
 
 .login-form-group {
-  background-color: $landing-block-background-color;
+  background-color: var(--landing-block-background-color);
   border-radius: 10px;
   box-sizing: border-box;
   display: flex;
@@ -478,8 +478,8 @@ async function login() {
   display: flex;
 
   button {
-    border: 1px solid $landing-btn-background-color;
-    color: $landing-btn-text-color;
+    border: 1px solid var(--landing-btn-background-color);
+    color: var(--landing-btn-text-color);
     padding: 10px;
     text-align: center;
     width: 100%;
@@ -495,7 +495,7 @@ async function login() {
     }
 
     &.active {
-      background-color: $landing-btn-background-color;
+      background-color: var(--landing-btn-background-color);
     }
   }
 }
@@ -509,7 +509,7 @@ async function login() {
   input,
   textarea,
   .addon {
-    background-color: $landing-input-background-color;
+    background-color: var(--landing-input-background-color);
     border: none;
     line-height: 18px;
     padding: 15px;
@@ -518,11 +518,11 @@ async function login() {
   input,
   textarea {
     border-radius: 10px;
-    color: $landing-text-color;
+    color: var(--landing-text-color);
     min-width: 100px;
 
     &::placeholder {
-      color: $landing-input-addon-color;
+      color: var(--landing-input-addon-color);
     }
   }
 
@@ -537,7 +537,7 @@ async function login() {
 
     .addon {
       border-radius: 0 10px 10px 0;
-      color: $landing-input-addon-color;
+      color: var(--landing-input-addon-color);
       flex-shrink: 0;
       max-width: 40%;
       overflow: hidden;
@@ -559,11 +559,11 @@ async function login() {
   }
 
   button[type="submit"] {
-    background: $landing-login-btn-background-color;
+    background: var(--landing-login-btn-background-color);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 2px 16px -5px $landing-login-btn-shadow-color;
-    color: $landing-text-color;
+    box-shadow: 0 2px 16px -5px var(--landing-login-btn-shadow-color);
+    color: var(--landing-text-color);
     cursor: pointer;
     display: block;
     font-size: 20px;
@@ -573,7 +573,7 @@ async function login() {
     text-align: center;
 
     &:not([disabled]):hover {
-      background: $landing-login-btn-background-hover-color;
+      background: var(--landing-login-btn-background-hover-color);
     }
   }
 
@@ -597,7 +597,7 @@ async function login() {
     }
 
     a {
-      color: $landing-text-color;
+      color: var(--landing-text-color);
       text-decoration: underline;
     }
   }
@@ -622,7 +622,7 @@ async function login() {
   text-align: center;
 
   button {
-    color: $landing-text-color;
+    color: var(--landing-text-color);
     text-decoration: underline;
   }
 }

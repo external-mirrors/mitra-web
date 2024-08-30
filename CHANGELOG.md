@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Define CSS variables for landing page customization.
+
 ### Changed
 
 - Use `Status.url` when copying link to post.

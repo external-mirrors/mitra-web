@@ -60,6 +60,19 @@ watch(currentUser, () => {
   --highlight-color: #{$highlight-color};
   --loader-color: #{$loader-color};
   --shadow-color: #{$shadow-color};
+
+  --landing-background-color: #{$landing-background-color};
+  --landing-background-image: #{$landing-background-image};
+  --landing-text-color: #{$landing-text-color};
+  --landing-accent-color: #{$landing-accent-color};
+  --landing-block-background-color: #{$landing-block-background-color};
+  --landing-btn-text-color: #{$landing-btn-text-color};
+  --landing-btn-background-color: #{$landing-btn-background-color};
+  --landing-input-background-color: #{$landing-input-background-color};
+  --landing-input-addon-color: #{$landing-input-addon-color};
+  --landing-login-btn-background-color: #{$landing-login-btn-background-color};
+  --landing-login-btn-background-hover-color: #{$landing-login-btn-background-hover-color};
+  --landing-login-btn-shadow-color: #{$landing-login-btn-shadow-color};
 }
 
 [data-theme="dark"] {
