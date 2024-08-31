@@ -11,11 +11,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Define CSS variables for landing page customization.
 - Attempt to load custom stylesheet when loading app.
 - Support notifications with `subscriber_leaving` type.
+- Added Russian translation ([#40](https://codeberg.org/silverpill/mitra-web/pulls/40)).
 
 ### Changed
 
 - Use `Status.url` when copying link to post.
 - Adjusted icon line width.
+- Updated translations ([#40](https://codeberg.org/silverpill/mitra-web/pulls/40)).
 
 ## [3.3.0] - 2024-08-28
 
