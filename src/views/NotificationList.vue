@@ -23,6 +23,7 @@
           <icon-payment
             v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
           ></icon-payment>
+          <icon-user-minus v-else-if="notification.type === 'subscriber_leaving'"></icon-user-minus>
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
           <router-link
@@ -59,6 +60,9 @@
           </span>
           <span v-else-if="notification.type === 'subscription_expiration'">
             {{ $t('notifications.subscription_expired') }}
+          </span>
+          <span v-else-if="notification.type === 'subscriber_leaving'">
+            {{ $t('notifications.is_no_longer_a_subscriber') }}
           </span>
           <span v-else-if="notification.type === 'move'">
             {{ $t('notifications.moved_to_a_new_instance') }}
@@ -113,6 +117,7 @@ import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
 import { ProfileWrapper } from "@/api/users"
 import IconUserCheck from "@/assets/feather/user-check.svg?component"
+import IconUserMinus from "@/assets/feather/user-minus.svg?component"
 import IconUserPlus from "@/assets/feather/user-plus.svg?component"
 import IconRepost from "@/assets/feather/repeat.svg?component"
 import IconTruck from "@/assets/feather/truck.svg?component"
