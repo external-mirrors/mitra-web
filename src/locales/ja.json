@@ -186,7 +186,8 @@
         "reacted_to_your_post": "がポストに反応しました",
         "mentioned_you": "がメンションしました",
         "reposted_your_post": "がポストをリポストしました",
-        "paid_for_subscription": "が購読料を支払いました"
+        "paid_for_subscription": "が購読料を支払いました",
+        "is_no_longer_a_subscriber": "はもはや購読者ではない"
     },
     "settings": {
         "settings": "設定",
