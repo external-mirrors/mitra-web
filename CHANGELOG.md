@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Use `Status.url` when copying link to post.
 - Adjusted icon line width.
-- Updated translations ([#40](https://codeberg.org/silverpill/mitra-web/pulls/40)).
+- Updated translations ([#40](https://codeberg.org/silverpill/mitra-web/pulls/40), [#41](https://codeberg.org/silverpill/mitra-web/pulls/41)).
 
 ### Fixed
 
