@@ -183,7 +183,8 @@
         "moved_to_a_new_instance": "Переехал на новый инстанс",
         "signed_up": "Подписался",
         "show_more_notifications": "Показать больше уведомлений",
-        "reacted_to_your_post": "Отреагировал на ваш пост"
+        "reacted_to_your_post": "Отреагировал на ваш пост",
+        "is_no_longer_a_subscriber": "Больше не является подписчиком"
     },
     "settings": {
         "settings": "Настройки",

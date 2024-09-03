@@ -186,7 +186,8 @@
         "paid_for_subscription": "оплатив підписку",
         "subscription_expired": "термін дії підписки закінчився",
         "signed_up": "зареєструвався",
-        "moved_to_a_new_instance": "перенесено на новий інстанс"
+        "moved_to_a_new_instance": "перенесено на новий інстанс",
+        "is_no_longer_a_subscriber": "більше не передплачує"
     },
     "settings": {
         "enable_content_warnings": "Увімкнути попередження про вміст",
