@@ -7,6 +7,7 @@ import {
 } from "@/api/users"
 
 const AUTH_TOKEN_STORAGE_KEY = "auth_token"
+const AUTH_TOKEN_INVALID = "access token is invalid"
 
 const currentUser = ref<User | null>(null)
 const isAuthChecked = ref(false)
@@ -50,8 +51,9 @@ export function useCurrentUser() {
           currentUser.value = await getCurrentUser(token)
         } catch (error: any) {
           // Failed to get current user, removing invalid token
-          currentUser.value = null
-          clearAuthToken()
+          if (isTokenValidationError(error)) {
+            onInvalidAuthToken()
+          }
         }
       }
       isAuthChecked.value = true
@@ -64,6 +66,10 @@ export function useCurrentUser() {
     clearAuthToken()
     // Also remove other local data
     localStorage.clear()
+  }
+
+  function isTokenValidationError(error: any): boolean {
+    return error.message === AUTH_TOKEN_INVALID
   }
 
   function onInvalidAuthToken() {
@@ -87,6 +93,7 @@ export function useCurrentUser() {
     setAuthToken,
     isAuthenticated,
     endSession,
+    isTokenValidationError,
     onInvalidAuthToken,
     isAdmin,
   }

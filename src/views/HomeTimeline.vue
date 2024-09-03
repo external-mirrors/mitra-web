@@ -45,7 +45,12 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
-const { currentUser, ensureAuthToken, onInvalidAuthToken } = useCurrentUser()
+const {
+  currentUser,
+  ensureAuthToken,
+  isTokenValidationError,
+  onInvalidAuthToken,
+} = useCurrentUser()
 const { instance } = useInstanceInfo()
 
 const posts = ref<Post[]>([])
@@ -81,8 +86,7 @@ async function loadTimeline() {
   try {
     page = await loadTimelinePage(authToken)
   } catch (error: any) {
-    console.error("timeline loading error:", error.message)
-    if (error.message === "access token is invalid") {
+    if (isTokenValidationError(error)) {
       onInvalidAuthToken()
       router.push({ name: "landing-page" })
       return
