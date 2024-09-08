@@ -4,6 +4,7 @@
   "description": "Mitra web UI",
   "license": "AGPL-3.0-only",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=18"
   },
@@ -61,7 +62,7 @@
     "stylelint": "^14.16.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "typescript": "~5.2.2",
-    "vite": "^4.5.3",
+    "vite": "^5.4.3",
     "vitest": "^0.34.6",
     "vue-tsc": "~1.8.27"
   },
