@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Updated translations ([#42](https://codeberg.org/silverpill/mitra-web/pulls/42)).
+- Add space between paragraphs in bio.
 
 ## [3.4.0] - 2024-09-04
 

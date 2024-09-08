@@ -1086,6 +1086,12 @@ $avatar-size: 170px;
     @include block-external-link;
   }
 
+  :deep(p) {
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
   :deep(ul),
   :deep(ol) {
     list-style-position: inside;
