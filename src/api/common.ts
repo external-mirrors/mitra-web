@@ -93,3 +93,13 @@ export async function handleResponse(
     throw new Error(errorDescription)
   }
 }
+
+export function getNextPageUrl(response: Response): string | null {
+  const linkHeader = response.headers.get("Link")
+  if (!linkHeader) {
+    return null
+  }
+  // TODO: use advanced Link header parser
+  const link = linkHeader.split(";")[0]
+  return link.slice(1, link.length - 1)
+}

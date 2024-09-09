@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { handleResponse, http, PAGE_SIZE } from "./common"
+import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
 import { getRelationships, Relationship } from "./relationships"
 import { defaultProfile, Profile } from "./users"
@@ -194,19 +194,27 @@ export async function getPostThread(
   return data
 }
 
+interface PostListPage {
+  posts: Post[],
+  nextPageUrl: string | null,
+}
+
 export async function getBookmarks(
   authToken: string,
-  maxId?: string,
-): Promise<Post[]> {
-  const url = `${BACKEND_URL}/api/v1/bookmarks`
-  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  url: string | null,
+): Promise<PostListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/bookmarks`
+  }
   const response = await http(url, {
     method: "GET",
-    queryParams,
     authToken,
   })
   const data = await handleResponse(response)
-  return data
+  return {
+    posts: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
 
 export async function addRelationships(

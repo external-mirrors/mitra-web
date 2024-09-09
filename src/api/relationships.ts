@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants"
-import { handleResponse, http } from "./common"
+import { handleResponse, http, getNextPageUrl } from "./common"
 import { Profile } from "./users"
 
 export interface Relationship {
@@ -119,16 +119,6 @@ export async function unmute(
 interface ProfileListPage {
   profiles: Profile[];
   nextPageUrl: string | null;
-}
-
-function getNextPageUrl(response: Response): string | null {
-  const linkHeader = response.headers.get("Link")
-  if (!linkHeader) {
-    return null
-  }
-  // TODO: use advanced Link header parser
-  const link = linkHeader.split(";")[0]
-  return link.slice(1, link.length - 1)
 }
 
 export async function getFollowers(
