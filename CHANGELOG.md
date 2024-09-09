@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Support custom content warning images.
+
 ### Changed
 
 - Updated translations ([#42](https://codeberg.org/silverpill/mitra-web/pulls/42)).

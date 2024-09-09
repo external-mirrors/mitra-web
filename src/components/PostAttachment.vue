@@ -4,13 +4,15 @@
     class="image"
     :class="{ sensitive: contentWarningEnabled }"
   >
-    <button
+    <div
       v-if="contentWarningEnabled"
       class="show-image"
       @click="showImage()"
     >
-      {{ $t('post.sensitive_content') }}
-    </button>
+      <button>
+        {{ $t('post.sensitive_content') }}
+      </button>
+    </div>
     <button
       v-else-if="isSensitive"
       class="hide-image"
@@ -23,7 +25,7 @@
       :src="attachment.url"
       :alt="attachment.description || undefined"
       :title="attachment.description || undefined"
-      @click="onImageClick()"
+      @click="openLightbox()"
     >
     <div
       v-if="lightboxOpen"
@@ -84,15 +86,6 @@ function openLightbox() {
 function closeLightbox() {
   lightboxOpen.value = false
 }
-
-function onImageClick() {
-  if (props.isSensitive && contentWarningEnabled.value === true) {
-    // If post is marked as sensitive, hide content warning
-    showImage()
-  } else {
-    openLightbox()
-  }
-}
 </script>
 
 <style scoped lang="scss">
@@ -108,11 +101,19 @@ button {
   position: relative;
 
   .show-image {
-    left: 50%;
+    align-items: center;
+    background: var(--content-warning-background);
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    justify-content: center;
     position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
     z-index: 1;
+
+    button {
+      visibility: var(--content-warning-btn-visibility);
+    }
   }
 
   .hide-image {
