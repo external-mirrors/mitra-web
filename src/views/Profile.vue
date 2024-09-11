@@ -1217,6 +1217,10 @@ $avatar-size: 170px;
   text-align: center;
 }
 
+.next-btn {
+  margin-bottom: $block-outer-padding;
+}
+
 @media screen and (max-width: $screen-breakpoint-small) {
   .tab {
     flex-basis: 50%;
