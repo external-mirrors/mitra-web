@@ -14,6 +14,7 @@
         <!-- Fallback for dummy profiles -->
         <div v-else class="actor-address">{{ profile.url }}</div>
       </div>
+      <slot name="profile-actions"></slot>
     </div>
     <slot name="profile-footer"></slot>
   </div>
@@ -52,15 +53,16 @@ const profile = computed(() => new ProfileWrapper(props.profile))
   align-items: center;
   display: flex;
   flex-direction: row;
+  gap: $block-inner-padding;
 
   .avatar {
     flex-shrink: 0;
     height: $avatar-size;
-    margin-right: $block-inner-padding;
     width: $avatar-size;
   }
 
   .name {
+    flex-grow: 1;
     min-width: 0;
   }
 

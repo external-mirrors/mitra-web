@@ -107,6 +107,13 @@
                     {{ $t('profile.view_muted_users') }}
                   </router-link>
                 </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
+                    :to="{ name: 'custom-feed-list' }"
+                  >
+                    {{ $t('profile.view_custom_feeds') }}
+                  </router-link>
+                </li>
                 <li v-if="canViewSubscriber()">
                   <router-link
                     :to="{ name: 'subscriber', params: { profileId: profile.id } }"

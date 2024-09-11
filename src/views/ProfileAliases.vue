@@ -176,28 +176,7 @@ section {
 
 form {
   @include content-form;
-
-  .suggestions {
-    background-color: var(--block-background-color);
-    border-radius: $btn-border-radius;
-    display: flex;
-    flex-direction: column;
-    margin-top: 1px;
-
-    .suggestion {
-      padding: calc($input-padding / 2) $input-padding;
-      text-align: left;
-      word-wrap: break-word;
-
-      &:first-child {
-        padding-top: $input-padding;
-      }
-
-      &:last-child {
-        padding-bottom: $input-padding;
-      }
-    }
-  }
+  @include content-form-suggestions;
 }
 
 .loader {

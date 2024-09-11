@@ -280,6 +280,30 @@
   }
 }
 
+@mixin content-form-suggestions {
+  .suggestions {
+    background-color: var(--block-background-color);
+    border-radius: $btn-border-radius;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1px;
+
+    button {
+      padding: calc($input-padding / 2) $input-padding;
+      text-align: left;
+      word-wrap: break-word;
+
+      &:first-child {
+        padding-top: $input-padding;
+      }
+
+      &:last-child {
+        padding-bottom: $input-padding;
+      }
+    }
+  }
+}
+
 /* Without zoom-in effect */
 @mixin emoji-inline {
   line-height: $emoji-line-height;

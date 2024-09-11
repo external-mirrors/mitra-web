@@ -59,6 +59,7 @@
 import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 
+import { PAGE_SIZE } from "@/api/common"
 import { Post as PostObject, Tag } from "@/api/posts"
 import { getSearchResults } from "@/api/search"
 import { Profile } from "@/api/users"
@@ -84,7 +85,7 @@ const tags = ref<Tag[]>([])
 
 function canLoadNextPage(): boolean {
   const count = profiles.value.length || posts.value.length || tags.value.length
-  return count > 0 && count % 20 === 0
+  return count > 0 && count % PAGE_SIZE === 0
 }
 
 async function loadNextPage() {

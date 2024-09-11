@@ -6,6 +6,9 @@ import { useCurrentUser } from "@/composables/user"
 
 import AboutPage from "@/views/About.vue"
 import BookmarkList from "@/views/BookmarkList.vue"
+import CustomFeedList from "@/views/CustomFeedList.vue"
+import CustomFeedSourceList from "@/views/CustomFeedSourceList.vue"
+import CustomFeedTimeline from "@/views/CustomFeedTimeline.vue"
 import EthereumPage from "@/views/Ethereum.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
@@ -118,6 +121,24 @@ const routes: Array<RouteRecordRaw> = [
     name: "tag",
     component: TagTimeline,
     meta: { },
+  },
+  {
+    path: "/custom-feeds",
+    name: "custom-feed-list",
+    component: CustomFeedList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/custom-feed/:feedId",
+    name: "custom-feed",
+    component: CustomFeedSourceList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/custom-feed/:feedId/timeline",
+    name: "custom-feed-timeline",
+    component: CustomFeedTimeline,
+    meta: { onlyAuthenticated: true },
   },
   {
     path: "/notifications",

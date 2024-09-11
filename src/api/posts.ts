@@ -184,6 +184,22 @@ export async function getProfileTimeline(
   return data
 }
 
+export async function getListTimeline(
+  authToken: string,
+  listId: number,
+  maxId?: string,
+): Promise<Post[]> {
+  const url = `${BACKEND_URL}/api/v1/timelines/list/${listId}`
+  const queryParams = { max_id: maxId, limit: PAGE_SIZE }
+  const response = await http(url, {
+    method: "GET",
+    queryParams,
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function getPostThread(
   authToken: string | null,
   postId: string,
