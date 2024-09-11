@@ -104,7 +104,7 @@
                   <router-link
                     :to="{ name: 'mute-list' }"
                   >
-                    {{ $t('profile.view_muted_accounts') }}
+                    {{ $t('profile.view_muted_users') }}
                   </router-link>
                 </li>
                 <li v-if="canViewSubscriber()">
@@ -672,7 +672,7 @@ function canShowReplies(): boolean {
 async function onFollow(showReposts?: boolean, showReplies?: boolean) {
   if (!currentUser.value) {
     // Viewing as guest
-    alert(`You can follow this account from your Fediverse server: ${actorHandle.value}`)
+    alert(`You can follow this user from your Fediverse server: ${actorHandle.value}`)
     return
   }
   if (!profile.value || !relationship.value) {

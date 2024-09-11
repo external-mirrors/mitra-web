@@ -2,10 +2,10 @@
   <sidebar-layout>
     <template #content>
       <h1 class="content-header">
-        {{ $t('profile_list.muted_accounts') }}
+        {{ $t('profile_list.muted_users') }}
       </h1>
       <div v-if="!isLoading && profileList.length === 0" class="content-message">
-        {{ $t('profile_list.no_muted_accounts') }}
+        {{ $t('profile_list.no_muted_users') }}
       </div>
       <div v-if="!isLoading" class="profile-list">
         <router-link
@@ -20,7 +20,7 @@
           class="btn secondary next-btn"
           @click="loadNextPage()"
         >
-          {{ $t('profile_list.show_more_accounts') }}
+          {{ $t('profile_list.show_more_users') }}
         </button>
       </div>
       <loader v-if="isLoading"></loader>
