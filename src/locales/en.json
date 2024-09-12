@@ -54,6 +54,7 @@
     "repost_with_comment": "Repost with comment",
     "edit_post": "Edit post",
     "delete_post": "Delete post",
+    "confirm_delete_this_post": "Are you sure you want to delete this post?",
     "mute_author": "Mute author",
     "unmute_author": "Unmute author",
     "load_replies": "Load replies",

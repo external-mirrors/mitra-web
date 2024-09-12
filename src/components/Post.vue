@@ -786,7 +786,7 @@ function canDeletePost(): boolean {
 }
 
 async function onDeletePost() {
-  if (confirm("Are you sure you want to delete this post?")) {
+  if (confirm(t("post.confirm_delete_this_post"))) {
     const authToken = ensureAuthToken()
     await deletePost(authToken, props.post.id)
     emit("post-deleted")
