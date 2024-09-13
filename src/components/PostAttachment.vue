@@ -112,7 +112,7 @@ button {
     z-index: 1;
 
     button {
-      visibility: var(--content-warning-btn-visibility);
+      display: var(--content-warning-btn-display);
     }
   }
 

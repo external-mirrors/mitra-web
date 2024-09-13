@@ -153,10 +153,10 @@
   background-color: var(--block-background-color);
   border-radius: $btn-border-radius;
   color: var(--link-color);
-  display: flex;
   padding: $input-padding;
 
   svg {
+    display: block;
     fill: var(--link-color);
     height: $icon-size;
     width: $icon-size;

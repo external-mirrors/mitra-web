@@ -84,7 +84,7 @@ onMounted(() => {
   --landing-login-btn-shadow-color: #{$landing-login-btn-shadow-color};
 
   --content-warning-background: transparent;
-  --content-warning-btn-visibility: visible;
+  --content-warning-btn-display: initial;
 }
 
 [data-theme="dark"] {
