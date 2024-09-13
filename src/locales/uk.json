@@ -135,7 +135,8 @@
         "tab_featured": "Уподобане",
         "tab_subscribers": "Передплатники",
         "subscription_expires": "Термін дії підписки спливає {date}",
-        "view_muted_accounts": "Переглянути ігноровані облікові записи"
+        "view_muted_accounts": "Переглянути ігноровані облікові записи",
+        "view_muted_users": "Переглянути ігнорованих користувачів"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
@@ -150,7 +151,10 @@
         "show_more_profiles": "Показати більше профілів",
         "muted_accounts": "Ігноровані облікові записи",
         "no_muted_accounts": "Немає ігнорованих облікових записів",
-        "show_more_accounts": "Показати більше облікових записів"
+        "show_more_accounts": "Показати більше облікових записів",
+        "show_more_users": "Показати більше користувачів",
+        "muted_users": "Ігноровані користувачі",
+        "no_muted_users": "Немає ігнорованих користувачів"
     },
     "profile_editor": {
         "bio": "Біографія",
