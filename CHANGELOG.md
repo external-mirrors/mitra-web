@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Changed bookmark pagination mechanism.
 - Add empty space under "Show more profiles" button in follower list.
 - Changed  "muted accounts" to "muted users".
+- Display "No posts found" message if tag timeline is empty.
 
 ### Removed
 

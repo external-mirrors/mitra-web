@@ -4,6 +4,9 @@
       <div class="tag-name">
         #{{ route.params.tagName }}
       </div>
+      <div v-if="!isLoading && posts.length === 0" class="content-message">
+        {{ $t('post_list.no_posts_found') }}
+      </div>
       <post-list
         :posts="posts"
         @load-next-page="loadNextPage"
@@ -64,6 +67,10 @@ async function loadNextPage(maxId: string) {
   @include content-message;
 
   margin-bottom: $block-outer-padding;
+}
+
+.content-message {
+  @include content-message;
 }
 
 .loader {
