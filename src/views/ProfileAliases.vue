@@ -155,6 +155,8 @@ section {
 }
 
 .profile-group {
+  @include block-icon;
+
   margin-bottom: $block-outer-padding;
   position: relative;
 
@@ -169,19 +171,6 @@ section {
     position: absolute;
     right: 0;
     top: 0;
-
-    svg {
-      height: $icon-size;
-      min-width: $icon-size;
-      stroke: var(--secondary-text-color);
-      width: $icon-size;
-    }
-
-    &:hover {
-      svg {
-        stroke: var(--secondary-text-hover-color);
-      }
-    }
   }
 }
 

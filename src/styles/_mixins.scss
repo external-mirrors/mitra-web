@@ -62,40 +62,9 @@
   }
 }
 
-@mixin post-action {
-  align-items: center;
-  display: flex;
-  font-weight: bold;
-  line-height: $emoji-line-height; /* display name may contain custom emojis */
-  margin: 0 $block-outer-padding calc($block-outer-padding / 2);
-
-  svg {
-    fill: var(--text-color);
-    height: $icon-size;
-    margin-right: calc($icon-size / 2);
-    width: $icon-size;
-
-    &.feather,
-    &.tabler {
-      fill: none;
-      stroke: var(--text-color);
-    }
-  }
-
-  a {
-    margin-right: $whitespace;
-    max-width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-@mixin post-icon {
+@mixin block-icon {
   .icon {
-    align-items: center;
     color: var(--secondary-text-color);
-    display: flex;
-    gap: $whitespace;
 
     svg {
       fill: var(--secondary-text-color);
@@ -138,6 +107,44 @@
         stroke: var(--secondary-text-disabled-color);
       }
     }
+  }
+}
+
+@mixin post-action {
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  line-height: $emoji-line-height; /* display name may contain custom emojis */
+  margin: 0 $block-outer-padding calc($block-outer-padding / 2);
+
+  svg {
+    fill: var(--text-color);
+    height: $icon-size;
+    margin-right: calc($icon-size / 2);
+    width: $icon-size;
+
+    &.feather,
+    &.tabler {
+      fill: none;
+      stroke: var(--text-color);
+    }
+  }
+
+  a {
+    margin-right: $whitespace;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@mixin post-icon {
+  @include block-icon;
+
+  .icon {
+    align-items: center;
+    display: flex;
+    gap: $whitespace;
   }
 
   .icon-small svg {
