@@ -135,7 +135,8 @@
         "tab_followers": "フォロワー",
         "tab_following": "フォロー中",
         "tab_subscribers": "購読者",
-        "subscription_expires": "購読期間は{date}まで"
+        "subscription_expires": "購読期間は{date}まで",
+        "view_muted_users": "ミュートされたユーザを表示する"
     },
     "emoji_picker": {
         "search": "検索…",
@@ -172,7 +173,10 @@
         "show_more_profiles": "プロフィールをもっと表示",
         "muted_accounts": "ミュートされたアカウント",
         "no_muted_accounts": "ミュートされたアカウントはありません",
-        "show_more_accounts": "アカウントをもっと表示"
+        "show_more_accounts": "アカウントをもっと表示",
+        "muted_users": "ミュートされたユーザ",
+        "no_muted_users": "ミュートされたユーザがありません",
+        "show_more_users": "もっとユーザを表示する"
     },
     "notifications": {
         "subscription_expired": "購読期間が切れました",
