@@ -77,6 +77,12 @@ function configureInlineLinks() {
       }
     }
   }
+  const links = postContentElement.value.querySelectorAll("a")
+  for (const linkElement of links) {
+    if (linkElement.dataset.internalLink !== "true") {
+      linkElement.target = "_blank"
+    }
+  }
 }
 
 function getContent(): string {
