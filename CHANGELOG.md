@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated translations ([#42](https://codeberg.org/silverpill/mitra-web/pulls/42)).
+- Updated translations ([#42](https://codeberg.org/silverpill/mitra-web/pulls/42), [#43](https://codeberg.org/silverpill/mitra-web/pulls/43)).
 - Add space between paragraphs in bio.
 - Changed bookmark pagination mechanism.
 - Add empty space under "Show more profiles" button in follower list.
