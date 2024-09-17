@@ -48,6 +48,10 @@
           </div>
         </div>
       </form>
+      <section v-if="!isLoading" class="content-warning">
+        <icon-info></icon-info>
+        <span>{{ $t('custom_feeds.posts_will_not_be_displayed') }}</span>
+      </section>
       <div class="source-list">
         <router-link
           v-for="source in sources"
@@ -95,6 +99,7 @@ import {
 } from "@/api/custom-feeds"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
+import IconInfo from "@/assets/feather/info.svg?component"
 import IconRemove from "@/assets/feather/x.svg?component"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -259,6 +264,20 @@ onMounted(async () => {
     align-items: center;
     display: flex;
     gap: $block-outer-padding;
+  }
+}
+
+.content-warning {
+  @include content-message;
+
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: calc($block-inner-padding / 2);
+  margin-bottom: $block-outer-padding;
+
+  svg {
+    @include standard-icon;
   }
 }
 

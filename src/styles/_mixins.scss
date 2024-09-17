@@ -62,14 +62,20 @@
   }
 }
 
+@mixin standard-icon {
+  height: $icon-size;
+  min-width: $icon-size;
+  width: $icon-size;
+}
+
 @mixin block-icon {
   .icon {
     color: var(--secondary-text-color);
 
     svg {
+      @include standard-icon;
+
       fill: var(--secondary-text-color);
-      height: $icon-size;
-      width: $icon-size;
 
       &.feather,
       &.tabler {
@@ -118,10 +124,10 @@
   margin: 0 $block-outer-padding calc($block-outer-padding / 2);
 
   svg {
+    @include standard-icon;
+
     fill: var(--text-color);
-    height: $icon-size;
-    margin-right: calc($icon-size / 2);
-    width: $icon-size;
+    margin-right: calc($block-outer-padding / 2);
 
     &.feather,
     &.tabler {
@@ -163,10 +169,10 @@
   padding: $input-padding;
 
   svg {
+    @include standard-icon;
+
     display: block;
     fill: var(--link-color);
-    height: $icon-size;
-    width: $icon-size;
 
     &.feather {
       fill: none;
