@@ -13,7 +13,7 @@
         "bookmarks": "ブックマーク"
     },
     "post_editor": {
-        "prompt": "何を考えている？",
+        "prompt": "何を考えてますか？",
         "prompt_reply": "あなたの返事",
         "prompt_repost": "あなたのコメント",
         "publish": "投稿",
@@ -21,12 +21,12 @@
         "cancel": "キャンセル",
         "repost": "リポスト",
         "attach_file": "ファイルを添付",
-        "remove_attachment": "添付ファイルを解除",
+        "remove_attachment": "添付ファイルを削除",
         "click_to_edit_description": "説明を編集するのにここにクリック",
         "enter_image_description": "画像の説明を入力",
         "save_image_description": "保存",
         "change_visibility": "ポスト可視性を変更",
-        "remove_content_warning": "コンテンツ警告を外す",
+        "remove_content_warning": "コンテンツ警告を削除",
         "add_content_warning": "コンテンツ警告を追加",
         "insert_emoji": "絵文字を入力",
         "characters_left": "残りの文字",
@@ -37,8 +37,8 @@
         "technical_info": "技術的情報"
     },
     "welcome": {
-        "read_only_mode": "アカウントが読み取り専用になっています",
-        "welcome": "ようこそ {0}!",
+        "read_only_mode": "アカウントが購読専用になっています",
+        "welcome": "{0}にようこそ!",
         "browse_directory": "プロフィール一覧"
     },
     "post": {
@@ -54,7 +54,7 @@
         "visibility_subscribers": "購読者",
         "visibility_direct": "ダイレクト",
         "featured": "固定ポスト",
-        "edited": "編集された",
+        "edited": "編集されました",
         "sensitive_content": "センシティブなコンテンツ",
         "hide_image": "画像を非表示",
         "close_image": "閉じる",
@@ -64,7 +64,7 @@
         "repost": "リポスト",
         "unlike": "いいねを取り消す",
         "like": "いいね",
-        "saved_to_ipfs": "IPFSに保存された",
+        "saved_to_ipfs": "IPFSに保存されました",
         "more": "もっと",
         "add_to_featured": "固定ポストに追加",
         "remove_from_featured": "固定ポストから外す",
@@ -77,18 +77,18 @@
         "subscribe": "購読する",
         "send_coin": "{name} に送金する",
         "copy_coin_address": "アドレスをコピー",
-        "action_reposted": "リポストされた",
+        "action_reposted": "リポストされました",
         "copy_link_to_post": "ポストへのリンクをコピー",
         "react_with_emoji": "絵文字で反応",
         "unmute_author": "投稿者を非ミュート",
         "bookmark": "ブックマーク",
-        "remove_bookmark": "ブックマークを取り消す"
+        "remove_bookmark": "ブックマークを削除"
     },
     "misc": {
         "reload_page": "数分後にページを再読み込みしてください"
     },
     "profile": {
-        "muted": "ミュートされた",
+        "muted": "ミュートされました",
         "not_found": "プロフィールが見つかりません",
         "admin": "管理者",
         "automated": "ボット",
@@ -114,7 +114,7 @@
         "mute": "ミュート",
         "unmute": "ミュート解除",
         "copy_actor_id": "アクターIDをコピー",
-        "load_latest_posts": "最新のポストを読み込み",
+        "load_latest_posts": "最新のポストを読み込む",
         "reject_follow_request": "フォローリクエストを拒否",
         "accept_follow_request": "フォローリクエストを承認",
         "manually_approves_followers": "手動でフォロワーを承認",
@@ -135,16 +135,17 @@
         "tab_followers": "フォロワー",
         "tab_following": "フォロー中",
         "tab_subscribers": "購読者",
-        "subscription_expires": "購読期限は{date}まで"
+        "subscription_expires": "購読期間は{date}まで",
+        "view_muted_users": "ミュートされたユーザを表示する"
     },
     "emoji_picker": {
         "search": "検索…",
         "no_emojis_found": "絵文字が見つかりません"
     },
     "post_list": {
-        "no_posts_found": "ポストはありません",
-        "post_not_found": "ポストを見つかりません",
-        "post_is_not_available": "ポストはアクセスできません"
+        "no_posts_found": "ポストが見つかりません",
+        "post_not_found": "ポストが見つかりません",
+        "post_is_not_available": "ポストにアクセスできません"
     },
     "profile_editor": {
         "additional_info": "詳細",
@@ -155,7 +156,7 @@
         "banner": "バナー",
         "remove_image": "削除",
         "lock_account": "アカウントをロック",
-        "lock_account_requires": "手動でフォロワーを承認する必要となります",
+        "lock_account_requires": "手動でフォロワーを承認する必要になります",
         "accept_mentions_from": "メンションの受信設定",
         "mention_policy_applies": "ダイレクトメッセージと公開ポスト両方に適用します",
         "mention_everybody": "みんな",
@@ -172,10 +173,13 @@
         "show_more_profiles": "プロフィールをもっと表示",
         "muted_accounts": "ミュートされたアカウント",
         "no_muted_accounts": "ミュートされたアカウントはありません",
-        "show_more_accounts": "アカウントをもっと表示"
+        "show_more_accounts": "アカウントをもっと表示",
+        "muted_users": "ミュートされたユーザ",
+        "no_muted_users": "ミュートされたユーザがありません",
+        "show_more_users": "もっとユーザを表示する"
     },
     "notifications": {
-        "subscription_expired": "購読期限が切れました",
+        "subscription_expired": "購読期間が切れました",
         "moved_to_a_new_instance": "が新しいインスタンスに引っ越しました",
         "show_more_notifications": "もっと通知を表示する",
         "followed_you": "にフォローされました",
@@ -215,7 +219,7 @@
         "delete_account": "アカウントを削除",
         "delete_account_confirm": "本当にアカウントを削除してもよろしいですか？削除を取り消せません。",
         "experiments": "実験",
-        "experiments_summary": "ここには実験的機能が含まれています。自己責任において使いましょう。"
+        "experiments_summary": "ここには実験的機能が含まれています。自己責任で使いましょう。"
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
@@ -262,7 +266,7 @@
         "subscribers_can_pay": "購読者は以下の購読ページから支払えます：",
         "edit_settings": "設定を編集",
         "price": "購読料",
-        "payment_timed_out": "支払いがタイムアウトされました",
+        "payment_timed_out": "支払いがタイムアウトしました",
         "payment_cancelled": "支払いはキャンセルされました",
         "payment_amount_is_too_small": "支払い金額は足りません",
         "payment_completed": "支払い完了",
@@ -271,8 +275,8 @@
         "save_settings": "保存",
         "enable_subscriptions": "購読を有効する",
         "subscriber_details": "購読者の詳細",
-        "subscription_expired": "購読期限は {date} でした",
-        "subscription_expires": "購読期限は{date}まで",
+        "subscription_expired": "購読期間は {date} まででした",
+        "subscription_expires": "購読期間は{date}まで",
         "not_subscribed_yet": "まだ購読されていません",
         "grant_subscription_access": "購読アクセスを与える",
         "unit_months": "月数",

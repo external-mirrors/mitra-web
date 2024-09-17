@@ -1,1 +1,18 @@
-{}
+{
+    "about": {
+        "technical_info": "Informazioni tecniche"
+    },
+    "navigation": {
+        "settings": "Impostazioni",
+        "search": "Cerca…",
+        "notifications": "Notifiche",
+        "logout": "Esci"
+    },
+    "welcome": {
+        "read_only_mode": "Il tuo account è in modalità sola lettura"
+    },
+    "post": {
+        "go_to_previous_post": "Vai al messaggio precedente",
+        "close_image": "Chiudi"
+    }
+}
