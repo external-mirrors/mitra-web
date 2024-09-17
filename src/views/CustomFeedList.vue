@@ -38,14 +38,14 @@
             :title="$t('custom_feeds.configure_feed')"
             :to="{ name: 'custom-feed', params: { feedId: feed.id } }"
           >
-            <icon-settings></icon-settings>
+            <icon-configure></icon-configure>
           </router-link>
           <button
             class="icon"
             :title="$t('custom_feeds.delete_feed')"
             @click="onDeleteFeed(feed.id)"
           >
-            <icon-trash></icon-trash>
+            <icon-delete></icon-delete>
           </button>
         </div>
       </div>
@@ -64,8 +64,8 @@ import {
   getCustomFeeds,
   CustomFeed,
 } from "@/api/custom-feeds"
-import IconSettings from "@/assets/feather/settings.svg?component"
-import IconTrash from "@/assets/feather/trash.svg?component"
+import IconConfigure from "@/assets/feather/sliders.svg?component"
+import IconDelete from "@/assets/feather/trash.svg?component"
 import Loader from "@/components/Loader.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useCurrentUser } from "@/composables/user"
