@@ -73,7 +73,8 @@
         "become_a_subscriber": "Стати передплатником",
         "react_with_emoji": "Реагувати за допомогою емоджі",
         "bookmark": "Закладка",
-        "remove_bookmark": "Видалити закладку"
+        "remove_bookmark": "Видалити закладку",
+        "confirm_delete_this_post": "Ви дійсно хочете видалити цей допис?"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -136,7 +137,8 @@
         "tab_subscribers": "Передплатники",
         "subscription_expires": "Термін дії підписки спливає {date}",
         "view_muted_accounts": "Переглянути ігноровані облікові записи",
-        "view_muted_users": "Переглянути ігнорованих користувачів"
+        "view_muted_users": "Переглянути ігнорованих користувачів",
+        "view_custom_feeds": "Переглянути власні стрічки"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
@@ -282,5 +284,21 @@
         "no_follow_requests_found": "Не знайдено запитів на стеження",
         "follow_requests": "Запити на стеження",
         "show_more_requests": "Показати більше запитів"
+    },
+    "custom_feeds": {
+        "custom_feeds": "Власні стрічки",
+        "enter_feed_name": "Введіть назву стрічки",
+        "view_feed": "Переглянути стрічку",
+        "configure_feed": "Налаштувати стрічку",
+        "enter_address": "Введіть адресу",
+        "user_not_found": "Користувача не знайдено",
+        "user_is_already_in_the_list": "Користувач уже є в списку",
+        "add_user": "Додати користувача",
+        "remove_user_from_feed": "Видалити користувача зі стрічки",
+        "posts_will_not_be_displayed": "Дописи цих користувачів не відображатимуться у домашній стрічці.",
+        "confirm_remove_this_user_from_feed": "Ви дійсно хочете видалити цього користувача зі стрічки?",
+        "delete_feed": "Видалити стрічку",
+        "add_feed": "Додати стрічку",
+        "confirm_delete_this_feed": "Ви дійсно хочете видалити цю стрічку?"
     }
 }
