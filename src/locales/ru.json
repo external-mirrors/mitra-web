@@ -62,7 +62,8 @@
         "delete_repost": "Удалить репост",
         "react_with_emoji": "Реагировать с помощью эмодзи",
         "unmute_author": "Включить автора",
-        "subscribe": "Подписаться"
+        "subscribe": "Подписаться",
+        "confirm_delete_this_post": "Вы уверены, что хотите удалить этот пост?"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -141,13 +142,18 @@
         "link_ethereum_address": "Ссылка на адрес ethereum",
         "copy_actor_id": "Скопировать ID агента",
         "accept_follow_request": "Принять запрос на подписку",
-        "cancel_follow_request": "Отменить запрос на подписку"
+        "cancel_follow_request": "Отменить запрос на подписку",
+        "view_muted_users": "Просмотр отключенных пользователей",
+        "view_custom_feeds": "Просмотр пользовательских каналов"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
         "muted_accounts": "Отключенные аккаунты",
         "no_muted_accounts": "Не отключенные аккаунты",
-        "show_more_accounts": "Показать больше аккаунтов"
+        "show_more_accounts": "Показать больше аккаунтов",
+        "muted_users": "Пользователи с отключенным голосом",
+        "no_muted_users": "Нет отключенных пользователей",
+        "show_more_users": "Показать больше пользователей"
     },
     "profile_editor": {
         "edit_profile": "Редактировать профиль",
@@ -278,5 +284,21 @@
     },
     "misc": {
         "reload_page": "Перезагрузите страницу через несколько минут"
+    },
+    "custom_feeds": {
+        "custom_feeds": "Пользовательские каналы",
+        "add_feed": "Добавить канал",
+        "enter_feed_name": "Введите название фида",
+        "view_feed": "Посмотреть ленту",
+        "configure_feed": "Настроить ленту",
+        "delete_feed": "Удалить канал",
+        "enter_address": "Введите адрес",
+        "user_not_found": "Пользователь не найден",
+        "user_is_already_in_the_list": "Пользователь уже в списке",
+        "add_user": "Добавить пользователя",
+        "remove_user_from_feed": "Удалить пользователя из ленты",
+        "confirm_remove_this_user_from_feed": "Вы уверены, что хотите удалить этого пользователя из ленты?",
+        "posts_will_not_be_displayed": "Сообщения этих пользователей не будут отображаться на главной ленте.",
+        "confirm_delete_this_feed": "Вы уверены, что хотите удалить этот канал?"
     }
 }
