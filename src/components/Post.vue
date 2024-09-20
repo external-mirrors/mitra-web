@@ -31,16 +31,17 @@
       >
         {{ getActorHandle(post.account) }}
       </div>
-      <button
+      <router-link
         v-if="inThread && post.in_reply_to_id && post.pleroma.parent_visible"
         class="icon"
+        :to="{ name: 'post', params: { postId: post.in_reply_to_id } }"
         :title="$t('post.go_to_previous_post')"
         @mouseover="highlight(post.in_reply_to_id)"
         @mouseleave="highlight(null)"
-        @click.prevent="scrollTo(post.in_reply_to_id as string)"
       >
-        <icon-left-up></icon-left-up>
-      </button>
+        <icon-left-up @click.prevent="scrollTo(post.in_reply_to_id as string)">
+        </icon-left-up>
+      </router-link>
       <span
         class="icon icon-small"
         :title="getVisibilityDisplay()"
