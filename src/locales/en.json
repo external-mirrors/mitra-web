@@ -236,7 +236,7 @@
   },
   "custom_feeds": {
     "custom_feeds": "Custom feeds",
-    "add_feed": "Add feed",
+    "create_feed": "Create feed",
     "enter_feed_name": "Enter feed name",
     "view_feed": "View feed",
     "configure_feed": "Configure feed",

@@ -17,7 +17,7 @@
           class="btn"
           :disabled="newFeedName.length === 0"
         >
-          {{ $t('custom_feeds.add_feed') }}
+          {{ $t('custom_feeds.create_feed') }}
         </button>
       </form>
       <div v-if="!isLoading" class="feed-list">
