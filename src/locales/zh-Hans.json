@@ -208,7 +208,7 @@
         "delete_account_confirm": "确认要删除账户吗？此操作无法撤销。"
     },
     "gallery": {
-        "gallery": "{name} 媒体库",
+        "name_gallery": "{name} 媒体库",
         "back": "返回",
         "view_post": "查看贴文",
         "no_media_found": "没有媒体"

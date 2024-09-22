@@ -110,6 +110,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { PAGE_SIZE } from "@/api/common"
 import { replaceShortcodes } from "@/api/emojis"
@@ -132,8 +133,10 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import Timestamp from "@/components/Timestamp.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useNotifications } from "@/composables/notifications"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { ensureAuthToken } = useCurrentUser()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const {
@@ -141,11 +144,13 @@ const {
   notifications,
   updateUnreadNotificationCount,
 } = useNotifications()
+const { setPageTitle } = useTitle()
 
 const isLoading = ref(false)
 const isNextPageLoading = ref(false)
 
 onMounted(async () => {
+  setPageTitle(t("navigation.notifications"))
   window.scrollTo({ top: 0 })
   const authToken = ensureAuthToken()
   if (notifications.value.length === 0) {

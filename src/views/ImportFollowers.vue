@@ -34,17 +34,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import { importFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, setCurrentUser } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const fromActorId = ref("")
 const followersCsv = ref("")
@@ -77,6 +79,10 @@ async function submit() {
   setCurrentUser(user)
   router.push(getActorLocation("profile", currentUser.value))
 }
+
+onMounted(() => {
+  setPageTitle("Import followers")
+})
 </script>
 
 <style scoped lang="scss">

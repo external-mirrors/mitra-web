@@ -157,6 +157,7 @@ import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
@@ -173,6 +174,7 @@ const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { instance } = useInstanceInfo()
 const { ensureCurrentUser, setCurrentUser, ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const profile = ensureCurrentUser()
 const isLoading = ref(false)
@@ -211,6 +213,7 @@ const avatarInputElement = ref<HTMLInputElement | null>(null)
 const bannerInputElement = ref<HTMLInputElement | null>(null)
 
 onMounted(() => {
+  setPageTitle(t("profile_editor.edit_profile"))
   if (bioInputElement.value !== null) {
     setupAutoResize(bioInputElement.value)
     resizeTextArea(bioInputElement.value)

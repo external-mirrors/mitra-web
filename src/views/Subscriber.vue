@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import {
@@ -73,12 +74,15 @@ import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import { formatDate, isPastDate } from "@/utils/dates"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const subscriber = ref<Profile | null>(null)
 const subscription = ref<SubscriptionDetails | null>(null)
@@ -125,6 +129,7 @@ function canExtendSubscription(): boolean {
 }
 
 onMounted(async () => {
+  setPageTitle(t("subscriptions.subscriber_details"))
   isLoading.value = true
   subscriber.value = await getProfile(
     ensureAuthToken(),

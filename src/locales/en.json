@@ -67,6 +67,8 @@
     "next_page": "Show more posts"
   },
   "post_list": {
+    "post": "Post",
+    "post_by_handle": "Post by {handle}",
     "post_not_found": "Post not found",
     "no_posts_found": "No posts found",
     "post_is_not_available": "Post is not available"
@@ -96,6 +98,8 @@
     "no_emojis_found": "No emojis found"
   },
   "profile": {
+    "profile": "Profile",
+    "profile_with_handle": "Profile - {handle}",
     "not_found": "Profile not found",
     "admin": "Admin",
     "automated": "Automated",
@@ -218,12 +222,15 @@
     "experiments_summary": "This section contains experimental features. Use at your own risk."
   },
   "gallery": {
-    "gallery": "{name} gallery",
+    "gallery": "Gallery",
+    "gallery_with_handle": "Gallery - {handle}",
+    "name_gallery": "{name} gallery",
     "back": "Back",
     "view_post": "View post",
     "no_media_found": "No media found"
   },
   "search_results": {
+    "search_results": "Search results",
     "people": "{n} people",
     "posts": "{n} post | {n} posts",
     "tags": "{n} tag | {n} tags",
@@ -241,6 +248,7 @@
     "enter_feed_name": "Enter feed name",
     "view_feed": "View feed",
     "configure_feed": "Configure feed",
+    "custom_feed": "Custom feed",
     "delete_feed": "Delete feed",
     "confirm_delete_this_feed": "Are you sure you want to delete this feed?",
     "enter_address": "Enter address",

@@ -27,14 +27,19 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { addRelationships, getBookmarks, Post as PostObject } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
+
 const posts = ref<PostObject[]>([])
 const isLoading = ref(false)
 const nextPageUrl = ref<string | null>(null)
@@ -63,6 +68,7 @@ async function loadNextPage() {
 }
 
 onMounted(async () => {
+  setPageTitle(t("navigation.bookmarks"))
   isLoading.value = true
   await loadPage()
   isLoading.value = false

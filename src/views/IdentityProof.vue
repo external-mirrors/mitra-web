@@ -56,7 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import {
@@ -66,13 +67,16 @@ import {
 } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const PROOF_TYPE = "minisign-unhashed"
 
+const { t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken, currentUser } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const key = ref("")
 const signature = ref("")
@@ -123,6 +127,10 @@ async function submit() {
   errorMessage.value = null
   router.push(getActorLocation("profile", currentUser.value))
 }
+
+onMounted(() => {
+  setPageTitle(t("profile.link_minisign_key"))
+})
 </script>
 
 <style scoped lang="scss">

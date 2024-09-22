@@ -148,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
@@ -162,6 +162,7 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
 import { useLocales, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const { locale, t } = useI18n({ useScope: "global" })
@@ -179,6 +180,7 @@ const {
 } = useCurrentUser()
 const { changePreferredLocale } = useLocales()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
+const { setPageTitle } = useTitle()
 
 const newPassword = ref("")
 const newPasswordConfirmation = ref("")
@@ -247,6 +249,10 @@ async function onChangeLocale(event: Event) {
   await changePreferredLocale(newLocale)
   isLoading.value = false
 }
+
+onMounted(() => {
+  setPageTitle(t("navigation.settings"))
+})
 </script>
 
 <style scoped lang="scss">

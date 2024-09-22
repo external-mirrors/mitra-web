@@ -24,10 +24,13 @@ import { addRelationships, getTagTimeline, Post } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { authToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
+
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
 
@@ -47,6 +50,7 @@ async function loadTimelinePage(
 }
 
 onMounted(async () => {
+  setPageTitle(`#${route.params.tagName}`)
   isLoading.value = true
   posts.value = await loadTimelinePage(authToken.value)
   isLoading.value = false

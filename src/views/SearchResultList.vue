@@ -57,6 +57,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { PAGE_SIZE } from "@/api/common"
@@ -68,11 +69,14 @@ import Post from "@/components/Post.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const searchQuery = ref<string | null>(null)
 const isLoading = ref(false)
@@ -112,6 +116,7 @@ function onPostDeleted(postId: string) {
 }
 
 onMounted(async () => {
+  setPageTitle(t("search_results.search_results"))
   const q = route.query?.q
   if (typeof q === "string") {
     isLoading.value = true

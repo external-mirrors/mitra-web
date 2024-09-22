@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { PAGE_SIZE } from "@/api/common"
 import { Profile, getProfiles } from "@/api/users"
@@ -32,16 +33,20 @@ import Loader from "@/components/Loader.vue"
 import ProfileCard from "@/components/ProfileCard.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const profiles = ref<Profile[]>([])
 const initialProfileCount = ref<number | null>(null)
 const isLoading = ref(false)
 
 onMounted(async () => {
+  setPageTitle(t("navigation.profile_directory"))
   isLoading.value = true
   const authToken = ensureAuthToken()
   profiles.value = await getProfiles(authToken)

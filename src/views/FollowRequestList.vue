@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { getFollowRequests } from "@/api/relationships"
 import { Profile } from "@/api/users"
@@ -37,16 +38,20 @@ import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const profiles = ref<Profile[]>([])
 const nextPageUrl = ref<string | null>(null)
 const isLoading = ref(false)
 
 onMounted(async () => {
+  setPageTitle(t("follow_requests.follow_requests"))
   isLoading.value = true
   const page = await getFollowRequests(ensureAuthToken())
   profiles.value = page.profiles

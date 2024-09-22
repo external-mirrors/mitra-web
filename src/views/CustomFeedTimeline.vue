@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { getCustomFeed, CustomFeed } from "@/api/custom-feeds"
@@ -29,10 +30,14 @@ import { addRelationships, getListTimeline, Post } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
+
 const feed = ref<CustomFeed | null>(null)
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
@@ -60,12 +65,14 @@ async function loadNextPage(maxId: string) {
 }
 
 onMounted(async () => {
+  setPageTitle(t("custom_feeds.custom_feed"))
   isLoading.value = true
   const authToken = ensureAuthToken()
   feed.value = await getCustomFeed(
     authToken,
     parseInt(route.params.feedId as string),
   )
+  setPageTitle(feed.value.title)
   posts.value = await loadTimelinePage(authToken)
   isLoading.value = false
 })

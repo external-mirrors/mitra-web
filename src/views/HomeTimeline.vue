@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import { Post, addRelationships, getHomeTimeline } from "@/api/posts"
@@ -42,8 +43,10 @@ import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const {
   currentUser,
@@ -52,6 +55,7 @@ const {
   onInvalidAuthToken,
 } = useCurrentUser()
 const { instance } = useInstanceInfo()
+const { setPageTitle } = useTitle()
 
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
@@ -111,6 +115,7 @@ async function loadNextPage(maxId: string) {
 }
 
 onMounted(async () => {
+  setPageTitle(t("navigation.home"))
   await loadTimeline()
 })
 </script>

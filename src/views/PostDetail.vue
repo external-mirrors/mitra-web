@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { nextTick, onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import {
@@ -41,10 +42,15 @@ import {
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
+const { getActorHandle } = useActorHandle()
 const { authToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const selectedId = ref(route.params.postId as string)
 const highlightedId = ref<string | null>(null)
@@ -63,6 +69,7 @@ async function loadThread(
 }
 
 onMounted(async () => {
+  setPageTitle(t("post_list.post"))
   try {
     thread.value = await loadThread(authToken.value, selectedId.value)
   } catch (error: any) {
@@ -94,16 +101,21 @@ function scrollTo(postId: string, options: any = {}) {
     left: 0,
     ...options,
   })
-  if (selectedId.value === postId) {
-    return
+  if (selectedId.value !== postId) {
+    // Update postId in page URL
+    window.history.pushState(
+      {},
+      "",
+      window.location.pathname.replace(selectedId.value, postId),
+    )
+    selectedId.value = postId
   }
-  // Update postId in page URL
-  window.history.pushState(
-    {},
-    "",
-    window.location.pathname.replace(selectedId.value, postId),
-  )
-  selectedId.value = postId
+  // Update page title
+  const selectedPost = thread.value.find((post) => post.id === selectedId.value)
+  if (!selectedPost) {
+    throw new Error("post is not in thread")
+  }
+  setPageTitle(t("post_list.post_by_handle", { handle: getActorHandle(selectedPost.account) }))
 }
 
 function isHighlighted(post: PostObject): boolean {

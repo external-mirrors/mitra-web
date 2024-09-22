@@ -16,5 +16,14 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue"
+
 import StaticPage from "@/components/StaticPage.vue"
+import { useTitle } from "@/composables/title"
+
+const { setPageTitle } = useTitle()
+
+onMounted(() => {
+  setPageTitle("Ethereum")
+})
 </script>

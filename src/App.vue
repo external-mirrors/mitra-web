@@ -7,8 +7,8 @@ import { onMounted, watch } from "vue"
 import { useRoute } from "vue-router"
 
 import { BACKEND_URL } from "@/constants"
-import { useCurrentUser } from "@/composables/user"
 import { useLocales } from "@/composables/locales"
+import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { currentUser } = useCurrentUser()
@@ -18,11 +18,6 @@ watch(currentUser, () => {
   // Change locale to a preferred one
   const preferredLocale = getPreferredLocale()
   changeLocale(preferredLocale)
-  // Update title
-  const title = currentUser.value
-    ? `@${currentUser.value.username}`
-    : "Federated social network"
-  document.title = `Mitra | ${title}`
 }, { immediate: true })
 
 onMounted(() => {

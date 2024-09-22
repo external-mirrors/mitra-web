@@ -9,7 +9,7 @@
         <icon-arrow-left></icon-arrow-left>
       </router-link>
       <h1>
-        <i18n-t keypath="gallery.gallery" scope="global">
+        <i18n-t keypath="gallery.name_gallery" scope="global">
           <template #name>
             <profile-display-name :profile="profile"></profile-display-name>
           </template>
@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { getProfileTimeline, Post as PostObject } from "@/api/posts"
@@ -60,18 +61,22 @@ import PostAttachment from "@/components/PostAttachment.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useTheme } from "@/composables/theme"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
-const { getActorLocation } = useActorHandle()
+const { getActorHandle, getActorLocation } = useActorHandle()
 const { authToken } = useCurrentUser()
 const { loadTheme } = useTheme()
+const { setPageTitle } = useTitle()
 
 const profile = ref<ProfileWrapper | null>(null)
 const posts = ref<PostObject[]>([])
 const isLoading = ref(false)
 
 onMounted(async () => {
+  setPageTitle(t("gallery.gallery"))
   isLoading.value = true
   loadTheme()
   let _profile
@@ -87,6 +92,7 @@ onMounted(async () => {
     )
   }
   profile.value = new ProfileWrapper(_profile)
+  setPageTitle(t("gallery.gallery_with_handle", { handle: getActorHandle(profile.value) }))
   posts.value = await getProfileTimeline(
     authToken.value,
     profile.value.id,

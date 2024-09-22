@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import {
@@ -22,17 +23,21 @@ import {
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionMonero from "@/components/SubscriptionMonero.vue"
 import { useSubscribe } from "@/composables/subscribe"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import { isMoneroChain } from "@/utils/cryptocurrencies"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { authToken, currentUser } = useCurrentUser()
 const { getSubscriptionOption } = useSubscribe()
+const { setPageTitle } = useTitle()
 
 const profile = ref<Profile | null>(null)
 const subscriptionOption = ref<ProfilePaymentOption | null>(null)
 
 onMounted(async () => {
+  setPageTitle(t("subscriptions.subscription"))
   // Recipient
   if (route.params.acct) {
     profile.value = await lookupProfile(

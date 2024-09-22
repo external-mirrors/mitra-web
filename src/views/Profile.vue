@@ -407,6 +407,7 @@ import { useEthereumAddressVerification } from "@/composables/ethereum-address-v
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
 import { formatDate } from "@/utils/dates"
@@ -425,6 +426,7 @@ const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { getBlockchainInfo } = useInstanceInfo()
 const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
+const { setPageTitle } = useTitle()
 
 const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 
@@ -444,6 +446,7 @@ const followListNextPageUrl = ref<string | null>(null)
 const subscriptions = ref<Subscription[]>([])
 
 onMounted(async () => {
+  setPageTitle(t("profile.profile"))
   isLoading.value = true
   try {
     let _profile
@@ -467,6 +470,7 @@ onMounted(async () => {
     }
     throw error
   }
+  setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
   if (currentUser.value && !isCurrentUser()) {
     relationship.value = await getRelationship(
       ensureAuthToken(),

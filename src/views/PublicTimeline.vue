@@ -12,16 +12,21 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { Post, addRelationships, getPublicTimeline } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { authToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
+
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
 
@@ -41,6 +46,11 @@ async function loadTimelinePage(
 }
 
 onMounted(async () => {
+  if (route.name === "local") {
+    setPageTitle(t("navigation.local"))
+  } else {
+    setPageTitle(t("navigation.federated"))
+  }
   isLoading.value = true
   posts.value = await loadTimelinePage(authToken.value)
   isLoading.value = false

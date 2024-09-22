@@ -85,10 +85,12 @@ import SidebarLayout from "@/components/SidebarLayout.vue"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const { getActorLocation } = useActorHandle()
 const { ensureCurrentUser, ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const aliases = ref<Aliases>({ declared: [], declared_all: [], verified: [] })
 const isLoading = ref(false)
@@ -97,6 +99,7 @@ const newAliasSuggestions = ref<Profile[]>([])
 const newAliasError = ref<string | null>(null)
 
 onMounted(async () => {
+  setPageTitle("Identities")
   isLoading.value = true
   aliases.value = await getAliases(ensureCurrentUser().id)
   isLoading.value = false

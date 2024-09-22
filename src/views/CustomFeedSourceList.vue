@@ -105,12 +105,14 @@ import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { t } = useI18n({ useScope: "global" })
 const { getActorAddress, getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const feed = ref<CustomFeed | null>(null)
 const newSourceAddress = ref<string>("")
@@ -232,12 +234,14 @@ async function onRemoveSource(sourceId: string) {
 }
 
 onMounted(async () => {
+  setPageTitle(t("custom_feeds.custom_feed"))
   isLoading.value = true
   const authToken = ensureAuthToken()
   feed.value = await getCustomFeed(
     authToken,
     parseInt(route.params.feedId as string),
   )
+  setPageTitle(feed.value.title)
   sources.value = await loadSources(authToken)
   isLoading.value = false
 })

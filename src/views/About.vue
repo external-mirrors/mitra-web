@@ -32,17 +32,23 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue"
+import { useI18n } from "vue-i18n"
+
 import { APP_VERSION } from "@/constants"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import StaticPage from "@/components/StaticPage.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { getActorLocation } = useActorHandle()
 const { currentUser } = useCurrentUser()
 const { instance } = useInstanceInfo()
+const { setPageTitle } = useTitle()
 
 function getMitraVersion(apiVersion: string): string {
   const match = apiVersion.match(/.+Mitra ([\d.]+)/)
@@ -52,6 +58,10 @@ function getMitraVersion(apiVersion: string): string {
     return "unknown"
   }
 }
+
+onMounted(() => {
+  setPageTitle(t("navigation.about"))
+})
 </script>
 
 <style scoped lang="scss">

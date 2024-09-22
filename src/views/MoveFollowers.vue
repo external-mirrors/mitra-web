@@ -26,17 +26,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import { moveFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, setCurrentUser } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const target = ref("")
 const isLoading = ref(false)
@@ -67,6 +69,10 @@ async function submit() {
   setCurrentUser(user)
   router.push(getActorLocation("profile", user))
 }
+
+onMounted(() => {
+  setPageTitle("Move followers")
+})
 </script>
 
 <style scoped lang="scss">

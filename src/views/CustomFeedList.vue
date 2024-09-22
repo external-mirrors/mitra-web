@@ -68,10 +68,12 @@ import IconConfigure from "@/assets/feather/sliders.svg?component"
 import IconDelete from "@/assets/feather/trash.svg?component"
 import Loader from "@/components/Loader.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const { t } = useI18n({ useScope: "global" })
 const { ensureAuthToken } = useCurrentUser()
+const { setPageTitle } = useTitle()
 
 const feeds = ref<CustomFeed[]>([])
 const isLoading = ref(false)
@@ -100,6 +102,7 @@ async function onDeleteFeed(feedId: number) {
 }
 
 onMounted(async () => {
+  setPageTitle(t("custom_feeds.custom_feeds"))
   isLoading.value = true
   feeds.value = await getCustomFeeds(ensureAuthToken())
   isLoading.value = false

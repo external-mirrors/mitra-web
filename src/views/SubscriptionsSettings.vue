@@ -8,14 +8,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
+import { useI18n } from "vue-i18n"
 
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import SubscriptionSettingsMonero from "@/components/SubscriptionSettingsMonero.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTitle } from "@/composables/title"
 import { isMoneroChain } from "@/utils/cryptocurrencies"
 
+const { t } = useI18n({ useScope: "global" })
 const { getBlockchainInfo } = useInstanceInfo()
+const { setPageTitle } = useTitle()
 
 const blockchain = computed(() => getBlockchainInfo())
 
@@ -25,6 +29,10 @@ function isMonero(): boolean {
   }
   return isMoneroChain(blockchain.value.chain_id)
 }
+
+onMounted(() => {
+  setPageTitle(t("subscriptions.manage_subscriptions"))
+})
 </script>
 
 <style scoped lang="scss">

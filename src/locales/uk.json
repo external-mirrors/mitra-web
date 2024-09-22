@@ -222,7 +222,7 @@
         "manage_identities": "Керування особами"
     },
     "gallery": {
-        "gallery": "Галерея {name}",
+        "name_gallery": "Галерея {name}",
         "back": "Назад",
         "no_media_found": "Не знайдено медіа",
         "view_post": "Переглянути дописи"

@@ -223,7 +223,7 @@
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
-        "gallery": "{name} の画像",
+        "name_gallery": "{name} の画像",
         "back": "戻る",
         "view_post": "ポストを見る"
     },

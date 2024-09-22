@@ -148,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -161,6 +161,7 @@ import IconArrowLong from "@/assets/arrow_long.svg?component"
 import IconEthereum from "@/assets/forkawesome/ethereum.svg?component"
 import Loader from "@/components/Loader.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import {
   createEip4361_SignedMessage,
@@ -172,6 +173,7 @@ import { createMoneroCaip122Message } from "@/utils/monero"
 const router = useRouter()
 const { setCurrentUser, setAuthToken } = useCurrentUser()
 const { getBlockchainInfo, instance } = useInstanceInfo()
+const { setPageTitle } = useTitle()
 
 const isRegistered = ref(true)
 const username = ref("")
@@ -401,6 +403,10 @@ async function login() {
   isLoading.value = false
   router.push({ name: "home" })
 }
+
+onMounted(() => {
+  setPageTitle()
+})
 </script>
 
 <style scoped lang="scss">
