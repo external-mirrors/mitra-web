@@ -63,7 +63,7 @@
         "react_with_emoji": "Реагировать с помощью эмодзи",
         "unmute_author": "Включить автора",
         "subscribe": "Подписаться",
-        "confirm_delete_this_post": "Вы уверены, что хотите удалить этот пост?"
+        "confirm_delete_this_post": "Вы уверены что хотите удалить этот пост?"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
