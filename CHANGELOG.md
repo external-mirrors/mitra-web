@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Convert "Go to previous post" button into link.
 - Renamed "Add feed" button to "Create feed".
 
+### Fixed
+
+- Fixed broken links on "Ethereum" page.
+
 ## [3.5.0] - 2024-09-17
 
 ### Added
