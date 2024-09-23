@@ -1,4 +1,10 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import {
+  createRouter,
+  createWebHistory,
+  RouteLocationNormalized,
+  RouteLocationRaw,
+  RouteRecordRaw,
+} from "vue-router"
 
 import { Permissions } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
@@ -33,17 +39,17 @@ import SubscriberView from "@/views/Subscriber.vue"
 import SubscriptionPage from "@/views/SubscriptionPage.vue"
 import SubscriptionsSettings from "@/views/SubscriptionsSettings.vue"
 
-async function defaultGuard(to: any) {
+async function defaultGuard(to: RouteLocationNormalized): Promise<RouteLocationRaw | void> {
   const { loadInstanceInfo } = useInstanceInfo()
   const instanceInfoLoader = loadInstanceInfo()
   const { isAuthenticated } = useCurrentUser()
   const isUserAuthenticated = await isAuthenticated()
   await instanceInfoLoader
   // Guards that use meta parameters
-  const onlyGuest = to.matched.some((record: RouteRecordRaw) => {
+  const onlyGuest = to.matched.some((record) => {
     return record.meta?.onlyGuest
   })
-  const onlyAuthenticated = to.matched.some((record: RouteRecordRaw) => {
+  const onlyAuthenticated = to.matched.some((record) => {
     return record.meta?.onlyAuthenticated
   })
   if (onlyGuest && isUserAuthenticated) {
