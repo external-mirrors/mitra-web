@@ -9,7 +9,7 @@
         <icon-arrow-left></icon-arrow-left>
       </router-link>
       <h1>
-        <i18n-t keypath="gallery.gallery">
+        <i18n-t keypath="gallery.gallery" scope="global">
           <template #name>
             <profile-display-name :profile="profile"></profile-display-name>
           </template>

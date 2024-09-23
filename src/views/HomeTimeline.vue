@@ -14,7 +14,7 @@
         class="timeline-empty"
       >
         <h1 v-if="instance">
-          <i18n-t keypath="welcome.welcome">
+          <i18n-t keypath="welcome.welcome" scope="global">
             <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>
           </i18n-t>
         </h1>
