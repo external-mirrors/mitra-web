@@ -143,7 +143,7 @@
       <router-link
         v-if="!inThread"
         class="icon"
-        :title="$t('post.view_replies')"
+        :title="$t('post.view_conversation')"
         :to="{ name: 'post', params: { postId: post.id }}"
       >
         <icon-comment></icon-comment>
