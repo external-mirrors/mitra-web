@@ -299,6 +299,7 @@
         "confirm_remove_this_user_from_feed": "Ви дійсно хочете видалити цього користувача зі стрічки?",
         "delete_feed": "Видалити стрічку",
         "add_feed": "Додати стрічку",
-        "confirm_delete_this_feed": "Ви дійсно хочете видалити цю стрічку?"
+        "confirm_delete_this_feed": "Ви дійсно хочете видалити цю стрічку?",
+        "create_feed": "Створити стрічку"
     }
 }
