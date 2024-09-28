@@ -9,7 +9,8 @@
         "logout": "登出",
         "home": "主页",
         "search": "搜索…",
-        "notifications": "通知"
+        "notifications": "通知",
+        "bookmarks": "书签"
     },
     "post_editor": {
         "prompt": "在想什么呢？",
@@ -78,14 +79,22 @@
         "subscribe": "订阅",
         "copy_coin_address": "复制地址",
         "action_reposted": "已转发",
-        "send_coin": "送 {name}"
+        "send_coin": "送 {name}",
+        "remove_bookmark": "移除书签",
+        "confirm_delete_this_post": "是否确定要删除此贴文？",
+        "react_with_emoji": "用表情符号回应",
+        "bookmark": "书签",
+        "view_conversation": "查看对话"
     },
     "misc": {
         "reload_page": "几分钟后重新加载页面"
     },
     "post_list": {
         "post_not_found": "未找到贴文",
-        "no_posts_found": "暂无贴文"
+        "no_posts_found": "暂无贴文",
+        "post_is_not_available": "贴文不可用",
+        "post": "贴文",
+        "post_by_handle": "发贴者 {handle}"
     },
     "emoji_picker": {
         "search": "搜索…",
@@ -138,10 +147,17 @@
         "tab_following": "关注",
         "tab_subscribers": "订阅者",
         "subscription_expires": "订阅在 {date} 到期",
-        "muted": "已静音"
+        "muted": "已静音",
+        "view_muted_users": "查看已静音的用户",
+        "profile": "个人资料",
+        "profile_with_handle": "个人资料 - {handle}",
+        "view_custom_feeds": "查看自定义订阅源"
     },
     "profile_list": {
-        "show_more_profiles": "查看更多用户"
+        "show_more_profiles": "查看更多用户",
+        "no_muted_users": "没有静音用户",
+        "muted_users": "已静音的用户",
+        "show_more_users": "显示更多用户"
     },
     "profile_editor": {
         "edit_profile": "修改个人资料",
@@ -177,7 +193,8 @@
         "moved_to_a_new_instance": "迁移到了新的实例",
         "signed_up": "已注册",
         "show_more_notifications": "查看更多通知",
-        "reacted_to_your_post": "回应了你的贴文"
+        "reacted_to_your_post": "回应了你的贴文",
+        "is_no_longer_a_subscriber": "不再是订阅者"
     },
     "settings": {
         "settings": "设置",
@@ -211,13 +228,17 @@
         "name_gallery": "{name} 媒体库",
         "back": "返回",
         "view_post": "查看贴文",
-        "no_media_found": "没有媒体"
+        "no_media_found": "没有媒体",
+        "gallery": "媒体库",
+        "gallery_with_handle": "媒体库 - {handle}"
     },
     "search_results": {
         "people": "{n} 人",
         "posts": "{n} 条贴文 | {n} 条贴文",
         "tags": "{n} 个标签 | {n} 个标签",
-        "no_results": "无结果"
+        "no_results": "无结果",
+        "search_results": "搜索结果",
+        "show_more_results": "显示更多结果"
     },
     "follow_requests": {
         "no_follow_requests_found": "没有关注请求",
@@ -267,5 +288,22 @@
         "enter_your_username": "输入你的用户名或联邦宇宙地址 (username{'@'}example.org)",
         "show_additional_payment_information": "显示更多信息",
         "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款："
+    },
+    "custom_feeds": {
+        "create_feed": "创建订阅源",
+        "custom_feeds": "自定义订阅源",
+        "view_feed": "查看订阅源",
+        "configure_feed": "配置订阅源",
+        "custom_feed": "自定义订阅源",
+        "delete_feed": "删除订阅源",
+        "confirm_delete_this_feed": "是否确定要删除此订阅源？",
+        "enter_address": "输入地址",
+        "user_not_found": "用户未找到",
+        "add_user": "添加用户",
+        "posts_will_not_be_displayed": "这些用户的贴文不会显示在主页时间线中。",
+        "remove_user_from_feed": "从订阅源中移除用户",
+        "enter_feed_name": "输入订阅源名称",
+        "user_is_already_in_the_list": "用户已在列表中",
+        "confirm_remove_this_user_from_feed": "是否确定要从订阅源中移除此用户？"
     }
 }
