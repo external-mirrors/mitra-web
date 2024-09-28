@@ -74,7 +74,8 @@
         "react_with_emoji": "Реагувати за допомогою емоджі",
         "bookmark": "Закладка",
         "remove_bookmark": "Видалити закладку",
-        "confirm_delete_this_post": "Ви дійсно хочете видалити цей допис?"
+        "confirm_delete_this_post": "Ви дійсно хочете видалити цей допис?",
+        "view_conversation": "Переглянути розмову"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -138,12 +139,16 @@
         "subscription_expires": "Термін дії підписки спливає {date}",
         "view_muted_accounts": "Переглянути ігноровані облікові записи",
         "view_muted_users": "Переглянути ігнорованих користувачів",
-        "view_custom_feeds": "Переглянути власні стрічки"
+        "view_custom_feeds": "Переглянути власні стрічки",
+        "profile": "Профіль",
+        "profile_with_handle": "Профіль - {handle}"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
         "no_posts_found": "Не знайдено дописів",
-        "post_is_not_available": "Допис недоступний"
+        "post_is_not_available": "Допис недоступний",
+        "post": "Допис",
+        "post_by_handle": "Допис {handle}"
     },
     "emoji_picker": {
         "search": "Пошук…",
@@ -227,14 +232,17 @@
         "name_gallery": "Галерея {name}",
         "back": "Назад",
         "no_media_found": "Не знайдено медіа",
-        "view_post": "Переглянути дописи"
+        "view_post": "Переглянути дописи",
+        "gallery": "Галерея",
+        "gallery_with_handle": "Галерея - {handle}"
     },
     "search_results": {
         "no_results": "Нічого не знайдено",
         "posts": "{n} допис | {n} дописів",
         "tags": "{n} мітка | {n} міток",
         "people": "{n} користувачів",
-        "show_more_results": "Показати більше результатів"
+        "show_more_results": "Показати більше результатів",
+        "search_results": "Результати пошуку"
     },
     "subscriptions": {
         "subscription": "Передплата",
@@ -300,6 +308,7 @@
         "delete_feed": "Видалити стрічку",
         "add_feed": "Додати стрічку",
         "confirm_delete_this_feed": "Ви дійсно хочете видалити цю стрічку?",
-        "create_feed": "Створити стрічку"
+        "create_feed": "Створити стрічку",
+        "custom_feed": "Власна стрічка"
     }
 }
