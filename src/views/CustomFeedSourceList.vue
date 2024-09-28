@@ -8,51 +8,51 @@
           {{ feed.title }}
         </router-link>
       </div>
-      <form
-        v-if="feed"
-        class="add-source"
-        @submit.prevent="onAddSource"
-      >
-        <div class="input-group search-group">
-          <input
-            type="text"
-            :placeholder="$t('custom_feeds.enter_address')"
-            v-model.trim="newSourceAddress"
-            @input="newSource = null; newSourceSuggestions = []"
-          >
-          <div class="suggestions" v-if="newSourceSuggestions.length > 0">
-            <button
-              type="button"
-              class="suggestion"
-              v-for="user in newSourceSuggestions"
-              :key="user.id"
-              @click="pickUser(user)"
-            >
-              {{ getActorAddress(user) }}
-            </button>
-          </div>
-        </div>
-        <div class="submit-row">
-          <button
-            type="submit"
-            class="btn"
-            :disabled="newSourceAddress.length === 0 || isNewSourceLoading"
-          >
-            {{ $t('custom_feeds.add_user') }}
-          </button>
-          <div
-            class="error-message"
-            v-if="newSourceError"
-          >
-            {{ newSourceError }}
-          </div>
-        </div>
-      </form>
-      <section v-if="!isLoading" class="content-warning">
-        <icon-info></icon-info>
-        <span>{{ $t('custom_feeds.posts_will_not_be_displayed') }}</span>
-      </section>
       <div class="source-list">
+        <form
+          v-if="feed"
+          class="add-source"
+          @submit.prevent="onAddSource"
+        >
+          <div class="input-group search-group">
+            <input
+              type="text"
+              :placeholder="$t('custom_feeds.enter_address')"
+              v-model.trim="newSourceAddress"
+              @input="newSource = null; newSourceSuggestions = []"
+            >
+            <div class="suggestions" v-if="newSourceSuggestions.length > 0">
+              <button
+                type="button"
+                class="suggestion"
+                v-for="user in newSourceSuggestions"
+                :key="user.id"
+                @click="pickUser(user)"
+              >
+                {{ getActorAddress(user) }}
+              </button>
+            </div>
+          </div>
+          <div class="submit-row">
+            <button
+              type="submit"
+              class="btn"
+              :disabled="newSourceAddress.length === 0 || isNewSourceLoading"
+            >
+              {{ $t('custom_feeds.add_user') }}
+            </button>
+            <div
+              class="error-message"
+              v-if="newSourceError"
+            >
+              {{ newSourceError }}
+            </div>
+          </div>
+        </form>
+        <div v-if="!isLoading" class="content-warning">
+          <icon-info></icon-info>
+          <span>{{ $t('custom_feeds.posts_will_not_be_displayed') }}</span>
+        </div>
         <router-link
           v-for="source in sources"
           :key="source.id"
@@ -70,15 +70,15 @@
           </template>
           </profile-list-item>
         </router-link>
+        <button
+          v-if="canLoadNextPage()"
+          class="btn secondary next-btn"
+          :disabled="isNextPageLoading"
+          @click="loadNextPage()"
+        >
+            {{ $t('profile_list.show_more_users') }}
+        </button>
       </div>
-      <button
-        v-if="canLoadNextPage()"
-        class="btn secondary next-btn"
-        :disabled="isNextPageLoading"
-        @click="loadNextPage()"
-      >
-          {{ $t('profile_list.show_more_users') }}
-      </button>
       <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
@@ -258,11 +258,16 @@ onMounted(async () => {
   margin-bottom: $block-outer-padding;
 }
 
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: $block-outer-padding;
+  margin-bottom: $block-outer-padding;
+}
+
 .add-source {
   @include content-form;
   @include content-form-suggestions;
-
-  margin-bottom: $block-outer-padding;
 
   .submit-row {
     align-items: center;
@@ -278,18 +283,10 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
-  margin-bottom: $block-outer-padding;
 
   svg {
     @include standard-icon;
   }
-}
-
-.source-list {
-  display: flex;
-  flex-direction: column;
-  gap: $block-outer-padding;
-  margin-bottom: $block-outer-padding;
 }
 
 .profile {
@@ -300,11 +297,11 @@ onMounted(async () => {
   }
 }
 
-.loader {
-  margin: $block-outer-padding auto;
+.next-btn {
+  align-self: flex-start;
 }
 
-.next-btn {
-  margin-bottom: $block-outer-padding;
+.loader {
+  margin: $block-outer-padding auto;
 }
 </style>
