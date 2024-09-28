@@ -18,13 +18,13 @@ export async function getCustomFeeds(
 
 export async function createCustomFeed(
   authToken: string,
-  title: string,
+  feedName: string,
 ): Promise<CustomFeed> {
   const url = `${BACKEND_URL}/api/v1/lists`
   const response = await http(url, {
     method: "POST",
     authToken,
-    json: { title },
+    json: { title: feedName },
   })
   const data = await handleResponse(response)
   return data
@@ -36,6 +36,21 @@ export async function getCustomFeed(
 ): Promise<CustomFeed> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}`
   const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function updateCustomFeed(
+  authToken: string,
+  feedId: number,
+  feedName: string,
+): Promise<CustomFeed> {
+  const url = `${BACKEND_URL}/api/v1/lists/${feedId}`
+  const response = await http(url, {
+    method: "PUT",
+    authToken,
+    json: { title: feedName },
+  })
   const data = await handleResponse(response)
   return data
 }

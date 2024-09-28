@@ -1,14 +1,51 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <div v-if="feed" class="feed-name">
+      <div v-if="feed && !isFeedFormVisible" class="feed-name">
         <router-link
           :to="{ name: 'custom-feed-timeline', params: { feedId: feed.id } }"
         >
           {{ feed.title }}
         </router-link>
+        <button
+          class="icon"
+          :title="$t('custom_feeds.rename_feed.rename_feed')"
+          @click="onEditFeed()"
+        >
+          <icon-edit></icon-edit>
+        </button>
       </div>
-      <div class="source-list">
+      <form
+        v-if="isFeedFormVisible"
+        class="feed-form"
+        @submit.prevent="onUpdateFeed()"
+      >
+        <input
+          type="text"
+          v-model="feedName"
+        >
+        <div class="button-row">
+          <button
+            type="submit"
+            class="btn"
+            :disabled="isFeedFormLoading"
+          >
+            {{ $t('custom_feeds.rename_feed.save') }}
+          </button>
+          <button
+            type="button"
+            class="btn secondary"
+            :disabled="isFeedFormLoading"
+            @click="onCancelEdit()"
+          >
+            {{ $t('custom_feeds.rename_feed.cancel') }}
+          </button>
+        </div>
+      </form>
+      <div
+        class="source-list"
+        :class="{ obscured: isFeedFormVisible }"
+      >
         <form
           v-if="feed"
           class="add-source"
@@ -85,7 +122,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
@@ -95,10 +132,12 @@ import {
   getCustomFeed,
   getCustomFeedSources,
   removeCustomFeedSource,
+  updateCustomFeed,
   CustomFeed,
 } from "@/api/custom-feeds"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
+import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconInfo from "@/assets/feather/info.svg?component"
 import IconRemove from "@/assets/feather/x.svg?component"
 import Loader from "@/components/Loader.vue"
@@ -115,6 +154,38 @@ const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
 const feed = ref<CustomFeed | null>(null)
+const feedLoaded = computed(() => {
+  if (feed.value === null) {
+    throw new Error("feed info is not loaded")
+  }
+  return feed.value
+})
+
+const feedName = ref("")
+const isFeedFormVisible = ref(false)
+const isFeedFormLoading = ref(false)
+
+function onEditFeed() {
+  isFeedFormVisible.value = true
+  feedName.value = feedLoaded.value.title
+}
+
+function onCancelEdit() {
+  isFeedFormVisible.value = false
+}
+
+async function onUpdateFeed() {
+  isFeedFormLoading.value = true
+  feed.value = await updateCustomFeed(
+    ensureAuthToken(),
+    feedLoaded.value.id,
+    feedName.value,
+  )
+  setPageTitle(feed.value.title)
+  isFeedFormLoading.value = false
+  isFeedFormVisible.value = false
+}
+
 const newSourceAddress = ref<string>("")
 const newSourceSuggestions = ref<Profile[]>([])
 const newSource = ref<Profile | null>(null)
@@ -176,7 +247,7 @@ async function onAddSource(): Promise<void> {
   try {
     await addCustomFeedSource(
       ensureAuthToken(),
-      feed.value.id,
+      feedLoaded.value.id,
       newSource.value.id,
     )
     sources.value = [newSource.value, ...sources.value]
@@ -201,7 +272,11 @@ async function loadSources(
   if (feed.value === null) {
     throw new Error("feed info is not present")
   }
-  const page = await getCustomFeedSources(authToken, feed.value.id, maxId)
+  const page = await getCustomFeedSources(
+    authToken,
+    feedLoaded.value.id,
+    maxId,
+  )
   return [...sources.value, ...page]
 }
 
@@ -219,13 +294,10 @@ async function loadNextPage() {
 }
 
 async function onRemoveSource(sourceId: string) {
-  if (feed.value === null) {
-    throw new Error("feed info is not present")
-  }
   if (confirm(t("custom_feeds.confirm_remove_this_user_from_feed"))) {
     await removeCustomFeedSource(
       ensureAuthToken(),
-      feed.value.id,
+      feedLoaded.value.id,
       sourceId,
     )
     const sourceIndex = sources.value.findIndex((source) => source.id === sourceId)
@@ -253,9 +325,41 @@ onMounted(async () => {
 @import "../styles/theme";
 
 .feed-name {
+  @include block-icon;
   @include content-message;
 
+  display: flex;
+  flex-direction: row;
+  gap: $block-inner-padding;
   margin-bottom: $block-outer-padding;
+
+  a {
+    flex-grow: 1;
+  }
+}
+
+.feed-form {
+  @include content-form;
+
+  display: flex;
+  gap: $block-outer-padding;
+  margin-bottom: $block-outer-padding;
+
+  .button-row {
+    display: flex;
+    gap: $block-outer-padding;
+  }
+}
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: $block-outer-padding;
+  margin-bottom: $block-outer-padding;
+
+  &.obscured {
+    opacity: 0.5;
+  }
 }
 
 .source-list {
