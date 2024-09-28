@@ -243,6 +243,14 @@
   flex-direction: column;
   gap: $block-outer-padding;
 
+  input[type="password"],
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    border-radius: $btn-border-radius;
+    width: 100%;
+  }
+
   .input-group {
     width: 100%;
 
@@ -261,14 +269,6 @@
 
     &:has(input[type="checkbox"]) label {
       margin-bottom: 0;
-    }
-
-    input[type="password"],
-    input[type="text"],
-    input[type="number"],
-    textarea {
-      border-radius: $btn-border-radius;
-      width: 100%;
     }
 
     input[type="checkbox"] {

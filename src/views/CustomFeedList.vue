@@ -5,13 +5,11 @@
         {{ $t('custom_feeds.custom_feeds') }}
       </h1>
       <form class="create-feed" @submit.prevent="onCreateFeed">
-        <div class="input-group">
-          <input
-            type="text"
-            :placeholder="$t('custom_feeds.enter_feed_name')"
-            v-model.trim="newFeedName"
-          >
-        </div>
+        <input
+          type="text"
+          :placeholder="$t('custom_feeds.enter_feed_name')"
+          v-model.trim="newFeedName"
+        >
         <button
           type="submit"
           class="btn"
