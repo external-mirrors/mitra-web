@@ -14,6 +14,13 @@
         >
           <icon-edit></icon-edit>
         </button>
+        <button
+          class="icon"
+          :title="$t('custom_feeds.delete_feed')"
+          @click="onDeleteFeed(feed.id)"
+        >
+          <icon-delete></icon-delete>
+        </button>
       </div>
       <form
         v-if="isFeedFormVisible"
@@ -124,11 +131,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 
 import { PAGE_SIZE } from "@/api/common"
 import {
   addCustomFeedSource,
+  deleteCustomFeed,
   getCustomFeed,
   getCustomFeedSources,
   removeCustomFeedSource,
@@ -137,6 +145,7 @@ import {
 } from "@/api/custom-feeds"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
+import IconDelete from "@/assets/feather/trash.svg?component"
 import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconInfo from "@/assets/feather/info.svg?component"
 import IconRemove from "@/assets/feather/x.svg?component"
@@ -148,6 +157,7 @@ import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
+const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
 const { getActorAddress, getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
@@ -184,6 +194,16 @@ async function onUpdateFeed() {
   setPageTitle(feed.value.title)
   isFeedFormLoading.value = false
   isFeedFormVisible.value = false
+}
+
+async function onDeleteFeed(feedId: number) {
+  if (confirm(t("custom_feeds.confirm_delete_this_feed"))) {
+    await deleteCustomFeed(
+      ensureAuthToken(),
+      feedId,
+    )
+    router.push({ name: "custom-feed-list" })
+  }
 }
 
 const newSourceAddress = ref<string>("")
@@ -328,6 +348,7 @@ onMounted(async () => {
   @include block-icon;
   @include content-message;
 
+  align-items: center;
   display: flex;
   flex-direction: row;
   gap: $block-inner-padding;

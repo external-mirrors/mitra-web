@@ -38,13 +38,6 @@
           >
             <icon-configure></icon-configure>
           </router-link>
-          <button
-            class="icon"
-            :title="$t('custom_feeds.delete_feed')"
-            @click="onDeleteFeed(feed.id)"
-          >
-            <icon-delete></icon-delete>
-          </button>
         </div>
       </div>
       <loader v-if="isLoading"></loader>
@@ -58,12 +51,10 @@ import { useI18n } from "vue-i18n"
 
 import {
   createCustomFeed,
-  deleteCustomFeed,
   getCustomFeeds,
   CustomFeed,
 } from "@/api/custom-feeds"
 import IconConfigure from "@/assets/feather/sliders.svg?component"
-import IconDelete from "@/assets/feather/trash.svg?component"
 import Loader from "@/components/Loader.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useTitle } from "@/composables/title"
@@ -86,17 +77,6 @@ async function onCreateFeed() {
   feeds.value = [feed, ...feeds.value]
   newFeedName.value = ""
   isLoading.value = false
-}
-
-async function onDeleteFeed(feedId: number) {
-  if (confirm(t("custom_feeds.confirm_delete_this_feed"))) {
-    await deleteCustomFeed(
-      ensureAuthToken(),
-      feedId,
-    )
-    const feedIndex = feeds.value.findIndex((feed) => feed.id === feedId)
-    feeds.value.splice(feedIndex, 1)
-  }
 }
 
 onMounted(async () => {
@@ -141,6 +121,7 @@ onMounted(async () => {
 .feed {
   @include block-icon;
 
+  align-items: center;
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   display: flex;
