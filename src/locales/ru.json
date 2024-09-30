@@ -17,14 +17,14 @@
         "settings": "Настройки"
     },
     "welcome": {
-        "welcome": "Добро пожаловать в !",
+        "welcome": "Добро пожаловать в {0}!",
         "browse_directory": "Просмотреть каталог профилей",
         "read_only_mode": "Ваша учётная запись находится в режиме только для чтения"
     },
     "post": {
         "go_to_previous_post": "Перейти к предыдущему посту",
         "visibility_public": "Публичный",
-        "visibility_followers": "Мои подписчики",
+        "visibility_followers": "Мои фоловеры",
         "visibility_subscribers": "Подписчики",
         "visibility_direct": "Директ",
         "featured": "Избранное",
@@ -62,13 +62,16 @@
         "delete_repost": "Удалить репост",
         "react_with_emoji": "Реагировать с помощью эмодзи",
         "unmute_author": "Включить автора",
-        "subscribe": "Подписаться",
-        "confirm_delete_this_post": "Вы уверены что хотите удалить этот пост?"
+        "subscribe": "Поросоединиться",
+        "confirm_delete_this_post": "Вы уверены что хотите удалить этот пост?",
+        "view_conversation": "Посмотреть беседу"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
         "no_posts_found": "Сообщений не найдено",
-        "post_is_not_available": "Пост недоступен"
+        "post_is_not_available": "Пост недоступен",
+        "post": "Сообщение",
+        "post_by_handle": "Сообщение от {handle}"
     },
     "post_editor": {
         "prompt": "О чём вы думаете?",
@@ -144,7 +147,9 @@
         "accept_follow_request": "Принять запрос на подписку",
         "cancel_follow_request": "Отменить запрос на подписку",
         "view_muted_users": "Просмотр отключенных пользователей",
-        "view_custom_feeds": "Просмотр пользовательских каналов"
+        "view_custom_feeds": "Просмотр пользовательских каналов",
+        "profile": "Профиль",
+        "profile_with_handle": "Профиль - {handle}"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -221,17 +226,20 @@
         "delete_account_confirm": "Вы уверены что хотите удалить аккаунт? Это нельзя будет отменить."
     },
     "gallery": {
-        "name_gallery": "Галерея",
+        "name_gallery": "{name} Галерея",
         "back": "Назад",
         "view_post": "Посмотреть пост",
-        "no_media_found": "Медиа не найдено"
+        "no_media_found": "Медиа не найдено",
+        "gallery": "Галерея",
+        "gallery_with_handle": "Галерея - {handle}"
     },
     "search_results": {
         "people": "люди",
         "posts": "пост постов",
         "tags": "тэг тэги",
         "no_results": "Нет результатов",
-        "show_more_results": "Показать больше результатов"
+        "show_more_results": "Показать больше результатов",
+        "search_results": "Результаты поиска"
     },
     "follow_requests": {
         "follow_requests": "Отследить запросы",
@@ -300,6 +308,7 @@
         "confirm_remove_this_user_from_feed": "Вы уверены, что хотите удалить этого пользователя из ленты?",
         "posts_will_not_be_displayed": "Сообщения этих пользователей не будут отображаться на главной ленте.",
         "confirm_delete_this_feed": "Вы уверены, что хотите удалить этот канал?",
-        "create_feed": "Создать фид"
+        "create_feed": "Создать фид",
+        "custom_feed": "Пользовательский фид"
     }
 }
