@@ -304,6 +304,11 @@
         "remove_user_from_feed": "从订阅源中移除用户",
         "enter_feed_name": "输入订阅源名称",
         "user_is_already_in_the_list": "用户已在列表中",
-        "confirm_remove_this_user_from_feed": "是否确定要从订阅源中移除此用户？"
+        "confirm_remove_this_user_from_feed": "是否确定要从订阅源中移除此用户？",
+        "rename_feed": {
+            "rename_feed": "重命名订阅源",
+            "save": "保存",
+            "cancel": "取消"
+        }
     }
 }
