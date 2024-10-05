@@ -9,7 +9,8 @@
         "settings": "Ajustes",
         "about": "Acerca de",
         "home": "Inicio",
-        "search": "Buscar…"
+        "search": "Buscar…",
+        "bookmarks": "Marcadores"
     },
     "post_editor": {
         "prompt": "¿Qué estás pensando?",
@@ -35,7 +36,14 @@
         "timestamp_days": "Hace {n} días | Hace {n} días",
         "next_page": "Mostrar más entradas",
         "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos",
-        "load_replies": "Cargar respuestas"
+        "load_replies": "Cargar respuestas",
+        "bookmark": "Marcador",
+        "more": "Mas",
+        "edited": "editado",
+        "close_image": "Cerrar",
+        "visibility_followers": "Seguidores",
+        "visibility_subscribers": "Suscriptores",
+        "hide_image": "Ocultar imagen"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
