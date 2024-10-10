@@ -691,7 +691,8 @@ $line-height: 1.5;
       }
     }
 
-    &[disabled] {
+    &[disabled],
+    &[disabled]:hover {
       color: var(--btn-disabled-text-color);
       cursor: initial;
     }
