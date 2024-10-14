@@ -20,7 +20,11 @@
         "update": "Actualizar",
         "cancel": "Cancelar",
         "repost": "Repostear",
-        "attach_file": "Adjuntar archivo"
+        "attach_file": "Adjuntar archivo",
+        "click_to_edit_description": "Click aqui para editar la descripción",
+        "change_visibility": "Cambiar visibilidad",
+        "save_image_description": "Guardar",
+        "remove_attachment": "Eliminar adjunto"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -56,6 +60,10 @@
         "reload_page": "Recargar la página en unos minutos"
     },
     "profile": {
-        "muted": "Silenciado"
+        "muted": "Silenciado",
+        "admin": "Administrador"
+    },
+    "emoji_picker": {
+        "search": "Buscar…"
     }
 }
