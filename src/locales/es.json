@@ -43,7 +43,8 @@
         "close_image": "Cerrar",
         "visibility_followers": "Seguidores",
         "visibility_subscribers": "Suscriptores",
-        "hide_image": "Ocultar imagen"
+        "hide_image": "Ocultar imagen",
+        "visibility_public": "Público"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
