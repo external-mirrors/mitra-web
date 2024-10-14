@@ -19,7 +19,8 @@
         "publish": "Publicar",
         "update": "Actualizar",
         "cancel": "Cancelar",
-        "repost": "Repostear"
+        "repost": "Repostear",
+        "attach_file": "Adjuntar archivo"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -44,7 +45,12 @@
         "visibility_followers": "Seguidores",
         "visibility_subscribers": "Suscriptores",
         "hide_image": "Ocultar imagen",
-        "visibility_public": "Público"
+        "visibility_public": "Público",
+        "view_conversation": "Ver conversación",
+        "view_replies": "Ver respuestas",
+        "sensitive_content": "Contenido sensible",
+        "mute_author": "Silenciar autor",
+        "copy_coin_address": "Copiar dirección"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
