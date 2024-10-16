@@ -9,7 +9,8 @@
         "settings": "Ajustes",
         "about": "Acerca de",
         "home": "Inicio",
-        "search": "Buscar…"
+        "search": "Buscar…",
+        "bookmarks": "Marcadores"
     },
     "post_editor": {
         "prompt": "¿Qué estás pensando?",
@@ -18,7 +19,12 @@
         "publish": "Publicar",
         "update": "Actualizar",
         "cancel": "Cancelar",
-        "repost": "Repostear"
+        "repost": "Repostear",
+        "attach_file": "Adjuntar archivo",
+        "click_to_edit_description": "Click aqui para editar la descripción",
+        "change_visibility": "Cambiar visibilidad",
+        "save_image_description": "Guardar",
+        "remove_attachment": "Eliminar adjunto"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -35,12 +41,29 @@
         "timestamp_days": "Hace {n} días | Hace {n} días",
         "next_page": "Mostrar más entradas",
         "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos",
-        "load_replies": "Cargar respuestas"
+        "load_replies": "Cargar respuestas",
+        "bookmark": "Marcador",
+        "more": "Mas",
+        "edited": "editado",
+        "close_image": "Cerrar",
+        "visibility_followers": "Seguidores",
+        "visibility_subscribers": "Suscriptores",
+        "hide_image": "Ocultar imagen",
+        "visibility_public": "Público",
+        "view_conversation": "Ver conversación",
+        "view_replies": "Ver respuestas",
+        "sensitive_content": "Contenido sensible",
+        "mute_author": "Silenciar autor",
+        "copy_coin_address": "Copiar dirección"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
     },
     "profile": {
-        "muted": "Silenciado"
+        "muted": "Silenciado",
+        "admin": "Administrador"
+    },
+    "emoji_picker": {
+        "search": "Buscar…"
     }
 }
