@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated translations ([#49](https://codeberg.org/silverpill/mitra-web/pulls/49)).
+
 ### Fixed
 
 - Don't change text color on hover when "Publish" button is disabled.
