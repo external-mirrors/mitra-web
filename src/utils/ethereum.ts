@@ -1,6 +1,8 @@
 import { Signer } from "ethers"
 import { Web3Provider } from "@ethersproject/providers"
 
+import { generateRandomString } from "./crypto"
+
 export function hasEthereumWallet(): boolean {
   return Boolean((window as any).ethereum)
 }
@@ -38,12 +40,6 @@ export async function getWalletSignature(
 ): Promise<string> {
   const signature = await signer.signMessage(message)
   return signature
-}
-
-export function generateRandomString(len: number): string {
-  const arr = new Uint8Array(len / 2)
-  window.crypto.getRandomValues(arr)
-  return Array.from(arr, (val) => val.toString(16).padStart(2, "0")).join("")
 }
 
 // https://eips.ethereum.org/EIPS/eip-4361

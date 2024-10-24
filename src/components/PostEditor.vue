@@ -212,9 +212,11 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 import { useVisibility } from "@/composables/visibility"
 import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
+import { generateRandomString } from "@/utils/crypto"
 import { debounce } from "@/utils/debounce"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
+const FORM_ID_LENGTH = 20
 const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
@@ -238,6 +240,7 @@ const emit = defineEmits<{
 const contentInputElement = ref<HTMLTextAreaElement | null>(null)
 const attachmentUploaderElement = ref<HTMLInputElement | null>(null)
 
+const idempotencyKey = ref(generateRandomString(FORM_ID_LENGTH))
 const content = ref("")
 const attachmentList = ref<Attachment[]>([])
 const visibility = ref(Visibility.Public)
@@ -530,6 +533,7 @@ function canPublish(): boolean {
 
 async function publish() {
   const postData = {
+    idempotencyKey: idempotencyKey.value,
     content: content.value,
     inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
     visibility: visibility.value,
@@ -567,6 +571,7 @@ async function publish() {
   // Refresh editor
   errorMessage.value = null
   isLoading.value = false
+  idempotencyKey.value = generateRandomString(FORM_ID_LENGTH)
   content.value = ""
   isSensitive.value = false
   attachmentList.value = []

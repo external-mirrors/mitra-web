@@ -1,4 +1,5 @@
 import { BACKEND_URL } from "@/constants"
+
 import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
 import { getRelationships, Relationship } from "./relationships"
@@ -306,6 +307,7 @@ export async function previewPost(
 }
 
 export interface PostData {
+  idempotencyKey: string,
   content: string;
   inReplyToId: string | null;
   visibility: string;
@@ -333,6 +335,7 @@ export async function createPost(
     method: "POST",
     json: statusData,
     authToken,
+    headers: { "Idempotency-Key": postData.idempotencyKey },
   })
   const data = await handleResponse(response)
   return data

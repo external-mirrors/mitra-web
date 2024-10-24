@@ -2,7 +2,7 @@ import { fromByteArray } from "base64-js"
 import { DateTime } from "luxon"
 import pako from "pako"
 
-import { generateRandomString } from "./ethereum"
+import { generateRandomString } from "./crypto"
 
 // https://github.com/monero-project/monero/wiki/URI-Formatting
 export function createMoneroPaymentUri(
