@@ -1,5 +1,9 @@
 <template>
-  <div class="post-content" ref="postContentElement" v-html="getContent()"></div>
+  <div
+    class="post-content"
+    ref="postContentElement"
+    v-html="getContent()"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -101,9 +105,12 @@ function getContent(): string {
 .post-content {
   color: var(--text-color);
   line-height: 1.5;
+  text-align: initial;
   word-wrap: break-word;
 
   :deep(p) {
+    /* 'plaintext' may not work: https://stackoverflow.com/questions/78885123/unicode-bidi-plaintext-not-working-in-firefox */
+    unicode-bidi: plaintext;
     white-space: pre-wrap;
   }
 

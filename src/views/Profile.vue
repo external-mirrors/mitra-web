@@ -1090,6 +1090,7 @@ $avatar-size: 170px;
 .bio {
   @include emoji-inline;
 
+  unicode-bidi: plaintext;
   white-space: pre-line;
   word-wrap: break-word;
 
