@@ -82,14 +82,13 @@
             <visibility-icon :visibility="visibility"></visibility-icon>
           </span>
           <menu v-if="visibilityMenuVisible" class="dropdown-menu">
-            <li v-for="[value, display] in visibilityMap" :key="value">
+            <li v-for="value in visibilityOptions" :key="value">
               <button
                 class="icon"
-                :title="display"
-                @click="hideVisibilityMenu(); visibility = value as Visibility"
+                @click="hideVisibilityMenu(); visibility = value"
               >
                 <visibility-icon :visibility="value"></visibility-icon>
-                <span>{{ display }}</span>
+                <span>{{ VISIBILITY_MAP[value] }}</span>
               </button>
             </li>
           </menu>
@@ -221,9 +220,9 @@ const POST_CONTENT_STORAGE_KEY = "post_content"
 
 const { ctrlEnterEnabled } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { currentUser, ensureAuthToken } = useCurrentUser()
+const { currentUser, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 const { instance } = useInstanceInfo()
-const { VISIBILITY_MAP } = useVisibility()
+const { getVisibilityOptions, VISIBILITY_MAP } = useVisibility()
 
 const props = defineProps<{
   post: Post | null,
@@ -255,9 +254,11 @@ const isLoading = ref(false)
 const isAttachmentLoading = ref(false)
 const errorMessage = ref<string | null>(null)
 
-const visibilityMap = Object.entries(VISIBILITY_MAP)
 const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
+})
+const visibilityOptions = computed(() => {
+  return getVisibilityOptions(ensureCurrentUser(), props.inReplyTo)
 })
 
 if (props.post) {
@@ -294,8 +295,9 @@ if (props.inReplyTo && content.value.length === 0) {
   content.value = inlineMentions(mentions)
 }
 
-if (props.inReplyTo && props.inReplyTo.visibility !== Visibility.Public) {
-  visibility.value = Visibility.Direct
+if (props.inReplyTo && props.post === null) {
+  // First item is default visibility
+  visibility.value = visibilityOptions.value[0]
 }
 
 if (props.repostOf && content.value.length === 0) {
@@ -462,12 +464,7 @@ function onAttachmentRemoved(index: number) {
 }
 
 function canChangeVisibility(): boolean {
-  return (
-    props.post === null && (
-      props.inReplyTo === null ||
-      props.inReplyTo.visibility === Visibility.Public
-    )
-  )
+  return visibilityOptions.value.length > 1
 }
 
 function toggleVisibilityMenu() {
