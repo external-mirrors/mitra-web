@@ -28,9 +28,15 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
           Visibility.Followers,
         ]
       } else {
-        return [Visibility.Direct]
+        // TODO: conversation by default
+        return [
+          Visibility.Direct,
+          Visibility.Conversation,
+        ]
       }
     case Visibility.Subscribers:
+      return [Visibility.Direct]
+    case Visibility.Conversation:
       return [Visibility.Direct]
     case Visibility.Direct:
       return [Visibility.Direct]
@@ -44,6 +50,7 @@ export function useVisibility() {
     [Visibility.Public]: t("post.visibility_public"),
     [Visibility.Followers]: t("post.visibility_followers"),
     [Visibility.Subscribers]: t("post.visibility_subscribers"),
+    [Visibility.Conversation]: t("post.visibility_conversation"),
     [Visibility.Direct]: t("post.visibility_direct"),
   }
 
