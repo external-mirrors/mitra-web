@@ -236,7 +236,7 @@
           <li v-if="canCreateBookmark()">
             <button
               class="icon"
-              @click="hideMenu(); onCreateBookmark()"
+              @click="onCreateBookmark()"
             >
               <icon-bookmark></icon-bookmark>
               <span>{{ $t('post.bookmark') }}</span>
@@ -245,7 +245,7 @@
           <li v-if="canDeleteBookmark()">
             <button
               class="icon"
-              @click="hideMenu(); onDeleteBookmark()"
+              @click="onDeleteBookmark()"
             >
               <icon-remove-bookmark></icon-remove-bookmark>
               <span>{{ $t('post.remove_bookmark') }}</span>
