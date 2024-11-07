@@ -85,10 +85,11 @@
             <li v-for="value in visibilityOptions" :key="value">
               <button
                 class="icon"
+                :title="VISIBILITY_MAP[value].description"
                 @click="hideVisibilityMenu(); visibility = value"
               >
                 <visibility-icon :visibility="value"></visibility-icon>
-                <span>{{ VISIBILITY_MAP[value] }}</span>
+                <span>{{ VISIBILITY_MAP[value].name }}</span>
               </button>
             </li>
           </menu>

@@ -49,10 +49,12 @@
         "next_page": "显示更多贴文",
         "load_replies": "加载回复",
         "go_to_previous_post": "转到上一条贴文",
-        "visibility_public": "公开",
-        "visibility_followers": "粉丝",
-        "visibility_subscribers": "订阅者",
-        "visibility_direct": "私信",
+        "visibility": {
+          "public": "公开",
+          "followers": "粉丝",
+          "subscribers": "订阅者",
+          "direct": "私信"
+        },
         "edited": "已编辑",
         "sensitive_content": "敏感内容",
         "hide_image": "隐藏图像",

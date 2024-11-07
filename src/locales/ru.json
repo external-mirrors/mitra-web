@@ -23,10 +23,12 @@
     },
     "post": {
         "go_to_previous_post": "Перейти к предыдущему посту",
-        "visibility_public": "Публичный",
-        "visibility_followers": "Мои фоловеры",
-        "visibility_subscribers": "Подписчики",
-        "visibility_direct": "Директ",
+        "visibility": {
+          "public": "Публичный",
+          "followers": "Мои фоловеры",
+          "subscribers": "Подписчики",
+          "direct": "Директ"
+        },
         "featured": "Избранное",
         "replying_to": "Ответить на",
         "timestamp_minutes": "сейчас |{n} минута назад |{n} минут назад",

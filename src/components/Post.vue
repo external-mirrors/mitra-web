@@ -526,7 +526,7 @@ function scrollTo(postId: string) {
 }
 
 function getVisibilityDisplay(): string {
-  return VISIBILITY_MAP[props.post.visibility]
+  return VISIBILITY_MAP[props.post.visibility].description
 }
 
 function getReplyMentions(): Mention[] {

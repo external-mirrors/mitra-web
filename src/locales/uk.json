@@ -43,9 +43,12 @@
         "like": "Подобається",
         "edit_post": "Редагувати допис",
         "edited": "змінено",
-        "visibility_public": "Публічний",
-        "visibility_subscribers": "Передплатники",
-        "visibility_direct": "Прямий",
+        "visibility": {
+          "public": "Публічний",
+          "followers": "Відстежувачі",
+          "subscribers": "Передплатники",
+          "direct": "Прямий"
+        },
         "go_to_previous_post": "До попереднього допису",
         "close_image": "Закрити",
         "view_replies": "Переглянути відповіді",
@@ -61,7 +64,6 @@
         "saved_to_ipfs": "Збережено в IPFS",
         "save_to_ipfs": "Зберегти в IPFS",
         "copy_coin_address": "Скопіювати адресу",
-        "visibility_followers": "Відстежувачі",
         "featured": "Уподобане",
         "delete_repost": "Видалити репост",
         "action_reposted": "репост",

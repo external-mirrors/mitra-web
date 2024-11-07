@@ -49,10 +49,12 @@
         "next_page": "もっと記事を表示する",
         "load_replies": "返信を読み込む",
         "go_to_previous_post": "言及元のポストを見る",
-        "visibility_public": "公開",
-        "visibility_followers": "フォロワー",
-        "visibility_subscribers": "購読者",
-        "visibility_direct": "ダイレクト",
+        "visibility": {
+          "public": "公開",
+          "followers": "フォロワー",
+          "subscribers": "購読者",
+          "direct": "ダイレクト"
+        },
         "featured": "固定ポスト",
         "edited": "編集されました",
         "sensitive_content": "センシティブなコンテンツ",

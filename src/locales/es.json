@@ -46,10 +46,12 @@
         "more": "Mas",
         "edited": "editado",
         "close_image": "Cerrar",
-        "visibility_followers": "Seguidores",
-        "visibility_subscribers": "Suscriptores",
+        "visibility": {
+          "public": "Público",
+          "followers": "Seguidores",
+          "subscribers": "Suscriptores"
+        },
         "hide_image": "Ocultar imagen",
-        "visibility_public": "Público",
         "view_conversation": "Ver conversación",
         "view_replies": "Ver respuestas",
         "sensitive_content": "Contenido sensible",

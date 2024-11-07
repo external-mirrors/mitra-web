@@ -23,11 +23,20 @@
   },
   "post": {
     "go_to_previous_post": "Go to previous post",
-    "visibility_public": "Public",
-    "visibility_followers": "Followers",
-    "visibility_subscribers": "Subscribers",
-    "visibility_conversation": "Conversation",
-    "visibility_direct": "Direct",
+    "visibility": {
+      "public": "Public",
+      "followers": "Followers",
+      "subscribers": "Subscribers",
+      "conversation": "Conversation",
+      "direct": "Direct"
+    },
+    "visibility_description": {
+      "visible_to_everyone": "Visible to everyone",
+      "visible_to_followers": "Visible to followers",
+      "visible_to_premium_subscribers": "Visible to premium subscribers",
+      "visible_to_people_chosen_by_conversation_owner": "Visible to people chosen by conversation owner",
+      "visible_to_mentioned_users": "Visible to mentioned users"
+    },
     "featured": "Featured",
     "edited": "edited",
     "replying_to": "replying to",

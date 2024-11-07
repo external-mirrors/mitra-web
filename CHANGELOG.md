@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Allow followers-only self-replies to followers-only posts.
 - Allow replies with "conversation" visibility to followers-only posts.
 
+### Changed
+
+- Improved descriptions of visibility scopes.
+
 ### Removed
 
 - Removed FreeBSD patch.
