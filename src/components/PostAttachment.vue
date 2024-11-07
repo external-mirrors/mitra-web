@@ -117,9 +117,9 @@ button {
   }
 
   .hide-image {
-    left: $body-padding;
     padding: $input-padding;
     position: absolute;
+    right: $body-padding;
     top: $body-padding;
     z-index: 1;
   }

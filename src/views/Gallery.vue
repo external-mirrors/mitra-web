@@ -156,9 +156,9 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   @include media-btn;
 
   /* Same positioning is used PostAttachment.vue */
+  bottom: $body-padding;
   position: absolute;
   right: $body-padding;
-  top: $body-padding;
   /* .show-image z-index + 1 */
   z-index: 2;
 }
