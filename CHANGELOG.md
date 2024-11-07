@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.0] - 2024-11-07
+
 ### Added
 
 - Support RTL text in posts and profile descriptions.
