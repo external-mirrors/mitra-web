@@ -159,6 +159,8 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
   position: absolute;
   right: $body-padding;
   top: $body-padding;
+  /* .show-image z-index + 1 */
+  z-index: 2;
 }
 
 .empty {

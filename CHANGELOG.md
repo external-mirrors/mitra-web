@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fix FreeBSD build.
+- Fix broken "View post" button on sensitive images in gallery.
 
 ## [3.8.0] - 2024-10-25
 
