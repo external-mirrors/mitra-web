@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added French translation.
+
+### Changed
+
+- Updated translations ([#51](https://codeberg.org/silverpill/mitra-web/pulls/51)).
+
 ## [3.9.0] - 2024-11-07
 
 ### Added
