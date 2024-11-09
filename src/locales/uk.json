@@ -44,10 +44,11 @@
         "edit_post": "Редагувати допис",
         "edited": "змінено",
         "visibility": {
-          "public": "Публічний",
-          "followers": "Відстежувачі",
-          "subscribers": "Передплатники",
-          "direct": "Прямий"
+            "public": "Публічний",
+            "followers": "Відстежувачі",
+            "subscribers": "Передплатники",
+            "direct": "Приватний",
+            "conversation": "Розмова"
         },
         "go_to_previous_post": "До попереднього допису",
         "close_image": "Закрити",
@@ -77,7 +78,14 @@
         "bookmark": "Закладка",
         "remove_bookmark": "Видалити закладку",
         "confirm_delete_this_post": "Ви дійсно хочете видалити цей допис?",
-        "view_conversation": "Переглянути розмову"
+        "view_conversation": "Переглянути розмову",
+        "visibility_description": {
+            "visible_to_everyone": "Видимий для всіх",
+            "visible_to_followers": "Видимий для відстежувачів",
+            "visible_to_mentioned_users": "Видимий для згаданих користувачів",
+            "visible_to_people_chosen_by_conversation_owner": "Видимий для людей, яких вибрав власник розмови",
+            "visible_to_premium_subscribers": "Видимий для передплатників"
+        }
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",

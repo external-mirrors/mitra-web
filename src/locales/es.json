@@ -24,7 +24,9 @@
         "click_to_edit_description": "Click aqui para editar la descripción",
         "change_visibility": "Cambiar visibilidad",
         "save_image_description": "Guardar",
-        "remove_attachment": "Eliminar adjunto"
+        "remove_attachment": "Eliminar adjunto",
+        "enter_image_description": "Introducir descripción de la imagen",
+        "characters_left": "Caracteres restantes"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -47,23 +49,39 @@
         "edited": "editado",
         "close_image": "Cerrar",
         "visibility": {
-          "public": "Público",
-          "followers": "Seguidores",
-          "subscribers": "Suscriptores"
+            "public": "Público",
+            "followers": "Seguidores",
+            "subscribers": "Suscriptores"
         },
         "hide_image": "Ocultar imagen",
         "view_conversation": "Ver conversación",
         "view_replies": "Ver respuestas",
         "sensitive_content": "Contenido sensible",
         "mute_author": "Silenciar autor",
-        "copy_coin_address": "Copiar dirección"
+        "copy_coin_address": "Copiar dirección",
+        "visibility_description": {
+            "visible_to_everyone": "Visible para todo el mundo",
+            "visible_to_followers": "Visible para seguidores",
+            "visible_to_premium_subscribers": "Visible para subscriptores premium",
+            "visible_to_people_chosen_by_conversation_owner": "Visible para personas elegidas por el propietario de la conversación",
+            "visible_to_mentioned_users": "Visible para usuarios mencionados"
+        },
+        "like": "Me gusta",
+        "remove_bookmark": "Eliminar marcador",
+        "edit_post": "Editar publicación",
+        "delete_post": "Borrar publicación"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
     },
     "profile": {
         "muted": "Silenciado",
-        "admin": "Administrador"
+        "admin": "Administrador",
+        "follows_you": "Te sigue",
+        "subscription": "Suscripción",
+        "subscriber": "Suscriptor",
+        "more": "Más",
+        "open_profile_page": "Abrir página de perfil"
     },
     "emoji_picker": {
         "search": "Buscar…"

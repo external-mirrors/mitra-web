@@ -50,10 +50,11 @@
         "load_replies": "加载回复",
         "go_to_previous_post": "转到上一条贴文",
         "visibility": {
-          "public": "公开",
-          "followers": "粉丝",
-          "subscribers": "订阅者",
-          "direct": "私信"
+            "public": "公开",
+            "followers": "粉丝",
+            "subscribers": "订阅者",
+            "direct": "私信",
+            "conversation": "对话"
         },
         "edited": "已编辑",
         "sensitive_content": "敏感内容",
@@ -86,7 +87,14 @@
         "confirm_delete_this_post": "是否确定要删除此贴文？",
         "react_with_emoji": "用表情符号回应",
         "bookmark": "书签",
-        "view_conversation": "查看对话"
+        "view_conversation": "查看对话",
+        "visibility_description": {
+            "visible_to_everyone": "所有人可见",
+            "visible_to_followers": "粉丝可见",
+            "visible_to_people_chosen_by_conversation_owner": "对话所有者所选的人可见",
+            "visible_to_mentioned_users": "提到的用户可见",
+            "visible_to_premium_subscribers": "高级订阅者可见"
+        }
     },
     "misc": {
         "reload_page": "几分钟后重新加载页面"
