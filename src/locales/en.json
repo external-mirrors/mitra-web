@@ -97,6 +97,7 @@
     "enter_image_description": "Enter image description",
     "save_image_description": "Save",
     "change_visibility": "Change visibility",
+    "visibility_can_not_be_changed": "Visibility can not be changed",
     "remove_content_warning": "Remove content warning",
     "add_content_warning": "Add content warning",
     "insert_emoji": "Insert emoji",

@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Updated translations ([#51](https://codeberg.org/silverpill/mitra-web/pulls/51)).
+- Add tooltip to disabled visibility selector.
+
+### Fixed
+
+- Disable visibility menu when editing existing post.
 
 ## [3.9.0] - 2024-11-07
 

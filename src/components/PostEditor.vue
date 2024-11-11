@@ -78,7 +78,11 @@
           >
             <visibility-icon :visibility="visibility"></visibility-icon>
           </button>
-          <span v-else class="icon">
+          <span
+            v-else
+            class="icon"
+            :title="$t('post_editor.visibility_can_not_be_changed')"
+          >
             <visibility-icon :visibility="visibility"></visibility-icon>
           </span>
           <menu v-if="visibilityMenuVisible" class="dropdown-menu">
@@ -259,7 +263,12 @@ const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
 })
 const visibilityOptions = computed(() => {
-  return getVisibilityOptions(ensureCurrentUser(), props.inReplyTo)
+  if (props.post) {
+    // Visibility can not be changed after publishing
+    return []
+  } else {
+    return getVisibilityOptions(ensureCurrentUser(), props.inReplyTo)
+  }
 })
 
 if (props.post) {
