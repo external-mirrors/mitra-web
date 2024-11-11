@@ -17,6 +17,7 @@
         rows="1"
         required
         :placeholder="inReplyTo ? $t('post_editor.prompt_reply') : (repostOf ? $t('post_editor.prompt_repost') : $t('post_editor.prompt'))"
+        @drop="onDrop($event)"
         @paste="onPaste($event)"
         @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
@@ -397,6 +398,16 @@ function onContentInput(event: Event) {
   suggestMentionsDebounced()
   if (props.post === null) {
     saveLocalDraft()
+  }
+}
+
+async function onDrop(event: DragEvent) {
+  const files = event.dataTransfer?.files || []
+  if (files.length > 0) {
+    event.preventDefault()
+    for (const file of files) {
+      await addAttachment(file)
+    }
   }
 }
 
