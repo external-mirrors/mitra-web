@@ -83,7 +83,8 @@
         "add_content_warning": "Ajouter un avertissement de contenu",
         "characters_left": "Caractères restants",
         "toggle_preview": "Activer/désactiver la prévisualisation",
-        "click_to_edit_description": "Cliquer ici pour rédiger la description"
+        "click_to_edit_description": "Cliquer ici pour rédiger la description",
+        "visibility_can_not_be_changed": "La visibilité ne peut pas être modifiée"
     },
     "profile": {
         "profile_with_handle": "Profil - {handle}",
