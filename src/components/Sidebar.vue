@@ -27,14 +27,6 @@
       <div class="icon"><icon-bookmarks></icon-bookmarks></div>
       <span>{{ $t('navigation.bookmarks') }}</span>
     </router-link>
-    <router-link
-      v-if="canManageSubscriptions()"
-      class="sidebar-link"
-      :to="{ name: 'subscriptions-settings' }"
-    >
-      <div class="icon"><icon-premium></icon-premium></div>
-      <span>{{ $t('navigation.subscriptions') }}</span>
-    </router-link>
     <router-link class="sidebar-link" :to="{ name: 'settings' }">
       <div class="icon"><icon-settings></icon-settings></div>
       <span>{{ $t('navigation.settings') }}</span>
@@ -54,7 +46,7 @@
 import { computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 
-import { revokeAccessToken, Permissions } from "@/api/users"
+import { revokeAccessToken } from "@/api/users"
 import IconBell from "@/assets/feather/bell.svg?component"
 import IconGlobe from "@/assets/feather/globe.svg?component"
 import IconHelp from "@/assets/feather/help-circle.svg?component"
@@ -63,7 +55,6 @@ import IconServer from "@/assets/feather/server.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
 import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
-import IconPremium from "@/assets/extra-icons/spark.svg?component"
 import { useInstanceInfo } from "@/composables/instance"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
@@ -76,7 +67,7 @@ const {
   ensureAuthToken,
   isAdmin,
 } = useCurrentUser()
-const { getBlockchainInfo, instance } = useInstanceInfo()
+const { instance } = useInstanceInfo()
 const { loadNotifications, getUnreadNotificationCount } = useNotifications()
 
 onMounted(async () => {
@@ -96,16 +87,6 @@ const unreadNotificationCount = computed<number>(() => {
 function canViewFederatedTimeline(): boolean {
   const federatedTimelineRestricted = instance.value?.federated_timeline_restricted ?? true
   return !federatedTimelineRestricted || isAdmin()
-}
-
-function canManageSubscriptions(): boolean {
-  const blockchain = getBlockchainInfo()
-  const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
-  return (
-    isSubscriptionsFeatureEnabled &&
-    currentUser.value !== null &&
-    currentUser.value.role.permissions.includes(Permissions.ManageSubscriptionOptions)
-  )
 }
 
 async function logout() {

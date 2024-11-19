@@ -11,6 +11,12 @@
           {{ $t('settings.edit_profile') }}
         </router-link>
       </section>
+      <section v-if="canManageSubscriptions()">
+        <h2>{{ $t('navigation.subscriptions') }}</h2>
+        <router-link class="btn" :to="{ name: 'subscriptions-settings' }">
+          {{ $t('subscriptions.manage_subscriptions') }}
+        </router-link>
+      </section>
       <section>
         <h2>{{ $t('settings.appearance') }}</h2>
         <div class="appearance-checkbox">
@@ -158,8 +164,10 @@ import {
   exportFollowers,
   exportFollows,
 } from "@/api/settings"
+import { Permissions } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
+import { useInstanceInfo } from "@/composables/instance"
 import { useLocales, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useTitle } from "@/composables/title"
@@ -178,6 +186,7 @@ const {
   ensureAuthToken,
   setCurrentUser,
 } = useCurrentUser()
+const { getBlockchainInfo } = useInstanceInfo()
 const { changePreferredLocale } = useLocales()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
 const { setPageTitle } = useTitle()
@@ -186,6 +195,16 @@ const newPassword = ref("")
 const newPasswordConfirmation = ref("")
 const passwordFormMessage = ref<string | null>(null)
 const isLoading = ref(false)
+
+function canManageSubscriptions(): boolean {
+  const blockchain = getBlockchainInfo()
+  const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
+  return (
+    isSubscriptionsFeatureEnabled &&
+    currentUser.value !== null &&
+    currentUser.value.role.permissions.includes(Permissions.ManageSubscriptionOptions)
+  )
+}
 
 async function onToggleDarkMode() {
   isLoading.value = true
