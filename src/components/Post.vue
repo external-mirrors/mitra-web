@@ -772,8 +772,11 @@ function canEditPost(): boolean {
 
 async function onEditPost() {
   const authToken = ensureAuthToken()
-  const contentSource = await getPostSource(authToken, props.post.id)
-  props.post.contentSource = contentSource
+  const postSource = await getPostSource(authToken, props.post.id)
+  if (postSource.content_type === "text/html") {
+    throw new Error("post can not be edited")
+  }
+  props.post.contentSource = postSource.text
   editorVisible.value = true
 }
 

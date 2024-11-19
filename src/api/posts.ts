@@ -352,14 +352,19 @@ export async function getPost(
   return data
 }
 
+export interface PostSource {
+  content_type?: string,
+  text: string,
+}
+
 export async function getPostSource(
   authToken: string,
   postId: string,
-): Promise<string> {
+): Promise<PostSource> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/source`
   const response = await http(url, { authToken })
   const data = await handleResponse(response)
-  return data.text
+  return data
 }
 
 export async function updatePost(
