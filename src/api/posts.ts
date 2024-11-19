@@ -400,7 +400,7 @@ export async function deletePost(
     method: "DELETE",
     authToken,
   })
-  await handleResponse(response, 204)
+  await handleResponse(response)
 }
 
 export async function favourite(
