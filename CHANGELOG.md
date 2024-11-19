@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Updated translations ([#51](https://codeberg.org/silverpill/mitra-web/pulls/51)).
 - Add tooltip to disabled visibility selector.
 - Set visibility to "Followers" when self-replying to followers-only post.
+- Enable username autocomplete on login form.
 
 ### Fixed
 

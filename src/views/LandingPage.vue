@@ -47,6 +47,7 @@
                 id="username"
                 v-model="username"
                 required
+                autocomplete="username"
                 placeholder="Username"
               >
               <div class="addon">@{{ instance.uri }}</div>
