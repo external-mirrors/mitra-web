@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Disable visibility menu when editing existing post.
+- Fixed padding on username input addon.
 
 ## [3.9.0] - 2024-11-07
 

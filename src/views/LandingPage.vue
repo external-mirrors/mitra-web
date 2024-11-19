@@ -513,6 +513,8 @@ onMounted(() => {
   gap: 15px;
   position: relative;
 
+  /* NOTE: input:autofill background color can not be changed */
+
   input,
   textarea,
   .addon {
@@ -548,7 +550,6 @@ onMounted(() => {
       flex-shrink: 0;
       max-width: 40%;
       overflow: hidden;
-      padding-left: 0;
       text-align: right;
       text-overflow: ellipsis;
       white-space: nowrap;
