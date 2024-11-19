@@ -22,10 +22,9 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
       ]
     case Visibility.Followers:
       if (author.id === inReplyTo.account.id) {
-        // TODO: Followers by default
         return [
-          Visibility.Direct,
           Visibility.Followers,
+          Visibility.Direct,
         ]
       } else {
         // TODO: conversation by default
