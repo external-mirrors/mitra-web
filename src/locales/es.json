@@ -51,7 +51,9 @@
         "visibility": {
             "public": "Público",
             "followers": "Seguidores",
-            "subscribers": "Suscriptores"
+            "subscribers": "Suscriptores",
+            "conversation": "Conversación",
+            "direct": "Directo"
         },
         "hide_image": "Ocultar imagen",
         "view_conversation": "Ver conversación",
@@ -69,7 +71,11 @@
         "like": "Me gusta",
         "remove_bookmark": "Eliminar marcador",
         "edit_post": "Editar publicación",
-        "delete_post": "Borrar publicación"
+        "delete_post": "Borrar publicación",
+        "confirm_delete_this_post": "¿Estás seguro de querer borrar esta publicación?",
+        "go_to_previous_post": "Ir a publicación anterior",
+        "react_with_emoji": "Reaccionar con emoji",
+        "unmute_author": "No silenciar autor"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -85,5 +91,11 @@
     },
     "emoji_picker": {
         "search": "Buscar…"
+    },
+    "post_list": {
+        "post": "Publicación",
+        "post_not_found": "Publicación no encontrada",
+        "no_posts_found": "No se han encontrado publicaciones",
+        "post_is_not_available": "La publicación no está disponible"
     }
 }
