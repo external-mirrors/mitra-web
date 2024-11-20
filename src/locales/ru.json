@@ -24,10 +24,11 @@
     "post": {
         "go_to_previous_post": "Перейти к предыдущему посту",
         "visibility": {
-          "public": "Публичный",
-          "followers": "Мои фоловеры",
-          "subscribers": "Подписчики",
-          "direct": "Директ"
+            "public": "Публичный",
+            "followers": "Мои фоловеры",
+            "subscribers": "Подписчики",
+            "direct": "Директ",
+            "conversation": "Беседа"
         },
         "featured": "Избранное",
         "replying_to": "Ответить на",
@@ -66,7 +67,14 @@
         "unmute_author": "Включить автора",
         "subscribe": "Поросоединиться",
         "confirm_delete_this_post": "Вы уверены что хотите удалить этот пост?",
-        "view_conversation": "Посмотреть беседу"
+        "view_conversation": "Посмотреть беседу",
+        "visibility_description": {
+            "visible_to_everyone": "Видно всем",
+            "visible_to_followers": "Видно подписчикам",
+            "visible_to_premium_subscribers": "Доступно премиум-подписчикам",
+            "visible_to_people_chosen_by_conversation_owner": "Видно людям, выбранным владельцем беседы",
+            "visible_to_mentioned_users": "Видно упомянутым пользователям"
+        }
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -93,7 +101,8 @@
         "toggle_preview": "Переключить предварительный просмотр",
         "attach_file": "Перекреплено",
         "click_to_edit_description": "Нажмите чтобы изменить описание",
-        "characters_left": "Осталось символов"
+        "characters_left": "Осталось символов",
+        "visibility_can_not_be_changed": "Видимость не может быть изменена"
     },
     "emoji_picker": {
         "search": "Поиск…",
@@ -135,8 +144,8 @@
         "stats_posts": "постов",
         "tab_posts": "Посты",
         "tab_gallery": "Галерея",
-        "tab_followers": "Подписаны на вас...",
-        "tab_following": "Я подписан...",
+        "tab_followers": "Подписаны на вас",
+        "tab_following": "Я подписан",
         "tab_subscribers": "Подписавшиеся",
         "subscription_expires": "Подписки истекают",
         "remove_from_followers": "Удалить из подписчиков",

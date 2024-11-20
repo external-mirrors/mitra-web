@@ -17,7 +17,8 @@
         "remove_attachment": "Видалити вкладення",
         "insert_emoji": "Вставити емоджі",
         "click_to_edit_description": "Натисніть тут, щоб змінити опис",
-        "enter_image_description": "Введіть опис зображення"
+        "enter_image_description": "Введіть опис зображення",
+        "visibility_can_not_be_changed": "Неможливо змінити видимість"
     },
     "navigation": {
         "logout": "Вийти з системи",

@@ -30,7 +30,8 @@
         "insert_emoji": "插入emoji",
         "characters_left": "剩余可用字符",
         "toggle_preview": "查看预览",
-        "attach_file": "添加附件"
+        "attach_file": "添加附件",
+        "visibility_can_not_be_changed": "无法更改可见性"
     },
     "about": {
         "administered_by": "管理员",
