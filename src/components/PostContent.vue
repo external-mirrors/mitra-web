@@ -164,17 +164,12 @@ function getContent(): string {
   }
 
   :deep(ul),
-  :deep(ol),
-  :deep(li) {
-    list-style-position: inside;
+  :deep(ol) {
+    padding-inline-start: 1rem;
   }
 
   :deep(ul) {
     list-style-type: disc;
-  }
-
-  :deep(li li) {
-    padding-left: 20px;
   }
 
   :deep(.greentext) {

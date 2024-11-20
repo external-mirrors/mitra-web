@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Don't allow to edit posts with text/html content type.
 - Expect status code 200 when deleting post.
 - Moved subscription settings from sidebar to "Settings" page.
+- Improved rendering of lists.
 
 ### Fixed
 
