@@ -330,7 +330,8 @@
   "move_followers": {
     "move_followers": "Move followers",
     "target_address": "Target address",
-    "move": "Move"
+    "move": "Move",
+    "user_not_found": "user not found"
   },
   "identities": {
     "identities": "Identities",

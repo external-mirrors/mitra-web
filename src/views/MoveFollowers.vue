@@ -30,6 +30,7 @@ import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
+import { searchProfilesByAcct } from "@/api/search"
 import { moveFollowers } from "@/api/settings"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -54,12 +55,24 @@ async function submit() {
   if (currentUser.value === null) {
     return
   }
+  const targetAcct = target.value.replace(/^@/, "")
   let user
   isLoading.value = true
+  const found = await searchProfilesByAcct(
+    ensureAuthToken(),
+    targetAcct,
+    true,
+    1,
+  )
+  if (found[0]?.acct !== targetAcct) {
+    isLoading.value = false
+    errorMessage.value = t("move_followers.user_not_found")
+    return
+  }
   try {
     user = await moveFollowers(
       ensureAuthToken(),
-      target.value.replace(/^@/, ""),
+      targetAcct,
     )
   } catch (error: any) {
     isLoading.value = false
