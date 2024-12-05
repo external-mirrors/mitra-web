@@ -99,12 +99,6 @@
         </form>
       </section>
       <section>
-        <h2>{{ $t('settings.identities') }}</h2>
-        <router-link class="btn" :to="{ name: 'settings-aliases' }">
-          {{ $t('settings.manage_identities') }}
-        </router-link>
-      </section>
-      <section>
         <h2>{{ $t('settings.export') }}</h2>
         <table class="export">
           <tr>
@@ -124,6 +118,23 @@
         </table>
       </section>
       <section>
+        <h2>{{ $t('settings.import') }}</h2>
+        <router-link class="btn" :to="{ name: 'import-follows' }">
+          {{ $t('settings.import_follows') }}
+        </router-link>
+      </section>
+      <section>
+        <h2>{{ $t('settings.migrate_account') }}</h2>
+        <section class="btn-group">
+          <router-link class="btn" :to="{ name: 'settings-aliases' }">
+            {{ $t('settings.manage_identities') }}
+          </router-link>
+          <router-link class="btn" :to="{ name: 'move-followers' }">
+            {{ $t('settings.move_followers') }}
+          </router-link>
+        </section>
+      </section>
+      <section>
         <h2>{{ $t('settings.delete_account') }}</h2>
         <button
           class="btn"
@@ -136,17 +147,9 @@
         <h2>{{ $t('settings.experiments') }}</h2>
         <details class="experiments">
           <summary>{{ $t('settings.experiments_summary') }}</summary>
-          <div class="experiments-wrapper">
-            <router-link class="btn" :to="{ name: 'import-follows' }">
-              Import follows
-            </router-link>
-            <router-link class="btn" :to="{ name: 'import-followers' }">
-              Import followers
-            </router-link>
-            <router-link class="btn" :to="{ name: 'move-followers' }">
-              Move followers
-            </router-link>
-          </div>
+          <router-link class="btn" :to="{ name: 'import-followers' }">
+            Import followers
+          </router-link>
         </details>
       </section>
     </template>
@@ -315,16 +318,17 @@ form {
   }
 }
 
+.btn-group {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $block-outer-padding;
+}
+
 .experiments {
   summary {
     margin-bottom: $block-outer-padding;
-  }
-
-  .experiments-wrapper {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    gap: $block-outer-padding;
   }
 }
 </style>
