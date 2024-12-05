@@ -1,13 +1,13 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Move followers</h1>
+      <h1>{{ $t('move_followers.move_followers') }}</h1>
       <form>
         <div class="input-group">
           <input
             type="text"
             id="target"
-            placeholder="Target address"
+            :placeholder="$t('move_followers.target_address')"
             v-model="target"
           >
         </div>
@@ -17,7 +17,7 @@
           :disabled="!canMove() || isLoading"
           @click.prevent="submit()"
         >
-          Move
+          {{ $t('move_followers.move') }}
         </button>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import { moveFollowers } from "@/api/settings"
@@ -35,6 +36,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, setCurrentUser } = useCurrentUser()
@@ -71,7 +73,7 @@ async function submit() {
 }
 
 onMounted(() => {
-  setPageTitle("Move followers")
+  setPageTitle(t("move_followers.move_followers"))
 })
 </script>
 

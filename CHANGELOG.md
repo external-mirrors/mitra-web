@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Move "Import follows" and "Move followers" buttons out of "Experiments" section.
+- Prepare import and migration pages for translation.
 
 ## [3.10.0] - 2024-11-20
 

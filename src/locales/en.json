@@ -322,6 +322,27 @@
     "unit_days": "days",
     "grant": "Grant"
   },
+  "import_follows": {
+    "import_follows": "Import follows",
+    "follows_csv": "Follows (CSV)",
+    "import": "Import"
+  },
+  "move_followers": {
+    "move_followers": "Move followers",
+    "target_address": "Target address",
+    "move": "Move"
+  },
+  "identities": {
+    "identities": "Identities",
+    "if_you_want_to_move_from_another_account": "If you want to move from another account to this one, here you can create an alias, which is required before you can proceed with moving followers from the old account to this one.",
+    "declared_aliases": "Declared aliases",
+    "remove_alias": "Remove alias",
+    "verified_aliases": "Verified aliases",
+    "add_alias": "Add alias",
+    "fediverse_address": "Fediverse address",
+    "add": "Add",
+    "user_not_found": "user not found"
+  },
   "misc": {
     "reload_page": "Reload the page in a few minutes"
   }

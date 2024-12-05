@@ -1,10 +1,10 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Identities</h1>
-      <section>If you want to move from another account to this one, here you can create an alias, which is required before you can proceed with moving followers from the old account to this one.</section>
+      <h1>{{ $t('identities.identities') }}</h1>
+      <section>{{ $t('identities.if_you_want_to_move_from_another_account') }}</section>
       <section v-if="aliases.declared_all.length > 0">
-        <h2>Declared aliases</h2>
+        <h2>{{ $t('identities.declared_aliases') }}</h2>
         <div class="profile-group" v-for="alias in aliases.declared_all" :key="alias.id">
           <router-link
             v-if="alias.account !== null"
@@ -18,7 +18,7 @@
           ></profile-list-item>
           <button
             class="remove-alias icon"
-            title="Remove alias"
+            :title="$t('identities.remove_alias')"
             @click="onRemoveAlias(alias.id)"
           >
             <icon-delete></icon-delete>
@@ -26,7 +26,7 @@
         </div>
       </section>
       <section v-if="aliases.verified.length > 0">
-        <h2>Verified aliases</h2>
+        <h2>{{ $t('identities.verified_aliases') }}</h2>
         <router-link
           v-for="profile in aliases.verified"
           :key="profile.id"
@@ -36,14 +36,14 @@
         </router-link>
       </section>
       <section>
-        <h2>Add alias</h2>
+        <h2>{{ $t('identities.add_alias') }}</h2>
         <form @submit.prevent="onAddAlias()">
           <div class="input-group">
             <input
               id="alias"
               type="text"
               v-model.trim="newAlias"
-              placeholder="Fediverse address"
+              :placeholder="$t('identities.fediverse_address')"
               @input="newAliasSuggestions = []; newAliasError = null"
             >
             <div class="suggestions" v-if="newAliasSuggestions.length > 0">
@@ -62,7 +62,7 @@
             class="btn"
             :disabled="!canAddAlias()"
           >
-            Add
+            {{ $t('identities.add') }}
           </button>
           <div class="error-message" v-if="newAliasError">
             {{ newAliasError }}
@@ -76,6 +76,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { searchProfilesByAcct } from "@/api/search"
 import { addAlias, removeAlias } from "@/api/settings"
@@ -88,6 +89,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const { getActorLocation } = useActorHandle()
 const { ensureCurrentUser, ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
@@ -99,7 +101,7 @@ const newAliasSuggestions = ref<Profile[]>([])
 const newAliasError = ref<string | null>(null)
 
 onMounted(async () => {
-  setPageTitle("Identities")
+  setPageTitle(t("identities.identities"))
   isLoading.value = true
   aliases.value = await getAliases(ensureCurrentUser().id)
   isLoading.value = false
@@ -118,7 +120,7 @@ async function onAddAlias() {
     5,
   )
   if (profiles.length === 0) {
-    newAliasError.value = "profile not found"
+    newAliasError.value = t("identities.user_not_found")
     isLoading.value = false
     return
   }

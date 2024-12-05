@@ -1,12 +1,12 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Import follows</h1>
+      <h1>{{ $t('import_follows.import_follows') }}</h1>
       <form class="import-follows">
         <div class="input-group">
           <textarea
             id="follows"
-            placeholder="Follows (CSV)"
+            :placeholder="$t('import_follows.follows_csv')"
             v-model="followsCsv"
           >
           </textarea>
@@ -17,7 +17,7 @@
           :disabled="!canImport() || isLoading"
           @click.prevent="submit()"
         >
-          Import
+          {{ $t('import_follows.import') }}
         </button>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
 import { importFollows } from "@/api/settings"
@@ -35,6 +36,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
+const { t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = useCurrentUser()
@@ -69,7 +71,7 @@ async function submit() {
 }
 
 onMounted(() => {
-  setPageTitle("Import follows")
+  setPageTitle(t("import_follows.import_follows"))
 })
 </script>
 
