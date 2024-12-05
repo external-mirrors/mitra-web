@@ -326,5 +326,14 @@
             "save": "Зберегти",
             "rename_feed": "Перейменувати стрічку"
         }
+    },
+    "move_followers": {
+        "target_address": "Цільова адреса",
+        "move": "Перемістити",
+        "user_not_found": "користувача не знайдено"
+    },
+    "identities": {
+        "user_not_found": "користувача не знайдено",
+        "add": "Додати"
     }
 }
