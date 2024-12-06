@@ -39,7 +39,7 @@
     },
     "welcome": {
         "welcome": "欢迎来到 {0}！",
-        "read_only_mode": "您的账户处于只读模式",
+        "read_only_mode": "您的账号处于只读模式",
         "browse_directory": "浏览用户目录"
     },
     "post": {
@@ -177,8 +177,8 @@
         "avatar": "头像",
         "banner": "横幅",
         "remove_image": "移除",
-        "lock_account": "锁定账户",
-        "lock_account_requires": "你需要手动批准新粉丝",
+        "lock_account": "锁定账号",
+        "lock_account_requires": "要求您手动批准新粉丝",
         "accept_mentions_from": "接受提及范围",
         "mention_policy_applies": "对私信和公开贴文生效",
         "mention_everybody": "所有人",
@@ -228,12 +228,16 @@
         "follows": "关注",
         "followers": "粉丝",
         "download": "下载",
-        "delete_account": "删除账户",
+        "delete_account": "删除账号",
         "experiments": "实验性功能",
         "experiments_summary": "这些设置包含实验性功能。使用时请自行承担风险。",
         "enable_dark_mode": "启用暗色模式",
         "enabled_authentication_methods": "已启用的身份验证方式：",
-        "delete_account_confirm": "确认要删除账户吗？此操作无法撤销。"
+        "delete_account_confirm": "是否确定要删除账号？此操作无法撤销。",
+        "import": "导入",
+        "import_follows": "导入关注",
+        "move_followers": "移动粉丝",
+        "migrate_account": "迁移账号"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",
@@ -321,5 +325,27 @@
             "save": "保存",
             "cancel": "取消"
         }
+    },
+    "import_follows": {
+        "follows_csv": "关注 (CSV)",
+        "import": "导入",
+        "import_follows": "导入关注"
+    },
+    "move_followers": {
+        "move_followers": "移动粉丝",
+        "move": "移动",
+        "user_not_found": "用户未找到",
+        "target_address": "目标地址"
+    },
+    "identities": {
+        "identities": "身份",
+        "declared_aliases": "声明的别名",
+        "remove_alias": "移除别名",
+        "add_alias": "添加别名",
+        "fediverse_address": "联邦宇宙地址",
+        "add": "添加",
+        "user_not_found": "用户未找到",
+        "if_you_want_to_move_from_another_account": "如果您想从另一个账号移动到此账号，您可以在此处创建一个别名，这是将粉丝从旧账号移动到此账号之前所必需的。",
+        "verified_aliases": "验证的别名"
     }
 }
