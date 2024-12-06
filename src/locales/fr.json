@@ -135,7 +135,7 @@
         "tab_gallery": "Galerie",
         "tab_followers": "Abonné·e·s",
         "tab_following": "Abonnements",
-        "tab_subscribers": "Souscriptions",
+        "tab_subscribers": "Ont souscrit",
         "subscription_expires": "Souscription expirant le {date}",
         "subscriber": "Souscript·eur·rice"
     },
@@ -187,7 +187,11 @@
         "experiments": "Outils expérimentaux",
         "experiments_summary": "Cette section contient des fonctionnalités expérimentales. Utilisation à vos risques et périls.",
         "enabled_authentication_methods": "Méthodes d'authentification actives :",
-        "delete_account_confirm": "Voulez-vous vraiment supprimer votre compte ? Aucun retour en arrière ne sera possible."
+        "delete_account_confirm": "Voulez-vous vraiment supprimer votre compte ? Aucun retour en arrière ne sera possible.",
+        "import": "Importer",
+        "import_follows": "Importer les abonnements",
+        "move_followers": "Déplacer les abonnés",
+        "migrate_account": "Migrer le compte"
     },
     "custom_feeds": {
         "delete_feed": "Supprimer le flux",
@@ -321,5 +325,27 @@
     },
     "misc": {
         "reload_page": "Rafraîchissez la page dans quelques minutes"
+    },
+    "identities": {
+        "remove_alias": "Supprimer l'alias",
+        "identities": "Identités",
+        "declared_aliases": "Alias déclarés",
+        "verified_aliases": "Alias vérifiés",
+        "fediverse_address": "Adresse sur le fediverse",
+        "add": "Ajouter",
+        "add_alias": "Ajouter l'alias",
+        "if_you_want_to_move_from_another_account": "Si vous souhaitez déménager depuis un autre compte vers celui-ci, vous pouvez créer un alias, qui est nécessaire pour pouvoir transférer les abonnés de l'ancien compte vers celui-ci.",
+        "user_not_found": "utilisateur non trouvé"
+    },
+    "move_followers": {
+        "move": "Déplacer",
+        "move_followers": "Déplacer les abonnés",
+        "target_address": "Adresse cible",
+        "user_not_found": "utilisateur non trouvé"
+    },
+    "import_follows": {
+        "import_follows": "Importer les abonnements",
+        "follows_csv": "Abonnements (CSV)",
+        "import": "Importer"
     }
 }
