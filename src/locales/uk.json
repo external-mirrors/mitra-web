@@ -37,7 +37,7 @@
         "next_page": "Показати більше публікацій",
         "timestamp_days": "{n} день тому | {n} днів тому",
         "timestamp_hours": "{n} годину тому | {n} годин тому",
-        "timestamp_minutes": "зараз | {n} хвилину тому | {n} хвилин тому",
+        "timestamp_minutes": "щойно | {n} хвилину тому | {n} хвилин тому",
         "replying_to": "відповідаючи на",
         "load_replies": "Завантажити відповіді",
         "hide_image": "Приховати зображення",
@@ -237,7 +237,11 @@
         "follows": "Відстежувані",
         "followers": "Відстежувачі",
         "download": "завантажити",
-        "manage_identities": "Керування особами"
+        "manage_identities": "Керування особами",
+        "import": "Імпорт",
+        "migrate_account": "Перенесення облікового запису",
+        "import_follows": "Імпорт відстежуваних",
+        "move_followers": "Переміщення відстежувачів"
     },
     "gallery": {
         "name_gallery": "Галерея {name}",
@@ -330,10 +334,23 @@
     "move_followers": {
         "target_address": "Цільова адреса",
         "move": "Перемістити",
-        "user_not_found": "користувача не знайдено"
+        "user_not_found": "користувача не знайдено",
+        "move_followers": "Переміщення відстежувачів"
     },
     "identities": {
         "user_not_found": "користувача не знайдено",
-        "add": "Додати"
+        "add": "Додати",
+        "identities": "Особи",
+        "declared_aliases": "Заявлені псевдоніми",
+        "remove_alias": "Видалити псевдонім",
+        "if_you_want_to_move_from_another_account": "Якщо хочете перейти з іншого облікового запису до цього, тут Ви можете створити псевдонім, який необхідний для того, щоб продовжити переміщення відстежувачів зі старого облікового запису до цього.",
+        "verified_aliases": "Перевірені псевдоніми",
+        "add_alias": "Додати псевдонім",
+        "fediverse_address": "Адреса Fediverse"
+    },
+    "import_follows": {
+        "import_follows": "Імпорт відстежуваних",
+        "follows_csv": "Відстежувані (CSV)",
+        "import": "Імпортувати"
     }
 }
