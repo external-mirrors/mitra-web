@@ -314,11 +314,19 @@
   }
 }
 
+@mixin emoji {
+  img {
+    color: transparent;
+  }
+}
+
 /* Without zoom-in effect */
 @mixin emoji-inline {
   line-height: $emoji-line-height;
 
   :deep(.emoji) {
+    @include emoji;
+
     /* TODO: use 'lh' unit https://developer.mozilla.org/en-US/docs/Web/CSS/length */
     height: $emoji-line-height * 1em;
     width: $emoji-line-height * 1em;
@@ -335,6 +343,8 @@
 
 // Doesn't work properly inside elements with overflow:hidden
 @mixin emoji-zoom {
+  @include emoji;
+
   display: inline-block;
   position: relative;
   vertical-align: text-bottom;

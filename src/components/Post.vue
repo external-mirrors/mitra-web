@@ -1039,6 +1039,8 @@ $reaction-padding: 5px;
   }
 
   :deep(.emoji) {
+    @include emoji;
+
     display: inline-block;
     height: $emoji-size;
     width: $emoji-size;
