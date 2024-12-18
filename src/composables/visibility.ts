@@ -27,16 +27,18 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
           Visibility.Direct,
         ]
       } else {
-        // TODO: conversation by default
         return [
-          Visibility.Direct,
           Visibility.Conversation,
+          Visibility.Direct,
         ]
       }
     case Visibility.Subscribers:
       return [Visibility.Direct]
     case Visibility.Conversation:
-      return [Visibility.Direct]
+      return [
+        Visibility.Conversation,
+        Visibility.Direct,
+      ]
     case Visibility.Direct:
       return [Visibility.Direct]
   }
