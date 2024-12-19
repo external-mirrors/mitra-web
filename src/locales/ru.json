@@ -1,7 +1,7 @@
 {
     "about": {
         "technical_info": "Техническая информация",
-        "administered_by": "Администрируемый"
+        "administered_by": "Администрирование"
     },
     "navigation": {
         "home": "Моя лента",
@@ -234,7 +234,11 @@
         "experiments_summary": "Этот раздел содержит экспериментальные функции. Используйте на ваш риск.",
         "identities": "Личные данные",
         "authentication_method_password": "Пароль",
-        "delete_account_confirm": "Вы уверены что хотите удалить аккаунт? Это нельзя будет отменить."
+        "delete_account_confirm": "Вы уверены что хотите удалить аккаунт? Это нельзя будет отменить.",
+        "import": "Импорт",
+        "move_followers": "Переместить подписчиков",
+        "import_follows": "Импорт подписчиков",
+        "migrate_account": "Перенести аккаунт"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",
@@ -326,5 +330,27 @@
             "save": "Сохранить",
             "rename_feed": "Переименование ленты"
         }
+    },
+    "import_follows": {
+        "follows_csv": "Подписки (CSV)",
+        "import": "Импорт",
+        "import_follows": "Импорт подписчиков"
+    },
+    "move_followers": {
+        "move_followers": "Переместить подписчиков",
+        "move": "Переместить",
+        "target_address": "Целевой адрес",
+        "user_not_found": "пользователь не найден"
+    },
+    "identities": {
+        "identities": "Личности",
+        "add_alias": "Добавить псевдоним",
+        "add": "Добавить",
+        "verified_aliases": "Проверенные псевдонимы",
+        "if_you_want_to_move_from_another_account": "Если вы хотите перейти из другой учетной записи в эту, здесь вы можете создать псевдоним, который необходим, прежде чем вы сможете приступить к перемещению подписчиков из старой учетной записи в эту.",
+        "declared_aliases": "Объявленные псевдонимы",
+        "user_not_found": "пользователь не найден",
+        "remove_alias": "Удалить псевдоним",
+        "fediverse_address": "Федиверс адрес"
     }
 }
