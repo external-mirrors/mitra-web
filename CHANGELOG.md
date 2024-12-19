@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't display alt text if custom emoji doesn't load.
 - Use "Conversation" visibility by default when replying in followers-only conversation.
+- Updated translations ([#55](https://codeberg.org/silverpill/mitra-web/pulls/55)).
 
 ## [3.11.0] - 2024-12-05
 
