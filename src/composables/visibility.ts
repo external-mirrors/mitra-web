@@ -33,7 +33,10 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
         ]
       }
     case Visibility.Subscribers:
-      return [Visibility.Direct]
+      return [
+        Visibility.Conversation,
+        Visibility.Direct,
+      ]
     case Visibility.Conversation:
       return [
         Visibility.Conversation,

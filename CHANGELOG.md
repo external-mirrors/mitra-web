@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use "Conversation" visibility by default when replying in subscribers-only conversation.
+
 ## [3.12.0] - 2024-12-19
 
 ### Changed
