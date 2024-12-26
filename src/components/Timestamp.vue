@@ -22,6 +22,23 @@ const clock = setInterval(() => {
 function humanizeDate(isoDate: string): string {
   const date = DateTime.fromISO(isoDate)
   const now = currentTime.value
+  if (now < date) {
+    const diff = date.diff(now)
+    if (diff.as("minutes") < 60) {
+      const minutes = Math.round(diff.as("minutes"))
+      return t("post.timestamp_future_minutes", { n: minutes }, minutes)
+    } else if (diff.as("hours") < 24) {
+      const hours = Math.round(diff.as("hours"))
+      return t("post.timestamp_future_hours", { n: hours }, hours)
+    } else if (diff.as("days") < 7) {
+      const days = Math.round(diff.as("days"))
+      return t("post.timestamp_future_days", { n: days }, days)
+    } else if (date.year === now.year) {
+      return date.toFormat("dd LLL")
+    } else {
+      return date.toFormat("dd LLL y")
+    }
+  }
   const diff = now.diff(date)
   if (diff.as("minutes") < 60) {
     const minutes = Math.round(diff.as("minutes"))

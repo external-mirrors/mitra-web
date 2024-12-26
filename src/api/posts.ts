@@ -2,6 +2,7 @@ import { BACKEND_URL } from "@/constants"
 
 import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
+import { Poll } from "./polls"
 import { getRelationships, Relationship } from "./relationships"
 import { defaultProfile, Profile } from "./users"
 
@@ -86,6 +87,7 @@ export interface Post {
   replies_count: number;
   favourites_count: number;
   reblogs_count: number;
+  poll: Poll | null,
   media_attachments: Attachment[];
   mentions: Mention[];
   tags: Tag[];
@@ -290,6 +292,7 @@ export async function previewPost(
     replies_count: 0,
     favourites_count: 0,
     reblogs_count: 0,
+    poll: null,
     media_attachments: [],
     mentions: [],
     tags: [],

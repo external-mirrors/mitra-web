@@ -91,6 +91,7 @@
       </universal-link>
     </div>
     <post-content v-if="post.content" :post="post"></post-content>
+    <post-poll v-if="post.poll" :poll="post.poll" @poll-updated="onPollUpdate($event)"></post-poll>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
       <post-attachment
         v-for="attachment in post.media_attachments"
@@ -398,6 +399,7 @@ import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
 import { getEmojiShortcode, replaceShortcodes } from "@/api/emojis"
+import { Poll } from "@/api/polls"
 import {
   createBookmark,
   deleteBookmark,
@@ -448,6 +450,7 @@ import EmojiPicker from "@/components/EmojiPicker.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
+import PostPoll from "@/components/PostPoll.vue"
 import PostPreview from "@/components/PostPreview.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
@@ -610,6 +613,10 @@ async function toggleRepost() {
   isProcessingRepost.value = false
   props.post.reblogs_count = updatedPost.reblogs_count
   props.post.reblogged = updatedPost.reblogged
+}
+
+function onPollUpdate(poll: Poll) {
+  props.post.poll = poll
 }
 
 function getReactionCount(): number {
@@ -973,6 +980,11 @@ $reaction-padding: 5px;
 }
 
 .post-content {
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
+}
+
+.post-poll {
   margin: $block-inner-padding 0;
   padding: 0 $block-inner-padding;
 }

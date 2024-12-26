@@ -43,6 +43,9 @@
     "timestamp_minutes": "now | {n} minute ago | {n} minutes ago",
     "timestamp_hours": "{n} hour ago | {n} hours ago",
     "timestamp_days": "{n} day ago | {n} days ago",
+    "timestamp_future_minutes": "now | in {n} minute | in {n} minutes",
+    "timestamp_future_hours": "in {n} hour | in {n} hours",
+    "timestamp_future_days": "in {n} day | in {n} days",
     "sensitive_content": "Sensitive content",
     "hide_image": "Hide image",
     "close_image": "Close",
@@ -75,6 +78,14 @@
     "copy_coin_address": "Copy address",
     "action_reposted": "reposted",
     "next_page": "Show more posts"
+  },
+  "poll": {
+    "num_votes": "no votes | {n} vote | {n} votes",
+    "vote": "Vote",
+    "multiple_choices": "Multiple choices",
+    "ends": "Ends {0}",
+    "closed": "Closed",
+    "see_results": "See results"
   },
   "post_list": {
     "post": "Post",
