@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Use "Conversation" visibility by default when replying in subscribers-only conversation.
 - Display error message on "Manage subscriptions" page when Monero address is not valid.
 
+### Fixed
+
+- Restore scroll position after autoresizing textarea.
+
 ## [3.12.0] - 2024-12-19
 
 ### Changed

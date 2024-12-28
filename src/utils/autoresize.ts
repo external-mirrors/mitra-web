@@ -1,8 +1,13 @@
 export function resizeTextArea(textarea: HTMLTextAreaElement) {
+  const x = window.scrollX
+  const y = window.scrollY
   textarea.style.height = "0px"
   textarea.style.height = `${textarea.scrollHeight}px`
+  // Restore scroll position (helps when textarea is at the bottom of the viewport)
+  window.scrollTo(x, y)
 }
 
+// TODO: use https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing
 export function setupAutoResize(textarea: HTMLTextAreaElement) {
   textarea.style.minHeight = `${textarea.offsetHeight}px`
   textarea.style.overflowY = "hidden"
