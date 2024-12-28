@@ -52,6 +52,7 @@
           {{ $t('subscriptions.enable_subscriptions') }}
         </template>
       </button>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </form>
     <loader v-if="isLoading"></loader>
   </div>
@@ -91,6 +92,7 @@ const subscriptionOptionLoaded = ref(false)
 const subscriptionPrice = ref(0.01)
 const subscriptionPayoutAddress = ref("")
 const isFormVisible = ref(false)
+const errorMessage = ref<string | null>(null)
 
 onMounted(async () => {
   isLoading.value = true
@@ -150,17 +152,21 @@ async function saveSubscriptionSettings() {
     )
   } catch (error: any) {
     isLoading.value = false
+    errorMessage.value = error.message
     return
   }
   setCurrentUser(user)
   await loadSubscriptionSettings()
   isFormVisible.value = false
   isLoading.value = false
+  errorMessage.value = null
 }
 </script>
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
+@import "../styles/theme";
 
 .info {
   background-color: var(--block-background-color);
@@ -193,10 +199,9 @@ async function saveSubscriptionSettings() {
 }
 
 form {
+  @include content-form;
+
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: $block-inner-padding;
 }
 
 .price-input-group {
@@ -210,7 +215,7 @@ form {
     font-weight: bold;
   }
 
-  input {
+  input[type="number"] {
     width: 100px;
   }
 }
