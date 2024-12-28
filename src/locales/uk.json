@@ -86,7 +86,10 @@
             "visible_to_mentioned_users": "Видимий для згаданих користувачів",
             "visible_to_people_chosen_by_conversation_owner": "Видимий для людей, яких вибрав власник розмови",
             "visible_to_premium_subscribers": "Видимий для передплатників"
-        }
+        },
+        "timestamp_future_days": "за {n} день | за {n} днів",
+        "timestamp_future_hours": "за {n} годину | за {n} годин",
+        "timestamp_future_minutes": "зараз | за {n} хвилину | за {n} хвилин"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
@@ -352,5 +355,13 @@
         "import_follows": "Імпорт відстежуваних",
         "follows_csv": "Відстежувані (CSV)",
         "import": "Імпортувати"
+    },
+    "poll": {
+        "num_votes": "немає голосів | {n} голос | {n} голосів",
+        "vote": "Голосувати",
+        "ends": "Завершується {0}",
+        "closed": "Закрито",
+        "multiple_choices": "Кілька варіантів",
+        "see_results": "Переглянути результати"
     }
 }
