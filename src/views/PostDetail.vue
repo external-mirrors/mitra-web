@@ -75,12 +75,12 @@ onMounted(async () => {
   } catch (error: any) {
     if (error.message === "post not found") {
       // Show "not found" text
+      isLoading.value = false
       return
     }
     throw error
-  } finally {
-    isLoading.value = false
   }
+  isLoading.value = false
   await nextTick()
   // TODO: scrolls to wrong position if posts above it have images
   scrollTo(selectedId.value)

@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Restore scroll position after autoresizing textarea.
+- Don't show "Post not found" message in conversation view on network errors.
 
 ## [3.12.0] - 2024-12-19
 
