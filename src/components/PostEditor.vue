@@ -320,6 +320,7 @@ onMounted(() => {
   if (contentInputElement.value) {
     setupAutoResize(contentInputElement.value)
     resizeTextArea(contentInputElement.value)
+    contentInputElement.value.focus()
   }
 })
 
