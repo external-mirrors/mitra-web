@@ -74,7 +74,10 @@
             "visible_to_premium_subscribers": "Доступно премиум-подписчикам",
             "visible_to_people_chosen_by_conversation_owner": "Видно людям, выбранным владельцем беседы",
             "visible_to_mentioned_users": "Видно упомянутым пользователям"
-        }
+        },
+        "timestamp_future_hours": "через {n} час | через {n} часов",
+        "timestamp_future_days": "через {n} день | через {n} дней",
+        "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -352,5 +355,13 @@
         "user_not_found": "пользователь не найден",
         "remove_alias": "Удалить псевдоним",
         "fediverse_address": "Федиверс адрес"
+    },
+    "poll": {
+        "see_results": "Посмотреть результаты",
+        "num_votes": "нет голосов | {n} голос | {n} голосов",
+        "vote": "Голосование",
+        "ends": "Заканчивается {0}",
+        "closed": "Закрыт",
+        "multiple_choices": "Несколько вариантов"
     }
 }
