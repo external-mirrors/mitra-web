@@ -62,6 +62,7 @@
             type="file"
             ref="attachmentUploaderElement"
             :accept="getAcceptedMediaTypes()"
+            multiple="true"
             style="display: none;"
             @change="onAttachmentUpload($event)"
           >
@@ -450,11 +451,12 @@ function selectAttachment() {
 }
 
 async function onAttachmentUpload(event: Event) {
-  const files = (event.target as HTMLInputElement).files
-  if (!files) {
-    return
+  const files = (event.target as HTMLInputElement).files || []
+  if (files.length > 0) {
+    for (const file of files) {
+      await addAttachment(file)
+    }
   }
-  await addAttachment(files[0])
 }
 
 async function addAttachment(file: File) {
