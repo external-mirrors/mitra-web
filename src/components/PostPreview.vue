@@ -10,6 +10,9 @@
       >
         {{ getActorHandle(author) }}
       </span>
+      <span class="timestamp">
+        <timestamp :date="post.created_at"></timestamp>
+      </span>
     </div>
     <post-content v-if="post.content" :post="post"></post-content>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
@@ -32,6 +35,7 @@ import Avatar from "@/components/Avatar.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import Timestamp from "@/components/Timestamp.vue"
 import { useActorHandle } from "@/composables/handle"
 
 const props = defineProps<{
@@ -62,6 +66,7 @@ const author = computed(() => new ProfileWrapper(props.post.account))
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding $block-inner-padding 0;
+  white-space: nowrap;
 
   .avatar {
     height: $icon-size;
@@ -73,10 +78,16 @@ const author = computed(() => new ProfileWrapper(props.post.account))
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .actor-address {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .timestamp {
+    color: var(--secondary-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
   }

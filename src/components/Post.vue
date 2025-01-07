@@ -924,6 +924,7 @@ $reaction-padding: 5px;
   flex-direction: row;
   gap: calc($block-inner-padding / 2);
   padding: $block-inner-padding $block-inner-padding 0;
+  white-space: nowrap;
 
   .floating-avatar {
     @include floating-avatar;
@@ -936,7 +937,6 @@ $reaction-padding: 5px;
   .display-name-link {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 
     .display-name {
       color: var(--text-color);
@@ -955,7 +955,6 @@ $reaction-padding: 5px;
   .timestamp {
     color: var(--secondary-text-color);
     text-align: right;
-    white-space: nowrap;
 
     &:hover {
       color: var(--secondary-text-hover-color);

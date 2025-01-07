@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Enable multiple selection in file upload dialog.
 
+### Changed
+
+- Display timestamps in quoted posts.
+
 ### Fixed
 
 - Don't overwrite new post draft when reposting with comment.
