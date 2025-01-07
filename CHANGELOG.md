@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Enable multiple selection in file upload dialog.
+- Auto-complete emoji shortcodes.
 
 ### Changed
 

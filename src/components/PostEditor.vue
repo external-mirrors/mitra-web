@@ -13,24 +13,39 @@
         ref="contentInputElement"
         v-show="preview === null"
         :value="content"
-        @input="onContentInput"
         rows="1"
         required
         :placeholder="inReplyTo ? $t('post_editor.prompt_reply') : (repostOf ? $t('post_editor.prompt_repost') : $t('post_editor.prompt'))"
+        @input="onContentInput"
         @drop="onDrop($event)"
         @paste="onPaste($event)"
         @keyup.ctrl.enter="onCtrlEnter()"
       ></textarea>
       <div
-        class="mention-suggestions"
+        class="suggestions"
         v-if="mentionSuggestionList.length > 0 && preview === null"
       >
         <button
           v-for="profile in mentionSuggestionList"
+          type="button"
           :key="profile.id"
           @click.prevent="autocompleteMention(profile)"
         >
-          @{{ profile.acct }}
+          <span>@{{ profile.acct }}</span>
+        </button>
+      </div>
+      <div
+        v-if="emojiSuggestionList.length > 0 && preview === null"
+        class="suggestions"
+      >
+        <button
+          v-for="emoji in emojiSuggestionList"
+          type="button"
+          :key="emoji.name"
+          @click="autocompleteEmoji(emoji)"
+        >
+          <emoji-image :emoji="emoji"></emoji-image>
+          <span>{{ getEmojiShortcode(emoji.name) }}</span>
         </button>
       </div>
       <post-content
@@ -189,6 +204,7 @@
 /* eslint-disable vue/no-setup-props-destructure */
 import { computed, nextTick, onMounted, ref } from "vue"
 
+import { getEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
 import {
   createPost,
   previewPost,
@@ -207,6 +223,7 @@ import IconHide from "@/assets/feather/eye-off.svg?component"
 import IconAttach from "@/assets/feather/paperclip.svg?component"
 import IconSmile from "@/assets/feather/smile.svg?component"
 import Avatar from "@/components/Avatar.vue"
+import EmojiImage from "@/components/EmojiImage.vue"
 import EmojiPicker from "@/components/EmojiPicker.vue"
 import Loader from "@/components/Loader.vue"
 import PostContent from "@/components/PostContent.vue"
@@ -254,6 +271,8 @@ const isSensitive = ref(false)
 
 const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
+const emojiSuggestionList = ref<Emoji[]>([])
+const emojiPosition = ref<[number, number] | null>(null)
 const visibilityMenuVisible = ref(false)
 const emojiPickerVisible = ref(false)
 const preview = ref<Post | null>(null)
@@ -346,19 +365,41 @@ function removeLocalDraft() {
   localStorage.removeItem(getLocalDraftKey())
 }
 
-async function suggestMentions() {
+async function showSuggestions() {
   if (contentInputElement.value === null) {
     return
   }
   const currentPosition = contentInputElement.value.selectionStart
   const contentBefore = content.value.substring(0, currentPosition)
+
   // "d" flag requires FF 88+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
+  const emojiRegexp = /(^|\s)(?<shortcode>:\S+)$/d
+  const emojiMatch = emojiRegexp.exec(contentBefore)
+  const emojiText = emojiMatch?.groups?.shortcode.substring(1)
+  if (emojiText) {
+    if (emojiText.length >= 2) {
+      const indices = (emojiMatch as any).indices.groups.shortcode
+      const emojis = await getEmojis()
+      const results = emojis
+        .filter(emoji => emoji.name.startsWith(emojiText))
+        .slice(0, 10)
+      if (results.length > 0) {
+        emojiSuggestionList.value = results
+        emojiPosition.value = indices
+        // Hide another suggestion list
+        mentionSuggestionList.value = []
+        return
+      }
+    }
+  }
+  emojiSuggestionList.value = []
+
   const mentionRegexp = /(^|\s)(?<mention>@\S+)$/d
-  const match = mentionRegexp.exec(contentBefore)
-  const mentionText = match?.groups?.mention.substring(1)
+  const mentionMatch = mentionRegexp.exec(contentBefore)
+  const mentionText = mentionMatch?.groups?.mention.substring(1)
   if (mentionText && mentionText.length >= 2) {
-    const indices = (match as any).indices.groups.mention
+    const indices = (mentionMatch as any).indices.groups.mention
     const results = await searchProfilesByAcct(
       ensureAuthToken(),
       mentionText,
@@ -374,7 +415,7 @@ async function suggestMentions() {
   mentionSuggestionList.value = []
 }
 
-const suggestMentionsDebounced = debounce(suggestMentions, 500)
+const showSuggestionsDebounced = debounce(showSuggestions, 500)
 
 async function insertText(start: number, stop: number, text: string) {
   if (contentInputElement.value === null) {
@@ -399,9 +440,18 @@ async function autocompleteMention(profile: Profile) {
   }
 }
 
+async function autocompleteEmoji(emoji: Emoji) {
+  if (emojiPosition.value === null) {
+    throw new Error("emoji position is null")
+  }
+  const [start, stop] = emojiPosition.value
+  await insertText(start, stop, `${getEmojiShortcode(emoji.name)} `)
+  emojiSuggestionList.value = []
+}
+
 function onContentInput(event: Event) {
   content.value = (event.target as HTMLTextAreaElement).value
-  suggestMentionsDebounced()
+  showSuggestionsDebounced()
   if (props.post === null) {
     saveLocalDraft()
   }
@@ -657,18 +707,26 @@ $line-height: 1.5;
   width: 100%;
 }
 
-.mention-suggestions {
+.suggestions {
   display: flex;
   flex-wrap: wrap;
   gap: $input-padding;
   padding: calc($block-inner-padding / 1.5) $block-inner-padding;
 
   button {
+    align-items: center;
     background-color: var(--background-color);
     border-radius: $btn-border-radius;
+    display: flex;
+    gap: $whitespace;
     overflow: hidden;
     padding: calc($input-padding / 2);
-    text-overflow: ellipsis;
+
+    span {
+      /* text-overflow doesn't work on flex elements */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 

@@ -42,3 +42,27 @@ export interface Emoji {
   text: string,
   url: string | null,
 }
+
+export async function getEmojis(): Promise<Emoji[]> {
+  const { gemoji } = await import("gemoji")
+  const unicodeEmojis = gemoji
+    .filter((gemoji) => gemoji.names.length > 0)
+    .map((gemoji) => {
+      return {
+        name: gemoji.names[0],
+        text: gemoji.emoji,
+        url: null,
+      }
+    })
+  const _customEmojis = await getCustomEmojis()
+  const customEmojis = _customEmojis.map(emoji => {
+    return {
+      name: emoji.shortcode,
+      text: getEmojiShortcode(emoji.shortcode),
+      url: emoji.url,
+    }
+  })
+  const emojis = [...unicodeEmojis, ...customEmojis]
+  emojis.sort((a, b) => a.name.localeCompare(b.name))
+  return emojis
+}
