@@ -320,7 +320,6 @@ if (props.repostOf && content.value.length === 0) {
 onMounted(() => {
   if (contentInputElement.value) {
     setupAutoResize(contentInputElement.value)
-    resizeTextArea(contentInputElement.value)
     contentInputElement.value.focus()
   }
 })

@@ -14,4 +14,5 @@ export function setupAutoResize(textarea: HTMLTextAreaElement) {
   textarea.addEventListener("input", () => {
     resizeTextArea(textarea)
   }, false)
+  resizeTextArea(textarea)
 }

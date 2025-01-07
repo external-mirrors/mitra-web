@@ -159,7 +159,7 @@ import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
-import { resizeTextArea, setupAutoResize } from "@/utils/autoresize"
+import { setupAutoResize } from "@/utils/autoresize"
 import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const { t } = useI18n({ useScope: "global" })
@@ -216,7 +216,6 @@ onMounted(() => {
   setPageTitle(t("profile_editor.edit_profile"))
   if (bioInputElement.value !== null) {
     setupAutoResize(bioInputElement.value)
-    resizeTextArea(bioInputElement.value)
   }
 })
 
