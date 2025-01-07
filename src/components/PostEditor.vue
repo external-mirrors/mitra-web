@@ -354,11 +354,11 @@ async function suggestMentions() {
   const contentBefore = content.value.substring(0, currentPosition)
   // "d" flag requires FF 88+
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/hasIndices
-  const mentionRegexp = /(^|\s)@(?<name>\S+)$/d
+  const mentionRegexp = /(^|\s)(?<mention>@\S+)$/d
   const match = mentionRegexp.exec(contentBefore)
-  const mentionText = match?.groups?.name
+  const mentionText = match?.groups?.mention.substring(1)
   if (mentionText && mentionText.length >= 2) {
-    const indices = (match as any).indices.groups.name
+    const indices = (match as any).indices.groups.mention
     const results = await searchProfilesByAcct(
       ensureAuthToken(),
       mentionText,
@@ -394,7 +394,7 @@ async function autocompleteMention(profile: Profile) {
   if (contentInputElement.value !== null && mentionPosition.value !== null) {
     const [start, stop] = mentionPosition.value
     // Suggested profile is expected to have webfinger address
-    await insertText(start, stop, profile.acct)
+    await insertText(start, stop, `@${profile.acct}`)
     mentionSuggestionList.value = []
   }
 }
