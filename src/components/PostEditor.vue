@@ -604,11 +604,12 @@ async function publish() {
   if (props.post === null) {
     removeLocalDraft()
   }
+  emit("post-saved", post)
+  // Reset textarea size. Must be done after update of the parent component.
+  await nextTick()
   if (contentInputElement.value) {
-    await nextTick()
     resizeTextArea(contentInputElement.value)
   }
-  emit("post-saved", post)
 }
 
 async function onCtrlEnter() {

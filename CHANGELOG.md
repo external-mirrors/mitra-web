@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Don't overwrite new post draft when reposting with comment.
+- Preserve scroll position after submission of post form.
 
 ## [3.13.1] - 2025-01-03
 
