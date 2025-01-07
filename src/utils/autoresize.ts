@@ -10,10 +10,9 @@ export function resizeTextArea(textarea: HTMLTextAreaElement) {
 // TODO: use https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing
 // WARNING: Chrome scrolls textarea when Enter is pressed: https://issues.chromium.org/issues/41477953
 export function setupAutoResize(textarea: HTMLTextAreaElement) {
-  textarea.style.minHeight = `${textarea.offsetHeight}px`
+  textarea.style.height = `${textarea.scrollHeight}px`
   textarea.style.overflowY = "hidden"
   textarea.addEventListener("input", () => {
     resizeTextArea(textarea)
   }, false)
-  resizeTextArea(textarea)
 }

@@ -652,6 +652,7 @@ $line-height: 1.5;
   border-radius: $block-border-radius $block-border-radius 0 0;
   height: 100px;
   line-height: $line-height;
+  min-height: 100px;
   padding: $block-inner-padding;
   width: 100%;
 }
