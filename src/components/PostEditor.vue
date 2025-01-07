@@ -326,8 +326,13 @@ onMounted(() => {
 })
 
 function getLocalDraftKey(): string {
-  const postId = props.inReplyTo?.id || "new"
-  return `${POST_CONTENT_STORAGE_KEY}_${postId}`
+  if (props.inReplyTo !== null) {
+    return `${POST_CONTENT_STORAGE_KEY}_${props.inReplyTo.id}`
+  } else if (props.repostOf !== null) {
+    return `${POST_CONTENT_STORAGE_KEY}_${props.repostOf.id}_repost`
+  } else {
+    return `${POST_CONTENT_STORAGE_KEY}_new`
+  }
 }
 
 function loadLocalDraft(): string {
