@@ -18,6 +18,7 @@ export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
       return emoji.shortcode === shortcode
     })
     if (emoji) {
+      // See also: EmojiImage component
       return `<span class="emoji"><img title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}"></span>`
     } else {
       return match
@@ -32,4 +33,12 @@ export async function getCustomEmojis(): Promise<CustomEmoji[]> {
   })
   const data = await handleResponse(response)
   return data
+}
+
+export interface Emoji {
+  // name (without colons)
+  name: string,
+  // unicode text or shortcode
+  text: string,
+  url: string | null,
 }

@@ -16,42 +16,31 @@
       <li v-else-if="searchQuery.length > 0" class="emoji-grid-wrapper">
         <div class="emoji-grid">
           <button
-            class="emoji"
             v-for="emoji in getSearchResults()"
             :key="emoji.name"
-            :title="getEmojiShortcode(emoji.name)"
             @click.prevent="pick(emoji.text)"
           >
-            <template v-if="emoji.url">
-              <img loading="lazy" :src="emoji.url">
-            </template>
-            <template v-else>
-              {{ emoji.text }}
-            </template>
+            <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
         </div>
       </li>
       <li v-else class="emoji-grid-wrapper">
         <div class="emoji-grid">
           <button
-            class="emoji"
             v-for="emoji in unicodeEmojiList"
             :key="emoji.name"
-            :title="getEmojiShortcode(emoji.name)"
             @click.prevent="pick(emoji.text)"
           >
-            {{ emoji.text }}
+            <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
         </div>
         <div class="emoji-grid" v-if="customEmojiList.length > 0">
           <button
-            class="emoji"
             v-for="emoji in customEmojiList"
             :key="emoji.name"
-            :title="getEmojiShortcode(emoji.name)"
             @click.prevent="pick(emoji.text)"
           >
-            <img loading="lazy" :src="emoji.url as string">
+            <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
         </div>
       </li>
@@ -62,7 +51,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-import { getCustomEmojis, getEmojiShortcode } from "@/api/emojis"
+import { getCustomEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
+import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
 
 /* eslint-disable-next-line func-call-spacing */
@@ -80,12 +70,6 @@ const DEFAULT_EMOJIS = [
   "💯",
   "👀",
 ]
-
-interface Emoji {
-  name: string,
-  text: string,
-  url: string | null,
-}
 
 const unicodeEmojiList = ref<Emoji[]>([])
 const customEmojiList = ref<Emoji[]>([])
@@ -146,19 +130,15 @@ onMounted(async () => {
   margin-right: calc($block-inner-padding / 2); /* extra space for scrollbar */
   max-width: ($emoji-size + calc($block-inner-padding / 2)) * 4;
 
-  .emoji {
-    display: flex;
-    font-size: calc($emoji-size / $emoji-line-height);
-    height: $emoji-size;
-    line-height: $emoji-line-height;
-    text-align: center;
-    width: $emoji-size;
-  }
-
   &:not(:last-child) {
     border-bottom: 1px solid var(--separator-color);
     margin-bottom: calc($block-inner-padding / 2);
     padding-bottom: calc($block-inner-padding / 2);
+  }
+
+  button {
+    height: $emoji-size;
+    width: $emoji-size;
   }
 }
 

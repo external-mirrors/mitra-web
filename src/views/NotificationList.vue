@@ -227,6 +227,7 @@ async function loadNextPage() {
   .emoji-reaction {
     @include emoji-inline;
 
+    height: $icon-size;
     margin-right: calc($icon-size / 2);
     text-align: center;
     width: $icon-size;

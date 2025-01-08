@@ -121,7 +121,7 @@
         @click="toggleLike()"
         :disabled="!canLike()"
       >
-        <span class="unicode-emoji">👍</span>
+        <emoji-image :emoji="{ name: null, text: '👍', url: null }"></emoji-image>
         <span>{{ post.favourites_count }}</span>
       </button>
       <button
@@ -132,11 +132,7 @@
         @click="onToggleReaction(reaction.name)"
         :disabled="!canReact()"
       >
-        <span
-          v-if="reaction.url"
-          v-html="replaceShortcodes(getEmojiShortcode(reaction.name), [{shortcode: reaction.name, url: reaction.url}])"
-        ></span>
-        <span v-else class="unicode-emoji">{{ reaction.name }}</span>
+        <emoji-image :emoji="getReactionEmoji(reaction)"></emoji-image>
         <span>{{ reaction.count }}</span>
       </button>
     </div>
@@ -398,7 +394,6 @@ import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
-import { getEmojiShortcode, replaceShortcodes } from "@/api/emojis"
 import { Poll } from "@/api/polls"
 import {
   createBookmark,
@@ -447,6 +442,7 @@ import IconSmile from "@/assets/feather/smile.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import CryptoIcon from "@/components/CryptoIcon.vue"
+import EmojiImage from "@/components/EmojiImage.vue"
 import EmojiPicker from "@/components/EmojiPicker.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
@@ -1046,26 +1042,6 @@ $reaction-padding: 5px;
 
   &:not(:disabled):hover {
     background-color: var(--widget-active-background-color);
-  }
-
-  .unicode-emoji {
-    font-size: calc($emoji-size / $emoji-line-height);
-    line-height: $emoji-line-height;
-  }
-
-  :deep(.emoji) {
-    @include emoji;
-
-    display: inline-block;
-    height: $emoji-size;
-    width: $emoji-size;
-
-    img {
-      height: inherit;
-      object-fit: contain;
-      vertical-align: middle;
-      width: inherit;
-    }
   }
 }
 
