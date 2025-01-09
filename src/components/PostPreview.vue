@@ -69,6 +69,7 @@ const author = computed(() => new ProfileWrapper(props.post.account))
   white-space: nowrap;
 
   .avatar {
+    flex-shrink: 0;
     height: $icon-size;
     width: $icon-size;
   }
