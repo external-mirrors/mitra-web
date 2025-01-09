@@ -7,7 +7,7 @@
     <div
       v-if="contentWarningEnabled"
       class="show-image"
-      @click="showImage()"
+      @click.stop.prevent="showImage()"
     >
       <button>
         {{ $t('post.sensitive_content') }}
@@ -17,7 +17,7 @@
       v-else-if="isSensitive"
       class="hide-image"
       :title="$t('post.hide_image')"
-      @click="hideImage()"
+      @click.stop.prevent="hideImage()"
     >
       <icon-hide></icon-hide>
     </button>
