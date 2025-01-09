@@ -394,7 +394,7 @@ async function autocompleteMention(profile: Profile) {
   if (contentInputElement.value !== null && mentionPosition.value !== null) {
     const [start, stop] = mentionPosition.value
     // Suggested profile is expected to have webfinger address
-    await insertText(start, stop, `@${profile.acct}`)
+    await insertText(start, stop, `@${profile.acct} `)
     mentionSuggestionList.value = []
   }
 }
