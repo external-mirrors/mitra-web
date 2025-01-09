@@ -412,6 +412,7 @@ import {
   pinPost,
   unpinPost,
   loadConversation,
+  getReactionEmoji,
   createReaction,
   deleteReaction,
   makePermanent,
@@ -656,7 +657,10 @@ function canReact(): boolean {
 
 function hasReacted(content: string): boolean {
   const reaction = props.post.pleroma.emoji_reactions
-    .find((reaction) => reaction.name === content)
+    .find((reaction) => {
+      const emoji = getReactionEmoji(reaction)
+      return emoji.text === content
+    })
   return reaction?.me || false
 }
 

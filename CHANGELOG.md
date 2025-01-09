@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Preserve scroll position after submission of post form.
 - Prevent avatar from shrinking in quoted posts.
 - Fix sensitive media toggle not working in quoted posts.
+- Fix removal of custom emoji reaction via emoji picker.
 
 ## [3.13.1] - 2025-01-03
 

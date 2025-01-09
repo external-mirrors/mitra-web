@@ -1,7 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 
 import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
-import { CustomEmoji } from "./emojis"
+import { getEmojiShortcode, CustomEmoji } from "./emojis"
 import { Poll } from "./polls"
 import { getRelationships, Relationship } from "./relationships"
 import { defaultProfile, Profile } from "./users"
@@ -424,6 +424,20 @@ export async function unfavourite(
   const response = await http(url, { method: "POST", authToken })
   const data = await handleResponse(response)
   return data
+}
+
+export interface ReactionEmoji {
+  name: string | null,
+  text: string,
+  url: string | null,
+}
+
+export function getReactionEmoji(reaction: PleromaEmojiReaction): ReactionEmoji {
+  if (reaction.url) {
+    return { name: reaction.name, text: getEmojiShortcode(reaction.name), url: reaction.url }
+  } else {
+    return { name: null, text: reaction.name, url: null }
+  }
 }
 
 export async function createReaction(
