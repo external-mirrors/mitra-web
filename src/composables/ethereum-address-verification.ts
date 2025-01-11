@@ -11,7 +11,7 @@ async function verifyEthereumAddress(): Promise<User | null> {
   if (!wallet) {
     return null
   }
-  const walletAddress = await wallet.getAddress()
+  const [walletAddress] = await wallet.getAddresses()
   const authToken = ensureAuthToken()
   const proofType = "ethereum"
   const { did, claim, created_at } = await getIdentityClaim(

@@ -1,4 +1,4 @@
-import { BrowserProvider, Signer } from "ethers"
+import { createWalletClient, custom, Account, WalletClient } from "viem"
 
 import { generateRandomString } from "./crypto"
 
@@ -6,35 +6,37 @@ export function hasEthereumWallet(): boolean {
   return Boolean((window as any).ethereum)
 }
 
-export async function getWallet(): Promise<Signer | null> {
-  let provider
+export async function getWallet(): Promise<WalletClient | null> {
+  const provider = (window as any).ethereum
+  let account
   try {
-    provider = new BrowserProvider((window as any).ethereum)
-  } catch (error) {
-    console.log("metamask error:", error)
-    return null
-  }
-  try {
-    await provider.send("eth_requestAccounts", [])
+    const accounts = await provider.request({ method: "eth_requestAccounts" })
+    if (accounts.length === 0) {
+      throw new Error("empty account list")
+    }
+    account = accounts[0]
   } catch (error) {
     console.log("metamask error:", error)
     // Access denied
     return null
   }
-  const wallet = provider.getSigner()
+  const wallet = createWalletClient({
+    account,
+    transport: custom(provider),
+  })
   return wallet
 }
 
 // EIP-191 signature
 export async function getWalletSignature(
-  wallet: Signer,
+  wallet: WalletClient,
   message: string,
 ): Promise<string | null> {
   let signature
   try {
-    signature = await wallet.signMessage(message)
+    signature = await wallet.signMessage({ account: wallet.account as Account, message })
   } catch (error: any) {
-    if (error.code === "ACTION_REJECTED") {
+    if (error.name === "UserRejectedRequestError") {
       // User rejected the request
       return null
     }
@@ -50,11 +52,11 @@ interface SignedMessage {
 
 // https://eips.ethereum.org/EIPS/eip-4361
 export async function createEip4361_SignedMessage(
-  wallet: Signer,
+  wallet: WalletClient,
   domain: string,
   statement: string,
 ): Promise<SignedMessage | null> {
-  const address = await wallet.getAddress()
+  const [address] = await wallet.getAddresses()
   const uri = window.location.origin
   const nonce = generateRandomString(16)
   const issuedAt = new Date().toISOString()

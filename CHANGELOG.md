@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display timestamps in quoted posts.
 - Add whitespace when auto-completing mentions.
 - Handle rejections when generating Ethereum signatures.
+- Migrate from ethers v5 to viem.
 
 ### Fixed
 
