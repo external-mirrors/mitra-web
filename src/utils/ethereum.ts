@@ -7,20 +7,13 @@ export function hasEthereumWallet(): boolean {
   return Boolean((window as any).ethereum)
 }
 
-export function getWeb3Provider(): Web3Provider {
-  const provider = (window as any).ethereum
-  return new Web3Provider(provider)
-}
-
-export async function getWallet(
-  provider?: Web3Provider,
-): Promise<Signer | null> {
-  if (!provider) {
-    try {
-      provider = getWeb3Provider()
-    } catch (error) {
-      return null
-    }
+export async function getWallet(): Promise<Signer | null> {
+  let provider
+  try {
+    provider = new Web3Provider((window as any).ethereum)
+  } catch (error) {
+    console.log("metamask error:", error)
+    return null
   }
   try {
     await provider.send("eth_requestAccounts", [])
@@ -29,26 +22,40 @@ export async function getWallet(
     // Access denied
     return null
   }
-  const signer = provider.getSigner()
-  return signer
+  const wallet = provider.getSigner()
+  return wallet
 }
 
 // EIP-191 signature
 export async function getWalletSignature(
-  signer: Signer,
+  wallet: Signer,
   message: string,
-): Promise<string> {
-  const signature = await signer.signMessage(message)
+): Promise<string | null> {
+  let signature
+  try {
+    signature = await wallet.signMessage(message)
+  } catch (error: any) {
+    if (error.code === 4001) {
+      // User rejected the request
+      return null
+    }
+    throw error
+  }
   return signature
+}
+
+interface SignedMessage {
+  message: string,
+  signature: string,
 }
 
 // https://eips.ethereum.org/EIPS/eip-4361
 export async function createEip4361_SignedMessage(
-  signer: Signer,
+  wallet: Signer,
   domain: string,
   statement: string,
-): Promise<{ message: string, signature: string }> {
-  const address = await signer.getAddress()
+): Promise<SignedMessage | null> {
+  const address = await wallet.getAddress()
   const uri = window.location.origin
   const nonce = generateRandomString(16)
   const issuedAt = new Date().toISOString()
@@ -63,6 +70,9 @@ Chain ID: 1
 Nonce: ${nonce}
 Issued At: ${issuedAt}`
 
-  const signature = await signer.signMessage(message)
+  const signature = await getWalletSignature(wallet, message)
+  if (!signature) {
+    return null
+  }
   return { message, signature }
 }

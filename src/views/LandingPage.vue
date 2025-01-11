@@ -287,28 +287,31 @@ async function register() {
       signature: null,
     }
   } else if (loginType.value === AuthenticationMethod.Eip4361) {
-    const signer = await getWallet()
-    if (!signer) {
+    const wallet = await getWallet()
+    if (!wallet) {
       loginErrorMessage.value = "wallet not found"
       return
     }
-    const { message, signature } = await createEip4361_SignedMessage(
-      signer,
+    const signedMessage = await createEip4361_SignedMessage(
+      wallet,
       instance.value.uri,
       instance.value.login_message,
     )
+    if (!signedMessage) {
+      return
+    }
     userData = {
       username: username.value,
       password: null,
-      message,
-      signature,
+      message: signedMessage.message,
+      signature: signedMessage.signature,
       invite_code: inviteCode.value,
     }
     loginData = {
       username: null,
       password: null,
-      message,
-      signature,
+      message: signedMessage.message,
+      signature: signedMessage.signature,
     }
   } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
     const message = moneroCaip122Message.value
@@ -360,21 +363,24 @@ async function login() {
       signature: null,
     }
   } else if (loginType.value === AuthenticationMethod.Eip4361) {
-    const signer = await getWallet()
-    if (!signer) {
+    const wallet = await getWallet()
+    if (!wallet) {
       loginErrorMessage.value = "wallet not found"
       return
     }
-    const { message, signature } = await createEip4361_SignedMessage(
-      signer,
+    const signedMessage = await createEip4361_SignedMessage(
+      wallet,
       instance.value.uri,
       instance.value.login_message,
     )
+    if (!signedMessage) {
+      return
+    }
     loginData = {
       username: null,
       password: null,
-      message,
-      signature,
+      message: signedMessage.message,
+      signature: signedMessage.signature,
     }
   } else if (loginType.value === AuthenticationMethod.Caip122Monero) {
     const message = moneroCaip122Message.value

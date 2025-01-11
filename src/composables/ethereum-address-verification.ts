@@ -7,11 +7,11 @@ async function verifyEthereumAddress(): Promise<User | null> {
   if (!confirm("This action will link your wallet address to your profile. Continue?")) {
     return null
   }
-  const signer = await getWallet()
-  if (!signer) {
+  const wallet = await getWallet()
+  if (!wallet) {
     return null
   }
-  const walletAddress = await signer.getAddress()
+  const walletAddress = await wallet.getAddress()
   const authToken = ensureAuthToken()
   const proofType = "ethereum"
   const { did, claim, created_at } = await getIdentityClaim(
@@ -19,7 +19,10 @@ async function verifyEthereumAddress(): Promise<User | null> {
     proofType,
     walletAddress,
   )
-  const signature = await getWalletSignature(signer, claim)
+  const signature = await getWalletSignature(wallet, claim)
+  if (!signature) {
+    return null
+  }
   const user = await createIdentityProof(
     authToken,
     proofType,
