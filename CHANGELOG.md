@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add whitespace when auto-completing mentions.
 - Handle rejections when generating Ethereum signatures.
 - Migrate from ethers v5 to viem.
+- Updated translations ([#62](https://codeberg.org/silverpill/mitra-web/pulls/62)).
 
 ### Fixed
 
