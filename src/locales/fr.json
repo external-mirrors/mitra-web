@@ -56,7 +56,10 @@
         "action_reposted": "Partage effectué",
         "next_page": "Montrer plus de publications",
         "timestamp_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
-        "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?"
+        "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
+        "timestamp_future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
+        "timestamp_future_hours": "dans {n} heure | dans {n} heures",
+        "timestamp_future_days": "dans {n} jour | dans {n} jours"
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -347,5 +350,13 @@
         "import_follows": "Importer les abonnements",
         "follows_csv": "Abonnements (CSV)",
         "import": "Importer"
+    },
+    "poll": {
+        "see_results": "Voir les résultats",
+        "ends": "Se termine {0}",
+        "closed": "Terminé",
+        "num_votes": "Pas de votes | {n} vote | {n} votes",
+        "vote": "Voter",
+        "multiple_choices": "Choix multiples"
     }
 }
