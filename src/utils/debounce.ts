@@ -5,6 +5,7 @@ export function debounce(
   let timeout: ReturnType<typeof setTimeout>
   return (...args: unknown[]) => {
     clearTimeout(timeout)
+    // Requires `noImplicitThis: false`
     timeout = setTimeout(() => { func.apply(this, args) }, delay)
   }
 }
