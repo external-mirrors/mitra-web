@@ -54,6 +54,42 @@
         :post="preview"
         @click.prevent=""
       ></post-content>
+      <div v-if="pollEditorVisible" class="poll-editor">
+        <input
+          v-for="index in pollOptionCount"
+          type="text"
+          :key="index"
+          :placeholder="$t('poll_editor.option', { n: index })"
+          v-model="pollOptions[index - 1]"
+        >
+        <div class="poll-settings">
+          <div class="input-group">
+            <label :for="`duration-${idempotencyKey}`">
+              {{ $t('poll_editor.poll_duration') }}
+            </label>
+            <input
+              :id="`duration-${idempotencyKey}`"
+              type="number"
+              min="1"
+              v-model="pollDuration"
+            >
+            <select v-model="pollDurationUnit">
+              <option :value="3600">{{ $t('poll_editor.duration_hour', { n: pollDuration }) }}</option>
+              <option :value="86400">{{ $t('poll_editor.duration_day', { n: pollDuration }) }}</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label :for="`multichoice-${idempotencyKey}`">
+              {{ $t('poll_editor.multiple_choices') }}
+            </label>
+            <input
+              :id="`multichoice-${idempotencyKey}`"
+              type="checkbox"
+              v-model="pollMultichoice"
+            >
+          </div>
+        </div>
+      </div>
       <div v-if="attachmentList.length > 0" class="attachments">
         <post-editor-attachment
           v-for="(attachment, index) in attachmentList"
@@ -81,6 +117,16 @@
             style="display: none;"
             @change="onAttachmentUpload($event)"
           >
+        </button>
+        <button
+          v-if="post === null"
+          type="button"
+          class="icon"
+          :class="{ highlighted: pollEditorVisible }"
+          :title="pollEditorVisible ? $t('post_editor.remove_poll') : $t('post_editor.add_poll')"
+          @click="togglePollEditor()"
+        >
+          <icon-chart></icon-chart>
         </button>
         <div
           class="dropdown-menu-wrapper"
@@ -218,6 +264,7 @@ import {
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
 import IconAlert from "@/assets/feather/alert-triangle.svg?component"
+import IconChart from "@/assets/tabler/chart-bar.svg?component"
 import IconShow from "@/assets/feather/eye.svg?component"
 import IconHide from "@/assets/feather/eye-off.svg?component"
 import IconAttach from "@/assets/feather/paperclip.svg?component"
@@ -241,6 +288,8 @@ import { fileToDataUrl, dataUrlToBase64 } from "@/utils/upload"
 
 const FORM_ID_LENGTH = 20
 const POST_CONTENT_STORAGE_KEY = "post_content"
+const POLL_OPTION_COUNT_MIN = 2
+const POLL_OPTION_COUNT_MAX = 6
 
 const { ctrlEnterEnabled } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
@@ -268,6 +317,12 @@ const content = ref("")
 const attachmentList = ref<Attachment[]>([])
 const visibility = ref(Visibility.Public)
 const isSensitive = ref(false)
+
+const pollEditorVisible = ref(false)
+const pollOptions = ref<string[]>([])
+const pollMultichoice = ref(false)
+const pollDuration = ref<number>(1)
+const pollDurationUnit = ref<number>(86400)
 
 const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
@@ -476,6 +531,23 @@ async function onPaste(event: ClipboardEvent) {
   }
 }
 
+function togglePollEditor() {
+  if (pollEditorVisible.value) {
+    pollOptions.value = []
+  }
+  pollEditorVisible.value = !pollEditorVisible.value
+}
+
+const pollOptionCount = computed(() => {
+  const optionCount = pollOptions.value
+    .filter(option => !!option)
+    .length
+  return Math.min(
+    Math.max(optionCount + 1, POLL_OPTION_COUNT_MIN),
+    POLL_OPTION_COUNT_MAX,
+  )
+})
+
 function canAttachFile(): boolean {
   if (!instance.value) {
     return false
@@ -627,6 +699,9 @@ async function publish() {
         visibility: visibility.value,
         isSensitive: isSensitive.value,
         attachments: attachmentList.value,
+        pollOptions: pollOptions.value,
+        pollDuration: pollDuration.value * pollDurationUnit.value,
+        pollMultichoice: pollMultichoice.value,
         quoteId: props.repostOf ? props.repostOf.id : null,
       }
       post = await createPost(
@@ -649,6 +724,8 @@ async function publish() {
   idempotencyKey.value = generateRandomString(FORM_ID_LENGTH)
   content.value = ""
   isSensitive.value = false
+  pollEditorVisible.value = false
+  pollOptions.value = []
   attachmentList.value = []
   preview.value = null
   if (props.post === null) {
@@ -727,6 +804,37 @@ $line-height: 1.5;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+}
+
+.poll-editor {
+  display: flex;
+  flex-direction: column;
+  gap: calc($block-inner-padding / 2);
+  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+
+  input[type="text"] {
+    border: 1px solid var(--separator-color);
+    border-radius: $btn-border-radius;
+  }
+}
+
+.poll-settings {
+  display: flex;
+  flex-direction: column;
+  gap: calc($block-inner-padding / 2) $block-inner-padding;
+  padding: $input-padding;
+
+  > div {
+    align-items: center;
+    display: flex;
+    gap: calc($block-inner-padding / 2);
+  }
+
+  input[type="number"] {
+    border: 1px solid var(--separator-color);
+    border-radius: $btn-border-radius;
+    width: 70px;
   }
 }
 

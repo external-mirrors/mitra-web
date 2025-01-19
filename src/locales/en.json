@@ -107,6 +107,8 @@
     "click_to_edit_description": "Click here to edit description",
     "enter_image_description": "Enter image description",
     "save_image_description": "Save",
+    "add_poll": "Add poll",
+    "remove_poll": "Remove poll",
     "change_visibility": "Change visibility",
     "visibility_can_not_be_changed": "Visibility can not be changed",
     "remove_content_warning": "Remove content warning",
@@ -114,6 +116,13 @@
     "insert_emoji": "Insert emoji",
     "characters_left": "Characters left",
     "toggle_preview": "Toggle preview"
+  },
+  "poll_editor": {
+    "option": "Option {n}",
+    "poll_duration": "Poll duration",
+    "duration_hour": "hour | hours",
+    "duration_day": "day | days",
+    "multiple_choices": "@:poll.multiple_choices"
   },
   "emoji_picker": {
     "search": "Search…",

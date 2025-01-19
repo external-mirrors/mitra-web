@@ -317,6 +317,9 @@ export interface PostData {
   visibility: string;
   isSensitive: boolean;
   attachments: Attachment[];
+  pollOptions: string[],
+  pollDuration: number,
+  pollMultichoice: boolean,
   quoteId: string | null,
 }
 
@@ -333,6 +336,9 @@ export async function createPost(
     in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,
     sensitive: postData.isSensitive,
+    "poll[options][]": postData.pollOptions,
+    "poll[expires_in]": postData.pollDuration,
+    "poll[multiple]": postData.pollMultichoice,
     quote_id: postData.quoteId,
   }
   const response = await http(url, {
