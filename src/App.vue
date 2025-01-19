@@ -80,6 +80,8 @@ onMounted(() => {
 
   --content-warning-background: transparent;
   --content-warning-btn-display: initial;
+
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
@@ -111,6 +113,8 @@ onMounted(() => {
   --highlight-color: #{$dark-highlight-color};
   --loader-color: #{$dark-loader-color};
   --shadow-color: #{$dark-shadow-color};
+
+  color-scheme: dark;
 }
 
 html {
