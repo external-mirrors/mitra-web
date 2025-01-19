@@ -607,15 +607,6 @@ function canPublish(): boolean {
 }
 
 async function publish() {
-  const postData = {
-    idempotencyKey: idempotencyKey.value,
-    content: content.value,
-    inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
-    visibility: visibility.value,
-    isSensitive: isSensitive.value,
-    attachments: attachmentList.value,
-    quoteId: props.repostOf ? props.repostOf.id : null,
-  }
   isLoading.value = true
   let post
   try {
@@ -629,6 +620,15 @@ async function publish() {
         props.post.pleroma.quote?.id ?? null,
       )
     } else {
+      const postData = {
+        idempotencyKey: idempotencyKey.value,
+        content: content.value,
+        inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
+        visibility: visibility.value,
+        isSensitive: isSensitive.value,
+        attachments: attachmentList.value,
+        quoteId: props.repostOf ? props.repostOf.id : null,
+      }
       post = await createPost(
         ensureAuthToken(),
         postData,
