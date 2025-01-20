@@ -51,7 +51,7 @@
         </i18n-t>
       </span>
       <span v-if="!resultsVisible">
-        <button v-if="!resultsVisible" @click="resultsVisible = true">
+        <button @click="resultsRevealed = true">
           {{ $t('poll.see_results') }}
         </button>
       </span>
@@ -60,14 +60,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { vote, Poll } from "@/api/polls"
+import { Profile } from "@/api/users"
 import Timestamp from "@/components/Timestamp.vue"
 import { useCurrentUser } from "@/composables/user"
 import { formatDateTime } from "@/utils/dates"
 
 const props = defineProps<{
   poll: Poll,
+  author: Profile,
 }>()
 
 /* eslint-disable-next-line func-call-spacing */
@@ -77,16 +79,20 @@ const emit = defineEmits<{
 
 const { currentUser, ensureAuthToken } = useCurrentUser()
 
-const resultsVisible = ref(false)
+const resultsRevealed = ref(false)
 const choices = ref<number[]>([])
-
-if (!canVote()) {
-  resultsVisible.value = true
-}
 
 if (props.poll.own_votes !== null) {
   choices.value = props.poll.own_votes
 }
+
+const resultsVisible = computed(() => {
+  return (
+    !canVote() ||
+    currentUser.value?.id === props.author.id ||
+    resultsRevealed.value
+  )
+})
 
 function getOptionShare(optionIndex: number): number {
   const option = props.poll.options[optionIndex]
@@ -105,7 +111,6 @@ function canVote(): boolean {
 async function onVote(): Promise<void> {
   const authToken = ensureAuthToken()
   const poll = await vote(authToken, props.poll.id, choices.value)
-  resultsVisible.value = true
   emit("poll-updated", poll)
 }
 </script>

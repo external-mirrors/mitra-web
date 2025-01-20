@@ -91,7 +91,12 @@
       </universal-link>
     </div>
     <post-content v-if="post.content" :post="post"></post-content>
-    <post-poll v-if="post.poll" :poll="post.poll" @poll-updated="onPollUpdate($event)"></post-poll>
+    <post-poll
+      v-if="post.poll"
+      :poll="post.poll"
+      :author="post.account"
+      @poll-updated="onPollUpdate($event)"
+    ></post-poll>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
       <post-attachment
         v-for="attachment in post.media_attachments"
