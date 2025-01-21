@@ -18,7 +18,9 @@
         "insert_emoji": "Вставити емоджі",
         "click_to_edit_description": "Натисніть тут, щоб змінити опис",
         "enter_image_description": "Введіть опис зображення",
-        "visibility_can_not_be_changed": "Неможливо змінити видимість"
+        "visibility_can_not_be_changed": "Неможливо змінити видимість",
+        "add_poll": "Додати опитування",
+        "remove_poll": "Видалити опитування"
     },
     "navigation": {
         "logout": "Вийти з системи",
@@ -363,5 +365,11 @@
         "closed": "Закрито",
         "multiple_choices": "Кілька варіантів",
         "see_results": "Переглянути результати"
+    },
+    "poll_editor": {
+        "duration_hour": "година | годин",
+        "duration_day": "день | днів",
+        "option": "Варіант {n}",
+        "poll_duration": "Тривалість опитування"
     }
 }
