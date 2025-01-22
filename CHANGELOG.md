@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Apply light/dark theme to inputs.
 - Display polls in quoted posts.
 - Use default browser styles for `<select>` element on "Subscriber details" page.
+- Adjust `--separator-color` value.
 
 ### Fixed
 
