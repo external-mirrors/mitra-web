@@ -172,14 +172,6 @@ form {
     display: flex;
     flex-direction: row;
     gap: $input-padding;
-
-    select {
-      background-color: var(--block-background-color);
-      border: 1px solid var(--block-background-color);
-      border-radius: $btn-border-radius;
-      color: var(--text-color);
-      padding: $input-padding;
-    }
   }
 }
 

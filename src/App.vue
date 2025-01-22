@@ -255,6 +255,11 @@ textarea {
   resize: vertical;
 }
 
+select {
+  color: var(--text-color);
+  outline: none;
+}
+
 button {
   background-color: transparent;
   border: none;
