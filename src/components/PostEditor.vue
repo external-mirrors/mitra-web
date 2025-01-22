@@ -52,7 +52,7 @@
         v-if="preview"
         class="preview"
         :post="preview"
-        @click.prevent=""
+        @click.prevent="togglePreview()"
       ></post-content>
       <div v-if="pollEditorVisible" class="poll-editor">
         <input
