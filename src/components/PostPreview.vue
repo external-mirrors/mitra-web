@@ -15,6 +15,11 @@
       </span>
     </div>
     <post-content v-if="post.content" :post="post"></post-content>
+    <post-poll
+      v-if="post.poll"
+      :poll="post.poll"
+      :author="post.account"
+    ></post-poll>
     <div class="post-attachments" v-if="post.media_attachments.length > 0">
       <post-attachment
         v-for="attachment in post.media_attachments"
@@ -34,6 +39,7 @@ import { ProfileWrapper } from "@/api/users"
 import Avatar from "@/components/Avatar.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
+import PostPoll from "@/components/PostPoll.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -94,11 +100,8 @@ const author = computed(() => new ProfileWrapper(props.post.account))
   }
 }
 
-.post-content {
-  margin: $block-inner-padding 0;
-  padding: 0 $block-inner-padding;
-}
-
+.post-content,
+.post-poll,
 .post-attachments {
   margin: $block-inner-padding 0;
   padding: 0 $block-inner-padding;

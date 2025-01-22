@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Apply light/dark theme to inputs.
+- Display polls in quoted posts.
 
 ### Fixed
 
