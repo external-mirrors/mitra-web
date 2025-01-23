@@ -207,13 +207,18 @@
           <div class="bio" v-html="getProfileBio()"></div>
           <div class="extra-fields" v-if="fields.length > 0">
             <div
-              v-for="field in fields"
+              v-for="field, index in fields"
               class="field"
               :class="{ verified: field.verified_at, legacy: field.is_legacy_proof && isCurrentUser() }"
               :key="field.name"
             >
               <div class="name" :title="field.name">{{ field.name }}</div>
-              <div class="value" v-html="field.value"></div>
+              <div
+                class="value"
+                :class="{ 'value-expanded': expandedFields.includes(index) }"
+                v-html="field.value"
+                @click="expandedFields.push(index)"
+              ></div>
               <template v-if="field.verified_at">
                 <a
                   class="verified-icon"
@@ -433,6 +438,7 @@ const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 const profile = ref<ProfileWrapper | null>(null)
 const relationship = ref<Relationship | null>(null)
 const aliases = ref<Profile[]>([])
+const expandedFields = ref<number[]>([])
 
 const profileMenuVisible = ref(false)
 const isProcessingFollow = ref(false)
@@ -1131,6 +1137,10 @@ $avatar-size: 170px;
       flex-grow: 1;
       overflow-x: hidden;
       text-overflow: ellipsis;
+    }
+
+    .value-expanded {
+      word-wrap: break-word;
     }
 
     &.verified {
