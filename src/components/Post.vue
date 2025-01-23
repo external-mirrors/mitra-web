@@ -539,11 +539,22 @@ function getReplyMentions(): Mention[] {
     return []
   }
   if (
-    props.post.in_reply_to_account_id === props.post.account.id &&
-    props.post.mentions.every((mention) => mention.id !== props.post.account.id)
+    props.post.in_reply_to_account_id &&
+    props.post.pleroma.in_reply_to_account_acct &&
+    props.post.mentions.every((mention) => mention.id !== props.post.in_reply_to_account_id)
   ) {
-    // Self-reply
-    return [props.post.account, ...props.post.mentions]
+    if (props.post.in_reply_to_account_id === props.post.account.id) {
+      // Self-reply
+      return [props.post.account, ...props.post.mentions]
+    } else {
+      const mention = {
+        id: props.post.in_reply_to_account_id,
+        acct: props.post.pleroma.in_reply_to_account_acct,
+        username: props.post.pleroma.in_reply_to_account_acct.split("@")[0],
+        url: "",
+      }
+      return [mention, ...props.post.mentions]
+    }
   } else {
     return props.post.mentions
   }

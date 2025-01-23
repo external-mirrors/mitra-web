@@ -98,6 +98,7 @@ export interface Post {
 
   pleroma: {
     emoji_reactions: PleromaEmojiReaction[],
+    in_reply_to_account_acct: string | null,
     parent_visible: boolean,
     quote: { id: string } | null,
   },
@@ -302,6 +303,7 @@ export async function previewPost(
     bookmarked: false,
     pleroma: {
       emoji_reactions: [],
+      in_reply_to_account_acct: null,
       parent_visible: true,
       quote: null,
     },
