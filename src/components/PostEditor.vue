@@ -437,7 +437,7 @@ async function showSuggestions() {
       const indices = (emojiMatch as any).indices.groups.shortcode
       const emojis = await getEmojis()
       const results = emojis
-        .filter(emoji => emoji.name.startsWith(emojiText))
+        .filter(emoji => emoji.name.includes(emojiText))
         .slice(0, 10)
       if (results.length > 0) {
         emojiSuggestionList.value = results
