@@ -105,7 +105,9 @@
         "attach_file": "Перекреплено",
         "click_to_edit_description": "Нажмите чтобы изменить описание",
         "characters_left": "Осталось символов",
-        "visibility_can_not_be_changed": "Видимость не может быть изменена"
+        "visibility_can_not_be_changed": "Видимость не может быть изменена",
+        "add_poll": "Добавить опрос",
+        "remove_poll": "Удалить опрос"
     },
     "emoji_picker": {
         "search": "Поиск…",
@@ -363,5 +365,12 @@
         "ends": "Заканчивается {0}",
         "closed": "Закрыт",
         "multiple_choices": "Несколько вариантов"
+    },
+    "poll_editor": {
+        "option": "Вариант {n}",
+        "poll_duration": "Продолжительность опроса",
+        "duration_hour": "час | часы",
+        "multiple_choices": "Выбрать несколько вариантов",
+        "duration_day": "день | дни"
     }
 }
