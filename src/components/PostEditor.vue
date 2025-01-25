@@ -198,30 +198,30 @@
         <button
           v-if="canPreview()"
           type="button"
-          class="icon btn-small"
+          class="icon"
           :title="$t('post_editor.toggle_preview')"
           @click="togglePreview()"
         >
           <icon-show v-if="preview === null"></icon-show>
           <icon-hide v-else></icon-hide>
         </button>
-        <button
-          v-if="isEditorEmbedded"
-          class="icon btn-small"
-          @click.prevent="cancel()"
-        >
-          {{ $t('post_editor.cancel') }}
-        </button>
-        <button
-          type="submit"
-          v-if="isEditorEmbedded"
-          class="icon btn-small"
-          :disabled="!canPublish()"
-          @click.prevent="publish()"
-        >
-          <template v-if="repostOf">{{ $t('post_editor.repost') }}</template>
-          <template v-else>{{ $t('post_editor.publish') }}</template>
-        </button>
+        <div v-if="isEditorEmbedded" class="submit-reply-btn-wrapper">
+          <button
+            class="icon btn-small"
+            @click.prevent="cancel()"
+          >
+            {{ $t('post_editor.cancel') }}
+          </button>
+          <button
+            type="submit"
+            class="icon btn-small"
+            :disabled="!canPublish()"
+            @click.prevent="publish()"
+          >
+            <template v-if="repostOf">{{ $t('post_editor.repost') }}</template>
+            <template v-else>{{ $t('post_editor.publish') }}</template>
+          </button>
+        </div>
       </div>
     </div>
     <div v-if="!isEditorEmbedded" class="submit-btn-wrapper">
@@ -876,6 +876,12 @@ $line-height: 1.5;
       stroke: $warning-color;
     }
   }
+}
+
+.submit-reply-btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: inherit;
 
   .btn-small {
     font-weight: bold;
