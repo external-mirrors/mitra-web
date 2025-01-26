@@ -31,7 +31,9 @@
         "characters_left": "剩余可用字符",
         "toggle_preview": "查看预览",
         "attach_file": "添加附件",
-        "visibility_can_not_be_changed": "无法更改可见性"
+        "visibility_can_not_be_changed": "无法更改可见性",
+        "add_poll": "添加投票",
+        "remove_poll": "移除投票"
     },
     "about": {
         "administered_by": "管理员",
@@ -45,8 +47,8 @@
     "post": {
         "replying_to": "回复",
         "timestamp_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
-        "timestamp_hours": "{n}小时前 | {n}小时前",
-        "timestamp_days": "{n}天前 | {n}天前",
+        "timestamp_hours": "{n} 小时前 | {n} 小时前",
+        "timestamp_days": "{n} 天前 | {n} 天前",
         "next_page": "显示更多贴文",
         "load_replies": "加载回复",
         "go_to_previous_post": "转到上一条贴文",
@@ -95,7 +97,10 @@
             "visible_to_people_chosen_by_conversation_owner": "对话所有者所选的人可见",
             "visible_to_mentioned_users": "提到的用户可见",
             "visible_to_premium_subscribers": "高级订阅者可见"
-        }
+        },
+        "timestamp_future_minutes": "现在 | 在 {n} 分钟内 | 在 {n} 分钟内",
+        "timestamp_future_hours": "在 {n} 小时内 | 在 {n} 小时内",
+        "timestamp_future_days": "在 {n} 天内 | 在 {n} 天内"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -353,6 +358,13 @@
         "vote": "投票",
         "multiple_choices": "多选",
         "ends": "结束于 {0}",
-        "closed": "已关闭"
+        "closed": "已关闭",
+        "num_votes": "没有投票 | {n} 票 | {n} 票"
+    },
+    "poll_editor": {
+        "duration_hour": "小时 | 小时",
+        "duration_day": "天 | 天",
+        "option": "选项 {n}",
+        "poll_duration": "投票持续时间"
     }
 }
