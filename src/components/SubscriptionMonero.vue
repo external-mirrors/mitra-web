@@ -69,6 +69,7 @@
           id="duration"
           v-model="paymentDurationInput"
           min="1"
+          :max="PAYMENT_DURATION_MAX"
         >
         <span
           v-else
@@ -187,7 +188,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import { useRoute } from "vue-router"
 import { DateTime } from "luxon"
 
@@ -229,6 +230,7 @@ import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const INVOICE_ID_STORAGE_KEY = "invoice"
 const PAYMENT_AMOUNT_MIN = 0.001
+const PAYMENT_DURATION_MAX = 1000
 
 const props = defineProps<{
   profile: Profile,
@@ -277,6 +279,14 @@ onMounted(async () => {
     }
   }
   isLoading.value = false
+})
+
+watch(paymentDurationInput, (value) => {
+  if (value !== "" && value > PAYMENT_DURATION_MAX) {
+    paymentDurationInput.value = PAYMENT_DURATION_MAX
+  } else {
+    paymentDurationInput.value = value
+  }
 })
 
 function isLoaderVisible(): boolean {

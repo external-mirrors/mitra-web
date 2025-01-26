@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Always display "Cancel" and "Publish" reply form buttons in one row.
+- Prevent overflow error when entering large number in subscription duration field.
 
 ## [3.15.0] - 2025-01-24
 
