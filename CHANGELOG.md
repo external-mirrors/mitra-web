@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Hide "Add poll" button in reply form.
+
 ### Fixed
 
 - Always display "Cancel" and "Publish" reply form buttons in one row.
