@@ -1051,6 +1051,11 @@ $reaction-padding: 5px;
   gap: $whitespace;
   padding: $reaction-padding;
 
+  .emoji {
+    max-width: $emoji-size * 3;
+    width: auto;
+  }
+
   &.reacted {
     background-color: var(--widget-active-background-color);
     border: 1px solid var(--widget-active-border-color);
