@@ -119,7 +119,7 @@
           >
         </button>
         <button
-          v-if="post === null && inReplyTo === null"
+          v-if="post === null"
           type="button"
           class="icon"
           :class="{ highlighted: pollEditorVisible }"
