@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Allow emoji reactions with non-square images.
+- Updated translations ([#65](https://codeberg.org/silverpill/mitra-web/pulls/65)).
 
 ### Fixed
 
@@ -31,7 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Adjust `--separator-color` value.
 - Search for all occurrences of shortcode fragment when doing emoji autocomplete.
 - Always show the author of a parent post in "replying to" block.
-- Updated translations ([#62](https://codeberg.org/silverpill/mitra-web/pulls/64)).
+- Updated translations ([#64](https://codeberg.org/silverpill/mitra-web/pulls/64)).
 
 ### Fixed
 
