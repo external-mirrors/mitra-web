@@ -30,7 +30,10 @@
         "add_content_warning": "コンテンツ警告を追加",
         "insert_emoji": "絵文字を入力",
         "characters_left": "残りの文字",
-        "toggle_preview": "プレビューをトグル"
+        "toggle_preview": "プレビューをトグル",
+        "visibility_can_not_be_changed": "ポスト可視性を変更できません",
+        "add_poll": "投票を追加する",
+        "remove_poll": "投票を取り消す"
     },
     "about": {
         "administered_by": "管理者",
@@ -50,10 +53,11 @@
         "load_replies": "返信を読み込む",
         "go_to_previous_post": "言及元のポストを見る",
         "visibility": {
-          "public": "公開",
-          "followers": "フォロワー",
-          "subscribers": "購読者",
-          "direct": "ダイレクト"
+            "public": "公開",
+            "followers": "フォロワー",
+            "subscribers": "購読者",
+            "direct": "ダイレクト",
+            "conversation": "スレ"
         },
         "featured": "固定ポスト",
         "edited": "編集されました",
@@ -84,7 +88,19 @@
         "react_with_emoji": "絵文字で反応",
         "unmute_author": "投稿者を非ミュート",
         "bookmark": "ブックマーク",
-        "remove_bookmark": "ブックマークを削除"
+        "remove_bookmark": "ブックマークを削除",
+        "visibility_description": {
+            "visible_to_everyone": "公開で可視",
+            "visible_to_followers": "フォロワーのみ可視",
+            "visible_to_premium_subscribers": "購読者のみ可視",
+            "visible_to_mentioned_users": "メンションされたユーザのみ可視",
+            "visible_to_people_chosen_by_conversation_owner": "スレ立て人が選んだ人のみ可視"
+        },
+        "view_conversation": "スレを表示",
+        "confirm_delete_this_post": "ポストを本当に削除してもよろしいですか？",
+        "timestamp_future_minutes": "今 | {n} 分後 | {n} 分後",
+        "timestamp_future_hours": "{n} 時間後 | {n} 時間後",
+        "timestamp_future_days": "{n} 日後 | {n} 日後"
     },
     "misc": {
         "reload_page": "数分後にページを再読み込みしてください"
@@ -138,7 +154,10 @@
         "tab_following": "フォロー中",
         "tab_subscribers": "購読者",
         "subscription_expires": "購読期間は{date}まで",
-        "view_muted_users": "ミュートされたユーザを表示する"
+        "view_muted_users": "ミュートされたユーザを表示する",
+        "profile": "プロフィール",
+        "profile_with_handle": "プロフィール - {handle}",
+        "view_custom_feeds": "カスタムフィードを表示する"
     },
     "emoji_picker": {
         "search": "検索…",
@@ -147,7 +166,9 @@
     "post_list": {
         "no_posts_found": "ポストが見つかりません",
         "post_not_found": "ポストが見つかりません",
-        "post_is_not_available": "ポストにアクセスできません"
+        "post_is_not_available": "ポストにアクセスできません",
+        "post": "ポスト",
+        "post_by_handle": "{handle} が投稿したポスト"
     },
     "profile_editor": {
         "additional_info": "詳細",
@@ -221,20 +242,27 @@
         "delete_account": "アカウントを削除",
         "delete_account_confirm": "本当にアカウントを削除してもよろしいですか？削除を取り消せません。",
         "experiments": "実験",
-        "experiments_summary": "ここには実験的機能が含まれています。自己責任で使いましょう。"
+        "experiments_summary": "ここには実験的機能が含まれています。自己責任で使いましょう。",
+        "import_follows": "フォローをインポートする",
+        "import": "インポート",
+        "migrate_account": "アカウントを移行する",
+        "move_followers": "フォロワーを移動する"
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
         "name_gallery": "{name} の画像",
         "back": "戻る",
-        "view_post": "ポストを見る"
+        "view_post": "ポストを見る",
+        "gallery": "画像",
+        "gallery_with_handle": "画像 - {handle}"
     },
     "search_results": {
         "people": "{n} 人",
         "posts": "{n}つのポスト | {n}つのポスト",
         "tags": "{n}つのタグ | {n}つのタグ",
         "show_more_results": "もっと検索結果を表示",
-        "no_results": "検索結果がありません"
+        "no_results": "検索結果がありません",
+        "search_results": "検索の結果"
     },
     "follow_requests": {
         "follow_requests": "フォローリクエスト",
@@ -284,5 +312,64 @@
         "unit_months": "月数",
         "unit_days": "日数",
         "grant": "与える"
+    },
+    "custom_feeds": {
+        "custom_feeds": "カスタムフィード",
+        "enter_feed_name": "フィード名を入力する",
+        "view_feed": "フィードを表示する",
+        "create_feed": "フィードを作成する",
+        "configure_feed": "フィードを設定する",
+        "custom_feed": "カスタムフィード",
+        "delete_feed": "フィードを削除する",
+        "confirm_delete_this_feed": "このフィードを本当に削除してもよろしいですか？",
+        "rename_feed": {
+            "save": "保存",
+            "cancel": "キャンセル",
+            "rename_feed": "フィード名を変える"
+        },
+        "user_not_found": "ユーザを見つかりませんでした",
+        "user_is_already_in_the_list": "ユーザはすでにリストに乗っています",
+        "enter_address": "アドレスを入力する",
+        "add_user": "ユーザを追加する",
+        "posts_will_not_be_displayed": "このユーザからの投稿はホームタイムラインに表示されません。",
+        "remove_user_from_feed": "フィードからユーザを外す",
+        "confirm_remove_this_user_from_feed": "フィードからこのユーザを外しても本当によろしいですか？"
+    },
+    "poll_editor": {
+        "option": "{n} 番目選択肢",
+        "duration_day": "日間 | 日間",
+        "multiple_choices": "@:poll.multiple_choices",
+        "poll_duration": "投票期間",
+        "duration_hour": "時間 | 時間"
+    },
+    "import_follows": {
+        "import_follows": "フォローをインポートする",
+        "import": "インポート",
+        "follows_csv": "フォロー (CSV)"
+    },
+    "move_followers": {
+        "move_followers": "フォローを移動する",
+        "move": "移動",
+        "user_not_found": "ユーザを見つかりませんでした",
+        "target_address": "ターゲットのアドレス"
+    },
+    "identities": {
+        "identities": "アイデンティティ",
+        "declared_aliases": "宣言されたエイリアス",
+        "remove_alias": "エイリアスを削除する",
+        "verified_aliases": "確認されたエイリアス",
+        "add_alias": "エイリアスを追加する",
+        "fediverse_address": "フェディバースのアドレス",
+        "add": "追加",
+        "if_you_want_to_move_from_another_account": "他のアカウントからこのアカウントに移動したい場合は、ここでエイリアスを作成できます。古いアカウントから新アカウントにフォローを移動したい場合はエイリアスが必要です。",
+        "user_not_found": "ユーザが見つかりませんでした"
+    },
+    "poll": {
+        "num_votes": "票無し | {n} 票 | {n} 票",
+        "vote": "投票する",
+        "multiple_choices": "複数選択",
+        "ends": "{0} に終了",
+        "closed": "締め切られた",
+        "see_results": "結果を表示する"
     }
 }

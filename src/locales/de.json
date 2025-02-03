@@ -31,7 +31,9 @@
         "toggle_preview": "Vorschau umschalten",
         "characters_left": "Zeichen verbleiben",
         "add_content_warning": "Inhaltswarnung hinzufügen",
-        "remove_attachment": "Anhang entfernen"
+        "remove_attachment": "Anhang entfernen",
+        "add_poll": "Umfrage hinzufügen",
+        "remove_poll": "Umfrage entfernen"
     },
     "about": {
         "administered_by": "Verwaltet von",
@@ -311,5 +313,10 @@
     "emoji_picker": {
         "search": "Suchen…",
         "no_emojis_found": "Keine Emojis gefunden"
+    },
+    "poll_editor": {
+        "poll_duration": "Umfragedauer",
+        "duration_hour": "Stunde | Stunden",
+        "duration_day": "Tag | Tage"
     }
 }
