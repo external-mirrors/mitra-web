@@ -1,22 +1,24 @@
 import { BACKEND_URL } from "@/constants"
 
 import { handleResponse, http } from "./common"
+import { CustomEmoji } from "./emojis"
 
-interface PollOption {
-    title: string,
-    votes_count: number,
+export interface PollOption {
+  title: string,
+  votes_count: number,
 }
 
 export interface Poll {
-    id: string,
-    expires_at: string,
-    expired: boolean,
-    multiple: boolean,
-    votes_count: number,
-    options: PollOption[],
+  id: string,
+  expires_at: string,
+  expired: boolean,
+  multiple: boolean,
+  votes_count: number,
+  options: PollOption[],
+  emojis: CustomEmoji[],
 
-    voted: boolean | null,
-    own_votes: number[] | null,
+  voted: boolean | null,
+  own_votes: number[] | null,
 }
 
 export async function vote(

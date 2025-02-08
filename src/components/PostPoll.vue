@@ -25,7 +25,7 @@
         :value="index"
         :disabled="!canVote()"
       >
-      <label :for="`poll-${poll.id}-${index}`">{{ option.title }}</label>
+      <label :for="`poll-${poll.id}-${index}`" v-html="getOptionName(option)"></label>
       <div
         v-if="resultsVisible"
         class="poll-option-count"
@@ -61,7 +61,9 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { vote, Poll } from "@/api/polls"
+
+import { replaceShortcodes } from "@/api/emojis"
+import { vote, Poll, PollOption } from "@/api/polls"
 import { Profile } from "@/api/users"
 import Timestamp from "@/components/Timestamp.vue"
 import { useCurrentUser } from "@/composables/user"
@@ -93,6 +95,10 @@ const resultsVisible = computed(() => {
     resultsRevealed.value
   )
 })
+
+function getOptionName(option: PollOption): string {
+  return replaceShortcodes(option.title, props.poll.emojis)
+}
 
 function getOptionShare(optionIndex: number): number {
   const option = props.poll.options[optionIndex]
@@ -133,6 +139,10 @@ async function onVote(): Promise<void> {
   display: flex;
   gap: calc($block-inner-padding / 2);
   padding: calc($block-inner-padding / 2);
+
+  label {
+    @include emoji-inline;
+  }
 }
 
 .poll-option-share {
