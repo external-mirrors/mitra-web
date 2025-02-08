@@ -60,7 +60,7 @@
           type="text"
           :key="index"
           :placeholder="$t('poll_editor.option', { n: index })"
-          v-model="pollOptions[index - 1]"
+          v-model.trim="pollOptions[index - 1]"
         >
         <div class="poll-settings">
           <div class="input-group">
@@ -699,7 +699,7 @@ async function publish() {
         visibility: visibility.value,
         isSensitive: isSensitive.value,
         attachments: attachmentList.value,
-        pollOptions: pollOptions.value,
+        pollOptions: pollOptions.value.filter(option => !!option),
         pollDuration: pollDuration.value * pollDurationUnit.value,
         pollMultichoice: pollMultichoice.value,
         quoteId: props.repostOf ? props.repostOf.id : null,
