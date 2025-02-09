@@ -77,10 +77,24 @@
         </template>
       </universal-link>
     </div>
-    <div class="post-subheader" v-if="getReplyMentions().length > 0">
-      <span>{{ $t('post.replying_to') }}</span>
+    <div class="post-subheader" v-if="post.in_reply_to_id">
+      <router-link
+        v-if="inThread && post.pleroma.parent_visible"
+        class="replying-to"
+        :to="{ name: 'post', params: { postId: post.in_reply_to_id } }"
+      >
+        <span
+          @mouseover="highlight(post.in_reply_to_id)"
+          @mouseleave="highlight(null)"
+          @click.prevent="scrollTo(post.in_reply_to_id)"
+        >
+          {{ $t('post.replying_to') }}
+        </span>
+      </router-link>
+      <span v-else class="replying-to">{{ $t('post.replying_to') }}</span>
       <universal-link
         v-for="mention in getReplyMentions()"
+        class="mention"
         :key="mention.id"
         :to="getProfileLocation(mention)"
         :title="getActorHandle(mention)"
@@ -977,14 +991,17 @@ $reaction-padding: 5px;
 }
 
 .post-subheader {
-  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: $whitespace;
   padding: calc($block-inner-padding / 4) $block-inner-padding 0;
 
-  a {
+  .replying-to {
+    color: var(--secondary-text-color);
+  }
+
+  .mention {
     @include block-link;
 
     overflow: hidden;
