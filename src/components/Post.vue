@@ -871,6 +871,9 @@ function getPaymentOptions(): PaymentOption[] {
     if (!currency) {
       continue
     }
+    if (options.some(option => option.code === currency.code)) {
+      continue
+    }
     const address = field.value.trim()
     options.push({
       code: currency.code,

@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Render custom emojis in poll options.
 
+### Changed
+
+- Display only one donation button per currency code.
+
 ### Fixed
 
 - Don't save empty poll options.
