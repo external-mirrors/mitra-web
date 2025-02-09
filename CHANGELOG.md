@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display only one donation button per currency code.
 - Put mention of a parent post author at the beginning of "replying to" row.
 - Added tooltips to display name and timestamp in quote.
+- Improved post header layout on small screens.
 
 ### Fixed
 

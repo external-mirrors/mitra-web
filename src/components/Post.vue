@@ -16,66 +16,70 @@
           <avatar :profile="post.account"></avatar>
         </template>
       </universal-link>
-      <universal-link
-        class="display-name-link"
-        :to="getProfileLocation(post.account)"
-        :title="author.getDisplayName()"
-      >
-        <template #link-content>
-          <profile-display-name :profile="author"></profile-display-name>
-        </template>
-      </universal-link>
-      <div
-        class="actor-address"
-        :title="getActorHandle(post.account)"
-      >
-        {{ getActorHandle(post.account) }}
+      <div class="name-group">
+        <universal-link
+          class="display-name-link"
+          :to="getProfileLocation(post.account)"
+          :title="author.getDisplayName()"
+        >
+          <template #link-content>
+            <profile-display-name :profile="author"></profile-display-name>
+          </template>
+        </universal-link>
+        <div
+          class="actor-address"
+          :title="getActorHandle(post.account)"
+        >
+          {{ getActorHandle(post.account) }}
+        </div>
       </div>
-      <router-link
-        v-if="inThread && post.in_reply_to_id && post.pleroma.parent_visible"
-        class="icon"
-        :to="{ name: 'post', params: { postId: post.in_reply_to_id } }"
-        :title="$t('post.go_to_previous_post')"
-        @mouseover="highlight(post.in_reply_to_id)"
-        @mouseleave="highlight(null)"
-      >
-        <icon-left-up @click.prevent="scrollTo(post.in_reply_to_id as string)">
-        </icon-left-up>
-      </router-link>
-      <span
-        class="icon icon-small"
-        :title="getVisibilityDisplay()"
-      >
-        <visibility-icon :visibility="post.visibility"></visibility-icon>
-      </span>
-      <span
-        v-if="post.pinned"
-        class="icon icon-small"
-        :title="$t('post.featured')"
-      >
-        <icon-pin></icon-pin>
-      </span>
-      <span v-if="post.edited_at">{{ $t('post.edited') }}</span>
-      <router-link
-        v-if="currentUser && inThread"
-        class="timestamp"
-        :to="{ name: 'post', params: { postId: post.id } }"
-        :title="formatDateTime(post.created_at)"
-      >
-        <span @click.prevent="scrollTo(post.id)">
-          <timestamp :date="post.created_at"></timestamp>
+      <div class="timestamp-group">
+        <router-link
+          v-if="inThread && post.in_reply_to_id && post.pleroma.parent_visible"
+          class="icon"
+          :to="{ name: 'post', params: { postId: post.in_reply_to_id } }"
+          :title="$t('post.go_to_previous_post')"
+          @mouseover="highlight(post.in_reply_to_id)"
+          @mouseleave="highlight(null)"
+        >
+          <icon-left-up @click.prevent="scrollTo(post.in_reply_to_id as string)">
+          </icon-left-up>
+        </router-link>
+        <span
+          class="icon icon-small"
+          :title="getVisibilityDisplay()"
+        >
+          <visibility-icon :visibility="post.visibility"></visibility-icon>
         </span>
-      </router-link>
-      <universal-link
-        v-else
-        class="timestamp"
-        :to="getPostLocation(post)"
-        :title="formatDateTime(post.created_at)"
-      >
-        <template #link-content>
-          <timestamp :date="post.created_at"></timestamp>
-        </template>
-      </universal-link>
+        <span
+          v-if="post.pinned"
+          class="icon icon-small"
+          :title="$t('post.featured')"
+        >
+          <icon-pin></icon-pin>
+        </span>
+        <span v-if="post.edited_at">{{ $t('post.edited') }}</span>
+        <router-link
+          v-if="currentUser && inThread"
+          class="timestamp"
+          :to="{ name: 'post', params: { postId: post.id } }"
+          :title="formatDateTime(post.created_at)"
+        >
+          <span @click.prevent="scrollTo(post.id)">
+            <timestamp :date="post.created_at"></timestamp>
+          </span>
+        </router-link>
+        <universal-link
+          v-else
+          class="timestamp"
+          :to="getPostLocation(post)"
+          :title="formatDateTime(post.created_at)"
+        >
+          <template #link-content>
+            <timestamp :date="post.created_at"></timestamp>
+          </template>
+        </universal-link>
+      </div>
     </div>
     <div class="post-subheader" v-if="post.in_reply_to_id">
       <router-link
@@ -950,15 +954,30 @@ $reaction-padding: 5px;
   color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
-  gap: calc($block-inner-padding / 2);
+  gap: 0 calc($block-inner-padding / 2);
   padding: $block-inner-padding $block-inner-padding 0;
   white-space: nowrap;
+
+  @media screen and (max-width: $screen-breakpoint-medium) {
+    align-items: start;
+  }
 
   .floating-avatar {
     @include floating-avatar;
 
     @media screen and (min-width: $screen-breakpoint-medium + 1) {
       margin-right: calc(0px - $block-inner-padding / 2);
+    }
+  }
+
+  .name-group {
+    display: flex;
+    flex-grow: 1;
+    gap: inherit;
+    overflow: hidden;
+
+    @media screen and (max-width: $screen-breakpoint-medium) {
+      flex-direction: column;
     }
   }
 
@@ -973,16 +992,22 @@ $reaction-padding: 5px;
   }
 
   .actor-address {
-    flex-basis: 25%;
-    flex-grow: 1;
+    flex-basis: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: all;
   }
 
+  .timestamp-group {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: inherit;
+    justify-content: right;
+  }
+
   .timestamp {
     color: var(--secondary-text-color);
-    text-align: right;
 
     &:hover {
       color: var(--secondary-text-hover-color);
