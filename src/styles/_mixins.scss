@@ -26,11 +26,12 @@
   height: 0;
 
   .avatar {
+    aspect-ratio: 1 / 1;
     float: left;
     height: $avatar-size;
     margin-left: calc(0px - $avatar-size - $block-inner-padding * 2);
     margin-top: calc(0px - $avatar-size / 2);
-    width: $avatar-size;
+    width: auto;
   }
 
   @media screen and (max-width: $screen-breakpoint-medium) {
@@ -41,7 +42,6 @@
       height: $icon-size;
       margin-left: 0;
       margin-top: 0;
-      width: $icon-size;
     }
   }
 }
