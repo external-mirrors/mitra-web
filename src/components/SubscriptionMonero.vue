@@ -611,6 +611,8 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
 
   .display-name {
     font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .wallet-address {
