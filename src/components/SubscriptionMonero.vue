@@ -614,13 +614,6 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-  .wallet-address {
-    font-family: monospace;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-  }
 }
 
 .sender {
