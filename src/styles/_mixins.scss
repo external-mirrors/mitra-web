@@ -157,7 +157,7 @@
   }
 
   .icon-small svg {
-    $icon-size-small: $icon-size * 0.8;
+    $icon-size-small: calc($icon-size / $line-height);
 
     height: $icon-size-small;
     min-width: $icon-size-small;
