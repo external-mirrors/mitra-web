@@ -2,7 +2,10 @@
   <div class="post-preview">
     <div class="post-preview-header">
       <avatar :profile="author"></avatar>
-      <profile-display-name :profile="author">
+      <profile-display-name
+        :profile="author"
+        :title="author.getDisplayName()"
+      >
       </profile-display-name>
       <span
         class="actor-address"
@@ -10,7 +13,10 @@
       >
         {{ getActorHandle(author) }}
       </span>
-      <span class="timestamp">
+      <span
+        class="timestamp"
+        :title="formatDateTime(post.created_at)"
+      >
         <timestamp :date="post.created_at"></timestamp>
       </span>
     </div>
@@ -43,6 +49,7 @@ import PostPoll from "@/components/PostPoll.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
 import { useActorHandle } from "@/composables/handle"
+import { formatDateTime } from "@/utils/dates"
 
 const props = defineProps<{
   post: Post,
