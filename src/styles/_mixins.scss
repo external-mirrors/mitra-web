@@ -123,7 +123,6 @@
   align-items: center;
   display: flex;
   font-weight: bold;
-  line-height: $emoji-line-height; /* display name may contain custom emojis */
   margin: 0 $block-outer-padding calc($block-outer-padding / 2);
 
   svg {
@@ -328,14 +327,12 @@
 
 /* Without zoom-in effect */
 @mixin emoji-inline {
-  line-height: $emoji-line-height;
-
   :deep(.emoji) {
     @include emoji;
 
     /* TODO: use 'lh' unit https://developer.mozilla.org/en-US/docs/Web/CSS/length */
-    height: $emoji-line-height * 1em;
-    width: $emoji-line-height * 1em;
+    height: $line-height * 1em;
+    width: $line-height * 1em;
 
     img {
       display: inline-block;

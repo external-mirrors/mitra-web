@@ -123,6 +123,7 @@ html {
   color: var(--text-color);
   font-family: $text-font;
   font-size: $text-font-size;
+  line-height: $line-height;
   min-height: 100%;
 
   &:has(.lightbox) {

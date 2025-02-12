@@ -751,7 +751,7 @@ async function onCtrlEnter() {
 @import "../styles/mixins";
 @import "../styles/theme";
 
-$line-height: 1.5;
+$editor-line-height: 1.5;
 
 .post-form {
   position: relative;
@@ -760,7 +760,7 @@ $line-height: 1.5;
     @include floating-avatar;
 
     left: $block-inner-padding;
-    margin-top: calc($line-height * 1em / 2);
+    margin-top: calc($editor-line-height * 1em / 2);
     position: absolute;
     top: $block-inner-padding;
 
@@ -778,7 +778,7 @@ $line-height: 1.5;
 #content {
   border-radius: $block-border-radius $block-border-radius 0 0;
   height: 100px;
-  line-height: $line-height;
+  line-height: $editor-line-height;
   min-height: 100px;
   padding: $block-inner-padding;
   width: 100%;

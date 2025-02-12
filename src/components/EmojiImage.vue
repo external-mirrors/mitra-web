@@ -38,9 +38,8 @@ const title = computed(() => {
   @include emoji;
 
   display: inline-block;
-  font-size: calc($emoji-size / $emoji-line-height);
+  font-size: calc($emoji-size / $line-height);
   height: $emoji-size;
-  line-height: $emoji-line-height;
   min-width: $emoji-size;
   text-align: center;
   width: $emoji-size;
