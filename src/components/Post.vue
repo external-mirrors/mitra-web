@@ -995,7 +995,7 @@ $reaction-padding: 5px;
   flex-direction: row;
   flex-wrap: wrap;
   gap: $whitespace;
-  padding: calc($block-inner-padding / 4) $block-inner-padding 0;
+  padding: calc($block-inner-padding / 2) $block-inner-padding 0;
 
   .replying-to {
     color: var(--secondary-text-color);
