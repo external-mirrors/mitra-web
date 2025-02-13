@@ -87,7 +87,7 @@ onMounted(async () => {
 })
 
 function scrollTo(postId: string, options: any = {}) {
-  const container = document.getElementById("main")
+  const container = document.getElementById("content")
   if (!container) {
     return
   }

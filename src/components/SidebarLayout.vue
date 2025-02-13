@@ -27,7 +27,7 @@
     <instance-info></instance-info>
   </div>
   <div id="main" :class="{ wide: currentUser === null }">
-    <div class="content">
+    <div id="content" class="content">
       <slot name="content"></slot>
     </div>
     <sidebar v-if="currentUser !== null"></sidebar>

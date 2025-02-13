@@ -171,7 +171,7 @@ $sidebar-icon-size: 20px;
     flex-direction: row;
     gap: 0;
     justify-content: space-between;
-    margin: 0 (0 - $body-padding);
+    margin: 0 (0 - $body-padding) 1px; /* adding offset for post outline */
     padding: 0 $body-padding $body-padding;
     top: $header-height;
     width: 100%;

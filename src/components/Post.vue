@@ -943,6 +943,7 @@ $reaction-padding: 5px;
   text-align: left;
 
   &.highlighted {
+    /* requires nav menu offset on small screens */
     outline: 1px solid var(--highlight-color);
   }
 }

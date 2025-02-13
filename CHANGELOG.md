@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't save empty poll options.
 - Prevent display name overflow on subscriptions page.
+- Fixed incorrect scroll position after thread navigation on small screens.
 
 ## [3.16.0] - 2025-02-03
 
