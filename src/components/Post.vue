@@ -343,6 +343,15 @@
               <span>{{ $t('post.unmute_author') }}</span>
             </button>
           </li>
+          <li v-if="isAdmin()">
+            <button
+              class="icon"
+              @click="hideMenu(); copyObjectId()"
+            >
+              <icon-link></icon-link>
+              <span>{{ $t('post.copy_object_id') }}</span>
+            </button>
+          </li>
           <li v-if="canLoadConversation()">
             <button
               class="icon"
@@ -723,6 +732,10 @@ function hideMenu() {
 
 function copyPostUrl(): void {
   navigator.clipboard.writeText(props.post.url)
+}
+
+function copyObjectId(): void {
+  navigator.clipboard.writeText(props.post.uri)
 }
 
 function canCreateBookmark(): boolean {
