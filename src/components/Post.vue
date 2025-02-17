@@ -343,6 +343,7 @@
               <span>{{ $t('post.unmute_author') }}</span>
             </button>
           </li>
+          <li v-if="isAdmin()" role="separator"></li>
           <li v-if="isAdmin()">
             <button
               class="icon"

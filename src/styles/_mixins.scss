@@ -222,6 +222,10 @@
         width: 100%;
       }
     }
+
+    li[role="separator"] {
+      border-top: 1px solid var(--separator-color);
+    }
   }
 }
 

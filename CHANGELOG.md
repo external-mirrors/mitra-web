@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added "Copy object ID" item to post menu (admin only).
 
+### Changed
+
+- Display separator between regular and admin-only menu options.
+
 ## [3.17.0] - 2025-02-13
 
 ### Added

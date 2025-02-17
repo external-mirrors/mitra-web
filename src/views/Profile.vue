@@ -135,6 +135,7 @@
                     {{ $t('profile.link_minisign_key') }}
                   </router-link>
                 </li>
+                <li v-if="isAdmin()" role="separator"></li>
                 <li v-if="isAdmin()">
                   <button @click="hideProfileMenu(); copyProfileId()">
                     {{ $t('profile.copy_profile_id') }}
