@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "stylelint-order"
+  ],
   "extends": "stylelint-config-sass-guidelines",
   "customSyntax": "postcss-scss",
   "overrides": [
@@ -14,6 +17,6 @@
     "max-nesting-depth": 3,
     "selector-max-id": 1,
     "selector-no-qualifying-type": null,
-    "string-quotes": "double"
+    "order/properties-alphabetical-order": true
   }
 }
