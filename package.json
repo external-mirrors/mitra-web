@@ -15,7 +15,7 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "test": "npm run test:unit",
-    "lint:js": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
+    "lint:js": "eslint --ignore-pattern=dist/ .",
     "lint:css": "stylelint 'src/**/*.{vue,scss}'",
     "lint": "npm run typecheck && npm run lint:js && npm run lint:css",
     "start": "npm run serve",
@@ -36,6 +36,7 @@
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
     "@intlify/unplugin-vue-i18n": "^4.0.0",
     "@lavamoat/allow-scripts": "^2.5.1",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
@@ -53,6 +54,7 @@
     "chai": "^4.1.2",
     "eslint": "^8.52.0",
     "eslint-plugin-vue": "^9.27.0",
+    "globals": "^15.15.0",
     "jsdom": "^23.2.0",
     "postcss-html": "^1.5.0",
     "sass": "~1.69.7",
