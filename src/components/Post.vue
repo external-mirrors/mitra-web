@@ -643,7 +643,7 @@ async function toggleRepost() {
     }
   } catch (error) {
     isProcessingRepost.value = false
-    console.log(error)
+    console.error(error)
     return
   }
   isProcessingRepost.value = false
@@ -678,7 +678,7 @@ async function toggleLike() {
     }
   } catch (error) {
     isProcessingLike.value = false
-    console.log(error)
+    console.error(error)
     return
   }
   isProcessingLike.value = false

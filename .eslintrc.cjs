@@ -33,14 +33,18 @@ module.exports = {
       classes: "always",
     }],
     "vue/multi-word-component-names": "off",
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-console": [
+      "warn",
+      {
+        allow: ["error"],
+      },
+    ],
+    "no-debugger": "warn",
   },
   overrides: [
     {
       files: [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.ts",
       ],
       env: {
         mocha: true,

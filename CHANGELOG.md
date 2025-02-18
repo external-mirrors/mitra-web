@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Display separator between regular and admin-only menu options.
+- Replaced `console.log` with `console.error`.
 
 ## [3.17.0] - 2025-02-13
 

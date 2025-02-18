@@ -16,7 +16,7 @@ export async function getWallet(): Promise<WalletClient | null> {
     }
     account = accounts[0]
   } catch (error) {
-    console.log("metamask error:", error)
+    console.error("metamask error:", error)
     // Access denied
     return null
   }
