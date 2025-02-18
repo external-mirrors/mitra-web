@@ -27,7 +27,7 @@
     <instance-info></instance-info>
   </div>
   <div id="main" :class="{ wide: currentUser === null }">
-    <div id="content" class="content">
+    <div id="content">
       <slot name="content"></slot>
     </div>
     <sidebar v-if="currentUser !== null"></sidebar>
@@ -200,7 +200,7 @@ header {
   padding: 0 $body-padding;
 }
 
-.content {
+#content {
   box-sizing: border-box;
   max-width: $content-width;
   min-width: $content-min-width;
@@ -212,12 +212,12 @@ header {
   margin-top: 1px;
   max-width: $wide-content-width;
   padding-top: 0;
+}
 
-  .content {
-    max-width: $wide-content-width;
-    min-width: $content-min-width;
-    width: $wide-content-width;
-  }
+.wide #content {
+  max-width: $wide-content-width;
+  min-width: $content-min-width;
+  width: $wide-content-width;
 }
 
 @media screen and (max-width: $screen-breakpoint-medium) {
@@ -267,8 +267,8 @@ header {
     max-width: none;
   }
 
-  #main .content,
-  #main.wide .content,
+  #content,
+  .wide #content,
   .instance-info {
     max-width: none;
     min-width: auto;

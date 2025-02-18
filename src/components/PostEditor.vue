@@ -9,7 +9,6 @@
     </router-link>
     <div class="textarea-group">
       <textarea
-        id="content"
         ref="contentInputElement"
         v-show="preview === null"
         :value="content"
@@ -775,7 +774,7 @@ $editor-line-height: 1.5;
   border-radius: $block-border-radius;
 }
 
-#content {
+.textarea-group > textarea {
   border-radius: $block-border-radius $block-border-radius 0 0;
   height: 100px;
   line-height: $editor-line-height;

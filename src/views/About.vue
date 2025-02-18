@@ -73,7 +73,7 @@ onMounted(() => {
 }
 
 /* Internal page */
-.content {
+#content {
   h1 {
     font-size: 18px * 2.5;
     margin-bottom: calc($block-outer-padding / 2);
