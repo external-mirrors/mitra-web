@@ -132,7 +132,7 @@
                   <router-link
                     :to="{ name: 'identity-proof' }"
                   >
-                    {{ $t('profile.link_minisign_key') }}
+                    {{ $t('profile.link_cryptographic_key') }}
                   </router-link>
                 </li>
                 <li v-if="isAdmin()" role="separator"></li>

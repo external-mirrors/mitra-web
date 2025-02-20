@@ -1,14 +1,26 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <h1>Link minisign key</h1>
+      <h1>Link cryptographic key</h1>
       <form class="identity-proof">
         <template v-if="identityClaim === null">
           <h2>Step 1: Public key</h2>
-          <code v-if="identityClaim === null">
+          <div class="input-group">
+            <label>Select signing tool</label>
+            <select v-model="proofType">
+              <option value="minisign">minisign</option>
+              <option value="signify">signify</option>
+            </select>
+          </div>
+          <code v-if="proofType == 'minisign'">
             $ minisign -R -f -p minisign.pub
             <br>
             $ cat minisign.pub
+          </code>
+          <code v-else-if="proofType === 'signify'">
+            $ signify -G -p signify.pub -s signify.sec
+            <br>
+            $ cat signify.pub
           </code>
           <textarea
             type="text"
@@ -27,10 +39,17 @@
         </template>
         <template v-else>
           <h2>Step 2: Signature</h2>
-          <code>
+          <code v-if="proofType === 'minisign'">
             $ printf '{{ identityClaim.claim }}' | xxd -r -p > message
             <br>
-            $ minisign -S -l -m message -x message.sig
+            $ minisign -S -m message -x message.sig
+            <br>
+            $ cat message.sig
+          </code>
+          <code v-else-if="proofType === 'signify'">
+            $ printf '{{ identityClaim.claim }}' | xxd -r -p > message
+            <br>
+            $ signify -S -s signify.sec -m message -x message.sig
             <br>
             $ cat message.sig
           </code>
@@ -78,6 +97,7 @@ const { getActorLocation } = useActorHandle()
 const { ensureAuthToken, currentUser } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
+const proofType = ref<"minisign" | "signify">("minisign")
 const key = ref("")
 const signature = ref("")
 const identityClaim = ref<IdentityClaim | null>(null)
@@ -129,7 +149,7 @@ async function submit() {
 }
 
 onMounted(() => {
-  setPageTitle(t("profile.link_minisign_key"))
+  setPageTitle(t("identity_proofs.link_cryptographic_key"))
 })
 </script>
 

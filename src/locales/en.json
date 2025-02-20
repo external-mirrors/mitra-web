@@ -147,7 +147,7 @@
     "atom_feed": "Atom feed",
     "view_follow_requests": "View follow requests",
     "link_ethereum_address": "Link ethereum address",
-    "link_minisign_key": "Link minisign key",
+    "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
     "subscriber_details": "Subscriber details",
     "hide_reposts": "Hide reposts",
     "show_reposts": "Show reposts",
@@ -367,6 +367,9 @@
     "fediverse_address": "Fediverse address",
     "add": "Add",
     "user_not_found": "user not found"
+  },
+  "identity_proofs": {
+    "link_cryptographic_key": "Link cryptographic key"
   },
   "misc": {
     "reload_page": "Reload the page in a few minutes"
