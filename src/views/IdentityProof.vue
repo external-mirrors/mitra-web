@@ -28,7 +28,7 @@
         <template v-else>
           <h2>Step 2: Signature</h2>
           <code>
-            $ printf {{ identityClaim.claim }} | xxd -r -p > message
+            $ printf '{{ identityClaim.claim }}' | xxd -ps -c 0 > message
             <br>
             $ minisign -S -l -m message -x message.sig
             <br>
