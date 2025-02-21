@@ -87,7 +87,9 @@
         "characters_left": "Caractères restants",
         "toggle_preview": "Activer/désactiver la prévisualisation",
         "click_to_edit_description": "Cliquer ici pour rédiger la description",
-        "visibility_can_not_be_changed": "La visibilité ne peut pas être modifiée"
+        "visibility_can_not_be_changed": "La visibilité ne peut pas être modifiée",
+        "add_poll": "Ajouter un sondage",
+        "remove_poll": "Supprimer le sondage"
     },
     "profile": {
         "profile_with_handle": "Profil - {handle}",
@@ -358,5 +360,12 @@
         "num_votes": "Pas de votes | {n} vote | {n} votes",
         "vote": "Voter",
         "multiple_choices": "Choix multiples"
+    },
+    "poll_editor": {
+        "option": "Option {n}",
+        "duration_hour": "heure | heures",
+        "duration_day": "jour | jours",
+        "multiple_choices": "@:poll.multiple_choices",
+        "poll_duration": "Durée du sondage"
     }
 }
