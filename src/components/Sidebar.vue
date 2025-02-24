@@ -111,7 +111,7 @@ $sidebar-icon-size: 20px;
   position: sticky;
   top: $header-height + $block-outer-padding;
   width: $sidebar-width;
-  z-index: $header-z-index - 1; /* sidebar is below header to avoid overlap on short screens */
+  z-index: $header-z-index - 1; /* sidebar is below header to avoid overlap on narrow screens */
 }
 
 .sidebar-link {
@@ -172,10 +172,9 @@ $sidebar-icon-size: 20px;
     gap: 0;
     justify-content: space-between;
     margin: 0 (0 - $body-padding) 1px; /* adding offset for post outline */
-    padding: 0 $body-padding $body-padding;
-    top: $header-height;
+    padding: $body-padding;
+    top: $header-height - $body-padding;
     width: 100%;
-    z-index: $header-z-index + 1; /* sidebar is on top to make notification counter visible on small screens */
   }
 
   .sidebar-link {

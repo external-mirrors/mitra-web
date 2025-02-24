@@ -230,7 +230,9 @@ header {
 
 @media screen and (max-width: $screen-breakpoint-small) {
   header {
+    height: $header-height - $body-padding;
     margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   #header {
