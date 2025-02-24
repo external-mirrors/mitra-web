@@ -38,19 +38,19 @@ function search() {
 @import "../styles/theme";
 
 .search {
+  background-color: var(--block-background-color);
   border-radius: $btn-border-radius;
+  box-shadow: $menu-shadow-size var(--shadow-color);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  padding: 7px 15px;
+  gap: $input-padding;
+  padding: 0 $body-padding;
 }
 
 input[type="search"] {
   background-color: transparent;
   border: none;
-  box-sizing: border-box;
-  font-size: 15px;
   height: 100%;
   min-width: 0; /* fix for firefox 78 */
   padding: 0;
@@ -62,7 +62,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 button {
   border-radius: 0 $btn-border-radius $btn-border-radius 0;
-  font-size: 15px;
   height: 100%;
 
   svg {

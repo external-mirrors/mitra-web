@@ -115,7 +115,7 @@ header {
     flex-direction: row;
     flex-shrink: 0;
     height: 100%;
-    padding: 7px $body-padding;
+    padding: 0 $body-padding;
 
     svg {
       height: 1.2em;
@@ -139,8 +139,6 @@ header {
   }
 
   .search {
-    background-color: var(--block-background-color);
-    box-shadow: $menu-shadow-size var(--shadow-color);
     height: 100%;
     margin: 0 0 0 auto;
     width: 250px;
