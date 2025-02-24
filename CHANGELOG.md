@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added "Copy object ID" item to post menu (admin only).
+- Display search operator list when focusing on search field.
 
 ### Changed
 

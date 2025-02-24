@@ -6,6 +6,9 @@
   "navigation": {
     "home": "Home",
     "search": "Search…",
+    "search_account": "account",
+    "search_hashtag": "hashtag",
+    "search_text": "text",
     "notifications": "Notifications",
     "local": "Local",
     "federated": "Federated",
