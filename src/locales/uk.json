@@ -33,7 +33,10 @@
         "notifications": "Сповіщення",
         "search": "Пошук…",
         "home": "Головна",
-        "bookmarks": "Закладки"
+        "bookmarks": "Закладки",
+        "search_text": "текст",
+        "search_hashtag": "хештег",
+        "search_account": "обліковий запис"
     },
     "post": {
         "next_page": "Показати більше публікацій",
@@ -91,7 +94,8 @@
         },
         "timestamp_future_days": "за {n} день | за {n} днів",
         "timestamp_future_hours": "за {n} годину | за {n} годин",
-        "timestamp_future_minutes": "зараз | за {n} хвилину | за {n} хвилин"
+        "timestamp_future_minutes": "зараз | за {n} хвилину | за {n} хвилин",
+        "copy_object_id": "Скопіювати ID об'єкта"
     },
     "welcome": {
         "browse_directory": "Перегляд каталогу профілів",
