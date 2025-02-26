@@ -14,7 +14,10 @@
         "federated": "Федерация",
         "logout": "Выйти",
         "notifications": "Уведомления",
-        "settings": "Настройки"
+        "settings": "Настройки",
+        "search_text": "текст",
+        "search_hashtag": "хэштег",
+        "search_account": "учётная запись"
     },
     "welcome": {
         "welcome": "Добро пожаловать в {0}!",
@@ -77,7 +80,8 @@
         },
         "timestamp_future_hours": "через {n} час | через {n} часов",
         "timestamp_future_days": "через {n} день | через {n} дней",
-        "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут"
+        "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут",
+        "copy_object_id": "Копировать ID объекта"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
