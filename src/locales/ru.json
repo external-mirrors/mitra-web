@@ -16,7 +16,7 @@
         "notifications": "Уведомления",
         "settings": "Настройки",
         "search_text": "текст",
-        "search_hashtag": "хэштег",
+        "search_hashtag": "хеш тег",
         "search_account": "учётная запись"
     },
     "welcome": {
@@ -57,7 +57,7 @@
         "mute_author": "Заглушить автора",
         "load_replies": "Загрузить ответы",
         "become_a_subscriber": "Стать подписчиком",
-        "send_coin": "Отправить",
+        "send_coin": "Отправить {name}",
         "copy_coin_address": "Скопировать адрес",
         "next_page": "Показать больше постов",
         "edited": "Отредактировано",
@@ -81,7 +81,7 @@
         "timestamp_future_hours": "через {n} час | через {n} часов",
         "timestamp_future_days": "через {n} день | через {n} дней",
         "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут",
-        "copy_object_id": "Копировать ID объекта"
+        "copy_object_id": "Копировать идентификатор объекта"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
