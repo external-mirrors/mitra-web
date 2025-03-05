@@ -140,6 +140,10 @@ onMounted(async () => {
   h1 {
     font-size: 1.4rem;
     margin: 0;
+
+    a {
+      text-decoration: underline;
+    }
   }
 
   span {
