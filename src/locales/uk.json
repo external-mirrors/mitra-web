@@ -20,7 +20,8 @@
         "enter_image_description": "Введіть опис зображення",
         "visibility_can_not_be_changed": "Неможливо змінити видимість",
         "add_poll": "Додати опитування",
-        "remove_poll": "Видалити опитування"
+        "remove_poll": "Видалити опитування",
+        "edit_description": "Редагувати опис"
     },
     "navigation": {
         "logout": "Вийти з системи",
