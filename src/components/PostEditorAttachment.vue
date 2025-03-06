@@ -81,6 +81,7 @@ function removeAttachment() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 @import "../styles/theme";
 
 $media-btn-opacity: 0.95;
@@ -88,20 +89,6 @@ $media-btn-opacity: 0.95;
 .attachment {
   display: flex;
   position: relative;
-
-  .remove-attachment {
-    background-color: var(--btn-background-color);
-    display: flex;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    svg {
-      height: $icon-size;
-      stroke: var(--btn-text-color);
-      width: $icon-size;
-    }
-  }
 
   > img {
     min-height: 100px;
@@ -117,6 +104,16 @@ $media-btn-opacity: 0.95;
     width: 100%;
     word-wrap: break-word;
   }
+}
+
+.remove-attachment {
+  @include media-btn;
+
+  opacity: $media-btn-opacity;
+  padding: $input-padding / 2;
+  position: absolute;
+  right: $input-padding;
+  top: $input-padding;
 }
 
 .attachment-description {
