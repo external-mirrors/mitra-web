@@ -7,25 +7,25 @@
     >
       <icon-remove></icon-remove>
     </button>
-    <div
-      v-if="attachment.type === 'image'"
-      class="attachment-description"
+    <button
+      v-if="attachment.type === 'image' && description === null"
+      class="edit-description"
+      :title="$t('post_editor.edit_description')"
+      @click.prevent="editDescription()"
     >
-      <button
-        v-if="description === null"
-        @click.prevent="editDescription()"
-      >
-        {{ $t('post_editor.click_to_edit_description') }}
-      </button>
-      <form v-else @submit.prevent="updateDescription()">
-        <textarea
-          v-model.trim="description"
-          rows="1"
-          :placeholder="$t('post_editor.enter_image_description')"
-        ></textarea>
-        <button type="submit">{{ $t('post_editor.save_image_description') }}</button>
-      </form>
-    </div>
+      <icon-edit></icon-edit>
+    </button>
+    <form
+      v-if="attachment.type === 'image' && description !== null"
+      class="attachment-description"
+      @submit.prevent="updateDescription()">
+      <textarea
+        v-model.trim="description"
+        rows="1"
+        :placeholder="$t('post_editor.enter_image_description')"
+      ></textarea>
+      <button type="submit">{{ $t('post_editor.save_image_description') }}</button>
+    </form>
     <img
       v-if="attachment.type === 'image'"
       :alt="attachment.description || undefined"
@@ -40,6 +40,7 @@
 import { ref } from "vue"
 
 import { updateAttachment, Attachment } from "@/api/posts"
+import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconRemove from "@/assets/feather/x.svg?component"
 import { useCurrentUser } from "@/composables/user"
 
@@ -116,39 +117,39 @@ $media-btn-opacity: 0.95;
   top: $input-padding;
 }
 
+.edit-description {
+  @include media-btn;
+
+  bottom: $input-padding;
+  opacity: $media-btn-opacity;
+  padding: calc($input-padding / 2);
+  position: absolute;
+  right: $input-padding;
+}
+
 .attachment-description {
   background-color: var(--block-background-color);
   border-radius: $btn-border-radius;
-  bottom: $block-inner-padding;
+  bottom: $input-padding;
   box-shadow: $btn-shadow-size var(--shadow-color);
-  left: $block-inner-padding;
+  display: flex;
+  left: $input-padding;
   opacity: $media-btn-opacity;
   position: absolute;
-  right: $block-inner-padding;
+  right: $input-padding;
 
-  > button {
-    border-radius: inherit;
-    padding: $input-padding;
-    text-align: center;
-    width: 100%;
+  textarea {
+    border: none;
+    border-radius: $btn-border-radius 0 0 $btn-border-radius;
+    overflow-x: hidden;
   }
 
-  form {
-    display: flex;
-
-    textarea {
-      border: none;
-      border-radius: $btn-border-radius 0 0 $btn-border-radius;
-      overflow-x: hidden;
-    }
-
-    button[type="submit"] {
-      border-left: 1px solid var(--separator-color);
-      border-radius: 0 $btn-border-radius $btn-border-radius 0;
-      font-size: $text-font-size;
-      font-weight: bold;
-      padding: $input-padding;
-    }
+  button[type="submit"] {
+    border-left: 1px solid var(--separator-color);
+    border-radius: 0 $btn-border-radius $btn-border-radius 0;
+    font-size: $text-font-size;
+    font-weight: bold;
+    padding: $input-padding;
   }
 }
 </style>

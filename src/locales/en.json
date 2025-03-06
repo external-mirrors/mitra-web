@@ -108,7 +108,7 @@
     "repost": "Repost",
     "attach_file": "Attach file",
     "remove_attachment": "Remove attachment",
-    "click_to_edit_description": "Click here to edit description",
+    "edit_description": "Edit description",
     "enter_image_description": "Enter image description",
     "save_image_description": "Save",
     "add_poll": "Add poll",
