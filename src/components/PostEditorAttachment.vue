@@ -83,6 +83,8 @@ function removeAttachment() {
 @import "../styles/layout";
 @import "../styles/theme";
 
+$media-btn-opacity: 0.95;
+
 .attachment {
   display: flex;
   position: relative;
@@ -123,8 +125,7 @@ function removeAttachment() {
   bottom: $block-inner-padding;
   box-shadow: $btn-shadow-size var(--shadow-color);
   left: $block-inner-padding;
-  margin: 0 auto;
-  opacity: 0.8;
+  opacity: $media-btn-opacity;
   position: absolute;
   right: $block-inner-padding;
 

@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Added underline to instance name on welcome screen.
+- Reduced transparency of image description input.
 
 ## [3.18.0] - 2025-02-26
 
