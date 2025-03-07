@@ -111,7 +111,7 @@ $media-btn-opacity: 0.95;
   @include media-btn;
 
   opacity: $media-btn-opacity;
-  padding: $input-padding / 2;
+  padding: calc($input-padding / 2);
   position: absolute;
   right: $input-padding;
   top: $input-padding;
