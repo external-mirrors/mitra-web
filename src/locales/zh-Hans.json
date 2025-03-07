@@ -36,7 +36,8 @@
         "attach_file": "添加附件",
         "visibility_can_not_be_changed": "无法更改可见性",
         "add_poll": "添加投票",
-        "remove_poll": "移除投票"
+        "remove_poll": "移除投票",
+        "edit_description": "编辑描述"
     },
     "about": {
         "administered_by": "管理员",
