@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Changed "Remove attachment" button style.
 - Replaced "Click here to edit description" button with an icon.
 - Remove meta tags inserted by server.
+- Inject custom CSS link tag at build time.
 
 ### Fixed
 
