@@ -21,11 +21,17 @@ watch(currentUser, () => {
 }, { immediate: true })
 
 onMounted(() => {
+  // Load custom stylesheet
   // https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
   const link = document.createElement("link")
   link.href = `${BACKEND_URL}/assets/custom.css`
   link.rel = "stylesheet"
   document.head.append(link)
+  // Remove meta tags inserted by server
+  const inserted = document.querySelectorAll('head > [data-inserted="true"]')
+  for (const element of inserted) {
+    element.remove()
+  }
 })
 </script>
 

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Reduced transparency of image description input.
 - Changed "Remove attachment" button style.
 - Replaced "Click here to edit description" button with an icon.
+- Remove meta tags inserted by server.
 
 ## [3.18.0] - 2025-02-26
 
