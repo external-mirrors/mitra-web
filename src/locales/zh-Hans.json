@@ -10,7 +10,10 @@
         "home": "主页",
         "search": "搜索…",
         "notifications": "通知",
-        "bookmarks": "书签"
+        "bookmarks": "书签",
+        "search_account": "账号",
+        "search_hashtag": "话题标签",
+        "search_text": "文本"
     },
     "post_editor": {
         "prompt": "在想什么呢？",
@@ -33,7 +36,8 @@
         "attach_file": "添加附件",
         "visibility_can_not_be_changed": "无法更改可见性",
         "add_poll": "添加投票",
-        "remove_poll": "移除投票"
+        "remove_poll": "移除投票",
+        "edit_description": "编辑描述"
     },
     "about": {
         "administered_by": "管理员",
@@ -100,7 +104,8 @@
         },
         "timestamp_future_minutes": "现在 | 在 {n} 分钟内 | 在 {n} 分钟内",
         "timestamp_future_hours": "在 {n} 小时内 | 在 {n} 小时内",
-        "timestamp_future_days": "在 {n} 天内 | 在 {n} 天内"
+        "timestamp_future_days": "在 {n} 天内 | 在 {n} 天内",
+        "copy_object_id": "复制对象 ID"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"

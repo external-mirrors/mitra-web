@@ -10,7 +10,9 @@
         "about": "Acerca de",
         "home": "Inicio",
         "search": "Buscar…",
-        "bookmarks": "Marcadores"
+        "bookmarks": "Marcadores",
+        "search_account": "cuenta",
+        "search_text": "texto"
     },
     "post_editor": {
         "prompt": "¿Qué estás pensando?",
@@ -26,7 +28,13 @@
         "save_image_description": "Guardar",
         "remove_attachment": "Eliminar adjunto",
         "enter_image_description": "Introducir descripción de la imagen",
-        "characters_left": "Caracteres restantes"
+        "characters_left": "Caracteres restantes",
+        "remove_content_warning": "Eliminar la advertencia de contenido",
+        "visibility_can_not_be_changed": "La visibilidad no puede ser cambiada",
+        "remove_poll": "Eliminar encuesta",
+        "add_poll": "Añadir encuesta",
+        "add_content_warning": "Añadir advertencia de contenido",
+        "insert_emoji": "Insertar emoji"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -84,7 +92,12 @@
         "timestamp_future_days": "en {n} dia | en {n} días",
         "subscribe": "subscribir",
         "send_coin": "Enviar {name}",
-        "become_a_subscriber": "Convertirse en subscriptor"
+        "become_a_subscriber": "Convertirse en subscriptor",
+        "copy_link_to_post": "Copiar enlace a publicación",
+        "featured": "Destacado",
+        "copy_object_id": "Copiar objeto ID",
+        "remove_from_featured": "Eliminar de destacados",
+        "add_to_featured": "Añadir a destacados"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -96,20 +109,87 @@
         "subscription": "Suscripción",
         "subscriber": "Suscriptor",
         "more": "Más",
-        "open_profile_page": "Abrir página de perfil"
+        "open_profile_page": "Abrir página de perfil",
+        "view_follow_requests": "Ver solicitudes de seguimiento",
+        "hide_replies": "Ocultar respuestas",
+        "edit_profile": "Editar perfil",
+        "accept_follow_request": "Aceptar solicitud de seguimiento",
+        "reject_follow_request": "Rechazar solicitud de seguimiento",
+        "stats_followers": "seguidores",
+        "tab_followers": "Seguidores",
+        "profile": "Perfil",
+        "subscribe_long": "Convertirse en suscriptor",
+        "tab_subscribers": "Subscriptores",
+        "subscription_expires": "La suscripción expira {date}",
+        "profile_with_handle": "Perfil - {handle}",
+        "subscriber_details": "Detalles del suscriptor",
+        "cancel_follow_request": "Cancelar solicitud de seguimiento",
+        "stats_subscribers": "subscriptores",
+        "tab_posts": "Publicaciones",
+        "tab_posts_and_replies": "Publicaciones y respuestas",
+        "tab_featured": "Destacado",
+        "view_muted_users": "Ver usuarios silenciados",
+        "manually_approves_followers": "Aceptar seguidores manualmente",
+        "follow": "Seguir",
+        "load_latest_posts": "Cargar publicaciones recientes",
+        "tab_gallery": "Galería",
+        "tab_following": "Siguiendo",
+        "subscribe": "Subscribirse",
+        "stats_following": "siguiendo",
+        "not_found": "Perfil no encontrado",
+        "show_replies": "Mostrar respuestas",
+        "remove_from_followers": "Eliminar de seguidores",
+        "mute": "Silenciar",
+        "copy_profile_id": "Copiar ID de perfil"
     },
     "emoji_picker": {
-        "search": "Buscar…"
+        "search": "Buscar…",
+        "no_emojis_found": "Emojis no encontrados"
     },
     "post_list": {
         "post": "Publicación",
         "post_not_found": "Publicación no encontrada",
         "no_posts_found": "No se han encontrado publicaciones",
-        "post_is_not_available": "La publicación no está disponible"
+        "post_is_not_available": "La publicación no está disponible",
+        "post_by_handle": "Publicado por {handle}"
     },
     "poll": {
         "num_votes": "sin votos | {n} voto | {n} votos",
         "multiple_choices": "Múltiples opciones",
-        "closed": "Cerrado"
+        "closed": "Cerrado",
+        "vote": "Votar",
+        "ends": "Termina {0}",
+        "see_results": "Ver resultados"
+    },
+    "profile_editor": {
+        "lock_account": "Bloquear cuenta",
+        "lock_account_requires": "Requiere que apruebes seguidores manualmente",
+        "additional_info": "Información adicional",
+        "field_content": "Contenido",
+        "save": "Guardar",
+        "mention_everybody": "Todo el mundo",
+        "mention_everybody_except_new_accounts": "Todo el mundo excepto cuentas nuevas",
+        "remove_image": "Eliminar",
+        "you_can_have_max_fields": "Puede tener hasta {max} elementos mostrados como una tabla en su perfil",
+        "edit_profile": "Editar perfil",
+        "display_name": "Visualizar nombre",
+        "avatar": "Avatar",
+        "accept_mentions_from": "Aceptar menciones de",
+        "mention_follows_and_followers": "Personas que sigo y mis seguidores"
+    },
+    "notifications": {
+        "followed_you": "te ha seguido"
+    },
+    "poll_editor": {
+        "option": "Opción {n}",
+        "poll_duration": "Duración de encuesta",
+        "duration_hour": "hora | horas",
+        "duration_day": "día | días"
+    },
+    "profile_list": {
+        "show_more_profiles": "Mostrar mas perfiles",
+        "muted_users": "Usuarios silenciados",
+        "no_muted_users": "Usuarios no silenciados",
+        "show_more_users": "Mostrar mas usuarios"
     }
 }
