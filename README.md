@@ -6,6 +6,10 @@ Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
 Mitra Web UI includes a dark mode feature for visual accessibility.
 
+## Custom themes
+
+The appearance can be customized by replacing `assets/custom.css` as described in [documentation](https://codeberg.org/silverpill/mitra/src/branch/main/docs/custom_themes.md).
+
 ## Compatibility
 
 The latest version of Mitra Web UI is compatible with the latest version of Mitra server and the version before it.
@@ -45,12 +49,6 @@ npm run build
 ```
 
 This will produce a static website in the `/dist` directory.
-
-### Customization
-
-Color scheme can be adjusted by changing variables in [src/styles/_theme.scss](./src/styles/_theme.scss). This file includes parameters of both light and dark modes.
-
-Rebuild the application after making changes.
 
 ## Development
 
