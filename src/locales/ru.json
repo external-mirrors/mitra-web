@@ -111,7 +111,8 @@
         "characters_left": "Осталось символов",
         "visibility_can_not_be_changed": "Видимость не может быть изменена",
         "add_poll": "Добавить опрос",
-        "remove_poll": "Удалить опрос"
+        "remove_poll": "Удалить опрос",
+        "edit_description": "Редактировать описание"
     },
     "emoji_picker": {
         "search": "Поиск…",
