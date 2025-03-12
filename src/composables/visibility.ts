@@ -24,6 +24,7 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
       if (author.id === inReplyTo.account.id) {
         return [
           Visibility.Followers,
+          Visibility.Conversation,
           Visibility.Direct,
         ]
       } else {

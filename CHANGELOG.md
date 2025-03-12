@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Support generating identity proofs with `signify` tool.
 
+### Changed
+
+- Allow replying with "conversation" visibility to author's own followers-only post.
+
 ## [3.19.0] - 2025-03-09
 
 ### Changed
