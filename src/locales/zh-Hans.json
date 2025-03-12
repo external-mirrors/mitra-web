@@ -371,5 +371,8 @@
         "duration_day": "天 | 天",
         "option": "选项 {n}",
         "poll_duration": "投票持续时间"
+    },
+    "identity_proofs": {
+        "link_cryptographic_key": "关联加密密钥"
     }
 }
