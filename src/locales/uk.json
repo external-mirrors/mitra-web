@@ -162,7 +162,8 @@
         "view_muted_users": "Переглянути ігнорованих користувачів",
         "view_custom_feeds": "Переглянути власні стрічки",
         "profile": "Профіль",
-        "profile_with_handle": "Профіль - {handle}"
+        "profile_with_handle": "Профіль - {handle}",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
@@ -375,6 +376,7 @@
         "duration_hour": "година | годин",
         "duration_day": "день | днів",
         "option": "Варіант {n}",
-        "poll_duration": "Тривалість опитування"
+        "poll_duration": "Тривалість опитування",
+        "multiple_choices": "@:poll.multiple_choices"
     }
 }
