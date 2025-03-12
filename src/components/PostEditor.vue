@@ -206,14 +206,14 @@
         </button>
         <div v-if="isEditorEmbedded" class="submit-reply-btn-wrapper">
           <button
-            class="icon btn-small"
+            class="btn-small"
             @click.prevent="cancel()"
           >
             {{ $t('post_editor.cancel') }}
           </button>
           <button
             type="submit"
-            class="icon btn-small"
+            class="btn-small"
             :disabled="!canPublish()"
             @click.prevent="publish()"
           >
@@ -883,8 +883,13 @@ $editor-line-height: 1.5;
   gap: inherit;
 
   .btn-small {
+    color: var(--secondary-text-color);
     font-weight: bold;
     margin-left: calc($block-inner-padding / 2);
+
+    &:hover {
+      color: var(--secondary-text-hover-color);
+    }
 
     &[type="submit"] {
       color: var(--link-color);
