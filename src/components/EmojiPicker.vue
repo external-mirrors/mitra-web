@@ -11,13 +11,13 @@
           @keydown.enter.prevent
         >
       </li>
-      <li v-if="searchQuery.length > 0 && getSearchResults().length === 0">
+      <li v-if="searchQuery.length > 0 && searchResults.length === 0">
         {{ $t('emoji_picker.no_emojis_found') }}
       </li>
       <li v-else-if="searchQuery.length > 0" class="emoji-grid-wrapper">
         <div class="emoji-grid">
           <button
-            v-for="emoji in getSearchResults()"
+            v-for="emoji in searchResults"
             :key="emoji.name"
             @click.prevent="pick(emoji.text)"
           >
@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref } from "vue"
 
 import { getCustomEmojis, getUnicodeEmojis, Emoji } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
@@ -80,10 +80,10 @@ const allEmojiList = ref<Emoji[]>([])
 const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
-function getSearchResults(): Emoji[] {
+const searchResults = computed(() => {
   return allEmojiList.value
     .filter(emoji => emoji.name.includes(searchQuery.value))
-}
+})
 
 function pick(emojiText: string) {
   emit("emoji-picked", emojiText)
