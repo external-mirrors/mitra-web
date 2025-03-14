@@ -43,7 +43,7 @@ export interface Emoji {
   url: string | null,
 }
 
-async function getUnicodeEmojis(): Promise<Emoji[]> {
+export async function getUnicodeEmojis(): Promise<Emoji[]> {
   const { gemoji } = await import("gemoji")
   const unicodeEmojis = gemoji
     .filter((gemoji) => gemoji.names.length > 0)

@@ -27,7 +27,7 @@
       <li v-else class="emoji-grid-wrapper">
         <div class="emoji-grid">
           <button
-            v-for="emoji in unicodeEmojiList"
+            v-for="emoji in favoriteEmojiList"
             :key="emoji.name"
             @click.prevent="pick(emoji.text)"
           >
@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-import { getCustomEmojis, Emoji } from "@/api/emojis"
+import { getCustomEmojis, getUnicodeEmojis, Emoji } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
 
@@ -60,7 +60,7 @@ const emit = defineEmits<{
   (event: "emoji-picked", name: string): void,
 }>()
 
-const DEFAULT_EMOJIS = [
+const FAVORITE_EMOJIS = [
   "❤️",
   "😆",
   "🤔",
@@ -71,13 +71,14 @@ const DEFAULT_EMOJIS = [
   "👀",
 ]
 
-const unicodeEmojiList = ref<Emoji[]>([])
+const favoriteEmojiList = ref<Emoji[]>([])
 const customEmojiList = ref<Emoji[]>([])
+const allEmojiList = ref<Emoji[]>([])
 const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
 function getSearchResults(): Emoji[] {
-  return [...unicodeEmojiList.value, ...customEmojiList.value]
+  return allEmojiList.value
     .filter(emoji => emoji.name.includes(searchQuery.value))
 }
 
@@ -88,11 +89,16 @@ function pick(emojiText: string) {
 onMounted(async () => {
   isLoading.value = true
   const { emojiToName } = await import("gemoji")
-  unicodeEmojiList.value = DEFAULT_EMOJIS.map(emoji => {
+  favoriteEmojiList.value = FAVORITE_EMOJIS.map(emoji => {
     const name = emojiToName[emoji]
     return { name, text: emoji, url: null }
   })
-  customEmojiList.value = await getCustomEmojis()
+  const unicodeEmojis = await getUnicodeEmojis()
+  const customEmojis = await getCustomEmojis()
+  customEmojiList.value = [...customEmojis]
+  const allEmojis = [...unicodeEmojis, ...customEmojis]
+  allEmojis.sort((a, b) => a.name.localeCompare(b.name))
+  allEmojiList.value = allEmojis
   isLoading.value = false
 })
 </script>
