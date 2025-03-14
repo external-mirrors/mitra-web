@@ -59,7 +59,8 @@
         "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
         "timestamp_future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
         "timestamp_future_hours": "dans {n} heure | dans {n} heures",
-        "timestamp_future_days": "dans {n} jour | dans {n} jours"
+        "timestamp_future_days": "dans {n} jour | dans {n} jours",
+        "copy_object_id": "Copier l'ID de l'objet"
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -89,7 +90,8 @@
         "click_to_edit_description": "Cliquer ici pour rédiger la description",
         "visibility_can_not_be_changed": "La visibilité ne peut pas être modifiée",
         "add_poll": "Ajouter un sondage",
-        "remove_poll": "Supprimer le sondage"
+        "remove_poll": "Supprimer le sondage",
+        "edit_description": "Modifier la description"
     },
     "profile": {
         "profile_with_handle": "Profil - {handle}",
@@ -275,7 +277,10 @@
         "subscriptions": "Souscriptions",
         "settings": "Paramètres",
         "about": "À propos",
-        "logout": "Déconnexion"
+        "logout": "Déconnexion",
+        "search_account": "compte",
+        "search_hashtag": "hashtag",
+        "search_text": "texte"
     },
     "welcome": {
         "read_only_mode": "Votre compte est en mode lecture seule",
@@ -367,5 +372,8 @@
         "duration_day": "jour | jours",
         "multiple_choices": "@:poll.multiple_choices",
         "poll_duration": "Durée du sondage"
+    },
+    "identity_proofs": {
+        "link_cryptographic_key": "Lier la clé cryptographique"
     }
 }
