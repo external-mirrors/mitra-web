@@ -5,6 +5,7 @@
       <li class="search">
         <input
           type="search"
+          ref="searchInputElement"
           :placeholder="$t('emoji_picker.search')"
           v-model="searchQuery"
           @keydown.enter.prevent
@@ -49,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { nextTick, onMounted, ref } from "vue"
 
 import { getCustomEmojis, getUnicodeEmojis, Emoji } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
@@ -70,6 +71,8 @@ const FAVORITE_EMOJIS = [
   "💯",
   "👀",
 ]
+
+const searchInputElement = ref<HTMLInputElement | null>(null)
 
 const favoriteEmojiList = ref<Emoji[]>([])
 const customEmojiList = ref<Emoji[]>([])
@@ -100,6 +103,11 @@ onMounted(async () => {
   allEmojis.sort((a, b) => a.name.localeCompare(b.name))
   allEmojiList.value = allEmojis
   isLoading.value = false
+
+  await nextTick()
+  if (searchInputElement.value !== null) {
+    searchInputElement.value.focus()
+  }
 })
 </script>
 
