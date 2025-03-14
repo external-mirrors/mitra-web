@@ -26,7 +26,7 @@ export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
   })
 }
 
-export async function getCustomEmojis(): Promise<CustomEmoji[]> {
+async function _getCustomEmojis(): Promise<CustomEmoji[]> {
   const url = `${BACKEND_URL}/api/v1/custom_emojis`
   const response = await http(url, {
     method: "GET",
@@ -43,7 +43,7 @@ export interface Emoji {
   url: string | null,
 }
 
-export async function getEmojis(): Promise<Emoji[]> {
+async function getUnicodeEmojis(): Promise<Emoji[]> {
   const { gemoji } = await import("gemoji")
   const unicodeEmojis = gemoji
     .filter((gemoji) => gemoji.names.length > 0)
@@ -54,7 +54,11 @@ export async function getEmojis(): Promise<Emoji[]> {
         url: null,
       }
     })
-  const _customEmojis = await getCustomEmojis()
+  return unicodeEmojis
+}
+
+export async function getCustomEmojis(): Promise<Emoji[]> {
+  const _customEmojis = await _getCustomEmojis()
   const customEmojis = _customEmojis.map(emoji => {
     return {
       name: emoji.shortcode,
@@ -62,6 +66,12 @@ export async function getEmojis(): Promise<Emoji[]> {
       url: emoji.url,
     }
   })
+  return customEmojis
+}
+
+export async function getEmojis(): Promise<Emoji[]> {
+  const unicodeEmojis = await getUnicodeEmojis()
+  const customEmojis = await getCustomEmojis()
   const emojis = [...unicodeEmojis, ...customEmojis]
   emojis.sort((a, b) => a.name.localeCompare(b.name))
   return emojis

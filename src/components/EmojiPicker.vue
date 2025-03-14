@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
-import { getCustomEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
+import { getCustomEmojis, Emoji } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
 
@@ -92,14 +92,7 @@ onMounted(async () => {
     const name = emojiToName[emoji]
     return { name, text: emoji, url: null }
   })
-  const customEmojis = await getCustomEmojis()
-  customEmojiList.value = customEmojis.map(emoji => {
-    return {
-      name: emoji.shortcode,
-      text: getEmojiShortcode(emoji.shortcode),
-      url: emoji.url,
-    }
-  })
+  customEmojiList.value = await getCustomEmojis()
   isLoading.value = false
 })
 </script>
