@@ -35,7 +35,8 @@ function copyAddress() {
   input {
     background-color: inherit;
     border: none;
-    border-radius: 10px 0 0 10px;
+    border-bottom-left-radius: inherit;
+    border-top-left-radius: inherit;
     color: var(--text-color);
     font-family: monospace;
     font-size: 12px;
@@ -45,7 +46,8 @@ function copyAddress() {
   }
 
   .copy-btn {
-    border-radius: 0 10px 10px 0;
+    border-bottom-right-radius: inherit;
+    border-top-right-radius: inherit;
     height: $icon-size;
     min-width: $icon-size;
     padding: 3px 7px 3px 0;

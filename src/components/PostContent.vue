@@ -159,8 +159,17 @@ function getContent(): string {
   }
 
   :deep(pre),
-  :deep(code) {
+  :deep(:not(pre) > code) {
+    background-color: var(--widget-background-color);
     overflow-x: auto;
+  }
+
+  :deep(pre) {
+    padding: $input-padding;
+  }
+
+  :deep(:not(pre) > code) {
+    padding: $whitespace;
   }
 
   :deep(ul),
