@@ -1,5 +1,6 @@
 import { computed } from "vue"
 
+import { Visibility } from "@/api/posts"
 import { updateClientConfig } from "@/api/settings"
 import { ClientConfigValue } from "@/api/users"
 import { useCurrentUser } from "@/composables/user"
@@ -9,6 +10,7 @@ export enum ConfigKey {
   Locale = "locale",
   Theme = "theme",
   ContentWarningsEnabled = "contentWarningsEnabled",
+  DefaultVisibility = "defaultVisibility",
   CtrlEnterEnabled = "ctrlEnterEnabled",
 }
 
@@ -50,10 +52,16 @@ export function useClientConfig() {
     return value as boolean
   })
 
+  const defaultVisibility = computed(() => {
+    const value = getClientConfigKey(ConfigKey.DefaultVisibility) ?? Visibility.Public
+    return value as Visibility
+  })
+
   return {
     getClientConfigKey,
     setClientConfigKey,
     contentWarningsEnabled,
     ctrlEnterEnabled,
+    defaultVisibility,
   }
 }

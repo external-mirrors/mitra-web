@@ -64,6 +64,21 @@
             >{{ localeName }}</option>
           </select>
         </form>
+        <form class="appearance-form">
+          <label for="default-visibility">{{ $t('settings.default_post_visibility') }}</label>
+          <select
+            id="default-visibility"
+            :value="defaultVisibility"
+            @change="onChangeDefaultVisibility"
+            :disabled="isLoading"
+          >
+            <option
+              v-for="visibility in DEFAULT_VISIBILITY_OPTIONS"
+              :key="visibility"
+              :value="visibility"
+            >{{ VISIBILITY_MAP[visibility].name }}</option>
+          </select>
+        </form>
       </section>
       <section>
         <h2>{{ $t('settings.authentication') }}</h2>
@@ -161,6 +176,7 @@ import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
+import { Visibility } from "@/api/posts"
 import {
   changePassword,
   deleteAccount,
@@ -174,13 +190,21 @@ import { useInstanceInfo } from "@/composables/instance"
 import { useLocales, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useTitle } from "@/composables/title"
+import { useVisibility } from "@/composables/visibility"
 import { useCurrentUser } from "@/composables/user"
+
+const DEFAULT_VISIBILITY_OPTIONS = [
+  Visibility.Public,
+  Visibility.Followers,
+  Visibility.Subscribers,
+]
 
 const { locale, t } = useI18n({ useScope: "global" })
 const router = useRouter()
 const {
   contentWarningsEnabled,
   ctrlEnterEnabled,
+  defaultVisibility,
   setClientConfigKey,
 } = useClientConfig()
 const {
@@ -193,6 +217,7 @@ const { getBlockchainInfo } = useInstanceInfo()
 const { changePreferredLocale } = useLocales()
 const { darkModeEnabled, toggleDarkMode } = useTheme()
 const { setPageTitle } = useTitle()
+const { VISIBILITY_MAP } = useVisibility()
 
 const newPassword = ref("")
 const newPasswordConfirmation = ref("")
@@ -233,6 +258,23 @@ async function onToggleCtrlEnter() {
   isLoading.value = false
 }
 
+async function onChangeLocale(event: Event) {
+  isLoading.value = true
+  const newLocale = (event.target as HTMLInputElement).value
+  await changePreferredLocale(newLocale)
+  isLoading.value = false
+}
+
+async function onChangeDefaultVisibility(event: Event) {
+  isLoading.value = true
+  const visibility = (event.target as HTMLInputElement).value
+  await setClientConfigKey(
+    ConfigKey.DefaultVisibility,
+    visibility,
+  )
+  isLoading.value = false
+}
+
 function canChangePassword(): boolean {
   return Boolean(newPassword.value) && newPassword.value === newPasswordConfirmation.value
 }
@@ -263,13 +305,6 @@ async function onExportFollows() {
 async function onExportFollowers() {
   const authToken = ensureAuthToken()
   await exportFollowers(authToken)
-}
-
-async function onChangeLocale(event: Event) {
-  isLoading.value = true
-  const newLocale = (event.target as HTMLInputElement).value
-  await changePreferredLocale(newLocale)
-  isLoading.value = false
 }
 
 onMounted(() => {

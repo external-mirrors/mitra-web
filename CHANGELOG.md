@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Include all unicode emojis in results when searching for a shortcode in emoji picker.
 - Focus on search input when emoji picker is opened.
 - Added background to code blocks in posts.
+- Added default post visibility setting to "Settings" page.
 
 ### Changed
 

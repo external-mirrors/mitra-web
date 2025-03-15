@@ -258,7 +258,6 @@ import {
   Attachment,
   Mention,
   Post,
-  Visibility,
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
 import { Profile } from "@/api/users"
@@ -290,7 +289,7 @@ const POST_CONTENT_STORAGE_KEY = "post_content"
 const POLL_OPTION_COUNT_MIN = 2
 const POLL_OPTION_COUNT_MAX = 6
 
-const { ctrlEnterEnabled } = useClientConfig()
+const { ctrlEnterEnabled, defaultVisibility } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 const { instance } = useInstanceInfo()
@@ -314,7 +313,7 @@ const attachmentUploaderElement = ref<HTMLInputElement | null>(null)
 const idempotencyKey = ref(generateRandomString(FORM_ID_LENGTH))
 const content = ref("")
 const attachmentList = ref<Attachment[]>([])
-const visibility = ref(Visibility.Public)
+const visibility = ref(defaultVisibility.value)
 const isSensitive = ref(false)
 
 const pollEditorVisible = ref(false)
@@ -381,8 +380,12 @@ if (props.inReplyTo && content.value.length === 0) {
 }
 
 if (props.inReplyTo && props.post === null) {
-  // First item is default visibility
-  visibility.value = visibilityOptions.value[0]
+  if (visibilityOptions.value.includes(defaultVisibility.value)) {
+    visibility.value = defaultVisibility.value
+  } else {
+    // First item is default visibility
+    visibility.value = visibilityOptions.value[0]
+  }
 }
 
 if (props.repostOf && content.value.length === 0) {
