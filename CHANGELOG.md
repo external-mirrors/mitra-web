@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Allow replying with "conversation" visibility to author's own followers-only post.
+- Updated translations ([#69](https://codeberg.org/silverpill/mitra-web/pulls/69)).
 
 ### Fixed
 
