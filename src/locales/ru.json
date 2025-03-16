@@ -171,7 +171,7 @@
         "view_custom_feeds": "Просмотр пользовательских каналов",
         "profile": "Профиль",
         "profile_with_handle": "Профиль - {handle}",
-        "link_cryptographic_key": "Криптографический ключ профиля"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -377,7 +377,7 @@
         "option": "Вариант {n}",
         "poll_duration": "Продолжительность опроса",
         "duration_hour": "час | часы",
-        "multiple_choices": "Выбрать несколько вариантов",
+        "multiple_choices": "@:poll.multiple_choices",
         "duration_day": "день | дни"
     },
     "identity_proofs": {
