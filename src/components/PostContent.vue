@@ -163,6 +163,7 @@ function configureInlineLinks() {
   }
 
   :deep(pre) {
+    margin: 1rem 0;
     padding: $input-padding;
   }
 

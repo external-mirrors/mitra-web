@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Don't replace custom emojis in links.
+- Always add margins around code blocks.
 
 ### Security
 
