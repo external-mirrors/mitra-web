@@ -9,6 +9,7 @@
 <script setup lang="ts">
 import { replaceShortcodes } from "@/api/emojis"
 import { ProfileWrapper } from "@/api/users"
+import { escapeHtml } from "@/utils/html"
 
 const props = defineProps<{
   profile: ProfileWrapper,
@@ -16,7 +17,7 @@ const props = defineProps<{
 
 function getDisplayNameHtml(): string {
   const profile = props.profile
-  const escaped = new Option(profile.getDisplayName()).innerHTML
+  const escaped = escapeHtml(profile.getDisplayName())
   return replaceShortcodes(escaped, profile.emojis)
 }
 </script>

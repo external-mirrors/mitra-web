@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Detect greentext when it is not at the beginning of a line.
+
+### Security
+
+- Don't create greentext elements in non-text nodes.
+
 ## [3.20.0] - 2025-03-15
 
 ### Added

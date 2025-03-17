@@ -15,6 +15,7 @@ import { Post } from "@/api/posts"
 import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 import { addGreentext } from "@/utils/greentext"
+import { replaceTextNodes } from "@/utils/html"
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
@@ -87,12 +88,12 @@ function configureInlineLinks() {
       linkElement.target = "_blank"
     }
   }
+  replaceTextNodes(postContentElement.value, addGreentext)
 }
 
 function getContent(): string {
-  let content = addGreentext(props.post.content)
   // Replace emoji shortcodes
-  content = replaceShortcodes(content, props.post.emojis)
+  const content = replaceShortcodes(props.post.content, props.post.emojis)
   return content
 }
 </script>
