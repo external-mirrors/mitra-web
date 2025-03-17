@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.20.1] - 2025-03-17
+
 ### Changed
 
 - Detect greentext when it is not at the beginning of a line.
