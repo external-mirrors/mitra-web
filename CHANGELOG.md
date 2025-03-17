@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Detect greentext when it is not at the beginning of a line.
+- Updated translations ([#71](https://codeberg.org/silverpill/mitra-web/pulls/71)).
 
 ### Fixed
 
