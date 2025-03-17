@@ -4,7 +4,7 @@
         "administered_by": "Управляется"
     },
     "navigation": {
-        "home": "Моя лента",
+        "home": "Домашняя",
         "search": "Поиск…",
         "local": "Мой инстанс",
         "profile_directory": "Профили",
@@ -157,7 +157,7 @@
         "tab_followers": "Подписаны на вас",
         "tab_following": "Я подписан",
         "tab_subscribers": "Подписавшиеся",
-        "subscription_expires": "Подписки истекают",
+        "subscription_expires": "Подписки истекают {date}",
         "remove_from_followers": "Удалить из подписчиков",
         "load_latest_posts": "Загрузить последний пост",
         "stats_subscribers": "Статистика подписок",
@@ -170,7 +170,8 @@
         "view_muted_users": "Просмотр отключенных пользователей",
         "view_custom_feeds": "Просмотр пользовательских каналов",
         "profile": "Профиль",
-        "profile_with_handle": "Профиль - {handle}"
+        "profile_with_handle": "Профиль - {handle}",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -201,7 +202,7 @@
         "remove_field": "Удалить элемент",
         "add_new_field": "Добавить новый элемент",
         "save": "Сохранить",
-        "you_can_have_max_fields": "Вы можете иметь до элементов отображаемых в виде таблицы в вашем профиле"
+        "you_can_have_max_fields": "Вы можете иметь до {max} элементов отображаемых в виде таблицы в вашем профиле"
     },
     "notifications": {
         "followed_you": "Подписался(лась) на тебя",
@@ -248,7 +249,8 @@
         "import": "Импорт",
         "move_followers": "Переместить подписчиков",
         "import_follows": "Импорт подписчиков",
-        "migrate_account": "Перенести аккаунт"
+        "migrate_account": "Перенести аккаунт",
+        "default_post_visibility": "Видимость поста по умолчанию"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",
@@ -259,9 +261,9 @@
         "gallery_with_handle": "Галерея - {handle}"
     },
     "search_results": {
-        "people": "люди",
-        "posts": "пост постов",
-        "tags": "тэг тэги",
+        "people": "{n} людей",
+        "posts": "{n} пост {n} постов",
+        "tags": "{n} тэг | {n} тэги",
         "no_results": "Нет результатов",
         "show_more_results": "Показать больше результатов",
         "search_results": "Результаты поиска"
@@ -274,7 +276,7 @@
     "subscriptions": {
         "subscription": "Подписка",
         "no_subscription_info": "Нет информации о подписке",
-        "enter_your_username": "Введите ваш имя пользователя или адрес в Федиверсе",
+        "enter_your_username": "Введите ваш имя пользователя или адрес в Федиверсе (username{'@'}example.org)",
         "find_profile": "Найти профиль",
         "price_per_month": "в месяц",
         "you_are_not_subscribed_yet": "Вы ещё не подписаны",
@@ -285,10 +287,10 @@
         "amount": "Количество",
         "pay": "Платить",
         "extend": "Продлевать",
-        "please_send_to_this_address": "Пожалуйста напишите на этот адрес:",
+        "please_send_to_this_address": "Пожалуйста напишите {amount} {currency} на этот адрес:",
         "show_additional_payment_information": "Показать дополнительную информацию",
         "payment_awaiting_response": "Ожидание ответа",
-        "payment_waiting": "Ожидание оплаты (осталось минут)",
+        "payment_waiting": "Ожидание оплаты ({n} осталось минут)",
         "payment_processing": "Обработка платежа",
         "payment_timed_out": "Время платежа истекло",
         "payment_cancelled": "Платёж закончен",
@@ -297,7 +299,7 @@
         "cancel_payment": "Отмена",
         "ok_payment": "Да",
         "manage_subscriptions": "Управление подписками",
-        "subscribers": "подписка подписки",
+        "subscribers": "{n} подписка | {n} подписки",
         "subscriptions_are_not_enabled": "Подписки не включены",
         "subscriptions_are_enabled": "Подписки включены",
         "subscribers_can_pay": "Подписчики могут оплачивать подписки перейдя к вам на страницу подписок:",
@@ -307,8 +309,8 @@
         "save_settings": "Сохранять",
         "enable_subscriptions": "Включить подписки",
         "subscriber_details": "Данные подписчика",
-        "subscription_expired": "Истёкшая подписка",
-        "subscription_expires": "Подписка истекает",
+        "subscription_expired": "Истёкшая подписка {date}",
+        "subscription_expires": "Подписка истекает {date}",
         "not_subscribed_yet": "Пока нет подписчиков",
         "grant_subscription_access": "Полный доступ к подписке",
         "unit_months": "месяцев",
@@ -375,7 +377,10 @@
         "option": "Вариант {n}",
         "poll_duration": "Продолжительность опроса",
         "duration_hour": "час | часы",
-        "multiple_choices": "Выбрать несколько вариантов",
+        "multiple_choices": "@:poll.multiple_choices",
         "duration_day": "день | дни"
+    },
+    "identity_proofs": {
+        "link_cryptographic_key": "Ссылка на криптографический ключ"
     }
 }

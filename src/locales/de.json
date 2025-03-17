@@ -10,7 +10,9 @@
         "logout": "Abmelden",
         "home": "Startseite",
         "local": "Lokales",
-        "bookmarks": "Lesezeichen"
+        "bookmarks": "Lesezeichen",
+        "search_account": "Konto",
+        "search_text": "Text"
     },
     "post_editor": {
         "update": "Aktualisierung",
@@ -33,7 +35,8 @@
         "add_content_warning": "Inhaltswarnung hinzufügen",
         "remove_attachment": "Anhang entfernen",
         "add_poll": "Umfrage hinzufügen",
-        "remove_poll": "Umfrage entfernen"
+        "remove_poll": "Umfrage entfernen",
+        "edit_description": "Beschreibung bearbeiten"
     },
     "about": {
         "administered_by": "Verwaltet von",
@@ -135,7 +138,8 @@
         "stats_subscribers": "Abonnenten",
         "tab_posts": "Beiträge",
         "open_profile_page": "Profilseite öffnen",
-        "subscriber_details": "Details zum Abonnenten"
+        "subscriber_details": "Details zum Abonnenten",
+        "link_ethereum_address": "Ethereum-Adresse verlinken"
     },
     "profile_editor": {
         "avatar": "Avatar",
@@ -197,7 +201,8 @@
         "language": "Sprache",
         "authentication": "Authentifizierung",
         "authentication_method_password": "Passwort",
-        "download": "herunterladen"
+        "download": "herunterladen",
+        "default_post_visibility": "Standard-Sichtbarkeit von Beiträgen"
     },
     "gallery": {
         "view_post": "Beitrag ansehen",
@@ -317,6 +322,7 @@
     "poll_editor": {
         "poll_duration": "Umfragedauer",
         "duration_hour": "Stunde | Stunden",
-        "duration_day": "Tag | Tage"
+        "duration_day": "Tag | Tage",
+        "option": "Option {n}"
     }
 }

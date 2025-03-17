@@ -247,7 +247,8 @@
         "import": "导入",
         "import_follows": "导入关注列表",
         "move_followers": "移动粉丝",
-        "migrate_account": "迁移账号"
+        "migrate_account": "迁移账号",
+        "default_post_visibility": "默认贴文可见性"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",

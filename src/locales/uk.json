@@ -252,7 +252,8 @@
         "import": "Імпорт",
         "migrate_account": "Перенесення облікового запису",
         "import_follows": "Імпорт відстежуваних",
-        "move_followers": "Переміщення відстежувачів"
+        "move_followers": "Переміщення відстежувачів",
+        "default_post_visibility": "Видимість дописів за замовчуванням"
     },
     "gallery": {
         "name_gallery": "Галерея {name}",
