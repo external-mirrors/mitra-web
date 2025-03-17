@@ -2,7 +2,7 @@
   <div
     class="post-content"
     ref="postContentElement"
-    v-html="getContent()"
+    v-html="post.content"
   ></div>
 </template>
 
@@ -89,12 +89,9 @@ function configureInlineLinks() {
     }
   }
   replaceTextNodes(postContentElement.value, addGreentext)
-}
-
-function getContent(): string {
-  // Replace emoji shortcodes
-  const content = replaceShortcodes(props.post.content, props.post.emojis)
-  return content
+  replaceTextNodes(postContentElement.value, (text: string) => {
+    return replaceShortcodes(text, props.post.emojis)
+  })
 }
 </script>
 

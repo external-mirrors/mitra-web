@@ -17,6 +17,7 @@ const props = defineProps<{
 
 function getDisplayNameHtml(): string {
   const profile = props.profile
+  // HTML is cleaned by the server, but we'll do it anyway
   const escaped = escapeHtml(profile.getDisplayName())
   return replaceShortcodes(escaped, profile.emojis)
 }

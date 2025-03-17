@@ -173,6 +173,7 @@ function getReactionHtml(notification: Notification): string {
   }
   let content = notification.reaction.content
   if (notification.reaction.emoji !== null) {
+    // Emoji content can't contain HTML
     content = replaceShortcodes(content, [notification.reaction.emoji])
   }
   return content

@@ -205,7 +205,11 @@
               </universal-link>
             </div>
           </div>
-          <div class="bio" v-html="getProfileBio()"></div>
+          <div
+            ref="profileBioElement"
+            class="bio"
+            v-html="profile.note || ''"
+          ></div>
           <div class="extra-fields" v-if="fields.length > 0">
             <div
               v-for="field, index in fields"
@@ -367,7 +371,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
@@ -418,6 +422,7 @@ import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
 import { formatDate } from "@/utils/dates"
 import { hasEthereumWallet } from "@/utils/ethereum"
+import { replaceTextNodes } from "@/utils/html"
 
 const route = useRoute()
 const router = useRouter()
@@ -434,6 +439,7 @@ const { getBlockchainInfo } = useInstanceInfo()
 const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
 const { setPageTitle } = useTitle()
 
+const profileBioElement = ref<HTMLElement | null>(null)
 const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 
 const profile = ref<ProfileWrapper | null>(null)
@@ -477,7 +483,16 @@ onMounted(async () => {
     }
     throw error
   }
+  await nextTick()
+
   setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
+  if (profileBioElement.value !== null) {
+    const emojis = profile.value.emojis
+    replaceTextNodes(profileBioElement.value, (text: string) => {
+      return replaceShortcodes(text, emojis)
+    })
+  }
+
   if (currentUser.value && !isCurrentUser()) {
     relationship.value = await getRelationship(
       ensureAuthToken(),
@@ -489,6 +504,7 @@ onMounted(async () => {
     aliases.value = verified
   }
   await switchTab("posts")
+
   isLoading.value = false
 })
 
@@ -879,14 +895,6 @@ async function onLoadLatestPosts() {
     ensureAuthToken(),
     profile.value.id,
   )
-}
-
-function getProfileBio(): string {
-  if (!profile.value) {
-    return ""
-  }
-  const bio = profile.value.note || ""
-  return replaceShortcodes(bio, profile.value.emojis)
 }
 
 async function updateIdentityProof(fieldName: string) {

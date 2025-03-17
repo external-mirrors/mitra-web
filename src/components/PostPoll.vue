@@ -97,6 +97,7 @@ const resultsVisible = computed(() => {
 })
 
 function getOptionName(option: PollOption): string {
+  // HTML is cleaned by the server
   return replaceShortcodes(option.title, props.poll.emojis)
 }
 
