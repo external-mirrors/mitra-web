@@ -66,7 +66,7 @@ function canCreatePost(): boolean {
     return false
   }
   return currentUser.value
-    .role.permissions.includes(Permissions.CreatePost)
+    .role.permissions_names.includes(Permissions.CreatePost)
 }
 
 function insertPost(post: Post) {

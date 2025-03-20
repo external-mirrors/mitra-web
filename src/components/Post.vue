@@ -587,7 +587,7 @@ function canReply(): boolean {
   if (currentUser.value === null) {
     return false
   }
-  return currentUser.value.role.permissions.includes(Permissions.CreatePost)
+  return currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
 }
 
 function toggleReplyForm() {
@@ -624,7 +624,7 @@ function canRepost(): boolean {
   }
   return (
     props.post.visibility === "public" &&
-    currentUser.value.role.permissions.includes(Permissions.CreatePost)
+    currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
   )
 }
 

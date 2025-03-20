@@ -28,7 +28,7 @@ interface Source {
 interface Role {
   id: number,
   name: string,
-  permissions: string[],
+  permissions_names: string[],
 }
 
 export enum Permissions {
@@ -103,7 +103,7 @@ export interface User extends Profile {
 }
 
 export function hasAdminPermissions(user: User): boolean {
-  return user.role.permissions.includes(Permissions.DeleteAnyProfile)
+  return user.role.permissions_names.includes(Permissions.DeleteAnyProfile)
 }
 
 export function isRemoteProfile(profile: Profile): boolean {

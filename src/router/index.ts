@@ -274,7 +274,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: () => {
       const { ensureCurrentUser } = useCurrentUser()
       return ensureCurrentUser()
-        .role.permissions
+        .role.permissions_names
         .includes(Permissions.ManageSubscriptionOptions)
     },
   },

@@ -230,7 +230,7 @@ function canManageSubscriptions(): boolean {
   return (
     isSubscriptionsFeatureEnabled &&
     currentUser.value !== null &&
-    currentUser.value.role.permissions.includes(Permissions.ManageSubscriptionOptions)
+    currentUser.value.role.permissions_names.includes(Permissions.ManageSubscriptionOptions)
   )
 }
 
