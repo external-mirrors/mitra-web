@@ -379,5 +379,8 @@
         "option": "Варіант {n}",
         "poll_duration": "Тривалість опитування",
         "multiple_choices": "@:poll.multiple_choices"
+    },
+    "identity_proofs": {
+        "link_cryptographic_key": "Прив'язати криптографічний ключ"
     }
 }
