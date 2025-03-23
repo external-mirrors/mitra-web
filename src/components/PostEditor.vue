@@ -779,6 +779,7 @@ $editor-line-height: 1.5;
 
 .textarea-group > textarea {
   border-radius: $block-border-radius $block-border-radius 0 0;
+  display: block; /* required for margin collapsing */
   height: 100px;
   line-height: $editor-line-height;
   min-height: 100px;
@@ -786,11 +787,16 @@ $editor-line-height: 1.5;
   width: 100%;
 }
 
+.textarea-group > :nth-child(2) {
+  margin-top: 0;
+}
+
 .suggestions {
   display: flex;
   flex-wrap: wrap;
   gap: $input-padding;
-  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
 
   button {
     align-items: center;
@@ -813,7 +819,8 @@ $editor-line-height: 1.5;
   display: flex;
   flex-direction: column;
   gap: calc($block-inner-padding / 2);
-  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
 
   input[type="text"] {
     border: 1px solid var(--separator-color);
@@ -825,7 +832,7 @@ $editor-line-height: 1.5;
   display: flex;
   flex-direction: column;
   gap: calc($block-inner-padding / 2) $block-inner-padding;
-  padding: $input-padding;
+  padding: calc($block-inner-padding / 2);
 
   > div {
     align-items: center;
@@ -845,7 +852,8 @@ $editor-line-height: 1.5;
 }
 
 .attachments {
-  padding: calc($block-inner-padding / 1.5) $block-inner-padding;
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
 }
 
 .toolbar {
