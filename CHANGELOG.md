@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Make gaps between post editor blocks equal to gaps between post blocks.
+- Add gaps between attached images.
 
 ## [3.20.1] - 2025-03-17
 

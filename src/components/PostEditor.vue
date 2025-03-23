@@ -852,6 +852,9 @@ $editor-line-height: 1.5;
 }
 
 .attachments {
+  display: flex;
+  flex-direction: column;
+  gap: calc($block-inner-padding / 2);
   margin: $block-inner-padding 0;
   padding: 0 $block-inner-padding;
 }
