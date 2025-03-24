@@ -157,14 +157,6 @@
     display: flex;
     gap: $whitespace;
   }
-
-  .icon-small svg {
-    $icon-size-small: calc($icon-size / $line-height);
-
-    height: $icon-size-small;
-    min-width: $icon-size-small;
-    width: $icon-size-small;
-  }
 }
 
 @mixin media-btn {

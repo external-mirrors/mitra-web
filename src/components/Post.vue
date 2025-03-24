@@ -969,7 +969,7 @@ $reaction-padding: 5px;
   color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
-  gap: 0 calc($block-inner-padding / 2);
+  gap: 3px calc($block-inner-padding / 2);
   padding: $block-inner-padding $block-inner-padding 0;
   white-space: nowrap;
 
@@ -979,6 +979,8 @@ $reaction-padding: 5px;
 
   .floating-avatar {
     @include floating-avatar;
+
+    align-self: center;
 
     @media screen and (min-width: $screen-breakpoint-medium + 1) {
       margin-right: calc(0px - $block-inner-padding / 2);
@@ -1016,9 +1018,19 @@ $reaction-padding: 5px;
   .timestamp-group {
     align-items: center;
     display: flex;
+    flex-basis: 25%;
     flex-direction: row;
     gap: inherit;
     justify-content: right;
+    text-align: right;
+  }
+
+  .icon-small svg {
+    $icon-size-small: calc($icon-size / $line-height);
+
+    height: $icon-size-small;
+    min-width: $icon-size-small;
+    width: $icon-size-small;
   }
 
   .timestamp {
@@ -1026,6 +1038,21 @@ $reaction-padding: 5px;
 
     &:hover {
       color: var(--secondary-text-hover-color);
+    }
+  }
+}
+
+@media screen and (max-width: $screen-breakpoint-x-small) {
+  .post-header {
+    .timestamp-group {
+      column-gap: calc($block-inner-padding / 4);
+      flex-wrap: wrap;
+      height: calc($text-font-size * $line-height * 2); /* same as avatar */
+    }
+
+    .timestamp {
+      flex-basis: 100%;
+      order: -1;
     }
   }
 }
