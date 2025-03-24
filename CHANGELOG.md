@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Make gaps between post editor blocks equal to gaps between post blocks.
 - Add gaps between attached images.
 - Reduce width of post timestamp block on small screens.
+- Updated translations ([#72](https://codeberg.org/silverpill/mitra-web/pulls/72)).
 
 ## [3.20.1] - 2025-03-17
 
