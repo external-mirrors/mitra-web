@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Return unicode emoji when it is entered into emoji search input.
+
 ### Changed
 
 - Use `Role.permissions_names` instead of `Role.permissions`.

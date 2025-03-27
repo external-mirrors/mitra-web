@@ -7,7 +7,7 @@
           type="search"
           ref="searchInputElement"
           :placeholder="$t('emoji_picker.search')"
-          v-model="searchQuery"
+          v-model.trim="searchQuery"
           @keydown.enter.prevent
         >
       </li>
@@ -82,7 +82,12 @@ const isLoading = ref(false)
 
 const searchResults = computed(() => {
   return allEmojiList.value
-    .filter(emoji => emoji.name.includes(searchQuery.value))
+    .filter(emoji => {
+      return (
+        emoji.name.includes(searchQuery.value) ||
+        emoji.text === searchQuery.value
+      )
+    })
 })
 
 function pick(emojiText: string) {
