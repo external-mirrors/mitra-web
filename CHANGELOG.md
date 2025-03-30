@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Return unicode emoji when it is entered into emoji search input.
+- Added "This is an automated account" checkbox to profile form.
 
 ### Changed
 

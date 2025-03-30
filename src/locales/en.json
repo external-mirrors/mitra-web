@@ -201,6 +201,8 @@
     "lock_account": "Lock account",
     "lock_account_requires": "Requires you to manually approve followers",
     "accept_mentions_from": "Accept mentions from",
+    "is_automated": "This is an automated account",
+    "mark_this_account_as_automated": "Enable this option if this account is controlled by a program",
     "mention_policy_applies": "Applies to direct messages and public posts",
     "mention_everybody": "Everybody",
     "mention_everybody_except_new_accounts": "Everybody except new accounts",

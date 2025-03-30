@@ -248,6 +248,7 @@ export interface ProfileUpdateData {
   avatar_media_type: string | null;
   header: string | null;
   header_media_type: string | null;
+  bot: boolean,
   locked: boolean,
   mention_policy: "none" | "only_known" | "only_contacts",
   fields_attributes: ProfileFieldAttrs[];

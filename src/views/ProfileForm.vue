@@ -58,6 +58,17 @@
         <div class="input-group">
           <input
             type="checkbox"
+            id="is_automated"
+            v-model="form.bot"
+          >
+          <label for="is_automated">
+            {{ $t('profile_editor.is_automated') }}
+            <div class="sub-label">{{ $t('profile_editor.mark_this_account_as_automated') }}</div>
+          </label>
+        </div>
+        <div class="input-group">
+          <input
+            type="checkbox"
             id="locked"
             v-model="form.locked"
           >
@@ -199,6 +210,7 @@ const form = ref<ProfileUpdateData>({
   avatar_media_type: null,
   header: null,
   header_media_type: null,
+  bot: profile.bot,
   locked: profile.locked,
   mention_policy: profile.mention_policy,
   fields_attributes: getFieldsAttributes(),
