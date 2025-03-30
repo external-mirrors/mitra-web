@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Use `Role.permissions_names` instead of `Role.permissions`.
+- Improved post header layout.
 
 ## [3.21.0] - 2025-03-24
 

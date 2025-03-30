@@ -1009,7 +1009,9 @@ $reaction-padding: 5px;
   }
 
   .actor-address {
-    flex-basis: 50%;
+    flex-basis: 25%;
+    flex-grow: 1;
+    flex-shrink: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: all;
@@ -1018,7 +1020,6 @@ $reaction-padding: 5px;
   .timestamp-group {
     align-items: center;
     display: flex;
-    flex-basis: 25%;
     flex-direction: row;
     gap: inherit;
     justify-content: right;
@@ -1046,6 +1047,7 @@ $reaction-padding: 5px;
   .post-header {
     .timestamp-group {
       column-gap: calc($block-inner-padding / 4);
+      flex-basis: 25%;
       flex-wrap: wrap;
       height: calc($text-font-size * $line-height * 2); /* same as avatar */
     }
