@@ -205,7 +205,9 @@
         "mention_policy_applies": "Застосовується до приватних повідомлень і публічних дописів",
         "lock_account_requires": "Відстежувачів доведеться затверджувати вручну",
         "mention_follows_and_followers": "Користувачі, за якими я стежу, і мої відстежувачі",
-        "additional_info": "Додаткова інформація"
+        "additional_info": "Додаткова інформація",
+        "is_automated": "Це автоматизований обліковий запис",
+        "mark_this_account_as_automated": "Увімкніть, якщо цим обліковим записом керує програма"
     },
     "notifications": {
         "replied_to_your_post": "відповів на Ваш допис",
