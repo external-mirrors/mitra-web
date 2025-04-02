@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Use `Role.permissions_names` instead of `Role.permissions`.
 - Improved post header layout.
+- Updated translations ([#75](https://codeberg.org/silverpill/mitra-web/pulls/75)).
 
 ## [3.21.0] - 2025-03-24
 
