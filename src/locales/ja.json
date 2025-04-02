@@ -10,7 +10,10 @@
         "profile_directory": "ユーザプロフィール帳",
         "about": "インスタンス紹介",
         "logout": "ログアウト",
-        "bookmarks": "ブックマーク"
+        "bookmarks": "ブックマーク",
+        "search_account": "アカウント",
+        "search_hashtag": "ハッシュタグ",
+        "search_text": "テキスト"
     },
     "post_editor": {
         "prompt": "何を考えてますか？",
@@ -33,7 +36,8 @@
         "toggle_preview": "プレビューをトグル",
         "visibility_can_not_be_changed": "ポスト可視性を変更できません",
         "add_poll": "投票を追加する",
-        "remove_poll": "投票を取り消す"
+        "remove_poll": "投票を取り消す",
+        "edit_description": "画像の説明を編集"
     },
     "about": {
         "administered_by": "管理者",
@@ -157,7 +161,8 @@
         "view_muted_users": "ミュートされたユーザを表示する",
         "profile": "プロフィール",
         "profile_with_handle": "プロフィール - {handle}",
-        "view_custom_feeds": "カスタムフィードを表示する"
+        "view_custom_feeds": "カスタムフィードを表示する",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "emoji_picker": {
         "search": "検索…",
@@ -246,7 +251,8 @@
         "import_follows": "フォローをインポートする",
         "import": "インポート",
         "migrate_account": "アカウントを移行する",
-        "move_followers": "フォロワーを移動する"
+        "move_followers": "フォロワーを移動する",
+        "default_post_visibility": "デフォルトのポストの公開範囲"
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
@@ -327,7 +333,7 @@
             "cancel": "キャンセル",
             "rename_feed": "フィード名を変える"
         },
-        "user_not_found": "ユーザを見つかりませんでした",
+        "user_not_found": "ユーザが見つかりませんでした",
         "user_is_already_in_the_list": "ユーザはすでにリストに乗っています",
         "enter_address": "アドレスを入力する",
         "add_user": "ユーザを追加する",
@@ -350,7 +356,7 @@
     "move_followers": {
         "move_followers": "フォローを移動する",
         "move": "移動",
-        "user_not_found": "ユーザを見つかりませんでした",
+        "user_not_found": "ユーザが見つかりませんでした",
         "target_address": "ターゲットのアドレス"
     },
     "identities": {

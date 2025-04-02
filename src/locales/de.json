@@ -159,7 +159,9 @@
         "edit_profile": "Profil bearbeiten",
         "lock_account": "Konto sperren",
         "field_content": "Inhalt",
-        "field_label": "Bezeichnung"
+        "field_label": "Bezeichnung",
+        "is_automated": "Dies ist ein automatisches Konto",
+        "mark_this_account_as_automated": "Diese Option aktivieren, wenn dieses Konto von einem Programm gesteuert wird"
     },
     "notifications": {
         "sent_a_follow_request": "sendete eine Folgeanfrage",
