@@ -4,7 +4,9 @@ Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
 <img width="650" src="screenshot.png" alt="screenshot">
 
-Mitra Web UI includes a dark mode feature for visual accessibility.
+- Supports all Mitra features.
+- Translated into 6+ languages.
+- Includes a dark mode feature for visual accessibility.
 
 ## Custom themes
 
