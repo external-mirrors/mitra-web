@@ -28,10 +28,21 @@ const props = defineProps<{
 const postContentElement = ref<HTMLElement | null>(null)
 
 onMounted(() => {
+  replaceText()
   if (currentUser.value !== null) {
     configureInlineLinks()
   }
 })
+
+function replaceText() {
+  if (postContentElement.value === null) {
+    return
+  }
+  replaceTextNodes(postContentElement.value, addGreentext)
+  replaceTextNodes(postContentElement.value, (text: string) => {
+    return replaceShortcodes(text, props.post.emojis)
+  })
+}
 
 function configureInlineLinks() {
   if (postContentElement.value === null) {
@@ -88,10 +99,6 @@ function configureInlineLinks() {
       linkElement.target = "_blank"
     }
   }
-  replaceTextNodes(postContentElement.value, addGreentext)
-  replaceTextNodes(postContentElement.value, (text: string) => {
-    return replaceShortcodes(text, props.post.emojis)
-  })
 }
 </script>
 
