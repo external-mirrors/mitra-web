@@ -24,7 +24,7 @@
         "edited": "modifié",
         "replying_to": "en réponse à",
         "timestamp_hours": "il y a {n} heure | il y a {n} heures",
-        "timestamp_days": "hier | il y a {n} jours",
+        "timestamp_days": "il y a {n} jour | il y a {n} jours",
         "sensitive_content": "Contenu sensible",
         "hide_image": "Cacher l'image",
         "close_image": "Fermer",
@@ -53,7 +53,7 @@
         "subscribe": "Souscrire",
         "send_coin": "Envoyer un {name}",
         "copy_coin_address": "Copier l'adresse",
-        "action_reposted": "Partage effectué",
+        "action_reposted": "a partagé",
         "next_page": "Montrer plus de publications",
         "timestamp_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
         "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
@@ -144,7 +144,8 @@
         "tab_following": "Abonnements",
         "tab_subscribers": "Ont souscrit",
         "subscription_expires": "Souscription expirant le {date}",
-        "subscriber": "Souscript·eur·rice"
+        "subscriber": "Souscript·eur·rice",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -166,7 +167,9 @@
         "remove_field": "Supprimer l'élément",
         "field_label": "Libellé",
         "mention_follows_and_followers": "Comptes suivis et mes abonné·e·s",
-        "you_can_have_max_fields": "Vous pouvez avoir {max} éléments affichés en tableau sur votre profil"
+        "you_can_have_max_fields": "Vous pouvez avoir {max} éléments affichés en tableau sur votre profil",
+        "is_automated": "Ce compte est automatisé",
+        "mark_this_account_as_automated": "Activer cette option si ce compte est piloté par un programme"
     },
     "settings": {
         "password_save": "Sauvegarder",
@@ -198,7 +201,8 @@
         "import": "Importer",
         "import_follows": "Importer les abonnements",
         "move_followers": "Déplacer les abonnés",
-        "migrate_account": "Migrer le compte"
+        "migrate_account": "Migrer le compte",
+        "default_post_visibility": "Visibilité par défaut"
     },
     "custom_feeds": {
         "delete_feed": "Supprimer le flux",
