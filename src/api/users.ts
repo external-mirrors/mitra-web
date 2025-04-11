@@ -93,6 +93,13 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
   }
 }
 
+export interface Mention {
+  id: string;
+  username: string;
+  acct: string;
+  url: string;
+}
+
 export type ClientConfigValue = string | boolean
 
 export interface User extends Profile {
@@ -106,7 +113,7 @@ export function hasAdminPermissions(user: User): boolean {
   return user.role.permissions_names.includes(Permissions.DeleteAnyProfile)
 }
 
-export function isRemoteProfile(profile: Profile): boolean {
+export function isRemoteProfile(profile: Profile | Mention): boolean {
   return profile.username !== profile.acct
 }
 

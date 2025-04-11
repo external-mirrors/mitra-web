@@ -444,12 +444,13 @@ import {
   createReaction,
   deleteReaction,
   makePermanent,
-  Mention,
   Post,
   Visibility,
 } from "@/api/posts"
 import { mute, unmute } from "@/api/relationships"
 import {
+  isRemoteProfile,
+  Mention,
   Permissions,
   Profile,
   ProfileWrapper,
@@ -535,16 +536,16 @@ const selectedPaymentOption = ref<PaymentOption | null>(null)
 const author = computed(() => new ProfileWrapper(props.post.account))
 
 function getProfileLocation(profile: Mention | Profile): string | RouteLocationRaw {
-  if (currentUser.value === null) {
-    // Viewing as guest
+  if (currentUser.value === null && isRemoteProfile(profile)) {
+    // Redirect to remote servers when viewing as guest
     return profile.url
   }
   return getActorLocation("profile", profile)
 }
 
 function getPostLocation(post: Post): string | RouteLocationRaw {
-  if (currentUser.value === null) {
-    // Viewing as guest
+  if (currentUser.value === null && isRemoteProfile(post.account)) {
+    // Redirect to remote servers when viewing as guest
     return post.uri
   }
   return { name: "post", params: { postId: post.id } }

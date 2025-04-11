@@ -4,7 +4,7 @@ import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
 import { getEmojiShortcode, CustomEmoji } from "./emojis"
 import { Poll } from "./polls"
 import { getRelationships, Relationship } from "./relationships"
-import { defaultProfile, Profile } from "./users"
+import { defaultProfile, Mention, Profile } from "./users"
 
 export interface Attachment {
   id: string;
@@ -49,13 +49,6 @@ export enum Visibility {
   Subscribers = "subscribers",
   Conversation = "conversation",
   Direct = "direct",
-}
-
-export interface Mention {
-  id: string;
-  username: string;
-  acct: string;
-  url: string;
 }
 
 export interface Tag {

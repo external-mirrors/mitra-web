@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Display custom emojis and greentext when posts are viewed by a guest.
+- Don't open new tab if viewing local profile/post as guest.
 
 ## [3.22.0] - 2025-04-02
 

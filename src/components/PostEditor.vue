@@ -256,11 +256,10 @@ import {
   updatePost,
   uploadAttachment,
   Attachment,
-  Mention,
   Post,
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
-import { Profile } from "@/api/users"
+import { Mention, Profile } from "@/api/users"
 import IconAlert from "@/assets/feather/alert-triangle.svg?component"
 import IconChart from "@/assets/tabler/chart-bar.svg?component"
 import IconShow from "@/assets/feather/eye.svg?component"

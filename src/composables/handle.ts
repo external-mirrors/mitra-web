@@ -1,7 +1,6 @@
 import { RouteLocationRaw } from "vue-router"
 
-import { Mention } from "@/api/posts"
-import { Profile } from "@/api/users"
+import { Mention, Profile } from "@/api/users"
 import { useInstanceInfo } from "@/composables/instance"
 
 export function useActorHandle() {
