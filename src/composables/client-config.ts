@@ -12,6 +12,7 @@ export enum ConfigKey {
   ContentWarningsEnabled = "contentWarningsEnabled",
   DefaultVisibility = "defaultVisibility",
   CtrlEnterEnabled = "ctrlEnterEnabled",
+  ConversationNewTabEnabled = "conversationNewTabEnabled",
 }
 
 export function useClientConfig() {
@@ -58,6 +59,10 @@ export function useClientConfig() {
     return getClientConfigKeyOrDefault(ConfigKey.CtrlEnterEnabled, false)
   })
 
+  const conversationNewTab = computed(() => {
+    return getClientConfigKeyOrDefault(ConfigKey.ConversationNewTabEnabled, false)
+  })
+
   const defaultVisibility = computed<Visibility>(() => {
     return getClientConfigKeyOrDefault(ConfigKey.DefaultVisibility, Visibility.Public)
   })
@@ -68,5 +73,6 @@ export function useClientConfig() {
     contentWarningsEnabled,
     ctrlEnterEnabled,
     defaultVisibility,
+    conversationNewTab,
   }
 }

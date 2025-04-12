@@ -168,6 +168,16 @@
           <router-link class="btn" :to="{ name: 'import-followers' }">
             Import followers
           </router-link>
+          <div class="settings-checkbox">
+            <input
+              type="checkbox"
+              id="conversation-new-tab"
+              :checked="conversationNewTab"
+              @change="onToggleConversationNewTab"
+              :disabled="isLoading"
+            >
+            <label for="conversation-new-tab">{{ $t('settings.open_conversations_in_a_new_tab') }}</label>
+          </div>
         </details>
       </section>
     </template>
@@ -207,6 +217,7 @@ const router = useRouter()
 const {
   contentWarningsEnabled,
   ctrlEnterEnabled,
+  conversationNewTab,
   defaultVisibility,
   setClientConfigKey,
 } = useClientConfig()
@@ -257,6 +268,16 @@ async function onToggleCtrlEnter() {
   await setClientConfigKey(
     ConfigKey.CtrlEnterEnabled,
     !ctrlEnterEnabled.value,
+  )
+  isLoading.value = false
+}
+
+async function onToggleConversationNewTab(event: Event) {
+  isLoading.value = true
+  const value = (event.target as HTMLInputElement).checked
+  await setClientConfigKey(
+    ConfigKey.ConversationNewTabEnabled,
+    value,
   )
   isLoading.value = false
 }

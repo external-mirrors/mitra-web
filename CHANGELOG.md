@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added setting that makes conversations open in new tab.
+
 ### Changed
 
 - Don't limit unicode emoji search results to gemoji set.

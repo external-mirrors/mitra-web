@@ -165,6 +165,7 @@
         class="icon"
         :title="$t('post.view_conversation')"
         :to="{ name: 'post', params: { postId: post.id }}"
+        :target="conversationNewTab ? '_blank': undefined"
       >
         <icon-comment></icon-comment>
         <span>{{ post.replies_count }}</span>
@@ -487,6 +488,7 @@ import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
+import { useClientConfig } from "@/composables/client-config"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
@@ -505,6 +507,7 @@ interface PaymentOption {
 const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
 const { getActorHandle, getActorLocation } = useActorHandle()
+const { conversationNewTab } = useClientConfig()
 const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()

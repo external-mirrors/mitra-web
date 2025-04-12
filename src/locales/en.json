@@ -238,6 +238,7 @@
     "enable_dark_mode": "Enable dark mode",
     "enable_content_warnings": "Enable content warnings",
     "enable_ctrl_enter": "Send messages with Ctrl+Enter",
+    "open_conversations_in_a_new_tab": "Open conversations in a new tab",
     "language": "Language",
     "posts": "Posts",
     "default_post_visibility": "Default post visibility",
