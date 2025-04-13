@@ -25,6 +25,14 @@ export function useClientConfig() {
     return value
   }
 
+  function getClientConfigKeyOrDefault<T extends ClientConfigValue>(
+    key: ConfigKey,
+    defaultValue: T,
+  ): T {
+    const value = getClientConfigKey(key) ?? defaultValue
+    return value as T
+  }
+
   async function setClientConfigKey(
     key: ConfigKey,
     value: ClientConfigValue,
@@ -43,18 +51,15 @@ export function useClientConfig() {
   }
 
   const contentWarningsEnabled = computed(() => {
-    const value = getClientConfigKey(ConfigKey.ContentWarningsEnabled) ?? true
-    return value as boolean
+    return getClientConfigKeyOrDefault(ConfigKey.ContentWarningsEnabled, true)
   })
 
   const ctrlEnterEnabled = computed(() => {
-    const value = getClientConfigKey(ConfigKey.CtrlEnterEnabled) ?? false
-    return value as boolean
+    return getClientConfigKeyOrDefault(ConfigKey.CtrlEnterEnabled, false)
   })
 
-  const defaultVisibility = computed(() => {
-    const value = getClientConfigKey(ConfigKey.DefaultVisibility) ?? Visibility.Public
-    return value as Visibility
+  const defaultVisibility = computed<Visibility>(() => {
+    return getClientConfigKeyOrDefault(ConfigKey.DefaultVisibility, Visibility.Public)
   })
 
   return {
