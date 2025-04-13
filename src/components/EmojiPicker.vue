@@ -55,6 +55,7 @@ import { computed, nextTick, onMounted, ref } from "vue"
 import { getCustomEmojis, getUnicodeEmojis, Emoji } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
+import { isEmoji } from "@/utils/emojis"
 
 /* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
@@ -81,6 +82,13 @@ const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
 const searchResults = computed(() => {
+  if (isEmoji(searchQuery.value)) {
+    return [{
+      name: "",
+      text: searchQuery.value,
+      url: null,
+    }]
+  }
   return allEmojiList.value
     .filter(emoji => {
       return (

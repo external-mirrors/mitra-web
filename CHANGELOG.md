@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Don't limit unicode emoji search results to gemoji set.
+
 ### Fixed
 
 - Display custom emojis and greentext when posts are viewed by a guest.
