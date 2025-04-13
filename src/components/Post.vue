@@ -193,7 +193,7 @@
         <icon-repost></icon-repost>
         <span>{{ post.reblogs_count }}</span>
       </button>
-      <span v-else class="icon">
+      <span v-else-if="isRepostPossible()" class="icon">
         <icon-repost></icon-repost>
         <span>{{ post.reblogs_count }}</span>
       </span>
@@ -619,12 +619,16 @@ function onRepostCreated() {
   router.push({ name: "home" })
 }
 
+function isRepostPossible(): boolean {
+  return props.post.visibility === Visibility.Public
+}
+
 function canRepost(): boolean {
   if (currentUser.value === null) {
     return false
   }
   return (
-    props.post.visibility === "public" &&
+    isRepostPossible() &&
     currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
   )
 }

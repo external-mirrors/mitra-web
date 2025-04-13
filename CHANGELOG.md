@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Don't limit unicode emoji search results to gemoji set.
+- Hide repost button if post is not public.
 
 ### Fixed
 
