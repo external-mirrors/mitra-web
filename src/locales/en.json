@@ -239,6 +239,7 @@
     "enable_content_warnings": "Enable content warnings",
     "enable_ctrl_enter": "Send messages with Ctrl+Enter",
     "language": "Language",
+    "posts": "Posts",
     "default_post_visibility": "Default post visibility",
     "authentication": "Authentication",
     "enabled_authentication_methods": "Enabled authentication methods:",

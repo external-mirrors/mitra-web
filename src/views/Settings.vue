@@ -19,7 +19,7 @@
       </section>
       <section>
         <h2>{{ $t('settings.appearance') }}</h2>
-        <div class="appearance-checkbox">
+        <div class="settings-checkbox">
           <input
             type="checkbox"
             id="dark-mode"
@@ -29,7 +29,7 @@
           >
           <label for="dark-mode">{{ $t('settings.enable_dark_mode') }}</label>
         </div>
-        <div class="appearance-checkbox">
+        <div class="settings-checkbox">
           <input
             type="checkbox"
             id="content-warnings"
@@ -39,17 +39,7 @@
           >
           <label for="content-warnings">{{ $t('settings.enable_content_warnings') }}</label>
         </div>
-        <div class="appearance-checkbox">
-          <input
-            type="checkbox"
-            id="ctrl-enter"
-            :checked="ctrlEnterEnabled"
-            @change="onToggleCtrlEnter()"
-            :disabled="isLoading"
-          >
-          <label for="ctrl-enter">{{ $t('settings.enable_ctrl_enter') }}</label>
-        </div>
-        <form class="appearance-form">
+        <form class="settings-form">
           <label for="locale">{{ $t('settings.language') }}</label>
           <select
             id="locale"
@@ -64,7 +54,20 @@
             >{{ localeName }}</option>
           </select>
         </form>
-        <form class="appearance-form">
+      </section>
+      <section>
+        <h2>{{ $t('settings.posts') }}</h2>
+        <div class="settings-checkbox">
+          <input
+            type="checkbox"
+            id="ctrl-enter"
+            :checked="ctrlEnterEnabled"
+            @change="onToggleCtrlEnter()"
+            :disabled="isLoading"
+          >
+          <label for="ctrl-enter">{{ $t('settings.enable_ctrl_enter') }}</label>
+        </div>
+        <form class="settings-form">
           <label for="default-visibility">{{ $t('settings.default_post_visibility') }}</label>
           <select
             id="default-visibility"
@@ -325,8 +328,8 @@ form {
   @include content-form;
 }
 
-.appearance-checkbox,
-.appearance-form {
+.settings-checkbox,
+.settings-form {
   margin-top: $block-outer-padding;
 }
 

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't limit unicode emoji search results to gemoji set.
 - Hide repost button if post is not public.
+- Move default post visibility select to "Posts" section in "Settings".
 
 ### Fixed
 
