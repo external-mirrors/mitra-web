@@ -201,7 +201,9 @@
         "remove_field": "移除该项",
         "add_new_field": "添加新项",
         "save": "保存",
-        "field_content": "内容"
+        "field_content": "内容",
+        "is_automated": "这是机器人账号",
+        "mark_this_account_as_automated": "如果此账号由程序控制，请启用此选项"
     },
     "notifications": {
         "followed_you": "关注了你",
