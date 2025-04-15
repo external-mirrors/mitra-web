@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.23.0] - 2025-04-15
+
 ### Added
 
 - Added setting that makes conversations open in new tab.
