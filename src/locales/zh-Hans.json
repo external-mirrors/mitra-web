@@ -251,7 +251,9 @@
         "import_follows": "导入关注列表",
         "move_followers": "移动粉丝",
         "migrate_account": "迁移账号",
-        "default_post_visibility": "默认帖文可见性"
+        "default_post_visibility": "默认帖文可见性",
+        "open_conversations_in_a_new_tab": "在新标签页中打开对话",
+        "posts": "帖文"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",

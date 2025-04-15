@@ -255,7 +255,9 @@
         "migrate_account": "Перенесення облікового запису",
         "import_follows": "Імпорт відстежуваних",
         "move_followers": "Переміщення відстежувачів",
-        "default_post_visibility": "Видимість дописів за замовчуванням"
+        "default_post_visibility": "Видимість дописів за замовчуванням",
+        "open_conversations_in_a_new_tab": "Відкривати розмови у новій вкладці",
+        "posts": "Дописи"
     },
     "gallery": {
         "name_gallery": "Галерея {name}",
