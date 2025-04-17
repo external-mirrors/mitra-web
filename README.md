@@ -20,7 +20,7 @@ Compatibility with previous versions is not guaranteed.
 
 ## Requirements
 
-- node 18+
+- node 20+
 - npm 7+
 
 ## Project setup
