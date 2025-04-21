@@ -202,7 +202,9 @@
         "import_follows": "Importer les abonnements",
         "move_followers": "Déplacer les abonnés",
         "migrate_account": "Migrer le compte",
-        "default_post_visibility": "Visibilité par défaut"
+        "default_post_visibility": "Visibilité par défaut",
+        "posts": "Messages",
+        "open_conversations_in_a_new_tab": "Ouvrir les conversations dans un nouvel onglet"
     },
     "custom_feeds": {
         "delete_feed": "Supprimer le flux",
