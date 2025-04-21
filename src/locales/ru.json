@@ -252,7 +252,9 @@
         "move_followers": "Переместить подписчиков",
         "import_follows": "Импорт подписчиков",
         "migrate_account": "Перенести аккаунт",
-        "default_post_visibility": "Видимость поста по умолчанию"
+        "default_post_visibility": "Видимость поста по умолчанию",
+        "posts": "Посты",
+        "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",
