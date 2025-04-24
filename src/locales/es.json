@@ -34,7 +34,8 @@
         "remove_poll": "Eliminar encuesta",
         "add_poll": "Añadir encuesta",
         "add_content_warning": "Añadir advertencia de contenido",
-        "insert_emoji": "Insertar emoji"
+        "insert_emoji": "Insertar emoji",
+        "edit_description": "Editar descripción"
     },
     "about": {
         "administered_by": "Administrado por",
@@ -97,7 +98,8 @@
         "featured": "Destacado",
         "copy_object_id": "Copiar objeto ID",
         "remove_from_featured": "Eliminar de destacados",
-        "add_to_featured": "Añadir a destacados"
+        "add_to_featured": "Añadir a destacados",
+        "unlike": "No me gusta"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -140,7 +142,9 @@
         "show_replies": "Mostrar respuestas",
         "remove_from_followers": "Eliminar de seguidores",
         "mute": "Silenciar",
-        "copy_profile_id": "Copiar ID de perfil"
+        "copy_profile_id": "Copiar ID de perfil",
+        "renew_verification": "Renovar verificación",
+        "verified": "Verificado"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -175,21 +179,94 @@
         "display_name": "Visualizar nombre",
         "avatar": "Avatar",
         "accept_mentions_from": "Aceptar menciones de",
-        "mention_follows_and_followers": "Personas que sigo y mis seguidores"
+        "mention_follows_and_followers": "Personas que sigo y mis seguidores",
+        "mention_policy_applies": "Se aplica a mensajes directos y posts públicos",
+        "field_label": "Etiqueta",
+        "remove_field": "Eliminar artículo",
+        "add_new_field": "Añadir nuevo artículo",
+        "bio": "Biografía",
+        "is_automated": "Esto es una cuenta automatizada",
+        "mark_this_account_as_automated": "Active esta opción si esta cuenta está controlada por un programa"
     },
     "notifications": {
-        "followed_you": "te ha seguido"
+        "followed_you": "te ha seguido",
+        "sent_a_follow_request": "enviar solicitud de seguimiento"
     },
     "poll_editor": {
         "option": "Opción {n}",
         "poll_duration": "Duración de encuesta",
         "duration_hour": "hora | horas",
-        "duration_day": "día | días"
+        "duration_day": "día | días",
+        "multiple_choices": ""
     },
     "profile_list": {
         "show_more_profiles": "Mostrar mas perfiles",
         "muted_users": "Usuarios silenciados",
         "no_muted_users": "Usuarios no silenciados",
         "show_more_users": "Mostrar mas usuarios"
+    },
+    "settings": {
+        "open_conversations_in_a_new_tab": "Abrir conversaciones en una nueva pestaña",
+        "settings": "Ajustes",
+        "profile": "Perfil",
+        "enable_content_warnings": "Habilitar avisos de contenido",
+        "enable_ctrl_enter": "Enviar mensajes con Ctrl+Enter",
+        "language": "Lenguaje",
+        "export": "Exportar",
+        "experiments": "Experimentos",
+        "experiments_summary": "Esta sección contiene características experimentales. Úsar bajo su propia responsabilidad.",
+        "download": "descargar",
+        "import": "Importar",
+        "migrate_account": "Migrar cuenta",
+        "delete_account_confirm": "¿Estás seguro de querer borrar la cuenta? Esto no se puede deshacer.",
+        "enabled_authentication_methods": "Métodos de autenticación activados:",
+        "authentication_method_password": "contraseña",
+        "change_password": "Cambiar contraseña",
+        "new_password": "Nueva contraseña",
+        "password_save": "Guardar",
+        "new_password_confirmation": "Nueva contraseña (confirmación)",
+        "password_changed": "Contraseña cambiada",
+        "manage_identities": "Gestionar identidades",
+        "delete_account": "Borrar cuenta",
+        "edit_profile": "Editar perfil",
+        "appearance": "Apariencia",
+        "enable_dark_mode": "Habilitar modo oscuro",
+        "authentication": "Autenticación"
+    },
+    "gallery": {
+        "gallery_with_handle": "Galería - {handle}",
+        "gallery": "Galería",
+        "name_gallery": "{name} galería"
+    },
+    "subscriptions": {
+        "unit_months": "meses",
+        "unit_days": "días",
+        "enable_subscriptions": "Habilitar suscripciones",
+        "price": "Precio",
+        "duration": "Duración"
+    },
+    "import_follows": {
+        "import": "Importar"
+    },
+    "move_followers": {
+        "user_not_found": "usuario no encontrado"
+    },
+    "identities": {
+        "remove_alias": "Eliminar alias",
+        "verified_aliases": "Alias verificados",
+        "add": "Añadir"
+    },
+    "search_results": {
+        "search_results": "Resultados de búsqueda",
+        "no_results": "Sin resultados"
+    },
+    "custom_feeds": {
+        "user_not_found": "Usuario no encontrado",
+        "user_is_already_in_the_list": "El usuario ya está en la lista",
+        "add_user": "Añadir usuario",
+        "rename_feed": {
+            "save": "Guardar",
+            "cancel": "Cancelar"
+        }
     }
 }
