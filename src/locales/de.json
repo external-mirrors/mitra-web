@@ -204,7 +204,8 @@
         "authentication": "Authentifizierung",
         "authentication_method_password": "Passwort",
         "download": "herunterladen",
-        "default_post_visibility": "Standard-Sichtbarkeit von Beiträgen"
+        "default_post_visibility": "Standard-Sichtbarkeit von Beiträgen",
+        "posts": "Beiträge"
     },
     "gallery": {
         "view_post": "Beitrag ansehen",
