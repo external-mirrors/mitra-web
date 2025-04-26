@@ -197,7 +197,7 @@
         "poll_duration": "Duración de encuesta",
         "duration_hour": "hora | horas",
         "duration_day": "día | días",
-        "multiple_choices": ""
+        "multiple_choices": "@:poll.multiple_choices"
     },
     "profile_list": {
         "show_more_profiles": "Mostrar mas perfiles",
