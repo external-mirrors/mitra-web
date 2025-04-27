@@ -9,7 +9,11 @@
         "federated": "Federacja",
         "local": "Lokalny",
         "notifications": "Powiadomienia",
-        "search": "Szukaj…"
+        "search": "Szukaj…",
+        "bookmarks": "Zakładki",
+        "search_account": "konto",
+        "search_hashtag": "hasztag",
+        "search_text": "tekst"
     },
     "post_editor": {
         "cancel": "Anuluj",
@@ -26,7 +30,24 @@
         "replying_to": "odpowiadając na",
         "timestamp_minutes": "teraz | {n} minut temu | {n} minut temu",
         "next_page": "Pokaż więcej postów",
-        "load_replies": "Załaduj odpowiedzi"
+        "load_replies": "Załaduj odpowiedzi",
+        "visibility": {
+            "public": "Publiczny",
+            "followers": "Obserwują",
+            "subscribers": "Subskrybują",
+            "conversation": "Konwersacja",
+            "direct": "Bezpośredni"
+        },
+        "visibility_description": {
+            "visible_to_everyone": "Widoczny dla wszystkich",
+            "visible_to_followers": "Widoczny dla obserwujących",
+            "visible_to_premium_subscribers": "Widoczny dla subskrybujących",
+            "visible_to_people_chosen_by_conversation_owner": "Widoczny dla wybranych osób",
+            "visible_to_mentioned_users": "Widoczny dla wspomnianych"
+        },
+        "go_to_previous_post": "Poprzedni post",
+        "featured": "Wyróżniony",
+        "edited": "edytowany"
     },
     "welcome": {
         "browse_directory": "Przeglądanie katalogu profili",
