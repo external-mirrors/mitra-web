@@ -146,9 +146,14 @@
                     {{ $t('profile.copy_actor_id') }}
                   </button>
                 </li>
-                <li v-if="canLoadLatestPosts()">
-                  <button @click="hideProfileMenu(); onLoadLatestPosts()">
+                <li v-if="canLoadRemotePosts()">
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('outbox')">
                     {{ $t('profile.load_latest_posts') }}
+                  </button>
+                </li>
+                <li v-if="canLoadRemotePosts()">
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('featured')">
+                    {{ $t('profile.load_featured_posts') }}
                   </button>
                 </li>
               </menu>
@@ -395,7 +400,7 @@ import {
   getAliases,
   getProfile,
   isProfileImageEmpty,
-  loadLatestPosts,
+  loadRemotePosts,
   lookupProfile,
   Profile,
   ProfileField,
@@ -877,7 +882,7 @@ function copyActorId(): void {
   navigator.clipboard.writeText(profile.value.actor_id)
 }
 
-function canLoadLatestPosts(): boolean {
+function canLoadRemotePosts(): boolean {
   return (
     profile.value !== null &&
     currentUser.value !== null &&
@@ -886,14 +891,15 @@ function canLoadLatestPosts(): boolean {
   )
 }
 
-async function onLoadLatestPosts() {
+async function onLoadRemotePosts(collection: string) {
   if (!profile.value) {
     return
   }
   alert(t("misc.reload_page"))
-  await loadLatestPosts(
+  await loadRemotePosts(
     ensureAuthToken(),
     profile.value.id,
+    collection,
   )
 }
 

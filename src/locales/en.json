@@ -161,6 +161,7 @@
     "copy_profile_id": "Copy profile ID",
     "copy_actor_id": "Copy actor ID",
     "load_latest_posts": "Load latest posts",
+    "load_featured_posts": "Load featured posts",
     "edit_profile": "Edit profile",
     "accept_follow_request": "Accept follow request",
     "reject_follow_request": "Reject follow request",

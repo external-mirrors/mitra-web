@@ -328,14 +328,16 @@ export async function getAliases(profileId: string): Promise<Aliases> {
   return data
 }
 
-export async function loadLatestPosts(
+export async function loadRemotePosts(
   authToken: string,
   accountId: string,
+  collection: string,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/load_activities`
   const response = await http(url, {
     method: "POST",
     authToken,
+    json: { collection },
   })
   await handleResponse(response, 204)
 }
