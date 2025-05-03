@@ -12,11 +12,13 @@ export function replaceTextNodes(
   while (walker.nextNode()) {
     nodes.push(walker.currentNode as Text)
   }
+  const allowedTags = ["p", "h1", "h2", "h3", "h4", "h5", "h6"]
   for (const textNode of nodes) {
+    // Don't replace if parent tag is not in allowlist
     if (
       textNode.parentNode !== null &&
       textNode.parentNode !== element &&
-      textNode.parentNode.nodeName.toLowerCase() !== "p"
+      !allowedTags.includes(textNode.parentNode.nodeName.toLowerCase())
     ) {
       continue
     }

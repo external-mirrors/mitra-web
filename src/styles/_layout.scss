@@ -27,6 +27,7 @@ $wide-sidebar-width: 400px;
 $avatar-size: 42px;
 $icon-size: $block-inner-padding;
 $emoji-size: 24px;
+$emoji-size-em: calc(($emoji-size / $text-font-size) * 1em);
 
 $screen-breakpoint-medium: 1000px;
 $screen-breakpoint-small: 700px;
