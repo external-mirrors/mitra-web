@@ -83,7 +83,6 @@ function removeAttachment() {
 <style scoped lang="scss">
 @import "../styles/layout";
 @import "../styles/mixins";
-@import "../styles/theme";
 
 $media-btn-opacity: 0.95;
 

@@ -953,7 +953,6 @@ function togglePaymentAddress(option: PaymentOption) {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/theme";
 @import "../styles/mixins";
 
 $reaction-border: 1px;

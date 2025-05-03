@@ -568,7 +568,6 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
 <style scoped lang="scss">
 @import "../styles/layout";
 @import "../styles/mixins";
-@import "../styles/theme";
 
 .subscription {
   display: flex;
