@@ -34,9 +34,9 @@ function humanizeDate(isoDate: string): string {
       const days = Math.round(diff.as("days"))
       return t("post.timestamp_future_days", { n: days }, days)
     } else if (date.year === now.year) {
-      return date.toFormat("dd LLL")
+      return date.toLocaleString({ ...DateTime.DATE_MED, year: undefined })
     } else {
-      return date.toFormat("dd LLL y")
+      return date.toLocaleString(DateTime.DATE_MED)
     }
   }
   const diff = now.diff(date)
@@ -50,9 +50,9 @@ function humanizeDate(isoDate: string): string {
     const days = Math.round(diff.as("days"))
     return t("post.timestamp_days", { n: days }, days)
   } else if (date.year === now.year) {
-    return date.toFormat("dd LLL")
+    return date.toLocaleString({ ...DateTime.DATE_MED, year: undefined })
   } else {
-    return date.toFormat("dd LLL y")
+    return date.toLocaleString(DateTime.DATE_MED)
   }
 }
 

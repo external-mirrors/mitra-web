@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Allowed custom emojis in headers.
 
+### Fixed
+
+- Use correct day/month/year format in post timestamps.
+
 ## [4.1.1] - 2025-04-27
 
 ### Changed
