@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Allowed custom emojis in headers.
+- Updated translations ([#105](https://codeberg.org/silverpill/mitra-web/pulls/105)).
 
 ### Fixed
 
