@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Improved display of non-square custom emojis in post content.
+
 ### Fixed
 
 - Fixed undoing reactions with custom emojis.

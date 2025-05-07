@@ -1148,6 +1148,7 @@ $reaction-padding: 5px;
   padding: $reaction-padding;
 
   .emoji {
+    /* Same as max-width in PostContent */
     max-width: $emoji-size * 3;
     width: auto;
   }

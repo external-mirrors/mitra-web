@@ -204,7 +204,7 @@ function configureInlineLinks() {
     @include emoji-zoom;
 
     height: $emoji-size-em;
-    width: $emoji-size-em;
+    max-width: $emoji-size * 3;
   }
 }
 </style>
