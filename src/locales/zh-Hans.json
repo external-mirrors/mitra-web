@@ -173,7 +173,8 @@
         "profile": "个人资料",
         "profile_with_handle": "个人资料 - {handle}",
         "view_custom_feeds": "查看自定义订阅源",
-        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "load_featured_posts": "加载精选帖文"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
