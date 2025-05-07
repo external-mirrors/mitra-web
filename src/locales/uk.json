@@ -40,7 +40,7 @@
         "search_account": "обліковий запис"
     },
     "post": {
-        "next_page": "Показати більше публікацій",
+        "next_page": "Показати більше дописів",
         "timestamp_days": "{n} день тому | {n} днів тому",
         "timestamp_hours": "{n} годину тому | {n} годин тому",
         "timestamp_minutes": "щойно | {n} хвилину тому | {n} хвилин тому",
@@ -163,7 +163,8 @@
         "view_custom_feeds": "Переглянути власні стрічки",
         "profile": "Профіль",
         "profile_with_handle": "Профіль - {handle}",
-        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "load_featured_posts": "Завантажити вподобані дописи"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
