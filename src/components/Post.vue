@@ -151,8 +151,8 @@
         v-for="reaction in post.pleroma.emoji_reactions"
         :key="reaction.name"
         class="reaction"
-        :class="{ reacted: hasReacted(reaction.name) }"
-        @click="onToggleReaction(reaction.name)"
+        :class="{ reacted: hasReacted(getReactionEmoji(reaction)) }"
+        @click="onToggleReaction(getReactionEmoji(reaction))"
         :disabled="!canReact()"
       >
         <emoji-image :emoji="getReactionEmoji(reaction)"></emoji-image>
@@ -428,6 +428,7 @@ import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
+import { getEmojiShortcode, Emoji } from "@/api/emojis"
 import { Poll } from "@/api/polls"
 import {
   createBookmark,
@@ -446,6 +447,7 @@ import {
   deleteReaction,
   makePermanent,
   Post,
+  ReactionEmoji,
   Visibility,
 } from "@/api/posts"
 import { mute, unmute } from "@/api/relationships"
@@ -698,26 +700,26 @@ function canReact(): boolean {
   return currentUser.value !== null
 }
 
-function hasReacted(content: string): boolean {
+function hasReacted(emoji: Emoji | ReactionEmoji): boolean {
   const reaction = props.post.pleroma.emoji_reactions
     .find((reaction) => {
-      const emoji = getReactionEmoji(reaction)
-      return emoji.text === content
+      const reactionEmoji = getReactionEmoji(reaction)
+      return reactionEmoji.text === emoji.text
     })
   return reaction?.me || false
 }
 
-async function onToggleReaction(content: string) {
+async function onToggleReaction(emoji: Emoji | ReactionEmoji) {
   if (currentUser.value === null) {
     return
   }
   const authToken = ensureAuthToken()
-  if (hasReacted(content)) {
-    const updatedPost = await deleteReaction(authToken, props.post.id, content)
+  if (hasReacted(emoji)) {
+    const updatedPost = await deleteReaction(authToken, props.post.id, emoji.text)
     props.post.favourites_count = updatedPost.favourites_count
     props.post.pleroma = updatedPost.pleroma
   } else {
-    const updatedPost = await createReaction(authToken, props.post.id, content)
+    const updatedPost = await createReaction(authToken, props.post.id, emoji.text)
     props.post.favourites_count = updatedPost.favourites_count
     props.post.pleroma = updatedPost.pleroma
   }

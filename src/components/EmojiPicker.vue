@@ -19,7 +19,7 @@
           <button
             v-for="emoji in searchResults"
             :key="emoji.name"
-            @click.prevent="pick(emoji.text)"
+            @click.prevent="pick(emoji)"
           >
             <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
@@ -30,7 +30,7 @@
           <button
             v-for="emoji in favoriteEmojiList"
             :key="emoji.name"
-            @click.prevent="pick(emoji.text)"
+            @click.prevent="pick(emoji)"
           >
             <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
@@ -39,7 +39,7 @@
           <button
             v-for="emoji in customEmojiList"
             :key="emoji.name"
-            @click.prevent="pick(emoji.text)"
+            @click.prevent="pick(emoji)"
           >
             <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
           </button>
@@ -59,7 +59,7 @@ import { isEmoji } from "@/utils/emojis"
 
 /* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
-  (event: "emoji-picked", name: string): void,
+  (event: "emoji-picked", emoji: Emoji): void,
 }>()
 
 const FAVORITE_EMOJIS = [
@@ -98,8 +98,8 @@ const searchResults = computed(() => {
     })
 })
 
-function pick(emojiText: string) {
-  emit("emoji-picked", emojiText)
+function pick(emoji: Emoji) {
+  emit("emoji-picked", emoji)
 }
 
 onMounted(async () => {

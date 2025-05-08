@@ -428,7 +428,9 @@ export async function unfavourite(
 }
 
 export interface ReactionEmoji {
+  // name (without colons)
   name: string | null,
+  // unicode text or shortcode
   text: string,
   url: string | null,
 }

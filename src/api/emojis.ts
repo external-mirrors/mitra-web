@@ -13,9 +13,9 @@ export function getEmojiShortcode(name: string): string {
 
 export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
   // Regex must match the one used at backend
-  return text.replace(/:([a-zA-Z0-9._+-]+):/g, (match, shortcode) => {
+  return text.replace(/:([a-zA-Z0-9._+-]+):/g, (match, name) => {
     const emoji = emojis.find((emoji) => {
-      return emoji.shortcode === shortcode
+      return emoji.shortcode === name
     })
     if (emoji) {
       // See also: EmojiImage component

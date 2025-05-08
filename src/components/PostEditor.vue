@@ -634,13 +634,13 @@ function hideEmojiPicker() {
   emojiPickerVisible.value = false
 }
 
-async function insertEmoji(emojiText: string) {
+async function insertEmoji(emoji: Emoji) {
   if (contentInputElement.value === null) {
     throw new Error("editor doesn't exist")
   }
   const position = contentInputElement.value.selectionStart
   // Add whitespace before and after emoji
-  let text = `${emojiText} `
+  let text = `${emoji.text} `
   if (position !== 0 && !/\s/.test(content.value.charAt(position - 1))) {
     text = " " + text
   }
