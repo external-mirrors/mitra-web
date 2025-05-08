@@ -171,7 +171,8 @@
         "view_custom_feeds": "Просмотр пользовательских каналов",
         "profile": "Профиль",
         "profile_with_handle": "Профиль - {handle}",
-        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "load_featured_posts": "Загрузить избранные посты"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
