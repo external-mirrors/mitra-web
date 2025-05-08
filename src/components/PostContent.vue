@@ -203,8 +203,8 @@ function configureInlineLinks() {
   :deep(.emoji) {
     @include emoji-zoom;
 
-    aspect-ratio: 1;
     height: $emoji-size-em;
+    width: $emoji-size-em;
   }
 }
 </style>
