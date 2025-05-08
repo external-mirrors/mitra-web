@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Improved display of non-square custom emojis in post content.
+- Updated translations ([#109](https://codeberg.org/silverpill/mitra-web/pulls/109)).
 
 ### Fixed
 
