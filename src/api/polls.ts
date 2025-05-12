@@ -29,7 +29,7 @@ export async function vote(
   const url = `${BACKEND_URL}/api/v1/polls/${postId}/votes`
   const response = await http(url, {
     method: "POST",
-    json: { "choices[]": choices },
+    json: { choices: choices },
     authToken,
   })
   const data = await handleResponse(response)

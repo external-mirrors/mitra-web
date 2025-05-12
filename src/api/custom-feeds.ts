@@ -76,7 +76,7 @@ export async function addCustomFeedSource(
   const response = await http(url, {
     method: "POST",
     authToken,
-    json: { "account_ids[]": [sourceId] },
+    json: { account_ids: [sourceId] },
   })
   await handleResponse(response)
 }

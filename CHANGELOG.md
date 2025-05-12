@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use parameter names without square brackets when creating and updating posts.
+
 ## [4.3.0] - 2025-05-18
 
 ### Changed

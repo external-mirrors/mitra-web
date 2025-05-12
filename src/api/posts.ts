@@ -324,16 +324,21 @@ export async function createPost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses`
   // Convert to Mastodon API Status entity
+  const poll = postData.pollOptions.length === 0
+    ? null
+    : {
+        options: postData.pollOptions,
+        expires_in: postData.pollDuration,
+        multiple: postData.pollMultichoice,
+      }
   const statusData = {
     status: postData.content,
     content_type: "text/markdown",
-    "media_ids[]": postData.attachments.map((attachment) => attachment.id),
+    media_ids: postData.attachments.map((attachment) => attachment.id),
     in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,
     sensitive: postData.isSensitive,
-    "poll[options][]": postData.pollOptions,
-    "poll[expires_in]": postData.pollDuration,
-    "poll[multiple]": postData.pollMultichoice,
+    poll: poll,
     quote_id: postData.quoteId,
   }
   const response = await http(url, {
@@ -386,7 +391,7 @@ export async function updatePost(
     json: {
       status: content,
       content_type: "text/markdown",
-      "media_ids[]": attachments.map((attachment) => attachment.id),
+      media_ids: attachments.map((attachment) => attachment.id),
       sensitive: isSensitive,
       quote_id: quoteId,
     },
