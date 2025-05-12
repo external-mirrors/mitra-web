@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Put "Load featured posts" menu item before "Load latest posts".
+
 ## [4.2.1] - 2025-05-08
 
 ### Changed

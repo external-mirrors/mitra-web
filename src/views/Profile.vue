@@ -147,13 +147,13 @@
                   </button>
                 </li>
                 <li v-if="canLoadRemotePosts()">
-                  <button @click="hideProfileMenu(); onLoadRemotePosts('outbox')">
-                    {{ $t('profile.load_latest_posts') }}
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('featured')">
+                    {{ $t('profile.load_featured_posts') }}
                   </button>
                 </li>
                 <li v-if="canLoadRemotePosts()">
-                  <button @click="hideProfileMenu(); onLoadRemotePosts('featured')">
-                    {{ $t('profile.load_featured_posts') }}
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('outbox')">
+                    {{ $t('profile.load_latest_posts') }}
                   </button>
                 </li>
               </menu>
