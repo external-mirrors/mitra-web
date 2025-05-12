@@ -145,7 +145,8 @@
         "tab_subscribers": "Ont souscrit",
         "subscription_expires": "Souscription expirant le {date}",
         "subscriber": "Souscript·eur·rice",
-        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "load_featured_posts": "Charger les messages épinglés"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
