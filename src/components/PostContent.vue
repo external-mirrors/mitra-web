@@ -192,12 +192,8 @@ function configureInlineLinks() {
   }
 
   :deep(blockquote) {
-    color: $greentext-color;
-
-    &::before {
-      content: ">";
-      float: left;
-    }
+    border-inline-start: 3px solid var(--secondary-text-color);
+    padding-inline-start: $input-padding;
   }
 
   :deep(.emoji) {

@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Put "Load featured posts" menu item before "Load latest posts".
 - Allow custom emojis inside `<i>` tags.
 - Use datetime format associated with the preferred language.
+- Render `<blockquote>` elements with as quotes instead of greentext.
 
 ## [4.2.1] - 2025-05-08
 
