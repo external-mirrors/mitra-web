@@ -66,8 +66,8 @@ import { replaceShortcodes } from "@/api/emojis"
 import { vote, Poll, PollOption } from "@/api/polls"
 import { Profile } from "@/api/users"
 import Timestamp from "@/components/Timestamp.vue"
+import { useDateTime } from "@/composables/date-time"
 import { useCurrentUser } from "@/composables/user"
-import { formatDateTime } from "@/utils/dates"
 
 const props = defineProps<{
   poll: Poll,
@@ -79,6 +79,7 @@ const emit = defineEmits<{
   (event: "poll-updated", poll: Poll): void,
 }>()
 
+const { formatDateTime } = useDateTime()
 const { currentUser, ensureAuthToken } = useCurrentUser()
 
 const resultsRevealed = ref(false)

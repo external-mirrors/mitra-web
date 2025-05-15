@@ -7,7 +7,7 @@ import { DateTime } from "luxon"
 import { onUnmounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
-const { t } = useI18n({ useScope: "global" })
+const { locale, t } = useI18n({ useScope: "global" })
 
 defineProps<{
   date: string,
@@ -20,7 +20,7 @@ const clock = setInterval(() => {
 }, 5000)
 
 function humanizeDate(isoDate: string): string {
-  const date = DateTime.fromISO(isoDate)
+  const date = DateTime.fromISO(isoDate).setLocale(locale.value)
   const now = currentTime.value
   if (now < date) {
     const diff = date.diff(now)

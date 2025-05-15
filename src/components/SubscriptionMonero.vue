@@ -217,11 +217,12 @@ import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
 import QrCode from "@/components/QrCode.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
+import { useDateTime } from "@/composables/date-time"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
-import { formatDate, isPastDate } from "@/utils/dates"
+import { isPastDate } from "@/utils/dates"
 import {
   createMoneroPaymentRequest,
   createMoneroPaymentUri,
@@ -239,6 +240,7 @@ const props = defineProps<{
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = useCurrentUser()
+const { formatDate } = useDateTime()
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const { getSubscriptionOption } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)

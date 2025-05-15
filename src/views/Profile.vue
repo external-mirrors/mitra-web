@@ -418,6 +418,7 @@ import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
+import { useDateTime } from "@/composables/date-time"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
@@ -425,13 +426,13 @@ import { useSubscribe } from "@/composables/subscribe"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 import { BACKEND_URL } from "@/constants"
-import { formatDate } from "@/utils/dates"
 import { hasEthereumWallet } from "@/utils/ethereum"
 import { replaceTextNodes } from "@/utils/html"
 
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
+const { formatDate } = useDateTime()
 const {
   authToken,
   currentUser,

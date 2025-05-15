@@ -73,12 +73,14 @@ import { getProfile, Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useDateTime } from "@/composables/date-time"
 import { useActorHandle } from "@/composables/handle"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
-import { formatDate, isPastDate } from "@/utils/dates"
+import { isPastDate } from "@/utils/dates"
 
 const { t } = useI18n({ useScope: "global" })
+const { formatDate } = useDateTime()
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken, ensureCurrentUser } = useCurrentUser()

@@ -48,13 +48,14 @@ import PostContent from "@/components/PostContent.vue"
 import PostPoll from "@/components/PostPoll.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
+import { useDateTime } from "@/composables/date-time"
 import { useActorHandle } from "@/composables/handle"
-import { formatDateTime } from "@/utils/dates"
 
 const props = defineProps<{
   post: Post,
 }>()
 
+const { formatDateTime } = useDateTime()
 const { getActorHandle } = useActorHandle()
 
 const author = computed(() => new ProfileWrapper(props.post.account))

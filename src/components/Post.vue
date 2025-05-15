@@ -491,13 +491,13 @@ import Timestamp from "@/components/Timestamp.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
 import UniversalLink from "@/components/UniversalLink.vue"
 import { useClientConfig } from "@/composables/client-config"
+import { useDateTime } from "@/composables/date-time"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useCurrentUser } from "@/composables/user"
 import { useVisibility } from "@/composables/visibility"
 import { getCurrencyByLabel, Currency, MONERO } from "@/utils/cryptocurrencies"
-import { formatDateTime } from "@/utils/dates"
 
 interface PaymentOption {
   code: string;
@@ -508,6 +508,7 @@ interface PaymentOption {
 
 const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
+const { formatDateTime } = useDateTime()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { conversationNewTab } = useClientConfig()
 const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
