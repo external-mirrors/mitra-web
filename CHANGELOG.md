@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Allow custom emojis inside `<i>` tags.
 - Use datetime format associated with the preferred language.
 - Render `<blockquote>` elements with as quotes instead of greentext.
+- Updated translations ([#110](https://codeberg.org/silverpill/mitra-web/pulls/110)).
 
 ## [4.2.1] - 2025-05-08
 
