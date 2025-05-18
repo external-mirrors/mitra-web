@@ -510,7 +510,7 @@ const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
 const { formatDateTime } = useDateTime()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { conversationNewTab } = useClientConfig()
+const { conversationNewTab, defaultVisibility } = useClientConfig()
 const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
@@ -635,7 +635,9 @@ function canRepost(): boolean {
   }
   return (
     isRepostPossible() &&
-    currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
+    currentUser.value.role.permissions_names.includes(Permissions.CreatePost) &&
+    // Subscriber-only reposts are not supported
+    (props.post.reblogged || defaultVisibility.value !== Visibility.Subscribers)
   )
 }
 
@@ -650,7 +652,10 @@ async function toggleRepost() {
     if (props.post.reblogged) {
       updatedPost = await deleteRepost(authToken, props.post.id)
     } else {
-      updatedPost = await createRepost(authToken, props.post.id)
+      const visibility = defaultVisibility.value === Visibility.Public
+        ? Visibility.Public
+        : Visibility.Followers
+      updatedPost = await createRepost(authToken, props.post.id, visibility)
     }
   } catch (error) {
     isProcessingRepost.value = false

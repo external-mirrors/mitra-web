@@ -473,9 +473,14 @@ export async function deleteReaction(
 export async function createRepost(
   authToken: string,
   postId: string,
+  visibility: Visibility,
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/reblog`
-  const response = await http(url, { method: "POST", authToken })
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { visibility },
+  })
   const data = await handleResponse(response)
   if (data.reblog === null) {
     throw new Error("reblog property is null")

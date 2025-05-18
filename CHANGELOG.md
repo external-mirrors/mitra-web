@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Close lightbox when "Esc" is pressed.
+- Set repost visibility to "Followers" if that is default post visibility.
 
 ### Changed
 
