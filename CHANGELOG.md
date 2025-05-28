@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Make image in lightbox full-width in WebKit-based browsers.
+- Don't navigate to post when clicking on quoted video in WebKit-based browsers.
 
 ## [4.3.0] - 2025-05-18
 

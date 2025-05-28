@@ -43,8 +43,18 @@
       >
     </div>
   </div>
-  <video v-else-if="attachment.type === 'video'" :src="attachment.url" controls></video>
-  <audio v-else-if="attachment.type === 'audio'" :src="attachment.url" controls></audio>
+  <video
+    v-else-if="attachment.type === 'video'"
+    :src="attachment.url"
+    controls
+    @click.stop.prevent
+  ></video>
+  <audio
+    v-else-if="attachment.type === 'audio'"
+    :src="attachment.url"
+    controls
+    @click.stop.prevent
+  ></audio>
   <table v-else class="document">
     <tr>
       <td><icon-file></icon-file></td>
