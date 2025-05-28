@@ -26,12 +26,12 @@
       :src="attachment.url"
       :alt="attachment.description || undefined"
       :title="attachment.description || undefined"
-      @click="openLightbox()"
+      @click.stop.prevent="openLightbox()"
     >
     <div
       v-if="lightboxOpen"
       class="lightbox"
-      @click="closeLightbox()"
+      @click.stop.prevent="closeLightbox()"
     >
       <button :title="$t('post.close_image')">
         <icon-close></icon-close>
