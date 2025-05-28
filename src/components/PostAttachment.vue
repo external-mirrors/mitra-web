@@ -3,6 +3,7 @@
     v-if="attachment.type === 'image'"
     class="image"
     :class="{ sensitive: contentWarningEnabled }"
+    @keydown.esc="closeLightbox()" tabindex="0"
   >
     <div
       v-if="contentWarningEnabled"
