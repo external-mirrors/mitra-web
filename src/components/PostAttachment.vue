@@ -161,6 +161,7 @@ button {
   > img {
     background-color: var(--block-background-color);
     object-fit: contain;
+    width: 100%; /* for WebKit */
   }
 }
 

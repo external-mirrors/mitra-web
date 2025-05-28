@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Use parameter names without square brackets when creating and updating posts.
 
+### Fixed
+
+- Make image in lightbox full-width in WebKit-based browsers.
+
 ## [4.3.0] - 2025-05-18
 
 ### Changed
