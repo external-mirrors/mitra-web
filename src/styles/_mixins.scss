@@ -207,6 +207,10 @@
     white-space: nowrap;
     z-index: 3;
 
+    &[data-dropup] {
+      bottom: $block-inner-padding;
+    }
+
     li {
       display: flex;  /* all children become blocks */
 

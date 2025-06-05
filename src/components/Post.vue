@@ -243,7 +243,7 @@
         <button class="icon" :title="$t('post.more')" @click="toggleMenu()">
           <icon-more></icon-more>
         </button>
-        <menu v-if="menuVisible" class="dropdown-menu">
+        <menu v-if="menuVisible" ref="menuElement" class="dropdown-menu">
           <li>
             <a
               :href="post.url"
@@ -424,7 +424,7 @@
 
 <script setup lang="ts">
 /* eslint-disable vue/no-mutating-props */
-import { computed, ref } from "vue"
+import { computed, nextTick, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
@@ -537,6 +537,7 @@ const isProcessingRepost = ref(false)
 const isProcessingLike = ref(false)
 const emojiPickerVisible = ref(false)
 const menuVisible = ref(false)
+const menuElement = ref<HTMLElement | null>(null)
 const selectedPaymentOption = ref<PaymentOption | null>(null)
 
 const author = computed(() => new ProfileWrapper(props.post.account))
@@ -739,8 +740,16 @@ function hideEmojiPicker() {
   emojiPickerVisible.value = false
 }
 
-function toggleMenu() {
+async function toggleMenu() {
   menuVisible.value = !menuVisible.value
+  await nextTick()
+  if (menuVisible.value && menuElement.value !== null) {
+    const position = menuElement.value.getBoundingClientRect()
+    const clientHeight = document.documentElement.clientHeight
+    if (position.bottom > clientHeight) {
+      menuElement.value.dataset.dropup = ""
+    }
+  }
 }
 
 function hideMenu() {

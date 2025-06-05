@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Use parameter names without square brackets when creating and updating posts.
 - Open lightbox when clicking on image in quote.
+- Expand post menu upwards when dropdown doesn't fit into viewport.
 
 ### Fixed
 
