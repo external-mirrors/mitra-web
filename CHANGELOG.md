@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.4.0] - 2025-06-05
+
 ### Added
 
 - Close lightbox when "Esc" is pressed.
