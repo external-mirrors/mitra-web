@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Make image in lightbox full-width in WebKit-based browsers.
 - Don't navigate to post when clicking on quoted video in WebKit-based browsers.
 - Fixed a "shifting textarea" bug in FireFox.
+- Don't render ">" sign as greentext if not followed by text.
 
 ## [4.3.0] - 2025-05-18
 
