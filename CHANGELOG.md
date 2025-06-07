@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed broken custom emojis in bio when it is wrapped in `<div>` tag.
+
 ## [4.4.0] - 2025-06-05
 
 ### Added
