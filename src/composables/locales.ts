@@ -20,6 +20,7 @@ const LANGUAGES = [
   "sl",
   "sv",
   "uk",
+  "vi",
   "zh-Hans",
 ]
 
