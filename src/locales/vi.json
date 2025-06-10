@@ -1,0 +1,32 @@
+{
+    "navigation": {
+        "search": "Tìm kiếm…",
+        "home": "Trang chủ",
+        "search_account": "tài khoản",
+        "search_hashtag": "hashtag",
+        "search_text": "từ ngữ",
+        "notifications": "Thông báo",
+        "settings": "Cài đặt",
+        "profile_directory": "Danh mục hồ sơ"
+    },
+    "post": {
+        "visibility_description": {
+            "visible_to_followers": "Hiển thị cho người theo dõi",
+            "visible_to_everyone": "Hiển thị cho tất cả mọi người",
+            "visible_to_premium_subscribers": "Hiển thị cho người theo dõi cao cấp",
+            "visible_to_people_chosen_by_conversation_owner": "Hiển thị cho người được chọn bởi chủ nhân",
+            "visible_to_mentioned_users": "Hiển thị cho người được nhắc đến"
+        },
+        "visibility": {
+            "public": "Công khai",
+            "followers": "Người theo dõi",
+            "subscribers": "Người đăng ký",
+            "conversation": "Cuộc hội thoại",
+            "direct": "Trực tiếp"
+        }
+    },
+    "about": {
+        "technical_info": "Thông tin kỹ thuật",
+        "administered_by": "Được quản trị bởi"
+    }
+}
