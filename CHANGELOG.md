@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed broken custom emojis in bio when it is wrapped in `<div>` tag.
+- Create greentext if there is a space after ">" sign.
 
 ## [4.4.0] - 2025-06-05
 
