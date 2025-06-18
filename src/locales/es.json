@@ -99,7 +99,11 @@
         "copy_object_id": "Copiar objeto ID",
         "remove_from_featured": "Eliminar de destacados",
         "add_to_featured": "Añadir a destacados",
-        "unlike": "No me gusta"
+        "unlike": "No me gusta",
+        "repost": "Republicar",
+        "repost_with_comment": "Republicar con comentario",
+        "action_reposted": "republicado",
+        "delete_repost": "Borrar republicación"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -144,7 +148,14 @@
         "mute": "Silenciar",
         "copy_profile_id": "Copiar ID de perfil",
         "renew_verification": "Renovar verificación",
-        "verified": "Verificado"
+        "verified": "Verificado",
+        "automated": "Automatizado",
+        "hide_reposts": "Ocultar republicaciones",
+        "show_reposts": "Mostrar republicaciones",
+        "load_featured_posts": "Cargar publicaciones destacadas",
+        "stats_posts": "publicaciones",
+        "link_ethereum_address": "Enlazar dirección de ethereum",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -190,7 +201,15 @@
     },
     "notifications": {
         "followed_you": "te ha seguido",
-        "sent_a_follow_request": "enviar solicitud de seguimiento"
+        "sent_a_follow_request": "enviar solicitud de seguimiento",
+        "replied_to_your_post": "respondió a tu publicación",
+        "mentioned_you": "te mencionó",
+        "reposted_your_post": "reposteó tu publicación",
+        "subscription_expired": "subscripción caducada",
+        "moved_to_a_new_instance": "movido a nueva instancia",
+        "show_more_notifications": "Mostrar más notificaciones",
+        "reacted_to_your_post": "reaccionó a tu publicación",
+        "liked_your_post": "le gustó tu publicación"
     },
     "poll_editor": {
         "option": "Opción {n}",
@@ -231,19 +250,36 @@
         "edit_profile": "Editar perfil",
         "appearance": "Apariencia",
         "enable_dark_mode": "Habilitar modo oscuro",
-        "authentication": "Autenticación"
+        "authentication": "Autenticación",
+        "followers": "Seguidores",
+        "import_follows": "Importar seguidos",
+        "posts": "Publicaciones",
+        "move_followers": "Mover seguidores",
+        "default_post_visibility": "Visibilidad de publicaciones predeterminada",
+        "follows": "Seguidos"
     },
     "gallery": {
         "gallery_with_handle": "Galería - {handle}",
         "gallery": "Galería",
-        "name_gallery": "{name} galería"
+        "name_gallery": "{name} galería",
+        "back": "Atrás",
+        "view_post": "Ver publicación"
     },
     "subscriptions": {
         "unit_months": "meses",
         "unit_days": "días",
         "enable_subscriptions": "Habilitar suscripciones",
         "price": "Precio",
-        "duration": "Duración"
+        "duration": "Duración",
+        "enter_your_username": "Introduce tu nombre de usuario o dirección del Fediverso (usuario{'@'}ejemplo.org)",
+        "no_subscription_info": "Sin información de suscripción",
+        "subscription_is_active": "Subscripción activa",
+        "payment_awaiting_response": "Esperando respuesta",
+        "find_profile": "Encontrar perfil",
+        "price_per_month": "al mes",
+        "subscription_is_not_available": "Subscripción no disponible.",
+        "click_to_edit": "Haz clic para editar",
+        "you_are_not_subscribed_yet": "No estás suscrito aún"
     },
     "import_follows": {
         "import": "Importar"
@@ -258,7 +294,11 @@
     },
     "search_results": {
         "search_results": "Resultados de búsqueda",
-        "no_results": "Sin resultados"
+        "no_results": "Sin resultados",
+        "posts": "{n} publicación | {n} publicaciones",
+        "tags": "{n} etiqueta | {n} etiquetas",
+        "show_more_results": "Mostrar más resultados",
+        "people": "{n} personas"
     },
     "custom_feeds": {
         "user_not_found": "Usuario no encontrado",
@@ -267,6 +307,12 @@
         "rename_feed": {
             "save": "Guardar",
             "cancel": "Cancelar"
-        }
+        },
+        "enter_address": "Introducir dirección"
+    },
+    "follow_requests": {
+        "show_more_requests": "Mostrar más solicitudes",
+        "follow_requests": "Solicitudes de seguimiento",
+        "no_follow_requests_found": "No se han encontrado solicitudes de seguimiento"
     }
 }
