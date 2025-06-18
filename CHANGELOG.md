@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.5.0] - 2025-06-18
+
 ### Added
 
 - Added Vietnamese translation ([#124](https://codeberg.org/silverpill/mitra-web/pulls/124)).
