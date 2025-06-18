@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added Vietnamese translation ([#124](https://codeberg.org/silverpill/mitra-web/pulls/124)).
 
+### Changed
+
+- Replace link target in mentions, hashtags and quote links.
+
 ### Fixed
 
 - Fixed broken custom emojis in bio when it is wrapped in `<div>` tag.

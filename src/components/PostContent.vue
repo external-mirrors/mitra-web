@@ -50,7 +50,7 @@ function configureInlineLinks() {
   }
   const mentions = postContentElement.value.getElementsByClassName("mention")
   for (const mentionElement of Array.from(mentions)) {
-    if (!(mentionElement instanceof HTMLElement)) {
+    if (!(mentionElement instanceof HTMLAnchorElement)) {
       continue
     }
     const mention = props.post.mentions
@@ -60,12 +60,15 @@ function configureInlineLinks() {
         event.preventDefault()
         router.push(getActorLocation("profile", mention))
       })
+      mentionElement.href = router
+        .resolve(getActorLocation("profile", mention))
+        .href
       mentionElement.dataset.internalLink = "true"
     }
   }
   const hashtags = postContentElement.value.querySelectorAll('.hashtag, [rel~="tag"]')
   for (const hashtagElement of Array.from(hashtags)) {
-    if (!(hashtagElement instanceof HTMLElement)) {
+    if (!(hashtagElement instanceof HTMLAnchorElement)) {
       continue
     }
     const hashtag = props.post.tags
@@ -78,6 +81,9 @@ function configureInlineLinks() {
         event.preventDefault()
         router.push({ name: "tag", params: { tagName: hashtag.name } })
       })
+      hashtagElement.href = router
+        .resolve({ name: "tag", params: { tagName: hashtag.name } })
+        .href
       hashtagElement.dataset.internalLink = "true"
     }
   }
@@ -89,6 +95,9 @@ function configureInlineLinks() {
           event.preventDefault()
           router.push({ name: "post", params: { postId: linkedPost.id } })
         })
+        linkElement.href = router
+          .resolve({ name: "post", params: { postId: linkedPost.id } })
+          .href
         linkElement.dataset.internalLink = "true"
       }
     }
