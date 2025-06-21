@@ -1,16 +1,16 @@
 {
     "about": {
         "technical_info": "Техническая информация",
-        "administered_by": "Администрируется"
+        "administered_by": "Администраторы"
     },
     "navigation": {
-        "home": "Домашняя",
+        "home": "Моя лента",
         "search": "Поиск…",
-        "local": "Местный",
-        "profile_directory": "Профиль каталога",
+        "local": "Лента инстанса",
+        "profile_directory": "Каталог профилей",
         "bookmarks": "Закладки",
         "subscriptions": "Подписки",
-        "about": "О",
+        "about": "Об инстансе",
         "federated": "Глобальная лента",
         "logout": "Выйти",
         "notifications": "Уведомления",
