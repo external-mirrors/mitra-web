@@ -7,7 +7,7 @@
           {{ getPricePerMonth(subscriptionOption.price as number) }} XMR {{ $t('subscriptions.price_per_month') }}
         </div>
         <div class="info-item">
-          {{ $t('subscriptions.subscribers', { n: ensureCurrentUser().subscribers_count }) }}
+          {{ $t('subscriptions.subscribers', { n: subscriberCount }) }}
         </div>
       </template>
       <template v-else>
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 
 import {
@@ -71,6 +71,7 @@ import {
   getPricePerMonth,
   getPricePerSec,
 } from "@/api/subscriptions-monero"
+import { getCurrentUser } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useInstanceInfo } from "@/composables/instance"
@@ -94,9 +95,16 @@ const subscriptionPayoutAddress = ref("")
 const isFormVisible = ref(false)
 const errorMessage = ref<string | null>(null)
 
+const subscriberCount = computed(() => {
+  return ensureCurrentUser().subscribers_count
+})
+
 onMounted(async () => {
   isLoading.value = true
   await loadSubscriptionSettings()
+  // Refresh subscriberCount
+  const user = await getCurrentUser(ensureAuthToken())
+  setCurrentUser(user)
   isLoading.value = false
 })
 

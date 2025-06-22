@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed incorrect subscriber count on "Manage subscriptions" page after receiving a payment.
+
 ## [4.5.0] - 2025-06-18
 
 ### Added
