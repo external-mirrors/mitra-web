@@ -164,7 +164,8 @@
         "profile": "Профіль",
         "profile_with_handle": "Профіль - {handle}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
-        "load_featured_posts": "Завантажити вподобані дописи"
+        "load_featured_posts": "Завантажити вподобані дописи",
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
