@@ -318,7 +318,9 @@
         "not_subscribed_yet": "Ще не передплатив",
         "grant_subscription_access": "Надати доступ до передплати",
         "price": "Вартість",
-        "payout_address": "Адреса для оплати"
+        "payout_address": "Адреса для оплати",
+        "subscription_expires_on": "Термін дії підписки спливає {date}",
+        "subscription_expired_on": "Термін дії підписки закінчився {date}"
     },
     "follow_requests": {
         "no_follow_requests_found": "Не знайдено запитів на стеження",
