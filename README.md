@@ -2,11 +2,11 @@
 
 Default frontend for [Mitra](https://codeberg.org/silverpill/mitra).
 
-<img width="650" src="screenshot.png" alt="screenshot">
-
 - Supports all Mitra features.
-- Translated into 6+ languages.
+- Translated into 7+ languages.
 - Includes a dark mode feature for visual accessibility.
+
+<img width="650" src="screenshot.png" alt="screenshot">
 
 ## Custom themes
 
