@@ -184,7 +184,8 @@
     "tab_followers": "Followers",
     "tab_following": "Following",
     "tab_subscribers": "Subscribers",
-    "subscription_expires": "Subscription expires {date}"
+    "subscription_expires": "Subscription expires {date}",
+    "subscription_expires_on": "@:subscriptions.subscription_expires_on"
   },
   "profile_list": {
     "show_more_profiles": "Show more profiles",
@@ -346,6 +347,8 @@
     "subscriber_details": "Subscriber details",
     "subscription_expired": "Subscription expired {date}",
     "subscription_expires": "Subscription expires {date}",
+    "subscription_expired_on": "Subscription expired on {date}",
+    "subscription_expires_on": "Subscription expires on {date}",
     "not_subscribed_yet": "Not subscribed yet",
     "grant_subscription_access": "Grant subscription access",
     "unit_months": "months",
