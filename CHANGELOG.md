@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Disable subscription pay/extend button while request is processed.
+
 ### Fixed
 
 - Fixed incorrect subscriber count on "Manage subscriptions" page after receiving a payment.

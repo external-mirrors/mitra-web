@@ -465,6 +465,7 @@ const paymentMessage = computed<string | null>(() => {
 
 function canCreateInvoice(): boolean {
   return (
+    !isLoading.value &&
     paymentAmount.value !== 0 &&
     paymentAmount.value >= parseXmrAmount(PAYMENT_AMOUNT_MIN)
   )
