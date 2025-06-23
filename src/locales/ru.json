@@ -172,7 +172,8 @@
         "profile": "Профиль",
         "profile_with_handle": "Профиль - {handle}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
-        "load_featured_posts": "Загрузить избранные посты"
+        "load_featured_posts": "Загрузить избранные посты",
+        "subscription_expires_on": "Подписка действительна до"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -314,13 +315,15 @@
         "save_settings": "Сохранять",
         "enable_subscriptions": "Включить подписки",
         "subscriber_details": "Данные подписчика",
-        "subscription_expired": "Истёкшая подписка {date}",
-        "subscription_expires": "Подписка истекает {date}",
+        "subscription_expired": "Срок действия подписки истёк {date}",
+        "subscription_expires": "Подписка закончилась {date}",
         "not_subscribed_yet": "Пока нет подписчиков",
         "grant_subscription_access": "Полный доступ к подписке",
         "unit_months": "месяцев",
         "unit_days": "дней",
-        "grant": "Награда"
+        "grant": "Награда",
+        "subscription_expires_on": "Подписка заканчивается {date}",
+        "subscription_expired_on": "Подписка истекла {date}"
     },
     "misc": {
         "reload_page": "Перезагрузите страницу через несколько минут"
