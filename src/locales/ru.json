@@ -173,7 +173,7 @@
         "profile_with_handle": "Профиль - {handle}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Загрузить избранные посты",
-        "subscription_expires_on": "Подписка действительна до"
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
