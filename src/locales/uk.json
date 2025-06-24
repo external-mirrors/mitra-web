@@ -164,7 +164,8 @@
         "profile": "Профіль",
         "profile_with_handle": "Профіль - {handle}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
-        "load_featured_posts": "Завантажити вподобані дописи"
+        "load_featured_posts": "Завантажити вподобані дописи",
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
     "post_list": {
         "post_not_found": "Допис не знайдено",
@@ -318,7 +319,9 @@
         "not_subscribed_yet": "Ще не передплатив",
         "grant_subscription_access": "Надати доступ до передплати",
         "price": "Вартість",
-        "payout_address": "Адреса для оплати"
+        "payout_address": "Адреса для оплати",
+        "subscription_expires_on": "Термін дії підписки спливає {date}",
+        "subscription_expired_on": "Термін дії підписки закінчився {date}"
     },
     "follow_requests": {
         "no_follow_requests_found": "Не знайдено запитів на стеження",

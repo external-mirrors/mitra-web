@@ -146,7 +146,8 @@
         "subscription_expires": "Souscription expirant le {date}",
         "subscriber": "Souscript·eur·rice",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
-        "load_featured_posts": "Charger les messages épinglés"
+        "load_featured_posts": "Charger les messages épinglés",
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -266,12 +267,14 @@
         "save_settings": "Sauvegarder",
         "enable_subscriptions": "Activer les souscriptions",
         "subscriber_details": "Information souscript·eur·rice",
-        "subscription_expired": "Souscription expirée le {date}",
+        "subscription_expired": "Souscription expirée {date}",
         "not_subscribed_yet": "Pas encore de souscription",
         "grant": "Accorder",
         "please_send_to_this_address": "Merci d'envoyer {amount} {currency} à cette adresse :",
         "subscribers_can_pay": "Les personnes souhaitant payer leur souscription peuvent le faire sur votre page personnelle de souscription :",
-        "subscription_expires": "La souscription expirera le {date}"
+        "subscription_expires": "Expiration souscription {date}",
+        "subscription_expires_on": "La souscription expirera le {date}",
+        "subscription_expired_on": "La souscription a expiré le {date}"
     },
     "navigation": {
         "home": "Accueil",

@@ -1,0 +1,92 @@
+{
+    "post_editor": {
+        "cancel": "لغو",
+        "visibility_can_not_be_changed": "قابلیت مشاهده قابل تغییر نیست",
+        "enter_image_description": "توضیحات تصویر را وارد کنید",
+        "prompt": "چی تو ذهنته؟",
+        "publish": "انتشار",
+        "update": "بروزرسانی",
+        "repost": "بازنشر",
+        "attach_file": "پیوست فایل",
+        "remove_attachment": "پاک کردن پیوست",
+        "edit_description": "ویرایش توضیحات",
+        "save_image_description": "ذخیره",
+        "remove_poll": "حذف نظرسنجی",
+        "add_poll": "افزودن نظرسنجی",
+        "remove_content_warning": "هشدار حذف محتوا"
+    },
+    "post": {
+        "timestamp_hours": "{n} ساعت پیش | {n} ساعت پیش",
+        "visibility_description": {
+            "visible_to_premium_subscribers": "نمایان برای مشترکین ویژه",
+            "visible_to_everyone": "نمایان برای همه",
+            "visible_to_followers": "نمایان برای دنبال‌کنندگان",
+            "visible_to_people_chosen_by_conversation_owner": "نمایان برای افرادی که توسط صاحب مکالمه انتخاب شده‌اند",
+            "visible_to_mentioned_users": "نمایان برای کاربران منشن شده"
+        },
+        "load_replies": "بارگذاری پاسخ‌ها",
+        "go_to_previous_post": "رفتن به فرستهٔ قبلی",
+        "react_with_emoji": "واکنش با شکلک",
+        "visibility": {
+            "public": "عمومی",
+            "followers": "دنبال‌کنندگان",
+            "conversation": "مکالمه"
+        },
+        "edited": "ویرایش شده",
+        "timestamp_minutes": "الان | {n} دقیقه پیش | {n} دقیقه پیش",
+        "timestamp_days": "{n} روز پیش | {n} روز پیش",
+        "timestamp_future_minutes": "اکنون | در {n} دقیقه | در {n} دقیقه",
+        "timestamp_future_hours": "در {n} ساعت | در {n} ساعت",
+        "timestamp_future_days": "در {n} روز | در {n} روز",
+        "hide_image": "پنهان کردن تصویر",
+        "close_image": "بستن",
+        "view_replies": "مشاهده پاسخ‌ها",
+        "view_conversation": "مشاهده مکالمه",
+        "reply": "پاسخ",
+        "delete_repost": "حذف بازنشر",
+        "repost": "بازنشر",
+        "like": "پسند",
+        "saved_to_ipfs": "ذخیره شده در IPFS",
+        "more": "بیشتر",
+        "save_to_ipfs": "ذخیره در IPFS",
+        "bookmark": "نشانک",
+        "remove_bookmark": "پاک کردن نشانک",
+        "repost_with_comment": "بازنشر با نظر",
+        "edit_post": "ویرایش فرسته",
+        "delete_post": "پاک کردن فرسته",
+        "confirm_delete_this_post": "آیا از حذف این فرسته مطمئن هستید؟",
+        "mute_author": "بی‌صدا کردن نویسنده",
+        "unmute_author": "صدادار کردن نویسنده",
+        "become_a_subscriber": "مشترک شوید",
+        "action_reposted": "بازنشر شد",
+        "next_page": "نمایش فرسته‌های بیشتر",
+        "sensitive_content": "محتوای حساس"
+    },
+    "navigation": {
+        "home": "خانه",
+        "search": "جستجو…",
+        "search_account": "حساب کاربری",
+        "search_hashtag": "هشتگ",
+        "search_text": "متن",
+        "notifications": "اعلان‌ها",
+        "local": "محلی",
+        "bookmarks": "نشانک‌ها",
+        "settings": "تنظیمات",
+        "about": "درباره",
+        "logout": "خروج"
+    },
+    "welcome": {
+        "welcome": "به {0} خوش‌آمدید!",
+        "read_only_mode": "حساب شما در حالت فقط خواندنی است"
+    },
+    "poll": {
+        "see_results": "دیدن نتایج",
+        "num_votes": "بدون رای | {n} رأی | {n} رأی"
+    },
+    "post_list": {
+        "post": "فرسته",
+        "post_not_found": "فرسته پیدا نشد",
+        "no_posts_found": "هیچ فرسته‌ای پیدا نشد",
+        "post_is_not_available": "فرسته در دسترس نیست"
+    }
+}
