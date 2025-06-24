@@ -7,6 +7,7 @@ const LANGUAGES = [
   "de",
   "en",
   "es",
+  "fa",
   "fr",
   "hu",
   "ja",
