@@ -174,7 +174,8 @@
         "profile_with_handle": "个人资料 - {handle}",
         "view_custom_feeds": "查看自定义订阅源",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
-        "load_featured_posts": "加载精选帖文"
+        "load_featured_posts": "加载精选帖文",
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -319,7 +320,9 @@
         "grant": "授予",
         "enter_your_username": "输入你的用户名或联邦宇宙地址 (username{'@'}example.org)",
         "show_additional_payment_information": "显示更多信息",
-        "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款："
+        "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款：",
+        "subscription_expires_on": "订阅将于 {date} 到期‌",
+        "subscription_expired_on": "订阅已于 {date} 到期"
     },
     "custom_feeds": {
         "create_feed": "创建订阅源",
