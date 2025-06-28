@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { computed } from "vue"
-import makeBlockie from "ethereum-blockies-base64"
 
 import { Profile } from "@/api/users"
 
@@ -20,10 +19,8 @@ const avatarUrl = computed<string>(() => {
   const profile = props.profile
   if (profile.avatar) {
     return profile.avatar
-  } else if (profile.id === "") {
-    return UNNAMED
   } else {
-    return makeBlockie(profile.actor_id)
+    return UNNAMED
   }
 })
 </script>
