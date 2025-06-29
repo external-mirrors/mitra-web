@@ -74,7 +74,6 @@ const props = defineProps<{
   author: Profile,
 }>()
 
-/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "poll-updated", poll: Poll): void,
 }>()

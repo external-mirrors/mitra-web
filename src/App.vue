@@ -6,7 +6,6 @@
 import { onMounted, watch } from "vue"
 import { useRoute } from "vue-router"
 
-import { BACKEND_URL } from "@/constants"
 import { useLocales } from "@/composables/locales"
 import { useCurrentUser } from "@/composables/user"
 

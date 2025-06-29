@@ -428,7 +428,7 @@ import { computed, nextTick, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
-import { getEmojiShortcode, Emoji } from "@/api/emojis"
+import { Emoji } from "@/api/emojis"
 import { Poll } from "@/api/polls"
 import {
   createBookmark,
@@ -522,7 +522,6 @@ const props = defineProps<{
   inThread: boolean,
 }>()
 
-/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "highlight", postId: string | null): void,
   (event: "navigate-to", postId: string): void,

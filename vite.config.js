@@ -13,7 +13,7 @@ function customCSSPlugin() {
     name: "custom-css",
     transformIndexHtml: {
       order: "post",
-      handler(html) {
+      handler() {
         return [{
           tag: "link",
           attrs: {

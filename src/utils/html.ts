@@ -5,7 +5,7 @@ export function escapeHtml(unsafe: string): string {
 
 export function replaceTextNodes(
   element: HTMLElement,
-  replace: Function,
+  replace: (text: string) => string,
 ): void {
   const nodes = []
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT)

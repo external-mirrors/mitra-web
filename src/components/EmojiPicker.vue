@@ -57,7 +57,6 @@ import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
 import { isEmoji } from "@/utils/emojis"
 
-/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "emoji-picked", emoji: Emoji): void,
 }>()

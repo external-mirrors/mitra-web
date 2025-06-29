@@ -25,7 +25,7 @@ import PostOrRepost from "@/components/PostOrRepost.vue"
 const props = defineProps<{
   posts: PostObject[],
 }>()
-/* eslint-disable-next-line func-call-spacing */
+
 const emit = defineEmits<{
   (event: "load-next-page", maxId: string): void,
 }>()

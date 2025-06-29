@@ -246,7 +246,6 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable vue/no-setup-props-destructure */
 import { computed, nextTick, onMounted, ref } from "vue"
 
 import { getEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
@@ -300,7 +299,6 @@ const props = defineProps<{
   repostOf: Post | null,
 }>()
 
-/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "post-saved", post: Post): void,
   (event: "post-editor-closed"): void,

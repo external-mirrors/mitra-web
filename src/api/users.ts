@@ -121,7 +121,10 @@ export function isProfileImageEmpty(url: string): boolean {
   return url.endsWith("/api/v1/accounts/identicon")
 }
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 export interface ProfileWrapper extends Profile {}
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 export class ProfileWrapper {
 
   constructor(source: Profile) {

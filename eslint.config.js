@@ -1,27 +1,20 @@
 import globals from "globals"
-import path from "node:path"
-import { fileURLToPath } from "node:url"
-import { FlatCompat } from "@eslint/eslintrc"
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+import pluginVue from "eslint-plugin-vue"
+import vueTsEslintConfig from "@vue/eslint-config-typescript"
 
 export default [
-  ...compat.extends("plugin:vue/vue3-essential", "@vue/standard", "@vue/typescript"),
+  ...pluginVue.configs["flat/essential"],
+  // https://github.com/vuejs/eslint-config-typescript?tab=readme-ov-file#use-as-a-normal-shared-eslint-config-not-recommended
+  ...vueTsEslintConfig(),
   {
     files: [
       "**/*.js",
       "**/*.ts",
       "**/*.vue",
     ],
-    // TODO: ignoring doesn't work
-    // ignores: []
     languageOptions: {
       globals: {
-        ...globals.node,
+        ...globals.browser,
       },
       ecmaVersion: 2020,
       sourceType: "module",
@@ -51,6 +44,7 @@ export default [
         },
       ],
       "vue/multi-word-component-names": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "no-console": [
         "warn",
         {
@@ -58,10 +52,6 @@ export default [
         },
       ],
       "no-debugger": "warn",
-
-      // TODO: broken rules
-      "@typescript-eslint/no-unused-vars": "off",
-      "vue/valid-v-for": "off",
     },
   },
   {

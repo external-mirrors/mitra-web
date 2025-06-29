@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import { replaceShortcodes, CustomEmoji } from "@/api/emojis"
+import { replaceShortcodes } from "@/api/emojis"
 import { replaceTextNodes } from "@/utils/html"
 
 describe("Emojis", () => {

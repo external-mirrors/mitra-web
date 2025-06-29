@@ -48,7 +48,6 @@ const props = defineProps<{
   attachment: Attachment,
 }>()
 
-/* eslint-disable-next-line func-call-spacing */
 const emit = defineEmits<{
   (event: "attachment-removed"): void,
   (event: "attachment-updated", attachment: Attachment): void,
