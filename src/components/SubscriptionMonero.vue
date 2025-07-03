@@ -230,7 +230,6 @@ import {
 import { isMoneroChain } from "@/utils/cryptocurrencies"
 
 const INVOICE_ID_STORAGE_KEY = "invoice"
-const PAYMENT_AMOUNT_MIN = 0.001
 const PAYMENT_DURATION_MAX = 1000
 
 const props = defineProps<{
@@ -463,11 +462,21 @@ const paymentMessage = computed<string | null>(() => {
   }
 })
 
+const paymentAmountMin = computed<number | null>(() => {
+  const blockchain = getBlockchainInfo()
+  if (blockchain && blockchain.chain_id === subscriptionOption.value?.chain_id) {
+    return getMoneroChainMetadata(blockchain)?.payment_amount_min || null
+  } else {
+    return null
+  }
+})
+
 function canCreateInvoice(): boolean {
   return (
     !isLoading.value &&
     paymentAmount.value !== 0 &&
-    paymentAmount.value >= parseXmrAmount(PAYMENT_AMOUNT_MIN)
+    paymentAmountMin.value !== null &&
+    paymentAmount.value >= paymentAmountMin.value
   )
 }
 

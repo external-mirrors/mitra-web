@@ -10,6 +10,7 @@ interface Features {
 
 export interface MoneroChainMetadata {
   description: string | null,
+  payment_amount_min: number,
 }
 
 export interface BlockchainInfo {
