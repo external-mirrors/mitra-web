@@ -39,7 +39,7 @@
         v-if="canVote()"
         type="submit"
         class="btn secondary"
-        :disabled="choices.length === 0"
+        :disabled="choices.length === 0 || isLoading"
       >
         {{ $t('poll.vote') }}
       </button>
@@ -83,6 +83,7 @@ const { currentUser, ensureAuthToken } = useCurrentUser()
 
 const resultsRevealed = ref(false)
 const choices = ref<number[]>([])
+const isLoading = ref(false)
 
 if (props.poll.own_votes !== null) {
   choices.value = props.poll.own_votes
@@ -117,7 +118,9 @@ function canVote(): boolean {
 
 async function onVote(): Promise<void> {
   const authToken = ensureAuthToken()
+  isLoading.value = true
   const poll = await vote(authToken, props.poll.id, choices.value)
+  isLoading.value = false
   emit("poll-updated", poll)
 }
 </script>
