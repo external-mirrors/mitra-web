@@ -96,6 +96,7 @@ export interface Post {
     quote: { id: string } | null,
   },
 
+  hidden?: boolean,
   ipfs_cid: string | null;
   links: Post[];
 

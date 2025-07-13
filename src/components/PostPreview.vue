@@ -1,5 +1,8 @@
 <template>
-  <div class="post-preview">
+  <div v-if="post.hidden" class="post-preview hidden">
+    {{ $t('post_list.post_is_not_available') }}
+  </div>
+  <div v-else class="post-preview">
     <div class="post-preview-header">
       <avatar :profile="author"></avatar>
       <profile-display-name
@@ -67,6 +70,10 @@ const author = computed(() => new ProfileWrapper(props.post.account))
 .post-preview {
   border: 1px solid var(--separator-color);
   border-radius: $block-border-radius;
+
+  &.hidden {
+    padding: $block-inner-padding;
+  }
 
   &:hover {
     background-color: var(--widget-background-color);
