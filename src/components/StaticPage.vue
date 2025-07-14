@@ -25,6 +25,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 
 .page {
   margin: 0 auto;
@@ -49,11 +50,9 @@ onMounted(() => {
 }
 
 h1.page-heading {
-  font-size: 90px;
-  font-weight: bold;
+  @include instance-title;
+
   margin: 0 0 20px;
-  text-transform: uppercase;
-  word-wrap: break-word;
 }
 
 .static-text {

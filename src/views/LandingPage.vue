@@ -418,6 +418,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+@import "../styles/mixins";
 @import "../styles/theme";
 
 .landing-page {
@@ -451,11 +452,9 @@ onMounted(() => {
 }
 
 .instance-title {
-  font-size: 90px;
-  font-weight: bold;
+  @include instance-title;
+
   margin: 0;
-  text-transform: uppercase;
-  word-wrap: break-word;
 }
 
 .instance-link {

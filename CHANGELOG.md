@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Disable "Vote" button while vote is being processed.
 - Read minimum payment amount from `/api/v1/instance` data.
 - Don't display quoted post if author is muted.
+- Don't convert instance title to uppercase on landing page.
 
 ## [4.5.1] - 2025-06-23
 
