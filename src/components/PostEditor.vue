@@ -105,6 +105,7 @@
           :title="$t('post_editor.attach_file')"
           :disabled="!canAttachFile()"
           @click="selectAttachment()"
+          @click.middle.prevent="attachmentUrlDialogVisible = true"
         >
           <icon-attach v-if="!isAttachmentLoading"></icon-attach>
           <loader v-else></loader>
@@ -117,6 +118,34 @@
             @change="onAttachmentUpload($event)"
           >
         </button>
+        <modal-dialog
+          class="attachment-url-dialog"
+          :open="attachmentUrlDialogVisible"
+          @close="attachmentUrlDialogVisible = false"
+        >
+            <p>{{ $t('post_editor.upload_from_a_url') }}</p>
+            <input
+              type="text"
+              v-model="attachmentUrl"
+            >
+            <div class="button-row">
+              <button
+                type="button"
+                class="btn secondary"
+                @click="attachmentUrlDialogVisible = false"
+              >
+                {{ $t('dialog.cancel') }}
+              </button>
+              <button
+                type="submit"
+                class="btn"
+                :disabled="!isValidAttachmentUrl()"
+                @click="onAttachmentUrlUpload()"
+              >
+                {{ $t('dialog.ok') }}
+              </button>
+            </div>
+        </modal-dialog>
         <button
           v-if="post === null"
           type="button"
@@ -269,6 +298,7 @@ import Avatar from "@/components/Avatar.vue"
 import EmojiImage from "@/components/EmojiImage.vue"
 import EmojiPicker from "@/components/EmojiPicker.vue"
 import Loader from "@/components/Loader.vue"
+import ModalDialog from "@/components/ModalDialog.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditorAttachment from "@/components/PostEditorAttachment.vue"
 import VisibilityIcon from "@/components/VisibilityIcon.vue"
@@ -323,6 +353,8 @@ const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
 const emojiSuggestionList = ref<Emoji[]>([])
 const emojiPosition = ref<[number, number] | null>(null)
+const attachmentUrl = ref("")
+const attachmentUrlDialogVisible = ref(false)
 const visibilityMenuVisible = ref(false)
 const emojiPickerVisible = ref(false)
 const preview = ref<Post | null>(null)
@@ -584,7 +616,7 @@ async function onAttachmentUpload(event: Event) {
   }
 }
 
-async function addAttachment(file: File) {
+async function addAttachment(file: Blob | File) {
   isAttachmentLoading.value = true
   const imageDataUrl = await fileToDataUrl(file)
   const imageData = dataUrlToBase64(imageDataUrl)
@@ -602,6 +634,32 @@ async function addAttachment(file: File) {
   }
   attachmentList.value.push(attachment)
   isAttachmentLoading.value = false
+}
+
+function isValidAttachmentUrl(): boolean {
+  try {
+    new URL(attachmentUrl.value)
+  } catch {
+    return false
+  }
+  return true
+}
+
+async function onAttachmentUrlUpload() {
+  attachmentUrlDialogVisible.value = false
+  isAttachmentLoading.value = true
+  let blob
+  try {
+    const response = await fetch(attachmentUrl.value)
+    blob = await response.blob()
+  } catch (error: any) {
+    alert(error.message)
+    return
+  } finally {
+    isAttachmentLoading.value = false
+  }
+  attachmentUrl.value = ""
+  await addAttachment(blob)
 }
 
 function onAttachmentUpdated(index: number, attachment: Attachment) {
@@ -885,6 +943,17 @@ $editor-line-height: 1.5;
     svg {
       stroke: $warning-color;
     }
+  }
+}
+
+.attachment-url-dialog {
+  input {
+    border-radius: $btn-border-radius;
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: space-between;
   }
 }
 

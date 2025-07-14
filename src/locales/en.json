@@ -107,6 +107,7 @@
     "cancel": "Cancel",
     "repost": "Repost",
     "attach_file": "Attach file",
+    "upload_from_a_url": "Upload from a URL",
     "remove_attachment": "Remove attachment",
     "edit_description": "Edit description",
     "enter_image_description": "Enter image description",
@@ -379,6 +380,10 @@
   },
   "identity_proofs": {
     "link_cryptographic_key": "Link cryptographic key"
+  },
+  "dialog": {
+    "cancel": "Cancel",
+    "ok": "OK"
   },
   "misc": {
     "reload_page": "Reload the page in a few minutes"

@@ -1,6 +1,6 @@
 const DATA_URL_REGEXP = /^data:(\w+\/[-+.\w]+);base64,([a-zA-Z0-9+/]+={0,2})$/
 
-export async function fileToDataUrl(file: File): Promise<string> {
+export async function fileToDataUrl(file: Blob | File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
