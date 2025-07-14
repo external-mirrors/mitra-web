@@ -8,7 +8,7 @@
       <span>{{ $t('navigation.notifications') }}</span>
     </router-link>
     <router-link class="sidebar-link" to="/local">
-      <div class="icon"><icon-server></icon-server></div>
+      <div class="icon"><icon-community></icon-community></div>
       <span>{{ $t('navigation.local') }}</span>
     </router-link>
     <router-link
@@ -48,10 +48,10 @@ import { useRoute, useRouter } from "vue-router"
 
 import { revokeAccessToken } from "@/api/users"
 import IconBell from "@/assets/feather/bell.svg?component"
+import IconCommunity from "@/assets/tabler/building-community.svg?component"
 import IconGlobe from "@/assets/feather/globe.svg?component"
 import IconHelp from "@/assets/feather/help-circle.svg?component"
 import IconLogout from "@/assets/feather/log-out.svg?component"
-import IconServer from "@/assets/feather/server.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
 import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
