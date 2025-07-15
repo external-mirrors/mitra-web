@@ -37,7 +37,10 @@
         "visibility_can_not_be_changed": "无法更改可见性",
         "add_poll": "添加投票",
         "remove_poll": "移除投票",
-        "edit_description": "编辑描述"
+        "edit_description": "编辑描述",
+        "from_url": "从 URL",
+        "upload_from_a_url": "从 URL 上传",
+        "upload": "上传"
     },
     "about": {
         "administered_by": "管理员",
@@ -385,5 +388,9 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "关联加密密钥"
+    },
+    "dialog": {
+        "cancel": "取消",
+        "ok": "确定"
     }
 }
