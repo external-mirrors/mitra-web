@@ -107,6 +107,8 @@
     "cancel": "Cancel",
     "repost": "Repost",
     "attach_file": "Attach file",
+    "upload": "Upload",
+    "from_url": "From URL",
     "upload_from_a_url": "Upload from a URL",
     "remove_attachment": "Remove attachment",
     "edit_description": "Edit description",

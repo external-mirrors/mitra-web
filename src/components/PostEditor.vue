@@ -99,25 +99,51 @@
         ></post-editor-attachment>
       </div>
       <div class="toolbar">
-        <button
-          type="button"
-          class="icon"
-          :title="$t('post_editor.attach_file')"
-          :disabled="!canAttachFile()"
-          @click="selectAttachment()"
-          @click.middle.prevent="attachmentUrlDialogVisible = true"
+        <div
+          class="dropdown-menu-wrapper"
+          v-click-away="hideAttachmentMenu"
         >
-          <icon-attach v-if="!isAttachmentLoading"></icon-attach>
-          <loader v-else></loader>
-          <input
-            type="file"
-            ref="attachmentUploaderElement"
-            :accept="getAcceptedMediaTypes()"
-            multiple="true"
-            style="display: none;"
-            @change="onAttachmentUpload($event)"
+          <button
+            type="button"
+            class="icon"
+            :title="$t('post_editor.attach_file')"
+            :disabled="!canAttachFile()"
+            @click="attachmentMenuVisible = true"
           >
-        </button>
+            <icon-attach v-if="!isAttachmentLoading"></icon-attach>
+            <loader v-else></loader>
+          </button>
+          <menu v-if="attachmentMenuVisible" class="dropdown-menu">
+            <li>
+              <button
+                type="button"
+                class="icon"
+                @click="selectAttachment()"
+              >
+                <icon-upload></icon-upload>
+                <span>{{ $t('post_editor.upload') }}</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="icon"
+                @click="attachmentUrlDialogVisible = true; attachmentMenuVisible = false"
+              >
+                <icon-link></icon-link>
+                <span>{{ $t('post_editor.from_url') }}</span>
+              </button>
+            </li>
+          </menu>
+        </div>
+        <input
+          type="file"
+          ref="attachmentUploaderElement"
+          :accept="getAcceptedMediaTypes()"
+          multiple="true"
+          style="display: none;"
+          @change="onAttachmentUpload($event)"
+        >
         <modal-dialog
           class="attachment-url-dialog"
           :open="attachmentUrlDialogVisible"
@@ -292,8 +318,10 @@ import IconAlert from "@/assets/feather/alert-triangle.svg?component"
 import IconChart from "@/assets/tabler/chart-bar.svg?component"
 import IconShow from "@/assets/feather/eye.svg?component"
 import IconHide from "@/assets/feather/eye-off.svg?component"
+import IconLink from "@/assets/feather/link.svg?component"
 import IconAttach from "@/assets/feather/paperclip.svg?component"
 import IconSmile from "@/assets/feather/smile.svg?component"
+import IconUpload from "@/assets/feather/upload.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import EmojiImage from "@/components/EmojiImage.vue"
 import EmojiPicker from "@/components/EmojiPicker.vue"
@@ -353,6 +381,7 @@ const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
 const emojiSuggestionList = ref<Emoji[]>([])
 const emojiPosition = ref<[number, number] | null>(null)
+const attachmentMenuVisible = ref(false)
 const attachmentUrl = ref("")
 const attachmentUrlDialogVisible = ref(false)
 const visibilityMenuVisible = ref(false)
@@ -587,6 +616,11 @@ function canAttachFile(): boolean {
     attachmentList.value.length < instance.value.configuration.statuses.max_media_attachments &&
     !isAttachmentLoading.value
   )
+}
+
+function hideAttachmentMenu() {
+  // v-click-away requires a function
+  attachmentMenuVisible.value = false
 }
 
 function getAcceptedMediaTypes(): string {
