@@ -155,7 +155,9 @@
         "load_featured_posts": "Cargar publicaciones destacadas",
         "stats_posts": "publicaciones",
         "link_ethereum_address": "Enlazar dirección de ethereum",
-        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key"
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on",
+        "copy_actor_id": "Copiar ID de actor"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -197,7 +199,8 @@
         "add_new_field": "Añadir nuevo artículo",
         "bio": "Biografía",
         "is_automated": "Esto es una cuenta automatizada",
-        "mark_this_account_as_automated": "Active esta opción si esta cuenta está controlada por un programa"
+        "mark_this_account_as_automated": "Active esta opción si esta cuenta está controlada por un programa",
+        "banner": "Cartel"
     },
     "notifications": {
         "followed_you": "te ha seguido",
@@ -209,7 +212,10 @@
         "moved_to_a_new_instance": "movido a nueva instancia",
         "show_more_notifications": "Mostrar más notificaciones",
         "reacted_to_your_post": "reaccionó a tu publicación",
-        "liked_your_post": "le gustó tu publicación"
+        "liked_your_post": "le gustó tu publicación",
+        "is_no_longer_a_subscriber": "ya no es un subscriptor",
+        "signed_up": "registrado",
+        "paid_for_subscription": "pagado por subscripción"
     },
     "poll_editor": {
         "option": "Opción {n}",
@@ -263,7 +269,8 @@
         "gallery": "Galería",
         "name_gallery": "{name} galería",
         "back": "Atrás",
-        "view_post": "Ver publicación"
+        "view_post": "Ver publicación",
+        "no_media_found": "Medios no encontrados"
     },
     "subscriptions": {
         "unit_months": "meses",
@@ -279,7 +286,31 @@
         "price_per_month": "al mes",
         "subscription_is_not_available": "Subscripción no disponible.",
         "click_to_edit": "Haz clic para editar",
-        "you_are_not_subscribed_yet": "No estás suscrito aún"
+        "you_are_not_subscribed_yet": "No estás suscrito aún",
+        "subscriptions_are_not_enabled": "Suscripciones no habilitadas",
+        "subscriber_details": "Detalles de subscriptor",
+        "payment_cancelled": "Pago cancelado",
+        "pay": "Pagar",
+        "extend": "Extender",
+        "payment_processing": "Procesando pago",
+        "payment_timed_out": "Plazo de pago vencido",
+        "payment_completed": "Pago completado",
+        "show_additional_payment_information": "Mostrar información adicional",
+        "payment_waiting": "Esperando para pago ({n} minutos restantes)",
+        "ok_payment": "OK",
+        "manage_subscriptions": "Gestionar suscripciones",
+        "subscriptions_are_enabled": "Suscripciones habilitadas",
+        "subscribers": "{n} suscriptor | {n} suscriptores",
+        "edit_settings": "Editar ajustes",
+        "subscription_expired": "Suscripción expirada el {date}",
+        "amount": "Cantidad",
+        "please_send_to_this_address": "Por favor enviar {amount} {currency} a esta dirección:",
+        "subscription": "Subscripción",
+        "cancel_payment": "Cancelar",
+        "payment_amount_is_too_small": "Cantidad de pago es demasiado pequeña",
+        "subscription_expires": "Suscripción expira el {date}",
+        "subscribers_can_pay": "Suscriptores pueden pagar por suscripción navegando a tu pagina de suscripción personal:",
+        "save_settings": "Guardar"
     },
     "import_follows": {
         "import": "Importar"
@@ -308,11 +339,15 @@
             "save": "Guardar",
             "cancel": "Cancelar"
         },
-        "enter_address": "Introducir dirección"
+        "enter_address": "Introducir dirección",
+        "posts_will_not_be_displayed": "Publicaciones de estos usuarios no se mostrarán en la linea de tiempo de inicio."
     },
     "follow_requests": {
         "show_more_requests": "Mostrar más solicitudes",
         "follow_requests": "Solicitudes de seguimiento",
         "no_follow_requests_found": "No se han encontrado solicitudes de seguimiento"
+    },
+    "identity_proofs": {
+        "link_cryptographic_key": "Enlazar llave criptográfica"
     }
 }

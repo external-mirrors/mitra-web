@@ -21,7 +21,10 @@
         "visibility_can_not_be_changed": "Неможливо змінити видимість",
         "add_poll": "Додати опитування",
         "remove_poll": "Видалити опитування",
-        "edit_description": "Редагувати опис"
+        "edit_description": "Редагувати опис",
+        "upload_from_a_url": "Завантажити з URL-адреси",
+        "from_url": "з URL-адреси",
+        "upload": "Завантажити"
     },
     "navigation": {
         "logout": "Вийти з системи",
@@ -390,5 +393,9 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "Прив'язати криптографічний ключ"
+    },
+    "dialog": {
+        "cancel": "Скасувати",
+        "ok": "Гаразд"
     }
 }

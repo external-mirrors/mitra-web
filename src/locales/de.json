@@ -259,7 +259,9 @@
         "duration": "Dauer",
         "payment_completed": "Zahlung abgeschlossen",
         "save_settings": "Speichern",
-        "enable_subscriptions": "Abonnements aktivieren"
+        "enable_subscriptions": "Abonnements aktivieren",
+        "subscription_expires_on": "Abonnement läuft am {date} ab",
+        "subscription_expired_on": "Abonnement ist am {date} abgelaufen"
     },
     "post_list": {
         "post": "Beitrag",
