@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated translations ([#127](https://codeberg.org/silverpill/mitra-web/pulls/127, [#128](https://codeberg.org/silverpill/mitra-web/pulls/128))).
+- Updated translations ([#127](https://codeberg.org/silverpill/mitra-web/pulls/127), [#128](https://codeberg.org/silverpill/mitra-web/pulls/128)).
 - Require NodeJS 20.
 - Disable "Vote" button while vote is being processed.
 - Read minimum payment amount from `/api/v1/instance` data.
