@@ -112,7 +112,10 @@
         "visibility_can_not_be_changed": "Видимость не может быть изменена",
         "add_poll": "Добавить опрос",
         "remove_poll": "Удалить опрос",
-        "edit_description": "Редактировать описание"
+        "edit_description": "Редактировать описание",
+        "from_url": "Из URL-адреса",
+        "upload_from_a_url": "Загрузить с URL",
+        "upload": "Загрузить"
     },
     "emoji_picker": {
         "search": "Поиск…",
@@ -390,5 +393,9 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "Ссылка на криптографический ключ"
+    },
+    "dialog": {
+        "ok": "ОК",
+        "cancel": "Отмена"
     }
 }
