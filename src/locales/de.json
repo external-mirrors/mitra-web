@@ -329,5 +329,9 @@
         "duration_hour": "Stunde | Stunden",
         "duration_day": "Tag | Tage",
         "option": "Option {n}"
+    },
+    "dialog": {
+        "cancel": "Abbrechen",
+        "ok": "OK"
     }
 }
