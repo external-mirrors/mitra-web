@@ -96,7 +96,7 @@ export interface Post {
     quote: { id: string } | null,
   },
 
-  hidden?: boolean,
+  hidden: boolean,
   ipfs_cid: string | null;
   links: Post[];
 
@@ -301,6 +301,7 @@ export async function previewPost(
       parent_visible: true,
       quote: null,
     },
+    hidden: false,
     ipfs_cid: null,
     links: [],
   }
