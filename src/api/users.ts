@@ -240,7 +240,11 @@ export async function getProfiles(
   offset?: number,
 ): Promise<Profile[]> {
   const url = `${BACKEND_URL}/api/v1/directory`
-  const queryParams = { offset, limit: PAGE_SIZE }
+  const queryParams = {
+    order: "active",
+    offset,
+    limit: PAGE_SIZE,
+  }
   const response = await http(url, { queryParams, authToken })
   const data = await handleResponse(response)
   return data

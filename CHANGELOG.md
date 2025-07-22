@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Require `Status` entities to have `hidden` attribute.
+- Set `order` parameter to `active` when accessing `/api/v1/directory`.
 
 ## [4.6.0] - 2025-07-16
 
