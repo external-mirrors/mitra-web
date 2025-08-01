@@ -91,7 +91,10 @@
         "visibility_can_not_be_changed": "La visibilité ne peut pas être modifiée",
         "add_poll": "Ajouter un sondage",
         "remove_poll": "Supprimer le sondage",
-        "edit_description": "Modifier la description"
+        "edit_description": "Modifier la description",
+        "upload": "Téléverser",
+        "from_url": "Depuis une URL",
+        "upload_from_a_url": "Téléverser depuis une URL"
     },
     "profile": {
         "profile_with_handle": "Profil - {handle}",
@@ -385,5 +388,9 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "Lier la clé cryptographique"
+    },
+    "dialog": {
+        "ok": "OK",
+        "cancel": "Annuler"
     }
 }

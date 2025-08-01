@@ -11,7 +11,9 @@
         "local": "Máy chủ địa phương",
         "federated": "Mạng toàn cầu",
         "about": "Thông tin",
-        "logout": "Đăng xuất"
+        "logout": "Đăng xuất",
+        "bookmarks": "Đánh dấu",
+        "subscriptions": "Đăng ký theo dõi"
     },
     "post": {
         "visibility_description": {
@@ -110,7 +112,10 @@
         "insert_emoji": "Thêm biểu cảm",
         "characters_left": "Ký tự còn lại",
         "toggle_preview": "Bật/tắt xem trước",
-        "visibility_can_not_be_changed": "Hiển thị không thể thay đổi"
+        "visibility_can_not_be_changed": "Hiển thị không thể thay đổi",
+        "upload": "Tải lên",
+        "from_url": "Từ URL",
+        "upload_from_a_url": "Tải lên từ URL"
     },
     "profile": {
         "copy_profile_id": "Sao chép ID hồ sơ",
