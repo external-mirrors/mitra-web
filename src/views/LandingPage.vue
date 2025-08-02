@@ -57,7 +57,7 @@
               class="form-message"
               :class="{ error: !isUsernameValid() }"
             >
-              Only lowercase letters, numbers and underscores are allowed.
+              Only letters, numbers, hyphens, and underscores are allowed.
             </div>
           </div>
           <div class="form-control" v-if="loginType === 'password'">
@@ -235,7 +235,7 @@ function isUsernameValid(): boolean {
   if (!username.value) {
     return true
   }
-  return /^[a-z0-9_]+$/.test(username.value)
+  return /^[A-Za-z0-9\-_]+$/.test(username.value)
 }
 
 function isLoginFormValid(): boolean {
