@@ -138,6 +138,7 @@ function configureInlineLinks() {
   :deep(blockquote),
   :deep(ul),
   :deep(ol),
+  :deep(table),
   :deep(hr),
   :deep(pre) {
     &:not(:last-child) {
@@ -196,8 +197,24 @@ function configureInlineLinks() {
     list-style-type: disc;
   }
 
-  :deep(.greentext) {
-    color: $greentext-color;
+  :deep(td),
+  :deep(th) {
+    padding: $whitespace;
+    text-align: left;
+  }
+
+  :deep(td:first-child),
+  :deep(th:first-child) {
+    padding-left: 0;
+  }
+
+  :deep(td:last-child),
+  :deep(th:last-child) {
+    padding-right: 0;
+  }
+
+  :deep(tr:not(:last-child)) {
+    border-bottom: 1px solid var(--separator-color);
   }
 
   :deep(blockquote) {
@@ -210,6 +227,10 @@ function configureInlineLinks() {
 
     height: $emoji-size-em;
     max-width: $emoji-size * 3;
+  }
+
+  :deep(.greentext) {
+    color: $greentext-color;
   }
 }
 </style>
