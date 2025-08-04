@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Allow local usernames containing uppercase letters and hyphens ([#129](https://codeberg.org/silverpill/mitra-web/pulls/129)).
 
+### Changed
+
+- Replaced "Copy object ID" `<button>` with link.
+
 ## [4.7.0] - 2025-08-01
 
 ### Changed

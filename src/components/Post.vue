@@ -346,13 +346,14 @@
           </li>
           <li v-if="isAdmin()" role="separator"></li>
           <li v-if="isAdmin()">
-            <button
+            <a
+              :href="post.uri"
               class="icon"
-              @click="hideMenu(); copyObjectId()"
+              @click.prevent="hideMenu(); copyObjectId()"
             >
               <icon-link></icon-link>
               <span>{{ $t('post.copy_object_id') }}</span>
-            </button>
+            </a>
           </li>
           <li v-if="canLoadConversation()">
             <button
