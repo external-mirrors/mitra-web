@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Replaced "Copy object ID" `<button>` with link.
 - Added robots=noindex meta tag to `index.html`.
 - Improved table styles.
+- Do not enlarge small attached images.
 
 ## [4.7.0] - 2025-08-01
 

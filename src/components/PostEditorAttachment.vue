@@ -87,12 +87,13 @@ $media-btn-opacity: 0.95;
 
 .attachment {
   display: flex;
+  /* two media buttons plus margins */
+  min-height: ($icon-size + $input-padding) * 2 + $input-padding * 3;
   position: relative;
 
   > img {
-    min-height: 100px;
+    margin: auto;
     object-fit: contain;
-    width: 100%;
   }
 
   .placeholder {

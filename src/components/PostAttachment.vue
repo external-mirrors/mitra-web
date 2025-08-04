@@ -108,6 +108,9 @@ button {
 }
 
 .image {
+  display: flex;
+  /* media button plus margins */
+  min-height: $icon-size + $input-padding * 2 + $body-padding * 2;
   overflow: hidden;
   position: relative;
 
@@ -139,8 +142,8 @@ button {
     cursor: zoom-in;
     display: block;
     height: 100%;
-    object-fit: cover;
-    width: 100%;
+    margin: auto;
+    object-fit: contain;
   }
 
   &.sensitive > img {
@@ -171,8 +174,8 @@ button {
 
   > img {
     background-color: var(--block-background-color);
+    margin: auto;
     object-fit: contain;
-    width: 100%; /* for WebKit */
   }
 }
 
