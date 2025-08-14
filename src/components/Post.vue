@@ -1124,7 +1124,8 @@ $reaction-padding: 5px;
 .post-quote {
   color: inherit;
   display: block;
-  margin: 0 $block-inner-padding $block-inner-padding;
+  margin: $block-inner-padding 0;
+  padding: 0 $block-inner-padding;
 
   &:hover {
     color: inherit;
