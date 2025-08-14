@@ -14,7 +14,7 @@
         :value="content"
         rows="1"
         required
-        :placeholder="inReplyTo ? $t('post_editor.prompt_reply') : (repostOf ? $t('post_editor.prompt_repost') : $t('post_editor.prompt'))"
+        :placeholder="prompt"
         @input="onContentInput"
         @drop="onDrop($event)"
         @paste="onPaste($event)"
@@ -302,6 +302,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 import { getEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
 import {
@@ -345,6 +346,7 @@ const POST_CONTENT_STORAGE_KEY = "post_content"
 const POLL_OPTION_COUNT_MIN = 2
 const POLL_OPTION_COUNT_MAX = 6
 
+const { t } = useI18n({ useScope: "global" })
 const { ctrlEnterEnabled, defaultVisibility } = useClientConfig()
 const { getActorHandle, getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
@@ -394,6 +396,20 @@ const errorMessage = ref<string | null>(null)
 const isEditorEmbedded = computed(() => {
   return props.inReplyTo !== null || props.repostOf !== null
 })
+
+const prompt = computed(() => {
+  if (props.post !== null) {
+    return ""
+  }
+  if (props.inReplyTo !== null) {
+    return t("post_editor.prompt_reply")
+  }
+  if (props.repostOf !== null) {
+      return t("post_editor.prompt_repost")
+  }
+  return t("post_editor.prompt")
+})
+
 const visibilityOptions = computed(() => {
   if (props.post) {
     // Visibility can not be changed after publishing
