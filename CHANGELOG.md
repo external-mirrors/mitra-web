@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added robots=noindex meta tag to `index.html`.
 - Improved table styles.
 - Do not enlarge small attached images.
+- Replaced "Subscription expired {date}" with "Subscription expired on {date}".
 
 ## [4.7.0] - 2025-08-01
 

@@ -48,7 +48,7 @@
           </template>
           <template v-else-if="subscriptionDetails">
             <div>
-              {{ $t('subscriptions.subscription_expires', { date: formatDate(subscriptionDetails.expires_at) }) }}
+              {{ $t('subscriptions.subscription_expires_on', { date: formatDate(subscriptionDetails.expires_at) }) }}
             </div>
           </template>
           <template v-else>

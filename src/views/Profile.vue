@@ -364,7 +364,7 @@
             <profile-list-item :profile="subscription.sender">
               <template #profile-footer>
                 <div class="subscription-info">
-                  {{ $t('subscriptions.subscription_expires', { date: formatDate(subscription.expires_at) }) }}
+                  {{ $t('subscriptions.subscription_expires_on', { date: formatDate(subscription.expires_at) }) }}
                 </div>
               </template>
             </profile-list-item>

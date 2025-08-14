@@ -11,10 +11,10 @@
             <div v-if="isSubscriptionLoaded" class="subscription-info">
               <template v-if="subscription">
                 <template v-if="isPastDate(subscription.expires_at)">
-                  {{ $t('subscriptions.subscription_expired', { date: formatDate(subscription.expires_at) }) }}
+                  {{ $t('subscriptions.subscription_expired_on', { date: formatDate(subscription.expires_at) }) }}
                 </template>
                 <template v-else>
-                  {{ $t('subscriptions.subscription_expires', { date: formatDate(subscription.expires_at) }) }}
+                  {{ $t('subscriptions.subscription_expires_on', { date: formatDate(subscription.expires_at) }) }}
                 </template>
               </template>
               <template v-else>

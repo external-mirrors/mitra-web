@@ -348,8 +348,6 @@
     "save_settings": "Save",
     "enable_subscriptions": "Enable subscriptions",
     "subscriber_details": "Subscriber details",
-    "subscription_expired": "Subscription expired {date}",
-    "subscription_expires": "Subscription expires {date}",
     "subscription_expired_on": "Subscription expired on {date}",
     "subscription_expires_on": "Subscription expires on {date}",
     "not_subscribed_yet": "Not subscribed yet",
