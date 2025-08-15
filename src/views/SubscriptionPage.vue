@@ -51,9 +51,11 @@ onMounted(async () => {
     )
   }
   if (isRemoteProfile(profile.value) && currentUser.value === null) {
-    // Only authenticated users may view remote subscriptions
+    // Only authenticated users can view remote subscriptions
     return
   }
+  // The subscription page is displayed
+  // even if current user matches `profile` (as a preview of actual page)
   subscriptionOption.value = getSubscriptionOption(profile.value)
 })
 
