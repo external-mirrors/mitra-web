@@ -89,7 +89,8 @@
         "more": "Mehr",
         "subscribe": "abonnieren",
         "copy_coin_address": "Adresse kopieren",
-        "timestamp_future_minutes": "jetzt | in {n} Minute | in {n} Minuten"
+        "timestamp_future_minutes": "jetzt | in {n} Minute | in {n} Minuten",
+        "source_is_not_available": "Die Quelle ist nicht verfügbar"
     },
     "welcome": {
         "welcome": "Willkommen bei {0}!",
