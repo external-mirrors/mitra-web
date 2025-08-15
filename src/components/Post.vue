@@ -59,23 +59,17 @@
           <icon-pin></icon-pin>
         </span>
         <span v-if="post.edited_at">{{ $t('post.edited') }}</span>
-        <router-link
-          v-if="currentUser && inThread"
-          class="timestamp"
-          :to="{ name: 'post', params: { postId: post.id } }"
-          :title="formatDateTime(post.created_at)"
-        >
-          <span @click.prevent="scrollTo(post.id)">
-            <timestamp :date="post.created_at"></timestamp>
-          </span>
-        </router-link>
         <universal-link
-          v-else
           class="timestamp"
           :to="getPostLocation(post)"
           :title="formatDateTime(post.created_at)"
         >
-          <template #link-content>
+          <template #link-content v-if="inThread">
+            <span @click.prevent="scrollTo(post.id)">
+              <timestamp :date="post.created_at"></timestamp>
+            </span>
+          </template>
+          <template #link-content v-else>
             <timestamp :date="post.created_at"></timestamp>
           </template>
         </universal-link>

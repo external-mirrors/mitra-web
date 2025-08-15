@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Require guest subscriber to enter full Fediverse address at subscription page.
 - Removed link from sender block on subscription page.
 - Don't open external links in new tabs in guest mode.
+- Scroll to post when clicking on post timestamp in guest mode.
 
 ### Fixed
 
