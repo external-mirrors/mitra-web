@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Add space between post header and quote when content is empty.
 - Fixed broken link to remote subscription page in guest mode.
+- Fixed broken first link in "replying to" block in guest mode.
 
 ## [4.7.0] - 2025-08-01
 

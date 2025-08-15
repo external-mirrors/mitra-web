@@ -572,14 +572,23 @@ function getReplyMentions(): Mention[] {
   ) {
     return []
   }
-  const inReplyToUser = {
-    id: props.post.in_reply_to_account_id,
-    acct: props.post.pleroma.in_reply_to_account_acct,
-    username: props.post.pleroma.in_reply_to_account_acct.split("@")[0],
-    url: "",
+  const replyingTo = []
+  const replyingToUser = props.post.mentions
+    .find(mention => mention.id === props.post.in_reply_to_account_id)
+  if (replyingToUser !== undefined) {
+    replyingTo.push(replyingToUser)
+  } else if (currentUser.value !== null) {
+    // Adding synthetic mention only when logged in.
+    // `getProfileLocation` requires `url` in guest mode.
+    replyingTo.push({
+      id: props.post.in_reply_to_account_id,
+      acct: props.post.pleroma.in_reply_to_account_acct,
+      username: props.post.pleroma.in_reply_to_account_acct.split("@")[0],
+      url: "",
+    })
   }
   return [
-    inReplyToUser,
+    ...replyingTo,
     ...props.post.mentions
       .filter(mention => mention.id !== props.post.in_reply_to_account_id),
   ]
