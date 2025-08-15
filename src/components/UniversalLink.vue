@@ -3,7 +3,6 @@
     v-if="typeof to === 'string'"
     :title="title"
     :href="to"
-    target="_blank"
     rel="noreferrer"
   >
     <slot name="link-content"></slot>

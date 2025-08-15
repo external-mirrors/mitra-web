@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Show empty post editor if markdown source is not available.
 - Require guest subscriber to enter full Fediverse address at subscription page.
 - Removed link from sender block on subscription page.
+- Don't open external links in new tabs in guest mode.
 
 ### Fixed
 
