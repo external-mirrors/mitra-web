@@ -400,6 +400,7 @@ import {
   getAliases,
   getProfile,
   isProfileImageEmpty,
+  isRemoteProfile,
   loadRemotePosts,
   lookupProfile,
   Profile,
@@ -467,8 +468,8 @@ const subscriptions = ref<Subscription[]>([])
 onMounted(async () => {
   setPageTitle(t("profile.profile"))
   isLoading.value = true
+  let _profile
   try {
-    let _profile
     if (route.params.acct) {
       _profile = await lookupProfile(
         authToken.value,
@@ -480,7 +481,6 @@ onMounted(async () => {
         route.params.profileId as string,
       )
     }
-    profile.value = new ProfileWrapper(_profile)
   } catch (error: any) {
     if (error.message === "profile not found") {
       // Show "not found" text
@@ -489,6 +489,12 @@ onMounted(async () => {
     }
     throw error
   }
+  if (isRemoteProfile(_profile) && currentUser.value === null) {
+    // Only authenticated users can view remote profiles
+    isLoading.value = false
+    return
+  }
+  profile.value = new ProfileWrapper(_profile)
   await nextTick()
 
   setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
