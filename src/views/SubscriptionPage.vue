@@ -1,8 +1,11 @@
 <template>
-  <sidebar-layout v-if="profile">
+  <sidebar-layout>
     <template #content>
       <h1>{{ $t('subscriptions.subscription') }}</h1>
-      <subscription-monero v-if="isMonero()" :profile="profile"></subscription-monero>
+      <subscription-monero
+        v-if="profile && isMonero()"
+        :profile="profile"
+      ></subscription-monero>
       <div v-else>{{ $t('subscriptions.no_subscription_info') }}</div>
     </template>
   </sidebar-layout>
@@ -39,21 +42,30 @@ const subscriptionOption = ref<ProfilePaymentOption | null>(null)
 onMounted(async () => {
   setPageTitle(t("subscriptions.subscription"))
   // Recipient
-  if (route.params.acct) {
-    profile.value = await lookupProfile(
-      authToken.value,
-      route.params.acct as string,
-    )
-  } else {
-    profile.value = await getProfile(
-      authToken.value,
-      route.params.profileId as string,
-    )
+  let _profile
+  try {
+    if (route.params.acct) {
+      _profile = await lookupProfile(
+        authToken.value,
+        route.params.acct as string,
+      )
+    } else {
+      _profile = await getProfile(
+        authToken.value,
+        route.params.profileId as string,
+      )
+    }
+  } catch (error: any) {
+    if (error.message === "profile not found") {
+      return
+    }
+    throw error
   }
-  if (isRemoteProfile(profile.value) && currentUser.value === null) {
+  if (isRemoteProfile(_profile) && currentUser.value === null) {
     // Only authenticated users can view remote subscriptions
     return
   }
+  profile.value = _profile
   // The subscription page is displayed
   // even if current user matches `profile` (as a preview of actual page)
   subscriptionOption.value = getSubscriptionOption(profile.value)
