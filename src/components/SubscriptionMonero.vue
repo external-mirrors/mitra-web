@@ -23,13 +23,13 @@
     <form class="sender" v-if="sender.id === ''">
       <input
         type="text"
-        v-model="senderAcct"
-        :placeholder="$t('subscriptions.enter_your_username')"
+        v-model="senderAddress"
+        :placeholder="$t('subscriptions.enter_your_fediverse_address')"
       >
       <button
         type="submit"
         class="btn"
-        :disabled="!senderAcct"
+        :disabled="!senderAddress"
         @click.prevent="identifySender()"
       >
         {{ $t('subscriptions.find_profile') }}
@@ -243,7 +243,7 @@ const { formatDate } = useDateTime()
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
 const { getSubscriptionOption } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)
-const senderAcct = ref("")
+const senderAddress = ref("")
 const senderError = ref<string | null>(null)
 const sender = ref(new ProfileWrapper(currentUser.value || defaultProfile({ display_name: "You" })))
 const subscriptionOption = ref<ProfilePaymentOption | null>(null)
@@ -337,15 +337,16 @@ const subscriptionPrice = computed<number | null>(() => {
 })
 
 async function identifySender() {
-  if (!senderAcct.value) {
+  if (!senderAddress.value) {
     return
   }
   isLoading.value = true
+  const senderAddressNormalized = senderAddress.value.replace(/^@/, "")
   let profiles
   try {
     profiles = await searchProfilesByAcct(
       null,
-      senderAcct.value,
+      senderAddressNormalized,
       true,
     )
   } catch (error: any) {
@@ -356,17 +357,17 @@ async function identifySender() {
     }
     throw error
   }
-  if (profiles.length > 1) {
-    senderError.value = "Please provide full address"
+  const profile = profiles[0]
+  if (
+    profile
+    && profile.acct === senderAddressNormalized
+    && profile.id !== recipient.id
+  ) {
+    sender.value = new ProfileWrapper(profile)
+    senderError.value = null
+    await loadSubscriptionDetails()
   } else {
-    const profile = profiles[0]
-    if (profile && profile.id !== recipient.id) {
-      sender.value = new ProfileWrapper(profile)
-      senderError.value = null
-      await loadSubscriptionDetails()
-    } else {
-      senderError.value = "Profile not found"
-    }
+    senderError.value = "Profile not found"
   }
   isLoading.value = false
 }
