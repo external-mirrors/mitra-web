@@ -1,14 +1,12 @@
 <template>
   <div class="subscription">
     <div class="participants">
-      <component
+      <div
         class="profile-card"
-        :is="sender.id ? 'router-link' : 'div'"
-        :to="getActorLocation('profile', sender)"
       >
         <avatar :profile="sender"></avatar>
         <profile-display-name :profile="sender"></profile-display-name>
-      </component>
+      </div>
       <div class="separator">
         <icon-arrow-right></icon-arrow-right>
       </div>
