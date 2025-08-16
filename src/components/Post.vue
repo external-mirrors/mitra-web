@@ -154,16 +154,18 @@
       </button>
     </div>
     <div class="post-footer">
-      <router-link
+      <universal-link
         v-if="!inThread"
         class="icon"
         :title="$t('post.view_conversation')"
-        :to="{ name: 'post', params: { postId: post.id }}"
+        :to="getPostLocation(post)"
         :target="conversationNewTab ? '_blank': undefined"
       >
-        <icon-comment></icon-comment>
-        <span>{{ post.replies_count }}</span>
-      </router-link>
+        <template #link-content>
+          <icon-comment></icon-comment>
+          <span>{{ post.replies_count }}</span>
+        </template>
+      </universal-link>
       <button
         v-else-if="inThread && canReply()"
         class="icon"

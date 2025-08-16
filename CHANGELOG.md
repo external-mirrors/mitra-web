@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Don't open external links in new tabs in guest mode.
 - Scroll to post when clicking on post timestamp in guest mode.
 - Don't display remote profile pages to unauthenticated users.
+- Open remote site when clicking on "View conversation" button in guest mode.
 
 ### Fixed
 
