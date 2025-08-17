@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Don't display remote profile pages to unauthenticated users.
 - Open remote site when clicking on "View conversation" button in guest mode.
 - Show loader at subscription page while profile is being retrieved.
+- Don't display remote gallery pages to unauthenticated users.
 
 ### Fixed
 

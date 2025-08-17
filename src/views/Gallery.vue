@@ -57,7 +57,12 @@ import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { getProfileTimeline, Post as PostObject } from "@/api/posts"
-import { getProfile, lookupProfile, ProfileWrapper } from "@/api/users"
+import {
+  getProfile,
+  isRemoteProfile,
+  lookupProfile,
+  ProfileWrapper,
+} from "@/api/users"
 import IconArrowLeft from "@/assets/feather/arrow-left.svg?component"
 import IconComment from "@/assets/forkawesome/comment-o.svg?component"
 import Loader from "@/components/Loader.vue"
@@ -71,7 +76,7 @@ import { useCurrentUser } from "@/composables/user"
 const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { authToken } = useCurrentUser()
+const { authToken, currentUser } = useCurrentUser()
 const { loadTheme } = useTheme()
 const { setPageTitle } = useTitle()
 
@@ -101,6 +106,11 @@ onMounted(async () => {
       return
     }
     throw error
+  }
+  if (isRemoteProfile(_profile) && currentUser.value === null) {
+    // Only authenticated users can view remote galleries
+    isLoading.value = false
+    return
   }
   profile.value = new ProfileWrapper(_profile)
   setPageTitle(t("gallery.gallery_with_handle", { handle: getActorHandle(profile.value) }))
