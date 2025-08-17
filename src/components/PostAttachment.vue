@@ -141,8 +141,8 @@ button {
   > img {
     cursor: zoom-in;
     display: block;
-    height: 100%;
     margin: auto;
+    max-height: 100%;
     object-fit: contain;
   }
 
