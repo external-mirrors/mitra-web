@@ -1,19 +1,23 @@
 <template>
-  <div class="page wide" v-if="profile">
+  <div class="page wide">
     <div class="page-content">
       <router-link
+        v-if="profile"
         class="back-btn"
         :title="$t('gallery.back')"
         :to="getActorLocation('profile', profile)"
       >
         <icon-arrow-left></icon-arrow-left>
       </router-link>
-      <h1>
+      <h1 v-if="profile">
         <i18n-t keypath="gallery.name_gallery" scope="global">
           <template #name>
             <profile-display-name :profile="profile"></profile-display-name>
           </template>
         </i18n-t>
+      </h1>
+      <h1 v-else-if="!isLoading">
+        {{ $t('profile.not_found') }}
       </h1>
       <div
         v-if="posts.length > 0"
@@ -39,11 +43,11 @@
           </router-link>
         </div>
       </div>
-      <h2 v-else-if="!isLoading" class="empty">
+      <h2 v-else-if="profile && !isLoading" class="empty">
         {{ $t('gallery.no_media_found') }}
       </h2>
-      <loader v-if="isLoading"></loader>
     </div>
+    <loader v-if="isLoading"></loader>
   </div>
 </template>
 
@@ -73,23 +77,30 @@ const { setPageTitle } = useTitle()
 
 const profile = ref<ProfileWrapper | null>(null)
 const posts = ref<PostObject[]>([])
-const isLoading = ref(false)
+const isLoading = ref(true)
 
 onMounted(async () => {
   setPageTitle(t("gallery.gallery"))
-  isLoading.value = true
   loadTheme()
   let _profile
-  if (route.params.acct) {
-    _profile = await lookupProfile(
-      authToken.value,
-      route.params.acct as string,
-    )
-  } else {
-    _profile = await getProfile(
-      authToken.value,
-      route.params.profileId as string,
-    )
+  try {
+    if (route.params.acct) {
+      _profile = await lookupProfile(
+        authToken.value,
+        route.params.acct as string,
+      )
+    } else {
+      _profile = await getProfile(
+        authToken.value,
+        route.params.profileId as string,
+      )
+    }
+  } catch (error: any) {
+    if (error.message === "profile not found") {
+      isLoading.value = false
+      return
+    }
+    throw error
   }
   profile.value = new ProfileWrapper(_profile)
   setPageTitle(t("gallery.gallery_with_handle", { handle: getActorHandle(profile.value) }))

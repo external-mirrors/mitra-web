@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Allow local usernames containing uppercase letters and hyphens ([#129](https://codeberg.org/silverpill/mitra-web/pulls/129)).
 - Display error message at subscription page if recipient doesn't exist.
+- Display error message at gallery page if profile doesn't exist.
 
 ### Changed
 
