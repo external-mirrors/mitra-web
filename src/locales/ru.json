@@ -81,7 +81,8 @@
         "timestamp_future_hours": "через {n} час | через {n} часов",
         "timestamp_future_days": "через {n} день | через {n} дней",
         "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут",
-        "copy_object_id": "Копировать идентификатор объекта"
+        "copy_object_id": "Копировать идентификатор объекта",
+        "source_is_not_available": "Источник недоступен"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -326,7 +327,8 @@
         "unit_days": "дней",
         "grant": "Награда",
         "subscription_expires_on": "Подписка заканчивается {date}",
-        "subscription_expired_on": "Подписка истекла {date}"
+        "subscription_expired_on": "Подписка истекла {date}",
+        "enter_your_fediverse_address": "Введите свой адрес Fediverse (username{'@'}example.org)"
     },
     "misc": {
         "reload_page": "Перезагрузите страницу через несколько минут"
