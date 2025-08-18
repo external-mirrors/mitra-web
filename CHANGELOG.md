@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Show loader at subscription page while profile is being retrieved.
 - Don't display remote gallery pages to unauthenticated users.
 - Do not enlarge small images in gallery.
+- Updated translations ([#131](https://codeberg.org/silverpill/mitra-web/pulls/131)).
 
 ### Fixed
 
