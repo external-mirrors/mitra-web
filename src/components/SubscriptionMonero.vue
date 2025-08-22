@@ -345,7 +345,8 @@ async function identifySender() {
     profiles = await searchProfilesByAcct(
       null,
       senderAddressNormalized,
-      true,
+      true, // resolve
+      1, // single result
     )
   } catch (error: any) {
     if (error.message === "Too Many Requests") {
