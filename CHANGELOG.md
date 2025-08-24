@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Show "Delete post" button in post menu if current user is admin.
+
 ### Changed
 
 - Ask server for a single result when searching for an account at subscription page.

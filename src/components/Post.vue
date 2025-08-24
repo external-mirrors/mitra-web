@@ -360,6 +360,15 @@
               <span>{{ $t('post.load_replies') }}</span>
             </button>
           </li>
+          <li v-if="isAdmin()">
+            <button
+              class="icon"
+              @click="hideMenu(); onAdminDeletePost()"
+            >
+              <icon-trash></icon-trash>
+              <span>{{ $t('post.delete_post') }}</span>
+            </button>
+          </li>
         </menu>
       </div>
       <div class="crypto-widget">
@@ -425,6 +434,7 @@ import { computed, nextTick, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter, RouteLocationRaw } from "vue-router"
 
+import { adminDeletePost } from "@/api/admin"
 import { Emoji } from "@/api/emojis"
 import { Poll } from "@/api/polls"
 import {
@@ -922,6 +932,14 @@ async function onLoadConversation() {
   )
 }
 
+async function onAdminDeletePost() {
+  if (confirm(t("post.confirm_delete_this_post"))) {
+    const authToken = ensureAuthToken()
+    await adminDeletePost(authToken, props.post.id)
+    emit("post-deleted")
+  }
+}
+
 function getPaymentOptions(): PaymentOption[] {
   const options: PaymentOption[] = []
   for (const field of props.post.account.fields) {
@@ -1194,12 +1212,6 @@ $reaction-padding: 5px;
   flex-wrap: wrap;
   gap: calc($block-inner-padding / 2);
   padding: 0 $block-inner-padding $block-inner-padding;
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 .dropdown-menu-wrapper {
