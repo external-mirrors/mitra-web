@@ -12,3 +12,15 @@ export async function adminDeletePost(
   })
   await handleResponse(response, 204)
 }
+
+export async function adminDeleteProfile(
+  authToken: string,
+  profileId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/admin/accounts/${profileId}`
+  const response = await http(url, {
+    method: "DELETE",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}

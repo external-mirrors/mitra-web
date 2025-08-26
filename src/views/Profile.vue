@@ -156,6 +156,11 @@
                     {{ $t('profile.load_latest_posts') }}
                   </button>
                 </li>
+                <li v-if="canDeleteProfile()">
+                  <button @click="hideProfileMenu(); onAdminDeleteProfile()">
+                    {{ $t('admin.delete_user') }}
+                  </button>
+                </li>
               </menu>
             </div>
           </div>
@@ -380,6 +385,7 @@ import { computed, nextTick, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
+import { adminDeleteProfile } from "@/api/admin"
 import { replaceShortcodes } from "@/api/emojis"
 import { Post, getProfileTimeline } from "@/api/posts"
 import {
@@ -908,6 +914,26 @@ async function onLoadRemotePosts(collection: string) {
     profile.value.id,
     collection,
   )
+}
+
+function canDeleteProfile(): boolean {
+  return (
+    profile.value !== null &&
+    currentUser.value !== null &&
+    !isCurrentUser() &&
+    isAdmin()
+  )
+}
+
+async function onAdminDeleteProfile() {
+  if (!profile.value) {
+    return
+  }
+  if (confirm(t("admin.confirm_delete_user", { address: profile.value.acct }))) {
+    const authToken = ensureAuthToken()
+    await adminDeleteProfile(authToken, profile.value.id)
+    router.push({ name: "home" })
+  }
 }
 
 async function updateIdentityProof(fieldName: string) {

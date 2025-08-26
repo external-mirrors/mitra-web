@@ -1,4 +1,8 @@
 {
+  "admin": {
+    "delete_user": "Delete user",
+    "confirm_delete_user": "Are you sure you want to delete {address}? This can not be undone."
+  },
   "about": {
     "administered_by": "Administered by",
     "technical_info": "Technical Info"

@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Show "Delete post" button in post menu if current user is admin.
+- Show "Delete user" button in profile menu if current user is admin.
 
 ### Changed
 
