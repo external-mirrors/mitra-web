@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.9.0] - 2025-08-31
+
 ### Added
 
 - Show "Delete post" button in post menu if current user is admin.
