@@ -175,6 +175,7 @@ button {
   > img {
     background-color: var(--block-background-color);
     margin: auto;
+    max-height: 100%;
     object-fit: contain;
   }
 }
