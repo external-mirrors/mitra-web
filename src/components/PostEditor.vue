@@ -880,20 +880,21 @@ $editor-line-height: 1.5;
 .textarea-group {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
-}
 
-.textarea-group > textarea {
-  border-radius: $block-border-radius $block-border-radius 0 0;
-  display: block; /* required for margin collapsing */
-  height: 100px;
-  line-height: $editor-line-height;
-  min-height: 100px;
-  padding: $block-inner-padding;
-  width: 100%;
-}
+  > textarea {
+    border-radius: $block-border-radius $block-border-radius 0 0;
+    display: block; /* required for margin collapsing */
+    height: 100px;
+    line-height: $editor-line-height;
+    min-height: 100px;
+    padding: $block-inner-padding;
+    width: 100%;
+  }
 
-.textarea-group > :nth-child(2) {
-  margin-top: 0;
+  textarea + div,
+  .preview + div {
+    margin-top: 0;
+  }
 }
 
 .suggestions {

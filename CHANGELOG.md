@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Ask server for a single result when searching for an account at subscription page.
 
+### Fixed
+
+- Removed extra space between post preview and attachments.
+
 ## [4.8.0] - 2025-08-18
 
 ### Added
