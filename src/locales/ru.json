@@ -75,7 +75,7 @@
             "visible_to_everyone": "Видно всем",
             "visible_to_followers": "Показать подписчикам",
             "visible_to_premium_subscribers": "Показать премиум-подписчикам",
-            "visible_to_people_chosen_by_conversation_owner": "Видно только упомянутым пользователям",
+            "visible_to_people_chosen_by_conversation_owner": "Видно людям, выбранным владельцем беседы",
             "visible_to_mentioned_users": "Видно указанным пользователям"
         },
         "timestamp_future_hours": "через {n} час | через {n} часов",
