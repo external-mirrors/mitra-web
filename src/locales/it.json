@@ -6,13 +6,33 @@
         "settings": "Impostazioni",
         "search": "Cerca…",
         "notifications": "Notifiche",
-        "logout": "Esci"
+        "logout": "Esci",
+        "search_text": "testo",
+        "bookmarks": "Segnalibri"
     },
     "welcome": {
         "read_only_mode": "Il tuo account è in modalità sola lettura"
     },
     "post": {
         "go_to_previous_post": "Vai al messaggio precedente",
-        "close_image": "Chiudi"
+        "close_image": "Chiudi",
+        "hide_image": "Nascondi immagine"
+    },
+    "post_editor": {
+        "publish": "Pubblica",
+        "cancel": "Annulla"
+    },
+    "import_follows": {
+        "import": "Importa"
+    },
+    "identities": {
+        "add": "Aggiungi"
+    },
+    "dialog": {
+        "cancel": "Annulla",
+        "ok": "OK"
+    },
+    "subscriptions": {
+        "save_settings": "Salva"
     }
 }
