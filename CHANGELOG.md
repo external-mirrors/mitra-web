@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Ask server for a single result when searching for an account at subscription page.
+- Updated translations ([#132](https://codeberg.org/silverpill/mitra-web/pulls/132)).
 
 ### Fixed
 
