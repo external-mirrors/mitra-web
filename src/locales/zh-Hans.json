@@ -394,5 +394,9 @@
     "dialog": {
         "cancel": "取消",
         "ok": "确定"
+    },
+    "admin": {
+        "delete_user": "删除用户",
+        "confirm_delete_user": "是否确定要删除 {address}？此操作无法撤销。"
     }
 }
