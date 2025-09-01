@@ -29,13 +29,13 @@
       >
         <input
           type="text"
-          v-model="feedName"
+          v-model.trim="feedName"
         >
         <div class="button-row">
           <button
             type="submit"
             class="btn"
-            :disabled="isFeedFormLoading"
+            :disabled="feedName.length === 0 || isFeedFormLoading"
           >
             {{ $t('custom_feeds.rename_feed.save') }}
           </button>
