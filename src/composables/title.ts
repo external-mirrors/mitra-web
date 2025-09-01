@@ -9,6 +9,7 @@ export function useTitle() {
     } else {
       title = instanceTitle
     }
+    // Safe: https://stackoverflow.com/a/61435099
     document.title = title
   }
 
