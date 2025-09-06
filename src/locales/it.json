@@ -1,6 +1,7 @@
 {
     "about": {
-        "technical_info": "Informazioni tecniche"
+        "technical_info": "Informazioni tecniche",
+        "administered_by": "Amministrato da"
     },
     "navigation": {
         "settings": "Impostazioni",
@@ -8,19 +9,60 @@
         "notifications": "Notifiche",
         "logout": "Esci",
         "search_text": "testo",
-        "bookmarks": "Segnalibri"
+        "bookmarks": "Segnalibri",
+        "about": "Info",
+        "home": "Home",
+        "local": "Locale",
+        "federated": "Federata",
+        "search_hashtag": "hashtag",
+        "profile_directory": "Cartella dei profili",
+        "search_account": "utenza",
+        "subscriptions": "Sottoscrizioni"
     },
     "welcome": {
-        "read_only_mode": "Il tuo account è in modalità sola lettura"
+        "read_only_mode": "Il tuo account è in modalità sola lettura",
+        "browse_directory": "Sfoglia la cartella dei profili"
     },
     "post": {
-        "go_to_previous_post": "Vai al messaggio precedente",
+        "go_to_previous_post": "Vai al post precedente",
         "close_image": "Chiudi",
-        "hide_image": "Nascondi immagine"
+        "hide_image": "Nascondi immagine",
+        "visibility": {
+            "followers": "Follower",
+            "public": "Pubblico"
+        },
+        "visibility_description": {
+            "visible_to_everyone": "Visibile a tutti",
+            "visible_to_followers": "Visibile ai follower"
+        },
+        "copy_object_id": "Copia ID dell'oggetto",
+        "edited": "modificato",
+        "edit_post": "Modifica post",
+        "next_page": "Mostra più post",
+        "unmute_author": "Riattiva autore",
+        "timestamp_minutes": "adesso | {n} minuto fa | {n} minuti fa",
+        "timestamp_hours": "{n} ora fa | {n} ore fa",
+        "timestamp_days": "{n} giorno fa | {n} giorni fa",
+        "timestamp_future_minutes": "adesso | in {n} minuto | in {n} minuti",
+        "timestamp_future_hours": "in {n} ora | in {n} ore",
+        "sensitive_content": "Contenuto sensibile",
+        "timestamp_future_days": "in {n} giorno | in {n} giorni",
+        "copy_link_to_post": "Copia link al post",
+        "delete_post": "Elimina post",
+        "react_with_emoji": "Reagisci con un emoji",
+        "mute_author": "Silenzia autore"
     },
     "post_editor": {
         "publish": "Pubblica",
-        "cancel": "Annulla"
+        "cancel": "Annulla",
+        "edit_description": "Modifica la descrizione",
+        "add_poll": "Aggiungi un sondaggio",
+        "from_url": "Dall'indirizzo URL",
+        "upload": "Carica",
+        "enter_image_description": "Inserisci la descrizione dell'immagine",
+        "remove_poll": "Rimuovi il sondaggio",
+        "prompt": "Cos'hai in mente?",
+        "insert_emoji": "Inserisci emoji"
     },
     "import_follows": {
         "import": "Importa"
@@ -34,5 +76,27 @@
     },
     "subscriptions": {
         "save_settings": "Salva"
+    },
+    "poll": {
+        "see_results": "Mostra risultati",
+        "num_votes": "nessun voto|{n} voto|{n} voti"
+    },
+    "emoji_picker": {
+        "search": "Cerca…"
+    },
+    "poll_editor": {
+        "duration_hour": "ora | ore",
+        "duration_day": "giorno | giorni"
+    },
+    "admin": {
+        "delete_user": "Elimina utente",
+        "confirm_delete_user": "Sicuri di voler cancellare {address}? Questa azione non può essere annullata."
+    },
+    "profile": {
+        "profile": "Profilo",
+        "profile_with_handle": "Profilo - {handle}"
+    },
+    "settings": {
+        "profile": "Profilo"
     }
 }
