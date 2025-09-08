@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Disable "Save" button in custom feed update form if feed name is empty.
 
+### Fixed
+
+- Don't display second "Delete post" item in post menu if the post is authored by admin.
+
 ## [4.9.0] - 2025-08-31
 
 ### Added

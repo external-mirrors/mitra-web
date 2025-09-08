@@ -360,7 +360,7 @@
               <span>{{ $t('post.load_replies') }}</span>
             </button>
           </li>
-          <li v-if="isAdmin()">
+          <li v-if="isAdmin() && !canDeletePost()">
             <button
               class="icon"
               @click="hideMenu(); onAdminDeletePost()"
