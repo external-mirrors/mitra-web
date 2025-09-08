@@ -21,7 +21,8 @@
     },
     "welcome": {
         "read_only_mode": "Il tuo account è in modalità sola lettura",
-        "browse_directory": "Sfoglia la cartella dei profili"
+        "browse_directory": "Sfoglia la cartella dei profili",
+        "welcome": "Benvenuti a {0}!"
     },
     "post": {
         "go_to_previous_post": "Vai al post precedente",
@@ -33,7 +34,8 @@
         },
         "visibility_description": {
             "visible_to_everyone": "Visibile a tutti",
-            "visible_to_followers": "Visibile ai follower"
+            "visible_to_followers": "Visibile ai follower",
+            "visible_to_mentioned_users": "Visibile agli utenti citati"
         },
         "copy_object_id": "Copia ID dell'oggetto",
         "edited": "modificato",
@@ -50,7 +52,13 @@
         "copy_link_to_post": "Copia link al post",
         "delete_post": "Elimina post",
         "react_with_emoji": "Reagisci con un emoji",
-        "mute_author": "Silenzia autore"
+        "mute_author": "Silenzia autore",
+        "load_replies": "Carica le risposte",
+        "confirm_delete_this_post": "Sei sicuro di voler cancellare questo post?",
+        "replying_to": "in risposta a",
+        "view_replies": "Guarda le risposte",
+        "saved_to_ipfs": "Salvato su IPFS",
+        "more": "Ancora"
     },
     "post_editor": {
         "publish": "Pubblica",
@@ -62,7 +70,10 @@
         "enter_image_description": "Inserisci la descrizione dell'immagine",
         "remove_poll": "Rimuovi il sondaggio",
         "prompt": "Cos'hai in mente?",
-        "insert_emoji": "Inserisci emoji"
+        "insert_emoji": "Inserisci emoji",
+        "update": "Aggiorna",
+        "remove_attachment": "Rimuovi allegato",
+        "attach_file": "Allega file"
     },
     "import_follows": {
         "import": "Importa"
@@ -79,7 +90,8 @@
     },
     "poll": {
         "see_results": "Mostra risultati",
-        "num_votes": "nessun voto|{n} voto|{n} voti"
+        "num_votes": "nessun voto|{n} voto|{n} voti",
+        "multiple_choices": "Scelta multipla"
     },
     "emoji_picker": {
         "search": "Cerca…"
@@ -98,5 +110,10 @@
     },
     "settings": {
         "profile": "Profilo"
+    },
+    "post_list": {
+        "post_not_found": "Post non trovato",
+        "no_posts_found": "Nessun post trovato",
+        "post_is_not_available": "Post non disponibile"
     }
 }
