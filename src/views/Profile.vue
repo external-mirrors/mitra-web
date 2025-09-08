@@ -168,7 +168,12 @@
             <div class="name-group">
               <profile-display-name :profile="profile">
               </profile-display-name>
-              <div class="actor-address">{{ actorHandle }}</div>
+              <div
+                class="actor-address"
+                :title="actorHandle"
+              >
+                {{ actorHandle }}
+              </div>
             </div>
             <div class="buttons">
               <router-link

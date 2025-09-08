@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added tooltip to webfinger address on profile page.
+
 ### Changed
 
 - Disable "Save" button in custom feed update form if feed name is empty.
