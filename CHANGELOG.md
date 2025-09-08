@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Disable "Save" button in custom feed update form if feed name is empty.
 - Add whitespace at the beginning of `<dd>` elements.
 - Prepared landing page for translation.
+- Moved visibility selector to the right side of post editor.
 
 ### Fixed
 

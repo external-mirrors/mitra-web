@@ -182,39 +182,6 @@
         >
           <icon-chart></icon-chart>
         </button>
-        <div
-          class="dropdown-menu-wrapper"
-          v-click-away="hideVisibilityMenu"
-        >
-          <button
-            v-if="canChangeVisibility()"
-            type="button"
-            class="icon"
-            :title="$t('post_editor.change_visibility')"
-            @click="toggleVisibilityMenu()"
-          >
-            <visibility-icon :visibility="visibility"></visibility-icon>
-          </button>
-          <span
-            v-else
-            class="icon"
-            :title="$t('post_editor.visibility_can_not_be_changed')"
-          >
-            <visibility-icon :visibility="visibility"></visibility-icon>
-          </span>
-          <menu v-if="visibilityMenuVisible" class="dropdown-menu">
-            <li v-for="value in visibilityOptions" :key="value">
-              <button
-                class="icon"
-                :title="VISIBILITY_MAP[value].description"
-                @click="hideVisibilityMenu(); visibility = value"
-              >
-                <visibility-icon :visibility="value"></visibility-icon>
-                <span>{{ VISIBILITY_MAP[value].name }}</span>
-              </button>
-            </li>
-          </menu>
-        </div>
         <button
           type="button"
           class="icon"
@@ -260,6 +227,42 @@
           <icon-show v-if="preview === null"></icon-show>
           <icon-hide v-else></icon-hide>
         </button>
+        <div
+          class="dropdown-menu-wrapper"
+          v-click-away="hideVisibilityMenu"
+        >
+          <button
+            v-if="canChangeVisibility()"
+            type="button"
+            class="icon"
+            :title="$t('post_editor.change_visibility')"
+            @click="toggleVisibilityMenu()"
+          >
+            <visibility-icon :visibility="visibility"></visibility-icon>
+          </button>
+          <span
+            v-else
+            class="icon"
+            :title="$t('post_editor.visibility_can_not_be_changed')"
+          >
+            <visibility-icon :visibility="visibility"></visibility-icon>
+          </span>
+          <menu
+            v-if="visibilityMenuVisible"
+            class="dropdown-menu right"
+          >
+            <li v-for="value in visibilityOptions" :key="value">
+              <button
+                class="icon"
+                :title="VISIBILITY_MAP[value].description"
+                @click="hideVisibilityMenu(); visibility = value"
+              >
+                <visibility-icon :visibility="value"></visibility-icon>
+                <span>{{ VISIBILITY_MAP[value].name }}</span>
+              </button>
+            </li>
+          </menu>
+        </div>
         <div v-if="isEditorEmbedded" class="submit-reply-btn-wrapper">
           <button
             class="btn-small"
