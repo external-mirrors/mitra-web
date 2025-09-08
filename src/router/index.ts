@@ -16,6 +16,7 @@ import CustomFeedList from "@/views/CustomFeedList.vue"
 import CustomFeedSourceList from "@/views/CustomFeedSourceList.vue"
 import CustomFeedTimeline from "@/views/CustomFeedTimeline.vue"
 import EthereumPage from "@/views/Ethereum.vue"
+import ExplorePage from "@/views/Explore.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
@@ -144,6 +145,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/custom-feed/:feedId/timeline",
     name: "custom-feed-timeline",
     component: CustomFeedTimeline,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/explore",
+    name: "explore",
+    component: ExplorePage,
     meta: { onlyAuthenticated: true },
   },
   {

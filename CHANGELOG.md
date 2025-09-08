@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added tooltip to webfinger address on profile page.
 - Use browser's default language for translation if the user is not authenticated.
+- Added "Explore" page (hidden).
 
 ### Changed
 
