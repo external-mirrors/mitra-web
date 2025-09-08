@@ -219,6 +219,7 @@
         </button>
         <emoji-picker
           v-if="emojiPickerVisible"
+          class="small-centered"
           @emoji-picked="onToggleReaction($event)"
         ></emoji-picker>
       </div>
@@ -239,7 +240,11 @@
         <button class="icon" :title="$t('post.more')" @click="toggleMenu()">
           <icon-more></icon-more>
         </button>
-        <menu v-if="menuVisible" ref="menuElement" class="dropdown-menu">
+        <menu
+          v-if="menuVisible"
+          ref="menuElement"
+          class="dropdown-menu small-centered"
+        >
           <li>
             <a
               :href="post.url"

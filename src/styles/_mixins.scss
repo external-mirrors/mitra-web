@@ -213,6 +213,17 @@
     white-space: nowrap;
     z-index: 3;
 
+    &.small-centered {
+      @media screen and (max-width: $screen-breakpoint-x-small) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    &.right {
+      right: 0;
+    }
+
     &[data-dropup] {
       bottom: $block-inner-padding;
     }

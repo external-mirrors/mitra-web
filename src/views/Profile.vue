@@ -39,7 +39,10 @@
               <button :title="$t('profile.more')" @click="toggleProfileMenu()">
                 <icon-more></icon-more>
               </button>
-              <menu v-if="profileMenuVisible" class="dropdown-menu">
+              <menu
+                v-if="profileMenuVisible"
+                class="dropdown-menu right"
+              >
                 <li v-if="!isLocalUser()">
                   <a
                     :href="profile.url"
@@ -1079,10 +1082,6 @@ $avatar-size: 170px;
       &:hover {
         stroke: var(--link-hover-color);
       }
-    }
-
-    menu {
-      right: 0;
     }
   }
 }

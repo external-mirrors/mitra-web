@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Don't display second "Delete post" item in post menu if the post is authored by admin.
+- Changed position of dropdown menus on small screens to prevent overflowing.
 
 ## [4.9.0] - 2025-08-31
 

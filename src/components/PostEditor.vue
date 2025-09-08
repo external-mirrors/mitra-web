@@ -238,6 +238,7 @@
           </button>
           <emoji-picker
             v-if="emojiPickerVisible"
+            class="small-centered"
             @emoji-picked="insertEmoji($event)"
           ></emoji-picker>
         </div>
