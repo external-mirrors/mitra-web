@@ -197,6 +197,10 @@ function configureInlineLinks() {
     list-style-type: disc;
   }
 
+  :deep(dd) {
+    margin-inline-start: 1rem;
+  }
+
   :deep(td),
   :deep(th) {
     padding: $whitespace;
