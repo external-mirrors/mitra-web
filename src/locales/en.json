@@ -3,6 +3,17 @@
     "delete_user": "Delete user",
     "confirm_delete_user": "Are you sure you want to delete {address}? This can not be undone."
   },
+  "login": {
+    "learn_more": "Learn more",
+    "explore": "Explore",
+    "username": "Username",
+    "password": "Password",
+    "username_only_letters": "Only letters, numbers, hyphens, and underscores are allowed.",
+    "dont_have_an_account": "Don't have an account?",
+    "already_registered": "Already registered?",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up"
+  },
   "about": {
     "administered_by": "Administered by",
     "technical_info": "Technical Info"

@@ -10,14 +10,16 @@
           :to="{ name: 'about' }"
           class="instance-link"
         >
-          Learn more <icon-arrow-long class="arrow"></icon-arrow-long>
+          {{ $t('login.learn_more') }}
+          <icon-arrow-long class="arrow"></icon-arrow-long>
         </router-link>
         <router-link
           v-if="instance.allow_unauthenticated.timeline_local"
           class="instance-link"
           :to="{ name: 'local' }"
         >
-          Explore <icon-arrow-long class="arrow"></icon-arrow-long>
+          {{ $t('login.explore') }}
+          <icon-arrow-long class="arrow"></icon-arrow-long>
         </router-link>
       </div>
       <div v-if="instance" class="login-form-group">
@@ -31,7 +33,9 @@
             :class="{ active: loginType === authType }"
             @click.prevent="loginType = authType; loginErrorMessage = null"
           >
-            <template v-if="authType === 'password'">Password</template>
+            <template v-if="authType === 'password'">
+              {{ $t('login.password') }}
+            </template>
             <template v-else-if="authType === 'eip4361'">Ethereum</template>
             <template v-else-if="authType === 'caip122_monero'">Monero</template>
           </button>
@@ -48,7 +52,7 @@
                 v-model="username"
                 required
                 autocomplete="username"
-                placeholder="Username"
+                :placeholder="$t('login.username')"
               >
               <div class="addon">@{{ instance.uri }}</div>
             </div>
@@ -57,7 +61,7 @@
               class="form-message"
               :class="{ error: !isUsernameValid() }"
             >
-              Only letters, numbers, hyphens, and underscores are allowed.
+              {{ $t('login.username_only_letters') }}
             </div>
           </div>
           <div class="form-control" v-if="loginType === 'password'">
@@ -66,7 +70,7 @@
               type="password"
               v-model="password"
               required
-              placeholder="Password"
+              :placeholder="$t('login.password')"
             >
           </div>
           <div class="form-control" v-if="loginType === 'caip122_monero'">
@@ -122,7 +126,7 @@
             :disabled="!isLoginFormValid()"
             @click.prevent="login()"
           >
-            Sign in
+            {{ $t('login.sign_in') }}
           </button>
           <button
             v-else
@@ -130,17 +134,21 @@
             :disabled="!isLoginFormValid()"
             @click.prevent="register()"
           >
-            Sign Up
+            {{ $t('login.sign_up') }}
           </button>
           <div class="error-message" v-if="loginErrorMessage" >{{ loginErrorMessage }}</div>
         </form>
         <div class="switch-mode">
-          <template v-if="isRegistered">Don't have an account?</template>
-          <template v-else>Already registered?</template>
+          <template v-if="isRegistered">
+            {{ $t('login.dont_have_an_account') }}
+          </template>
+          <template v-else>
+            {{ $t('login.already_registered') }}
+          </template>
           &thinsp;
           <button @click.prevent="isRegistered = !isRegistered; loginErrorMessage = null">
-            <template v-if="isRegistered">Sign Up</template>
-            <template v-else>Sign In</template>
+            <template v-if="isRegistered">{{ $t('login.sign_up') }}</template>
+            <template v-else>{{ $t('login.sign_in') }}</template>
           </button>
         </div>
       </div>
