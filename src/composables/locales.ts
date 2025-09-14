@@ -30,6 +30,15 @@ export const LOCALE_MAP = Object.fromEntries(LANGUAGES.map((code) => {
   return [code, nameGenerator.of(code)]
 }))
 
+function getSystemLocale(): string {
+  const language = navigator.language
+  if (LANGUAGES.includes(language)) {
+    return language
+  } else {
+    return language.split("-")[0]
+  }
+}
+
 export function useLocales() {
   const { availableLocales, locale, setLocaleMessage } = useI18n({ useScope: "global" })
   const { getClientConfigKey, setClientConfigKey } = useClientConfig()
@@ -40,7 +49,7 @@ export function useLocales() {
   }
 
   function getPreferredLocale(): string {
-    const value = getClientConfigKey(ConfigKey.Locale) || "en"
+    const value = getClientConfigKey(ConfigKey.Locale) || getSystemLocale()
     return value as string
   }
 
