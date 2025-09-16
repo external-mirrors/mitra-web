@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add whitespace at the beginning of `<dd>` elements.
 - Prepared landing page for translation.
 - Moved visibility selector to the right side of post editor.
+- Updated translations ([#133](https://codeberg.org/silverpill/mitra-web/pulls/133)).
 
 ### Fixed
 
