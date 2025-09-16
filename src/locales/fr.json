@@ -394,5 +394,9 @@
     "dialog": {
         "ok": "OK",
         "cancel": "Annuler"
+    },
+    "admin": {
+        "confirm_delete_user": "Êtes-vous sûr.e de vouloir supprimer {address} ? Ce choix est définitif.",
+        "delete_user": "Supprimer utilisateur"
     }
 }

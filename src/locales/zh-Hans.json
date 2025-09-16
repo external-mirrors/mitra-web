@@ -394,5 +394,20 @@
     "dialog": {
         "cancel": "取消",
         "ok": "确定"
+    },
+    "admin": {
+        "delete_user": "删除用户",
+        "confirm_delete_user": "是否确定要删除 {address}？此操作无法撤销。"
+    },
+    "login": {
+        "learn_more": "了解详情",
+        "explore": "探索",
+        "username": "用户名",
+        "password": "密码",
+        "username_only_letters": "仅允许使用字母、数字、连字符和下划线。",
+        "dont_have_an_account": "没有账号？",
+        "already_registered": "已经注册？",
+        "sign_in": "登录",
+        "sign_up": "注册"
     }
 }

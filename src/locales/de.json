@@ -36,7 +36,9 @@
         "remove_attachment": "Anhang entfernen",
         "add_poll": "Umfrage hinzufügen",
         "remove_poll": "Umfrage entfernen",
-        "edit_description": "Beschreibung bearbeiten"
+        "edit_description": "Beschreibung bearbeiten",
+        "from_url": "Von URL",
+        "upload": "Hochladen"
     },
     "about": {
         "administered_by": "Verwaltet von",
@@ -334,5 +336,8 @@
     "dialog": {
         "cancel": "Abbrechen",
         "ok": "OK"
+    },
+    "admin": {
+        "delete_user": "Benutzer löschen"
     }
 }
