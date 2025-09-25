@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed "Pay" button not working when subscription is remote and Monero integration is not enabled.
+
 ## [4.10.1] - 2025-09-21
 
 ### Changed

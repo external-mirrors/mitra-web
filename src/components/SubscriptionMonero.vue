@@ -465,7 +465,7 @@ const paymentMessage = computed<string | null>(() => {
 const paymentAmountMin = computed<number | null>(() => {
   const blockchain = getBlockchainInfo()
   if (blockchain && blockchain.chain_id === subscriptionOption.value?.chain_id) {
-    return getMoneroChainMetadata(blockchain)?.payment_amount_min || null
+    return getMoneroChainMetadata(blockchain)?.payment_amount_min || 1000000000
   } else {
     return null
   }
