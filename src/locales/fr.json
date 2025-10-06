@@ -398,5 +398,16 @@
     "admin": {
         "confirm_delete_user": "Êtes-vous sûr.e de vouloir supprimer {address} ? Ce choix est définitif.",
         "delete_user": "Supprimer utilisateur"
+    },
+    "login": {
+        "learn_more": "En apprendre plus",
+        "explore": "Explorer",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "username_only_letters": "Seules les lettres, les chiffres, le trait d'union et le tiret bas sont acceptés.",
+        "dont_have_an_account": "Vous n'avez pas de compte ?",
+        "already_registered": "Déjà enregistré ?",
+        "sign_in": "Se connecter",
+        "sign_up": "S'enregistrer"
     }
 }
