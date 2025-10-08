@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## Changed
+
+- Updated translations ([#137](https://codeberg.org/silverpill/mitra-web/pulls/137)).
+
 ### Fixed
 
 - Fixed "Pay" button not working when subscription is remote and Monero integration is not enabled.
