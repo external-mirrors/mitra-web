@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Display loader on identity proof page.
 - Take minimum payment amount from a payment option attached to profile.
+- Support displaying polls without end date.
 
 ### Fixed
 

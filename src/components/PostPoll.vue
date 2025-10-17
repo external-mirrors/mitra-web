@@ -45,7 +45,7 @@
       </button>
       <span v-if="poll.multiple">{{ $t('poll.multiple_choices') }}</span>
       <span v-if="poll.expired">{{ $t('poll.closed') }}</span>
-      <span v-else :title="formatDateTime(poll.expires_at)">
+      <span v-else-if="poll.expires_at" :title="formatDateTime(poll.expires_at)">
         <i18n-t keypath="poll.ends" scope="global">
           <timestamp :date="poll.expires_at"></timestamp>
         </i18n-t>
