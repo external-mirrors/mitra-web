@@ -37,13 +37,21 @@ async function _getCustomEmojis(): Promise<CustomEmoji[]> {
 
 export interface Emoji {
   // name (without colons)
+  name: string | null,
+  // unicode text or shortcode
+  text: string,
+  url: string | null,
+}
+
+export interface NamedEmoji {
+  // name (without colons)
   name: string,
   // unicode text or shortcode
   text: string,
   url: string | null,
 }
 
-export async function getUnicodeEmojis(): Promise<Emoji[]> {
+export async function getUnicodeEmojis(): Promise<NamedEmoji[]> {
   const { gemoji } = await import("gemoji")
   const unicodeEmojis = gemoji
     .filter((gemoji) => gemoji.names.length > 0)
@@ -57,7 +65,7 @@ export async function getUnicodeEmojis(): Promise<Emoji[]> {
   return unicodeEmojis
 }
 
-export async function getCustomEmojis(): Promise<Emoji[]> {
+export async function getCustomEmojis(): Promise<NamedEmoji[]> {
   const _customEmojis = await _getCustomEmojis()
   const customEmojis = _customEmojis.map(emoji => {
     return {
@@ -69,7 +77,7 @@ export async function getCustomEmojis(): Promise<Emoji[]> {
   return customEmojis
 }
 
-export async function getEmojis(): Promise<Emoji[]> {
+export async function getEmojis(): Promise<NamedEmoji[]> {
   const unicodeEmojis = await getUnicodeEmojis()
   const customEmojis = await getCustomEmojis()
   const emojis = [...unicodeEmojis, ...customEmojis]

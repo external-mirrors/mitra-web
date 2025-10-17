@@ -18,7 +18,7 @@
         <div class="emoji-grid">
           <button
             v-for="emoji in searchResults"
-            :key="emoji.name"
+            :key="emoji.text"
             @click.prevent="pick(emoji)"
           >
             <emoji-image :emoji="emoji" :lazy="true"></emoji-image>
@@ -52,7 +52,12 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref } from "vue"
 
-import { getCustomEmojis, getUnicodeEmojis, Emoji } from "@/api/emojis"
+import {
+  getCustomEmojis,
+  getUnicodeEmojis,
+  NamedEmoji,
+  Emoji,
+} from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
 import { isEmoji } from "@/utils/emojis"
@@ -74,16 +79,16 @@ const FAVORITE_EMOJIS = [
 
 const searchInputElement = ref<HTMLInputElement | null>(null)
 
-const favoriteEmojiList = ref<Emoji[]>([])
-const customEmojiList = ref<Emoji[]>([])
-const allEmojiList = ref<Emoji[]>([])
+const favoriteEmojiList = ref<NamedEmoji[]>([])
+const customEmojiList = ref<NamedEmoji[]>([])
+const allEmojiList = ref<NamedEmoji[]>([])
 const searchQuery = ref<string>("")
 const isLoading = ref(false)
 
 const searchResults = computed(() => {
   if (isEmoji(searchQuery.value)) {
     return [{
-      name: "",
+      name: null,
       text: searchQuery.value,
       url: null,
     }]

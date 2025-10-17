@@ -459,7 +459,6 @@ import {
   deleteReaction,
   makePermanent,
   Post,
-  ReactionEmoji,
   Visibility,
 } from "@/api/posts"
 import { mute, unmute } from "@/api/relationships"
@@ -727,7 +726,7 @@ function canReact(): boolean {
   return currentUser.value !== null
 }
 
-function hasReacted(emoji: Emoji | ReactionEmoji): boolean {
+function hasReacted(emoji: Emoji): boolean {
   const reaction = props.post.pleroma.emoji_reactions
     .find((reaction) => {
       const reactionEmoji = getReactionEmoji(reaction)
@@ -736,7 +735,7 @@ function hasReacted(emoji: Emoji | ReactionEmoji): boolean {
   return reaction?.me || false
 }
 
-async function onToggleReaction(emoji: Emoji | ReactionEmoji) {
+async function onToggleReaction(emoji: Emoji) {
   if (currentUser.value === null) {
     return
   }

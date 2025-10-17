@@ -1,7 +1,11 @@
 import { BACKEND_URL } from "@/constants"
 
 import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
-import { getEmojiShortcode, CustomEmoji } from "./emojis"
+import {
+  getEmojiShortcode,
+  CustomEmoji,
+  Emoji,
+} from "./emojis"
 import { Poll } from "./polls"
 import { getRelationships, Relationship } from "./relationships"
 import { defaultProfile, Mention, Profile } from "./users"
@@ -434,15 +438,7 @@ export async function unfavourite(
   return data
 }
 
-export interface ReactionEmoji {
-  // name (without colons)
-  name: string | null,
-  // unicode text or shortcode
-  text: string,
-  url: string | null,
-}
-
-export function getReactionEmoji(reaction: PleromaEmojiReaction): ReactionEmoji {
+export function getReactionEmoji(reaction: PleromaEmojiReaction): Emoji {
   if (reaction.url) {
     return { name: reaction.name, text: getEmojiShortcode(reaction.name), url: reaction.url }
   } else {

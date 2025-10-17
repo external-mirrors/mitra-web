@@ -13,10 +13,9 @@
 import { computed } from "vue"
 
 import { getEmojiShortcode, Emoji } from "@/api/emojis"
-import { ReactionEmoji } from "@/api/posts"
 
 const props = defineProps<{
-  emoji: Emoji | ReactionEmoji,
+  emoji: Emoji,
   lazy?: boolean,
 }>()
 
@@ -24,7 +23,7 @@ const title = computed(() => {
   if (props.emoji.name !== null) {
     return getEmojiShortcode(props.emoji.name)
   } else {
-    // ReactionEmoji: no tooltip
+    // No tooltip
     return undefined
   }
 })

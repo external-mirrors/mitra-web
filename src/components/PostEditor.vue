@@ -308,7 +308,12 @@
 import { computed, nextTick, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
-import { getEmojis, getEmojiShortcode, Emoji } from "@/api/emojis"
+import {
+  getEmojis,
+  getEmojiShortcode,
+  NamedEmoji,
+  Emoji,
+} from "@/api/emojis"
 import {
   createPost,
   previewPost,
@@ -385,7 +390,7 @@ const pollDurationUnit = ref<number>(86400)
 
 const mentionSuggestionList = ref<Profile[]>([])
 const mentionPosition = ref<[number, number] | null>(null)
-const emojiSuggestionList = ref<Emoji[]>([])
+const emojiSuggestionList = ref<NamedEmoji[]>([])
 const emojiPosition = ref<[number, number] | null>(null)
 const attachmentMenuVisible = ref(false)
 const attachmentUrl = ref("")
@@ -575,7 +580,7 @@ async function autocompleteMention(profile: Profile) {
   }
 }
 
-async function autocompleteEmoji(emoji: Emoji) {
+async function autocompleteEmoji(emoji: NamedEmoji) {
   if (emojiPosition.value === null) {
     throw new Error("emoji position is null")
   }
