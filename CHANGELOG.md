@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed incorrect minisign command on identity proof page.
+
 ## [4.11.0] - 2025-10-09
 
 ## Changed

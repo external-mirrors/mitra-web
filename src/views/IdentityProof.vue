@@ -42,7 +42,7 @@
           <code v-if="proofType === 'minisign'">
             $ printf '{{ identityClaim.claim }}' | xxd -r -p > message
             <br>
-            $ minisign -S -m message -x message.sig
+            $ minisign -S -l -m message -x message.sig
             <br>
             $ cat message.sig
           </code>
