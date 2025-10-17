@@ -70,6 +70,7 @@
         </template>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
       </form>
+      <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
 </template>
@@ -84,6 +85,7 @@ import {
   getIdentityClaim,
   IdentityClaim,
 } from "@/api/users"
+import Loader from "@/components/Loader.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
 import { useTitle } from "@/composables/title"
@@ -101,6 +103,7 @@ const proofType = ref<"minisign" | "signify">("minisign")
 const key = ref("")
 const signature = ref("")
 const identityClaim = ref<IdentityClaim | null>(null)
+const isLoading = ref(false)
 const errorMessage = ref<string | null>(null)
 
 function canGetClaim(): boolean {
@@ -111,6 +114,7 @@ async function getClaim() {
   if (currentUser.value === null || identityClaim.value !== null) {
     return
   }
+  isLoading.value = true
   const authToken = ensureAuthToken()
   let data
   try {
@@ -118,6 +122,8 @@ async function getClaim() {
   } catch (error: any) {
     errorMessage.value = error.message
     return
+  } finally {
+    isLoading.value = false
   }
   errorMessage.value = null
   identityClaim.value = data
@@ -131,6 +137,7 @@ async function submit() {
   if (currentUser.value === null || identityClaim.value === null) {
     return
   }
+  isLoading.value = true
   const authToken = ensureAuthToken()
   try {
     await createIdentityProof(
@@ -143,6 +150,8 @@ async function submit() {
   } catch (error: any) {
     errorMessage.value = error.message
     return
+  } finally {
+    isLoading.value = false
   }
   errorMessage.value = null
   router.push(getActorLocation("profile", currentUser.value))
@@ -174,5 +183,9 @@ code {
   padding: $input-padding;
   width: 100%;
   word-wrap: break-word;
+}
+
+.loader {
+  margin: $block-outer-padding auto;
 }
 </style>
