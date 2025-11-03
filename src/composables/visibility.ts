@@ -17,7 +17,6 @@ function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[
       return [
         Visibility.Public,
         Visibility.Followers,
-        Visibility.Subscribers,
         Visibility.Direct,
       ]
     case Visibility.Followers:
