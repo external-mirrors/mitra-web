@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add alt text tooltips to attached audio and video.
+
 ### Changed
 
 - Do not allow replying with "Subscribers only" visibility to public posts.

@@ -46,12 +46,16 @@
   <video
     v-else-if="attachment.type === 'video'"
     :src="attachment.url"
+    :alt="attachment.description || undefined"
+    :title="attachment.description || undefined"
     controls
     @click.stop.prevent
   ></video>
   <audio
     v-else-if="attachment.type === 'audio'"
     :src="attachment.url"
+    :alt="attachment.description || undefined"
+    :title="attachment.description || undefined"
     controls
     @click.stop.prevent
   ></audio>
