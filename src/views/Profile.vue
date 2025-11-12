@@ -228,7 +228,11 @@
             class="bio"
             v-html="profile.note || ''"
           ></div>
-          <div class="extra-fields" v-if="fields.length > 0">
+          <div
+            v-if="fields.length > 0"
+            ref="profileFieldsElement"
+            class="extra-fields"
+          >
             <div
               v-for="field, index in fields"
               class="field"
@@ -461,6 +465,7 @@ const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
 const { setPageTitle } = useTitle()
 
 const profileBioElement = ref<HTMLElement | null>(null)
+const profileFieldsElement = ref<HTMLElement | null>(null)
 const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 
 const profile = ref<ProfileWrapper | null>(null)
@@ -512,11 +517,24 @@ onMounted(async () => {
   await nextTick()
 
   setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
+
+  const emojis = profile.value.emojis
   if (profileBioElement.value !== null) {
-    const emojis = profile.value.emojis
     replaceTextNodes(profileBioElement.value, (text: string) => {
       return replaceShortcodes(text, emojis)
     })
+  }
+  if (profileFieldsElement.value !== null) {
+    const elements = profileFieldsElement.value
+      .querySelectorAll(".name, .value")
+    for (const element of elements) {
+      if (!(element instanceof HTMLElement)) {
+        continue
+      }
+      replaceTextNodes(element, (text: string) => {
+        return replaceShortcodes(text, emojis)
+      })
+    }
   }
 
   if (currentUser.value && !isCurrentUser()) {
@@ -1178,6 +1196,8 @@ $avatar-size: 170px;
     padding: calc($block-inner-padding / 2) 0;
 
     .name {
+      @include emoji-inline;
+
       font-weight: bold;
       min-width: 120px;
       overflow-x: hidden;
@@ -1186,6 +1206,8 @@ $avatar-size: 170px;
     }
 
     .value {
+      @include emoji-inline;
+
       flex-grow: 1;
       overflow-x: hidden;
       text-overflow: ellipsis;
