@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Do not allow replying with "Subscribers only" visibility to public posts.
 
+### Fixed
+
+- Fixed incorrect display of pre-release version on About page.
+
 ## [4.12.0] - 2025-10-26
 
 ### Changed

@@ -51,7 +51,7 @@ const { instance } = useInstanceInfo()
 const { setPageTitle } = useTitle()
 
 function getMitraVersion(apiVersion: string): string {
-  const match = apiVersion.match(/.+Mitra ([\d.]+)/)
+  const match = apiVersion.match(/.+Mitra ([0-9a-z.-]+)/)
   if (match) {
     return match[1]
   } else {
