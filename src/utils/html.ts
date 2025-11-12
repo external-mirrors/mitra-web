@@ -22,6 +22,7 @@ export function replaceTextNodes(
     "h5",
     "h6",
     "div",
+    "blockquote",
   ]
   for (const textNode of nodes) {
     // Don't replace if parent tag is not in allowlist

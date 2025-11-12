@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed incorrect display of pre-release version on About page.
+- Fixed custom emojis not being displayed in blockquotes.
 
 ## [4.12.0] - 2025-10-26
 
