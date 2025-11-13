@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Do not allow replying with "Subscribers only" visibility to public posts.
+- Updated translations ([#139](https://codeberg.org/silverpill/mitra-web/pulls/139)).
 
 ### Fixed
 
