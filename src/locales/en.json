@@ -188,6 +188,7 @@
     "follow": "Follow",
     "cancel_follow_request": "Cancel follow request",
     "unfollow": "Unfollow",
+    "follow_this_user_from_your_server": "You can follow this user from your Fediverse server: {handle}",
     "subscribe_long": "Become a subscriber",
     "subscribe": "Subscribe",
     "renew_verification": "Renew verification",

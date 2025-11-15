@@ -750,7 +750,7 @@ function canShowReplies(): boolean {
 async function onFollow(showReposts?: boolean, showReplies?: boolean) {
   if (!currentUser.value) {
     // Viewing as guest
-    alert(`You can follow this user from your Fediverse server: ${actorHandle.value}`)
+    alert(t("profile.follow_this_user_from_your_server", { handle: actorHandle.value }))
     return
   }
   if (!profile.value || !relationship.value) {
