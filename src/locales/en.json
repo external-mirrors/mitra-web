@@ -70,6 +70,7 @@
     "view_replies": "View replies",
     "view_conversation": "View conversation",
     "reply": "Reply",
+    "reply_to_this_post_from_your_server": "You can reply to this post from your Fediverse server: {url}",
     "delete_repost": "Delete repost",
     "repost": "Repost",
     "unlike": "Unlike",

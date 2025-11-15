@@ -612,12 +612,18 @@ function getReplyMentions(): Mention[] {
 
 function canReply(): boolean {
   if (currentUser.value === null) {
-    return false
+    // Guests should be able to click on reply button
+    return true
   }
   return currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
 }
 
 function toggleReplyForm() {
+  if (currentUser.value === null) {
+    // Viewing as guest
+    alert(t("post.reply_to_this_post_from_your_server", { url: props.post.uri }))
+    return
+  }
   replyFormVisible.value = !replyFormVisible.value
 }
 
@@ -631,7 +637,8 @@ function canRepostWithComment(): boolean {
   return (
     props.inThread &&
     props.post.visibility === Visibility.Public &&
-    canReply()
+    currentUser.value !== null &&
+    currentUser.value.role.permissions_names.includes(Permissions.CreatePost)
   )
 }
 
