@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Suggest replying from the home server when guest clicks on a reply button.
+- Added icon to "Subscribe" button on profile page.
 
 ### Changed
 

@@ -181,7 +181,7 @@
             <div class="buttons">
               <router-link
                 v-if="isCurrentUser()"
-                class="edit-profile btn"
+                class="btn"
                 :to="{ name: 'settings-profile' }"
               >
                 {{ $t('profile.edit_profile') }}
@@ -194,7 +194,7 @@
               </button>
               <button
                 v-if="canFollow()"
-                class="btn follow-btn"
+                class="btn btn-with-icon"
                 :title="profile.locked ? $t('profile.manually_approves_followers') : undefined"
                 :disabled="isProcessingFollow"
                 @click="onFollow()"
@@ -204,7 +204,7 @@
               </button>
               <button
                 v-if="canUnfollow()"
-                class="btn unfollow-btn"
+                class="btn"
                 :disabled="isProcessingUnfollow"
                 @click="onUnfollow()"
               >
@@ -217,9 +217,12 @@
                 v-if="subscriptionPageLocation && canSubscribe()"
                 :to="subscriptionPageLocation"
                 :title="$t('profile.subscribe_long')"
-                class="btn"
+                class="btn btn-with-icon"
               >
-                <template #link-content>{{ $t('profile.subscribe') }}</template>
+                <template #link-content>
+                  <span>{{ $t('profile.subscribe') }}</span>
+                  <icon-premium></icon-premium>
+                </template>
               </universal-link>
             </div>
           </div>
@@ -426,6 +429,7 @@ import {
   ProfileWrapper,
   EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
+import IconPremium from "@/assets/extra-icons/spark.svg?component"
 import IconMore from "@/assets/feather/more-vertical.svg?component"
 import IconCheck from "@/assets/forkawesome/check.svg?component"
 import IconLock from "@/assets/forkawesome/lock.svg?component"
@@ -1136,7 +1140,7 @@ $avatar-size: 170px;
   }
 }
 
-.follow-btn {
+.btn-with-icon {
   align-items: center;
   display: flex;
   gap: $input-padding;
