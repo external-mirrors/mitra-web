@@ -349,5 +349,15 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "Enlazar llave criptográfica"
+    },
+    "admin": {
+        "delete_user": "Eliminar usuario",
+        "confirm_delete_user": "¿Estás seguro de que quieres eliminar {address}?. Esto no se puede deshacer."
+    },
+    "login": {
+        "learn_more": "Aprende más",
+        "explore": "Explorar",
+        "username": "Nombre de usuario",
+        "password": "Contraseña"
     }
 }
