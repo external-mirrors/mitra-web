@@ -48,10 +48,7 @@
     },
     "post": {
         "replying_to": "respondiendo a",
-        "timestamp_hours": "Hace {n} horas | Hace {n} horas",
-        "timestamp_days": "Hace {n} días | Hace {n} días",
         "next_page": "Mostrar más entradas",
-        "timestamp_minutes": "ahora | hace {n} minutos | hace {n} minutos",
         "load_replies": "Cargar respuestas",
         "bookmark": "Marcador",
         "more": "Mas",
@@ -87,10 +84,7 @@
         "unmute_author": "No silenciar autor",
         "saved_to_ipfs": "Guardado en IPFS",
         "save_to_ipfs": "Guardar en IPFS",
-        "timestamp_future_hours": "en {n} hora | en {n} horas",
         "reply": "Responder",
-        "timestamp_future_minutes": "ahora | en {n} minuto | en {n} minutos",
-        "timestamp_future_days": "en {n} dia | en {n} días",
         "subscribe": "subscribir",
         "send_coin": "Enviar {name}",
         "become_a_subscriber": "Convertirse en subscriptor",
@@ -349,5 +343,15 @@
     },
     "identity_proofs": {
         "link_cryptographic_key": "Enlazar llave criptográfica"
+    },
+    "timestamp": {
+      "full": {
+        "past_hours": "Hace {n} horas | Hace {n} horas",
+        "past_days": "Hace {n} días | Hace {n} días",
+        "past_minutes": "ahora | hace {n} minutos | hace {n} minutos",
+        "future_hours": "en {n} hora | en {n} horas",
+        "future_minutes": "ahora | en {n} minuto | en {n} minutos",
+        "future_days": "en {n} dia | en {n} días"
+      }
     }
 }

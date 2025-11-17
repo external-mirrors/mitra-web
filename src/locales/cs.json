@@ -31,11 +31,15 @@
     },
     "post": {
         "next_page": "Zobrazit další příspěvky",
-        "timestamp_hours": "před {n} hodinou | před {n} hodinami",
-        "timestamp_minutes": "nyní | {n} před minutou | {n} před minutami",
         "replying_to": "odpovídat na",
-        "timestamp_days": "před {n} dny | před {n} dny",
         "load_replies": "Načíst odpovědi"
+    },
+    "timestamp": {
+      "full": {
+        "past_hours": "před {n} hodinou | před {n} hodinami",
+        "past_minutes": "nyní | {n} před minutou | {n} před minutami",
+        "past_days": "před {n} dny | před {n} dny"
+      }
     },
     "misc": {
         "reload_page": "Načtení stránky za několik minut"

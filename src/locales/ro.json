@@ -31,13 +31,17 @@
     },
     "post": {
         "replying_to": "răspuns la",
-        "timestamp_hours": "{n} oră în urmă | {n} ore în urmă",
-        "timestamp_days": "{n} zile în urmă | {n} zile în urmă",
         "next_page": "Afișați mai multe mesaje",
-        "timestamp_minutes": "acum | {n} minute în urmă | {n} minute în urmă",
         "load_replies": "Încărcați răspunsurile"
     },
     "misc": {
         "reload_page": "Reîncărcați pagina în câteva minute"
+    },
+    "timestamp": {
+      "full": {
+        "past_hours": "{n} oră în urmă | {n} ore în urmă",
+        "past_days": "{n} zile în urmă | {n} zile în urmă",
+        "past_minutes": "acum | {n} minute în urmă | {n} minute în urmă"
+      }
     }
 }

@@ -50,9 +50,6 @@
     },
     "post": {
         "replying_to": "返信",
-        "timestamp_minutes": "たった今 | {n} 分前 | {n} 分前",
-        "timestamp_hours": "{n}時間前 | {n}時間前",
-        "timestamp_days": "{n}日前 | {n}日前",
         "next_page": "もっと記事を表示する",
         "load_replies": "返信を読み込む",
         "go_to_previous_post": "言及元のポストを見る",
@@ -101,10 +98,7 @@
             "visible_to_people_chosen_by_conversation_owner": "スレ立て人が選んだ人のみ可視"
         },
         "view_conversation": "スレを表示",
-        "confirm_delete_this_post": "ポストを本当に削除してもよろしいですか？",
-        "timestamp_future_minutes": "今 | {n} 分後 | {n} 分後",
-        "timestamp_future_hours": "{n} 時間後 | {n} 時間後",
-        "timestamp_future_days": "{n} 日後 | {n} 日後"
+        "confirm_delete_this_post": "ポストを本当に削除してもよろしいですか？"
     },
     "misc": {
         "reload_page": "数分後にページを再読み込みしてください"
@@ -377,5 +371,15 @@
         "ends": "{0} に終了",
         "closed": "締め切られた",
         "see_results": "結果を表示する"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "たった今 | {n} 分前 | {n} 分前",
+        "past_hours": "{n}時間前 | {n}時間前",
+        "past_days": "{n}日前 | {n}日前",
+        "future_minutes": "今 | {n} 分後 | {n} 分後",
+        "future_hours": "{n} 時間後 | {n} 時間後",
+        "future_days": "{n} 日後 | {n} 日後"
+      }
     }
 }

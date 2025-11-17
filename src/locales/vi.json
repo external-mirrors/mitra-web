@@ -32,12 +32,6 @@
         },
         "edited": "đã chỉnh sửa",
         "replying_to": "trả lời",
-        "timestamp_minutes": "bây giờ | {n} phút trước | {n} phút trước",
-        "timestamp_hours": "{n} giờ trước | {n} giờ trước",
-        "timestamp_days": "{n} ngày trước | {n} ngày trước",
-        "timestamp_future_minutes": "bây giờ | trong {n} phút | trong {n} phút",
-        "timestamp_future_hours": "trong {n} giờ | trong {n} giờ",
-        "timestamp_future_days": "trong {n} ngày | trong {n} ngày",
         "sensitive_content": "Nội dung nhạy cảm",
         "hide_image": "Ẩn hình ảnh",
         "close_image": "Đóng",
@@ -234,5 +228,15 @@
         "posts": "Bài đăng",
         "default_post_visibility": "Cấp độ hiển thị bài đăng mặc định",
         "open_conversations_in_a_new_tab": "Mở cuộc hội thoại ở một thẻ mới"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "bây giờ | {n} phút trước | {n} phút trước",
+        "past_hours": "{n} giờ trước | {n} giờ trước",
+        "past_days": "{n} ngày trước | {n} ngày trước",
+        "future_minutes": "bây giờ | trong {n} phút | trong {n} phút",
+        "future_hours": "trong {n} giờ | trong {n} giờ",
+        "future_days": "trong {n} ngày | trong {n} ngày"
+      }
     }
 }

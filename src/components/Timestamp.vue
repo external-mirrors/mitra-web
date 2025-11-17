@@ -13,6 +13,7 @@ defineProps<{
   date: string,
 }>()
 
+const preset = "full"
 const currentTime = ref(DateTime.now())
 // Triggers re-render every 10 seconds
 const clock = setInterval(() => {
@@ -26,13 +27,13 @@ function humanizeDate(isoDate: string): string {
     const diff = date.diff(now)
     if (diff.as("minutes") < 60) {
       const minutes = Math.round(diff.as("minutes"))
-      return t("post.timestamp_future_minutes", { n: minutes }, minutes)
+      return t(`timestamp.${preset}.future_minutes`, { n: minutes }, minutes)
     } else if (diff.as("hours") < 24) {
       const hours = Math.round(diff.as("hours"))
-      return t("post.timestamp_future_hours", { n: hours }, hours)
+      return t(`timestamp.${preset}.future_hours`, { n: hours }, hours)
     } else if (diff.as("days") < 7) {
       const days = Math.round(diff.as("days"))
-      return t("post.timestamp_future_days", { n: days }, days)
+      return t(`timestamp.${preset}.future_days`, { n: days }, days)
     } else if (date.year === now.year) {
       return date.toLocaleString({ ...DateTime.DATE_MED, year: undefined })
     } else {
@@ -42,13 +43,13 @@ function humanizeDate(isoDate: string): string {
   const diff = now.diff(date)
   if (diff.as("minutes") < 60) {
     const minutes = Math.round(diff.as("minutes"))
-    return t("post.timestamp_minutes", { n: minutes }, minutes)
+    return t(`timestamp.${preset}.past_minutes`, { n: minutes }, minutes)
   } else if (diff.as("hours") < 24) {
     const hours = Math.round(diff.as("hours"))
-    return t("post.timestamp_hours", { n: hours }, hours)
+    return t(`timestamp.${preset}.past_hours`, { n: hours }, hours)
   } else if (diff.as("days") < 7) {
     const days = Math.round(diff.as("days"))
-    return t("post.timestamp_days", { n: days }, days)
+    return t(`timestamp.${preset}.past_days`, { n: days }, days)
   } else if (date.year === now.year) {
     return date.toLocaleString({ ...DateTime.DATE_MED, year: undefined })
   } else {

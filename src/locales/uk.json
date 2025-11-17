@@ -44,9 +44,6 @@
     },
     "post": {
         "next_page": "Показати більше дописів",
-        "timestamp_days": "{n} день тому | {n} днів тому",
-        "timestamp_hours": "{n} годину тому | {n} годин тому",
-        "timestamp_minutes": "щойно | {n} хвилину тому | {n} хвилин тому",
         "replying_to": "відповісти до",
         "load_replies": "Завантажити відповіді",
         "hide_image": "Приховати зображення",
@@ -96,9 +93,6 @@
             "visible_to_people_chosen_by_conversation_owner": "Видимий для людей, яких вибрав власник розмови",
             "visible_to_premium_subscribers": "Доступно для преміум-підписників"
         },
-        "timestamp_future_days": "за {n} день | за {n} днів",
-        "timestamp_future_hours": "за {n} годину | за {n} годин",
-        "timestamp_future_minutes": "зараз | за {n} хвилину | за {n} хвилин",
         "copy_object_id": "Скопіювати ID об'єкта"
     },
     "welcome": {
@@ -397,5 +391,15 @@
     "dialog": {
         "cancel": "Скасувати",
         "ok": "Гаразд"
+    },
+    "timestamp": {
+      "full": {
+        "past_days": "{n} день тому | {n} днів тому",
+        "past_hours": "{n} годину тому | {n} годин тому",
+        "past_minutes": "щойно | {n} хвилину тому | {n} хвилин тому",
+        "future_days": "за {n} день | за {n} днів",
+        "future_hours": "за {n} годину | за {n} годин",
+        "future_minutes": "зараз | за {n} хвилину | за {n} хвилин"
+      }
     }
 }

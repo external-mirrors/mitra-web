@@ -35,8 +35,6 @@
         },
         "featured": "Избранное",
         "replying_to": "Ответить на",
-        "timestamp_minutes": "сейчас |{n} минута назад |{n} минут назад",
-        "timestamp_days": "{n} день назад |{n} дней назад",
         "sensitive_content": "Деликатный контент",
         "hide_image": "Скрытое изображение",
         "close_image": "Закрыто",
@@ -61,7 +59,6 @@
         "copy_coin_address": "Скопировать адрес",
         "next_page": "Показать больше постов",
         "edited": "Отредактировано",
-        "timestamp_hours": "{n} час назад |{n} часов назад",
         "save_to_ipfs": "Сохранить в IPFS",
         "remove_bookmark": "Удалить закладку",
         "action_reposted": "Репостнул",
@@ -78,9 +75,6 @@
             "visible_to_people_chosen_by_conversation_owner": "Видно людям, выбранным владельцем беседы",
             "visible_to_mentioned_users": "Видно указанным пользователям"
         },
-        "timestamp_future_hours": "через {n} час | через {n} часов",
-        "timestamp_future_days": "через {n} день | через {n} дней",
-        "timestamp_future_minutes": "сейчас | через {n} минуту | через {n} минут",
         "copy_object_id": "Копировать идентификатор объекта",
         "source_is_not_available": "Источник недоступен"
     },
@@ -414,5 +408,15 @@
         "already_registered": "Уже зарегистрированы?",
         "sign_in": "Войти",
         "sign_up": "Зарегистрироваться"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "сейчас |{n} минута назад |{n} минут назад",
+        "past_days": "{n} день назад |{n} дней назад",
+        "past_hours": "{n} час назад |{n} часов назад",
+        "future_hours": "через {n} час | через {n} часов",
+        "future_days": "через {n} день | через {n} дней",
+        "future_minutes": "сейчас | через {n} минуту | через {n} минут"
+      }
     }
 }

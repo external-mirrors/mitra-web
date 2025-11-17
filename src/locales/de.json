@@ -47,9 +47,6 @@
     "post": {
         "next_page": "Mehr Beiträge anzeigen",
         "replying_to": "antwortend auf",
-        "timestamp_minutes": "jetzt | {n} vor einer Minute | {n} vor Minuten",
-        "timestamp_hours": "vor {n} Stunden | vor {n} Stunden",
-        "timestamp_days": "vor {n} Tagen | vor {n} Tagen",
         "load_replies": "Antworten laden",
         "remove_bookmark": "Lesezeichen entfernen",
         "save_to_ipfs": "Im IPFS speichern",
@@ -86,12 +83,9 @@
         "unmute_author": "Stummschaltung des Autors aufheben",
         "become_a_subscriber": "Abonnent werden",
         "send_coin": "{name} senden",
-        "timestamp_future_hours": "in {n} Stunde | in {n} Stunden",
-        "timestamp_future_days": "in {n} Tag | in {n} Tagen",
         "more": "Mehr",
         "subscribe": "abonnieren",
         "copy_coin_address": "Adresse kopieren",
-        "timestamp_future_minutes": "jetzt | in {n} Minute | in {n} Minuten",
         "source_is_not_available": "Die Quelle ist nicht verfügbar"
     },
     "welcome": {
@@ -332,6 +326,16 @@
         "duration_hour": "Stunde | Stunden",
         "duration_day": "Tag | Tage",
         "option": "Option {n}"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "jetzt | {n} vor einer Minute | {n} vor Minuten",
+        "past_hours": "vor {n} Stunden | vor {n} Stunden",
+        "past_days": "vor {n} Tagen | vor {n} Tagen",
+        "future_hours": "in {n} Stunde | in {n} Stunden",
+        "future_days": "in {n} Tag | in {n} Tagen",
+        "future_minutes": "jetzt | in {n} Minute | in {n} Minuten"
+      }
     },
     "dialog": {
         "cancel": "Abbrechen",

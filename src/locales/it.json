@@ -42,13 +42,7 @@
         "edit_post": "Modifica post",
         "next_page": "Mostra più post",
         "unmute_author": "Riattiva autore",
-        "timestamp_minutes": "adesso | {n} minuto fa | {n} minuti fa",
-        "timestamp_hours": "{n} ora fa | {n} ore fa",
-        "timestamp_days": "{n} giorno fa | {n} giorni fa",
-        "timestamp_future_minutes": "adesso | in {n} minuto | in {n} minuti",
-        "timestamp_future_hours": "in {n} ora | in {n} ore",
         "sensitive_content": "Contenuto sensibile",
-        "timestamp_future_days": "in {n} giorno | in {n} giorni",
         "copy_link_to_post": "Copia link al post",
         "delete_post": "Elimina post",
         "react_with_emoji": "Reagisci con un emoji",
@@ -115,5 +109,15 @@
         "post_not_found": "Post non trovato",
         "no_posts_found": "Nessun post trovato",
         "post_is_not_available": "Post non disponibile"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "adesso | {n} minuto fa | {n} minuti fa",
+        "past_hours": "{n} ora fa | {n} ore fa",
+        "past_days": "{n} giorno fa | {n} giorni fa",
+        "future_minutes": "adesso | in {n} minuto | in {n} minuti",
+        "future_hours": "in {n} ora | in {n} ore",
+        "future_days": "in {n} giorno | in {n} giorni"
+      }
     }
 }

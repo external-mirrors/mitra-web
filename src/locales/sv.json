@@ -31,13 +31,17 @@
     },
     "post": {
         "replying_to": "svara på",
-        "timestamp_minutes": "nu | {n} minut sedan | {n} minuter sedan",
-        "timestamp_hours": "{n} timme sedan | {n} timmar sedan",
-        "timestamp_days": "{n} dag sedan | {n} dagar sedan",
         "next_page": "Visa fler inlägg",
         "load_replies": "Ladda svar"
     },
     "misc": {
         "reload_page": "Ladda om sidan om några minuter"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "nu | {n} minut sedan | {n} minuter sedan",
+        "past_hours": "{n} timme sedan | {n} timmar sedan",
+        "past_days": "{n} dag sedan | {n} dagar sedan"
+      }
     }
 }

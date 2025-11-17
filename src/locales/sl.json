@@ -21,11 +21,8 @@
         "prompt": "O čem razmišljate?"
     },
     "post": {
-        "timestamp_hours": "pred {n} uro | pred {n} urami",
-        "timestamp_minutes": "zdaj | {n} pred minuto | {n} pred minutami",
         "replying_to": "odgovarjanje na",
         "next_page": "Pokaži več objav",
-        "timestamp_days": "pred {n} dnevi | pred {n} dnevi",
         "load_replies": "Naloži odgovore"
     },
     "welcome": {
@@ -39,5 +36,12 @@
     },
     "misc": {
         "reload_page": "Ponovno naložite stran v nekaj minutah"
+    },
+    "timestamp": {
+      "full": {
+        "past_hours": "pred {n} uro | pred {n} urami",
+        "past_minutes": "zdaj | {n} pred minuto | {n} pred minutami",
+        "past_days": "pred {n} dnevi | pred {n} dnevi"
+      }
     }
 }

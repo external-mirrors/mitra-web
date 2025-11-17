@@ -23,8 +23,6 @@
         "featured": "À la une",
         "edited": "modifié",
         "replying_to": "en réponse à",
-        "timestamp_hours": "il y a {n} heure | il y a {n} heures",
-        "timestamp_days": "il y a {n} jour | il y a {n} jours",
         "sensitive_content": "Contenu sensible",
         "hide_image": "Cacher l'image",
         "close_image": "Fermer",
@@ -55,11 +53,7 @@
         "copy_coin_address": "Copier l'adresse",
         "action_reposted": "a partagé",
         "next_page": "Montrer plus de publications",
-        "timestamp_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
         "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
-        "timestamp_future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
-        "timestamp_future_hours": "dans {n} heure | dans {n} heures",
-        "timestamp_future_days": "dans {n} jour | dans {n} jours",
         "copy_object_id": "Copier l'ID de l'objet",
         "source_is_not_available": "La source n'est pas disponible"
     },
@@ -409,5 +403,15 @@
         "already_registered": "Déjà enregistré ?",
         "sign_in": "Se connecter",
         "sign_up": "S'enregistrer"
+    },
+    "timestamp": {
+      "full": {
+        "past_hours": "il y a {n} heure | il y a {n} heures",
+        "past_days": "il y a {n} jour | il y a {n} jours",
+        "past_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
+        "future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
+        "future_hours": "dans {n} heure | dans {n} heures",
+        "future_days": "dans {n} jour | dans {n} jours"
+      }
     }
 }

@@ -25,10 +25,7 @@
         "prompt": "Co ci chodzi po głowie?"
     },
     "post": {
-        "timestamp_days": "{n} dni temu | {n} dni temuPokaż więcej postów",
-        "timestamp_hours": "{n} godzin temu | {n} godzin temu",
         "replying_to": "odpowiadając na",
-        "timestamp_minutes": "teraz | {n} minut temu | {n} minut temu",
         "next_page": "Pokaż więcej postów",
         "load_replies": "Załaduj odpowiedzi",
         "visibility": {
@@ -63,5 +60,12 @@
     },
     "profile": {
         "muted": "Wyciszono"
+    },
+    "timestamp": {
+      "full": {
+        "past_days": "{n} dni temu | {n} dni temuPokaż więcej postów",
+        "past_hours": "{n} godzin temu | {n} godzin temu",
+        "past_minutes": "teraz | {n} minut temu | {n} minut temu"
+      }
     }
 }

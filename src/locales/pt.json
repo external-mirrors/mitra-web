@@ -23,9 +23,6 @@
     "post": {
         "next_page": "Mostrar mais mensagens",
         "replying_to": "respondendo a",
-        "timestamp_minutes": "agora | {n} minutos atrás | {n} minutos atrás",
-        "timestamp_hours": "{n} horas atrás | {n} horas atrás",
-        "timestamp_days": "{n} dias atrás | {n} dias atrás",
         "load_replies": "Carregar respostas"
     },
     "welcome": {
@@ -39,5 +36,12 @@
     },
     "misc": {
         "reload_page": "Recarregar a página dentro de alguns minutos"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "agora | {n} minutos atrás | {n} minutos atrás",
+        "past_hours": "{n} horas atrás | {n} horas atrás",
+        "past_days": "{n} dias atrás | {n} dias atrás"
+      }
     }
 }

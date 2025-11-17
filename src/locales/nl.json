@@ -52,9 +52,6 @@
     },
     "post": {
         "replying_to": "in antwoord op",
-        "timestamp_minutes": "nu | {n} minuten geleden | {n} minuten geleden",
-        "timestamp_hours": "{n} uur geleden | {n} uur geleden",
-        "timestamp_days": "{n} dag geleden | {n} dagen geleden",
         "next_page": "Meer berichten tonen",
         "load_replies": "Antwoorden laden",
         "go_to_previous_post": "Ga naar het vorige bericht",
@@ -74,9 +71,6 @@
         },
         "featured": "Uitgelicht",
         "edited": "aangepast",
-        "timestamp_future_minutes": "nu | over {n} minuten | over {n} minuten",
-        "timestamp_future_hours": "over {n} uur | over {n} uur",
-        "timestamp_future_days": "over {n} dag | over {n} dagen",
         "sensitive_content": "Gevoelige inhoud",
         "hide_image": "Verberg afbeelding",
         "close_image": "Sluiten",
@@ -403,5 +397,15 @@
     "dialog": {
         "cancel": "Annuleren",
         "ok": "OK"
+    },
+    "timestamp": {
+      "full": {
+        "past_minutes": "nu | {n} minuten geleden | {n} minuten geleden",
+        "past_hours": "{n} uur geleden | {n} uur geleden",
+        "past_days": "{n} dag geleden | {n} dagen geleden",
+        "future_minutes": "nu | over {n} minuten | over {n} minuten",
+        "future_hours": "over {n} uur | over {n} uur",
+        "future_days": "over {n} dag | over {n} dagen"
+      }
     }
 }
