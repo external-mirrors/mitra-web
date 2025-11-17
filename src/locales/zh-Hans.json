@@ -319,7 +319,7 @@
         "enter_your_username": "输入你的用户名或联邦宇宙地址 (username{'@'}example.org)",
         "show_additional_payment_information": "显示更多信息",
         "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款：",
-        "subscription_expires_on": "订阅将于 {date} 到期‌",
+        "subscription_expires_on": "订阅将于 {date} 到期",
         "subscription_expired_on": "订阅已于 {date} 到期",
         "enter_your_fediverse_address": "输入您的联邦宇宙地址（用户名{'@'}example.org）"
     },

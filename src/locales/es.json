@@ -353,5 +353,15 @@
         "future_minutes": "ahora | en {n} minuto | en {n} minutos",
         "future_days": "en {n} dia | en {n} días"
       }
+    },
+    "admin": {
+        "delete_user": "Eliminar usuario",
+        "confirm_delete_user": "¿Estás seguro de que quieres eliminar {address}?. Esto no se puede deshacer."
+    },
+    "login": {
+        "learn_more": "Aprende más",
+        "explore": "Explorar",
+        "username": "Nombre de usuario",
+        "password": "Contraseña"
     }
 }
