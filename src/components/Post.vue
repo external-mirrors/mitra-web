@@ -1095,6 +1095,7 @@ $reaction-padding: 5px;
 
   .timestamp {
     color: var(--secondary-text-color);
+    word-spacing: -0.05em;
 
     &:hover {
       color: var(--secondary-text-hover-color);
