@@ -401,6 +401,14 @@
       "future_minutes": "now | in {n} minute | in {n} minutes",
       "future_hours": "in {n} hour | in {n} hours",
       "future_days": "in {n} day | in {n} days"
+    },
+    "short": {
+      "past_minutes": "now | {n}m | {n}m",
+      "past_hours": "{n}h | {n}h",
+      "past_days": "{n}d | {n}d",
+      "future_minutes": "now | in {n}m | in {n}m",
+      "future_hours": "in {n}h | in {n}h",
+      "future_days": "in {n}d | in {n}d"
     }
   },
   "dialog": {

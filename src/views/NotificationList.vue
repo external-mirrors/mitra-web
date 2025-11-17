@@ -91,7 +91,7 @@
           </profile-display-name>
           <div class="actor-address">{{ getActorHandle(notification.account) }}</div>
           <div class="timestamp">
-            <timestamp :date="notification.created_at"></timestamp>
+            <timestamp :date="notification.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
           </div>
         </router-link>
       </div>
@@ -131,6 +131,7 @@ import Post from "@/components/Post.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import Timestamp from "@/components/Timestamp.vue"
+import { useClientConfig } from "@/composables/client-config"
 import { useActorHandle } from "@/composables/handle"
 import { useNotifications } from "@/composables/notifications"
 import { useTitle } from "@/composables/title"
@@ -139,6 +140,7 @@ import { useCurrentUser } from "@/composables/user"
 const { t } = useI18n({ useScope: "global" })
 const { ensureAuthToken } = useCurrentUser()
 const { getActorHandle, getActorLocation } = useActorHandle()
+const { shortPostTimestamp } = useClientConfig()
 const {
   loadNotifications,
   notifications,

@@ -178,6 +178,16 @@
             >
             <label for="conversation-new-tab">{{ $t('settings.open_conversations_in_a_new_tab') }}</label>
           </div>
+          <div class="settings-checkbox">
+            <input
+              type="checkbox"
+              id="short-post-timestamp"
+              :checked="shortPostTimestamp"
+              @change="onToggleShortPostTimestamp"
+              :disabled="isLoading"
+            >
+            <label for="short-post-timestamp">Short post timestamp</label>
+          </div>
         </details>
       </section>
     </template>
@@ -219,6 +229,7 @@ const {
   ctrlEnterEnabled,
   conversationNewTab,
   defaultVisibility,
+  shortPostTimestamp,
   setClientConfigKey,
 } = useClientConfig()
 const {
@@ -277,6 +288,16 @@ async function onToggleConversationNewTab(event: Event) {
   const value = (event.target as HTMLInputElement).checked
   await setClientConfigKey(
     ConfigKey.ConversationNewTabEnabled,
+    value,
+  )
+  isLoading.value = false
+}
+
+async function onToggleShortPostTimestamp(event: Event) {
+  isLoading.value = true
+  const value = (event.target as HTMLInputElement).checked
+  await setClientConfigKey(
+    ConfigKey.ShortPostTimestamp,
     value,
   )
   isLoading.value = false

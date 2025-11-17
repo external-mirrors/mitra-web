@@ -13,6 +13,7 @@ export enum ConfigKey {
   DefaultVisibility = "defaultVisibility",
   CtrlEnterEnabled = "ctrlEnterEnabled",
   ConversationNewTabEnabled = "conversationNewTabEnabled",
+  ShortPostTimestamp = "shortPostTimestamp",
 }
 
 export function useClientConfig() {
@@ -63,6 +64,10 @@ export function useClientConfig() {
     return getClientConfigKeyOrDefault(ConfigKey.ConversationNewTabEnabled, false)
   })
 
+  const shortPostTimestamp = computed(() => {
+    return getClientConfigKeyOrDefault(ConfigKey.ShortPostTimestamp, false)
+  })
+
   const defaultVisibility = computed<Visibility>(() => {
     return getClientConfigKeyOrDefault(ConfigKey.DefaultVisibility, Visibility.Public)
   })
@@ -74,5 +79,6 @@ export function useClientConfig() {
     ctrlEnterEnabled,
     defaultVisibility,
     conversationNewTab,
+    shortPostTimestamp,
   }
 }

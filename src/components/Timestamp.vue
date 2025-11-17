@@ -9,11 +9,11 @@ import { useI18n } from "vue-i18n"
 
 const { locale, t } = useI18n({ useScope: "global" })
 
-defineProps<{
+const props = defineProps<{
   date: string,
+  preset?: "full" | "short",
 }>()
 
-const preset = "full"
 const currentTime = ref(DateTime.now())
 // Triggers re-render every 10 seconds
 const clock = setInterval(() => {
@@ -21,6 +21,7 @@ const clock = setInterval(() => {
 }, 5000)
 
 function humanizeDate(isoDate: string): string {
+  const preset = props.preset || "full"
   const date = DateTime.fromISO(isoDate).setLocale(locale.value)
   const now = currentTime.value
   if (now < date) {

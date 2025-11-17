@@ -66,11 +66,11 @@
         >
           <template #link-content v-if="inThread">
             <span @click.prevent="scrollTo(post.id)">
-              <timestamp :date="post.created_at"></timestamp>
+              <timestamp :date="post.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
             </span>
           </template>
           <template #link-content v-else>
-            <timestamp :date="post.created_at"></timestamp>
+            <timestamp :date="post.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
           </template>
         </universal-link>
       </div>
@@ -521,7 +521,7 @@ const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
 const { formatDateTime } = useDateTime()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { conversationNewTab, defaultVisibility } = useClientConfig()
+const { conversationNewTab, defaultVisibility, shortPostTimestamp } = useClientConfig()
 const { currentUser, ensureAuthToken, isAdmin } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
