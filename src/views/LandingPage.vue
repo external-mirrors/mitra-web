@@ -160,7 +160,7 @@
 import { computed, onMounted, ref, watch } from "vue"
 import { useRouter } from "vue-router"
 
-import { getAccessToken, AuthenticationMethod } from "@/api/oauth"
+import { AuthenticationMethod } from "@/api/oauth"
 import {
   createUser,
   getCurrentUser,
@@ -179,7 +179,7 @@ import {
 import { createMoneroCaip122Message } from "@/utils/monero"
 
 const router = useRouter()
-const { setCurrentUser, setAuthToken } = useCurrentUser()
+const { setCurrentUser, startSession } = useCurrentUser()
 const { getBlockchainInfo, instance } = useInstanceInfo()
 const { setPageTitle } = useTitle()
 
@@ -341,17 +341,15 @@ async function register() {
   }
   isLoading.value = true
   let user
-  let authToken
   try {
     user = await createUser(loginType.value, userData)
-    authToken = await getAccessToken(loginType.value, loginData)
+    await startSession(loginType.value, loginData)
   } catch (error: any) {
     isLoading.value = false
     loginErrorMessage.value = error.message
     return
   }
   setCurrentUser(user)
-  setAuthToken(authToken)
   isLoading.value = false
   router.push({ name: "home" })
 }
@@ -403,9 +401,8 @@ async function login() {
   }
   isLoading.value = true
   let user
-  let authToken
   try {
-    authToken = await getAccessToken(loginType.value, loginData)
+    const authToken = await startSession(loginType.value, loginData)
     user = await getCurrentUser(authToken)
   } catch (error: any) {
     isLoading.value = false
@@ -413,7 +410,6 @@ async function login() {
     return
   }
   setCurrentUser(user)
-  setAuthToken(authToken)
   isLoading.value = false
   router.push({ name: "home" })
 }

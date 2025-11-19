@@ -1,6 +1,26 @@
-import { BACKEND_URL } from "@/constants"
+import { APP_NAME, APP_VERSION, BACKEND_URL } from "@/constants"
 
 import { handleResponse, http } from "./common"
+
+interface OauthApp {
+  client_id: string,
+  client_secret: string,
+}
+
+export async function createOauthApp(): Promise<OauthApp> {
+  const url = `${BACKEND_URL}/api/v1/apps`
+  const response = await http(url, {
+    method: "POST",
+    json: {
+      client_name: `${APP_NAME} v${APP_VERSION}`,
+      redirect_uris: "urn:ietf:wg:oauth:2.0:oob",
+      scopes: "read write",
+      website: null,
+    },
+  })
+  const data = await handleResponse(response)
+  return data
+}
 
 export enum AuthenticationMethod {
   Password = "password",
@@ -8,7 +28,9 @@ export enum AuthenticationMethod {
   Caip122Monero = "caip122_monero",
 }
 
-interface LoginForm {
+export interface LoginForm {
+  client_id?: string,
+  client_secret?: string,
   username: string | null;
   password: string | null;
   message: string | null;

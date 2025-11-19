@@ -1,11 +1,19 @@
 import { ref } from "vue"
 
 import {
+  createOauthApp,
+  getAccessToken,
+  AuthenticationMethod,
+  LoginForm,
+} from "@/api/oauth"
+import {
   hasAdminPermissions,
   getCurrentUser,
   User,
 } from "@/api/users"
 
+const OAUTH_CLIENT_ID_KEY = "oauth_client_id"
+const OAUTH_CLIENT_SECRET_KEY = "oauth_client_secret"
 const AUTH_TOKEN_STORAGE_KEY = "auth_token"
 const AUTH_TOKEN_INVALID = "access token is invalid"
 
@@ -61,11 +69,37 @@ export function useCurrentUser() {
     return currentUser.value !== null
   }
 
+  async function startSession(
+    loginType: AuthenticationMethod,
+    loginData: LoginForm,
+  ): Promise<string> {
+    let clientId = localStorage.getItem(OAUTH_CLIENT_ID_KEY)
+    let clientSecret = localStorage.getItem(OAUTH_CLIENT_SECRET_KEY)
+    if (!clientId || !clientSecret) {
+      const oauthApp = await createOauthApp()
+      clientId = oauthApp.client_id
+      clientSecret = oauthApp.client_secret
+      localStorage.setItem(OAUTH_CLIENT_ID_KEY, clientId)
+      localStorage.setItem(OAUTH_CLIENT_SECRET_KEY, clientSecret)
+    }
+    loginData.client_id = clientId
+    loginData.client_secret = clientSecret
+    const token = await getAccessToken(loginType, loginData)
+    setAuthToken(token)
+    return token
+  }
+
   function endSession() {
     setCurrentUser(null)
     clearAuthToken()
-    // Also remove other local data
+    // Remove other local data, but keep OAauth client credentials
+    const clientId = localStorage.getItem(OAUTH_CLIENT_ID_KEY)
+    const clientSecret = localStorage.getItem(OAUTH_CLIENT_SECRET_KEY)
     localStorage.clear()
+    if (clientId && clientSecret) {
+      localStorage.setItem(OAUTH_CLIENT_ID_KEY, clientId)
+      localStorage.setItem(OAUTH_CLIENT_SECRET_KEY, clientSecret)
+    }
   }
 
   function isTokenValidationError(error: any): boolean {
@@ -92,6 +126,7 @@ export function useCurrentUser() {
     ensureAuthToken,
     setAuthToken,
     isAuthenticated,
+    startSession,
     endSession,
     isTokenValidationError,
     onInvalidAuthToken,
