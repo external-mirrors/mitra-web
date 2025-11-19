@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
+import { AuthenticationMethod } from "./oauth"
 
 export const EXTRA_FIELD_COUNT_MAX = 10
 
@@ -36,12 +37,6 @@ export enum Permissions {
   CreatePost = "create_post",
   DeleteAnyProfile = "delete_any_profile",
   ManageSubscriptionOptions = "manage_subscription_options",
-}
-
-export enum AuthenticationMethod {
-  Password = "password",
-  Eip4361 = "eip4361",
-  Caip122Monero = "caip122_monero",
 }
 
 export interface Profile {
@@ -171,42 +166,6 @@ export async function createUser(
   })
   const data = await handleResponse(response, 201)
   return data
-}
-
-interface LoginForm {
-  username: string | null;
-  password: string | null;
-  message: string | null;
-  signature: string | null;
-}
-
-export async function getAccessToken(
-  loginType: AuthenticationMethod,
-  loginData: LoginForm,
-): Promise<string> {
-  const url = `${BACKEND_URL}/oauth/token`
-  const tokenRequestData = {
-    grant_type: loginType,
-    ...loginData,
-  }
-  const response = await http(url, {
-    method: "POST",
-    json: tokenRequestData,
-  })
-  const data = await handleResponse(response)
-  return data.access_token
-}
-
-export async function revokeAccessToken(
-  authToken: string,
-): Promise<void> {
-  const url = `${BACKEND_URL}/oauth/revoke`
-  const response = await http(url, {
-    method: "POST",
-    authToken,
-    json: { token: authToken },
-  })
-  await handleResponse(response)
 }
 
 export async function getCurrentUser(authToken: string): Promise<User> {

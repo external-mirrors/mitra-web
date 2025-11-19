@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 import { handleResponse, http } from "./common"
-import { AuthenticationMethod, Profile } from "./users"
+import { AuthenticationMethod } from "./oauth"
+import { Profile } from "./users"
 
 interface Features {
   gate: boolean;

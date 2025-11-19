@@ -46,7 +46,7 @@
 import { computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 
-import { revokeAccessToken } from "@/api/users"
+import { revokeAccessToken } from "@/api/oauth"
 import IconBell from "@/assets/feather/bell.svg?component"
 import IconCommunity from "@/assets/tabler/building-community.svg?component"
 import IconGlobe from "@/assets/feather/globe.svg?component"

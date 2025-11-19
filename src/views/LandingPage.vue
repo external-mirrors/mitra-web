@@ -160,11 +160,10 @@
 import { computed, onMounted, ref, watch } from "vue"
 import { useRouter } from "vue-router"
 
+import { getAccessToken, AuthenticationMethod } from "@/api/oauth"
 import {
   createUser,
-  getAccessToken,
   getCurrentUser,
-  AuthenticationMethod,
 } from "@/api/users"
 import IconArrowLong from "@/assets/arrow_long.svg?component"
 import IconEthereum from "@/assets/forkawesome/ethereum.svg?component"
