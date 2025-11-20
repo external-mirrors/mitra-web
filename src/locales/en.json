@@ -352,6 +352,7 @@
     "show_additional_payment_information": "Show additional information",
     "payment_awaiting_response": "Awaiting response",
     "payment_waiting": "Waiting for payment ({n} minutes left)",
+    "payment_waiting_pluralized": "Waiting for payment | Waiting for payment ({n} minute left) | Waiting for payment ({n} minutes left)",
     "payment_processing": "Processing payment",
     "payment_timed_out": "Payment timed out",
     "payment_cancelled": "Payment cancelled",

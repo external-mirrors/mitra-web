@@ -148,7 +148,7 @@
           {{ $t('subscriptions.payment_awaiting_response') }}
         </template>
         <template v-else-if="invoice.status === 'open'">
-          {{ $t('subscriptions.payment_waiting', { n: getPaymentMinutesLeft(invoice) }) }}
+          {{ $t('subscriptions.payment_waiting_pluralized', { n: getPaymentMinutesLeft(invoice) }) }}
         </template>
         <template v-else-if="invoice.status === 'paid' || invoice.status === 'forwarded' || invoice.status === 'failed'">
           {{ $t('subscriptions.payment_processing') }}
@@ -576,7 +576,8 @@ function getPaymentMinutesLeft(invoice: Invoice): number {
   const expiresAt = DateTime.fromISO(invoice.expires_at)
   const now = DateTime.now()
   const diff = expiresAt.diff(now)
-  return Math.round(diff.as("minutes"))
+  const minutes = Math.round(diff.as("minutes"))
+  return minutes > 0 ? minutes : 0
 }
 </script>
 
