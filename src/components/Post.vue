@@ -1130,6 +1130,10 @@ $reaction-padding: 5px;
     color: var(--secondary-text-color);
   }
 
+  a.replying-to:hover {
+    color: var(--secondary-text-hover-color);
+  }
+
   .mention {
     @include block-link;
 
