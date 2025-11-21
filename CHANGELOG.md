@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Reduced space between words in post timestamp.
 - Updated translations ([#142](https://codeberg.org/silverpill/mitra-web/pulls/142)).
 
+### Fixed
+
+- Prevent display name in notification header from shrinking too much on small screens.
+
 ## [4.13.0] - 2025-11-13
 
 ### Added

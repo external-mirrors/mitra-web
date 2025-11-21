@@ -130,6 +130,7 @@
 @mixin post-action {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   font-weight: bold;
   margin: 0 $block-outer-padding calc($block-outer-padding / 2);
 
@@ -147,11 +148,12 @@
     }
   }
 
-  a {
+  .display-name-link {
     margin-right: $whitespace;
-    max-width: 50%;
+    max-width: calc(100% - $block-outer-padding * 2);
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
