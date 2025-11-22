@@ -146,6 +146,9 @@ async function onVote(): Promise<void> {
 
   label {
     @include emoji-inline;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
