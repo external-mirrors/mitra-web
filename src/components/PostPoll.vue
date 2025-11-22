@@ -161,6 +161,7 @@ async function onVote(): Promise<void> {
   @include block-btn;
 
   color: var(--secondary-text-color);
+  line-height: $line-height * 1.5;
 
   button[type="submit"] {
     margin-right: calc($block-inner-padding / 2);

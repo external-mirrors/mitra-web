@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Reduced space between words in post timestamp.
 - Updated translations ([#142](https://codeberg.org/silverpill/mitra-web/pulls/142)).
 - Change color of "replying to" element on hover.
+- Increased line height in poll footer.
 
 ### Fixed
 
