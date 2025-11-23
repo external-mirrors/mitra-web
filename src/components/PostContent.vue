@@ -201,6 +201,10 @@ function configureInlineLinks() {
     margin-inline-start: 1rem;
   }
 
+  :deep(table) {
+    word-break: break-all;
+  }
+
   :deep(td),
   :deep(th) {
     padding: $whitespace;

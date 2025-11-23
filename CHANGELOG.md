@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Prevent display name in notification header from shrinking too much on small screens.
 - Prevent overflow in poll options.
+- Prevent overflow in tables within a post.
 
 ## [4.13.0] - 2025-11-13
 
