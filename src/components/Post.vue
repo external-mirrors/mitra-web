@@ -1256,7 +1256,7 @@ $reaction-padding: 5px;
     font-family: monospace;
     font-size: 12px;
     line-height: $icon-size;
-    padding: 0 7px;
+    padding: 0 $widget-padding;
   }
 
   .icon svg {

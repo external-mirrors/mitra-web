@@ -41,7 +41,7 @@ function copyAddress() {
     font-family: monospace;
     font-size: 12px;
     max-width: 200px;
-    padding: 0 7px;
+    padding: 0 $widget-padding;
     width: 100%;
   }
 
@@ -50,7 +50,7 @@ function copyAddress() {
     border-top-right-radius: inherit;
     height: $icon-size;
     min-width: $icon-size;
-    padding: 3px 7px 3px 0;
+    padding: 3px $widget-padding 3px 0;
     width: $icon-size;
 
     svg {

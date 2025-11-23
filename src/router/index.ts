@@ -34,6 +34,7 @@ import ProfileForm from "@/views/ProfileForm.vue"
 import PostDetail from "@/views/PostDetail.vue"
 import PublicTimeline from "@/views/PublicTimeline.vue"
 import SettingsPage from "@/views/Settings.vue"
+import SettingsSessions from "@/views/SettingsSessions.vue"
 import TagTimeline from "@/views/TagTimeline.vue"
 import SearchResultList from "@/views/SearchResultList.vue"
 import SubscriberView from "@/views/Subscriber.vue"
@@ -271,6 +272,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings/move-followers",
     name: "move-followers",
     component: MoveFollowers,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/settings/sessions",
+    name: "settings-sessions",
+    component: SettingsSessions,
     meta: { onlyAuthenticated: true },
   },
   {

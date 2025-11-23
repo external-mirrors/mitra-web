@@ -16,6 +16,37 @@ export async function updateClientConfig(
   return data
 }
 
+export interface Session {
+  id: number,
+  client_name: string | null,
+  created_at: string,
+  is_current: boolean,
+}
+
+export async function getSessions(
+  authToken: string,
+): Promise<Session[]> {
+  const url = `${BACKEND_URL}/api/v1/settings/sessions`
+  const response = await http(url, {
+    method: "GET",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function terminateSession(
+  authToken: string,
+  sessionId: number,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/settings/sessions/${sessionId}`
+  const response = await http(url, {
+    method: "DELETE",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}
+
 export async function changePassword(
   authToken: string,
   newPassword: string,

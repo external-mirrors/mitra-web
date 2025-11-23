@@ -94,6 +94,12 @@
             <template v-if="index !== currentUser.authentication_methods.length - 1">, </template>
           </span>
         </div>
+        <router-link
+          class="active-sessions"
+          :to="{ name: 'settings-sessions' }"
+        >
+          {{ $t('settings.active_sessions') }}
+        </router-link>
         <h3>{{ $t('settings.change_password') }}</h3>
         <form @submit.prevent="onChangePassword()">
           <div class="input-group">
@@ -377,6 +383,12 @@ form {
 
 .authentication-methods {
   margin-bottom: $block-inner-padding;
+}
+
+.active-sessions {
+  display: inline-block;
+  margin-bottom: $block-inner-padding;
+  text-decoration: underline;
 }
 
 .password-form-message {

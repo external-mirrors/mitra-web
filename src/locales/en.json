@@ -262,6 +262,7 @@
     "authentication": "Authentication",
     "enabled_authentication_methods": "Enabled authentication methods:",
     "authentication_method_password": "password",
+    "active_sessions": "@:sessions.active_sessions",
     "change_password": "Change password",
     "new_password": "New password",
     "new_password_confirmation": "New password (confirmation)",
@@ -280,6 +281,15 @@
     "delete_account_confirm": "Are you sure you want to delete your account? This can not be undone.",
     "experiments": "Experiments",
     "experiments_summary": "This section contains experimental features. Use at your own risk."
+  },
+  "sessions": {
+    "active_sessions": "Active sessions",
+    "application": "Application",
+    "logged_in": "Logged in",
+    "unknown": "Unknown",
+    "current": "Current",
+    "terminate_session": "Terminate session",
+    "do_you_want_to_terminate_session": "Do you want to terminate session '{name}'?"
   },
   "gallery": {
     "gallery": "Gallery",
