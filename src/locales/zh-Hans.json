@@ -411,9 +411,17 @@
             "past_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
             "past_hours": "{n} 小时前 | {n} 小时前",
             "past_days": "{n} 天前 | {n} 天前",
-            "future_minutes": "现在 | 在 {n} 分钟内 | 在 {n} 分钟内",
-            "future_hours": "在 {n} 小时内 | 在 {n} 小时内",
-            "future_days": "在 {n} 天内 | 在 {n} 天内"
+            "future_minutes": "现在 | {n} 分钟后 | {n} 分钟后",
+            "future_hours": "{n} 小时后 | {n} 小时后",
+            "future_days": "{n} 天后 | {n} 天后"
+        },
+        "short": {
+            "past_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
+            "past_hours": "{n} 小时前 | {n} 小时前",
+            "past_days": "{n} 天前 | {n} 天前",
+            "future_minutes": "现在 | {n} 分钟后 | {n} 分钟后",
+            "future_hours": "{n} 小时后 | {n} 小时后",
+            "future_days": "{n} 天后 | {n} 天后"
         }
     }
 }
