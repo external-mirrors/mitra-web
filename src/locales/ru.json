@@ -72,11 +72,12 @@
             "visible_to_everyone": "Видно всем",
             "visible_to_followers": "Показать подписчикам",
             "visible_to_premium_subscribers": "Показать премиум-подписчикам",
-            "visible_to_people_chosen_by_conversation_owner": "Видно людям, выбранным владельцем беседы",
+            "visible_to_people_chosen_by_conversation_owner": "Видно людям выбранным владельцем беседы",
             "visible_to_mentioned_users": "Видно указанным пользователям"
         },
         "copy_object_id": "Копировать идентификатор объекта",
-        "source_is_not_available": "Источник недоступен"
+        "source_is_not_available": "Источник недоступен",
+        "reply_to_this_post_from_your_server": "Вы можете ответить на этот пост со своего сервера Федиверса: {url}"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -171,7 +172,8 @@
         "profile_with_handle": "Профиль - {handle}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Загрузить избранные посты",
-        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
+        "subscription_expires_on": "подписки @:subscriptions.subscription_expires_on",
+        "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -410,13 +412,21 @@
         "sign_up": "Зарегистрироваться"
     },
     "timestamp": {
-      "full": {
-        "past_minutes": "сейчас |{n} минута назад |{n} минут назад",
-        "past_days": "{n} день назад |{n} дней назад",
-        "past_hours": "{n} час назад |{n} часов назад",
-        "future_hours": "через {n} час | через {n} часов",
-        "future_days": "через {n} день | через {n} дней",
-        "future_minutes": "сейчас | через {n} минуту | через {n} минут"
-      }
+        "full": {
+            "past_minutes": "сейчас |{n} минута назад |{n} минут назад",
+            "past_days": "{n} день назад |{n} дней назад",
+            "past_hours": "{n} час назад |{n} часов назад",
+            "future_hours": "через {n} час | через {n} часов",
+            "future_days": "через {n} день | через {n} дней",
+            "future_minutes": "сейчас | через {n} минуту | через {n} минут"
+        },
+        "short": {
+            "past_minutes": "сейчас | {n}m | {n}m",
+            "past_hours": "{n}ч | {n}ч",
+            "past_days": "{n}д | {n}д",
+            "future_minutes": "сейчас | in {n}m | in {n}m",
+            "future_hours": "в {n}h | в {n}h",
+            "future_days": "в {n}d | в {n}d"
+        }
     }
 }
