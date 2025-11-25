@@ -295,7 +295,7 @@
             </component>
             <component
               class="stats-item"
-              v-if="isSubscriptionsFeatureEnabled()"
+              v-if="profile.subscribers_count > 0"
               :is="isCurrentUser() ? 'a' : 'span'"
               @click="isCurrentUser() && switchTab('subscribers')"
             >
@@ -444,7 +444,6 @@ import UniversalLink from "@/components/UniversalLink.vue"
 import { useDateTime } from "@/composables/date-time"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useActorHandle } from "@/composables/handle"
-import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
@@ -464,8 +463,7 @@ const {
 } = useCurrentUser()
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorHandle, getActorLocation } = useActorHandle()
-const { getBlockchainInfo } = useInstanceInfo()
-const { getSubscriptionLink, getSubscriptionOption } = useSubscribe()
+const { getSubscriptionLink } = useSubscribe()
 const { setPageTitle } = useTitle()
 
 const profileBioElement = ref<HTMLElement | null>(null)
@@ -883,11 +881,6 @@ async function onVerifyEthereumAddress() {
   }
 }
 
-function isSubscriptionsFeatureEnabled(): boolean {
-  const blockchain = getBlockchainInfo()
-  return Boolean(blockchain?.features.subscriptions)
-}
-
 const subscriptionPageLocation = computed(() => {
   if (!profile.value) {
     return null
@@ -906,8 +899,7 @@ function canSubscribe(): boolean {
 function canViewSubscriber(): boolean {
   return (
     currentUser.value !== null &&
-    !isCurrentUser() &&
-    getSubscriptionOption(currentUser.value) !== null
+    !isCurrentUser()
   )
 }
 

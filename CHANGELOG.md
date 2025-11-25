@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added icon to "Subscribe" button on profile page.
 - Added setting for shortening time unit in post timestamp.
 - Added session manager.
+- Allow to add subscribers when paid subscriptions are not enabled.
 
 ### Changed
 
