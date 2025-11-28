@@ -55,7 +55,8 @@
         "next_page": "Montrer plus de publications",
         "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
         "copy_object_id": "Copier l'ID de l'objet",
-        "source_is_not_available": "La source n'est pas disponible"
+        "source_is_not_available": "La source n'est pas disponible",
+        "reply_to_this_post_from_your_server": "Vous pouvez répondre à ce message depuis votre serveur Fédivers : {url}"
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -145,7 +146,8 @@
         "subscriber": "Souscript·eur·rice",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Charger les messages épinglés",
-        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on",
+        "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -405,13 +407,21 @@
         "sign_up": "S'enregistrer"
     },
     "timestamp": {
-      "full": {
-        "past_hours": "il y a {n} heure | il y a {n} heures",
-        "past_days": "il y a {n} jour | il y a {n} jours",
-        "past_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
-        "future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
-        "future_hours": "dans {n} heure | dans {n} heures",
-        "future_days": "dans {n} jour | dans {n} jours"
-      }
+        "full": {
+            "past_hours": "il y a {n} heure | il y a {n} heures",
+            "past_days": "il y a {n} jour | il y a {n} jours",
+            "past_minutes": "à l'instant | il y a {n} minute | il y a {n} minutes",
+            "future_minutes": "maintenant | dans {n} minute | dans {n} minutes",
+            "future_hours": "dans {n} heure | dans {n} heures",
+            "future_days": "dans {n} jour | dans {n} jours"
+        },
+        "short": {
+            "future_days": "dans {n}j | dans {n}j",
+            "past_minutes": "maintenant | {n}m | {n}m",
+            "past_hours": "{n}h | {n}h",
+            "past_days": "{n}j | {n}j",
+            "future_minutes": "maintenant | dans {n}m | dans {n}m",
+            "future_hours": "dans {n}h | dans {n}h"
+        }
     }
 }

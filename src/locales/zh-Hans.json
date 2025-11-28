@@ -103,7 +103,8 @@
             "visible_to_premium_subscribers": "高级订阅者可见"
         },
         "copy_object_id": "复制对象 ID",
-        "source_is_not_available": "来源不可用"
+        "source_is_not_available": "来源不可用",
+        "reply_to_this_post_from_your_server": "您可以从您的联邦宇宙服务器回复此帖文：{url}"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -173,7 +174,8 @@
         "view_custom_feeds": "查看自定义订阅源",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "加载精选帖文",
-        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on",
+        "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -405,13 +407,21 @@
         "sign_up": "注册"
     },
     "timestamp": {
-      "full": {
-        "past_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
-        "past_hours": "{n} 小时前 | {n} 小时前",
-        "past_days": "{n} 天前 | {n} 天前",
-        "future_minutes": "现在 | 在 {n} 分钟内 | 在 {n} 分钟内",
-        "future_hours": "在 {n} 小时内 | 在 {n} 小时内",
-        "future_days": "在 {n} 天内 | 在 {n} 天内"
-      }
+        "full": {
+            "past_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
+            "past_hours": "{n} 小时前 | {n} 小时前",
+            "past_days": "{n} 天前 | {n} 天前",
+            "future_minutes": "现在 | {n} 分钟后 | {n} 分钟后",
+            "future_hours": "{n} 小时后 | {n} 小时后",
+            "future_days": "{n} 天后 | {n} 天后"
+        },
+        "short": {
+            "past_minutes": "现在 | {n} 分钟前 | {n} 分钟前",
+            "past_hours": "{n} 小时前 | {n} 小时前",
+            "past_days": "{n} 天前 | {n} 天前",
+            "future_minutes": "现在 | {n} 分钟后 | {n} 分钟后",
+            "future_hours": "{n} 小时后 | {n} 小时后",
+            "future_days": "{n} 天后 | {n} 天后"
+        }
     }
 }
