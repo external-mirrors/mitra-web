@@ -19,12 +19,14 @@ export interface BlockchainInfo {
 }
 
 export interface InstanceInfo {
-  uri: string;
+  domain: string,
   title: string;
-  short_description: string;
-  description: string;
+  description: string,
+  extended_description: string,
   version: string;
-  registrations: boolean;
+  registrations: {
+    enabled: boolean,
+  },
   configuration: {
     statuses: {
       max_characters: number,
@@ -33,20 +35,24 @@ export interface InstanceInfo {
     media_attachments: {
       supported_mime_types: string[],
     },
+    timelines_access: {
+      live_feeds: {
+        local: string,
+      },
+    },
   },
-  contact_account: Profile | null,
+  contact: {
+    account: Profile | null,
+  },
   authentication_methods: AuthenticationMethod[],
   login_message: string;
-  allow_unauthenticated: {
-    timeline_local: boolean,
-  },
   federated_timeline_restricted: boolean,
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }
 
 export async function getInstanceInfo(): Promise<InstanceInfo> {
-  const url = `${BACKEND_URL}/api/v1/instance`
+  const url = `${BACKEND_URL}/api/v2/instance`
   const response = await http(url)
   const data = await handleResponse(response)
   return data

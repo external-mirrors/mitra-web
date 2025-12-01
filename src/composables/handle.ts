@@ -18,7 +18,7 @@ export function useActorHandle() {
     if (instance.value === null) {
       return `${profile.username}`
     }
-    return `${profile.username}@${instance.value.uri}`
+    return `${profile.username}@${instance.value.domain}`
   }
 
   function getActorHandle(profile: Profile | Mention): string {

@@ -4,7 +4,7 @@
       <div v-if="instance" class="instance-info">
         <h1 class="instance-title">{{ instance.title }}</h1>
         <div class="instance-description">
-          {{ instance.short_description }}
+          {{ instance.description }}
         </div>
         <router-link
           :to="{ name: 'about' }"
@@ -14,7 +14,7 @@
           <icon-arrow-long class="arrow"></icon-arrow-long>
         </router-link>
         <router-link
-          v-if="instance.allow_unauthenticated.timeline_local"
+          v-if="instance.configuration.timelines_access.live_feeds.local === 'public'"
           class="instance-link"
           :to="{ name: 'local' }"
         >
@@ -54,7 +54,7 @@
                 autocomplete="username"
                 :placeholder="$t('login.username')"
               >
-              <div class="addon">@{{ instance.uri }}</div>
+              <div class="addon">@{{ instance.domain }}</div>
             </div>
             <div
               v-if="!isUsernameValid()"
@@ -107,7 +107,7 @@
               placeholder="Signature"
             >
           </div>
-          <div class="form-control" v-if="!instance.registrations && !isRegistered">
+          <div class="form-control" v-if="!instance.registrations.enabled && !isRegistered">
             <input
               type="text"
               id="invite-token"
@@ -216,7 +216,7 @@ const moneroCaip122Message = computed(() => {
   }
   return createMoneroCaip122Message(
     moneroAddress.value,
-    instance.value.uri,
+    instance.value.domain,
     instance.value.login_message,
   )
 })
@@ -246,7 +246,7 @@ function isLoginFormValid(): boolean {
       return true
     }
   } else {
-    const inviteCodeValid = instance.value.registrations ? true : Boolean(inviteCode.value)
+    const inviteCodeValid = instance.value.registrations.enabled ? true : Boolean(inviteCode.value)
     if (!username.value || !isUsernameValid()) {
       return false
     }
@@ -289,7 +289,7 @@ async function register() {
     }
     const signedMessage = await createEip4361_SignedMessage(
       wallet,
-      instance.value.uri,
+      instance.value.domain,
       instance.value.login_message,
     )
     if (!signedMessage) {
@@ -363,7 +363,7 @@ async function login() {
     }
     const signedMessage = await createEip4361_SignedMessage(
       wallet,
-      instance.value.uri,
+      instance.value.domain,
       instance.value.login_message,
     )
     if (!signedMessage) {

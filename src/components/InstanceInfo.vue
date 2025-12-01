@@ -1,7 +1,7 @@
 <template>
   <div class="instance-info" v-if="instance">
     <h1 class="instance-title">{{ instance.title }}</h1>
-    <div class="instance-description">{{ instance.short_description }}</div>
+    <div class="instance-description">{{ instance.description }}</div>
     <router-link class="btn" :to="{ name: 'about' }">Learn more</router-link>
   </div>
 </template>

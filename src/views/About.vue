@@ -2,11 +2,11 @@
   <sidebar-layout v-if="currentUser && instance">
     <template #content>
       <h1>{{ instance.title }}</h1>
-      <div class="description static-text" v-html="instance.description"></div>
-      <template v-if="instance.contact_account">
+      <div class="description static-text" v-html="instance.extended_description"></div>
+      <template v-if="instance.contact.account">
         <h2 class="staff-header">{{ $t('about.administered_by') }}</h2>
-        <router-link :to="getActorLocation('profile', instance.contact_account)">
-          <profile-list-item :profile="instance.contact_account"></profile-list-item>
+        <router-link :to="getActorLocation('profile', instance.contact.account)">
+          <profile-list-item :profile="instance.contact.account"></profile-list-item>
         </router-link>
       </template>
       <details class="technical-info static-text">
@@ -20,11 +20,11 @@
   <static-page v-else-if="currentUser === null && instance" class="wide">
     <template #heading>{{ instance.title }}</template>
     <template #text>
-      <div class="description" v-html="instance.description"></div>
-      <template v-if="instance.contact_account">
+      <div class="description" v-html="instance.extended_description"></div>
+      <template v-if="instance.contact.account">
         <h2 class="staff-header">{{ $t('about.administered_by') }}</h2>
-        <router-link :to="getActorLocation('profile', instance.contact_account)">
-          <profile-list-item :profile="instance.contact_account"></profile-list-item>
+        <router-link :to="getActorLocation('profile', instance.contact.account)">
+          <profile-list-item :profile="instance.contact.account"></profile-list-item>
         </router-link>
       </template>
     </template>

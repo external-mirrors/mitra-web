@@ -96,10 +96,11 @@ const routes: Array<RouteRecordRaw> = [
       const { instance } = useInstanceInfo()
       if (
         currentUser.value !== null ||
-        instance.value?.allow_unauthenticated.timeline_local
+        instance.value?.configuration.timelines_access.live_feeds.local === "public"
       ) {
         return true
       }
+      // Redirect if not allowed to view
       return { name: "landing-page" }
     },
   },
