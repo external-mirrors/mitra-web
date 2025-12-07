@@ -997,10 +997,12 @@ $editor-line-height: 1.5;
     --loader-width: 2px;
   }
 
-  .icon.warning {
+  /* don't change on hover */
+  .icon.warning,
+  .icon.warning:hover {
     color: $warning-color;
 
-    svg {
+    svg.feather {
       stroke: $warning-color;
     }
   }
