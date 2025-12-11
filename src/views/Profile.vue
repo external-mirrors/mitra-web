@@ -262,6 +262,7 @@
                   class="verified-icon"
                   v-else
                   :title="$t('profile.verified')"
+                  @click.ctrl="removeIdentityProof(field)"
                 >
                   <icon-check></icon-check>
                 </div>
@@ -418,6 +419,7 @@ import {
 } from "@/api/relationships"
 import { getReceivedSubscriptions, Subscription } from "@/api/subscriptions-common"
 import {
+  deleteIdentityProof,
   getAliases,
   getProfile,
   isProfileImageEmpty,
@@ -967,6 +969,23 @@ async function updateIdentityProof(fieldName: string) {
     await onVerifyEthereumAddress()
   } else if (fieldName === "Key") {
     router.push({ name: "identity-proof" })
+  }
+}
+
+async function removeIdentityProof(field: ProfileField) {
+  if (!isCurrentUser()) {
+    return
+  }
+  if (confirm(t("profile.do_you_want_to_remove_this_identity_proof"))) {
+    const authToken = ensureAuthToken()
+    let did
+    if (field.name === "$ETH") {
+      did = `did:pkh:eip155:1:${field.value}`
+    } else {
+      did = `did:key:${field.value}`
+    }
+    const user = await deleteIdentityProof(authToken, did)
+    profile.value.identity_proofs = user.identity_proofs
   }
 }
 

@@ -282,6 +282,20 @@ export async function createIdentityProof(
   return data
 }
 
+export async function deleteIdentityProof(
+  authToken: string,
+  did: string,
+): Promise<User> {
+  const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
+  const response = await http(url, {
+    method: "DELETE",
+    json: { did: did },
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
 export interface Aliases {
   declared: Profile[],
   declared_all: { id: string, account: Profile | null }[],
