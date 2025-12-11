@@ -168,6 +168,7 @@
     "hide_replies": "Hide replies",
     "show_replies": "Show replies",
     "remove_from_followers": "Remove from followers",
+    "you_want_to_remove_from_followers": "Are you sure you want to remove {name} from followers?",
     "view_custom_feeds": "View custom feeds",
     "mute": "Mute",
     "unmute": "Unmute",

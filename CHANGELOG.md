@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Made follower removal confirmation translatable.
+
 ### Fixed
 
 - Don't change toggled content warning button on hover.

@@ -803,7 +803,7 @@ async function onRemoveFollower() {
   if (!currentUser.value || !profile.value) {
     return
   }
-  if (confirm(`Are you sure you want to remove ${profile.value.getDisplayName()} from followers?`)) {
+  if (confirm(t("profile.you_want_to_remove_from_followers", { name: profile.value.getDisplayName() }))) {
     relationship.value = await removeFollower(
       ensureAuthToken(),
       profile.value.id,
