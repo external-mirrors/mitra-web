@@ -147,7 +147,9 @@
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Charger les messages épinglés",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
-        "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}"
+        "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}",
+        "you_want_to_remove_from_followers": "Êtes-vous certain(e) de vouloir retirer {name} des abonnés ?",
+        "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
