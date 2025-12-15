@@ -59,13 +59,29 @@
         "reload_page": "Przeładuj stronę za kilka minut"
     },
     "profile": {
-        "muted": "Wyciszono"
+        "muted": "Wyciszono",
+        "you_want_to_remove_from_followers": "Czy na pewno chcesz usunąć {name} z obserwowanych?",
+        "view_custom_feeds": "Wyświetl niestandardowe kanały",
+        "mute": "Wycisz",
+        "unmute": "Cofnij wyciszenie",
+        "view_muted_users": "Pokaż wyciszone profile",
+        "copy_profile_id": "Kopiuj ID profilu",
+        "copy_actor_id": "Kopiuj ID aktora",
+        "load_latest_posts": "Wczytaj ostatnie posty",
+        "load_featured_posts": "Wczytaj polecane posty",
+        "edit_profile": "Edycja profilu",
+        "accept_follow_request": "Akceptuj prośbę o obserwowanie",
+        "reject_follow_request": "Odrzuć prośbę o obserwowanie",
+        "manually_approves_followers": "Ręczne akceptowanie obserwacji",
+        "follow": "Obserwuj",
+        "cancel_follow_request": "Anuluj prośbę o obserwowanie",
+        "unfollow": "Anuluj obserwację"
     },
     "timestamp": {
-      "full": {
-        "past_days": "{n} dni temu | {n} dni temuPokaż więcej postów",
-        "past_hours": "{n} godzin temu | {n} godzin temu",
-        "past_minutes": "teraz | {n} minut temu | {n} minut temu"
-      }
+        "full": {
+            "past_days": "{n} dni temu | {n} dni temuPokaż więcej postów",
+            "past_hours": "{n} godzin temu | {n} godzin temu",
+            "past_minutes": "teraz | {n} minut temu | {n} minut temu"
+        }
     }
 }
