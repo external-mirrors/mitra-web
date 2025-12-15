@@ -256,7 +256,7 @@ const passwordFormMessage = ref<string | null>(null)
 const isLoading = ref(false)
 
 function canManageSubscriptions(): boolean {
-  const blockchain = getBlockchainInfo()
+  const blockchain = getBlockchainInfo() // any available chain
   const isSubscriptionsFeatureEnabled = Boolean(blockchain?.features.subscriptions)
   return (
     isSubscriptionsFeatureEnabled &&

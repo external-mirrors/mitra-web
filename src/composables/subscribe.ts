@@ -28,7 +28,7 @@ export function useSubscribe() {
           location: option.href,
         }
       } else if (option.type === "monero-subscription") {
-        const blockchain = getBlockchainInfo()
+        const blockchain = getBlockchainInfo() // any available chain
         if (!option.object_id && !blockchain?.features.subscriptions) {
           // Local subscription option, but subscription feature is disabled
           continue

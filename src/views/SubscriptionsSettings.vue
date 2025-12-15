@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue"
+import { onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -21,13 +21,12 @@ const { t } = useI18n({ useScope: "global" })
 const { getBlockchainInfo } = useInstanceInfo()
 const { setPageTitle } = useTitle()
 
-const blockchain = computed(() => getBlockchainInfo())
-
 function isMonero(): boolean {
-  if (!blockchain.value) {
+  const blockchain = getBlockchainInfo() // any available chain
+  if (!blockchain) {
     return false
   }
-  return isMoneroChain(blockchain.value.chain_id)
+  return isMoneroChain(blockchain.chain_id)
 }
 
 onMounted(() => {

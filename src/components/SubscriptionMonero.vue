@@ -454,7 +454,7 @@ const paymentMessage = computed<string | null>(() => {
   if (!recipient.isLocal()) {
     return null
   }
-  const blockchain = getBlockchainInfo()
+  const blockchain = getBlockchainInfo() // any available chain
   if (blockchain && blockchain.chain_id === subscriptionProposal.value?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.description || null
   } else {
@@ -466,7 +466,7 @@ const paymentAmountMin = computed<number | null>(() => {
   if (subscriptionProposal.value?.amount_min) {
     return subscriptionProposal.value.amount_min
   }
-  const blockchain = getBlockchainInfo()
+  const blockchain = getBlockchainInfo() // any available chain
   if (blockchain && blockchain.chain_id === subscriptionProposal.value?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.payment_amount_min || 1000000000
   } else {

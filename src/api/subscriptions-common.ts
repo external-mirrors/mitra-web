@@ -35,6 +35,7 @@ export interface SubscriptionOption {
   chain_id: string | null;
   price: number | null;
   payout_address: string | null;
+  view_key: string | null,
 }
 
 export async function getSubscriptionOptions(

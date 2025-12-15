@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Remove identity proof when clicking on checkmark while pressing Ctrl.
+- Added support for direct Monero payments.
 
 ### Changed
 
