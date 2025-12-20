@@ -173,7 +173,8 @@
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Загрузить избранные посты",
         "subscription_expires_on": "подписки @:subscriptions.subscription_expires_on",
-        "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}"
+        "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}",
+        "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
