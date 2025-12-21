@@ -49,18 +49,18 @@ export function useSubscribe() {
     return null
   }
 
-  function getSubscriptionOption(
+  function getSubscriptionProposal(
     profile: Profile,
   ): ProfilePaymentOption | null {
     // Use first option if there are many
-    const subscriptionOption = profile.payment_options.find((option) => {
+    const option = profile.payment_options.find((option) => {
       return option.type === "monero-subscription"
     }) || null
-    return subscriptionOption
+    return option
   }
 
   return {
     getSubscriptionLink,
-    getSubscriptionOption,
+    getSubscriptionProposal,
   }
 }

@@ -34,7 +34,7 @@
       </button>
       <span class="sender-error">{{ senderError }}</span>
     </form>
-    <div class="info" v-if="subscriptionOption !== null && sender.id !== ''">
+    <div class="info" v-if="subscriptionProposal !== null && sender.id !== ''">
       <template v-if="subscriptionPrice">
         <div class="price">
           {{ subscriptionPrice }} XMR
@@ -239,12 +239,12 @@ const { getActorLocation } = useActorHandle()
 const { currentUser, ensureAuthToken } = useCurrentUser()
 const { formatDate } = useDateTime()
 const { getBlockchainInfo, getMoneroChainMetadata } = useInstanceInfo()
-const { getSubscriptionOption } = useSubscribe()
+const { getSubscriptionProposal } = useSubscribe()
 const recipient = new ProfileWrapper(props.profile)
 const senderAddress = ref("")
 const senderError = ref<string | null>(null)
 const sender = ref(new ProfileWrapper(currentUser.value || defaultProfile({ display_name: "You" })))
-const subscriptionOption = ref<ProfilePaymentOption | null>(null)
+const subscriptionProposal = ref<ProfilePaymentOption | null>(null)
 const subscriptionDetails = ref<SubscriptionDetails | null>(null)
 const relationship = ref<Relationship | null>(null)
 const paymentDurationInput = ref<number | "">(1)
@@ -261,13 +261,13 @@ function getInvoiceIdStorageKey(): string {
 
 onMounted(async () => {
   isLoading.value = true
-  const option = getSubscriptionOption(recipient)
+  const proposal = getSubscriptionProposal(recipient)
   if (
-    option !== null &&
-    option.chain_id !== undefined &&
-    isMoneroChain(option.chain_id)
+    proposal !== null &&
+    proposal.chain_id !== undefined &&
+    isMoneroChain(proposal.chain_id)
   ) {
-    subscriptionOption.value = option
+    subscriptionProposal.value = proposal
     if (sender.value.id !== "") {
       await loadSubscriptionDetails()
       if (subscriptionDetails.value === null && currentUser.value !== null) {
@@ -328,10 +328,10 @@ async function loadSubscriptionDetails() {
 
 // Human-readable subscription price
 const subscriptionPrice = computed<number | null>(() => {
-  if (!subscriptionOption.value?.price) {
+  if (!subscriptionProposal.value?.price) {
     return null
   }
-  return getPricePerMonth(subscriptionOption.value.price)
+  return getPricePerMonth(subscriptionProposal.value.price)
 })
 
 async function identifySender() {
@@ -390,7 +390,7 @@ function canSubscribe(): boolean {
   return (
     sender.value.id !== "" &&
     sender.value.id !== recipient.id &&
-    subscriptionOption.value !== null &&
+    subscriptionProposal.value !== null &&
     subscriptionPrice.value !== null &&
     invoice.value === null
   )
@@ -405,7 +405,7 @@ function editDuration() {
 }
 
 const paymentDuration = computed<number>(() => {
-  if (!subscriptionOption.value?.price) {
+  if (!subscriptionProposal.value?.price) {
     return 0
   }
   if (!isAmountEditable.value) {
@@ -418,7 +418,7 @@ const paymentDuration = computed<number>(() => {
     return 0
   }
   return getSubscriptionDuration(
-    subscriptionOption.value.price,
+    subscriptionProposal.value.price,
     parseXmrAmount(paymentAmountInput.value),
   )
 })
@@ -432,7 +432,7 @@ function editAmount() {
 }
 
 const paymentAmount = computed<number>(() => {
-  if (!subscriptionOption.value?.price) {
+  if (!subscriptionProposal.value?.price) {
     return 0
   }
   if (isAmountEditable.value) {
@@ -445,7 +445,7 @@ const paymentAmount = computed<number>(() => {
     return 0
   }
   return getPaymentAmount(
-    subscriptionOption.value.price,
+    subscriptionProposal.value.price,
     paymentDurationInput.value,
   )
 })
@@ -455,7 +455,7 @@ const paymentMessage = computed<string | null>(() => {
     return null
   }
   const blockchain = getBlockchainInfo()
-  if (blockchain && blockchain.chain_id === subscriptionOption.value?.chain_id) {
+  if (blockchain && blockchain.chain_id === subscriptionProposal.value?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.description || null
   } else {
     return null
@@ -463,11 +463,11 @@ const paymentMessage = computed<string | null>(() => {
 })
 
 const paymentAmountMin = computed<number | null>(() => {
-  if (subscriptionOption.value?.amount_min) {
-    return subscriptionOption.value.amount_min
+  if (subscriptionProposal.value?.amount_min) {
+    return subscriptionProposal.value.amount_min
   }
   const blockchain = getBlockchainInfo()
-  if (blockchain && blockchain.chain_id === subscriptionOption.value?.chain_id) {
+  if (blockchain && blockchain.chain_id === subscriptionProposal.value?.chain_id) {
     return getMoneroChainMetadata(blockchain)?.payment_amount_min || 1000000000
   } else {
     return null
@@ -487,7 +487,7 @@ async function onCreateInvoice() {
   if (paymentAmount.value === 0) {
     return
   }
-  if (!subscriptionOption.value?.chain_id) {
+  if (!subscriptionProposal.value?.chain_id) {
     return
   }
   isLoading.value = true
@@ -495,7 +495,7 @@ async function onCreateInvoice() {
     invoice.value = await createInvoice(
       sender.value.id,
       recipient.id,
-      subscriptionOption.value.chain_id,
+      subscriptionProposal.value.chain_id,
       paymentAmount.value,
     )
   } catch (error: any) {

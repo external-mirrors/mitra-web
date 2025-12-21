@@ -37,11 +37,11 @@ import { isMoneroChain } from "@/utils/cryptocurrencies"
 const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { authToken, currentUser } = useCurrentUser()
-const { getSubscriptionOption } = useSubscribe()
+const { getSubscriptionProposal } = useSubscribe()
 const { setPageTitle } = useTitle()
 
 const profile = ref<Profile | null>(null)
-const subscriptionOption = ref<ProfilePaymentOption | null>(null)
+const subscriptionProposal = ref<ProfilePaymentOption | null>(null)
 const isLoading = ref(true)
 
 onMounted(async () => {
@@ -75,15 +75,15 @@ onMounted(async () => {
   profile.value = _profile
   // The subscription page is displayed
   // even if current user matches `profile` (as a preview of actual page)
-  subscriptionOption.value = getSubscriptionOption(profile.value)
+  subscriptionProposal.value = getSubscriptionProposal(profile.value)
   isLoading.value = false
 })
 
 function isMonero(): boolean {
-  if (!subscriptionOption.value?.chain_id) {
+  if (!subscriptionProposal.value?.chain_id) {
     return false
   }
-  return isMoneroChain(subscriptionOption.value.chain_id)
+  return isMoneroChain(subscriptionProposal.value.chain_id)
 }
 </script>
 
