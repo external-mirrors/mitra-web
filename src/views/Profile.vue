@@ -973,7 +973,7 @@ async function updateIdentityProof(fieldName: string) {
 }
 
 async function removeIdentityProof(field: ProfileField) {
-  if (!isCurrentUser()) {
+  if (!profile.value || !isCurrentUser()) {
     return
   }
   if (confirm(t("profile.do_you_want_to_remove_this_identity_proof"))) {
