@@ -4,8 +4,6 @@ import { AuthenticationMethod } from "./oauth"
 import { Profile } from "./users"
 
 interface Features {
-  gate: boolean;
-  minter: boolean;
   subscriptions: boolean;
 }
 

@@ -180,7 +180,7 @@ import { createMoneroCaip122Message } from "@/utils/monero"
 
 const router = useRouter()
 const { setCurrentUser, startSession } = useCurrentUser()
-const { getBlockchainInfo, instance } = useInstanceInfo()
+const { instance } = useInstanceInfo()
 const { setPageTitle } = useTitle()
 
 const isRegistered = ref(true)
@@ -193,20 +193,9 @@ const loginType = ref<AuthenticationMethod>(AuthenticationMethod.Password)
 const isLoading = ref(false)
 const loginErrorMessage = ref<string | null>(null)
 
-function isWalletRequired(): boolean {
-  if (!instance.value) {
-    return false
-  }
-  const blockchain = getBlockchainInfo()
-  return Boolean(blockchain?.features.gate)
-}
-
 const allowedAuthenticationMethods = computed(() => {
   if (!instance.value) {
     return []
-  }
-  if (isWalletRequired()) {
-    return [AuthenticationMethod.Eip4361]
   }
   return instance.value.authentication_methods
 })
@@ -214,10 +203,9 @@ const allowedAuthenticationMethods = computed(() => {
 watch(instance, () => {
   if (
     allowedAuthenticationMethods.value.includes(AuthenticationMethod.Eip4361) &&
-    (hasEthereumWallet() || isWalletRequired())
+    (hasEthereumWallet())
   ) {
-    // Switch to EIP-4361 if wallet is present or
-    // if registration is token-gated
+    // Switch to EIP-4361 if wallet is present
     loginType.value = AuthenticationMethod.Eip4361
   }
 }, { immediate: true })
