@@ -14,6 +14,7 @@ export function replaceTextNodes(
   }
   const allowedTags = [
     "i",
+    "span",
     "p",
     "h1",
     "h2",
