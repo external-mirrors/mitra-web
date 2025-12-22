@@ -175,7 +175,9 @@
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "加载精选帖文",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
-        "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}"
+        "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}",
+        "you_want_to_remove_from_followers": "是否确定要从粉丝中移除 {name}？",
+        "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -255,7 +257,8 @@
         "migrate_account": "迁移账号",
         "default_post_visibility": "默认帖文可见性",
         "open_conversations_in_a_new_tab": "在新标签页中打开对话",
-        "posts": "帖文"
+        "posts": "帖文",
+        "active_sessions": "@:sessions.active_sessions"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",
@@ -323,7 +326,8 @@
         "subscribers_can_pay": "订阅者可以访问你的个人订阅页面并付款：",
         "subscription_expires_on": "订阅将于 {date} 到期",
         "subscription_expired_on": "订阅已于 {date} 到期",
-        "enter_your_fediverse_address": "输入您的联邦宇宙地址（用户名{'@'}example.org）"
+        "enter_your_fediverse_address": "输入您的联邦宇宙地址（用户名{'@'}example.org）",
+        "payment_waiting_pluralized": "等待支付 | 等待支付（剩余 {n} 分钟） | 等待支付（剩余 {n} 分钟）"
     },
     "custom_feeds": {
         "create_feed": "创建订阅源",
@@ -423,5 +427,14 @@
             "future_hours": "{n} 小时后 | {n} 小时后",
             "future_days": "{n} 天后 | {n} 天后"
         }
+    },
+    "sessions": {
+        "active_sessions": "活跃会话",
+        "application": "应用程序",
+        "logged_in": "已登录",
+        "unknown": "未知",
+        "current": "当前",
+        "terminate_session": "终止会话",
+        "do_you_want_to_terminate_session": "是否要终止会话“{name}”？"
     }
 }

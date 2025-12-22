@@ -147,7 +147,9 @@
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Charger les messages épinglés",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
-        "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}"
+        "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}",
+        "you_want_to_remove_from_followers": "Êtes-vous certain(e) de vouloir retirer {name} des abonnés ?",
+        "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -206,7 +208,8 @@
         "migrate_account": "Migrer le compte",
         "default_post_visibility": "Visibilité par défaut",
         "posts": "Messages",
-        "open_conversations_in_a_new_tab": "Ouvrir les conversations dans un nouvel onglet"
+        "open_conversations_in_a_new_tab": "Ouvrir les conversations dans un nouvel onglet",
+        "active_sessions": "@:sessions.active_sessions"
     },
     "custom_feeds": {
         "delete_feed": "Supprimer le flux",
@@ -275,7 +278,8 @@
         "subscription_expires": "Expiration souscription {date}",
         "subscription_expires_on": "La souscription expirera le {date}",
         "subscription_expired_on": "La souscription a expiré le {date}",
-        "enter_your_fediverse_address": "Saisissez votre adresse du Fédivers (utilisateur{'@'}exemple.org}"
+        "enter_your_fediverse_address": "Saisissez votre adresse du Fédivers (utilisateur{'@'}exemple.org}",
+        "payment_waiting_pluralized": "En attente de paiement | En attente de paiement (encore {n} minute) | En attente de paiement (encore {n} minutes)"
     },
     "navigation": {
         "home": "Accueil",
@@ -423,5 +427,14 @@
             "future_minutes": "maintenant | dans {n}m | dans {n}m",
             "future_hours": "dans {n}h | dans {n}h"
         }
+    },
+    "sessions": {
+        "active_sessions": "Sessions actives",
+        "application": "Application",
+        "logged_in": "Date de connexion",
+        "unknown": "Inconnue",
+        "current": "Actuelle",
+        "terminate_session": "Déconnecter",
+        "do_you_want_to_terminate_session": "Voulez-vous déconnecter la session '{name}' ?"
     }
 }

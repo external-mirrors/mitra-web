@@ -173,7 +173,8 @@
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "load_featured_posts": "Загрузить избранные посты",
         "subscription_expires_on": "подписки @:subscriptions.subscription_expires_on",
-        "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}"
+        "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}",
+        "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -256,7 +257,8 @@
         "migrate_account": "Перенести аккаунт",
         "default_post_visibility": "Видимость поста по умолчанию",
         "posts": "Посты",
-        "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке"
+        "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке",
+        "active_sessions": "@:sessions.active_sessions"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",
@@ -324,7 +326,8 @@
         "grant": "Награда",
         "subscription_expires_on": "Подписка заканчивается {date}",
         "subscription_expired_on": "Подписка истекла {date}",
-        "enter_your_fediverse_address": "Введите свой адрес Fediverse (username{'@'}example.org)"
+        "enter_your_fediverse_address": "Введите свой адрес Fediverse (username{'@'}example.org)",
+        "payment_waiting_pluralized": "Ожидание оплаты | Ожидание оплаты ({n} осталась минута) | Ожидание оплаты ({n} осталось минут)"
     },
     "misc": {
         "reload_page": "Перезагрузите страницу через несколько минут"
@@ -428,5 +431,14 @@
             "future_hours": "в {n}h | в {n}h",
             "future_days": "в {n}d | в {n}d"
         }
+    },
+    "sessions": {
+        "active_sessions": "Активные сеансы",
+        "application": "Приложение",
+        "logged_in": "Вошёл в систему",
+        "unknown": "Неизвестный",
+        "current": "Текущий",
+        "terminate_session": "Завершить сеанс",
+        "do_you_want_to_terminate_session": "Вы хотите завершить сеанс '{name}'?"
     }
 }
