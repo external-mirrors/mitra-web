@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Made follower removal confirmation translatable.
 - Display custom emojis in greentext.
+- Updated translations ([#146](https://codeberg.org/silverpill/mitra-web/pulls/146)).
 
 ### Removed
 
