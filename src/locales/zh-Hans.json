@@ -327,7 +327,10 @@
         "subscription_expires_on": "订阅将于 {date} 到期",
         "subscription_expired_on": "订阅已于 {date} 到期",
         "enter_your_fediverse_address": "输入您的联邦宇宙地址（用户名{'@'}example.org）",
-        "payment_waiting_pluralized": "等待支付 | 等待支付（剩余 {n} 分钟） | 等待支付（剩余 {n} 分钟）"
+        "payment_waiting_pluralized": "等待支付 | 等待支付（剩余 {n} 分钟） | 等待支付（剩余 {n} 分钟）",
+        "payment_type": "支付类型",
+        "monero_forwarded": "转发式",
+        "monero_direct_requires_a_view_key": "直接式（需要查看密钥）"
     },
     "custom_feeds": {
         "create_feed": "创建订阅源",
