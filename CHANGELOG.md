@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Use Instance API v2.
+- Change "Publish" to "Send" if post visibility is "Direct".
 
 ## [4.15.0] - 2025-12-22
 

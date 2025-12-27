@@ -277,6 +277,7 @@
             @click.prevent="publish()"
           >
             <template v-if="repostOf">{{ $t('post_editor.repost') }}</template>
+            <template v-else-if="visibility === Visibility.Direct">{{ $t('post_editor.send') }}</template>
             <template v-else>{{ $t('post_editor.publish') }}</template>
           </button>
         </div>
@@ -298,6 +299,7 @@
         @click.prevent="publish()"
       >
         <template v-if="post">{{ $t('post_editor.update') }}</template>
+        <template v-else-if="visibility === Visibility.Direct">{{ $t('post_editor.send') }}</template>
         <template v-else>{{ $t('post_editor.publish') }}</template>
       </button>
     </div>
@@ -321,6 +323,7 @@ import {
   uploadAttachment,
   Attachment,
   Post,
+  Visibility,
 } from "@/api/posts"
 import { searchProfilesByAcct } from "@/api/search"
 import { Mention, Profile } from "@/api/users"
