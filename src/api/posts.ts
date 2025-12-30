@@ -92,6 +92,7 @@ export interface Post {
   favourited: boolean;
   reblogged: boolean;
   bookmarked: boolean,
+  conversation_tracking: "normal" | "follow" | null,
 
   pleroma: {
     emoji_reactions: PleromaEmojiReaction[],
@@ -299,6 +300,7 @@ export async function previewPost(
     favourited: false,
     reblogged: false,
     bookmarked: false,
+    conversation_tracking: null,
     pleroma: {
       emoji_reactions: [],
       in_reply_to_account_acct: null,
@@ -532,6 +534,21 @@ export async function unpinPost(
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/unpin`
   const response = await http(url, { method: "POST", authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function changeConversationTrackingStatus(
+  authToken: string,
+  postId: string,
+  trackingStatus: "normal" | "follow",
+): Promise<Post> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/conversation_tracking`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { status: trackingStatus },
+  })
   const data = await handleResponse(response)
   return data
 }

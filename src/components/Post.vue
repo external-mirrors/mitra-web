@@ -345,6 +345,24 @@
               <span>{{ $t('post.unmute_author') }}</span>
             </button>
           </li>
+          <li v-if="canFollowConversation()">
+            <button
+              class="icon"
+              @click="onChangeConversationTrackingStatus('follow')"
+            >
+              <icon-follow></icon-follow>
+              <span>{{ $t('post.follow_conversation') }}</span>
+            </button>
+          </li>
+          <li v-if="canUnfollowConversation()">
+            <button
+              class="icon"
+              @click="onChangeConversationTrackingStatus('normal')"
+            >
+              <icon-unfollow></icon-unfollow>
+              <span>{{ $t('post.unfollow_conversation') }}</span>
+            </button>
+          </li>
           <li v-if="isAdmin()" role="separator"></li>
           <li v-if="isAdmin()">
             <a
@@ -457,6 +475,7 @@ import {
   getReactionEmoji,
   createReaction,
   deleteReaction,
+  changeConversationTrackingStatus,
   makePermanent,
   Post,
   Visibility,
@@ -471,6 +490,8 @@ import {
 } from "@/api/users"
 import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
 import IconEdit from "@/assets/feather/edit-3.svg?component"
+import IconFollow from "@/assets/tabler/news.svg?component"
+import IconUnfollow from "@/assets/tabler/news-off.svg?component"
 import IconLink from "@/assets/feather/link.svg?component"
 import IconMore from "@/assets/feather/more-horizontal.svg?component"
 import IconRefresh from "@/assets/feather/refresh-ccw.svg?component"
@@ -925,6 +946,26 @@ function canUnmute(): boolean {
 async function onUnmute() {
   const authToken = ensureAuthToken()
   props.post.relationship = await unmute(authToken, props.post.account.id)
+}
+
+function canFollowConversation(): boolean {
+  return (
+    currentUser.value !== null
+    && props.post.conversation_tracking === "normal"
+  )
+}
+
+function canUnfollowConversation(): boolean {
+  return (
+    currentUser.value !== null
+    && props.post.conversation_tracking === "follow"
+  )
+}
+
+async function onChangeConversationTrackingStatus(status: "normal" | "follow") {
+  const authToken = ensureAuthToken()
+  const { conversation_tracking } = await changeConversationTrackingStatus(authToken, props.post.id, status)
+  props.post.conversation_tracking = conversation_tracking
 }
 
 function canLoadConversation(): boolean {
