@@ -40,7 +40,8 @@
         "edit_description": "编辑描述",
         "from_url": "从 URL",
         "upload_from_a_url": "从 URL 上传",
-        "upload": "上传"
+        "upload": "上传",
+        "send": "发送"
     },
     "about": {
         "administered_by": "管理员",
