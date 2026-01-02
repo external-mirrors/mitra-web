@@ -29,7 +29,7 @@ import { Post } from "@/api/posts"
 import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 import { addGreentext } from "@/utils/greentext"
-import { replaceTextNodes } from "@/utils/html"
+import { htmlToText, replaceTextNodes } from "@/utils/html"
 
 const POST_CONTENT_LIMIT = 1500
 
@@ -42,7 +42,7 @@ const props = defineProps<{
   collapse?: boolean,
 }>()
 
-const collapsed = ref(props.collapse && props.post.content.length > POST_CONTENT_LIMIT)
+const collapsed = ref(props.collapse && htmlToText(props.post.content).length > POST_CONTENT_LIMIT)
 const postContentElement = ref<HTMLElement | null>(null)
 
 onMounted(() => {
