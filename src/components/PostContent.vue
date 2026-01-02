@@ -1,9 +1,23 @@
 <template>
   <div
     class="post-content"
-    ref="postContentElement"
-    v-html="post.content"
-  ></div>
+    :class="{ collapsed }"
+  >
+    <div
+      v-if="collapsed"
+      class="post-content-overlay"
+      @click.stop.prevent="collapsed = false"
+    >
+      <button type="button">
+        {{ $t('post.show_more') }}
+      </button>
+    </div>
+    <div
+      class="post-content-html"
+      ref="postContentElement"
+      v-html="post.content"
+    ></div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -17,14 +31,18 @@ import { useCurrentUser } from "@/composables/user"
 import { addGreentext } from "@/utils/greentext"
 import { replaceTextNodes } from "@/utils/html"
 
+const POST_CONTENT_LIMIT = 1500
+
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { currentUser } = useCurrentUser()
 
 const props = defineProps<{
   post: Post,
+  collapse?: boolean,
 }>()
 
+const collapsed = ref(props.collapse && props.post.content.length > POST_CONTENT_LIMIT)
 const postContentElement = ref<HTMLElement | null>(null)
 
 onMounted(() => {
@@ -117,6 +135,38 @@ function configureInlineLinks() {
 @import "../styles/mixins";
 
 .post-content {
+  position: relative;
+
+  &.collapsed {
+    max-height: 30em;
+    overflow: hidden;
+
+    .post-content-html {
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+      max-height: inherit;
+    }
+  }
+}
+
+.post-content-overlay {
+  align-items: end;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  width: calc(100% - 2 * $block-inner-padding);
+  z-index: 1;
+
+  button {
+    background-color: var(--widget-background-color);
+    border-radius: $btn-border-radius;
+    margin-bottom: $input-padding;
+    padding: $input-padding;
+  }
+}
+
+.post-content-html {
   color: var(--text-color);
   line-height: 1.5;
   text-align: initial;

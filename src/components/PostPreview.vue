@@ -23,7 +23,11 @@
         <timestamp :date="post.created_at"></timestamp>
       </span>
     </div>
-    <post-content v-if="post.content" :post="post"></post-content>
+    <post-content
+      v-if="post.content"
+      :post="post"
+      :collapse="true"
+    ></post-content>
     <post-poll
       v-if="post.poll"
       :poll="post.poll"

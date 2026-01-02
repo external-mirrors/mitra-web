@@ -102,21 +102,12 @@
         </template>
       </universal-link>
     </div>
-    <div
-      class="post-content-wrapper"
-      :class="{ trimmed: contentTrimmed }"
+    <post-content
+      v-if="post.content"
+      :post="post"
+      :collapse="!inThread"
     >
-      <div
-        v-if="contentTrimmed"
-        class="post-content-overlay"
-        @click="contentTrimmed = false"
-      >
-        <button type="button">
-          {{ $t('post.show_more') }}
-        </button>
-      </div>
-      <post-content v-if="post.content" :post="post"></post-content>
-    </div>
+    </post-content>
     <post-poll
       v-if="post.poll"
       :poll="post.poll"
@@ -545,8 +536,6 @@ import { useCurrentUser } from "@/composables/user"
 import { useVisibility } from "@/composables/visibility"
 import { getCurrencyByLabel, Currency, MONERO } from "@/utils/cryptocurrencies"
 
-const POST_CONTENT_LIMIT = 1500
-
 interface PaymentOption {
   code: string;
   name: string;
@@ -577,7 +566,6 @@ const emit = defineEmits<{
   (event: "post-deleted"): void,
 }>()
 
-const contentTrimmed = ref(!props.inThread && props.post.content.length > POST_CONTENT_LIMIT)
 const replyFormVisible = ref(false)
 const repostFormVisible = ref(false)
 const editorVisible = ref(false)
@@ -1200,33 +1188,9 @@ $reaction-padding: 5px;
   }
 }
 
-.post-content-wrapper {
+.post-content {
   margin: $block-inner-padding 0;
   padding: 0 $block-inner-padding;
-  position: relative;
-
-  &.trimmed {
-    max-height: 30em;
-    overflow: hidden;
-  }
-}
-
-.post-content-overlay {
-  align-items: end;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 75%, var(--block-background-color) 100%);
-  cursor: pointer;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  position: absolute;
-  width: calc(100% - 2 * $block-inner-padding);
-  z-index: 1;
-
-  button {
-    background-color: var(--widget-background-color);
-    border-radius: $btn-border-radius;
-    padding: $input-padding;
-  }
 }
 
 .post-poll {
