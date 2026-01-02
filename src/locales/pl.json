@@ -22,7 +22,24 @@
         "publish": "Publikować",
         "prompt_repost": "Twój komentarz",
         "prompt_reply": "Twoja odpowiedź",
-        "prompt": "Co ci chodzi po głowie?"
+        "prompt": "Co ci chodzi po głowie?",
+        "attach_file": "Załącz plik",
+        "upload": "Prześlij",
+        "from_url": "Z adresu URL",
+        "upload_from_a_url": "Prześlij z URL",
+        "remove_attachment": "Usuń załącznik",
+        "edit_description": "Edycja opisu",
+        "enter_image_description": "Wprowadź opis obrazu",
+        "save_image_description": "Zapis",
+        "add_poll": "Dodaj sondę",
+        "remove_poll": "Usuń sondę",
+        "change_visibility": "Zmień widoczność",
+        "visibility_can_not_be_changed": "Widoczność nie może być zmieniona",
+        "remove_content_warning": "Usuń ostrzeżenie treści",
+        "add_content_warning": "Dodaj ostrzeżenie treści",
+        "insert_emoji": "Wstaw emotkę",
+        "characters_left": "Zostało znaków",
+        "toggle_preview": "Przełącz podgląd"
     },
     "post": {
         "replying_to": "odpowiadając na",
@@ -44,7 +61,40 @@
         },
         "go_to_previous_post": "Poprzedni post",
         "featured": "Wyróżniony",
-        "edited": "edytowany"
+        "edited": "edytowany",
+        "sensitive_content": "Treści wrażliwe",
+        "hide_image": "Ukryj obraz",
+        "close_image": "Zamknij",
+        "view_replies": "Pokaż odpowiedzi",
+        "view_conversation": "Pokaż rozmowę",
+        "reply": "Odpowiedz",
+        "reply_to_this_post_from_your_server": "Możesz odpowiedzieć na ten post ze swojego serwera Fediwersum: {url}",
+        "delete_repost": "Usuń repost",
+        "repost": "Repostuj",
+        "unlike": "Odlub",
+        "like": "Polub",
+        "react_with_emoji": "Reaguj emotką",
+        "saved_to_ipfs": "Zapis do IPFS",
+        "more": "Więcej",
+        "copy_link_to_post": "Skopiuj link do postu",
+        "copy_object_id": "Skopiuj ID obiektu",
+        "add_to_featured": "Dodaj do polecanych",
+        "remove_from_featured": "Usuń z polecanych",
+        "save_to_ipfs": "Zapisz do IPFS",
+        "bookmark": "Zakładka",
+        "remove_bookmark": "Usuń zakładkę",
+        "repost_with_comment": "Repostuj z komentarzem",
+        "edit_post": "Edycja posta",
+        "source_is_not_available": "Źródło nie jest dostępne",
+        "delete_post": "Usuń posta",
+        "confirm_delete_this_post": "Czy na pewno chcesz usunąć ten post?",
+        "mute_author": "Wycisz autora",
+        "unmute_author": "Odcisz autora",
+        "become_a_subscriber": "Zasubskrybuj",
+        "subscribe": "subskrypcja",
+        "send_coin": "Wyślij {name}",
+        "copy_coin_address": "Kopiuj adres",
+        "action_reposted": "repostowano"
     },
     "welcome": {
         "browse_directory": "Przeglądanie katalogu profili",
@@ -94,7 +144,27 @@
         "tab_following": "Obserwujesz",
         "tab_subscribers": "Obserwacje",
         "subscription_expires": "Subskrypcja wygasa {date}",
-        "subscription_expires_on": "@:subscriptions.subscription_expires_on"
+        "subscription_expires_on": "@:subscriptions.subscription_expires_on",
+        "profile": "Profil",
+        "profile_with_handle": "Profil - {handle}",
+        "not_found": "Profil nie znaleziony",
+        "admin": "Admin",
+        "automated": "Automatyczny",
+        "follows_you": "Obserwuje cię",
+        "subscription": "Subskrypcja",
+        "subscriber": "Subskrybuje",
+        "more": "Więcej",
+        "open_profile_page": "Otwórz stronę profilu",
+        "atom_feed": "Kanał Atom",
+        "view_follow_requests": "Wyświetl prośby o obserwowanie",
+        "link_ethereum_address": "Podaj adres Ethereum",
+        "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
+        "subscriber_details": "Dane subskrypcji",
+        "hide_reposts": "Ukryj reposty",
+        "show_reposts": "Pokaż reposty",
+        "hide_replies": "Ukryj odpowiedzi",
+        "show_replies": "Pokaż odpowiedzi",
+        "remove_from_followers": "Usuń z obserwujących"
     },
     "timestamp": {
         "full": {
@@ -289,7 +359,10 @@
         "grant_subscription_access": "Przyznaj dostęp do subskrypcji",
         "unit_months": "miesiące",
         "unit_days": "dni",
-        "grant": "Przyznaj"
+        "grant": "Przyznaj",
+        "payment_type": "Rodzaj płatności",
+        "monero_forwarded": "Przekazano",
+        "monero_direct_requires_a_view_key": "Bezpośredni (wymaga klucza widoku)"
     },
     "import_follows": {
         "import_follows": "Import obserwacji",
@@ -319,5 +392,46 @@
     "dialog": {
         "cancel": "Anuluj",
         "ok": "OK"
+    },
+    "admin": {
+        "delete_user": "Usuń użytkownika",
+        "confirm_delete_user": "Czy na pewno chcesz usunąć {address}? Nie można tego cofnąć."
+    },
+    "login": {
+        "learn_more": "Dowiedz się więcej",
+        "explore": "Odkrywaj",
+        "username": "Nazwa użytkownika",
+        "password": "Hasło",
+        "username_only_letters": "Dopuszczalne są wyłącznie litery, cyfry, łączniki i znaki podkreślenia.",
+        "dont_have_an_account": "Nie masz konta?",
+        "already_registered": "Już zarejestrowano?",
+        "sign_in": "Zaloguj się",
+        "sign_up": "Zarejestruj się"
+    },
+    "poll": {
+        "num_votes": "brak głosów | {n} głos | {n} głosów",
+        "vote": "Głosuj",
+        "multiple_choices": "Wielokrotny wybór",
+        "ends": "Kończy się {0}",
+        "closed": "Zamknięte",
+        "see_results": "Zobacz wyniki"
+    },
+    "post_list": {
+        "post": "Post",
+        "post_by_handle": "Post od {handle}",
+        "post_not_found": "Post nie znaleziony",
+        "no_posts_found": "Brak postów",
+        "post_is_not_available": "Post niedostępny"
+    },
+    "poll_editor": {
+        "option": "Opcja {n}",
+        "poll_duration": "Czas trwania sondy",
+        "duration_hour": "godzina | godziny",
+        "duration_day": "dzień | dni",
+        "multiple_choices": "@:poll.multiple_choices"
+    },
+    "emoji_picker": {
+        "search": "Szukaj…",
+        "no_emojis_found": "Brak emotek"
     }
 }

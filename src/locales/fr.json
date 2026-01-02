@@ -279,7 +279,10 @@
         "subscription_expires_on": "La souscription expirera le {date}",
         "subscription_expired_on": "La souscription a expiré le {date}",
         "enter_your_fediverse_address": "Saisissez votre adresse du Fédivers (utilisateur{'@'}exemple.org}",
-        "payment_waiting_pluralized": "En attente de paiement | En attente de paiement (encore {n} minute) | En attente de paiement (encore {n} minutes)"
+        "payment_waiting_pluralized": "En attente de paiement | En attente de paiement (encore {n} minute) | En attente de paiement (encore {n} minutes)",
+        "payment_type": "Type de paiement",
+        "monero_forwarded": "Transféré",
+        "monero_direct_requires_a_view_key": "Direct (nécessite une clé d'affichage)"
     },
     "navigation": {
         "home": "Accueil",
