@@ -77,7 +77,10 @@
         },
         "copy_object_id": "Копировать идентификатор объекта",
         "source_is_not_available": "Источник недоступен",
-        "reply_to_this_post_from_your_server": "Вы можете ответить на этот пост со своего сервера Федиверса: {url}"
+        "reply_to_this_post_from_your_server": "Вы можете ответить на этот пост со своего сервера Федиверса: {url}",
+        "show_more": "Показать больше",
+        "follow_conversation": "Следите за разговором",
+        "unfollow_conversation": "Отписаться от разговора"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -111,7 +114,8 @@
         "edit_description": "Редактировать описание",
         "from_url": "Из URL-адреса",
         "upload_from_a_url": "Загрузить с URL",
-        "upload": "Загрузить"
+        "upload": "Загрузить",
+        "send": "Отправлять"
     },
     "emoji_picker": {
         "search": "Поиск…",
