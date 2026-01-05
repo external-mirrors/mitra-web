@@ -56,7 +56,10 @@
         "confirm_delete_this_post": "Voulez-vous vraiment supprimer cette publication ?",
         "copy_object_id": "Copier l'ID de l'objet",
         "source_is_not_available": "La source n'est pas disponible",
-        "reply_to_this_post_from_your_server": "Vous pouvez répondre à ce message depuis votre serveur Fédivers : {url}"
+        "reply_to_this_post_from_your_server": "Vous pouvez répondre à ce message depuis votre serveur Fédivers : {url}",
+        "show_more": "Afficher plus",
+        "follow_conversation": "Suivre le fil de discussion",
+        "unfollow_conversation": "Arrêter de suivre le fil"
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -90,7 +93,8 @@
         "edit_description": "Modifier la description",
         "upload": "Téléverser",
         "from_url": "Depuis une URL",
-        "upload_from_a_url": "Téléverser depuis une URL"
+        "upload_from_a_url": "Téléverser depuis une URL",
+        "send": "Envoyer"
     },
     "profile": {
         "profile_with_handle": "Profil - {handle}",
