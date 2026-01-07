@@ -1,11 +1,14 @@
 <template>
   <sidebar-layout>
     <template #content>
-      <div v-if="feed" class="feed-name">
+      <div v-if="feed" class="feed-info">
+        <span>{{ feed.title }}</span>
         <router-link
+          class="icon"
+          :title="$t('custom_feeds.configure_feed')"
           :to="{ name: 'custom-feed', params: { feedId: feed.id } }"
         >
-          {{ feed.title }}
+          <icon-configure></icon-configure>
         </router-link>
       </div>
       <div v-if="!isLoading && posts.length === 0" class="content-message">
@@ -27,6 +30,7 @@ import { useRoute } from "vue-router"
 
 import { getCustomFeed, CustomFeed } from "@/api/custom-feeds"
 import { addRelationships, getListTimeline, Post } from "@/api/posts"
+import IconConfigure from "@/assets/feather/sliders.svg?component"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -83,10 +87,18 @@ onMounted(async () => {
 @import "../styles/mixins";
 @import "../styles/theme";
 
-.feed-name {
+.feed-info {
+  @include block-icon;
   @include content-message;
 
+  align-items: center;
+  display: flex;
+  gap: $block-inner-padding;
   margin-bottom: $block-outer-padding;
+
+  a {
+    margin-left: auto;
+  }
 }
 
 .content-message {

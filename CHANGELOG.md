@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added `--avatar-border-radius` CSS variable for customization.
 
+### Changed
+
+- Added "configure" button to custom feed header.
+
 ## [4.16.0] - 2026-01-02
 
 ### Added
