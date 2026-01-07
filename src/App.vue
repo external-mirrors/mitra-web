@@ -77,6 +77,8 @@ onMounted(() => {
   --landing-login-btn-background-hover-color: #{$landing-login-btn-background-hover-color};
   --landing-login-btn-shadow-color: #{$landing-login-btn-shadow-color};
 
+  --avatar-border-radius: 50%;
+
   --content-warning-background: transparent;
   --content-warning-btn-display: initial;
 

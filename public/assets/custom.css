@@ -6,6 +6,7 @@ Example:
 :root {
   --landing-background-color: white;
   --landing-background-image: url("/assets/custom.png");
+  --avatar-border-radius: 20%;
 }
 
 The full list of CSS variables can be found in src/App.vue

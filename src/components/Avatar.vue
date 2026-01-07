@@ -28,7 +28,7 @@ const avatarUrl = computed<string>(() => {
 <style scoped lang="scss">
 .avatar {
   background-color: var(--block-background-color);
-  border-radius: 50%;
+  border-radius: var(--avatar-border-radius);
   box-sizing: border-box;
 
   img {

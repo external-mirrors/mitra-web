@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added `--avatar-border-radius` CSS variable for customization.
+
 ## [4.16.0] - 2026-01-02
 
 ### Added
