@@ -54,6 +54,8 @@ This will produce a static website in the `/dist` directory.
 
 ## Development
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 ### Compiles and hot-reloads for development
 
 ```
