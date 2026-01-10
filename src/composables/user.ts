@@ -84,7 +84,16 @@ export function useCurrentUser() {
     }
     loginData.client_id = clientId
     loginData.client_secret = clientSecret
-    const token = await getAccessToken(loginType, loginData)
+    let token
+    try {
+      token = await getAccessToken(loginType, loginData)
+    } catch (error: any) {
+      if (error.message === "invalid client credentials") {
+        localStorage.removeItem(OAUTH_CLIENT_ID_KEY)
+        localStorage.removeItem(OAUTH_CLIENT_SECRET_KEY)
+      }
+      throw error
+    }
     setAuthToken(token)
     return token
   }
