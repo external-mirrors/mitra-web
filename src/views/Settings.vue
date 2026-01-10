@@ -84,6 +84,19 @@
         </form>
       </section>
       <section>
+        <h2>{{ $t('settings.notifications') }}</h2>
+        <div class="settings-checkbox">
+          <input
+            type="checkbox"
+            id="notification-polling"
+            :checked="notificationPollingEnabled"
+            @change="onToggleClientConfigCheckbox(ConfigKey.NotificationPollingEnabled, $event)"
+            :disabled="isLoading"
+          >
+          <label for="notification-polling">{{ $t('settings.enable_instant_notifications') }}</label>
+        </div>
+      </section>
+      <section>
         <h2>{{ $t('settings.authentication') }}</h2>
         <div class="authentication-methods">
           {{ $t('settings.enabled_authentication_methods') }}
@@ -236,6 +249,7 @@ const {
   conversationNewTab,
   defaultVisibility,
   shortPostTimestamp,
+  notificationPollingEnabled,
   setClientConfigKey,
 } = useClientConfig()
 const {
@@ -268,6 +282,16 @@ function canManageSubscriptions(): boolean {
 async function onToggleDarkMode() {
   isLoading.value = true
   await toggleDarkMode()
+  isLoading.value = false
+}
+
+async function onToggleClientConfigCheckbox(
+  configKey: ConfigKey,
+  event: Event,
+) {
+  isLoading.value = true
+  const value = (event.target as HTMLInputElement).checked
+  await setClientConfigKey(configKey, value)
   isLoading.value = false
 }
 

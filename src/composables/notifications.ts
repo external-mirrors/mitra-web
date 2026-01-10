@@ -2,11 +2,48 @@ import { ref } from "vue"
 
 import { getNotificationMarker, updateNotificationMarker } from "@/api/markers"
 import { Notification, getNotifications } from "@/api/notifications"
+import { useClientConfig } from "@/composables/client-config"
+import { useCurrentUser } from "@/composables/user"
+
+const NOTIFICATION_REFRESH_PERIOD = 30 * 1000
 
 const notifications = ref<Notification[]>([])
 const lastReadId = ref<string | null>(null)
 
+const notificationMonitor = ref<ReturnType<typeof setInterval> | null>(null)
+const notificationMonitorLoading = ref(false)
+
 export function useNotifications() {
+  const { notificationPollingEnabled } = useClientConfig()
+  const { authToken } = useCurrentUser()
+
+  function startNotificationMonitor() {
+    if (notificationMonitor.value) {
+      throw Error("notification monitor is already running")
+    }
+    notificationMonitor.value = setInterval(async () => {
+      if (
+        authToken.value !== null
+        && notificationPollingEnabled.value
+        && !notificationMonitorLoading.value
+      ) {
+        // Track loading state to avoid making multiple requests at once
+        notificationMonitorLoading.value = true
+        try {
+          await loadNotifications(authToken.value)
+        } catch (error: any) {
+          console.warn(error)
+        }
+        notificationMonitorLoading.value = false
+      }
+    }, NOTIFICATION_REFRESH_PERIOD)
+  }
+
+  function stopNotificationMonitor() {
+    if (notificationMonitor.value) {
+      clearInterval(notificationMonitor.value)
+    }
+  }
 
   async function loadNotifications(authToken: string): Promise<void> {
     const items = await getNotifications(authToken)
@@ -48,6 +85,8 @@ export function useNotifications() {
   }
 
   return {
+    startNotificationMonitor,
+    stopNotificationMonitor,
     notifications,
     loadNotifications,
     getUnreadNotificationCount,

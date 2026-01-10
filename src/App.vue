@@ -3,15 +3,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from "vue"
+import { onMounted, onUnmounted, watch } from "vue"
 import { useRoute } from "vue-router"
 
 import { useLocales } from "@/composables/locales"
+import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
 
 const route = useRoute()
 const { currentUser } = useCurrentUser()
 const { getPreferredLocale, changeLocale } = useLocales()
+const { startNotificationMonitor, stopNotificationMonitor } = useNotifications()
 
 watch(currentUser, () => {
   // Change locale to a preferred one
@@ -20,11 +22,16 @@ watch(currentUser, () => {
 }, { immediate: true })
 
 onMounted(() => {
+  startNotificationMonitor()
   // Remove meta tags inserted by server
   const inserted = document.querySelectorAll('head > [data-inserted="true"]')
   for (const element of inserted) {
     element.remove()
   }
+})
+
+onUnmounted(() => {
+  stopNotificationMonitor()
 })
 </script>
 

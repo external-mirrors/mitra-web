@@ -146,11 +146,12 @@ const { getActorHandle, getActorLocation } = useActorHandle()
 const { shortPostTimestamp } = useClientConfig()
 const {
   loadNotifications,
-  notifications,
+  notifications: backgroundNotifications,
   updateUnreadNotificationCount,
 } = useNotifications()
 const { setPageTitle } = useTitle()
 
+const notifications = ref<Notification[]>([])
 const isLoading = ref(false)
 const isNextPageLoading = ref(false)
 
@@ -168,11 +169,13 @@ onMounted(async () => {
   setPageTitle(t("navigation.notifications"))
   window.scrollTo({ top: 0 })
   const authToken = ensureAuthToken()
-  if (notifications.value.length === 0) {
+  if (backgroundNotifications.value.length === 0) {
     isLoading.value = true
     await loadNotifications(authToken)
     isLoading.value = false
   }
+  // Make a copy to prevent list reloads caused by background updates
+  notifications.value = [...backgroundNotifications.value]
   // Update notification timeline marker
   await updateUnreadNotificationCount(authToken)
   await onNotificationPageLoad(notifications.value)
@@ -209,6 +212,8 @@ function isGrouped(notificationIndex: number) {
 
 function onPostDeleted(notificationIndex: number) {
   notifications.value.splice(notificationIndex, 1)
+  // Clear background notification list to trigger reload
+  backgroundNotifications.value.splice(0, backgroundNotifications.value.length)
 }
 
 function isPageFull(): boolean {
