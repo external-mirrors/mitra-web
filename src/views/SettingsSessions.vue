@@ -99,6 +99,7 @@ onMounted(async () => {
 .sessions {
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
+  line-height: $line-height * 1.25;
   width: 100%;
   word-break: break-all;
 
