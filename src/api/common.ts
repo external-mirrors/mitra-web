@@ -1,5 +1,8 @@
 import { ENV } from "@/constants"
 
+// Firefox default? 300 seconds
+const DEFAULT_TIMEOUT = 60 * 1000
+
 export const PAGE_SIZE = 20
 
 // Wrapped in object for easy stubbing in tests
@@ -13,6 +16,8 @@ interface RequestInfo extends RequestInit {
   authToken?: string | null;
   json?: any;
   queryParams?: { [name: string]: string | number | boolean | undefined };
+  timeout?: number,
+  // May contain additional parameters
 }
 
 export async function http(
@@ -25,7 +30,9 @@ export async function http(
   }
 
   // Set defaults
-  const defaults: RequestInit = {}
+  const defaults: RequestInit = {
+    signal: AbortSignal.timeout(DEFAULT_TIMEOUT),
+  }
   if (ENV === "development") {
     // Development mode
     defaults.credentials = "include"
@@ -38,7 +45,7 @@ export async function http(
   if (!requestInfo) {
     params = { ...defaults }
   } else {
-    const { authToken, json, queryParams, ...requestParams } = { ...requestInfo }
+    const { authToken, json, queryParams, timeout, ...requestParams } = { ...requestInfo }
     if (authToken) {
       requestParams.headers = {
         ...requestParams.headers,
@@ -66,6 +73,9 @@ export async function http(
         return res
       }, {})
       url.search = new URLSearchParams(serialized).toString()
+    }
+    if (timeout) {
+      requestParams.signal = AbortSignal.timeout(timeout)
     }
     params = { ...defaults, ...requestParams }
   }

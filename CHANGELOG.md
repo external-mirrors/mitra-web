@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Remove OAuth client credentials from local storage if they are not valid.
 - Increased line height in session table.
 - Replaced application version with hostname in OAuth client name.
+- Set timeout to 60 seconds on all API requests.
 
 ### Fixed
 
