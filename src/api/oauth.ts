@@ -1,4 +1,4 @@
-import { APP_NAME, APP_VERSION, BACKEND_URL } from "@/constants"
+import { APP_NAME, BACKEND_URL } from "@/constants"
 
 import { handleResponse, http } from "./common"
 
@@ -9,10 +9,11 @@ interface OauthApp {
 
 export async function createOauthApp(): Promise<OauthApp> {
   const url = `${BACKEND_URL}/api/v1/apps`
+  const host = window.location.host
   const response = await http(url, {
     method: "POST",
     json: {
-      client_name: `${APP_NAME} v${APP_VERSION}`,
+      client_name: `${APP_NAME} (${host})`,
       redirect_uris: "urn:ietf:wg:oauth:2.0:oob",
       scopes: "read write",
       website: null,
