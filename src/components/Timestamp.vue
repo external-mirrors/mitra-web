@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const currentTime = ref(DateTime.now())
-// Triggers re-render every 10 seconds
+// Triggers re-render every 5 seconds
 const clock = setInterval(() => {
   currentTime.value = DateTime.now()
 }, 5000)
