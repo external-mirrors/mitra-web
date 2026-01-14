@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Increased line height in session table.
 - Replaced application version with hostname in OAuth client name.
 
+### Fixed
+
+- Limit number of relationship query arguments to prevent `NetworkError` in Firefox.
+
 ## [4.16.0] - 2026-01-02
 
 ### Added

@@ -19,6 +19,12 @@ export async function http(
   url: string | URL,
   requestInfo?: RequestInfo,
 ): Promise<Response> {
+  // Validate parameters
+  if (url.toString().length > 10000) {
+    console.warn("URL is very long")
+  }
+
+  // Set defaults
   const defaults: RequestInit = {}
   if (ENV === "development") {
     // Development mode
@@ -27,6 +33,7 @@ export async function http(
     defaults.credentials = "same-origin"
   }
 
+  // Prepare request
   let params: RequestInit
   if (!requestInfo) {
     params = { ...defaults }

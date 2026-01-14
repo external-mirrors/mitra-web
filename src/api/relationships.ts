@@ -43,10 +43,13 @@ export async function getRelationships(
   }
   const url = `${BACKEND_URL}/api/v1/accounts/relationships`
   const uniqueProfileIds = [...new Set(profileIds)]
-  const queryParams = uniqueProfileIds.reduce((params, value, index) => {
-    params[`id[${index}]`] = value
-    return params
-  }, <{ [key: string]: string }>{})
+  const queryParams = uniqueProfileIds
+    // Firefox may drop request if URL is too long
+    .slice(0, 200)
+    .reduce((params, value, index) => {
+      params[`id[${index}]`] = value
+      return params
+    }, <{ [key: string]: string }>{})
   const response = await http(url, {
     method: "GET",
     queryParams,
