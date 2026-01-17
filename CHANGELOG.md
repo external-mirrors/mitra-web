@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Limit number of relationship query arguments to prevent `NetworkError` in Firefox.
+- Always generate error on unexpected response status.
 
 ## [4.16.0] - 2026-01-02
 

@@ -105,9 +105,9 @@ export async function handleResponse(
       errorDescription = "request body is too large"
     } else {
       // Unexpected response
-      errorDescription = response.statusText || "unknown error"
+      errorDescription = response.statusText
     }
-    throw new Error(errorDescription)
+    throw new Error(errorDescription ?? "unexpected status code")
   }
 }
 
