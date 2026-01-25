@@ -12,7 +12,8 @@
         "local": "Lokales",
         "bookmarks": "Lesezeichen",
         "search_account": "Konto",
-        "search_text": "Text"
+        "search_text": "Text",
+        "search_hashtag": "Hashtag"
     },
     "post_editor": {
         "update": "Aktualisierung",
@@ -38,7 +39,9 @@
         "remove_poll": "Umfrage entfernen",
         "edit_description": "Beschreibung bearbeiten",
         "from_url": "Von URL",
-        "upload": "Hochladen"
+        "upload": "Hochladen",
+        "send": "Senden",
+        "upload_from_a_url": "Von einer URL hochladen"
     },
     "about": {
         "administered_by": "Verwaltet von",
@@ -86,7 +89,11 @@
         "more": "Mehr",
         "subscribe": "abonnieren",
         "copy_coin_address": "Adresse kopieren",
-        "source_is_not_available": "Die Quelle ist nicht verfügbar"
+        "source_is_not_available": "Die Quelle ist nicht verfügbar",
+        "show_more": "Mehr anzeigen",
+        "copy_object_id": "Objektkennung kopieren",
+        "follow_conversation": "Konversation folgen",
+        "unfollow_conversation": "Konversation nicht mehr folgen"
     },
     "welcome": {
         "welcome": "Willkommen bei {0}!",
@@ -202,7 +209,8 @@
         "authentication_method_password": "Passwort",
         "download": "herunterladen",
         "default_post_visibility": "Standard-Sichtbarkeit von Beiträgen",
-        "posts": "Beiträge"
+        "posts": "Beiträge",
+        "open_conversations_in_a_new_tab": "Konversationen in einem neuen Tab öffnen"
     },
     "gallery": {
         "view_post": "Beitrag ansehen",
@@ -258,7 +266,10 @@
         "save_settings": "Speichern",
         "enable_subscriptions": "Abonnements aktivieren",
         "subscription_expires_on": "Abonnement läuft am {date} ab",
-        "subscription_expired_on": "Abonnement ist am {date} abgelaufen"
+        "subscription_expired_on": "Abonnement ist am {date} abgelaufen",
+        "payment_type": "Zahlungsart",
+        "monero_forwarded": "Weitergeleitet",
+        "monero_direct_requires_a_view_key": "Direkt (erfordert einen Ansichtsschlüssel)"
     },
     "post_list": {
         "post": "Beitrag",
@@ -328,14 +339,22 @@
         "option": "Option {n}"
     },
     "timestamp": {
-      "full": {
-        "past_minutes": "jetzt | {n} vor einer Minute | {n} vor Minuten",
-        "past_hours": "vor {n} Stunden | vor {n} Stunden",
-        "past_days": "vor {n} Tagen | vor {n} Tagen",
-        "future_hours": "in {n} Stunde | in {n} Stunden",
-        "future_days": "in {n} Tag | in {n} Tagen",
-        "future_minutes": "jetzt | in {n} Minute | in {n} Minuten"
-      }
+        "full": {
+            "past_minutes": "jetzt | {n} vor einer Minute | {n} vor Minuten",
+            "past_hours": "vor {n} Stunden | vor {n} Stunden",
+            "past_days": "vor {n} Tagen | vor {n} Tagen",
+            "future_hours": "in {n} Stunde | in {n} Stunden",
+            "future_days": "in {n} Tag | in {n} Tagen",
+            "future_minutes": "jetzt | in {n} Minute | in {n} Minuten"
+        },
+        "short": {
+            "past_minutes": "jetzt | {n} min | {n} min",
+            "past_hours": "{n} h | {n} h",
+            "past_days": "{n} T | {n} T",
+            "future_minutes": "jetzt | in {n} min | in {n} min",
+            "future_hours": "in {n} h | in {n} h",
+            "future_days": "in {n} T | in {n} T"
+        }
     },
     "dialog": {
         "cancel": "Abbrechen",
@@ -343,5 +362,23 @@
     },
     "admin": {
         "delete_user": "Benutzer löschen"
+    },
+    "login": {
+        "learn_more": "Mehr erfahren",
+        "explore": "Entdecken",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "already_registered": "Bereits registriert?",
+        "sign_in": "Anmelden",
+        "sign_up": "Registrieren",
+        "username_only_letters": "Es sind nur Buchstaben, Zahlen, Bindestriche und Unterstriche zulässig."
+    },
+    "sessions": {
+        "active_sessions": "Aktive Sitzungen",
+        "application": "Anwendung",
+        "logged_in": "Angemeldet",
+        "unknown": "Unbekannt",
+        "current": "Aktuell",
+        "terminate_session": "Sitzung terminieren"
     }
 }
