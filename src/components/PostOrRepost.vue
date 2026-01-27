@@ -2,14 +2,15 @@
   <template v-if="post.reblog">
     <div class="action">
       <icon-repost></icon-repost>
-      <router-link
-        :to="getActorLocation('profile', post.account)"
-        :title="getActorHandle(post.account)"
-        class="display-name-link"
-      >
-        <profile-display-name :profile="author"></profile-display-name>
-      </router-link>
-      <span>{{ $t('post.action_reposted') }}</span>
+      <i18n-t keypath="post_list.user_reposted" scope="global">
+        <router-link
+          :to="getActorLocation('profile', post.account)"
+          :title="getActorHandle(post.account)"
+          class="display-name-link"
+        >
+          <profile-display-name :profile="author"></profile-display-name>
+        </router-link>
+      </i18n-t>
     </div>
     <post
       :post="post.reblog"
