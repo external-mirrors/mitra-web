@@ -239,6 +239,7 @@
     "save": "Save"
   },
   "notifications": {
+    "you_dont_have_any_notifications": "You don't have any notifications",
     "followed_you": "followed you",
     "sent_a_follow_request": "sent a follow request",
     "replied_to_your_post": "replied to your post",

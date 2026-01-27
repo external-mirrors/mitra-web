@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added `--avatar-border-radius` CSS variable for customization.
+- Display message when notification list is empty.
 
 ### Changed
 

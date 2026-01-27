@@ -1,6 +1,9 @@
 <template>
   <sidebar-layout>
     <template #content>
+      <div v-if="notifications.length === 0 && !isLoading" class="content-message">
+        {{ $t('notifications.you_dont_have_any_notifications') }}
+      </div>
       <div
         class="notification"
         v-for="(notification, index) in notifications"
@@ -219,6 +222,10 @@ async function loadNextPage() {
 @import "../styles/layout";
 @import "../styles/mixins";
 @import "../styles/theme";
+
+.content-message {
+  @include content-message;
+}
 
 .notification:not(.collapsed) {
   margin-bottom: $block-outer-padding;
