@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^4.0.0",
-    "@lavamoat/allow-scripts": "^2.5.1",
-    "@lavamoat/preinstall-always-fail": "^1.0.0",
+    "@lavamoat/allow-scripts": "^3.4.2",
+    "@lavamoat/preinstall-always-fail": "^2.1.1",
     "@types/chai": "^4.2.11",
     "@types/luxon": "^1.26.5",
     "@types/mocha": "^5.2.4",
