@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Increased line height in session table.
 - Replaced application version with hostname in OAuth client name.
 - Set timeout to 60 seconds on all API requests.
+- Updated translations ([#148](https://codeberg.org/silverpill/mitra-web/pulls/148)).
 
 ### Fixed
 
