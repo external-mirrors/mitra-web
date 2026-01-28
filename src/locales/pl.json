@@ -39,7 +39,8 @@
         "add_content_warning": "Dodaj ostrzeżenie treści",
         "insert_emoji": "Wstaw emotkę",
         "characters_left": "Zostało znaków",
-        "toggle_preview": "Przełącz podgląd"
+        "toggle_preview": "Przełącz podgląd",
+        "send": "Wyślij"
     },
     "post": {
         "replying_to": "odpowiadając na",
@@ -94,7 +95,10 @@
         "subscribe": "subskrypcja",
         "send_coin": "Wyślij {name}",
         "copy_coin_address": "Kopiuj adres",
-        "action_reposted": "repostowano"
+        "action_reposted": "repostowano",
+        "show_more": "Pokaż więcej",
+        "follow_conversation": "Śledź rozmowę",
+        "unfollow_conversation": "Nie śledź rozmowy"
     },
     "welcome": {
         "browse_directory": "Przeglądanie katalogu profili",
