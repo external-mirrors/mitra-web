@@ -154,6 +154,16 @@ const { setPageTitle } = useTitle()
 const isLoading = ref(false)
 const isNextPageLoading = ref(false)
 
+async function onNotificationPageLoad(page: Notification[]) {
+  // Add relationships
+  // NOTE: notifications from muted users are not displayed anyway
+  const posts = page.flatMap((notification) => {
+    return notification.status !== null ? [notification.status] : []
+  })
+  const authToken = ensureAuthToken()
+  await addRelationships(authToken, posts)
+}
+
 onMounted(async () => {
   setPageTitle(t("navigation.notifications"))
   window.scrollTo({ top: 0 })
@@ -165,11 +175,7 @@ onMounted(async () => {
   }
   // Update notification timeline marker
   await updateUnreadNotificationCount(authToken)
-  // Add relationships
-  const posts = notifications.value.flatMap((notification) => {
-    return notification.status !== null ? [notification.status] : []
-  })
-  await addRelationships(authToken, posts)
+  await onNotificationPageLoad(notifications.value)
 })
 
 function getReactionHtml(notification: Notification): string {
@@ -213,6 +219,7 @@ async function loadNextPage() {
   const maxId = notifications.value[notifications.value.length - 1].id
   isNextPageLoading.value = true
   const newItems = await getNotifications(ensureAuthToken(), maxId)
+  await onNotificationPageLoad(newItems)
   notifications.value = [...notifications.value, ...newItems]
   isNextPageLoading.value = false
 }
