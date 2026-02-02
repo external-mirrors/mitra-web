@@ -87,7 +87,8 @@
         "no_posts_found": "Сообщений не найдено",
         "post_is_not_available": "Пост недоступен",
         "post": "Сообщение",
-        "post_by_handle": "Сообщение от {handle}"
+        "post_by_handle": "Сообщение от {handle}",
+        "user_reposted": "{0}перепост"
     },
     "post_editor": {
         "prompt": "О чём вы думаете?",
@@ -227,7 +228,8 @@
         "signed_up": "Подписался(лась)",
         "show_more_notifications": "Показать больше уведомлений",
         "reacted_to_your_post": "Отреагировал(ла) на ваш пост",
-        "is_no_longer_a_subscriber": "Больше не является подписчиком"
+        "is_no_longer_a_subscriber": "Больше не является подписчиком",
+        "you_dont_have_any_notifications": "У вас нет уведомлений"
     },
     "settings": {
         "settings": "Настройки",
