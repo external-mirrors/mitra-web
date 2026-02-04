@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display message when notification list is empty.
 - Display unread notification count in page title.
 - Added option to refresh notification count every 30 seconds.
+- Support `payment_anonymous` notification type.
 
 ### Changed
 

@@ -24,12 +24,13 @@
           <icon-comment v-else-if="notification.type === 'mention'"></icon-comment>
           <icon-repost v-else-if="notification.type === 'reblog'"></icon-repost>
           <icon-payment
-            v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration'"
+            v-else-if="notification.type === 'subscription' || notification.type === 'subscription_expiration' || notification.type === 'payment_anonymous'"
           ></icon-payment>
           <icon-user-minus v-else-if="notification.type === 'subscriber_leaving'"></icon-user-minus>
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
           <router-link
+            v-if="notification.type !== 'subscription_anonymous'"
             :title="getActorHandle(getSender(notification))"
             :to="getActorLocation('profile', notification.account)"
             class="display-name-link"
@@ -58,6 +59,9 @@
           <span v-else-if="notification.type === 'reblog'">
             {{ $t('notifications.reposted_your_post') }}
           </span>
+          <span v-else-if="notification.type === 'payment_anonymous'">
+            You received a payment
+          </span>
           <span v-else-if="notification.type === 'subscription'">
             {{ $t('notifications.paid_for_subscription') }}
           </span>
@@ -81,6 +85,18 @@
           :in-thread="false"
           @post-deleted="onPostDeleted(index)"
         ></post>
+        <div
+          v-else-if="notification.type === 'payment_anonymous'"
+          class="profile anonymous"
+        >
+          <div class="floating-avatar">
+            <avatar :profile="defaultProfile()"></avatar>
+          </div>
+          <span class="display-name">Anonymous</span>
+          <div class="timestamp">
+            <timestamp :date="notification.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
+          </div>
+        </div>
         <router-link
           v-else-if="notification.status === null"
           class="profile"
@@ -119,7 +135,7 @@ import { PAGE_SIZE } from "@/api/common"
 import { replaceShortcodes } from "@/api/emojis"
 import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
-import { ProfileWrapper } from "@/api/users"
+import { defaultProfile, ProfileWrapper } from "@/api/users"
 import IconUserCheck from "@/assets/feather/user-check.svg?component"
 import IconUserMinus from "@/assets/feather/user-minus.svg?component"
 import IconUserPlus from "@/assets/feather/user-plus.svg?component"
@@ -296,6 +312,12 @@ async function loadNextPage() {
   .timestamp {
     text-align: right;
     white-space: nowrap;
+  }
+}
+
+.profile.anonymous {
+  .display-name {
+    flex-grow: 1;
   }
 }
 
