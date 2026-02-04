@@ -118,7 +118,8 @@
         "no_posts_found": "暂无帖文",
         "post_is_not_available": "帖文不可用",
         "post": "帖文",
-        "post_by_handle": "发贴者 {handle}"
+        "post_by_handle": "发贴者 {handle}",
+        "user_reposted": "{0} 已转发"
     },
     "emoji_picker": {
         "search": "搜索…",
@@ -226,7 +227,8 @@
         "signed_up": "已注册",
         "show_more_notifications": "查看更多通知",
         "reacted_to_your_post": "回应了你的帖文",
-        "is_no_longer_a_subscriber": "不再是订阅者"
+        "is_no_longer_a_subscriber": "不再是订阅者",
+        "you_dont_have_any_notifications": "您没有任何通知"
     },
     "settings": {
         "settings": "设置",
@@ -262,7 +264,9 @@
         "default_post_visibility": "默认帖文可见性",
         "open_conversations_in_a_new_tab": "在新标签页中打开对话",
         "posts": "帖文",
-        "active_sessions": "@:sessions.active_sessions"
+        "active_sessions": "@:sessions.active_sessions",
+        "notifications": "通知",
+        "enable_instant_notifications": "启用即时通知"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",

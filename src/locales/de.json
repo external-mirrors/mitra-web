@@ -210,7 +210,9 @@
         "download": "herunterladen",
         "default_post_visibility": "Standard-Sichtbarkeit von Beiträgen",
         "posts": "Beiträge",
-        "open_conversations_in_a_new_tab": "Konversationen in einem neuen Tab öffnen"
+        "open_conversations_in_a_new_tab": "Konversationen in einem neuen Tab öffnen",
+        "enable_instant_notifications": "Sofortbenachrichtigungen aktivieren",
+        "notifications": "Benachrichtigungen"
     },
     "gallery": {
         "view_post": "Beitrag ansehen",
