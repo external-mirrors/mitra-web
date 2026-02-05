@@ -30,7 +30,7 @@
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
           <router-link
-            v-if="notification.type !== 'subscription_anonymous'"
+            v-if="notification.type !== 'payment_anonymous'"
             :title="getActorHandle(getSender(notification))"
             :to="getActorLocation('profile', notification.account)"
             class="display-name-link"
