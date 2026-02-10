@@ -248,6 +248,7 @@ const {
   ctrlEnterEnabled,
   conversationNewTab,
   defaultVisibility,
+  setDefaultVisibility,
   shortPostTimestamp,
   notificationPollingEnabled,
   setClientConfigKey,
@@ -342,11 +343,8 @@ async function onChangeLocale(event: Event) {
 
 async function onChangeDefaultVisibility(event: Event) {
   isLoading.value = true
-  const visibility = (event.target as HTMLInputElement).value
-  await setClientConfigKey(
-    ConfigKey.DefaultVisibility,
-    visibility,
-  )
+  const visibility = (event.target as HTMLInputElement).value as Visibility
+  await setDefaultVisibility(visibility)
   isLoading.value = false
 }
 

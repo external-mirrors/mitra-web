@@ -2,7 +2,7 @@ import { computed } from "vue"
 
 import { Visibility } from "@/api/posts"
 import { updateClientConfig } from "@/api/settings"
-import { ClientConfigValue } from "@/api/users"
+import { updateProfile, ClientConfigValue } from "@/api/users"
 import { useCurrentUser } from "@/composables/user"
 import { APP_NAME } from "@/constants"
 
@@ -74,8 +74,16 @@ export function useClientConfig() {
   })
 
   const defaultVisibility = computed<Visibility>(() => {
-    return getClientConfigKeyOrDefault(ConfigKey.DefaultVisibility, Visibility.Public)
+    const { ensureCurrentUser } = useCurrentUser()
+    return ensureCurrentUser().source.privacy
   })
+
+  async function setDefaultVisibility(visibility: Visibility) {
+    const { ensureAuthToken, setCurrentUser } = useCurrentUser()
+    const authToken = ensureAuthToken()
+    const user = await updateProfile(authToken, { source: { privacy: visibility } })
+    setCurrentUser(user)
+  }
 
   return {
     getClientConfigKey,
@@ -83,6 +91,7 @@ export function useClientConfig() {
     contentWarningsEnabled,
     ctrlEnterEnabled,
     defaultVisibility,
+    setDefaultVisibility,
     conversationNewTab,
     shortPostTimestamp,
     notificationPollingEnabled,

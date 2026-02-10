@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants"
 import { handleResponse, http, PAGE_SIZE } from "./common"
 import { CustomEmoji } from "./emojis"
+import { Visibility } from "./posts"
 import { AuthenticationMethod } from "./oauth"
 
 export const EXTRA_FIELD_COUNT_MAX = 10
@@ -25,6 +26,7 @@ export interface ProfilePaymentOption {
 interface Source {
   note: string | null;
   fields: ProfileField[];
+  privacy: Visibility,
 }
 
 interface Role {
@@ -228,9 +230,13 @@ export interface ProfileUpdateData {
   fields_attributes: ProfileFieldAttrs[];
 }
 
+export interface ProfileSourceUpdateData {
+  source: { privacy: Visibility },
+}
+
 export async function updateProfile(
   authToken: string,
-  profileData: ProfileUpdateData,
+  profileData: ProfileUpdateData | ProfileSourceUpdateData,
 ): Promise<User> {
   const url = `${BACKEND_URL}/api/v1/accounts/update_credentials`
   const response = await http(url, {

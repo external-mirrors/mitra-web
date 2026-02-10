@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Changed default request timeout to 120 seconds.
 - Read `configuration.timelines_access.live_feeds.remote` to determine visibility of federated timeline.
+- Use `Account.source.privacy` to store default post visibility.
 
 ## [4.17.0] - 2026-02-05
 
