@@ -1,7 +1,7 @@
 import { ENV } from "@/constants"
 
 // Firefox default? 300 seconds
-const DEFAULT_TIMEOUT = 60 * 1000
+const DEFAULT_TIMEOUT = 120 * 1000
 
 export const PAGE_SIZE = 20
 

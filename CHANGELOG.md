@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Changed default request timeout to 120 seconds.
+
 ## [4.17.0] - 2026-02-05
 
 ### Added
