@@ -800,10 +800,12 @@ function canPublish(): boolean {
 async function publish() {
   isLoading.value = true
   let post
+  const authToken = ensureAuthToken()
+  const currentUser = ensureCurrentUser()
   try {
     if (props.post !== null) {
       post = await updatePost(
-        ensureAuthToken(),
+        authToken,
         props.post.id,
         content.value,
         attachmentList.value,
@@ -814,6 +816,7 @@ async function publish() {
       const postData = {
         idempotencyKey: idempotencyKey.value,
         content: content.value,
+        language: currentUser.source.language,
         inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
         visibility: visibility.value,
         isSensitive: isSensitive.value,
@@ -824,7 +827,7 @@ async function publish() {
         quoteId: props.repostOf ? props.repostOf.id : null,
       }
       post = await createPost(
-        ensureAuthToken(),
+        authToken,
         postData,
       )
     }

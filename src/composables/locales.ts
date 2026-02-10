@@ -24,8 +24,14 @@ const LANGUAGES = [
   "vi",
   "zh-Hans",
 ]
+const ISO_639_1_CODES = [...new Set(LANGUAGES.map(code => code.split("-")[0]))]
 
 export const LOCALE_MAP = Object.fromEntries(LANGUAGES.map((code) => {
+  const nameGenerator = new Intl.DisplayNames(code, { type: "language" })
+  return [code, nameGenerator.of(code)]
+}))
+
+export const ISO_639_1_MAP = Object.fromEntries(ISO_639_1_CODES.map((code) => {
   const nameGenerator = new Intl.DisplayNames(code, { type: "language" })
   return [code, nameGenerator.of(code)]
 }))

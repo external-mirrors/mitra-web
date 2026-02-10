@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added setting for changing default post language.
+
 ### Changed
 
 - Changed default request timeout to 120 seconds.

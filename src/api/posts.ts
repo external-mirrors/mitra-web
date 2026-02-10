@@ -316,6 +316,7 @@ export async function previewPost(
 export interface PostData {
   idempotencyKey: string,
   content: string;
+  language: string | null,
   inReplyToId: string | null;
   visibility: string;
   isSensitive: boolean;
@@ -342,6 +343,7 @@ export async function createPost(
   const statusData = {
     status: postData.content,
     content_type: "text/markdown",
+    language: postData.language,
     media_ids: postData.attachments.map((attachment) => attachment.id),
     in_reply_to_id: postData.inReplyToId,
     visibility: postData.visibility,

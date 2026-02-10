@@ -27,6 +27,7 @@ interface Source {
   note: string | null;
   fields: ProfileField[];
   privacy: Visibility,
+  language: string,
 }
 
 interface Role {
@@ -231,7 +232,10 @@ export interface ProfileUpdateData {
 }
 
 export interface ProfileSourceUpdateData {
-  source: { privacy: Visibility },
+  source: {
+    privacy?: Visibility,
+    language?: string,
+  },
 }
 
 export async function updateProfile(

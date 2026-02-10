@@ -81,6 +81,19 @@
               :value="visibility"
             >{{ VISIBILITY_MAP[visibility].name }}</option>
           </select>
+          <label for="default-post-language">{{ $t('settings.default_post_language') }}</label>
+          <select
+            id="default-post-language"
+            :value="defaultPostLanguage"
+            @change="onChangeDefaultPostLanguage"
+            :disabled="isLoading"
+          >
+            <option
+              v-for="(languageName, code) in ISO_639_1_MAP"
+              :key="code"
+              :value="code"
+            >{{ languageName }}</option>
+          </select>
         </form>
       </section>
       <section>
@@ -229,7 +242,7 @@ import { Permissions } from "@/api/users"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useClientConfig, ConfigKey } from "@/composables/client-config"
 import { useInstanceInfo } from "@/composables/instance"
-import { useLocales, LOCALE_MAP } from "@/composables/locales"
+import { useLocales, ISO_639_1_MAP, LOCALE_MAP } from "@/composables/locales"
 import { useTheme } from "@/composables/theme"
 import { useTitle } from "@/composables/title"
 import { useVisibility } from "@/composables/visibility"
@@ -249,6 +262,8 @@ const {
   conversationNewTab,
   defaultVisibility,
   setDefaultVisibility,
+  defaultPostLanguage,
+  setDefaultPostLanguage,
   shortPostTimestamp,
   notificationPollingEnabled,
   setClientConfigKey,
@@ -345,6 +360,13 @@ async function onChangeDefaultVisibility(event: Event) {
   isLoading.value = true
   const visibility = (event.target as HTMLInputElement).value as Visibility
   await setDefaultVisibility(visibility)
+  isLoading.value = false
+}
+
+async function onChangeDefaultPostLanguage(event: Event) {
+  isLoading.value = true
+  const language = (event.target as HTMLInputElement).value
+  await setDefaultPostLanguage(language)
   isLoading.value = false
 }
 

@@ -85,6 +85,18 @@ export function useClientConfig() {
     setCurrentUser(user)
   }
 
+  const defaultPostLanguage = computed<string | null>(() => {
+    const { ensureCurrentUser } = useCurrentUser()
+    return ensureCurrentUser().source.language
+  })
+
+  async function setDefaultPostLanguage(language: string) {
+    const { ensureAuthToken, setCurrentUser } = useCurrentUser()
+    const authToken = ensureAuthToken()
+    const user = await updateProfile(authToken, { source: { language: language } })
+    setCurrentUser(user)
+  }
+
   return {
     getClientConfigKey,
     setClientConfigKey,
@@ -95,5 +107,7 @@ export function useClientConfig() {
     conversationNewTab,
     shortPostTimestamp,
     notificationPollingEnabled,
+    defaultPostLanguage,
+    setDefaultPostLanguage,
   }
 }

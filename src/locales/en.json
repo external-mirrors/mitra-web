@@ -267,6 +267,7 @@
     "language": "Language",
     "posts": "Posts",
     "default_post_visibility": "Default post visibility",
+    "default_post_language": "Default post language",
     "notifications": "Notifications",
     "enable_instant_notifications": "Enable instant notifications",
     "authentication": "Authentication",
