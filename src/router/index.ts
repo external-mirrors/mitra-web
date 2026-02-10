@@ -112,7 +112,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: () => {
       const { isAdmin } = useCurrentUser()
       const { instance } = useInstanceInfo()
-      const federatedTimelineRestricted = instance.value?.federated_timeline_restricted ?? true
+      const federatedTimelineRestricted = instance.value?.configuration.timelines_access.live_feeds.remote === "restricted"
       if (!federatedTimelineRestricted || isAdmin()) {
         return true
       }

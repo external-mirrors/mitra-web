@@ -85,7 +85,7 @@ const unreadNotificationCount = computed<number>(() => {
 })
 
 function canViewFederatedTimeline(): boolean {
-  const federatedTimelineRestricted = instance.value?.federated_timeline_restricted ?? true
+  const federatedTimelineRestricted = instance.value?.configuration.timelines_access.live_feeds.remote === "restricted"
   return !federatedTimelineRestricted || isAdmin()
 }
 

@@ -38,6 +38,7 @@ export interface InstanceInfo {
     timelines_access: {
       live_feeds: {
         local: string,
+        remote: string,
       },
     },
   },
@@ -46,7 +47,6 @@ export interface InstanceInfo {
   },
   authentication_methods: AuthenticationMethod[],
   login_message: string;
-  federated_timeline_restricted: boolean,
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }
