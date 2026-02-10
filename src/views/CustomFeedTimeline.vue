@@ -29,7 +29,7 @@ import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
 import { getCustomFeed, CustomFeed } from "@/api/custom-feeds"
-import { addRelationships, getListTimeline, Post } from "@/api/posts"
+import { addRelationships, getCustomFeedTimeline, Post } from "@/api/posts"
 import IconConfigure from "@/assets/feather/sliders.svg?component"
 import Loader from "@/components/Loader.vue"
 import PostList from "@/components/PostList.vue"
@@ -53,7 +53,7 @@ async function loadTimelinePage(
   if (feed.value === null) {
     throw new Error("feed info is not present")
   }
-  const page = await getListTimeline(
+  const page = await getCustomFeedTimeline(
     authToken,
     feed.value.id,
     maxId,
@@ -74,7 +74,7 @@ onMounted(async () => {
   const authToken = ensureAuthToken()
   feed.value = await getCustomFeed(
     authToken,
-    parseInt(route.params.feedId as string),
+    route.params.feedId as string,
   )
   setPageTitle(feed.value.title)
   posts.value = await loadTimelinePage(authToken)

@@ -3,7 +3,7 @@ import { handleResponse, http, PAGE_SIZE } from "./common"
 import { Profile } from "./users"
 
 export interface CustomFeed {
-  id: number,
+  id: string,
   title: string,
 }
 
@@ -32,7 +32,7 @@ export async function createCustomFeed(
 
 export async function getCustomFeed(
   authToken: string,
-  feedId: number,
+  feedId: string,
 ): Promise<CustomFeed> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}`
   const response = await http(url, { authToken })
@@ -42,7 +42,7 @@ export async function getCustomFeed(
 
 export async function updateCustomFeed(
   authToken: string,
-  feedId: number,
+  feedId: string,
   feedName: string,
 ): Promise<CustomFeed> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}`
@@ -57,7 +57,7 @@ export async function updateCustomFeed(
 
 export async function deleteCustomFeed(
   authToken: string,
-  feedId: number,
+  feedId: string,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}`
   const response = await http(url, {
@@ -69,7 +69,7 @@ export async function deleteCustomFeed(
 
 export async function addCustomFeedSource(
   authToken: string,
-  feedId: number,
+  feedId: string,
   sourceId: string,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}/accounts`
@@ -83,7 +83,7 @@ export async function addCustomFeedSource(
 
 export async function removeCustomFeedSource(
   authToken: string,
-  feedId: number,
+  feedId: string,
   sourceId: string,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}/accounts`
@@ -97,7 +97,7 @@ export async function removeCustomFeedSource(
 
 export async function getCustomFeedSources(
   authToken: string,
-  feedId: number,
+  feedId: string,
   maxId?: string,
 ): Promise<Profile[]> {
   const url = `${BACKEND_URL}/api/v1/lists/${feedId}/accounts`

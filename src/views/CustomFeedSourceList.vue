@@ -196,7 +196,7 @@ async function onUpdateFeed() {
   isFeedFormVisible.value = false
 }
 
-async function onDeleteFeed(feedId: number) {
+async function onDeleteFeed(feedId: string) {
   if (confirm(t("custom_feeds.confirm_delete_this_feed"))) {
     await deleteCustomFeed(
       ensureAuthToken(),
@@ -331,7 +331,7 @@ onMounted(async () => {
   const authToken = ensureAuthToken()
   feed.value = await getCustomFeed(
     authToken,
-    parseInt(route.params.feedId as string),
+    route.params.feedId as string,
   )
   setPageTitle(feed.value.title)
   sources.value = await loadSources(authToken)

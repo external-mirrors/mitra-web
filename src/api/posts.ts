@@ -188,12 +188,12 @@ export async function getProfileTimeline(
   return data
 }
 
-export async function getListTimeline(
+export async function getCustomFeedTimeline(
   authToken: string,
-  listId: number,
+  feedId: string,
   maxId?: string,
 ): Promise<Post[]> {
-  const url = `${BACKEND_URL}/api/v1/timelines/list/${listId}`
+  const url = `${BACKEND_URL}/api/v1/timelines/list/${feedId}`
   const queryParams = { max_id: maxId, limit: PAGE_SIZE }
   const response = await http(url, {
     method: "GET",
