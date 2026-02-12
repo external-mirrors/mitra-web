@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added setting for changing default post language.
 - Display payment amount in payment notifications.
+- List users who reacted to a post in reaction counter tooltip.
+- List users who reposted a post in repost counter tooltip.
 
 ### Changed
 
