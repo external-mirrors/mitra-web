@@ -10,14 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added setting for changing default post language.
 - Display payment amount in payment notifications.
-- List users who reacted to a post in reaction counter tooltip.
-- List users who reposted a post in repost counter tooltip.
+- List users who reacted to a post in reaction counter tooltip ([#149](https://codeberg.org/silverpill/mitra-web/pulls/149)).
+- List users who reposted a post in repost counter tooltip ([#149](https://codeberg.org/silverpill/mitra-web/pulls/149)).
 
 ### Changed
 
 - Changed default request timeout to 120 seconds.
 - Read `configuration.timelines_access.live_feeds.remote` to determine visibility of federated timeline.
 - Use `Account.source.privacy` to store default post visibility.
+- Updated translations ([#152](https://codeberg.org/silverpill/mitra-web/pulls/152)).
 
 ### Fixed
 
