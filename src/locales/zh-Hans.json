@@ -266,7 +266,8 @@
         "posts": "帖文",
         "active_sessions": "@:sessions.active_sessions",
         "notifications": "通知",
-        "enable_instant_notifications": "启用即时通知"
+        "enable_instant_notifications": "启用即时通知",
+        "default_post_language": "默认帖文语言"
     },
     "gallery": {
         "name_gallery": "{name} 媒体库",
