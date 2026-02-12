@@ -60,7 +60,7 @@
             {{ $t('notifications.reposted_your_post') }}
           </span>
           <span v-else-if="notification.type === 'payment_anonymous'">
-            You received a payment
+            You received an anonymous payment
           </span>
           <span v-else-if="notification.type === 'subscription'">
             {{ $t('notifications.paid_for_subscription') }}
@@ -87,12 +87,19 @@
         ></post>
         <div
           v-else-if="notification.type === 'payment_anonymous'"
-          class="profile anonymous"
+          class="profile"
         >
           <div class="floating-avatar">
             <avatar :profile="defaultProfile()"></avatar>
           </div>
-          <span class="display-name">Anonymous</span>
+          <span class="payment-amount">
+            <template v-if="notification.payment_amount">
+              {{ formatXmrAmount(notification.payment_amount) }} XMR
+            </template>
+            <template v-else>
+              Unknown amount
+            </template>
+          </span>
           <div class="timestamp">
             <timestamp :date="notification.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
           </div>
@@ -106,9 +113,22 @@
           <div class="floating-avatar">
             <avatar :profile="notification.account"></avatar>
           </div>
-          <profile-display-name :profile="getSender(notification)">
-          </profile-display-name>
-          <div class="actor-address">{{ getActorHandle(notification.account) }}</div>
+          <span
+            v-if="notification.type === 'subscription'"
+            class="payment-amount"
+          >
+            <template v-if="notification.payment_amount">
+              {{ formatXmrAmount(notification.payment_amount) }} XMR
+            </template>
+            <template v-else>
+              Unknown amount
+            </template>
+          </span>
+          <template v-else>
+            <profile-display-name :profile="getSender(notification)">
+            </profile-display-name>
+            <div class="actor-address">{{ getActorHandle(notification.account) }}</div>
+          </template>
           <div class="timestamp">
             <timestamp :date="notification.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
           </div>
@@ -135,6 +155,7 @@ import { PAGE_SIZE } from "@/api/common"
 import { replaceShortcodes } from "@/api/emojis"
 import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
+import { formatXmrAmount } from "@/api/subscriptions-monero"
 import { defaultProfile, ProfileWrapper } from "@/api/users"
 import IconUserCheck from "@/assets/feather/user-check.svg?component"
 import IconUserMinus from "@/assets/feather/user-minus.svg?component"
@@ -296,10 +317,15 @@ async function loadNextPage() {
 
   .display-name {
     color: var(--text-color);
+    flex-grow: 1;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .display-name:has(+ .actor-address) {
+    flex-grow: 0;
   }
 
   .actor-address {
@@ -309,15 +335,15 @@ async function loadNextPage() {
     text-overflow: ellipsis;
   }
 
+  .payment-amount {
+    color: var(--text-color);
+    flex-grow: 1;
+    font-weight: bold;
+  }
+
   .timestamp {
     text-align: right;
     white-space: nowrap;
-  }
-}
-
-.profile.anonymous {
-  .display-name {
-    flex-grow: 1;
   }
 }
 

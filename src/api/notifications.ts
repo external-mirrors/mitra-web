@@ -17,6 +17,7 @@ export interface Notification {
   account: Profile;
   status: Post | null;
   reaction: EmojiReaction | null,
+  payment_amount: number | null,
   created_at: string;
 }
 
