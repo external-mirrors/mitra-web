@@ -145,7 +145,7 @@
         @mouseenter="loadWhoFavourited()"
       >
         <emoji-image :emoji="{ name: null, text: '👍', url: null }"></emoji-image>
-        <span :title="getReactionTooltip(likeAuthorList || [], post.favourites_count)">{{ post.favourites_count }}</span>
+        <span :title="getReactionTooltip(likeAuthorList, post.favourites_count)">{{ post.favourites_count }}</span>
       </button>
       <button
         v-for="reaction in post.pleroma.emoji_reactions"
@@ -157,7 +157,7 @@
         @mouseenter="loadWhoReacted()"
       >
         <emoji-image :emoji="getReactionEmoji(reaction)"></emoji-image>
-        <span :title="getReactionTooltip(reactionAuthorMap?.get(reaction.name) || [], reaction.count)">{{ reaction.count }}</span>
+        <span :title="getReactionTooltip(reactionAuthorMap ? reactionAuthorMap.get(reaction.name) || [] : null, reaction.count)">{{ reaction.count }}</span>
       </button>
     </div>
     <div class="post-footer">
@@ -196,11 +196,11 @@
         :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"
       >
         <icon-repost></icon-repost>
-        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList || [], post.reblogs_count)">{{ post.reblogs_count }}</span>
+        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList, post.reblogs_count)">{{ post.reblogs_count }}</span>
       </button>
       <span v-else-if="isRepostPossible()" class="icon">
         <icon-repost></icon-repost>
-        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList || [], post.reblogs_count)">{{ post.reblogs_count }}</span>
+        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList, post.reblogs_count)">{{ post.reblogs_count }}</span>
       </span>
       <button
         v-if="canLike()"
@@ -841,8 +841,12 @@ async function loadWhoReposted() {
   repostAuthorList.value = who
 }
 
-function getReactionTooltip(authors: Profile[], count: number): string | undefined {
+function getReactionTooltip(authors: Profile[] | null, count: number): string | undefined {
   if (currentUser.value === null) {
+    return undefined
+  }
+  if (authors === null) {
+    // Not loaded yet
     return undefined
   }
   const names = authors
