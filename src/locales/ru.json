@@ -265,7 +265,9 @@
         "default_post_visibility": "Видимость поста по умолчанию",
         "posts": "Посты",
         "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке",
-        "active_sessions": "@:sessions.active_sessions"
+        "active_sessions": "@:sessions.active_sessions",
+        "notifications": "Уведомления",
+        "enable_instant_notifications": "Включить мгновенные уведомления"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",

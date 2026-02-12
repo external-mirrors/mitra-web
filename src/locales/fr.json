@@ -214,7 +214,9 @@
         "default_post_visibility": "Visibilité par défaut",
         "posts": "Messages",
         "open_conversations_in_a_new_tab": "Ouvrir les conversations dans un nouvel onglet",
-        "active_sessions": "@:sessions.active_sessions"
+        "active_sessions": "@:sessions.active_sessions",
+        "notifications": "Notifications",
+        "enable_instant_notifications": "Activer les notifications instantanées"
     },
     "custom_feeds": {
         "delete_feed": "Supprimer le flux",
