@@ -61,6 +61,7 @@ export interface Tag {
 }
 
 interface PleromaEmojiReaction {
+  accounts: Array<Profile>,
   name: string,
   url: string | null,
   count: number,
@@ -578,4 +579,34 @@ export async function loadConversation(
     authToken,
   })
   await handleResponse(response, 204)
+}
+
+export async function getWhoFavourited(
+  authToken: string,
+  postId: string,
+): Promise<Array<Profile>> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/favourited_by`
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function getWhoReacted(
+  authToken: string,
+  postId: string,
+): Promise<Array<PleromaEmojiReaction>> {
+  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions`
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function getWhoReposted(
+  authToken: string,
+  postId: string,
+): Promise<Array<Profile>> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/reblogged_by`
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return data
 }

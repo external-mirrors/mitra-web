@@ -95,7 +95,9 @@
     "send_coin": "Send {name}",
     "copy_coin_address": "Copy address",
     "action_reposted": "reposted",
-    "next_page": "Show more posts"
+    "next_page": "Show more posts",
+    "authors_and_others": "{authors} and others",
+    "authors_are_hidden": "authors are hidden"
   },
   "poll": {
     "num_votes": "no votes | {n} vote | {n} votes",

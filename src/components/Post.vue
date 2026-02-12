@@ -142,9 +142,10 @@
         :class="{ reacted: post.favourited }"
         @click="toggleLike()"
         :disabled="!canLike()"
+        @mouseenter="loadWhoFavourited()"
       >
         <emoji-image :emoji="{ name: null, text: '👍', url: null }"></emoji-image>
-        <span>{{ post.favourites_count }}</span>
+        <span :title="getReactionTooltip(likeAuthorList || [], post.favourites_count)">{{ post.favourites_count }}</span>
       </button>
       <button
         v-for="reaction in post.pleroma.emoji_reactions"
@@ -153,9 +154,10 @@
         :class="{ reacted: hasReacted(getReactionEmoji(reaction)) }"
         @click="onToggleReaction(getReactionEmoji(reaction))"
         :disabled="!canReact()"
+        @mouseenter="loadWhoReacted()"
       >
         <emoji-image :emoji="getReactionEmoji(reaction)"></emoji-image>
-        <span>{{ reaction.count }}</span>
+        <span :title="getReactionTooltip(reactionAuthorMap?.get(reaction.name) || [], reaction.count)">{{ reaction.count }}</span>
       </button>
     </div>
     <div class="post-footer">
@@ -189,15 +191,16 @@
         class="icon"
         :class="{ highlighted: post.reblogged }"
         :disabled="isProcessingRepost"
-        :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"
         @click="toggleRepost()"
+        @mouseenter="loadWhoReposted()"
+        :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"
       >
         <icon-repost></icon-repost>
-        <span>{{ post.reblogs_count }}</span>
+        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList || [], post.reblogs_count)">{{ post.reblogs_count }}</span>
       </button>
       <span v-else-if="isRepostPossible()" class="icon">
         <icon-repost></icon-repost>
-        <span>{{ post.reblogs_count }}</span>
+        <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList || [], post.reblogs_count)">{{ post.reblogs_count }}</span>
       </span>
       <button
         v-if="canLike()"
@@ -484,6 +487,9 @@ import {
   makePermanent,
   Post,
   Visibility,
+  getWhoFavourited,
+  getWhoReacted,
+  getWhoReposted,
 } from "@/api/posts"
 import { mute, unmute } from "@/api/relationships"
 import {
@@ -543,6 +549,8 @@ interface PaymentOption {
   subscription: string | RouteLocationRaw | null;
 }
 
+const REACTION_TOOLTIP_ITEMS_MAX = 5
+
 const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
 const { formatDateTime } = useDateTime()
@@ -569,6 +577,9 @@ const emit = defineEmits<{
 const replyFormVisible = ref(false)
 const repostFormVisible = ref(false)
 const editorVisible = ref(false)
+const likeAuthorList = ref<Profile[] | null>(null)
+const reactionAuthorMap = ref<Map<string, Profile[]> | null>(null)
+const repostAuthorList = ref<Profile[] | null>(null)
 const isProcessingRepost = ref(false)
 const isProcessingLike = ref(false)
 const emojiPickerVisible = ref(false)
@@ -718,6 +729,7 @@ async function toggleRepost() {
   isProcessingRepost.value = false
   props.post.reblogs_count = updatedPost.reblogs_count
   props.post.reblogged = updatedPost.reblogged
+  repostAuthorList.value = null
 }
 
 function onPollUpdate(poll: Poll) {
@@ -753,6 +765,7 @@ async function toggleLike() {
   isProcessingLike.value = false
   props.post.favourites_count = updatedPost.favourites_count
   props.post.favourited = updatedPost.favourited
+  likeAuthorList.value = null
 }
 
 function canReact(): boolean {
@@ -781,6 +794,69 @@ async function onToggleReaction(emoji: Emoji) {
     const updatedPost = await createReaction(authToken, props.post.id, emoji.text)
     props.post.favourites_count = updatedPost.favourites_count
     props.post.pleroma = updatedPost.pleroma
+  }
+  reactionAuthorMap.value = null
+}
+
+async function loadWhoFavourited() {
+  if (currentUser.value === null) {
+    return
+  }
+  if (likeAuthorList.value !== null) {
+    return
+  }
+
+  const authToken = ensureAuthToken()
+  const who = await getWhoFavourited(authToken, props.post.id)
+  likeAuthorList.value = who
+}
+
+async function loadWhoReacted() {
+  if (currentUser.value === null) {
+    return
+  }
+  if (reactionAuthorMap.value !== null) {
+    return
+  }
+
+  const authToken = ensureAuthToken()
+  const who = await getWhoReacted(authToken, props.post.id)
+  reactionAuthorMap.value = new Map()
+  who.forEach((reaction) => {
+    // @ts-expect-error can't be null
+    reactionAuthorMap.value.set(reaction.name, reaction.accounts)
+  })
+}
+
+async function loadWhoReposted() {
+  if (currentUser.value === null) {
+    return
+  }
+  if (repostAuthorList.value !== null) {
+    return
+  }
+
+  const authToken = ensureAuthToken()
+  const who = await getWhoReposted(authToken, props.post.id)
+  repostAuthorList.value = who
+}
+
+function getReactionTooltip(authors: Profile[], count: number): string | undefined {
+  if (currentUser.value === null) {
+    return undefined
+  }
+  const names = authors
+    .slice(0, REACTION_TOOLTIP_ITEMS_MAX)
+    .map(item => new ProfileWrapper(item).getDisplayName())
+  const tooltip = names.join(", ")
+  if (names.length < count) {
+    if (names.length === 0) {
+      return t("post.authors_are_hidden")
+    } else {
+      return t("post.authors_and_others", { authors: tooltip })
+    }
+  } else {
+    return tooltip
   }
 }
 
