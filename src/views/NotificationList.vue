@@ -295,6 +295,10 @@ async function loadNextPage() {
       @include emoji-zoom;
     }
   }
+
+  &:not(:has(.display-name-link)) {
+    flex-wrap: nowrap;
+  }
 }
 
 .profile {

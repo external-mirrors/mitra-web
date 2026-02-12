@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Read `configuration.timelines_access.live_feeds.remote` to determine visibility of federated timeline.
 - Use `Account.source.privacy` to store default post visibility.
 
+### Fixed
+
+- Fixed wrapping of `payment_anonymous` action on small screens.
+
 ## [4.17.0] - 2026-02-05
 
 ### Added
