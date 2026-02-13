@@ -108,7 +108,9 @@
         "reply_to_this_post_from_your_server": "您可以从您的联邦宇宙服务器回复此帖文：{url}",
         "follow_conversation": "关注对话",
         "unfollow_conversation": "取消关注对话",
-        "show_more": "显示更多"
+        "show_more": "显示更多",
+        "authors_and_others": "{authors} 和其他人",
+        "authors_are_hidden": "作者已隐藏"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
