@@ -80,7 +80,9 @@
         "reply_to_this_post_from_your_server": "Вы можете ответить на этот пост со своего сервера Федиверса: {url}",
         "show_more": "Показать больше",
         "follow_conversation": "Следите за разговором",
-        "unfollow_conversation": "Отписаться от разговора"
+        "unfollow_conversation": "Отписаться от разговора",
+        "authors_and_others": "{authors} и другие",
+        "authors_are_hidden": "Авторы скрыты"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -267,7 +269,8 @@
         "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке",
         "active_sessions": "@:sessions.active_sessions",
         "notifications": "Уведомления",
-        "enable_instant_notifications": "Включить мгновенные уведомления"
+        "enable_instant_notifications": "Включить мгновенные уведомления",
+        "default_post_language": "Язык публикации по умолчанию"
     },
     "gallery": {
         "name_gallery": "{name} Галерея",
