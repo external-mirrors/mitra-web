@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Don't show "Repost" in repost counter tooltip while author list is loading.
+
 ## [4.18.0] - 2026-02-12
 
 ### Added

@@ -193,13 +193,12 @@
         :disabled="isProcessingRepost"
         @click="toggleRepost()"
         @mouseenter="loadWhoReposted()"
-        :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"
       >
-        <icon-repost></icon-repost>
+        <icon-repost :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"></icon-repost>
         <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList, post.reblogs_count)">{{ post.reblogs_count }}</span>
       </button>
       <span v-else-if="isRepostPossible()" class="icon">
-        <icon-repost></icon-repost>
+        <icon-repost :title="post.reblogged ? $t('post.delete_repost') : $t('post.repost')"></icon-repost>
         <span v-if="post.reblogs_count > 0" :title="getReactionTooltip(repostAuthorList, post.reblogs_count)">{{ post.reblogs_count }}</span>
       </span>
       <button
