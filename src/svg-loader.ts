@@ -22,6 +22,9 @@ export default function svgLoader() {
       // To prevent compileTemplate from removing the style tag
       svg = svg.replace(/<style/g, '<component is="style"').replace(/<\/style/g, "</component")
 
+      // Copied from https://github.com/jpkleemans/vite-svg-loader/pull/162
+      svg = svg.replace(/<svg\b([^>]*)>/i, match => `${match}<title v-if="title">{{ title }}</title>`)
+
       const { code } = compileTemplate({
         id: JSON.stringify(id),
         source: svg,
@@ -29,7 +32,7 @@ export default function svgLoader() {
         transformAssetUrls: false,
       })
 
-      return `${code}\nexport default { render: render }`
+      return `${code}\nexport default { render: render, props: { title: { type: String } } }`
     },
   }
 }
