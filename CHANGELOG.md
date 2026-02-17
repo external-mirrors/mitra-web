@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.18.0] - 2026-02-12
+
 ### Added
 
 - Added setting for changing default post language.
@@ -18,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Changed default request timeout to 120 seconds.
 - Read `configuration.timelines_access.live_feeds.remote` to determine visibility of federated timeline.
 - Use `Account.source.privacy` to store default post visibility.
+- Don't show repost counter if the number is 0.
 - Updated translations ([#152](https://codeberg.org/silverpill/mitra-web/pulls/152)).
 
 ### Fixed
