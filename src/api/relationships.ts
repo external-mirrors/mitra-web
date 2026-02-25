@@ -158,11 +158,22 @@ export async function getFollowing(
 
 export async function getFollowRequests(
   authToken: string,
-  url?: string,
+  pageUrl?: string,
 ): Promise<ProfileListPage> {
-  if (!url) {
-    url = `${BACKEND_URL}/api/v1/follow_requests`
+  const url = pageUrl ?? `${BACKEND_URL}/api/v1/follow_requests`
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
   }
+}
+
+export async function getOutgoingFollowRequests(
+  authToken: string,
+  pageUrl?: string,
+): Promise<ProfileListPage> {
+  const url = pageUrl ?? `${BACKEND_URL}/api/v1/follow_requests/outgoing`
   const response = await http(url, { authToken })
   const data = await handleResponse(response)
   return {

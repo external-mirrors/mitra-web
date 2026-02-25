@@ -27,6 +27,27 @@
   text-align: left;
 }
 
+@mixin tab-bar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  .tab {
+    /* same styles used in @content-list-header */
+
+    border-radius: $block-border-radius;
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: calc($block-inner-padding / 2);
+    text-align: center;
+
+    &.active {
+      background-color: var(--block-background-color);
+      font-weight: bold;
+    }
+  }
+}
+
 @mixin floating-avatar {
   display: block;
   height: 0;

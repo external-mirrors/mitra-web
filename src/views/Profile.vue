@@ -1283,25 +1283,9 @@ $avatar-size: 170px;
 }
 
 .tab-bar {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
+  @include tab-bar;
+
   margin-bottom: $block-outer-padding;
-
-  .tab {
-    /* same styles used in content-list-header mixin */
-
-    border-radius: $block-border-radius;
-    box-sizing: border-box;
-    flex-grow: 1;
-    padding: calc($block-inner-padding / 2);
-    text-align: center;
-
-    &.active {
-      background-color: var(--block-background-color);
-      font-weight: bold;
-    }
-  }
 }
 
 .profile-list-item {
