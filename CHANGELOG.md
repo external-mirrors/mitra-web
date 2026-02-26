@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Show outgoing follow requests on "Follow requests" page.
 
+### Changed
+
+- Prepared "You received an anonymous payment" notification text for translation.
+
 ### Fixed
 
 - Don't show "Repost" in repost counter tooltip while author list is loading.

@@ -60,7 +60,7 @@
             {{ $t('notifications.reposted_your_post') }}
           </span>
           <span v-else-if="notification.type === 'payment_anonymous'">
-            You received an anonymous payment
+            {{ $t('notifications.you_received_an_anonymous_payment') }}
           </span>
           <span v-else-if="notification.type === 'subscription'">
             {{ $t('notifications.paid_for_subscription') }}
