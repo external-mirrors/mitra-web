@@ -250,7 +250,6 @@
         "unit_days": "Tage",
         "grant": "Gewähren",
         "payment_awaiting_response": "Warten auf Antwort",
-        "payment_waiting": "Warten auf Zahlung ({n} Minuten verbleiben)",
         "payment_processing": "Zahlung wird verarbeitet",
         "payment_timed_out": "Zeitüberschreitung bei der Zahlung",
         "no_subscription_info": "Keine Abonnementinformationen",

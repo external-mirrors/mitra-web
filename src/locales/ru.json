@@ -307,7 +307,6 @@
         "please_send_to_this_address": "Пожалуйста напишите {amount} {currency} на этот адрес:",
         "show_additional_payment_information": "Показать дополнительную информацию",
         "payment_awaiting_response": "Ожидание ответа",
-        "payment_waiting": "Ожидание оплаты ({n} осталось минут)",
         "payment_processing": "Обработка платежа",
         "payment_timed_out": "Время платежа истекло",
         "payment_cancelled": "Платёж закончен",

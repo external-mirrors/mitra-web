@@ -342,7 +342,6 @@
         "please_send_to_this_address": "Gelieve {amount} {currency} naar dit adres te sturen:",
         "show_additional_payment_information": "Toon extra informatie",
         "payment_awaiting_response": "Wacht op antwoord",
-        "payment_waiting": "Wacht op betaling (nog {n} minuten over)",
         "payment_processing": "Betaling aan het verwerken",
         "payment_timed_out": "Verlooptijd van de betaling voorbij",
         "payment_cancelled": "Betaling geannuleerd",

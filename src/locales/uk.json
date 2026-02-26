@@ -287,7 +287,6 @@
         "amount": "Сума",
         "pay": "Сплатити",
         "payment_amount_is_too_small": "Сума платежу занадто мала",
-        "payment_waiting": "Очікування платежу (залишилося {n} хвилин)",
         "subscribers": "{n} підписка | {n} підписок",
         "show_additional_payment_information": "Показати додаткову інформацію",
         "edit_settings": "Змінити налаштування",

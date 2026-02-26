@@ -305,7 +305,6 @@
         "extend": "续期",
         "please_send_to_this_address": "请向这个地址发送 {amount} {currency} ：",
         "payment_awaiting_response": "等待回应",
-        "payment_waiting": "等待支付（剩余 {n} 分钟）",
         "payment_processing": "正在处理交易",
         "payment_timed_out": "交易超时",
         "payment_cancelled": "交易已取消",

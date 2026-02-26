@@ -290,7 +290,6 @@
         "payment_timed_out": "Plazo de pago vencido",
         "payment_completed": "Pago completado",
         "show_additional_payment_information": "Mostrar información adicional",
-        "payment_waiting": "Esperando para pago ({n} minutos restantes)",
         "ok_payment": "OK",
         "manage_subscriptions": "Gestionar suscripciones",
         "subscriptions_are_enabled": "Suscripciones habilitadas",

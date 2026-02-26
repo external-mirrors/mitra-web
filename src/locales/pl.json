@@ -337,7 +337,6 @@
         "please_send_to_this_address": "Proszę wysłać {amount} {currency} na ten adres:",
         "show_additional_payment_information": "Pokaż dodatkowe informacje",
         "payment_awaiting_response": "Oczekiwanie na odpowiedź",
-        "payment_waiting": "Oczekiwanie na płatność (pozostało {n} minut)",
         "payment_waiting_pluralized": "Oczekiwanie na płatność | Oczekiwanie na płatność (zostało {n} minut) | Oczekiwanie na płatność (zostało {n} minut)",
         "payment_processing": "Przetwarzanie płatności",
         "payment_timed_out": "Limit czasu płatności upłynął",

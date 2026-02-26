@@ -285,7 +285,6 @@
         "please_send_to_this_address": "{amount} {currency}をこのアドレスに送金して下さい：",
         "show_additional_payment_information": "詳細を表示",
         "payment_awaiting_response": "応答待ち",
-        "payment_waiting": "支払いを待っています（残り {n} 分）",
         "amount": "金額",
         "cancel_payment": "キャンセル",
         "ok_payment": "OK",

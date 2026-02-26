@@ -262,7 +262,6 @@
         "extend": "Prolonger",
         "show_additional_payment_information": "Afficher les informations complémentaires",
         "payment_awaiting_response": "En attente de réponse",
-        "payment_waiting": "En attente de paiement ({n} minutes restantes)",
         "payment_processing": "Traitement du paiement",
         "payment_timed_out": "Paiement abandonné",
         "payment_cancelled": "Paiement annulé",
