@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Prepared notification texts with placeholders for translation.
 - Improved translation of repost action text.
+- Updated translations ([#154](https://codeberg.org/silverpill/mitra-web/pulls/154)).
 
 ### Fixed
 
