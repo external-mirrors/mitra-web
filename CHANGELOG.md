@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Improved rendering of list items without `ul` / `ol` parent.
 - Updated translations ([#155](https://codeberg.org/silverpill/mitra-web/pulls/155)).
+- Switched to new notification text translations.
 
 ## [4.19.0] - 2026-02-27
 
@@ -20,7 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Prepared notification texts with placeholders for translation.
-- Improved translation of repost action text.
+- Switched to new repost action translations.
 - Updated translations ([#154](https://codeberg.org/silverpill/mitra-web/pulls/154)).
 
 ### Fixed

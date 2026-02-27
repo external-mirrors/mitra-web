@@ -29,54 +29,17 @@
           <icon-user-minus v-else-if="notification.type === 'subscriber_leaving'"></icon-user-minus>
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
-          <router-link
-            v-if="notification.type !== 'payment_anonymous'"
-            :title="getActorHandle(getSender(notification))"
-            :to="getActorLocation('profile', notification.account)"
-            class="display-name-link"
-          >
-            <profile-display-name :profile="getSender(notification)">
-            </profile-display-name>
-          </router-link>
-          <span v-if="notification.type === 'follow'">
-            {{ $t('notifications.followed_you') }}
-          </span>
-          <span v-else-if="notification.type === 'follow_request'">
-            {{ $t('notifications.sent_a_follow_request') }}
-          </span>
-          <span v-else-if="notification.type === 'mention' && notification.subtype === 'reply'">
-            {{ $t('notifications.replied_to_your_post') }}
-          </span>
-          <span v-else-if="notification.type === 'favourite'">
-            {{ $t('notifications.liked_your_post') }}
-          </span>
-          <span v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'">
-            {{ $t('notifications.reacted_to_your_post') }}
-          </span>
-          <span v-else-if="notification.type === 'mention'">
-            {{ $t('notifications.mentioned_you') }}
-          </span>
-          <span v-else-if="notification.type === 'reblog'">
-            {{ $t('notifications.reposted_your_post') }}
-          </span>
-          <span v-else-if="notification.type === 'payment_anonymous'">
-            {{ $t('notifications.you_received_an_anonymous_payment') }}
-          </span>
-          <span v-else-if="notification.type === 'subscription'">
-            {{ $t('notifications.paid_for_subscription') }}
-          </span>
-          <span v-else-if="notification.type === 'subscription_expiration'">
-            {{ $t('notifications.subscription_expired') }}
-          </span>
-          <span v-else-if="notification.type === 'subscriber_leaving'">
-            {{ $t('notifications.is_no_longer_a_subscriber') }}
-          </span>
-          <span v-else-if="notification.type === 'move'">
-            {{ $t('notifications.moved_to_a_new_instance') }}
-          </span>
-          <span v-else-if="notification.type === 'admin.sign_up'">
-            {{ $t('notifications.signed_up') }}
-          </span>
+          <i18n-t :keypath="getNotificationTextKeypath(notification)" scope="global">
+            <router-link
+              v-if="notification.type !== 'payment_anonymous'"
+              :title="getActorHandle(getSender(notification))"
+              :to="getActorLocation('profile', notification.account)"
+              class="display-name-link"
+            >
+              <profile-display-name :profile="getSender(notification)">
+              </profile-display-name>
+            </router-link>
+          </i18n-t>
         </div>
         <post
           v-if="notification.status !== null && !isGrouped(index)"
@@ -200,6 +163,39 @@ async function onNotificationPageLoad(page: Notification[]) {
   })
   const authToken = ensureAuthToken()
   await addRelationships(authToken, posts)
+}
+
+function getNotificationTextKeypath(notification: Notification): string {
+  if (notification.type === "follow") {
+    return "notifications.user_followed_you"
+  } else if (notification.type === "follow_request") {
+    return "notifications.user_sent_a_follow_request"
+  } else if (notification.type === "mention" && notification.subtype === "reply") {
+    return "notifications.user_replied_to_your_post"
+  } else if (notification.type === "favourite") {
+    return "notifications.user_liked_your_post"
+  } else if (notification.type === "emoji_reaction" || notification.type === "pleroma:emoji_reaction") {
+    return "notifications.user_reacted_to_your_post"
+  } else if (notification.type === "mention") {
+    return "notifications.user_mentioned_you"
+  } else if (notification.type === "reblog") {
+    return "notifications.user_reposted_your_post"
+  } else if (notification.type === "payment_anonymous") {
+    return "notifications.you_received_an_anonymous_payment"
+  } else if (notification.type === "subscription") {
+    return "notifications.user_paid_for_subscription"
+  } else if (notification.type === "subscription_expiration") {
+    return "notifications.user_subscription_expired"
+  } else if (notification.type === "subscriber_leaving") {
+    return "notifications.user_is_no_longer_a_subscriber"
+  } else if (notification.type === "move") {
+    return "notifications.user_moved_to_a_new_instance"
+  } else if (notification.type === "admin.sign_up") {
+    return "notifications.user_signed_up"
+  } else {
+    // Unexpected notification type
+    return ""
+  }
 }
 
 onMounted(async () => {
