@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [4.19.0] - 2026-02-27
+
 ### Added
 
 - Show outgoing follow requests on "Follow requests" page.
