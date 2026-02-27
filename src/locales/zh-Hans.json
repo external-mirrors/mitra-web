@@ -108,7 +108,9 @@
         "reply_to_this_post_from_your_server": "您可以从您的联邦宇宙服务器回复此帖文：{url}",
         "follow_conversation": "关注对话",
         "unfollow_conversation": "取消关注对话",
-        "show_more": "显示更多"
+        "show_more": "显示更多",
+        "authors_and_others": "{authors} 和其他人",
+        "authors_are_hidden": "作者已隐藏"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -228,7 +230,8 @@
         "show_more_notifications": "查看更多通知",
         "reacted_to_your_post": "回应了你的帖文",
         "is_no_longer_a_subscriber": "不再是订阅者",
-        "you_dont_have_any_notifications": "您没有任何通知"
+        "you_dont_have_any_notifications": "您没有任何通知",
+        "you_received_an_anonymous_payment": "您收到了匿名付款"
     },
     "settings": {
         "settings": "设置",
@@ -288,7 +291,9 @@
     "follow_requests": {
         "no_follow_requests_found": "没有关注请求",
         "show_more_requests": "查看更多请求",
-        "follow_requests": "关注请求"
+        "follow_requests": "关注请求",
+        "incoming": "收到",
+        "outgoing": "发出"
     },
     "subscriptions": {
         "subscription": "订阅",
