@@ -72,7 +72,7 @@
             "visible_to_everyone": "Видно всем",
             "visible_to_followers": "Показать подписчикам",
             "visible_to_premium_subscribers": "Показать премиум-подписчикам",
-            "visible_to_people_chosen_by_conversation_owner": "Видно людям выбранным владельцем беседы",
+            "visible_to_people_chosen_by_conversation_owner": "Видно только тем, кого выбрал владелец беседы",
             "visible_to_mentioned_users": "Видно указанным пользователям"
         },
         "copy_object_id": "Копировать идентификатор объекта",
@@ -280,7 +280,7 @@
         "default_post_visibility": "Видимость поста по умолчанию",
         "posts": "Посты",
         "open_conversations_in_a_new_tab": "Открыть беседы в новой вкладке",
-        "active_sessions": "@:sessions.active_sessions",
+        "active_sessions": "активные сессии @:sessions.active_sessions",
         "notifications": "Уведомления",
         "enable_instant_notifications": "Включить мгновенные уведомления",
         "default_post_language": "Язык публикации по умолчанию"
