@@ -6,34 +6,38 @@
         v-if="!isLoading"
         class="sessions"
       >
-        <tr>
-          <th>{{ $t('sessions.application') }}</th>
-          <th>{{ $t('sessions.logged_in') }}</th>
-          <th></th>
-        </tr>
-        <tr
-          v-for="session in sessions"
-          :key="session.id"
-        >
-          <td>
-              {{ getSessionName(session) }}
-              <span
-              v-if="session.is_current"
-              class="current-session"
-            >
-              {{ $t('sessions.current') }}
-            </span>
+        <thead>
+          <tr>
+            <th>{{ $t('sessions.application') }}</th>
+            <th>{{ $t('sessions.logged_in') }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="session in sessions"
+            :key="session.id"
+          >
+            <td>
+                {{ getSessionName(session) }}
+                <span
+                v-if="session.is_current"
+                class="current-session"
+              >
+                {{ $t('sessions.current') }}
+              </span>
+              </td>
+            <td>{{ formatDateTime(session.created_at) }}</td>
+            <td>
+              <button
+                @click="terminate(session)"
+                :title="$t('sessions.terminate_session')"
+              >
+                <icon-delete></icon-delete>
+              </button>
             </td>
-          <td>{{ formatDateTime(session.created_at) }}</td>
-          <td>
-            <button
-              @click="terminate(session)"
-              :title="$t('sessions.terminate_session')"
-            >
-              <icon-delete></icon-delete>
-            </button>
-          </td>
-        </tr>
+          </tr>
+        </tbody>
       </table>
       <loader v-if="isLoading"></loader>
     </template>

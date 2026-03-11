@@ -60,10 +60,12 @@
     @click.stop.prevent
   ></audio>
   <table v-else class="document">
-    <tr>
-      <td><icon-file></icon-file></td>
-      <td><a :href="attachment.url">{{ attachment.url }}</a></td>
-    </tr>
+    <tbody>
+      <tr>
+        <td><icon-file></icon-file></td>
+        <td><a :href="attachment.url">{{ attachment.url }}</a></td>
+      </tr>
+    </tbody>
   </table>
 </template>
 

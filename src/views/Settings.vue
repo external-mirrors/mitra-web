@@ -151,20 +151,22 @@
       <section>
         <h2>{{ $t('settings.export') }}</h2>
         <table class="export">
-          <tr>
-            <td>{{ $t("settings.follows") }}</td>
-            <td>{{ currentUser.following_count }}</td>
-            <td>
-              <a @click="onExportFollows()">{{ $t('settings.download') }}</a>
-            </td>
-          </tr>
-          <tr>
-            <td>{{ $t('settings.followers') }}</td>
-            <td>{{ currentUser.followers_count }}</td>
-            <td>
-              <a @click="onExportFollowers()">{{ $t('settings.download') }}</a>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>{{ $t("settings.follows") }}</td>
+              <td>{{ currentUser.following_count }}</td>
+              <td>
+                <a @click="onExportFollows()">{{ $t('settings.download') }}</a>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ $t('settings.followers') }}</td>
+              <td>{{ currentUser.followers_count }}</td>
+              <td>
+                <a @click="onExportFollowers()">{{ $t('settings.download') }}</a>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </section>
       <section>
