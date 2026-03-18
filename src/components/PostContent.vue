@@ -170,6 +170,8 @@ function configureInlineLinks() {
   color: var(--text-color);
   line-height: 1.5;
   text-align: initial;
+  /* This can't be changed to `preserve` because some servers produce HTML with \n in it */
+  white-space-collapse: collapse;
   word-wrap: break-word;
 
   :deep(p) {
