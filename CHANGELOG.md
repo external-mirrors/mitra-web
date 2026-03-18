@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Improved rendering of list items without `ul` / `ol` parent.
+
 ## [4.19.0] - 2026-02-27
 
 ### Added

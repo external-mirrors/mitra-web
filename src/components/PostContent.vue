@@ -238,13 +238,13 @@ function configureInlineLinks() {
     padding: $whitespace;
   }
 
-  :deep(ul),
-  :deep(ol) {
-    padding-inline-start: 1rem;
-  }
-
   :deep(ul) {
     list-style-type: disc;
+  }
+
+  :deep(li) {
+    /* Works for list items without ul/ol parent */
+    list-style-position: inside;
   }
 
   :deep(dd) {
