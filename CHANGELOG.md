@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Improved rendering of list items without `ul` / `ol` parent.
+- Updated translations ([#155](https://codeberg.org/silverpill/mitra-web/pulls/155)).
 
 ## [4.19.0] - 2026-02-27
 
