@@ -1,6 +1,6 @@
 {
   "name": "mitra-web",
-  "version": "4.19.1-dev",
+  "version": "4.20.0",
   "description": "Mitra web UI",
   "license": "AGPL-3.0-only",
   "private": true,
