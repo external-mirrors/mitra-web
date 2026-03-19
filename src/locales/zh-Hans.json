@@ -231,7 +231,19 @@
         "reacted_to_your_post": "回应了你的帖文",
         "is_no_longer_a_subscriber": "不再是订阅者",
         "you_dont_have_any_notifications": "您没有任何通知",
-        "you_received_an_anonymous_payment": "您收到了匿名付款"
+        "you_received_an_anonymous_payment": "您收到了匿名付款",
+        "user_followed_you": "{0} 关注了你",
+        "user_sent_a_follow_request": "{0} 发送了关注请求",
+        "user_replied_to_your_post": "{0} 回复了你的帖文",
+        "user_liked_your_post": "{0} 赞了你的帖文",
+        "user_reacted_to_your_post": "{0} 回应了你的帖文",
+        "user_mentioned_you": "{0} 提到了你",
+        "user_reposted_your_post": "{0} 转发了你的帖文",
+        "user_paid_for_subscription": "{0} 已支付并订阅了你",
+        "user_subscription_expired": "{0} 订阅已到期",
+        "user_is_no_longer_a_subscriber": "{0} 不再是订阅者",
+        "user_moved_to_a_new_instance": "{0} 迁移到了新的实例",
+        "user_signed_up": "{0} 已注册"
     },
     "settings": {
         "settings": "设置",

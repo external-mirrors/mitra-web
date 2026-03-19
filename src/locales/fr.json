@@ -69,7 +69,7 @@
         "post_not_found": "Publication non trouvée",
         "post_is_not_available": "Publication indisponible",
         "post_by_handle": "Publication de {handle}",
-        "user_reposted": "{0} repartagés"
+        "user_reposted": "Partagé par {0}"
     },
     "post_editor": {
         "cancel": "Annuler",
@@ -338,7 +338,20 @@
         "show_more_notifications": "Montrer plus de notifications",
         "moved_to_a_new_instance": "a déménagé sur une nouvelle instance",
         "paid_for_subscription": "a payé une souscription",
-        "you_dont_have_any_notifications": "Vous n'avez aucune notification"
+        "you_dont_have_any_notifications": "Vous n'avez aucune notification",
+        "user_followed_you": "{0} vous suivent",
+        "user_sent_a_follow_request": "{0} ont envoyé une demande d'abonnement",
+        "user_replied_to_your_post": "{0} ont répondu à votre message",
+        "user_liked_your_post": "{0} ont liké votre message",
+        "user_reacted_to_your_post": "{0} ont réagi à votre message",
+        "user_mentioned_you": "{0} vous ont mentionné",
+        "user_reposted_your_post": "{0} ont partagé votre message",
+        "user_paid_for_subscription": "{0} ont payé pour s'abonner",
+        "user_subscription_expired": "{0} abonnements ont expiré",
+        "user_is_no_longer_a_subscriber": "{0} n'est plus abonné",
+        "user_moved_to_a_new_instance": "{0} a changé d'instance",
+        "user_signed_up": "{0} s'est inscrit",
+        "you_received_an_anonymous_payment": "Vous avez reçu un paiement anonyme"
     },
     "gallery": {
         "gallery": "Galerie",
@@ -359,7 +372,9 @@
     "follow_requests": {
         "follow_requests": "Demandes d'abonnement",
         "no_follow_requests_found": "Pas de demandes d'abonnement trouvées",
-        "show_more_requests": "Montrer plus de demandes"
+        "show_more_requests": "Montrer plus de demandes",
+        "incoming": "Entrantes",
+        "outgoing": "Sortantes"
     },
     "misc": {
         "reload_page": "Rafraîchissez la page dans quelques minutes"

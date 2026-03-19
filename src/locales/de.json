@@ -179,7 +179,16 @@
         "paid_for_subscription": "zahlte für ein Abonnement",
         "subscription_expired": "Abonnement abgelaufen",
         "followed_you": "folgt dir",
-        "replied_to_your_post": "antwortete auf deinen Beitrag"
+        "replied_to_your_post": "antwortete auf deinen Beitrag",
+        "user_signed_up": "{0} hat sich registriert",
+        "user_followed_you": "{0} folgte dir",
+        "user_mentioned_you": "{0} hat dich erwähnt",
+        "user_paid_for_subscription": "{0} bezahlte für das Abonnement",
+        "user_subscription_expired": "{0} Abonnement abgelaufen",
+        "user_is_no_longer_a_subscriber": "{0} ist kein Abonnent mehr",
+        "user_moved_to_a_new_instance": "{0} wurde auf eine neue Instanz verschoben",
+        "you_received_an_anonymous_payment": "Du hast eine anonyme Zahlung erhalten",
+        "you_dont_have_any_notifications": "Du hast keine Benachrichtigungen"
     },
     "settings": {
         "experiments_summary": "Dieser Abschnitt enthält experimentelle Funktionen. Die Verwendung erfolgt auf eigene Gefahr.",
@@ -212,7 +221,8 @@
         "posts": "Beiträge",
         "open_conversations_in_a_new_tab": "Konversationen in einem neuen Tab öffnen",
         "enable_instant_notifications": "Sofortbenachrichtigungen aktivieren",
-        "notifications": "Benachrichtigungen"
+        "notifications": "Benachrichtigungen",
+        "default_post_language": "Standard-Sprache von Beiträgen"
     },
     "gallery": {
         "view_post": "Beitrag ansehen",
@@ -225,7 +235,9 @@
     "follow_requests": {
         "show_more_requests": "Weitere Anfragen anzeigen",
         "follow_requests": "Folgeanfragen",
-        "no_follow_requests_found": "Keine Folgeanfragen gefunden"
+        "no_follow_requests_found": "Keine Folgeanfragen gefunden",
+        "outgoing": "Ausgehend",
+        "incoming": "Eingehend"
     },
     "subscriptions": {
         "find_profile": "Profil finden",
@@ -372,7 +384,8 @@
         "already_registered": "Bereits registriert?",
         "sign_in": "Anmelden",
         "sign_up": "Registrieren",
-        "username_only_letters": "Es sind nur Buchstaben, Zahlen, Bindestriche und Unterstriche zulässig."
+        "username_only_letters": "Es sind nur Buchstaben, Zahlen, Bindestriche und Unterstriche zulässig.",
+        "dont_have_an_account": "Du hast noch kein Konto?"
     },
     "sessions": {
         "active_sessions": "Aktive Sitzungen",
