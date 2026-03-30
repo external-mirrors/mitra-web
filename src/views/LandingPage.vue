@@ -45,7 +45,7 @@
             <loader></loader>
           </div>
           <div class="form-control" v-if="!isRegistered || loginType == 'password'">
-            <div class="input-group">
+            <label class="input-group">
               <input
                 type="text"
                 id="username"
@@ -55,7 +55,7 @@
                 :placeholder="$t('login.username')"
               >
               <div class="addon">@{{ instance.domain }}</div>
-            </div>
+            </label>
             <div
               v-if="!isUsernameValid()"
               class="form-message"
