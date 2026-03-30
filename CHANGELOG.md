@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed rendering of `<p>` blocks inside list items.
+
 ## [5.0.0] - 2026-03-23
 
 ## [4.20.0] - 2026-03-19

@@ -249,6 +249,11 @@ function configureInlineLinks() {
     list-style-position: inside;
   }
 
+  :deep(li p) {
+    /* https://stackoverflow.com/questions/72984723/css-list-style-position-makes-line-breaks-when-i-dont-want-it */
+    display: inline-block;
+  }
+
   :deep(dd) {
     margin-inline-start: 1rem;
   }
