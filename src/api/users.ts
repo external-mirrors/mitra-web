@@ -263,7 +263,7 @@ export async function getIdentityClaim(
   proofType: "ethereum" | "minisign" | "minisign-unhashed",
   signer: string,
 ): Promise<IdentityClaim> {
-  const url = `${BACKEND_URL}/api/v1/accounts/identity_proof`
+  const url = `${BACKEND_URL}/api/v1/accounts/identity_claim`
   const queryParams = { proof_type: proofType, signer }
   const response = await http(url, { authToken, queryParams })
   const data = await handleResponse(response)

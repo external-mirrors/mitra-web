@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed rendering of `<p>` blocks inside list items.
+- Stop using deprecated identity proof endpoint.
 
 ## [5.0.0] - 2026-03-23
 
