@@ -28,6 +28,9 @@ export interface InstanceInfo {
     enabled: boolean,
   },
   configuration: {
+    accounts: {
+      max_profile_fields: number,
+    },
     statuses: {
       max_characters: number,
       max_media_attachments: number,

@@ -99,7 +99,7 @@
           <label>
             {{ $t('profile_editor.additional_info') }}
             <div class="sub-label">
-              {{ $t('profile_editor.you_can_have_max_fields', { max: EXTRA_FIELD_COUNT_MAX }) }}
+              {{ $t('profile_editor.you_can_have_max_fields', { max: getExtraFieldCountMax() }) }}
             </div>
           </label>
           <div
@@ -160,7 +160,6 @@ import {
   Profile,
   ProfileUpdateData,
   updateProfile,
-  EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
 import IconAdd from "@/assets/feather/plus-circle.svg?component"
 import IconRemove from "@/assets/feather/x-circle.svg?component"
@@ -294,12 +293,16 @@ function isValidExtraField(index: number): boolean {
   return true
 }
 
+function getExtraFieldCountMax(): number {
+  return instance.value?.configuration.accounts.max_profile_fields ?? 0
+}
+
 function removeExtraField(index: number) {
   form.value.fields_attributes.splice(index, 1)
 }
 
 function canAddExtraField(): boolean {
-  return form.value.fields_attributes.length <= EXTRA_FIELD_COUNT_MAX
+  return form.value.fields_attributes.length <= getExtraFieldCountMax()
 }
 
 function addExtraField() {

@@ -429,7 +429,6 @@ import {
   Profile,
   ProfileField,
   ProfileWrapper,
-  EXTRA_FIELD_COUNT_MAX,
 } from "@/api/users"
 import IconPremium from "@/assets/extra-icons/spark.svg?component"
 import IconMore from "@/assets/feather/more-vertical.svg?component"
@@ -446,6 +445,7 @@ import UniversalLink from "@/components/UniversalLink.vue"
 import { useDateTime } from "@/composables/date-time"
 import { useEthereumAddressVerification } from "@/composables/ethereum-address-verification"
 import { useActorHandle } from "@/composables/handle"
+import { useInstanceInfo } from "@/composables/instance"
 import { useSubscribe } from "@/composables/subscribe"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
@@ -465,6 +465,7 @@ const {
 } = useCurrentUser()
 const { verifyEthereumAddress } = useEthereumAddressVerification()
 const { getActorHandle, getActorLocation } = useActorHandle()
+const { instance } = useInstanceInfo()
 const { getSubscriptionLink } = useSubscribe()
 const { setPageTitle } = useTitle()
 
@@ -624,12 +625,13 @@ const actorHandle = computed<string>(() => {
 })
 
 const fields = computed<ProfileField[]>(() => {
-  if (!profile.value) {
+  if (!profile.value || !instance.value) {
     return []
   }
+  const maxFields = instance.value.configuration.accounts.max_profile_fields
   return profile.value.identity_proofs
     .concat(profile.value.fields)
-    .slice(0, EXTRA_FIELD_COUNT_MAX)
+    .slice(0, maxFields)
 })
 
 function isCurrentUser(): boolean {

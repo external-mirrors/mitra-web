@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Focus on username input when clicking on hostname addon in login form.
+- Use `max_profile_fields` value provided by the server.
 
 ### Fixed
 

@@ -4,8 +4,6 @@ import { CustomEmoji } from "./emojis"
 import { Visibility } from "./posts"
 import { AuthenticationMethod } from "./oauth"
 
-export const EXTRA_FIELD_COUNT_MAX = 10
-
 export interface ProfileField {
   name: string;
   value: string;
