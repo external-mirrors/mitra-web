@@ -8,12 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added likes (favourites) page.
+- Added likes (favourites) page ([#157](https://codeberg.org/silverpill/mitra-web/pulls/157)).
 
 ### Changed
 
 - Focus on username input when clicking on hostname addon in login form.
 - Use `max_profile_fields` value provided by the server.
+- Updated translations ([#156](https://codeberg.org/silverpill/mitra-web/pulls/156), [#158](https://codeberg.org/silverpill/mitra-web/pulls/158)).
 
 ### Fixed
 
