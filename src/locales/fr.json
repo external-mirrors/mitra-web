@@ -69,7 +69,7 @@
         "post_not_found": "Publication non trouvée",
         "post_is_not_available": "Publication indisponible",
         "post_by_handle": "Publication de {handle}",
-        "user_reposted": "Partagé par {0}"
+        "user_reposted": "{0} a partagé"
     },
     "post_editor": {
         "cancel": "Annuler",
