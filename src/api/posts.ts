@@ -220,6 +220,24 @@ interface PostListPage {
   nextPageUrl: string | null,
 }
 
+export async function getFavourites(
+  authToken: string,
+  url: string | null,
+): Promise<PostListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/favourites`
+  }
+  const response = await http(url, {
+    method: "GET",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return {
+    posts: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
+}
+
 export async function getBookmarks(
   authToken: string,
   url: string | null,

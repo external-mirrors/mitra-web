@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added likes (favourites) page.
+
 ### Changed
 
 - Focus on username input when clicking on hostname addon in login form.

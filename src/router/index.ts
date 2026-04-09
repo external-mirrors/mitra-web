@@ -12,6 +12,7 @@ import { useCurrentUser } from "@/composables/user"
 
 import AboutPage from "@/views/About.vue"
 import BookmarkList from "@/views/BookmarkList.vue"
+import LikeList from "@/views/LikeList.vue"
 import CustomFeedList from "@/views/CustomFeedList.vue"
 import CustomFeedSourceList from "@/views/CustomFeedSourceList.vue"
 import CustomFeedTimeline from "@/views/CustomFeedTimeline.vue"
@@ -231,6 +232,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/bookmarks",
     name: "bookmark-list",
     component: BookmarkList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/likes",
+    name: "like-list",
+    component: LikeList,
     meta: { onlyAuthenticated: true },
   },
   {
