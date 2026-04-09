@@ -81,12 +81,15 @@ onMounted(async () => {
 .content-message {
   @include content-message;
 }
+
 .loader {
   margin: $block-outer-padding auto;
 }
+
 .post {
   margin-bottom: $block-outer-padding;
 }
+
 .next-btn {
   margin-bottom: $block-outer-padding;
 }
