@@ -127,7 +127,7 @@
     "profile": {
         "not_found": "Профиль не найден",
         "automated": "Автоматизированный",
-        "follows_you": "Отслеживает тебя",
+        "follows_you": "Подписан на тебя",
         "subscription": "Подписка",
         "subscriber": "Подписчик",
         "muted": "Приглушённый",
@@ -182,7 +182,8 @@
         "subscription_expires_on": "подписки @:subscriptions.subscription_expires_on",
         "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}",
         "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?",
-        "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?"
+        "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?",
+        "view_likes": "Посмотреть лайки"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -469,5 +470,8 @@
         "current": "Текущий",
         "terminate_session": "Завершить сеанс",
         "do_you_want_to_terminate_session": "Вы хотите завершить сеанс '{name}'?"
+    },
+    "likes": {
+        "likes": "Лайки"
     }
 }
