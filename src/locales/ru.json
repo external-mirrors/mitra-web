@@ -72,7 +72,7 @@
             "visible_to_everyone": "Видно всем",
             "visible_to_followers": "Показать подписчикам",
             "visible_to_premium_subscribers": "Показать премиум-подписчикам",
-            "visible_to_people_chosen_by_conversation_owner": "Видно только тем, кого выбрал владелец беседы",
+            "visible_to_people_chosen_by_conversation_owner": "Видно только тем кого выбрал владелец беседы",
             "visible_to_mentioned_users": "Видно указанным пользователям"
         },
         "copy_object_id": "Копировать идентификатор объекта",
