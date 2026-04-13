@@ -183,7 +183,7 @@
         "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}",
         "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?",
         "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?",
-        "view_likes": "Посмотреть лайки"
+        "view_likes": "Посмотр лайков"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
