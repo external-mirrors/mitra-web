@@ -28,7 +28,7 @@ import { replaceShortcodes } from "@/api/emojis"
 import { Post } from "@/api/posts"
 import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
-import { addGreentext } from "@/utils/greentext"
+import { addGreentext, addRedtext } from "@/utils/greentext"
 import { htmlToText, replaceTextNodes } from "@/utils/html"
 
 const POST_CONTENT_LIMIT = 1500
@@ -57,6 +57,7 @@ function replaceText() {
     return
   }
   replaceTextNodes(postContentElement.value, addGreentext)
+  replaceTextNodes(postContentElement.value, addRedtext)
   replaceTextNodes(postContentElement.value, (text: string) => {
     return replaceShortcodes(text, props.post.emojis)
   })
@@ -296,6 +297,10 @@ function configureInlineLinks() {
 
   :deep(.greentext) {
     color: $greentext-color;
+  }
+
+  :deep(.redtext) {
+    color: $redtext-color;
   }
 }
 </style>
