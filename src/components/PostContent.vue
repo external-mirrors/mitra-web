@@ -296,11 +296,11 @@ function configureInlineLinks() {
   }
 
   :deep(.greentext) {
-    color: $greentext-color;
+    color: var(--greentext-color);
   }
 
   :deep(.redtext) {
-    color: $redtext-color;
+    color: var(--redtext-color);
   }
 }
 </style>

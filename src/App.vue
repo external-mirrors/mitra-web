@@ -71,6 +71,9 @@ onUnmounted(() => {
   --loader-color: #{$loader-color};
   --shadow-color: #{$shadow-color};
 
+  --greentext-color: #{$greentext-color};
+  --redtext-color: #{$redtext-color};
+
   --landing-background-color: #{$landing-background-color};
   --landing-background-image: #{$landing-background-image};
   --landing-text-color: #{$landing-text-color};

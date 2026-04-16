@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Display `<redtext` in posts.
+- Added CSS variables for greentext and redtext colors.
 
 ## [5.1.0] - 2026-04-08
 
