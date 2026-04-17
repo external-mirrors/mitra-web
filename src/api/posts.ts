@@ -474,7 +474,8 @@ export async function createReaction(
   postId: string,
   content: string,
 ): Promise<Post> {
-  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${content}`
+  const contentEncoded = encodeURIComponent(content)
+  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${contentEncoded}`
   const response = await http(url, { method: "PUT", authToken })
   const data = await handleResponse(response)
   return data
@@ -485,7 +486,8 @@ export async function deleteReaction(
   postId: string,
   content: string,
 ): Promise<Post> {
-  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${content}`
+  const contentEncoded = encodeURIComponent(content)
+  const url = `${BACKEND_URL}/api/v1/pleroma/statuses/${postId}/reactions/${contentEncoded}`
   const response = await http(url, { method: "DELETE", authToken })
   const data = await handleResponse(response)
   return data
