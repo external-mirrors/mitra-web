@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Display `<redtext` in posts.
 - Added CSS variables for greentext and redtext colors.
 
+### Changed
+
+- Allow up to 2 whitespace characters in greentext.
+
 ### Fixed
 
 - Fixed #️⃣ emoji reaction.
