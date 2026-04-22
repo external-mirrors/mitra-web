@@ -111,6 +111,11 @@ export interface Post {
   relationship?: Relationship | null;
 }
 
+interface PostListPage {
+  posts: Post[],
+  nextPageUrl: string | null,
+}
+
 export async function getHomeTimeline(
   authToken: string,
   maxId?: string,
@@ -166,15 +171,15 @@ export async function getProfileTimeline(
   authToken: string | null,
   authorId: string,
   excludeReplies: boolean,
-  exclideReposts: boolean,
+  excludeReposts: boolean,
   onlyPinned: boolean,
   onlyMedia: boolean,
   maxId?: string,
-): Promise<Post[]> {
+): Promise<PostListPage> {
   const url = `${BACKEND_URL}/api/v1/accounts/${authorId}/statuses`
   const queryParams = {
     exclude_replies: excludeReplies,
-    exclude_reblogs: exclideReposts,
+    exclude_reblogs: excludeReposts,
     pinned: onlyPinned,
     only_media: onlyMedia,
     max_id: maxId,
@@ -186,7 +191,10 @@ export async function getProfileTimeline(
     authToken,
   })
   const data = await handleResponse(response)
-  return data
+  return {
+    posts: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
 
 export async function getCustomFeedTimeline(
@@ -213,11 +221,6 @@ export async function getPostThread(
   const response = await http(url, { authToken })
   const data = await handleResponse(response)
   return data
-}
-
-interface PostListPage {
-  posts: Post[],
-  nextPageUrl: string | null,
 }
 
 export async function getFavourites(

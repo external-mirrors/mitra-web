@@ -574,7 +574,7 @@ async function switchTab(name: string) {
     postListElement.value.resetPagination()
   }
   if (tabName.value === "posts") {
-    posts.value = await getProfileTimeline(
+    const page = await getProfileTimeline(
       authToken.value,
       profile.value.id,
       true,
@@ -582,8 +582,9 @@ async function switchTab(name: string) {
       false,
       false,
     )
+    posts.value = page.posts
   } else if (tabName.value === "posts-with-replies") {
-    posts.value = await getProfileTimeline(
+    const page = await getProfileTimeline(
       authToken.value,
       profile.value.id,
       false,
@@ -591,8 +592,9 @@ async function switchTab(name: string) {
       false,
       false,
     )
+    posts.value = page.posts
   } else if (tabName.value === "posts-featured") {
-    posts.value = await getProfileTimeline(
+    const page = await getProfileTimeline(
       authToken.value,
       profile.value.id,
       false,
@@ -600,6 +602,7 @@ async function switchTab(name: string) {
       true,
       false,
     )
+    posts.value = page.posts
   } else if (tabName.value === "followers" && isCurrentUser()) {
     const page = await getFollowers(
       ensureAuthToken(),
@@ -1011,7 +1014,7 @@ async function loadNextPage(maxId: string) {
     false,
     maxId,
   )
-  posts.value = [...posts.value, ...nextPage]
+  posts.value = [...posts.value, ...nextPage.posts]
 }
 
 async function loadFollowListNextPage() {

@@ -46,8 +46,16 @@
       <h2 v-else-if="profile && !isLoading" class="empty">
         {{ $t('gallery.no_media_found') }}
       </h2>
+      <button
+        v-if="nextPageUrl"
+        class="btn next-btn"
+        :disabled="isLoading"
+        @click="loadNextPage()"
+      >
+        {{ $t('gallery.show_more') }}
+      </button>
+      <loader v-if="isLoading"></loader>
     </div>
-    <loader v-if="isLoading"></loader>
   </div>
 </template>
 
@@ -83,6 +91,35 @@ const { setPageTitle } = useTitle()
 const profile = ref<ProfileWrapper | null>(null)
 const posts = ref<PostObject[]>([])
 const isLoading = ref(true)
+const nextPageUrl = ref<string | null>(null)
+
+async function loadPage() {
+  if (profile.value === null) {
+    return
+  }
+  let maxId
+  if (nextPageUrl.value !== null) {
+    const url = new URL(nextPageUrl.value)
+    maxId = url.searchParams.get("max_id") ?? undefined
+  }
+  const page = await getProfileTimeline(
+    authToken.value,
+    profile.value.id,
+    false, // with replies
+    false, // with reposts
+    false, // not only pinned
+    true, // only media
+    maxId,
+  )
+  posts.value = [...posts.value, ...page.posts]
+  nextPageUrl.value = page.nextPageUrl
+}
+
+async function loadNextPage() {
+  isLoading.value = true
+  await loadPage()
+  isLoading.value = false
+}
 
 onMounted(async () => {
   setPageTitle(t("gallery.gallery"))
@@ -114,14 +151,7 @@ onMounted(async () => {
   }
   profile.value = new ProfileWrapper(_profile)
   setPageTitle(t("gallery.gallery_with_handle", { handle: getActorHandle(profile.value) }))
-  posts.value = await getProfileTimeline(
-    authToken.value,
-    profile.value.id,
-    false,
-    false, // with reposts
-    false,
-    true,
-  )
+  await loadPage()
   isLoading.value = false
 })
 </script>
@@ -189,6 +219,11 @@ $page-width: $wide-content-width + $content-gap + $wide-sidebar-width;
 }
 
 .loader {
+  margin: 0 auto;
+}
+
+.next-btn {
+  display: block;
   margin: 0 auto;
 }
 
