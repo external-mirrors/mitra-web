@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Allow up to 2 whitespace characters in greentext.
 - Use short timestamps in posts by default.
 - Prevent clipping of timestamp in quoted post.
+- Updated translations ([#159](https://codeberg.org/silverpill/mitra-web/pulls/159)).
 
 ### Fixed
 
