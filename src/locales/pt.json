@@ -28,7 +28,7 @@
     "welcome": {
         "browse_directory": "Navegar no diretório de perfis",
         "read_only_mode": "A sua conta está no modo só de leitura",
-        "welcome": "Bem-vindo ao {0}!"
+        "welcome": "Bem-vindo ao {server}!"
     },
     "about": {
         "technical_info": "Informações técnicas",

@@ -22,7 +22,7 @@
     "welcome": {
         "read_only_mode": "Il tuo account è in modalità sola lettura",
         "browse_directory": "Sfoglia la cartella dei profili",
-        "welcome": "Benvenuti a {0}!"
+        "welcome": "Benvenuti a {server}!"
     },
     "post": {
         "go_to_previous_post": "Vai al post precedente",

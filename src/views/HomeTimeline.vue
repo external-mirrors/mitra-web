@@ -15,7 +15,9 @@
       >
         <h1 v-if="instance">
           <i18n-t keypath="welcome.welcome" scope="global">
-            <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>
+            <template #server>
+              <router-link :to="{ name: 'about' }">{{ instance.title }}</router-link>
+            </template>
           </i18n-t>
         </h1>
         <span v-if="!canCreatePost()">{{ $t('welcome.read_only_mode') }}</span>

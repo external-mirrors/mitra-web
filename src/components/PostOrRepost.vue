@@ -3,13 +3,15 @@
     <div class="action">
       <icon-repost></icon-repost>
       <i18n-t keypath="post_list.user_reposted" scope="global">
-        <router-link
-          :to="getActorLocation('profile', post.account)"
-          :title="getActorHandle(post.account)"
-          class="display-name-link"
-        >
-          <profile-display-name :profile="author"></profile-display-name>
-        </router-link>
+        <template #name>
+          <router-link
+            :to="getActorLocation('profile', post.account)"
+            :title="getActorHandle(post.account)"
+            class="display-name-link"
+          >
+            <profile-display-name :profile="author"></profile-display-name>
+          </router-link>
+        </template>
       </i18n-t>
     </div>
     <post

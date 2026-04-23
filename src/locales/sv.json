@@ -25,7 +25,7 @@
         "technical_info": "Teknisk information"
     },
     "welcome": {
-        "welcome": "Välkommen till {0}!",
+        "welcome": "Välkommen till {server}!",
         "read_only_mode": "Ditt konto är i skrivskyddat läge",
         "browse_directory": "Bläddra i profilkatalog"
     },

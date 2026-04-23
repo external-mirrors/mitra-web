@@ -21,7 +21,7 @@
         "publish": "Zveřejnit"
     },
     "welcome": {
-        "welcome": "Vítejte v {0}!",
+        "welcome": "Vítejte v {server}!",
         "browse_directory": "Procházet adresář profilů",
         "read_only_mode": "Váš účet je v režimu pouze pro čtení"
     },

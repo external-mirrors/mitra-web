@@ -96,7 +96,7 @@
         "unfollow_conversation": "Konversation nicht mehr folgen"
     },
     "welcome": {
-        "welcome": "Willkommen bei {0}!",
+        "welcome": "Willkommen bei {server}!",
         "read_only_mode": "Ihr Konto ist im schreibgeschützten Modus",
         "browse_directory": "Profilverzeichnis durchsuchen"
     },
@@ -323,7 +323,7 @@
     },
     "poll": {
         "multiple_choices": "Mehrere Auswahlmöglichkeiten",
-        "ends": "Endet {0}",
+        "ends": "Endet {date}",
         "num_votes": "keine Stimmen | {n} Stimme | {n} Stimmen",
         "vote": "Abstimmen",
         "closed": "Geschlossen",

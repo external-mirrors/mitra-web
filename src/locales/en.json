@@ -35,7 +35,7 @@
     "logout": "Logout"
   },
   "welcome": {
-    "welcome": "Welcome to {0}!",
+    "welcome": "Welcome to {server}!",
     "read_only_mode": "Your account is in read-only mode",
     "browse_directory": "Browse profile directory"
   },
@@ -102,7 +102,7 @@
     "num_votes": "no votes | {n} vote | {n} votes",
     "vote": "Vote",
     "multiple_choices": "Multiple choices",
-    "ends": "Ends {0}",
+    "ends": "Ends {date}",
     "closed": "Closed",
     "see_results": "See results"
   },
@@ -112,7 +112,7 @@
     "post_not_found": "Post not found",
     "no_posts_found": "No posts found",
     "post_is_not_available": "Post is not available",
-    "user_reposted": "{0} reposted"
+    "user_reposted": "{name} reposted"
   },
   "post_editor": {
     "prompt": "What's on your mind?",
@@ -242,18 +242,18 @@
   },
   "notifications": {
     "you_dont_have_any_notifications": "You don't have any notifications",
-    "user_followed_you": "{0} followed you",
-    "user_sent_a_follow_request": "{0} sent a follow request",
-    "user_replied_to_your_post": "{0} replied to your post",
-    "user_liked_your_post": "{0} liked your post",
-    "user_reacted_to_your_post": "{0} reacted to your post",
-    "user_mentioned_you": "{0} mentioned you",
-    "user_reposted_your_post": "{0} reposted your post",
-    "user_paid_for_subscription": "{0} paid for subscription",
-    "user_subscription_expired": "{0} subscription expired",
-    "user_is_no_longer_a_subscriber": "{0} is no longer a subscriber",
-    "user_moved_to_a_new_instance": "{0} moved to a new instance",
-    "user_signed_up": "{0} signed up",
+    "user_followed_you": "{name} followed you",
+    "user_sent_a_follow_request": "{name} sent a follow request",
+    "user_replied_to_your_post": "{name} replied to your post",
+    "user_liked_your_post": "{name} liked your post",
+    "user_reacted_to_your_post": "{name} reacted to your post",
+    "user_mentioned_you": "{name} mentioned you",
+    "user_reposted_your_post": "{name} reposted your post",
+    "user_paid_for_subscription": "{name} paid for subscription",
+    "user_subscription_expired": "{name} subscription expired",
+    "user_is_no_longer_a_subscriber": "{name} is no longer a subscriber",
+    "user_moved_to_a_new_instance": "{name} moved to a new instance",
+    "user_signed_up": "{name} signed up",
     "you_received_an_anonymous_payment": "You received an anonymous payment",
     "show_more_notifications": "Show more notifications"
   },

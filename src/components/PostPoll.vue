@@ -47,7 +47,9 @@
       <span v-if="poll.expired">{{ $t('poll.closed') }}</span>
       <span v-else-if="poll.expires_at" :title="formatDateTime(poll.expires_at)">
         <i18n-t keypath="poll.ends" scope="global">
-          <timestamp :date="poll.expires_at"></timestamp>
+          <template #date>
+            <timestamp :date="poll.expires_at"></timestamp>
+          </template>
         </i18n-t>
       </span>
       <span v-if="!resultsVisible">

@@ -46,7 +46,7 @@
         "technical_info": "Technische informatie"
     },
     "welcome": {
-        "welcome": "Welkom bij {0}!",
+        "welcome": "Welkom bij {server}!",
         "browse_directory": "Profielmap openen",
         "read_only_mode": "Uw account staat in alleen-lezenmodus"
     },
@@ -125,7 +125,7 @@
         "num_votes": "geen stemmen | {n} stem | {n} stemmen",
         "vote": "Stem",
         "multiple_choices": "Meerdere keuzes",
-        "ends": "Eindigt {0}",
+        "ends": "Eindigt {date}",
         "closed": "Gesloten",
         "see_results": "Bekijk resultaten"
     },

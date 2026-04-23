@@ -69,7 +69,7 @@
         "logout": "خروج"
     },
     "welcome": {
-        "welcome": "به {0} خوش‌آمدید!",
+        "welcome": "به {server} خوش‌آدید!",
         "read_only_mode": "حساب شما در حالت فقط خواندنی است"
     },
     "poll": {

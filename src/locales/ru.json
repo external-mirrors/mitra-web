@@ -20,7 +20,7 @@
         "search_account": "учётная запись"
     },
     "welcome": {
-        "welcome": "Добро пожаловать в {0}!",
+        "welcome": "Добро пожаловать в {server}!",
         "browse_directory": "Просмотреть каталог профилей",
         "read_only_mode": "Ваша учётная запись находится в режиме только для чтения"
     },
@@ -89,7 +89,7 @@
         "post_is_not_available": "Пост недоступен",
         "post": "Сообщение",
         "post_by_handle": "Сообщение от {handle}",
-        "user_reposted": "{0}перепост"
+        "user_reposted": "{name} перепост"
     },
     "post_editor": {
         "prompt": "О чём вы думаете?",
@@ -219,18 +219,18 @@
     "notifications": {
         "show_more_notifications": "Показать больше уведомлений",
         "you_dont_have_any_notifications": "У вас нет уведомлений",
-        "user_followed_you": "{0} следил за тобой",
-        "user_sent_a_follow_request": "{0} отправил запрос на подписку",
-        "user_replied_to_your_post": "{0} ответил на ваш пост",
-        "user_liked_your_post": "{0} понравился ваш пост",
-        "user_reacted_to_your_post": "{0} отреагировал на ваш пост",
-        "user_mentioned_you": "{0} упомянул вас",
-        "user_reposted_your_post": "{0} перепостил ваш пост",
-        "user_paid_for_subscription": "{0} оплаченная подписка",
-        "user_subscription_expired": "{0} подписка истекла",
-        "user_is_no_longer_a_subscriber": "{0} больше не является подписчиком",
-        "user_moved_to_a_new_instance": "{0} перемещено в новый экземпляр",
-        "user_signed_up": "{0} зарегистрировался",
+        "user_followed_you": "{name} следил за тобой",
+        "user_sent_a_follow_request": "{name} отправил запрос на подписку",
+        "user_replied_to_your_post": "{name} ответил на ваш пост",
+        "user_liked_your_post": "{name} понравился ваш пост",
+        "user_reacted_to_your_post": "{name} отреагировал на ваш пост",
+        "user_mentioned_you": "{name} упомянул вас",
+        "user_reposted_your_post": "{name} перепостил ваш пост",
+        "user_paid_for_subscription": "{name} оплаченная подписка",
+        "user_subscription_expired": "{name} подписка истекла",
+        "user_is_no_longer_a_subscriber": "{name} больше не является подписчиком",
+        "user_moved_to_a_new_instance": "{name} перемещено в новый экземпляр",
+        "user_signed_up": "{name} зарегистрировался",
         "you_received_an_anonymous_payment": "Вы получили анонимный платеж"
     },
     "settings": {
@@ -395,7 +395,7 @@
         "see_results": "Посмотреть результаты",
         "num_votes": "нет голосов | {n} голос | {n} голосов",
         "vote": "Голосование",
-        "ends": "Заканчивается {0}",
+        "ends": "Заканчивается {date}",
         "closed": "Закрыт",
         "multiple_choices": "Несколько вариантов"
     },

@@ -68,7 +68,7 @@
         "post_not_found": "Publication non trouvée",
         "post_is_not_available": "Publication indisponible",
         "post_by_handle": "Publication de {handle}",
-        "user_reposted": "{0} a partagé"
+        "user_reposted": "{name} a partagé"
     },
     "post_editor": {
         "cancel": "Annuler",
@@ -309,7 +309,7 @@
     "welcome": {
         "read_only_mode": "Votre compte est en mode lecture seule",
         "browse_directory": "Parcourir l'annuaire des profils",
-        "welcome": "Bienvenue sur {0} !"
+        "welcome": "Bienvenue sur {server} !"
     },
     "emoji_picker": {
         "search": "Rechercher…",
@@ -324,18 +324,18 @@
     "notifications": {
         "show_more_notifications": "Montrer plus de notifications",
         "you_dont_have_any_notifications": "Vous n'avez aucune notification",
-        "user_followed_you": "{0} vous suit",
-        "user_sent_a_follow_request": "{0} a envoyé une demande d'abonnement",
-        "user_replied_to_your_post": "{0} a répondu à votre message",
-        "user_liked_your_post": "{0} a aimé votre message",
-        "user_reacted_to_your_post": "{0} a réagi à votre message",
-        "user_mentioned_you": "{0} vous a mentionné",
-        "user_reposted_your_post": "{0} a partagé votre message",
-        "user_paid_for_subscription": "{0} a payé pour s'abonner",
-        "user_subscription_expired": "{0} abonnement expiré",
-        "user_is_no_longer_a_subscriber": "{0} n'est plus abonné",
-        "user_moved_to_a_new_instance": "{0} a changé d'instance",
-        "user_signed_up": "{0} s'est inscrit",
+        "user_followed_you": "{name} vous suit",
+        "user_sent_a_follow_request": "{name} a envoyé une demande d'abonnement",
+        "user_replied_to_your_post": "{name} a répondu à votre message",
+        "user_liked_your_post": "{name} a aimé votre message",
+        "user_reacted_to_your_post": "{name} a réagi à votre message",
+        "user_mentioned_you": "{name} vous a mentionné",
+        "user_reposted_your_post": "{name} a partagé votre message",
+        "user_paid_for_subscription": "{name} a payé pour s'abonner",
+        "user_subscription_expired": "{name} abonnement expiré",
+        "user_is_no_longer_a_subscriber": "{name} n'est plus abonné",
+        "user_moved_to_a_new_instance": "{name} a changé d'instance",
+        "user_signed_up": "{name} s'est inscrit",
         "you_received_an_anonymous_payment": "Vous avez reçu un paiement anonyme"
     },
     "gallery": {
@@ -388,7 +388,7 @@
     },
     "poll": {
         "see_results": "Voir les résultats",
-        "ends": "Se termine {0}",
+        "ends": "Se termine {date}",
         "closed": "Terminé",
         "num_votes": "Pas de votes | {n} vote | {n} votes",
         "vote": "Voter",

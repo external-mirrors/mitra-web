@@ -25,7 +25,7 @@
         "technical_info": "Informații tehnice"
     },
     "welcome": {
-        "welcome": "Bun venit la {0}!",
+        "welcome": "Bun venit la {server}!",
         "read_only_mode": "Contul dvs. este în modul numai citire",
         "browse_directory": "Răsfoiți directorul de profiluri"
     },

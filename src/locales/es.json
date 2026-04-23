@@ -48,7 +48,7 @@
         "technical_info": "Información técnica"
     },
     "welcome": {
-        "welcome": "¡Bienvenido {0}!",
+        "welcome": "¡Bienvenido {server}!",
         "read_only_mode": "Tu cuenta está en modo de solo lectura",
         "browse_directory": "Explorar el directorio de perfiles"
     },
@@ -182,14 +182,14 @@
         "no_posts_found": "Sin publicaciones",
         "post_is_not_available": "Publicación no disponible",
         "post_by_handle": "Publicado por {handle}",
-        "user_reposted": "{0} republicado"
+        "user_reposted": "{name} republicado"
     },
     "poll": {
         "num_votes": "sin votos | {n} voto | {n} votos",
         "multiple_choices": "Múltiples opciones",
         "closed": "Cerrado",
         "vote": "Votar",
-        "ends": "{0} Finalizado(s)",
+        "ends": "{date} Finalizado(s)",
         "see_results": "Ver resultados"
     },
     "profile_editor": {
@@ -219,19 +219,19 @@
     "notifications": {
         "show_more_notifications": "Mostrar más notificaciones",
         "you_dont_have_any_notifications": "No tienes ninguna notificación",
-        "user_followed_you": "{0} te sigue(n)",
-        "user_sent_a_follow_request": "{0} te ha enviado una solicitud de amistad",
-        "user_replied_to_your_post": "{0} ha respondido a tu publicación",
-        "user_liked_your_post": "A {0} le ha(n) gustado tu publicación",
-        "user_reacted_to_your_post": "{0} ha(n) reaccionado a tu publicación",
+        "user_followed_you": "{name} te sigue(n)",
+        "user_sent_a_follow_request": "{name} te ha enviado una solicitud de amistad",
+        "user_replied_to_your_post": "{name} ha respondido a tu publicación",
+        "user_liked_your_post": "A {name} le ha(n) gustado tu publicación",
+        "user_reacted_to_your_post": "{name} ha(n) reaccionado a tu publicación",
         "you_received_an_anonymous_payment": "Recibiste un pago anónimo",
-        "user_mentioned_you": "{0} te ha mencionado",
-        "user_reposted_your_post": "{0} compartió tu publicación",
-        "user_paid_for_subscription": "{0} pagó la suscripción",
-        "user_subscription_expired": "{0} suscripción caducada",
-        "user_is_no_longer_a_subscriber": "{0} ya no es suscriptor",
-        "user_moved_to_a_new_instance": "{0} cambió de instancia",
-        "user_signed_up": "{0} registrado"
+        "user_mentioned_you": "{name} te ha mencionado",
+        "user_reposted_your_post": "{name} compartió tu publicación",
+        "user_paid_for_subscription": "{name} pagó la suscripción",
+        "user_subscription_expired": "{name} suscripción caducada",
+        "user_is_no_longer_a_subscriber": "{name} ya no es suscriptor",
+        "user_moved_to_a_new_instance": "{name} cambió de instancia",
+        "user_signed_up": "{name} registrado"
     },
     "poll_editor": {
         "option": "Opción {n}",

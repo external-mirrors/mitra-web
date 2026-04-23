@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Use short timestamps in posts by default.
 - Prevent clipping of timestamp in quoted post.
 - Updated translations ([#159](https://codeberg.org/silverpill/mitra-web/pulls/159)).
+- Replaced `{0}` in translation strings with named parameters.
 
 ### Removed
 

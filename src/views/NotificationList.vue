@@ -30,15 +30,17 @@
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
           <i18n-t :keypath="getNotificationTextKeypath(notification)" scope="global">
-            <router-link
-              v-if="notification.type !== 'payment_anonymous'"
-              :title="getActorHandle(getSender(notification))"
-              :to="getActorLocation('profile', notification.account)"
-              class="display-name-link"
-            >
-              <profile-display-name :profile="getSender(notification)">
-              </profile-display-name>
-            </router-link>
+            <template #name>
+              <router-link
+                v-if="notification.type !== 'payment_anonymous'"
+                :title="getActorHandle(getSender(notification))"
+                :to="getActorLocation('profile', notification.account)"
+                class="display-name-link"
+              >
+                <profile-display-name :profile="getSender(notification)">
+                </profile-display-name>
+              </router-link>
+            </template>
           </i18n-t>
         </div>
         <post

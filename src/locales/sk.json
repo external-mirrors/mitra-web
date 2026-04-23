@@ -25,7 +25,7 @@
         "administered_by": "Spravuje"
     },
     "welcome": {
-        "welcome": "Vitajte v {0}!",
+        "welcome": "Vitajte v {server}!",
         "read_only_mode": "Vaše konto je v režime len na čítanie",
         "browse_directory": "Prehľadávať adresár profilov"
     },

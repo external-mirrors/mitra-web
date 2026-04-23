@@ -73,7 +73,7 @@
         "multiple_choices": "Nhiều lựa chọn",
         "num_votes": "không có bình chọn | {n} bình chọn | {n} bình chọn",
         "vote": "Bình chọn",
-        "ends": "Kết thúc {0}",
+        "ends": "Kết thúc {date}",
         "closed": "Đã đóng",
         "see_results": "Xem kết quả"
     },
@@ -170,7 +170,7 @@
     "welcome": {
         "read_only_mode": "Tài khoản của bạn ở trong trạng thái chỉ được phép xem",
         "browse_directory": "Xem danh mục hồ sơ",
-        "welcome": "Chào mừng đến {0}!"
+        "welcome": "Chào mừng đến {server}!"
     },
     "profile_list": {
         "show_more_users": "Hiển thị thêm người dùng",

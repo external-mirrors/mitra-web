@@ -45,7 +45,7 @@
     },
     "welcome": {
         "read_only_mode": "アカウントが購読専用になっています",
-        "welcome": "{0}にようこそ!",
+        "welcome": "{server}にようこそ!",
         "browse_directory": "プロフィール一覧"
     },
     "post": {
@@ -351,7 +351,7 @@
         "num_votes": "票無し | {n} 票 | {n} 票",
         "vote": "投票する",
         "multiple_choices": "複数選択",
-        "ends": "{0} に終了",
+        "ends": "{date} に終了",
         "closed": "締め切られた",
         "see_results": "結果を表示する"
     },

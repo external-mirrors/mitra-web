@@ -22,7 +22,7 @@
     },
     "welcome": {
         "read_only_mode": "A fiókja csak olvasható módban van",
-        "welcome": "Üdvözöljük a {0}!",
+        "welcome": "Üdvözöljük a {server}!",
         "browse_directory": "Profil könyvtár böngészése"
     },
     "about": {
