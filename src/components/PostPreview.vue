@@ -116,8 +116,6 @@ const author = computed(() => new ProfileWrapper(props.post.account))
 
   .timestamp {
     color: var(--secondary-text-color);
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 
