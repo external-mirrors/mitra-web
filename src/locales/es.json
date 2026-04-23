@@ -12,7 +12,8 @@
         "search": "Buscar…",
         "bookmarks": "Marcadores",
         "search_account": "cuenta",
-        "search_text": "texto"
+        "search_text": "texto",
+        "search_hashtag": "hashtag"
     },
     "post_editor": {
         "prompt": "¿Qué estás pensando?",
@@ -35,23 +36,28 @@
         "add_poll": "Añadir encuesta",
         "add_content_warning": "Añadir advertencia de contenido",
         "insert_emoji": "Insertar emoji",
-        "edit_description": "Editar descripción"
+        "edit_description": "Editar descripción",
+        "send": "Enviar",
+        "upload": "Subido",
+        "from_url": "Desde la url",
+        "upload_from_a_url": "Subido desde una url",
+        "toggle_preview": "Mostrar/Ocultar vista previa"
     },
     "about": {
         "administered_by": "Administrado por",
         "technical_info": "Información técnica"
     },
     "welcome": {
-        "welcome": "Bienvenido a {0}!",
-        "read_only_mode": "Su cuenta está en modo de sólo lectura",
-        "browse_directory": "Examinar el directorio de perfiles"
+        "welcome": "¡Bienvenido {0}!",
+        "read_only_mode": "Tu cuenta está en modo de solo lectura",
+        "browse_directory": "Explorar el directorio de perfiles"
     },
     "post": {
         "replying_to": "respondiendo a",
         "next_page": "Mostrar más entradas",
         "load_replies": "Cargar respuestas",
         "bookmark": "Marcador",
-        "more": "Mas",
+        "more": "Más",
         "edited": "editado",
         "close_image": "Cerrar",
         "visibility": {
@@ -68,10 +74,10 @@
         "mute_author": "Silenciar autor",
         "copy_coin_address": "Copiar dirección",
         "visibility_description": {
-            "visible_to_everyone": "Visible para todo el mundo",
+            "visible_to_everyone": "Visible para todos",
             "visible_to_followers": "Visible para seguidores",
             "visible_to_premium_subscribers": "Visible para subscriptores premium",
-            "visible_to_people_chosen_by_conversation_owner": "Visible para personas elegidas por el propietario de la conversación",
+            "visible_to_people_chosen_by_conversation_owner": "Visible para las personas seleccionadas por el propietario de la conversación",
             "visible_to_mentioned_users": "Visible para usuarios mencionados"
         },
         "like": "Me gusta",
@@ -88,16 +94,23 @@
         "subscribe": "subscribir",
         "send_coin": "Enviar {name}",
         "become_a_subscriber": "Convertirse en subscriptor",
-        "copy_link_to_post": "Copiar enlace a publicación",
+        "copy_link_to_post": "Copiar enlace a la publicación",
         "featured": "Destacado",
-        "copy_object_id": "Copiar objeto ID",
+        "copy_object_id": "Copiar ID del objeto",
         "remove_from_featured": "Eliminar de destacados",
         "add_to_featured": "Añadir a destacados",
         "unlike": "No me gusta",
         "repost": "Republicar",
         "repost_with_comment": "Republicar con comentario",
         "action_reposted": "republicado",
-        "delete_repost": "Borrar republicación"
+        "delete_repost": "Borrar republicación",
+        "show_more": "Mostrar más",
+        "reply_to_this_post_from_your_server": "Puedes responder a esta publicación desde tu servidor Fediverso: {url}",
+        "source_is_not_available": "La fuente no está disponible",
+        "follow_conversation": "Seguir conversación",
+        "unfollow_conversation": "Dejar de seguir la conversación",
+        "authors_and_others": "{authors} y otros",
+        "authors_are_hidden": "Los autores están ocultos"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -151,7 +164,15 @@
         "link_ethereum_address": "Enlazar dirección de ethereum",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
-        "copy_actor_id": "Copiar ID de actor"
+        "copy_actor_id": "Copiar ID de actor",
+        "atom_feed": "Atom feed",
+        "you_want_to_remove_from_followers": "¿Estás seguro de que quieres eliminar a {name} de tus seguidores?",
+        "view_custom_feeds": "Ver fuentes personalizadas",
+        "view_likes": "Ver los «Me gusta»",
+        "unmute": "Quitar el silencio",
+        "unfollow": "Dejar de seguir",
+        "follow_this_user_from_your_server": "Puedes seguir a este usuario desde tu servidor del Fediverse: {handle}",
+        "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -160,16 +181,17 @@
     "post_list": {
         "post": "Publicación",
         "post_not_found": "Publicación no encontrada",
-        "no_posts_found": "No se han encontrado publicaciones",
-        "post_is_not_available": "La publicación no está disponible",
-        "post_by_handle": "Publicado por {handle}"
+        "no_posts_found": "Sin publicaciones",
+        "post_is_not_available": "Publicación no disponible",
+        "post_by_handle": "Publicado por {handle}",
+        "user_reposted": "{0} republicado"
     },
     "poll": {
         "num_votes": "sin votos | {n} voto | {n} votos",
         "multiple_choices": "Múltiples opciones",
         "closed": "Cerrado",
         "vote": "Votar",
-        "ends": "Termina {0}",
+        "ends": "{0} Finalizado(s)",
         "see_results": "Ver resultados"
     },
     "profile_editor": {
@@ -209,7 +231,21 @@
         "liked_your_post": "le gustó tu publicación",
         "is_no_longer_a_subscriber": "ya no es un subscriptor",
         "signed_up": "registrado",
-        "paid_for_subscription": "pagado por subscripción"
+        "paid_for_subscription": "pagado por subscripción",
+        "you_dont_have_any_notifications": "No tienes ninguna notificación",
+        "user_followed_you": "{0} te sigue(n)",
+        "user_sent_a_follow_request": "{0} te ha enviado una solicitud de amistad",
+        "user_replied_to_your_post": "{0} ha respondido a tu publicación",
+        "user_liked_your_post": "A {0} le ha(n) gustado tu publicación",
+        "user_reacted_to_your_post": "{0} ha(n) reaccionado a tu publicación",
+        "you_received_an_anonymous_payment": "Recibiste un pago anónimo",
+        "user_mentioned_you": "{0} te ha mencionado",
+        "user_reposted_your_post": "{0} compartió tu publicación",
+        "user_paid_for_subscription": "{0} pagó la suscripción",
+        "user_subscription_expired": "{0} suscripción caducada",
+        "user_is_no_longer_a_subscriber": "{0} ya no es suscriptor",
+        "user_moved_to_a_new_instance": "{0} cambió de instancia",
+        "user_signed_up": "{0} registrado"
     },
     "poll_editor": {
         "option": "Opción {n}",
@@ -256,7 +292,11 @@
         "posts": "Publicaciones",
         "move_followers": "Mover seguidores",
         "default_post_visibility": "Visibilidad de publicaciones predeterminada",
-        "follows": "Seguidos"
+        "follows": "Seguidos",
+        "default_post_language": "Idioma predeterminado de las entradas",
+        "notifications": "Notificaciones",
+        "enable_instant_notifications": "Activar notificaciones instantáneas",
+        "active_sessions": "@:sessions.active_sessions"
     },
     "gallery": {
         "gallery_with_handle": "Galería - {handle}",
@@ -264,7 +304,8 @@
         "name_gallery": "{name} galería",
         "back": "Atrás",
         "view_post": "Ver publicación",
-        "no_media_found": "Medios no encontrados"
+        "no_media_found": "Medios no encontrados",
+        "show_more": "Mostrar más"
     },
     "subscriptions": {
         "unit_months": "meses",
@@ -303,18 +344,40 @@
         "payment_amount_is_too_small": "Cantidad de pago es demasiado pequeña",
         "subscription_expires": "Suscripción expira el {date}",
         "subscribers_can_pay": "Suscriptores pueden pagar por suscripción navegando a tu pagina de suscripción personal:",
-        "save_settings": "Guardar"
+        "save_settings": "Guardar",
+        "subscription_expired_on": "La suscripción caducó el {date}",
+        "subscription_expires_on": "La suscripción vence el {date}",
+        "not_subscribed_yet": "Sin suscripciones",
+        "grant_subscription_access": "Conceder acceso mediante suscripción",
+        "grant": "Conceder",
+        "payment_type": "Forma de pago",
+        "monero_forwarded": "Reenviado",
+        "monero_direct_requires_a_view_key": "Directo (requiere una clave)",
+        "payout_address": "Dirección de pago",
+        "enter_your_fediverse_address": "Introduce tu dirección en el Fediverso (nombre de usuario{'@'}example.org)",
+        "payment_waiting_pluralized": "Esperando el pago | Esperando el pago ( queda {n} minuto) | Esperando el pago ( quedan {n} minutos)"
     },
     "import_follows": {
-        "import": "Importar"
+        "import": "Importar",
+        "import_follows": "Importar seguidores",
+        "follows_csv": "Suscripciones (CSV)"
     },
     "move_followers": {
-        "user_not_found": "usuario no encontrado"
+        "user_not_found": "usuario no encontrado",
+        "move_followers": "Mover seguidores",
+        "target_address": "Dirección de destino",
+        "move": "Mover"
     },
     "identities": {
         "remove_alias": "Eliminar alias",
         "verified_aliases": "Alias verificados",
-        "add": "Añadir"
+        "add": "Añadir",
+        "identities": "Identidad(es)",
+        "if_you_want_to_move_from_another_account": "Si quieres transferir tus seguidores de otra cuenta a esta, aquí puedes crear un alias, algo imprescindible para poder continuar con el proceso de transferencia de seguidores de la cuenta anterior a esta.",
+        "declared_aliases": "Alias declarados",
+        "add_alias": "Añadir alias",
+        "fediverse_address": "Dirección en el Fediverso",
+        "user_not_found": "usuario no encontrado"
     },
     "search_results": {
         "search_results": "Resultados de búsqueda",
@@ -330,37 +393,79 @@
         "add_user": "Añadir usuario",
         "rename_feed": {
             "save": "Guardar",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "rename_feed": "Cambiar el nombre del feed"
         },
         "enter_address": "Introducir dirección",
-        "posts_will_not_be_displayed": "Publicaciones de estos usuarios no se mostrarán en la linea de tiempo de inicio."
+        "posts_will_not_be_displayed": "Publicaciones de estos usuarios no se mostrarán en la linea de tiempo de inicio.",
+        "custom_feeds": "Fuentes personalizadas",
+        "create_feed": "Crear un feed",
+        "enter_feed_name": "Introduce el nombre del feed",
+        "view_feed": "Mostrar feed",
+        "configure_feed": "Configurar feed",
+        "custom_feed": "Feed personalizado",
+        "delete_feed": "Feed borrado",
+        "confirm_delete_this_feed": "¿Estás seguro de que quieres eliminar este feed?",
+        "remove_user_from_feed": "Eliminar usuario del feed",
+        "confirm_remove_this_user_from_feed": "¿Seguro que quieres eliminar a este usuario del feed?"
     },
     "follow_requests": {
         "show_more_requests": "Mostrar más solicitudes",
         "follow_requests": "Solicitudes de seguimiento",
-        "no_follow_requests_found": "No se han encontrado solicitudes de seguimiento"
+        "no_follow_requests_found": "No se han encontrado solicitudes de seguimiento",
+        "incoming": "Entrante(s)",
+        "outgoing": "Saliente(s)"
     },
     "identity_proofs": {
         "link_cryptographic_key": "Enlazar llave criptográfica"
     },
     "timestamp": {
-      "full": {
-        "past_hours": "Hace {n} horas | Hace {n} horas",
-        "past_days": "Hace {n} días | Hace {n} días",
-        "past_minutes": "ahora | hace {n} minutos | hace {n} minutos",
-        "future_hours": "en {n} hora | en {n} horas",
-        "future_minutes": "ahora | en {n} minuto | en {n} minutos",
-        "future_days": "en {n} dia | en {n} días"
-      }
+        "full": {
+            "past_hours": "Hace {n} horas | Hace {n} horas",
+            "past_days": "Hace {n} días | Hace {n} días",
+            "past_minutes": "ahora | hace {n} minutos | hace {n} minutos",
+            "future_hours": "en {n} hora | en {n} horas",
+            "future_minutes": "ahora | en {n} minuto | en {n} minutos",
+            "future_days": "en {n} dia | en {n} días"
+        },
+        "short": {
+            "past_minutes": "ahora | {n} min | {n} min",
+            "past_hours": "{n} hora | {n} horas",
+            "past_days": "{n}día | {n}días",
+            "future_hours": "en {n}hora | en {n}horas",
+            "future_days": "en {n}día | en {n}días",
+            "future_minutes": "ahora | en {n}minuto | en {n}minutos"
+        }
     },
     "admin": {
         "delete_user": "Eliminar usuario",
-        "confirm_delete_user": "¿Estás seguro de que quieres eliminar {address}?. Esto no se puede deshacer."
+        "confirm_delete_user": "¿Seguro que quieres eliminar {address}? Esta acción es irreversible."
     },
     "login": {
-        "learn_more": "Aprende más",
+        "learn_more": "Más información",
         "explore": "Explorar",
         "username": "Nombre de usuario",
-        "password": "Contraseña"
+        "password": "Contraseña",
+        "username_only_letters": "Solo se permiten letras, números, guiones y guiones bajos.",
+        "dont_have_an_account": "¿No tienes una cuenta?",
+        "already_registered": "¿Ya estás registrado?",
+        "sign_in": "Iniciar sesión",
+        "sign_up": "Inscribirse"
+    },
+    "sessions": {
+        "active_sessions": "Sesiones activas",
+        "application": "Solicitud",
+        "logged_in": "Sesión iniciada",
+        "unknown": "Desconocido",
+        "current": "Actual",
+        "terminate_session": "Cerrar sesión",
+        "do_you_want_to_terminate_session": "¿«{name}» deseas cerrar la sesión?"
+    },
+    "dialog": {
+        "cancel": "Cancelar",
+        "ok": "De acuerdo"
+    },
+    "likes": {
+        "likes": "Me gusta(n)"
     }
 }
