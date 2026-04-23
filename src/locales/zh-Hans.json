@@ -184,7 +184,8 @@
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
         "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}",
         "you_want_to_remove_from_followers": "是否确定要从粉丝中移除 {name}？",
-        "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？"
+        "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
+        "view_likes": "查看点赞"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -464,5 +465,8 @@
         "current": "当前",
         "terminate_session": "终止会话",
         "do_you_want_to_terminate_session": "是否要终止会话“{name}”？"
+    },
+    "likes": {
+        "likes": "点赞"
     }
 }

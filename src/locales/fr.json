@@ -112,7 +112,7 @@
         "muted": "Masqué",
         "more": "Voir plus",
         "atom_feed": "Flux Atom",
-        "view_follow_requests": "voir les demandes d'abonnement",
+        "view_follow_requests": "Voir les demandes d'abonnement",
         "link_ethereum_address": "Lier une adresse ethereum",
         "link_minisign_key": "Lier une clé minisign",
         "subscriber_details": "Souscript·eur·rice (détails)",
@@ -156,7 +156,8 @@
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
         "follow_this_user_from_your_server": "Vous pouvez vous abonner à ce compte depuis votre serveur Fédivers : {handle}",
         "you_want_to_remove_from_followers": "Êtes-vous certain(e) de vouloir retirer {name} des abonnés ?",
-        "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?"
+        "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?",
+        "view_likes": "Voir les likes"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -256,7 +257,7 @@
         "enter_your_username": "Saisissez votre identifiant ou votre adresse sur le Fediverse (nom{'@'}exemple.org)",
         "find_profile": "Trouver le profil",
         "price_per_month": "par mois",
-        "you_are_not_subscribed_yet": "Vous n'avez pas encore souscrit",
+        "you_are_not_subscribed_yet": "Vous n'êtes pas encore abonné•e",
         "subscription_is_not_available": "La souscription n'est pas disponible.",
         "duration": "Durée",
         "click_to_edit": "Cliquer pour modifier",
@@ -464,5 +465,8 @@
         "current": "Actuelle",
         "terminate_session": "Déconnecter",
         "do_you_want_to_terminate_session": "Voulez-vous déconnecter la session '{name}' ?"
+    },
+    "likes": {
+        "likes": "Likes"
     }
 }
