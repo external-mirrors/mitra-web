@@ -84,7 +84,6 @@
         "subscribe": "購読する",
         "send_coin": "{name} に送金する",
         "copy_coin_address": "アドレスをコピー",
-        "action_reposted": "リポストされました",
         "copy_link_to_post": "ポストへのリンクをコピー",
         "react_with_emoji": "絵文字で反応",
         "unmute_author": "投稿者を非ミュート",
@@ -151,7 +150,6 @@
         "tab_followers": "フォロワー",
         "tab_following": "フォロー中",
         "tab_subscribers": "購読者",
-        "subscription_expires": "購読期間は{date}まで",
         "view_muted_users": "ミュートされたユーザを表示する",
         "profile": "プロフィール",
         "profile_with_handle": "プロフィール - {handle}",
@@ -201,19 +199,7 @@
         "show_more_users": "もっとユーザを表示する"
     },
     "notifications": {
-        "subscription_expired": "購読期間が切れました",
-        "moved_to_a_new_instance": "が新しいインスタンスに引っ越しました",
-        "show_more_notifications": "もっと通知を表示する",
-        "followed_you": "にフォローされました",
-        "sent_a_follow_request": "がフォローリクエストを送りました",
-        "signed_up": "が登録しました",
-        "replied_to_your_post": "がポストに返信しました",
-        "liked_your_post": "がポストを「いいね」しました",
-        "reacted_to_your_post": "がポストに反応しました",
-        "mentioned_you": "がメンションしました",
-        "reposted_your_post": "がポストをリポストしました",
-        "paid_for_subscription": "が購読料を支払いました",
-        "is_no_longer_a_subscriber": "はもはや購読者ではない"
+        "show_more_notifications": "もっと通知を表示する"
     },
     "settings": {
         "settings": "設定",
@@ -304,8 +290,6 @@
         "save_settings": "保存",
         "enable_subscriptions": "購読を有効する",
         "subscriber_details": "購読者の詳細",
-        "subscription_expired": "購読期間は {date} まででした",
-        "subscription_expires": "購読期間は{date}まで",
         "not_subscribed_yet": "まだ購読されていません",
         "grant_subscription_access": "購読アクセスを与える",
         "unit_months": "月数",

@@ -101,8 +101,7 @@
         "become_a_subscriber": "Abonneer",
         "subscribe": "abonneer",
         "send_coin": "Stuur {name}",
-        "copy_coin_address": "Kopieer adres",
-        "action_reposted": "Ge-repost"
+        "copy_coin_address": "Kopieer adres"
     },
     "misc": {
         "reload_page": "Herlaad de pagina over een paar minuten"
@@ -199,7 +198,6 @@
         "tab_followers": "Volgers",
         "tab_following": "Volgend",
         "tab_subscribers": "Geabonneerden",
-        "subscription_expires": "Abonnement verloopt op {date}",
         "link_cryptographic_key": "@:identity_proofs.link_cryptographic_key",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on"
     },
@@ -234,18 +232,6 @@
         "save": "Opslaan"
     },
     "notifications": {
-        "followed_you": "is u beginnen volgen",
-        "sent_a_follow_request": "heeft een volgers aanvraag gestuurd",
-        "replied_to_your_post": "antwoordde op uw post",
-        "liked_your_post": "vond uw post leuk",
-        "reacted_to_your_post": "reageerde op uw post",
-        "mentioned_you": "vermeldde u",
-        "reposted_your_post": "heeft uw post ge-repost",
-        "paid_for_subscription": "betaalde voor het abonnement",
-        "subscription_expired": "abonnement verlopen",
-        "is_no_longer_a_subscriber": "is niet langer een geabonneerde",
-        "moved_to_a_new_instance": "verhuisde naar een nieuwe installatie",
-        "signed_up": "werd lid",
         "show_more_notifications": "Toon meer meldingen"
     },
     "settings": {

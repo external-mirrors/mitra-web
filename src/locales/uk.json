@@ -74,7 +74,6 @@
         "copy_coin_address": "Скопіювати адресу",
         "featured": "Уподобане",
         "delete_repost": "Видалити репост",
-        "action_reposted": "репост",
         "add_to_featured": "Додати до вподобаного",
         "remove_from_featured": "Видалити з уподобаного",
         "subscribe": "підписатися",
@@ -154,7 +153,6 @@
         "tab_followers": "Стежать",
         "tab_featured": "Уподобане",
         "tab_subscribers": "Підписники",
-        "subscription_expires": "Термін дії підписки спливає {date}",
         "view_muted_accounts": "Переглянути ігноровані облікові записи",
         "view_muted_users": "Переглянути ігнорованих користувачів",
         "view_custom_feeds": "Переглянути власні стрічки",
@@ -209,19 +207,7 @@
         "mark_this_account_as_automated": "Увімкніть, якщо цим обліковим записом керує програма"
     },
     "notifications": {
-        "replied_to_your_post": "відповів на Ваш допис",
-        "sent_a_follow_request": "надіслав запит на стеження",
-        "show_more_notifications": "Показати більше сповіщень",
-        "reposted_your_post": "поширив Ваш допис",
-        "reacted_to_your_post": "зреагував на Ваш допис",
-        "liked_your_post": "вподобав Ваш допис",
-        "mentioned_you": "згадує Вас",
-        "followed_you": "стежить за Вами",
-        "paid_for_subscription": "оплатив підписку",
-        "subscription_expired": "термін дії підписки закінчився",
-        "signed_up": "зареєструвався",
-        "moved_to_a_new_instance": "перенесено на новий інстанс",
-        "is_no_longer_a_subscriber": "більше не є підписником"
+        "show_more_notifications": "Показати більше сповіщень"
     },
     "settings": {
         "enable_content_warnings": "Увімкнути попередження про зміст",
@@ -310,8 +296,6 @@
         "payment_timed_out": "Час очікування платежу закінчився",
         "enable_subscriptions": "Увімкнути передплату",
         "subscriber_details": "Інформація про підписника",
-        "subscription_expired": "Термін дії підписки закінчився {date}",
-        "subscription_expires": "Термін дії підписки спливає {date}",
         "not_subscribed_yet": "Ще не підписаний",
         "grant_subscription_access": "Надати доступ до передплати",
         "price": "Ціна",

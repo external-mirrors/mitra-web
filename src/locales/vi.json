@@ -62,7 +62,6 @@
         "copy_coin_address": "Sao chép địa chỉ",
         "load_replies": "Tải trả lời",
         "next_page": "Hiển thị thêm bài viết",
-        "action_reposted": "đã đăng lại",
         "go_to_previous_post": "Đi đến bài viết trước đó",
         "featured": "Nổi bật"
     },
@@ -154,7 +153,6 @@
         "tab_followers": "Người theo dõi",
         "tab_following": "Đang theo dõi",
         "tab_subscribers": "Người đăng ký",
-        "subscription_expires": "Đăng ký hết hạn {date}",
         "manually_approves_followers": "Chấp nhận theo dõi thủ công",
         "accept_follow_request": "Chấp nhận yêu cầu theo dõi",
         "tab_posts_and_replies": "Bài đăng và các trả lời"
@@ -202,19 +200,7 @@
         "remove_field": "Gỡ bỏ mục"
     },
     "notifications": {
-        "followed_you": "theo dõi bạn",
-        "replied_to_your_post": "đã trả lời bài đăng của bạn",
-        "liked_your_post": "đã thích bài đăng của bạn",
-        "reacted_to_your_post": "đã thể hiện cảm xúc với bài đăng của bạn",
-        "mentioned_you": "nhắc đến bạn",
-        "reposted_your_post": "đã đăng lại bài viết của bạn",
-        "subscription_expired": "đăng ký hết hạn",
-        "is_no_longer_a_subscriber": "đã không còn là người theo dõi",
-        "moved_to_a_new_instance": "đã chuyển tới một máy chủ mới",
-        "signed_up": "đã đăng ký",
-        "show_more_notifications": "Hiển thị thêm thông báo",
-        "paid_for_subscription": "đã trả tiền đăng ký",
-        "sent_a_follow_request": "đã gửi yêu cầu theo dõi"
+        "show_more_notifications": "Hiển thị thêm thông báo"
     },
     "settings": {
         "settings": "Cài đặt",

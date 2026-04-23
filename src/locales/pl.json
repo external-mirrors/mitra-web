@@ -95,7 +95,6 @@
         "subscribe": "subskrypcja",
         "send_coin": "Wyślij {name}",
         "copy_coin_address": "Kopiuj adres",
-        "action_reposted": "repostowano",
         "show_more": "Pokaż więcej",
         "follow_conversation": "Śledź rozmowę",
         "unfollow_conversation": "Nie śledź rozmowy"
@@ -147,7 +146,6 @@
         "tab_followers": "Obserwujący",
         "tab_following": "Obserwujesz",
         "tab_subscribers": "Obserwacje",
-        "subscription_expires": "Subskrypcja wygasa {date}",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
         "profile": "Profil",
         "profile_with_handle": "Profil - {handle}",
@@ -219,18 +217,6 @@
         "save": "Zapisz"
     },
     "notifications": {
-        "followed_you": "obserwuje cię",
-        "sent_a_follow_request": "wysłał prośbę o zaobserwowanie",
-        "replied_to_your_post": "odpowiedź na post",
-        "liked_your_post": "polubienie posta",
-        "reacted_to_your_post": "reakcja na post",
-        "mentioned_you": "wzmiankowanie",
-        "reposted_your_post": "podbicie posta",
-        "paid_for_subscription": "opłacenie subskrypcji",
-        "subscription_expired": "subskrypcja wygasła",
-        "is_no_longer_a_subscriber": "już nie subskrybuje",
-        "moved_to_a_new_instance": "przeniesienie na nową instancję",
-        "signed_up": "rejestracja",
         "show_more_notifications": "Pokaż więcej powiadomień"
     },
     "settings": {

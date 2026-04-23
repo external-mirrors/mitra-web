@@ -20,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Prevent clipping of timestamp in quoted post.
 - Updated translations ([#159](https://codeberg.org/silverpill/mitra-web/pulls/159)).
 
+### Removed
+
+- Removed unused strings from translation files.
+
 ### Fixed
 
 - Fixed #️⃣ emoji reaction.
