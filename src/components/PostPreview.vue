@@ -20,7 +20,7 @@
         class="timestamp"
         :title="formatDateTime(post.created_at)"
       >
-        <timestamp :date="post.created_at"></timestamp>
+        <timestamp :date="post.created_at" :preset="shortPostTimestamp ? 'short' : 'full'"></timestamp>
       </span>
     </div>
     <post-content
@@ -55,6 +55,7 @@ import PostContent from "@/components/PostContent.vue"
 import PostPoll from "@/components/PostPoll.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import Timestamp from "@/components/Timestamp.vue"
+import { useClientConfig } from "@/composables/client-config"
 import { useDateTime } from "@/composables/date-time"
 import { useActorHandle } from "@/composables/handle"
 
@@ -64,6 +65,7 @@ const props = defineProps<{
 
 const { formatDateTime } = useDateTime()
 const { getActorHandle } = useActorHandle()
+const { shortPostTimestamp } = useClientConfig()
 
 const author = computed(() => new ProfileWrapper(props.post.account))
 </script>
