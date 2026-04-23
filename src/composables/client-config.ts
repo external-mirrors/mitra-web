@@ -66,7 +66,7 @@ export function useClientConfig() {
   })
 
   const shortPostTimestamp = computed(() => {
-    return getClientConfigKeyOrDefault(ConfigKey.ShortPostTimestamp, false)
+    return getClientConfigKeyOrDefault(ConfigKey.ShortPostTimestamp, true)
   })
 
   const notificationPollingEnabled = computed(() => {
