@@ -24,13 +24,13 @@
         class="post-grid"
       >
         <div
-          v-for="post in posts"
+          v-for="{ post, attachment } in attachments"
           class="post"
-          :key="post.id"
+          :key="attachment.id"
         >
           <post-attachment
             class="media"
-            :attachment="post.media_attachments[0]"
+            :attachment="attachment"
             :is-sensitive="post.sensitive"
           >
           </post-attachment>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
@@ -92,6 +92,14 @@ const profile = ref<ProfileWrapper | null>(null)
 const posts = ref<PostObject[]>([])
 const isLoading = ref(true)
 const nextPageUrl = ref<string | null>(null)
+
+const attachments = computed(() => {
+  return posts.value.flatMap(post => {
+    return post.media_attachments.map(attachment => {
+      return { post, attachment }
+    })
+  })
+})
 
 async function loadPage() {
   if (profile.value === null) {
