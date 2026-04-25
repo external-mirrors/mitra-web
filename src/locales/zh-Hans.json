@@ -277,7 +277,8 @@
         "view_post": "查看帖文",
         "no_media_found": "没有媒体",
         "gallery": "媒体库",
-        "gallery_with_handle": "媒体库 - {handle}"
+        "gallery_with_handle": "媒体库 - {handle}",
+        "show_more": "显示更多"
     },
     "search_results": {
         "people": "{n} 人",

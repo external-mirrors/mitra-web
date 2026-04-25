@@ -168,13 +168,13 @@
     },
     "notifications": {
         "show_more_notifications": "Mehr Benachrichtigungen anzeigen",
-        "user_signed_up": "{0} hat sich registriert",
-        "user_followed_you": "{0} folgte dir",
-        "user_mentioned_you": "{0} hat dich erwähnt",
-        "user_paid_for_subscription": "{0} bezahlte für das Abonnement",
-        "user_subscription_expired": "{0} Abonnement abgelaufen",
-        "user_is_no_longer_a_subscriber": "{0} ist kein Abonnent mehr",
-        "user_moved_to_a_new_instance": "{0} wurde auf eine neue Instanz verschoben",
+        "user_signed_up": "{name} hat sich registriert",
+        "user_followed_you": "{name} folgte dir",
+        "user_mentioned_you": "{name} hat dich erwähnt",
+        "user_paid_for_subscription": "{name} bezahlte für das Abonnement",
+        "user_subscription_expired": "{name}-Abonnement abgelaufen",
+        "user_is_no_longer_a_subscriber": "{name} ist kein Abonnent mehr",
+        "user_moved_to_a_new_instance": "{name} wurde auf eine neue Instanz verschoben",
         "you_received_an_anonymous_payment": "Du hast eine anonyme Zahlung erhalten",
         "you_dont_have_any_notifications": "Du hast keine Benachrichtigungen"
     },
@@ -218,7 +218,8 @@
         "gallery_with_handle": "Galerie - {handle}",
         "name_gallery": "Galerie {name}",
         "back": "Zurück",
-        "no_media_found": "Keine Medien gefunden"
+        "no_media_found": "Keine Medien gefunden",
+        "show_more": "Mehr anzeigen"
     },
     "follow_requests": {
         "show_more_requests": "Weitere Anfragen anzeigen",
@@ -382,5 +383,8 @@
         "unknown": "Unbekannt",
         "current": "Aktuell",
         "terminate_session": "Sitzung terminieren"
+    },
+    "likes": {
+        "likes": "Gefällt mir"
     }
 }
