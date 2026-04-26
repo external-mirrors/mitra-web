@@ -278,7 +278,8 @@
         "view_post": "Посмотреть пост",
         "no_media_found": "Медиа не найдено",
         "gallery": "Галерея",
-        "gallery_with_handle": "Галерея - {handle}"
+        "gallery_with_handle": "Галерея - {handle}",
+        "show_more": "Показать больше"
     },
     "search_results": {
         "people": "{n} людей",
