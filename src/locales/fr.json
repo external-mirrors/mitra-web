@@ -344,7 +344,8 @@
         "name_gallery": "Galerie de {name}",
         "back": "Retour",
         "view_post": "Voir la publication",
-        "no_media_found": "Aucun media trouvé"
+        "no_media_found": "Aucun media trouvé",
+        "show_more": "Afficher plus"
     },
     "search_results": {
         "search_results": "Résultats de la recherche",
