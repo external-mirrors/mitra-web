@@ -29,9 +29,9 @@ import { Post } from "@/api/posts"
 import { useActorHandle } from "@/composables/handle"
 import { useCurrentUser } from "@/composables/user"
 import { addGreentext, addRedtext } from "@/utils/greentext"
-import { htmlToText, replaceTextNodes } from "@/utils/html"
+import { replaceTextNodes } from "@/utils/html"
 
-const POST_CONTENT_LIMIT = 1500
+const POST_CONTENT_HEIGHT_LIMIT = 1000
 
 const router = useRouter()
 const { getActorLocation } = useActorHandle()
@@ -42,15 +42,17 @@ const props = defineProps<{
   collapse?: boolean,
 }>()
 
-const collapsed = ref(props.collapse && htmlToText(props.post.content).length > POST_CONTENT_LIMIT)
+const collapsed = ref(false)
 const postContentElement = ref<HTMLElement | null>(null)
 
-onMounted(() => {
-  replaceText()
-  if (currentUser.value !== null) {
-    configureInlineLinks()
+function maybeCollapse() {
+  if (postContentElement.value === null || !props.collapse) {
+    return
   }
-})
+  if (postContentElement.value.offsetHeight > POST_CONTENT_HEIGHT_LIMIT) {
+    collapsed.value = true
+  }
+}
 
 function replaceText() {
   if (postContentElement.value === null) {
@@ -128,6 +130,14 @@ function configureInlineLinks() {
     }
   }
 }
+
+onMounted(() => {
+  replaceText()
+  maybeCollapse()
+  if (currentUser.value !== null) {
+    configureInlineLinks()
+  }
+})
 </script>
 
 <style scoped lang="scss">

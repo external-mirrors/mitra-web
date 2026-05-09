@@ -40,7 +40,3 @@ export function replaceTextNodes(
     textNode.replaceWith(fragment)
   }
 }
-
-export function htmlToText(html: string): string {
-  return html.replace(/(<([^>]+)>)/g, "")
-}
