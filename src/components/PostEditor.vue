@@ -592,9 +592,12 @@ async function autocompleteEmoji(emoji: NamedEmoji) {
   emojiSuggestionList.value = []
 }
 
-function onContentInput(event: Event) {
+function onContentInput(event: InputEvent) {
   content.value = (event.target as HTMLTextAreaElement).value
-  showSuggestionsDebounced()
+  if (event.inputType !== "insertFromPaste") {
+    // `paste` event has a different logic
+    showSuggestionsDebounced()
+  }
   if (props.post === null) {
     saveLocalDraft()
   }
@@ -611,6 +614,16 @@ async function onDrop(event: DragEvent) {
 }
 
 async function onPaste(event: ClipboardEvent) {
+  const text = event.clipboardData?.getData("text")
+  if (text) {
+    // Resolve pasted full mentions
+    const mentionRegexp = /^\s*(?<mention>@\S+@\S+)\s*$/
+    const mentionMatch = mentionRegexp.exec(text)
+    const mentionText = mentionMatch?.groups?.mention.substring(1)
+    if (mentionText) {
+      searchProfilesByAcct(ensureAuthToken(), mentionText, true)
+    }
+  }
   const files = event.clipboardData?.files || []
   if (files.length > 0) {
     event.preventDefault()

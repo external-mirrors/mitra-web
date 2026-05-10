@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Resolve mentions pasted into post editor.
+
 ### Changed
 
 - Updated translations ([#164](https://codeberg.org/silverpill/mitra-web/pulls/164)).
