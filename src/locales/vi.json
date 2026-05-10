@@ -154,8 +154,7 @@
         "tab_following": "Đang theo dõi",
         "tab_subscribers": "Người đăng ký",
         "manually_approves_followers": "Chấp nhận theo dõi thủ công",
-        "accept_follow_request": "Chấp nhận yêu cầu theo dõi",
-        "tab_posts_and_replies": "Bài đăng và các trả lời"
+        "accept_follow_request": "Chấp nhận yêu cầu theo dõi"
     },
     "poll_editor": {
         "duration_hour": "giờ | giờ",

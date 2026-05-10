@@ -340,20 +340,13 @@
         </div>
       </div>
       <div class="tab-bar" v-if="profile">
-        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
+        <template v-if="tabName === 'posts' || tabName === 'posts-featured'">
           <a
             class="tab"
             :class="{ active: tabName === 'posts' }"
             @click="switchTab('posts')"
           >
             {{ $t('profile.tab_posts') }}
-          </a>
-          <a
-            class="tab"
-            :class="{ active: tabName === 'posts-with-replies' }"
-            @click="switchTab('posts-with-replies')"
-          >
-            {{ $t('profile.tab_posts_and_replies') }}
           </a>
           <a
             class="tab"
@@ -376,12 +369,33 @@
           {{ $t('profile.tab_subscribers') }}
         </span>
       </div>
+      <div
+        v-if="profile && tabName === 'posts'"
+        class="filter-bar"
+      >
+        <label class="filter-btn">
+          <input
+            type="checkbox"
+            v-model="postListFilters.reposts"
+            :disabled="isLoading"
+          >
+          {{ $t('profile.show_reposts') }}
+        </label>
+        <label class="filter-btn">
+          <input
+            type="checkbox"
+            v-model="postListFilters.replies"
+            :disabled="isLoading"
+          >
+            {{ $t('profile.show_replies') }}
+        </label>
+      </div>
       <loader v-if="isLoading"></loader>
       <div
         v-if="profile"
         :style="{ visibility: isLoading ? 'hidden' : 'visible' }"
       >
-        <template v-if="tabName === 'posts' || tabName === 'posts-with-replies' || tabName === 'posts-featured'">
+        <template v-if="tabName === 'posts' || tabName === 'posts-featured'">
           <div v-if="posts.length === 0" class="empty-list">
             {{ $t('post_list.no_posts_found') }}
           </div>
@@ -437,7 +451,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
 
@@ -528,6 +542,7 @@ const isProcessingUnfollow = ref(false)
 const tabName = ref("posts")
 const isLoading = ref(false)
 const posts = ref<Post[]>([])
+const postListFilters = ref<{ reposts: boolean, replies: boolean }>({ reposts: true, replies: false })
 const followList = ref<Profile[]>([])
 const followListNextPageUrl = ref<string | null>(null)
 const subscriptions = ref<Subscription[]>([])
@@ -641,7 +656,6 @@ async function switchTab(name: string) {
   }
   if (
     tabName.value === "posts" ||
-    tabName.value === "posts-with-replies" ||
     tabName.value === "posts-featured"
   ) {
     posts.value.length = 0
@@ -1041,8 +1055,8 @@ async function loadPostListPage(maxId?: string) {
   const page = await getProfileTimeline(
     authToken.value,
     profile.value.id,
-    tabName.value !== "posts-with-replies",
-    tabName.value === "posts-with-replies",
+    tabName.value === "posts" && !postListFilters.value.replies,
+    tabName.value === "posts" && !postListFilters.value.reposts,
     tabName.value === "posts-featured",
     false,
     maxId,
@@ -1086,6 +1100,8 @@ onMounted(async () => {
   await switchTab("posts")
   isLoading.value = false
 })
+
+watch(postListFilters.value, () => switchTab("posts"))
 </script>
 
 <style scoped lang="scss">
@@ -1358,6 +1374,21 @@ $avatar-size: 170px;
   @include tab-bar;
 
   margin-bottom: $block-outer-padding;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  background-color: var(--block-background-color);
+  border-radius: $block-border-radius;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  padding: calc($block-inner-padding / 4) calc($block-inner-padding / 2);
 }
 
 .profile-list-item {

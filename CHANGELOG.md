@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added "View group profile" item to post menu (admin only).
 - Show total number of voters in a poll.
 - Added pagination to subscriber list on profile page.
+- Replaced "Posts with replies" tab on profile page with a filter.
+- Added reposts filter to "Posts" tab on profile page.
 
 ### Changed
 
