@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Resolve mentions pasted into post editor.
+- Use "like" icon defined in the server configuration.
 
 ### Changed
 

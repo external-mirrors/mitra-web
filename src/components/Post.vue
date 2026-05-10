@@ -144,7 +144,7 @@
         :disabled="!canLike()"
         @mouseenter="loadWhoFavourited()"
       >
-        <emoji-image :emoji="{ name: null, text: '👍', url: null }"></emoji-image>
+        <emoji-image :emoji="{ name: null, text: getLikeEmoji(), url: null }"></emoji-image>
         <span :title="getReactionTooltip(likeAuthorList, post.favourites_count)">{{ post.favourites_count }}</span>
       </button>
       <button
@@ -510,7 +510,6 @@ import IconTrash from "@/assets/feather/trash.svg?component"
 import IconMute from "@/assets/feather/volume-x.svg?component"
 import IconUnmute from "@/assets/feather/volume-2.svg?component"
 import IconComment from "@/assets/forkawesome/comment-o.svg?component"
-import IconLike from "@/assets/forkawesome/thumbs-o-up.svg?component"
 import IconBookmark from "@/assets/tabler/bookmark.svg?component"
 import IconRemoveBookmark from "@/assets/tabler/bookmark-off.svg?component"
 import IconLeftUp from "@/assets/tabler/corner-left-up.svg?component"
@@ -523,6 +522,7 @@ import CryptoAddress from "@/components/CryptoAddress.vue"
 import CryptoIcon from "@/components/CryptoIcon.vue"
 import EmojiImage from "@/components/EmojiImage.vue"
 import EmojiPicker from "@/components/EmojiPicker.vue"
+import IconLike from "@/components/IconLike.vue"
 import PostAttachment from "@/components/PostAttachment.vue"
 import PostContent from "@/components/PostContent.vue"
 import PostEditor from "@/components/PostEditor.vue"
@@ -737,6 +737,17 @@ function onPollUpdate(poll: Poll) {
 
 function getReactionCount(): number {
   return props.post.favourites_count + props.post.pleroma.emoji_reactions.length
+}
+
+function getLikeEmoji(): string {
+  switch (instance.value?.like_emoji) {
+    case "thumbs_up":
+      return "👍"
+    case "heart":
+      return "❤️"
+    default:
+      return "👍"
+  }
 }
 
 function canLike(): boolean {

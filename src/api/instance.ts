@@ -50,6 +50,7 @@ export interface InstanceInfo {
   },
   authentication_methods: AuthenticationMethod[],
   login_message: string;
+  like_emoji?: string,
   blockchains: BlockchainInfo[];
   ipfs_gateway_url: string | null;
 }

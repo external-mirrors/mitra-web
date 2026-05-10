@@ -60,7 +60,10 @@ import {
 } from "@/api/emojis"
 import EmojiImage from "@/components/EmojiImage.vue"
 import Loader from "@/components/Loader.vue"
+import { useInstanceInfo } from "@/composables/instance"
 import { isEmoji } from "@/utils/emojis"
+
+const { instance } = useInstanceInfo()
 
 const emit = defineEmits<{
   (event: "emoji-picked", emoji: Emoji): void,
@@ -110,6 +113,9 @@ onMounted(async () => {
   isLoading.value = true
   const { emojiToName } = await import("gemoji")
   favoriteEmojiList.value = FAVORITE_EMOJIS.map(emoji => {
+    if (instance.value?.like_emoji === "heart" && emoji === "❤️") {
+      emoji = "👍"
+    }
     const name = emojiToName[emoji]
     return { name, text: emoji, url: null }
   })
