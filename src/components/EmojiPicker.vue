@@ -112,10 +112,8 @@ function pick(emoji: Emoji) {
 onMounted(async () => {
   isLoading.value = true
   const { emojiToName } = await import("gemoji")
-  favoriteEmojiList.value = FAVORITE_EMOJIS.map(emoji => {
-    if (instance.value?.like_emoji === "heart" && emoji === "❤️") {
-      emoji = "👍"
-    }
+  const favoriteEmojis = instance.value?.favorite_emojis || FAVORITE_EMOJIS
+  favoriteEmojiList.value = favoriteEmojis.map(emoji => {
     const name = emojiToName[emoji]
     return { name, text: emoji, url: null }
   })
