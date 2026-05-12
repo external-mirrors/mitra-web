@@ -340,7 +340,7 @@
         </div>
       </div>
       <div class="tab-bar" v-if="profile">
-        <template v-if="tabName === 'posts' || tabName === 'posts-featured'">
+        <template v-if="tabName === 'posts' || tabName === 'posts-featured' || tabName === 'reactions'">
           <a
             class="tab"
             :class="{ active: tabName === 'posts' }"
@@ -354,6 +354,14 @@
             @click="switchTab('posts-featured')"
           >
             {{ $t('profile.tab_featured') }}
+          </a>
+          <a
+            v-if="isCurrentUser()"
+            class="tab"
+            :class="{ active: tabName === 'reactions' }"
+            @click="switchTab('reactions')"
+          >
+            {{ $t('profile.tab_reactions') }}
           </a>
           <router-link class="tab" :to="getActorLocation('profile-gallery', profile)">
             {{ $t('profile.tab_gallery') }}
@@ -395,7 +403,7 @@
         v-if="profile"
         :style="{ visibility: isLoading ? 'hidden' : 'visible' }"
       >
-        <template v-if="tabName === 'posts' || tabName === 'posts-featured'">
+        <template v-if="tabName === 'posts' || tabName === 'posts-featured' || tabName === 'reactions'">
           <div v-if="posts.length === 0" class="empty-list">
             {{ $t('post_list.no_posts_found') }}
           </div>
@@ -457,7 +465,7 @@ import { useRoute, useRouter } from "vue-router"
 
 import { adminDeleteProfile } from "@/api/admin"
 import { replaceShortcodes } from "@/api/emojis"
-import { Post, getProfileTimeline } from "@/api/posts"
+import { Post, getProfileTimeline, getReactions } from "@/api/posts"
 import {
   acceptFollowRequest,
   rejectFollowRequest,
@@ -657,7 +665,8 @@ async function switchTab(name: string) {
   }
   if (
     tabName.value === "posts" ||
-    tabName.value === "posts-featured"
+    tabName.value === "posts-featured" ||
+    tabName.value === "reactions"
   ) {
     posts.value.length = 0
     await loadPostListPage()
@@ -1052,6 +1061,15 @@ async function loadPostListPage(maxId?: string) {
   }
   if (!maxId && tabName.value === "posts") {
     maxId = getInitialMaxId()
+  }
+  if (tabName.value === "reactions") {
+    const page = await getReactions(
+      ensureAuthToken(),
+      true, // show all
+      maxId,
+    )
+    posts.value = [...posts.value, ...page.posts]
+    return
   }
   const page = await getProfileTimeline(
     authToken.value,

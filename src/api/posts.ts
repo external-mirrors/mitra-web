@@ -224,16 +224,21 @@ export async function getPostThread(
   return data
 }
 
-export async function getFavourites(
+export async function getReactions(
   authToken: string,
-  url: string | null,
+  showAll: boolean,
+  maxId?: string,
 ): Promise<PostListPage> {
-  if (!url) {
-    url = `${BACKEND_URL}/api/v1/favourites`
+  const url = `${BACKEND_URL}/api/v1/favourites`
+  const queryParams = {
+    all_reactions: showAll,
+    max_id: maxId,
+    limit: PAGE_SIZE,
   }
   const response = await http(url, {
     method: "GET",
     authToken,
+    queryParams,
   })
   const data = await handleResponse(response)
   return {

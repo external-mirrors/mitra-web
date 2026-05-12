@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
-import { addRelationships, getFavourites, Post as PostObject } from "@/api/posts"
+import { addRelationships, getReactions, Post as PostObject } from "@/api/posts"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -46,9 +46,15 @@ const isNextPageLoading = ref(false)
 
 async function loadPage(): Promise<void> {
   const authToken = ensureAuthToken()
-  const page = await getFavourites(
+  let maxId
+  if (nextPageUrl.value !== null) {
+    const url = new URL(nextPageUrl.value)
+    maxId = url.searchParams.get("max_id") ?? undefined
+  }
+  const page = await getReactions(
     authToken,
-    nextPageUrl.value,
+    false, // only likes
+    maxId,
   )
   await addRelationships(authToken, page.posts)
   posts.value = [...posts.value, ...page.posts]
