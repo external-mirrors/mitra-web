@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Resolve mentions pasted into post editor.
 - Use "like" icon defined in the server configuration.
 - Read default emojis for emoji picker from the server configuration.
+- Mark position of the last read post in the home timeline.
 
 ### Changed
 

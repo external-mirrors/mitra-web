@@ -1,10 +1,15 @@
 <template>
-  <post-or-repost
+  <div
     v-for="post in posts"
-    :post="post"
     :key="post.id"
-    @post-deleted="onPostDeleted($event)"
-  ></post-or-repost>
+    class="post-list-item"
+    :class="{ marked: post.id === marker }"
+  >
+    <post-or-repost
+      :post="post"
+      @post-deleted="onPostDeleted($event)"
+    ></post-or-repost>
+  </div>
   <button
     v-if="isPageFull()"
     class="btn secondary next-btn"
@@ -24,6 +29,7 @@ import PostOrRepost from "@/components/PostOrRepost.vue"
 
 const props = defineProps<{
   posts: PostObject[],
+  marker?: string | null,
 }>()
 
 const emit = defineEmits<{
@@ -67,6 +73,10 @@ function loadNextPage() {
 
 <style scoped lang="scss">
 @import "../styles/layout";
+
+.post-list-item:not(:nth-of-type(1)).marked {
+  margin-top: $block-outer-padding * 4;
+}
 
 .next-btn {
   margin-bottom: $block-outer-padding;

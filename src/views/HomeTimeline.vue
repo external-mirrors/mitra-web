@@ -27,6 +27,7 @@
       </div>
       <post-list
         :posts="posts"
+        :marker="marker"
         @load-next-page="loadNextPage"
       ></post-list>
     </template>
@@ -38,6 +39,7 @@ import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
+import { getHomeMarker, updateHomeMarker } from "@/api/markers"
 import { Post, addRelationships, getHomeTimeline } from "@/api/posts"
 import { Permissions } from "@/api/users"
 import Loader from "@/components/Loader.vue"
@@ -60,7 +62,21 @@ const { instance } = useInstanceInfo()
 const { setPageTitle } = useTitle()
 
 const posts = ref<Post[]>([])
+const marker = ref<string | null>(null)
 const isLoading = ref(false)
+
+async function updateMarker() {
+  if (posts.value.length === 0) {
+    // Empty list
+    return
+  }
+  if (posts.value[0].id === marker.value) {
+    // Marker is already up to date
+    return
+  }
+  const authToken = ensureAuthToken()
+  await updateHomeMarker(authToken, posts.value[0].id)
+}
 
 function canCreatePost(): boolean {
   if (currentUser.value === null) {
@@ -73,6 +89,7 @@ function canCreatePost(): boolean {
 
 function insertPost(post: Post) {
   posts.value = [post, ...posts.value]
+  updateMarker()
 }
 
 async function loadTimelinePage(
@@ -102,6 +119,12 @@ async function loadTimeline() {
   }
   posts.value = page
   isLoading.value = false
+  // Load marker position after showing posts
+  const homeMarker = await getHomeMarker(authToken)
+  if (homeMarker !== null) {
+    marker.value = homeMarker.last_read_id
+  }
+  updateMarker()
 }
 
 async function loadNextPage(maxId: string) {

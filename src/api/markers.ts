@@ -34,3 +34,30 @@ export async function updateNotificationMarker(
   const data = await handleResponse(response)
   return data.notifications
 }
+
+export async function getHomeMarker(
+  authToken: string,
+): Promise<Marker | null> {
+  const url = `${BACKEND_URL}/api/v1/markers`
+  const response = await http(url, {
+    method: "GET",
+    authToken,
+    queryParams: { "timeline[]": "home" },
+  })
+  const data = await handleResponse(response)
+  return data.home ?? null
+}
+
+export async function updateHomeMarker(
+  authToken: string,
+  lastReadId: string,
+): Promise<Marker> {
+  const url = `${BACKEND_URL}/api/v1/markers`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { home: { last_read_id: lastReadId } },
+  })
+  const data = await handleResponse(response)
+  return data.home
+}
