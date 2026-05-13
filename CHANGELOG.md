@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Updated translations ([#164](https://codeberg.org/silverpill/mitra-web/pulls/164)).
+- Updated translations ([#164](https://codeberg.org/silverpill/mitra-web/pulls/164), [#165](https://codeberg.org/silverpill/mitra-web/pulls/165)).
 - Use post height instead of text length to determine when to collapse.
 
 ## [5.2.0] - 2026-04-24
