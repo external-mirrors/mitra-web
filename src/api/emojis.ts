@@ -3,7 +3,7 @@ import { BACKEND_URL } from "@/constants"
 import { handleResponse, http } from "./common"
 
 export interface CustomEmoji {
-  shortcode: string, // Mastodon erroneusly uses "shortcode" when it is just name
+  shortcode: string, // Mastodon erroneously uses "shortcode" when it is just name
   url: string,
 }
 
