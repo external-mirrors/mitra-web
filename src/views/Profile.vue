@@ -246,7 +246,11 @@
             <div
               v-for="field, index in fields"
               class="field"
-              :class="{ verified: field.verified_at, legacy: field.is_legacy_proof && isCurrentUser() }"
+              :class="{
+                hidden: index + 1 > FIELDS_DISPLAY_LIMIT && !fieldsDisplayAll,
+                verified: field.verified_at,
+                legacy: field.is_legacy_proof && isCurrentUser()
+              }"
               :key="field.name"
             >
               <div class="name" :title="field.name">{{ field.name }}</div>
@@ -275,6 +279,14 @@
                 </div>
               </template>
             </div>
+            <button
+              v-if="fields.length > FIELDS_DISPLAY_LIMIT && !fieldsDisplayAll"
+              type="button"
+              class="extra-fields-more"
+              @click="fieldsDisplayAll = true"
+            >
+              {{ $t('profile.show_more_fields') }}
+            </button>
           </div>
           <div v-if="isLocalUser()" class="stats">
             <component
@@ -460,6 +472,8 @@ import { BACKEND_URL } from "@/constants"
 import { hasEthereumWallet } from "@/utils/ethereum"
 import { replaceTextNodes } from "@/utils/html"
 
+const FIELDS_DISPLAY_LIMIT = 10
+
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n({ useScope: "global" })
@@ -483,6 +497,7 @@ const postListElement = ref<InstanceType<typeof PostList> | null>(null)
 const profile = ref<ProfileWrapper | null>(null)
 const relationship = ref<Relationship | null>(null)
 const aliases = ref<Profile[]>([])
+const fieldsDisplayAll = ref(false)
 const expandedFields = ref<number[]>([])
 
 const profileMenuVisible = ref(false)
@@ -638,10 +653,7 @@ const fields = computed<ProfileField[]>(() => {
   if (!profile.value || !instance.value) {
     return []
   }
-  const maxFields = instance.value.configuration.accounts.max_profile_fields
-  return profile.value.identity_proofs
-    .concat(profile.value.fields)
-    .slice(0, maxFields)
+  return profile.value.identity_proofs.concat(profile.value.fields)
 })
 
 function isCurrentUser(): boolean {
@@ -1216,6 +1228,10 @@ $avatar-size: 170px;
 .extra-fields {
   border-bottom: 1px solid var(--separator-color);
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   .field {
     border-top: 1px solid var(--separator-color);
     display: flex;
@@ -1244,6 +1260,10 @@ $avatar-size: 170px;
       word-wrap: break-word;
     }
 
+    &.hidden {
+      display: none;
+    }
+
     &.verified {
       font-weight: bold;
     }
@@ -1265,10 +1285,13 @@ $avatar-size: 170px;
       }
     }
   }
+}
 
-  &:last-child {
-    border-bottom: none;
-  }
+.extra-fields-more {
+  border-top: 1px solid var(--separator-color);
+  padding: calc($block-inner-padding / 2) 0;
+  text-align: center;
+  width: 100%;
 }
 
 .stats {
