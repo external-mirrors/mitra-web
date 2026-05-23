@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added button to show all profile fields.
 
+### Removed
+
+- Drop support for servers not providing `favorite_emojis` in configuration.
+
 ## [5.3.0] - 2026-05-13
 
 ### Added

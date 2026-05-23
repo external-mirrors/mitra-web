@@ -69,17 +69,6 @@ const emit = defineEmits<{
   (event: "emoji-picked", emoji: Emoji): void,
 }>()
 
-const FAVORITE_EMOJIS = [
-  "❤️",
-  "😆",
-  "🤔",
-  "😢",
-  "😡",
-  "🎉",
-  "💯",
-  "👀",
-]
-
 const searchInputElement = ref<HTMLInputElement | null>(null)
 
 const favoriteEmojiList = ref<NamedEmoji[]>([])
@@ -112,7 +101,7 @@ function pick(emoji: Emoji) {
 onMounted(async () => {
   isLoading.value = true
   const { emojiToName } = await import("gemoji")
-  const favoriteEmojis = instance.value?.favorite_emojis || FAVORITE_EMOJIS
+  const favoriteEmojis = instance.value?.favorite_emojis ?? []
   favoriteEmojiList.value = favoriteEmojis.map(emoji => {
     const name = emojiToName[emoji]
     return { name, text: emoji, url: null }
