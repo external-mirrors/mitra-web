@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added button to show all profile fields.
 
+### Changed
+
+- Don't update home timeline marker after publishing a new post.
+
 ### Removed
 
 - Drop support for servers not providing `favorite_emojis` in configuration.

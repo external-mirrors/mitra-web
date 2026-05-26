@@ -27,7 +27,7 @@
       </div>
       <post-list
         :posts="posts"
-        :marker="marker"
+        :marker="visibleMarker"
         @load-next-page="loadNextPage"
       ></post-list>
     </template>
@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
@@ -65,6 +65,17 @@ const posts = ref<Post[]>([])
 const marker = ref<string | null>(null)
 const isLoading = ref(false)
 
+const visibleMarker = computed(() => {
+  const firstPostFromOther = posts.value
+    .find(post => post.account.id !== currentUser.value?.id)
+  if (marker.value && marker.value === firstPostFromOther?.id) {
+    // Move marker if posts above it are user's own posts
+    return posts.value[0].id
+  } else {
+    return marker.value
+  }
+})
+
 async function updateMarker() {
   if (posts.value.length === 0) {
     // Empty list
@@ -89,7 +100,6 @@ function canCreatePost(): boolean {
 
 function insertPost(post: Post) {
   posts.value = [post, ...posts.value]
-  updateMarker()
 }
 
 async function loadTimelinePage(
