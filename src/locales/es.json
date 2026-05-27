@@ -170,7 +170,8 @@
         "unmute": "Quitar el silencio",
         "unfollow": "Dejar de seguir",
         "follow_this_user_from_your_server": "Puedes seguir a este usuario desde tu servidor del Fediverse: {handle}",
-        "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?"
+        "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?",
+        "show_more_fields": "Mostrar más"
     },
     "emoji_picker": {
         "search": "Buscar…",

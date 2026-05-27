@@ -183,7 +183,8 @@
         "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}",
         "you_want_to_remove_from_followers": "是否确定要从粉丝中移除 {name}？",
         "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
-        "view_likes": "查看点赞"
+        "view_likes": "查看点赞",
+        "show_more_fields": "显示更多"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
