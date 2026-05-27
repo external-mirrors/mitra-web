@@ -145,6 +145,16 @@
                     {{ $t('profile.link_cryptographic_key') }}
                   </router-link>
                 </li>
+                <li v-if="canLoadRemotePosts()">
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('featured')">
+                    {{ $t('profile.load_featured_posts') }}
+                  </button>
+                </li>
+                <li v-if="canLoadRemotePosts()">
+                  <button @click="hideProfileMenu(); onLoadRemotePosts('outbox')">
+                    {{ $t('profile.load_latest_posts') }}
+                  </button>
+                </li>
                 <li v-if="isAdmin()" role="separator"></li>
                 <li v-if="isAdmin()">
                   <button @click="hideProfileMenu(); copyProfileId()">
@@ -154,16 +164,6 @@
                 <li v-if="isAdmin()">
                   <button @click="hideProfileMenu(); copyActorId()">
                     {{ $t('profile.copy_actor_id') }}
-                  </button>
-                </li>
-                <li v-if="canLoadRemotePosts()">
-                  <button @click="hideProfileMenu(); onLoadRemotePosts('featured')">
-                    {{ $t('profile.load_featured_posts') }}
-                  </button>
-                </li>
-                <li v-if="canLoadRemotePosts()">
-                  <button @click="hideProfileMenu(); onLoadRemotePosts('outbox')">
-                    {{ $t('profile.load_latest_posts') }}
                   </button>
                 </li>
                 <li v-if="canDeleteProfile()">
@@ -947,8 +947,7 @@ function canLoadRemotePosts(): boolean {
   return (
     profile.value !== null &&
     currentUser.value !== null &&
-    !isLocalUser() &&
-    isAdmin()
+    !isLocalUser()
   )
 }
 
