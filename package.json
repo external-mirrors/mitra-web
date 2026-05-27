@@ -28,7 +28,7 @@
     "luxon": "^2.5.0",
     "pako": "^2.1.0",
     "qrcode": "^1.5.1",
-    "viem": "^2.22.10",
+    "viem": "^2.37.0",
     "vue": "~3.5.0",
     "vue-i18n": "^10.0.7",
     "vue-router": "~4.5.0",
@@ -69,12 +69,6 @@
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
       "vite>esbuild": false
-    }
-  },
-  "overrides": {
-    "esbuild": "0.25.0",
-    "viem": {
-      "ox": "0.6.7"
     }
   }
 }
