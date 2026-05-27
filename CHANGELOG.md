@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Increased lightness of block background in dark mode.
 - Allow non-admins to load latest and featured posts.
 - Load `viem` module lazily.
+- Updated translations ([#167](https://codeberg.org/silverpill/mitra-web/pulls/167)).
 
 ### Fixed
 
