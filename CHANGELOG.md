@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't update home timeline marker after publishing a new post.
 - Changed home timeline read marker style.
+- Increased lightness of block background in dark mode.
 
 ### Removed
 
