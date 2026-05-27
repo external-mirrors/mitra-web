@@ -955,12 +955,12 @@ async function onLoadRemotePosts(collection: string) {
   if (!profile.value) {
     return
   }
-  alert(t("misc.reload_page"))
   await loadRemotePosts(
     ensureAuthToken(),
     profile.value.id,
     collection,
   )
+  alert(t("misc.reload_page"))
 }
 
 function canDeleteProfile(): boolean {
