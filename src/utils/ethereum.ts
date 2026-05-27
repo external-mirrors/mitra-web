@@ -1,4 +1,4 @@
-import { createWalletClient, custom, Account, WalletClient } from "viem"
+import { Account, WalletClient } from "viem" // only types
 
 import { generateRandomString } from "./crypto"
 
@@ -20,6 +20,7 @@ export async function getWallet(): Promise<WalletClient | null> {
     // Access denied
     return null
   }
+  const { createWalletClient, custom } = await import("viem")
   const wallet = createWalletClient({
     account,
     transport: custom(provider),
