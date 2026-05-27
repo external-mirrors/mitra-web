@@ -74,8 +74,14 @@ function loadNextPage() {
 <style scoped lang="scss">
 @import "../styles/layout";
 
-.post-list-item:not(:nth-of-type(1)).marked {
-  margin-top: $block-outer-padding * 4;
+.post-list-item:not(:nth-of-type(1)).marked::before {
+  border: 5px solid var(--block-background-color);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 0;
+  margin: $block-outer-padding auto;
+  width: 0;
 }
 
 .next-btn {
