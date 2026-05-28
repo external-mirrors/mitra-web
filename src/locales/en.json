@@ -175,6 +175,7 @@
     "show_replies": "Show replies",
     "remove_from_followers": "Remove from followers",
     "you_want_to_remove_from_followers": "Are you sure you want to remove {name} from followers?",
+    "view_groups": "View groups",
     "view_custom_feeds": "View custom feeds",
     "view_likes": "View likes",
     "mute": "Mute",
@@ -328,6 +329,11 @@
     "outgoing": "Outgoing",
     "no_follow_requests_found": "No follow requests found",
     "show_more_requests": "Show more requests"
+  },
+  "groups": {
+    "groups": "Groups",
+    "show_more_groups": "Show more groups",
+    "group": "Group"
   },
   "custom_feeds": {
     "custom_feeds": "Custom feeds",

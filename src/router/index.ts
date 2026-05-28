@@ -20,6 +20,8 @@ import EthereumPage from "@/views/Ethereum.vue"
 import ExplorePage from "@/views/Explore.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
+import GroupList from "@/views/GroupList.vue"
+import GroupTimeline from "@/views/GroupTimeline.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
 import ImportFollowers from "@/views/ImportFollowers.vue"
@@ -299,6 +301,18 @@ const routes: Array<RouteRecordRaw> = [
         .role.permissions_names
         .includes(Permissions.ManageSubscriptionOptions)
     },
+  },
+  {
+    path: "/groups",
+    name: "group-list",
+    component: GroupList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/groups/:groupId",
+    name: "group-timeline",
+    component: GroupTimeline,
+    meta: { onlyAuthenticated: true },
   },
   {
     path: "/:pathMatch(.*)*",

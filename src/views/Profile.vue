@@ -112,6 +112,13 @@
                 </li>
                 <li v-if="isCurrentUser()">
                   <router-link
+                    :to="{ name: 'group-list' }"
+                  >
+                    {{ $t('profile.view_groups') }}
+                  </router-link>
+                </li>
+                <li v-if="isCurrentUser()">
+                  <router-link
                     :to="{ name: 'custom-feed-list' }"
                   >
                     {{ $t('profile.view_custom_feeds') }}
