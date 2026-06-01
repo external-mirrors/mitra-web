@@ -1,22 +1,20 @@
-import { expect, use } from "chai"
-import sinon from "sinon"
-import sinonChai from "sinon-chai"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { fetcher, http } from "@/api/common"
-
-use(sinonChai)
 
 describe("Fetch API wrapper", () => {
   const url = "http://localhost"
   const timeout = AbortSignal.timeout(120000)
-  let fetchStub: sinon.SinonStubbedMember<any>
+  let fetchStub: any
 
   beforeEach(() => {
-    fetchStub = sinon.stub(fetcher, "fetch")
+    fetchStub = vi.spyOn(fetcher, "fetch")
+      .mockImplementation(async () => new Response())
+    vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeout)
   })
 
   afterEach(() => {
-    sinon.restore()
+    vi.restoreAllMocks()
   })
 
   it("Should set defaults", async () => {

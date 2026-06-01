@@ -1,4 +1,4 @@
-import { expect } from "chai"
+import { describe, expect, it } from "vitest"
 import { dataUrlToBase64 } from "@/utils/upload"
 
 describe("Data URL", () => {

@@ -1,4 +1,4 @@
-import { expect } from "chai"
+import { describe, expect, it } from "vitest"
 import { shallowMount } from "@vue/test-utils"
 
 import Avatar from "@/components/Avatar.vue"

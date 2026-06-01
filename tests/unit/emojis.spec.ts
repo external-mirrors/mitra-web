@@ -1,4 +1,4 @@
-import { expect } from "chai"
+import { describe, expect, it } from "vitest"
 import { replaceShortcodes } from "@/api/emojis"
 import { replaceTextNodes } from "@/utils/html"
 

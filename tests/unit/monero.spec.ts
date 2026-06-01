@@ -1,4 +1,4 @@
-import { expect } from "chai"
+import { describe, expect, it } from "vitest"
 import { createMoneroPaymentRequestV1 } from "@/utils/monero"
 
 describe("Monero utils", () => {

@@ -1,4 +1,3 @@
-import globals from "globals"
 import pluginVue from "eslint-plugin-vue"
 import vueTsEslintConfig from "@vue/eslint-config-typescript"
 
@@ -13,9 +12,6 @@ export default [
       "**/*.vue",
     ],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
       ecmaVersion: 2020,
       sourceType: "module",
     },
@@ -52,14 +48,6 @@ export default [
         },
       ],
       "no-debugger": "warn",
-    },
-  },
-  {
-    files: ["**/tests/unit/**/*.spec.ts"],
-    languageOptions: {
-      globals: {
-        ...globals.mocha,
-      },
     },
   },
 ]

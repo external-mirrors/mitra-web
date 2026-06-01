@@ -10,8 +10,6 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "chai",
-      "mocha",
       "vite/client"
     ],
     "paths": {
