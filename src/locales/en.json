@@ -90,6 +90,7 @@
     "follow_conversation": "Follow conversation",
     "unfollow_conversation": "Unfollow conversation",
     "load_replies": "Load replies",
+    "load_conversation": "Load conversation",
     "become_a_subscriber": "Become a subscriber",
     "subscribe": "subscribe",
     "send_coin": "Send {name}",

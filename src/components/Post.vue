@@ -381,13 +381,22 @@
               <span>{{ $t('post.copy_object_id') }}</span>
             </a>
           </li>
-          <li v-if="canLoadConversation()">
+          <li v-if="canLoadReplies()">
             <button
               class="icon"
-              @click="hideMenu(); onLoadConversation()"
+              @click="hideMenu(); onLoadConversation(false)"
             >
               <icon-refresh></icon-refresh>
               <span>{{ $t('post.load_replies') }}</span>
+            </button>
+          </li>
+          <li v-if="canLoadConversation()">
+            <button
+              class="icon"
+              @click="hideMenu(); onLoadConversation(true)"
+            >
+              <icon-refresh></icon-refresh>
+              <span>{{ $t('post.load_conversation') }}</span>
             </button>
           </li>
           <li v-if="isAdmin() && !canDeletePost()">
@@ -1063,7 +1072,7 @@ async function onChangeConversationTrackingStatus(status: "normal" | "follow") {
   props.post.conversation_tracking = conversation_tracking
 }
 
-function canLoadConversation(): boolean {
+function canLoadReplies(): boolean {
   return (
     currentUser.value !== null &&
     isAdmin() &&
@@ -1071,11 +1080,17 @@ function canLoadConversation(): boolean {
   )
 }
 
-async function onLoadConversation() {
-  alert(t("misc.reload_page"))
+function canLoadConversation(): boolean {
+  return (
+    currentUser.value !== null && isAdmin()
+  )
+}
+
+async function onLoadConversation(useContext: boolean) {
   await loadConversation(
     ensureAuthToken(),
     props.post.id,
+    useContext,
   )
   alert(t("misc.reload_page"))
 }

@@ -595,11 +595,13 @@ export async function makePermanent(
 export async function loadConversation(
   authToken: string,
   postId: string,
+  useContext: boolean,
 ): Promise<void> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/load_conversation`
   const response = await http(url, {
     method: "POST",
     authToken,
+    json: { use_context: useContext },
   })
   await handleResponse(response, 204)
 }
