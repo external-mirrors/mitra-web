@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added "Groups" page.
 
+### Fixed
+
+- Don't show page reload alert if attempt to load conversation fails.
+
 ## [5.4.0] - 2026-05-27
 
 ### Added

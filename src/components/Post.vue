@@ -1077,6 +1077,7 @@ async function onLoadConversation() {
     ensureAuthToken(),
     props.post.id,
   )
+  alert(t("misc.reload_page"))
 }
 
 async function onAdminDeletePost() {
