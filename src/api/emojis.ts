@@ -65,14 +65,18 @@ export async function getUnicodeEmojis(): Promise<NamedEmoji[]> {
   return unicodeEmojis
 }
 
+export function emojiFromApiEntity(emoji: CustomEmoji): NamedEmoji {
+  return {
+    name: emoji.shortcode,
+    text: getEmojiShortcode(emoji.shortcode),
+    url: emoji.url,
+  }
+}
+
 export async function getCustomEmojis(): Promise<NamedEmoji[]> {
   const _customEmojis = await _getCustomEmojis()
   const customEmojis = _customEmojis.map(emoji => {
-    return {
-      name: emoji.shortcode,
-      text: getEmojiShortcode(emoji.shortcode),
-      url: emoji.url,
-    }
+    return emojiFromApiEntity(emoji)
   })
   return customEmojis
 }

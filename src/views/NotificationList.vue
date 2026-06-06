@@ -18,8 +18,8 @@
           <span
             v-else-if="notification.type === 'emoji_reaction' || notification.type === 'pleroma:emoji_reaction'"
             class="emoji-reaction"
-            v-html="getReactionHtml(notification)"
           >
+            <emoji-image :emoji="getReactionEmoji(notification)"></emoji-image>
           </span>
           <icon-comment v-else-if="notification.type === 'mention'"></icon-comment>
           <icon-repost v-else-if="notification.type === 'reblog'"></icon-repost>
@@ -117,7 +117,7 @@ import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import { PAGE_SIZE } from "@/api/common"
-import { replaceShortcodes } from "@/api/emojis"
+import { emojiFromApiEntity, Emoji } from "@/api/emojis"
 import { getNotifications, Notification } from "@/api/notifications"
 import { addRelationships } from "@/api/posts"
 import { formatXmrAmount } from "@/api/subscriptions-monero"
@@ -130,6 +130,7 @@ import IconTruck from "@/assets/feather/truck.svg?component"
 import IconComment from "@/assets/forkawesome/comment-o.svg?component"
 import IconPayment from "@/assets/tabler/coin.svg?component"
 import Avatar from "@/components/Avatar.vue"
+import EmojiImage from "@/components/EmojiImage.vue"
 import IconLike from "@/components/IconLike.vue"
 import Loader from "@/components/Loader.vue"
 import Post from "@/components/Post.vue"
@@ -216,16 +217,19 @@ onMounted(async () => {
   await onNotificationPageLoad(notifications.value)
 })
 
-function getReactionHtml(notification: Notification): string {
+function getReactionEmoji(notification: Notification): Emoji {
   if (notification.reaction === null) {
-    return ""
+    throw Error("unexpected notification data")
   }
-  let content = notification.reaction.content
   if (notification.reaction.emoji !== null) {
-    // Reaction content can't contain HTML special characters
-    content = replaceShortcodes(content, [notification.reaction.emoji])
+    return emojiFromApiEntity(notification.reaction.emoji)
+  } else {
+    return {
+      name: null,
+      text: notification.reaction.content,
+      url: null,
+    }
   }
-  return content
 }
 
 function getSender(notification: Notification): ProfileWrapper {
@@ -282,15 +286,16 @@ async function loadNextPage() {
   @include post-action;
 
   .emoji-reaction {
-    @include emoji-inline;
-
-    height: $icon-size;
     margin-right: calc($icon-size / 2);
-    text-align: center;
-    width: $icon-size;
 
     :deep(.emoji) {
       @include emoji-zoom;
+
+      /* smaller than standard EmojiImage */
+      font-size: calc($icon-size / $line-height);
+      height: $icon-size;
+      min-width: $icon-size;
+      width: $icon-size;
     }
   }
 
