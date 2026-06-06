@@ -59,5 +59,16 @@ export default ({ mode }) => {
       globals: true,
       watch: false,
     },
+    build: {
+      rollupOptions: {
+        onwarn: (warning, handler) => {
+          if (warning.message.includes("en.json")) {
+            // Hide "dynamic import will not move module into another chunk"
+            return
+          }
+          handler(warning)
+        },
+      },
+    },
   })
 }
