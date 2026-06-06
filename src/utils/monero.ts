@@ -1,5 +1,6 @@
 import { fromByteArray } from "base64-js"
 import { DateTime } from "luxon"
+// Size: ~50KB
 import pako from "pako"
 
 import { generateRandomString } from "./crypto"

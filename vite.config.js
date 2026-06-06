@@ -60,6 +60,7 @@ export default ({ mode }) => {
       watch: false,
     },
     build: {
+      chunkSizeWarningLimit: 600,
       rollupOptions: {
         onwarn: (warning, handler) => {
           if (warning.message.includes("en.json")) {

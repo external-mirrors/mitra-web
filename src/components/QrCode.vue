@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+// Size: ~25KB
 import QRCode from "qrcode"
 
 const props = defineProps<{
