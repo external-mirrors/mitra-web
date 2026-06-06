@@ -109,7 +109,8 @@
         "follow_conversation": "Seguir conversación",
         "unfollow_conversation": "Dejar de seguir la conversación",
         "authors_and_others": "{authors} y otros",
-        "authors_are_hidden": "Los autores están ocultos"
+        "authors_are_hidden": "Los autores están ocultos",
+        "load_conversation": "Cargar conversación"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -171,7 +172,8 @@
         "unfollow": "Dejar de seguir",
         "follow_this_user_from_your_server": "Puedes seguir a este usuario desde tu servidor del Fediverse: {handle}",
         "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?",
-        "show_more_fields": "Mostrar más"
+        "show_more_fields": "Mostrar más",
+        "view_groups": "Ver grupos"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -452,5 +454,10 @@
     },
     "likes": {
         "likes": "Me gusta(n)"
+    },
+    "groups": {
+        "groups": "Grupos",
+        "show_more_groups": "Mostrar más grupos",
+        "group": "Grupo"
     }
 }
