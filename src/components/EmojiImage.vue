@@ -38,6 +38,8 @@ const title = computed(() => {
 
   display: inline-block;
   font-size: calc($emoji-size / $line-height);
+  /* Workaround for https://github.com/misskey-dev/misskey/issues/15520 */
+  font-variant-emoji: emoji;
   height: $emoji-size;
   min-width: $emoji-size;
   text-align: center;

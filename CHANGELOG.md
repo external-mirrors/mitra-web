@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added "Groups" page.
 - Added "Load conversation" item to post menu (admin only).
 
+### Changed
+
+- Display plaintext unicode emoji symbols in reactions as explicit emojis.
+
 ### Fixed
 
 - Don't show page reload alert if attempt to load conversation fails.
