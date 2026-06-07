@@ -1,9 +1,9 @@
 <template>
   <div
-    v-for="post in posts"
+    v-for="(post, index) in posts"
     :key="post.id"
     class="post-list-item"
-    :class="{ marked: post.id === marker }"
+    :class="{ marked: post.id === marker && index !== 0 }"
   >
     <post-or-repost
       :post="post"
@@ -74,7 +74,7 @@ function loadNextPage() {
 <style scoped lang="scss">
 @import "../styles/layout";
 
-.post-list-item:not(:nth-of-type(1)).marked::before {
+.post-list-item.marked::before {
   border: 5px solid var(--block-background-color);
   border-radius: 50%;
   content: "";
