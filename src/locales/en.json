@@ -334,7 +334,8 @@
   "groups": {
     "groups": "Groups",
     "show_more_groups": "Show more groups",
-    "group": "Group"
+    "group": "Group",
+    "create_post": "Create post"
   },
   "custom_feeds": {
     "custom_feeds": "Custom feeds",

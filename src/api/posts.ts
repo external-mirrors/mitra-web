@@ -340,6 +340,7 @@ export interface PostData {
   content: string;
   language: string | null,
   inReplyToId: string | null;
+  groupId: string | null,
   visibility: string;
   isSensitive: boolean;
   attachments: Attachment[];
@@ -368,6 +369,7 @@ export async function createPost(
     language: postData.language,
     media_ids: postData.attachments.map((attachment) => attachment.id),
     in_reply_to_id: postData.inReplyToId,
+    group_id: postData.groupId,
     visibility: postData.visibility,
     sensitive: postData.isSensitive,
     poll: poll,

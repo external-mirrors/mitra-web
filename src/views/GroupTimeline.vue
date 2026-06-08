@@ -7,8 +7,28 @@
         >
           {{ group.getDisplayName() }}
         </router-link>
+        <button
+          type="button"
+          id="create-post"
+          class="icon"
+          @click="postEditorVisible = !postEditorVisible"
+          :title="$t('groups.create_post')"
+        >
+          <icon-edit></icon-edit>
+        </button>
       </div>
-      <div v-if="!isLoading && posts.length === 0" class="content-message">
+      <post-editor
+        v-if="group && postEditorVisible"
+        :post="null"
+        :in-reply-to="null"
+        :repost-of="null"
+        :group="group"
+        @post-saved="insertPost"
+      ></post-editor>
+      <div
+        v-if="!isLoading && posts.length === 0 && !postEditorVisible"
+        class="content-message"
+      >
         {{ $t('post_list.no_posts_found') }}
       </div>
       <post-list
@@ -28,7 +48,9 @@ import { useRoute } from "vue-router"
 import { getGroupTimeline } from "@/api/groups"
 import { addRelationships, Post } from "@/api/posts"
 import { getProfile, ProfileWrapper } from "@/api/users"
+import IconEdit from "@/assets/feather/edit.svg?component"
 import Loader from "@/components/Loader.vue"
+import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useActorHandle } from "@/composables/handle"
@@ -42,6 +64,7 @@ const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
 const group = ref<ProfileWrapper | null>(null)
+const postEditorVisible = ref(false)
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
 
@@ -67,6 +90,11 @@ async function loadNextPage(maxId: string) {
   posts.value = [...posts.value, ...nextPage]
 }
 
+function insertPost(post: Post) {
+  posts.value = [post, ...posts.value]
+  postEditorVisible.value = false
+}
+
 onMounted(async () => {
   setPageTitle(t("groups.group"))
   isLoading.value = true
@@ -88,9 +116,21 @@ onMounted(async () => {
 @import "../styles/theme";
 
 .group-info {
+  @include block-icon;
   @include content-message;
 
+  align-items: center;
+  display: flex;
+  gap: $block-inner-padding;
   margin-bottom: $block-outer-padding;
+
+  #create-post {
+    margin-left: auto;
+  }
+}
+
+.post-form {
+  margin-bottom: $block-outer-padding * 2;
 }
 
 .content-message {

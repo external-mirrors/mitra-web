@@ -369,6 +369,7 @@ const props = defineProps<{
   post: Post | null,
   inReplyTo: Post | null,
   repostOf: Post | null,
+  group?: Profile,
 }>()
 
 const emit = defineEmits<{
@@ -831,6 +832,7 @@ async function publish() {
         content: content.value,
         language: currentUser.source.language,
         inReplyToId: props.inReplyTo ? props.inReplyTo.id : null,
+        groupId: props.group ? props.group.id : null,
         visibility: visibility.value,
         isSensitive: isSensitive.value,
         attachments: attachmentList.value,
