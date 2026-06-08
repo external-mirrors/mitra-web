@@ -81,7 +81,8 @@
         "follow_conversation": "Следите за разговором",
         "unfollow_conversation": "Отписаться от разговора",
         "authors_and_others": "{authors} и другие",
-        "authors_are_hidden": "Авторы скрыты"
+        "authors_are_hidden": "Авторы скрыты",
+        "load_conversation": "Загрузить разговор"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -182,7 +183,8 @@
         "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?",
         "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?",
         "view_likes": "Посмотр лайков",
-        "show_more_fields": "Показать больше"
+        "show_more_fields": "Показать больше",
+        "view_groups": "Просмотреть группы"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -459,5 +461,10 @@
     },
     "likes": {
         "likes": "Лайки"
+    },
+    "groups": {
+        "groups": "Группы",
+        "show_more_groups": "Показать больше групп",
+        "group": "Группа"
     }
 }
