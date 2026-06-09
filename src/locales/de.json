@@ -387,5 +387,8 @@
     },
     "likes": {
         "likes": "Gefällt mir"
+    },
+    "groups": {
+        "group": "Gruppe"
     }
 }
