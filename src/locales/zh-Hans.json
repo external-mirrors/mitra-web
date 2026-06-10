@@ -109,7 +109,8 @@
         "unfollow_conversation": "取消关注对话",
         "show_more": "显示更多",
         "authors_and_others": "{authors} 和其他人",
-        "authors_are_hidden": "作者已隐藏"
+        "authors_are_hidden": "作者已隐藏",
+        "load_conversation": "加载对话"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -184,7 +185,8 @@
         "you_want_to_remove_from_followers": "是否确定要从粉丝中移除 {name}？",
         "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
         "view_likes": "查看点赞",
-        "show_more_fields": "显示更多"
+        "show_more_fields": "显示更多",
+        "view_groups": "查看群组"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -454,5 +456,10 @@
     },
     "likes": {
         "likes": "点赞"
+    },
+    "groups": {
+        "groups": "群组",
+        "show_more_groups": "显示更多群组",
+        "group": "群组"
     }
 }

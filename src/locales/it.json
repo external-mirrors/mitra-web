@@ -16,7 +16,7 @@
         "federated": "Federata",
         "search_hashtag": "hashtag",
         "profile_directory": "Cartella dei profili",
-        "search_account": "utenza",
+        "search_account": "account",
         "subscriptions": "Sottoscrizioni"
     },
     "welcome": {
@@ -30,7 +30,8 @@
         "hide_image": "Nascondi immagine",
         "visibility": {
             "followers": "Follower",
-            "public": "Pubblico"
+            "public": "Pubblico",
+            "direct": "Menzione privata"
         },
         "visibility_description": {
             "visible_to_everyone": "Visibile a tutti",
@@ -52,7 +53,11 @@
         "replying_to": "in risposta a",
         "view_replies": "Guarda le risposte",
         "saved_to_ipfs": "Salvato su IPFS",
-        "more": "Ancora"
+        "more": "Ancora",
+        "show_more": "Mostra di più",
+        "bookmark": "Aggiungi segnalibro",
+        "remove_bookmark": "Rimuovi segnalibro",
+        "repost_with_comment": "Cita"
     },
     "post_editor": {
         "publish": "Pubblica",
@@ -67,7 +72,9 @@
         "insert_emoji": "Inserisci emoji",
         "update": "Aggiorna",
         "remove_attachment": "Rimuovi allegato",
-        "attach_file": "Allega file"
+        "attach_file": "Allega file",
+        "change_visibility": "Cambia visibilità",
+        "visibility_can_not_be_changed": "La visibilità non può essere cambiata"
     },
     "import_follows": {
         "import": "Importa"
@@ -92,7 +99,8 @@
     },
     "poll_editor": {
         "duration_hour": "ora | ore",
-        "duration_day": "giorno | giorni"
+        "duration_day": "giorno | giorni",
+        "poll_duration": "Durata sondaggio"
     },
     "admin": {
         "delete_user": "Elimina utente",
@@ -100,7 +108,13 @@
     },
     "profile": {
         "profile": "Profilo",
-        "profile_with_handle": "Profilo - {handle}"
+        "profile_with_handle": "Profilo - {handle}",
+        "not_found": "Profilo non trovato",
+        "open_profile_page": "Apri la pagina del profilo",
+        "mute": "Silenzia",
+        "unmute": "Riattiva",
+        "edit_profile": "Modifica profilo",
+        "admin": "Admin"
     },
     "settings": {
         "profile": "Profilo"
@@ -111,13 +125,24 @@
         "post_is_not_available": "Post non disponibile"
     },
     "timestamp": {
-      "full": {
-        "past_minutes": "adesso | {n} minuto fa | {n} minuti fa",
-        "past_hours": "{n} ora fa | {n} ore fa",
-        "past_days": "{n} giorno fa | {n} giorni fa",
-        "future_minutes": "adesso | in {n} minuto | in {n} minuti",
-        "future_hours": "in {n} ora | in {n} ore",
-        "future_days": "in {n} giorno | in {n} giorni"
-      }
+        "full": {
+            "past_minutes": "adesso | {n} minuto fa | {n} minuti fa",
+            "past_hours": "{n} ora fa | {n} ore fa",
+            "past_days": "{n} giorno fa | {n} giorni fa",
+            "future_minutes": "adesso | in {n} minuto | in {n} minuti",
+            "future_hours": "in {n} ora | in {n} ore",
+            "future_days": "in {n} giorno | in {n} giorni"
+        }
+    },
+    "login": {
+        "sign_in": "Accedi",
+        "sign_up": "Registrati",
+        "dont_have_an_account": "Non hai un account?",
+        "password": "Password",
+        "already_registered": "Hai già un account?",
+        "learn_more": "Scopri di più",
+        "explore": "Esplora",
+        "username": "Nome utente",
+        "username_only_letters": "Sono consentiti solo lettere, numeri, trattini e trattini bassi."
     }
 }
