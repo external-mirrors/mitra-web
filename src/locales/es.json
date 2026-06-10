@@ -458,6 +458,7 @@
     "groups": {
         "groups": "Grupos",
         "show_more_groups": "Mostrar más grupos",
-        "group": "Grupo"
+        "group": "Grupo",
+        "create_post": "Crear publicación"
     }
 }
