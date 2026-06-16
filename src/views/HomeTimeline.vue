@@ -66,14 +66,25 @@ const marker = ref<string | null>(null)
 const isLoading = ref(false)
 
 const visibleMarker = computed(() => {
-  const firstPostFromOther = posts.value
-    .find(post => post.account.id !== currentUser.value?.id)
-  if (marker.value && marker.value === firstPostFromOther?.id) {
-    // Move marker if posts above it are user's own posts
-    return posts.value[0].id
-  } else {
-    return marker.value
+  if (!marker.value) {
+    return null
   }
+  let noPostsFromOthers = true
+  for (const post of posts.value) {
+    if (post.id === marker.value) {
+      if (noPostsFromOthers) {
+        // Move marker if all posts before it are user's own posts
+        return posts.value[0].id
+      } else {
+        return marker.value
+      }
+    }
+    if (post.account.id !== currentUser.value?.id) {
+      noPostsFromOthers = false
+    }
+  }
+  // Marked post not found
+  return null
 })
 
 async function updateMarker() {
