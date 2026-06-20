@@ -3,14 +3,29 @@ import { handleResponse, http, PAGE_SIZE } from "./common"
 import { Post } from "./posts"
 import { Profile } from "./users"
 
-export async function getFollowedGroups(
+export async function createGroup(
   authToken: string,
+  name: string,
+): Promise<Profile> {
+  const url = `${BACKEND_URL}/api/v1/groups`
+  const response = await http(url, {
+    method: "POST",
+    authToken,
+    json: { name },
+  })
+  const data = await handleResponse(response)
+  return data
+}
+
+export async function getGroups(
+  authToken: string,
+  filter: "following" | "moderating",
   offset?: number,
 ): Promise<Profile[]> {
   const url = `${BACKEND_URL}/api/v1/groups/followed`
   const response = await http(url, {
     authToken,
-    queryParams: { offset },
+    queryParams: { filter, offset },
   })
   const data = await handleResponse(response)
   return data

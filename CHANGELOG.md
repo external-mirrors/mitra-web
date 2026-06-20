@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Show "Group" badge when viewing group profile.
+- Added "Create group" page.
+- Display groups the user is moderating on "Groups" page.
 
 ### Fixed
 

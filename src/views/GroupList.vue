@@ -4,7 +4,31 @@
       <h1 class="content-header">
         {{ $t('groups.groups') }}
       </h1>
-      <div v-if="!isLoading" class="group-list">
+      <div class="tab-bar-wrapper">
+        <div class="tab-bar">
+          <a
+            class="tab"
+            :class="{ active: tabName === 'following' }"
+            @click="switchTab('following')"
+          >
+            {{ $t('groups.following') }}
+          </a>
+          <a
+            class="tab"
+            :class="{ active: tabName === 'moderating' }"
+            @click="switchTab('moderating')"
+          >
+            {{ $t('groups.moderating') }}
+          </a>
+        </div>
+        <router-link
+          class="btn"
+          :to="{ name: 'group-create' }"
+        >
+          {{ $t('groups.create_group') }}
+        </router-link>
+      </div>
+      <div class="group-list">
         <router-link
           v-for="group in groups"
           :key="group.id"
@@ -29,7 +53,7 @@
 import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
-import { getFollowedGroups } from "@/api/groups"
+import { getGroups } from "@/api/groups"
 import { Profile } from "@/api/users"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -41,6 +65,7 @@ const { t } = useI18n({ useScope: "global" })
 const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
+const tabName = ref<"following" | "moderating">("following")
 const groups = ref<Profile[]>([])
 const isLoading = ref(false)
 
@@ -53,17 +78,23 @@ function isPageFull(): boolean {
 }
 
 async function loadPage() {
+  isLoading.value = true
   const authToken = ensureAuthToken()
   const offset = groups.value.length
-  const nextPage = await getFollowedGroups(authToken, offset)
+  const nextPage = await getGroups(authToken, tabName.value, offset)
   groups.value = [...groups.value, ...nextPage]
+  isLoading.value = false
+}
+
+async function switchTab(name: "following" | "moderating") {
+  tabName.value = name
+  groups.value = []
+  await loadPage()
 }
 
 onMounted(async () => {
   setPageTitle(t("groups.groups"))
-  isLoading.value = true
   await loadPage()
-  isLoading.value = false
 })
 </script>
 
@@ -81,6 +112,19 @@ onMounted(async () => {
 .content-message {
   @include content-message;
 
+  margin-bottom: $block-outer-padding;
+}
+
+.tab-bar-wrapper {
+  align-items: start;
+  display: flex;
+  gap: $block-outer-padding;
+}
+
+.tab-bar {
+  @include tab-bar;
+
+  flex-grow: 1;
   margin-bottom: $block-outer-padding;
 }
 

@@ -20,6 +20,7 @@ import EthereumPage from "@/views/Ethereum.vue"
 import ExplorePage from "@/views/Explore.vue"
 import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
+import GroupForm from "@/views/GroupForm.vue"
 import GroupList from "@/views/GroupList.vue"
 import GroupTimeline from "@/views/GroupTimeline.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
@@ -306,6 +307,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/groups",
     name: "group-list",
     component: GroupList,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/groups/create",
+    name: "group-create",
+    component: GroupForm,
     meta: { onlyAuthenticated: true },
   },
   {

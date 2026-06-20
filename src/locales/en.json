@@ -334,9 +334,17 @@
   },
   "groups": {
     "groups": "Groups",
+    "following": "Following",
+    "moderating": "Moderating",
+    "create_group": "Create",
     "show_more_groups": "Show more groups",
     "group": "Group",
     "create_post": "Create post"
+  },
+  "group_form": {
+    "create_group": "Create group",
+    "group_name": "Group name",
+    "create": "Create"
   },
   "custom_feeds": {
     "custom_feeds": "Custom feeds",
