@@ -19,6 +19,7 @@
               <div class="badges">
                 <div class="badge" v-if="isAdminProfile()">{{ $t('profile.admin') }}</div>
                 <div class="badge" v-if="profile.bot">{{ $t('profile.automated') }}</div>
+                <div class="badge" v-if="profile.is_group">{{ $t('profile.group') }}</div>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"

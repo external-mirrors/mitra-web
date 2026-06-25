@@ -53,6 +53,7 @@ export interface Profile {
   locked: boolean;
   mention_policy: "none" | "only_known" | "only_contacts",
   bot: boolean,
+  is_group?: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
@@ -78,6 +79,7 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
     locked: false,
     mention_policy: "none",
     bot: false,
+    is_group: false,
     identity_proofs: [],
     payment_options: [],
     fields: [],
