@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added "Create group" page.
 - Display groups the user is moderating on "Groups" page.
 
+### Changed
+
+- Updated translations ([#169](https://codeberg.org/silverpill/mitra-web/pulls/169)).
+
 ### Fixed
 
 - Fixed home timeline marker appearing after publishing a post.
