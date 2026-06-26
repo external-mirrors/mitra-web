@@ -459,6 +459,14 @@
         "groups": "Grupos",
         "show_more_groups": "Mostrar más grupos",
         "group": "Grupo",
-        "create_post": "Crear publicación"
+        "create_post": "Crear publicación",
+        "following": "Siguiendo",
+        "moderating": "Moderando",
+        "create_group": "Crear"
+    },
+    "group_form": {
+        "create_group": "Crear grupo",
+        "group_name": "Nombre del grupo",
+        "create": "Crear"
     }
 }
