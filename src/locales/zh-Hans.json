@@ -120,7 +120,7 @@
         "no_posts_found": "暂无帖文",
         "post_is_not_available": "帖文不可用",
         "post": "帖文",
-        "post_by_handle": "发贴者 {handle}",
+        "post_by_handle": "发帖者 {handle}",
         "user_reposted": "{name} 已转发"
     },
     "emoji_picker": {
@@ -186,7 +186,8 @@
         "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
         "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
-        "view_groups": "查看群组"
+        "view_groups": "查看群组",
+        "group": "群组"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -460,6 +461,7 @@
     "groups": {
         "groups": "群组",
         "show_more_groups": "显示更多群组",
-        "group": "群组"
+        "group": "群组",
+        "create_post": "创建帖文"
     }
 }

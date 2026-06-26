@@ -465,6 +465,7 @@
     "groups": {
         "groups": "Группы",
         "show_more_groups": "Показать больше групп",
-        "group": "Группа"
+        "group": "Группа",
+        "create_post": "Создать пост"
     }
 }

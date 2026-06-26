@@ -173,7 +173,8 @@
         "follow_this_user_from_your_server": "Puedes seguir a este usuario desde tu servidor del Fediverse: {handle}",
         "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?",
         "show_more_fields": "Mostrar más",
-        "view_groups": "Ver grupos"
+        "view_groups": "Ver grupos",
+        "group": "Grupo"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -458,6 +459,7 @@
     "groups": {
         "groups": "Grupos",
         "show_more_groups": "Mostrar más grupos",
-        "group": "Grupo"
+        "group": "Grupo",
+        "create_post": "Crear publicación"
     }
 }
