@@ -186,7 +186,8 @@
         "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
         "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
-        "view_groups": "查看群组"
+        "view_groups": "查看群组",
+        "group": "群组"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
