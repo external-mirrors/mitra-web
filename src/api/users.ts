@@ -53,7 +53,7 @@ export interface Profile {
   locked: boolean;
   mention_policy: "none" | "only_known" | "only_contacts",
   bot: boolean,
-  is_group?: boolean,
+  is_group: boolean,
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
