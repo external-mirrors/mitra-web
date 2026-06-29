@@ -16,11 +16,11 @@
         "search_text": "テキスト"
     },
     "post_editor": {
-        "prompt": "何を考えてますか？",
+        "prompt": "何を考えていますか？",
         "prompt_reply": "あなたの返事",
         "prompt_repost": "あなたのコメント",
         "publish": "投稿",
-        "update": "アップデート",
+        "update": "更新",
         "cancel": "キャンセル",
         "repost": "リポスト",
         "attach_file": "ファイルを添付",
@@ -37,7 +37,10 @@
         "visibility_can_not_be_changed": "ポスト可視性を変更できません",
         "add_poll": "投票を追加する",
         "remove_poll": "投票を取り消す",
-        "edit_description": "画像の説明を編集"
+        "edit_description": "画像の説明を編集",
+        "send": "送信",
+        "upload": "添付",
+        "from_url": "URLから添付"
     },
     "about": {
         "administered_by": "管理者",
@@ -58,7 +61,7 @@
             "followers": "フォロワー",
             "subscribers": "購読者",
             "direct": "ダイレクト",
-            "conversation": "スレ"
+            "conversation": "会話"
         },
         "featured": "固定ポスト",
         "edited": "編集されました",
@@ -67,7 +70,7 @@
         "close_image": "閉じる",
         "view_replies": "返信を見る",
         "reply": "返信",
-        "delete_repost": "リポストを削除",
+        "delete_repost": "リポストの取り消し",
         "repost": "リポスト",
         "unlike": "いいねを取り消す",
         "like": "いいね",
@@ -90,14 +93,21 @@
         "bookmark": "ブックマーク",
         "remove_bookmark": "ブックマークを削除",
         "visibility_description": {
-            "visible_to_everyone": "公開で可視",
-            "visible_to_followers": "フォロワーのみ可視",
-            "visible_to_premium_subscribers": "購読者のみ可視",
-            "visible_to_mentioned_users": "メンションされたユーザのみ可視",
-            "visible_to_people_chosen_by_conversation_owner": "スレ立て人が選んだ人のみ可視"
+            "visible_to_everyone": "誰でも閲覧可能",
+            "visible_to_followers": "フォロワーのみ閲覧可能",
+            "visible_to_premium_subscribers": "購読者のみ閲覧可能",
+            "visible_to_mentioned_users": "メンションされたユーザのみ閲覧可能",
+            "visible_to_people_chosen_by_conversation_owner": "スレ立て人が選んだ人のみ閲覧可能"
         },
-        "view_conversation": "スレを表示",
-        "confirm_delete_this_post": "ポストを本当に削除してもよろしいですか？"
+        "view_conversation": "会話を表示",
+        "confirm_delete_this_post": "ポストを本当に削除してもよろしいですか？",
+        "copy_object_id": "オブジェクトIDをコピー",
+        "show_more": "続きを表示",
+        "source_is_not_available": "ソースが利用できません",
+        "follow_conversation": "会話をフォローする",
+        "unfollow_conversation": "会話のフォローをやめる",
+        "load_conversation": "会話を読み込む",
+        "authors_and_others": "{authors}ほか"
     },
     "misc": {
         "reload_page": "数分後にページを再読み込みしてください"
@@ -164,7 +174,8 @@
         "post_not_found": "ポストが見つかりません",
         "post_is_not_available": "ポストにアクセスできません",
         "post": "ポスト",
-        "post_by_handle": "{handle} が投稿したポスト"
+        "post_by_handle": "{handle} が投稿したポスト",
+        "user_reposted": "{name}がリポストしました"
     },
     "profile_editor": {
         "additional_info": "詳細",
@@ -175,18 +186,20 @@
         "banner": "バナー",
         "remove_image": "削除",
         "lock_account": "アカウントをロック",
-        "lock_account_requires": "手動でフォロワーを承認する必要になります",
+        "lock_account_requires": "手動でフォロワーを承認する必要があります",
         "accept_mentions_from": "メンションの受信設定",
         "mention_policy_applies": "ダイレクトメッセージと公開ポスト両方に適用します",
         "mention_everybody": "みんな",
         "mention_everybody_except_new_accounts": "新たに作成されたアカウント以外の全員",
-        "mention_follows_and_followers": "フォローしてるアカウントとフォロワーのみ",
+        "mention_follows_and_followers": "フォロー中のアカウントとフォロワーのみ",
         "you_can_have_max_fields": "最大{max}項目をプロフィールに表として表示できます",
         "field_label": "ラベル",
         "field_content": "コンテンツ",
         "remove_field": "項目を削除",
         "add_new_field": "新しい項目を追加",
-        "save": "保存"
+        "save": "保存",
+        "is_automated": "アカウントをボットと設定",
+        "mark_this_account_as_automated": "アカウントがプログラム制御されている場合に有効化してください"
     },
     "profile_list": {
         "show_more_profiles": "プロフィールをもっと表示",
@@ -198,14 +211,24 @@
         "show_more_users": "もっとユーザを表示する"
     },
     "notifications": {
-        "show_more_notifications": "もっと通知を表示する"
+        "show_more_notifications": "もっと通知を表示する",
+        "you_dont_have_any_notifications": "通知がありません",
+        "user_followed_you": "{name}にフォローされました",
+        "user_sent_a_follow_request": "{name}がフォローリクエストを送りました",
+        "user_replied_to_your_post": "{name}が返信しました",
+        "user_liked_your_post": "{name}にいいねされました",
+        "user_reacted_to_your_post": "{name}にリアクションされました",
+        "user_mentioned_you": "{name}に話しかけられました",
+        "user_reposted_your_post": "{name}にリポストされました",
+        "user_moved_to_a_new_instance": "{name}が引っ越しました",
+        "you_received_an_anonymous_payment": "誰かから投げ銭を受け取りました"
     },
     "settings": {
         "settings": "設定",
         "profile": "プロフィール",
         "appearance": "外観",
-        "enable_dark_mode": "ダークモードを有効",
-        "enable_content_warnings": "コンテンツ警告を有効",
+        "enable_dark_mode": "ダークモードを有効化",
+        "enable_content_warnings": "コンテンツ警告を有効化",
         "enable_ctrl_enter": "Ctrl+エンターでメッセージを送信",
         "language": "言語",
         "authentication": "認証",
@@ -220,7 +243,7 @@
         "manage_identities": "アイデンティティを管理する",
         "export": "エクスポート",
         "edit_profile": "プロフィールを編集",
-        "follows": "フォローしてるアカウント",
+        "follows": "フォロー中のアカウント",
         "followers": "フォロワー",
         "download": "ダウンロード",
         "delete_account": "アカウントを削除",
@@ -231,7 +254,13 @@
         "import": "インポート",
         "migrate_account": "アカウントを移行する",
         "move_followers": "フォロワーを移動する",
-        "default_post_visibility": "デフォルトのポストの公開範囲"
+        "default_post_visibility": "デフォルトのポストの公開範囲",
+        "active_sessions": "@:sessions.active_sessions",
+        "posts": "ポスト",
+        "default_post_language": "デフォルトのポストの言語",
+        "notifications": "通知",
+        "enable_instant_notifications": "インスタント通知を有効化",
+        "open_conversations_in_a_new_tab": "会話を新しいタブで開く"
     },
     "gallery": {
         "no_media_found": "メディアが見つかりません",
@@ -239,7 +268,8 @@
         "back": "戻る",
         "view_post": "ポストを見る",
         "gallery": "画像",
-        "gallery_with_handle": "画像 - {handle}"
+        "gallery_with_handle": "画像 - {handle}",
+        "show_more": "もっと見る"
     },
     "search_results": {
         "people": "{n} 人",
@@ -264,7 +294,7 @@
         "subscription_is_active": "購読は有効です",
         "subscription_is_not_available": "購読は利用できません。",
         "duration": "期間",
-        "click_to_edit": "編集するのにクリック",
+        "click_to_edit": "クリックして編集",
         "pay": "支払う",
         "extend": "延長する",
         "please_send_to_this_address": "{amount} {currency}をこのアドレスに送金して下さい：",
@@ -282,7 +312,7 @@
         "price": "購読料",
         "payment_timed_out": "支払いがタイムアウトしました",
         "payment_cancelled": "支払いはキャンセルされました",
-        "payment_amount_is_too_small": "支払い金額は足りません",
+        "payment_amount_is_too_small": "支払い金額が足りません",
         "payment_completed": "支払い完了",
         "payment_processing": "支払いを処理しています",
         "payout_address": "支払いの受取アドレス",
@@ -293,7 +323,8 @@
         "grant_subscription_access": "購読アクセスを与える",
         "unit_months": "月数",
         "unit_days": "日数",
-        "grant": "与える"
+        "grant": "与える",
+        "enter_your_fediverse_address": "あなたのIDを入力してください (例: username{'@'}example.org)"
     },
     "custom_feeds": {
         "custom_feeds": "カスタムフィード",
@@ -310,7 +341,7 @@
             "rename_feed": "フィード名を変える"
         },
         "user_not_found": "ユーザが見つかりませんでした",
-        "user_is_already_in_the_list": "ユーザはすでにリストに乗っています",
+        "user_is_already_in_the_list": "ユーザはすでにリストに追加されています",
         "enter_address": "アドレスを入力する",
         "add_user": "ユーザを追加する",
         "posts_will_not_be_displayed": "このユーザからの投稿はホームタイムラインに表示されません。",
@@ -330,10 +361,10 @@
         "follows_csv": "フォロー (CSV)"
     },
     "move_followers": {
-        "move_followers": "フォローを移動する",
+        "move_followers": "フォロワーを移動する",
         "move": "移動",
         "user_not_found": "ユーザが見つかりませんでした",
-        "target_address": "ターゲットのアドレス"
+        "target_address": "対象のアドレス"
     },
     "identities": {
         "identities": "アイデンティティ",
@@ -355,13 +386,40 @@
         "see_results": "結果を表示する"
     },
     "timestamp": {
-      "full": {
-        "past_minutes": "たった今 | {n} 分前 | {n} 分前",
-        "past_hours": "{n}時間前 | {n}時間前",
-        "past_days": "{n}日前 | {n}日前",
-        "future_minutes": "今 | {n} 分後 | {n} 分後",
-        "future_hours": "{n} 時間後 | {n} 時間後",
-        "future_days": "{n} 日後 | {n} 日後"
-      }
+        "full": {
+            "past_minutes": "たった今 | {n} 分前 | {n} 分前",
+            "past_hours": "{n}時間前 | {n}時間前",
+            "past_days": "{n}日前 | {n}日前",
+            "future_minutes": "今 | {n} 分後 | {n} 分後",
+            "future_hours": "{n} 時間後 | {n} 時間後",
+            "future_days": "{n} 日後 | {n} 日後"
+        }
+    },
+    "login": {
+        "username_only_letters": "アルファベット・数字・ハイフン・アンダースコアのみ許可されます。",
+        "dont_have_an_account": "アカウントを持っていますか？",
+        "already_registered": "登録済みですか？",
+        "learn_more": "もっと見る",
+        "sign_up": "登録する",
+        "sign_in": "ログイン"
+    },
+    "admin": {
+        "delete_user": "ユーザを削除する",
+        "confirm_delete_user": "本当に{address}を削除しますか？取り消すことはできません。"
+    },
+    "likes": {
+        "likes": "いいね"
+    },
+    "sessions": {
+        "active_sessions": "有効なセッション",
+        "terminate_session": "セッションを終了",
+        "do_you_want_to_terminate_session": "'{name}'のセッションを終了しますか？",
+        "unknown": "不明",
+        "current": "現在"
+    },
+    "group_form": {
+        "create_group": "グループを作成する",
+        "group_name": "グループ名",
+        "create": "作成"
     }
 }
