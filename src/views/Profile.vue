@@ -587,6 +587,14 @@ onMounted(async () => {
   isLoading.value = false
 })
 
+function getInitialMaxId(): string | undefined {
+  const maxId = route.query.max_id
+  if (typeof maxId !== "string" || maxId.length === 0) {
+    return
+  }
+  return maxId
+}
+
 async function switchTab(name: string) {
   if (!profile.value) {
     return
@@ -604,6 +612,7 @@ async function switchTab(name: string) {
       false, // with reposts
       false,
       false,
+      getInitialMaxId(),
     )
     posts.value = page.posts
   } else if (tabName.value === "posts-with-replies") {
