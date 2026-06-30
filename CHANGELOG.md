@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added optional `max_id` query parameter to profile page URL ([#171](https://codeberg.org/silverpill/mitra-web/pulls/171)).
+
 ### Changed
 
 - Made `Account.is_group` field required.
