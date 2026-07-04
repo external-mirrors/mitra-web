@@ -8,6 +8,11 @@
           :placeholder="$t('group_form.group_name')"
           v-model.trim="groupName"
         >
+        <textarea
+          ref="groupDescriptionElement"
+          :placeholder="$t('group_form.description')"
+          v-model.trim="groupDescription"
+        ></textarea>
         <button
           type="submit"
           class="btn"
@@ -35,6 +40,7 @@ import { createGroup } from "@/api/groups"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
+import { setupAutoResize } from "@/utils/autoresize"
 
 const { t } = useI18n({ useScope: "global" })
 const router = useRouter()
@@ -42,14 +48,17 @@ const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
 const groupName = ref<string>("")
+const groupDescription = ref<string>("")
+const groupDescriptionElement = ref<HTMLTextAreaElement | null>(null)
 const errorMessage = ref<string | null>(null)
 
 async function onCreateGroup() {
   const authToken = ensureAuthToken()
   const name = groupName.value
+  const description = groupDescription.value
   let group
   try {
-    group = await createGroup(authToken, name)
+    group = await createGroup(authToken, name, description)
   } catch (error: any) {
     errorMessage.value = error.message
     return
@@ -60,6 +69,9 @@ async function onCreateGroup() {
 
 onMounted(async () => {
   setPageTitle(t("group_form.create_group"))
+  if (groupDescriptionElement.value !== null) {
+    setupAutoResize(groupDescriptionElement.value)
+  }
 })
 </script>
 

@@ -344,6 +344,7 @@
   "group_form": {
     "create_group": "Create group",
     "group_name": "Group name",
+    "description": "Description",
     "create": "Create"
   },
   "custom_feeds": {
