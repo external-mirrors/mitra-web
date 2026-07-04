@@ -18,6 +18,18 @@ export async function createGroup(
   return data
 }
 
+export async function deleteGroup(
+  authToken: string,
+  groupId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/groups/${groupId}`
+  const response = await http(url, {
+    method: "DELETE",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}
+
 export async function getGroups(
   authToken: string,
   filter: "following" | "moderating",

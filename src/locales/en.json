@@ -338,6 +338,8 @@
     "moderating": "Moderating",
     "create_group": "Create",
     "show_more_groups": "Show more groups",
+    "delete_group": "Delete group",
+    "confirm_delete_this_group": "Are you sure you want to delete this group?",
     "group": "Group",
     "create_post": "Create post"
   },

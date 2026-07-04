@@ -34,7 +34,17 @@
           :key="group.id"
           :to="{ name: 'group-timeline', params: { groupId: group.id } }"
         >
-          <profile-list-item :profile="group"></profile-list-item>
+          <profile-list-item :profile="group">
+            <template #profile-actions v-if="tabName === 'moderating'">
+              <button
+                class="icon"
+                :title="$t('groups.delete_group')"
+                @click.prevent="onDeleteGroup(group.id)"
+              >
+                <icon-delete></icon-delete>
+              </button>
+          </template>
+          </profile-list-item>
         </router-link>
       </div>
       <button
@@ -53,8 +63,9 @@
 import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
-import { getGroups } from "@/api/groups"
+import { deleteGroup, getGroups } from "@/api/groups"
 import { Profile } from "@/api/users"
+import IconDelete from "@/assets/feather/trash.svg?component"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
@@ -90,6 +101,14 @@ async function switchTab(name: "following" | "moderating") {
   tabName.value = name
   groups.value = []
   await loadPage()
+}
+
+async function onDeleteGroup(groupId: string) {
+  if (confirm(t("groups.confirm_delete_this_group"))) {
+    await deleteGroup(ensureAuthToken(), groupId)
+    const groupIndex = groups.value.findIndex((group) => group.id === groupId)
+    groups.value.splice(groupIndex, 1)
+  }
 }
 
 onMounted(async () => {
@@ -135,12 +154,12 @@ onMounted(async () => {
   margin-bottom: $block-outer-padding;
 }
 
-.group {
-  background-color: var(--block-background-color);
-  border-radius: $block-border-radius;
-  display: flex;
-  gap: $block-inner-padding;
-  padding: $block-inner-padding;
+.profile {
+  @include block-icon;
+
+  .icon > svg {
+    vertical-align: middle;
+  }
 }
 
 .next-btn {
