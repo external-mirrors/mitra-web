@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Made `Account.is_group` field required.
+- Assign unique paths to tabs in group list.
 
 ## [5.6.0] - 2026-06-26
 

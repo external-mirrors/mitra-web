@@ -62,6 +62,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
+import { useRoute, useRouter } from "vue-router"
 
 import { deleteGroup, getGroups } from "@/api/groups"
 import { Profile } from "@/api/users"
@@ -73,6 +74,8 @@ import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const { t } = useI18n({ useScope: "global" })
+const route = useRoute()
+const router = useRouter()
 const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
@@ -98,9 +101,7 @@ async function loadPage() {
 }
 
 async function switchTab(name: "following" | "moderating") {
-  tabName.value = name
-  groups.value = []
-  await loadPage()
+  router.push({ name: "group-list", params: { tabName: name } })
 }
 
 async function onDeleteGroup(groupId: string) {
@@ -113,6 +114,7 @@ async function onDeleteGroup(groupId: string) {
 
 onMounted(async () => {
   setPageTitle(t("groups.groups"))
+  tabName.value = route.params.tabName as "following" | "moderating"
   await loadPage()
 })
 </script>

@@ -304,7 +304,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/groups",
+    path: "/groups/:tabName(following|moderating)",
     name: "group-list",
     component: GroupList,
     meta: { onlyAuthenticated: true },

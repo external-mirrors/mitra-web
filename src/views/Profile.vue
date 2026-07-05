@@ -113,7 +113,7 @@
                 </li>
                 <li v-if="isCurrentUser()">
                   <router-link
-                    :to="{ name: 'group-list' }"
+                    :to="{ name: 'group-list', params: { tabName: 'following' } }"
                   >
                     {{ $t('profile.view_groups') }}
                   </router-link>
