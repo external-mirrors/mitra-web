@@ -64,7 +64,7 @@ async function onCreateGroup() {
     return
   }
   errorMessage.value = null
-  router.push({ name: "group-timeline", params: { groupId: group.id } })
+  router.push({ name: "group-list", params: { tabName: "moderating" } })
 }
 
 onMounted(async () => {
