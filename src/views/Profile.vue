@@ -19,7 +19,13 @@
               <div class="badges">
                 <div class="badge" v-if="isAdminProfile()">{{ $t('profile.admin') }}</div>
                 <div class="badge" v-if="profile.bot">{{ $t('profile.automated') }}</div>
-                <div class="badge" v-if="profile.is_group">{{ $t('profile.group') }}</div>
+                <router-link
+                  v-if="profile.is_group"
+                  class="badge"
+                  :to="{ name: 'group-timeline', params: { groupId: profile.id } }"
+                >
+                  {{ $t('profile.group') }}
+                </router-link>
                 <div
                   class="badge"
                   v-if="aliases.length > 0"

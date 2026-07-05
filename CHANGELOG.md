@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added "Description" field to group creation form.
 - Added interface for deleting moderated groups.
 - Added interface for editing group profiles.
+- Converted "Group" badge into a link to group timeline.
 
 ### Changed
 
