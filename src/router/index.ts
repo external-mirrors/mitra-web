@@ -322,6 +322,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyAuthenticated: true },
   },
   {
+    path: "/groups/:groupId/edit",
+    name: "group-edit",
+    component: GroupForm,
+    meta: { onlyAuthenticated: true },
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: { name: "home" },
   },

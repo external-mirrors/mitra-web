@@ -338,6 +338,7 @@
     "moderating": "Moderating",
     "create_group": "Create",
     "show_more_groups": "Show more groups",
+    "edit_group": "Edit group",
     "delete_group": "Delete group",
     "confirm_delete_this_group": "Are you sure you want to delete this group?",
     "group": "Group",
@@ -345,9 +346,11 @@
   },
   "group_form": {
     "create_group": "Create group",
+    "edit_group": "Edit group",
     "group_name": "Group name",
     "description": "Description",
-    "create": "Create"
+    "create": "Create",
+    "save": "Save"
   },
   "custom_feeds": {
     "custom_feeds": "Custom feeds",

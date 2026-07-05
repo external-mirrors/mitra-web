@@ -36,6 +36,13 @@
         >
           <profile-list-item :profile="group">
             <template #profile-actions v-if="tabName === 'moderating'">
+              <router-link
+                class="icon"
+                :title="$t('groups.edit_group')"
+                :to="{ name: 'group-edit', params: { groupId: group.id } }"
+              >
+                <icon-edit></icon-edit>
+              </router-link>
               <button
                 class="icon"
                 :title="$t('groups.delete_group')"
@@ -66,6 +73,7 @@ import { useRoute, useRouter } from "vue-router"
 
 import { deleteGroup, getGroups } from "@/api/groups"
 import { Profile } from "@/api/users"
+import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconDelete from "@/assets/feather/trash.svg?component"
 import Loader from "@/components/Loader.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
