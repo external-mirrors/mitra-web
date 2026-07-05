@@ -105,6 +105,7 @@ export interface Post {
   hidden: boolean,
   ipfs_cid: string | null;
   links: Post[];
+  group: Profile | null,
 
   // Data added by client
   contentSource?: string | null,
@@ -332,6 +333,7 @@ export async function previewPost(
     hidden: false,
     ipfs_cid: null,
     links: [],
+    group: null,
   }
 }
 

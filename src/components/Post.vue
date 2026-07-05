@@ -381,6 +381,15 @@
               <span>{{ $t('post.copy_object_id') }}</span>
             </a>
           </li>
+          <li v-if="isAdmin() && post.group">
+            <router-link
+              class="icon"
+              :to="getProfileLocation(post.group)"
+            >
+              <icon-users></icon-users>
+              <span>View group profile</span>
+            </router-link>
+          </li>
           <li v-if="canLoadReplies()">
             <button
               class="icon"
@@ -526,6 +535,7 @@ import IconPin from "@/assets/tabler/pin.svg?component"
 import IconUnpin from "@/assets/tabler/pinned-off.svg?component"
 import IconQuote from "@/assets/tabler/quote.svg?component"
 import IconSmile from "@/assets/feather/smile.svg?component"
+import IconUsers from "@/assets/feather/users.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import CryptoAddress from "@/components/CryptoAddress.vue"
 import CryptoIcon from "@/components/CryptoIcon.vue"
