@@ -95,7 +95,7 @@
                 </li>
                 <li v-if="isCurrentUser()">
                   <router-link
-                    :to="{ name: 'follow-request-list' }"
+                    :to="{ name: 'follow-request-list', params: { tabName: 'incoming' } }"
                   >
                     {{ $t('profile.view_follow_requests') }}
                   </router-link>

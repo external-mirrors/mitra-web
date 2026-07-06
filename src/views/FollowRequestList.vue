@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
+import { useRoute, useRouter } from "vue-router"
 
 import { getFollowRequests, getOutgoingFollowRequests } from "@/api/relationships"
 import { Profile } from "@/api/users"
@@ -58,6 +59,8 @@ import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
 const { t } = useI18n({ useScope: "global" })
+const route = useRoute()
+const router = useRouter()
 const { getActorLocation } = useActorHandle()
 const { ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
@@ -85,16 +88,8 @@ async function loadPage(pageUrl?: string) {
 }
 
 async function switchTab(name: "incoming" | "outgoing") {
-  tabName.value = name
-  profiles.value.length = 0
-  nextPageUrl.value = null
-  await loadPage()
+  router.push({ name: "follow-request-list", params: { tabName: name } })
 }
-
-onMounted(async () => {
-  setPageTitle(t("follow_requests.follow_requests"))
-  await switchTab(tabName.value)
-})
 
 async function loadNextPage() {
   if (nextPageUrl.value === null) {
@@ -102,6 +97,12 @@ async function loadNextPage() {
   }
   await loadPage(nextPageUrl.value)
 }
+
+onMounted(async () => {
+  setPageTitle(t("follow_requests.follow_requests"))
+  tabName.value = route.params.tabName as "incoming" | "outgoing"
+  await loadPage()
+})
 </script>
 
 <style scoped lang="scss">

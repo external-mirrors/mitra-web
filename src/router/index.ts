@@ -220,7 +220,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyAuthenticated: true },
   },
   {
-    path: "/follow-requests",
+    path: "/follow-requests/:tabName(incoming|outgoing)",
     name: "follow-request-list",
     component: FollowRequestList,
     meta: { onlyAuthenticated: true },
