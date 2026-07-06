@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Redirect to "Moderating" tab once a group has been created.
 - Assign unique paths to tabs in follow request list.
 
+### Fixed
+
+- Don't hide follow request list when loading next page.
+
 ## [5.6.0] - 2026-06-26
 
 ### Added

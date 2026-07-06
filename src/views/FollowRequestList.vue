@@ -23,7 +23,7 @@
       <div v-if="!isLoading && profiles.length === 0" class="content-message">
         {{ $t('follow_requests.no_follow_requests_found') }}
       </div>
-      <div v-if="!isLoading" class="profile-list">
+      <div class="profile-list">
         <router-link
           v-for="profile in profiles"
           :key="profile.id"
