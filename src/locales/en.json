@@ -103,6 +103,7 @@
     "num_votes": "no votes | {n} vote | {n} votes",
     "vote": "Vote",
     "multiple_choices": "Multiple choices",
+    "people_voted": "{n} person | {n} people",
     "ends": "Ends {date}",
     "closed": "Closed",
     "see_results": "See results"

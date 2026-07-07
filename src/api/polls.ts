@@ -14,6 +14,7 @@ export interface Poll {
   expired: boolean,
   multiple: boolean,
   votes_count: number,
+  voters_count: number | null,
   options: PollOption[],
   emojis: CustomEmoji[],
 
