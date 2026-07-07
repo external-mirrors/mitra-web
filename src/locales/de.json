@@ -388,6 +388,20 @@
         "likes": "Gefällt mir"
     },
     "groups": {
-        "group": "Gruppe"
+        "group": "Gruppe",
+        "groups": "Gruppen",
+        "create_group": "Erstellen",
+        "show_more_groups": "Weitere Gruppen anzeigen",
+        "edit_group": "Gruppe bearbeiten",
+        "delete_group": "Gruppe löschen",
+        "create_post": "Beitrag erstellen"
+    },
+    "group_form": {
+        "save": "Speichern",
+        "description": "Beschreibung",
+        "create": "Erstellen",
+        "group_name": "Gruppenname",
+        "create_group": "Gruppe erstellen",
+        "edit_group": "Gruppe bearbeiten"
     }
 }
