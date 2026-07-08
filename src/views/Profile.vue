@@ -423,6 +423,13 @@
               </template>
             </profile-list-item>
           </router-link>
+          <button
+            v-if="subscriptionListNextPageUrl"
+            class="btn secondary next-btn"
+            @click="loadSubscriptionListPage()"
+          >
+            {{ $t('profile_list.show_more_profiles') }}
+          </button>
         </template>
       </div>
     </template>
@@ -524,6 +531,7 @@ const posts = ref<Post[]>([])
 const followList = ref<Profile[]>([])
 const followListNextPageUrl = ref<string | null>(null)
 const subscriptions = ref<Subscription[]>([])
+const subscriptionListNextPageUrl = ref<string | null>(null)
 
 async function loadProfile(): Promise<ProfileWrapper | null> {
   let _profile
@@ -603,6 +611,25 @@ function getInitialMaxId(): string | undefined {
   return maxId
 }
 
+async function loadSubscriptionListPage() {
+  if (profile.value === null) {
+    return
+  }
+  let maxId
+  if (subscriptionListNextPageUrl.value !== null) {
+    const url = new URL(subscriptionListNextPageUrl.value)
+    maxId = url.searchParams.get("max_id") ?? undefined
+  }
+  const page = await getReceivedSubscriptions(
+    ensureAuthToken(),
+    profile.value.id,
+    false,
+    maxId,
+  )
+  subscriptions.value.push(...page.subscriptions)
+  subscriptionListNextPageUrl.value = page.nextPageUrl
+}
+
 async function switchTab(name: string) {
   if (!profile.value) {
     return
@@ -658,11 +685,9 @@ async function switchTab(name: string) {
     followList.value = page.profiles
     followListNextPageUrl.value = page.nextPageUrl
   } else if (tabName.value === "subscribers" && isCurrentUser()) {
-    subscriptions.value = await getReceivedSubscriptions(
-      ensureAuthToken(),
-      profile.value.id,
-      false,
-    )
+    subscriptions.value.length = 0
+    subscriptionListNextPageUrl.value = null
+    await loadSubscriptionListPage()
   }
   isLoading.value = false
 }

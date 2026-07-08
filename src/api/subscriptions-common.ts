@@ -2,7 +2,7 @@ import { FixedNumber } from "ethers"
 
 import { BACKEND_URL } from "@/constants"
 import { floatToBigNumber, roundBigNumber } from "@/utils/numbers"
-import { handleResponse, http } from "./common"
+import { handleResponse, http, getNextPageUrl } from "./common"
 import { Profile, User } from "./users"
 
 export const DAYS_IN_MONTH = 30
@@ -91,17 +91,29 @@ export interface Subscription {
   expires_at: string,
 }
 
+interface SubscriptionListPage {
+  subscriptions: Subscription[],
+  nextPageUrl: string | null,
+}
+
 export async function getReceivedSubscriptions(
   authToken: string,
   accountId: string,
   includeExpired: boolean,
-): Promise<Subscription[]> {
+  maxId?: string,
+): Promise<SubscriptionListPage> {
   const url = `${BACKEND_URL}/api/v1/accounts/${accountId}/subscribers`
   const response = await http(url, {
     method: "GET",
-    queryParams: { include_expired: includeExpired },
+    queryParams: {
+      include_expired: includeExpired,
+      max_id: maxId,
+    },
     authToken,
   })
   const data = await handleResponse(response)
-  return data
+  return {
+    subscriptions: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
