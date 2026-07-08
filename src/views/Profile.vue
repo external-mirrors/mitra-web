@@ -525,9 +525,7 @@ const followList = ref<Profile[]>([])
 const followListNextPageUrl = ref<string | null>(null)
 const subscriptions = ref<Subscription[]>([])
 
-onMounted(async () => {
-  setPageTitle(t("profile.profile"))
-  isLoading.value = true
+async function loadProfile(): Promise<ProfileWrapper | null> {
   let _profile
   try {
     if (route.params.acct) {
@@ -544,21 +542,23 @@ onMounted(async () => {
   } catch (error: any) {
     if (error.message === "profile not found") {
       // Show "not found" text
-      isLoading.value = false
-      return
+      return null
     }
     throw error
   }
   if (isRemoteProfile(_profile) && currentUser.value === null) {
     // Only authenticated users can view remote profiles
-    isLoading.value = false
-    return
+    return null
   }
-  profile.value = new ProfileWrapper(_profile)
-  await nextTick()
+  loadRelationship(_profile)
+  loadAliases(_profile)
+  return new ProfileWrapper(_profile)
+}
 
-  setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
-
+function addCustomEmojis() {
+  if (profile.value === null) {
+    throw new Error("profile doesn't exist")
+  }
   const emojis = profile.value.emojis
   if (profileBioElement.value !== null) {
     replaceTextNodes(profileBioElement.value, (text: string) => {
@@ -577,21 +577,23 @@ onMounted(async () => {
       })
     }
   }
+}
 
+async function loadRelationship(profile: Profile) {
   if (currentUser.value && !isCurrentUser()) {
     relationship.value = await getRelationship(
       ensureAuthToken(),
-      profile.value.id,
+      profile.id,
     )
   }
-  if (profile.value.identity_proofs.length > 0) {
-    const { verified } = await getAliases(profile.value.id)
+}
+
+async function loadAliases(profile: Profile) {
+  if (profile.identity_proofs.length > 0) {
+    const { verified } = await getAliases(profile.id)
     aliases.value = verified
   }
-  await switchTab("posts")
-
-  isLoading.value = false
-})
+}
 
 function getInitialMaxId(): string | undefined {
   const maxId = route.query.max_id
@@ -1071,6 +1073,22 @@ async function loadFollowListNextPage() {
   followList.value.push(...page.profiles)
   followListNextPageUrl.value = page.nextPageUrl
 }
+
+onMounted(async () => {
+  setPageTitle(t("profile.profile"))
+  isLoading.value = true
+  profile.value = await loadProfile()
+  if (profile.value === null) {
+    // Show "not found" text
+    isLoading.value = false
+    return
+  }
+  await nextTick()
+  setPageTitle(t("profile.profile_with_handle", { handle: getActorHandle(profile.value) }))
+  addCustomEmojis()
+  await switchTab("posts")
+  isLoading.value = false
+})
 </script>
 
 <style scoped lang="scss">
