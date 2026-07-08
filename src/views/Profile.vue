@@ -388,7 +388,7 @@
           <post-list
             ref="postListElement"
             :posts="posts"
-            @load-next-page="loadNextPage"
+            @load-next-page="loadPostListPage"
           ></post-list>
         </template>
         <template v-else-if="tabName === 'followers' || tabName === 'following'">
@@ -403,7 +403,7 @@
           <button
             v-if="followListNextPageUrl"
             class="btn secondary next-btn"
-            @click="loadFollowListNextPage()"
+            @click="loadFollowListPage()"
           >
             {{ $t('profile_list.show_more_profiles') }}
           </button>
@@ -639,51 +639,20 @@ async function switchTab(name: string) {
   if (postListElement.value !== null) {
     postListElement.value.resetPagination()
   }
-  if (tabName.value === "posts") {
-    const page = await getProfileTimeline(
-      authToken.value,
-      profile.value.id,
-      true,
-      false, // with reposts
-      false,
-      false,
-      getInitialMaxId(),
-    )
-    posts.value = page.posts
-  } else if (tabName.value === "posts-with-replies") {
-    const page = await getProfileTimeline(
-      authToken.value,
-      profile.value.id,
-      false,
-      true, // without reposts
-      false,
-      false,
-    )
-    posts.value = page.posts
-  } else if (tabName.value === "posts-featured") {
-    const page = await getProfileTimeline(
-      authToken.value,
-      profile.value.id,
-      false,
-      false, // with reposts
-      true,
-      false,
-    )
-    posts.value = page.posts
-  } else if (tabName.value === "followers" && isCurrentUser()) {
-    const page = await getFollowers(
-      ensureAuthToken(),
-      profile.value.id,
-    )
-    followList.value = page.profiles
-    followListNextPageUrl.value = page.nextPageUrl
-  } else if (tabName.value === "following" && isCurrentUser()) {
-    const page = await getFollowing(
-      ensureAuthToken(),
-      profile.value.id,
-    )
-    followList.value = page.profiles
-    followListNextPageUrl.value = page.nextPageUrl
+  if (
+    tabName.value === "posts" ||
+    tabName.value === "posts-with-replies" ||
+    tabName.value === "posts-featured"
+  ) {
+    posts.value.length = 0
+    await loadPostListPage()
+  } else if (
+    (tabName.value === "followers" || tabName.value === "following") &&
+    isCurrentUser()
+  ) {
+    followList.value.length = 0
+    followListNextPageUrl.value = null
+    await loadFollowListPage()
   } else if (tabName.value === "subscribers" && isCurrentUser()) {
     subscriptions.value.length = 0
     subscriptionListNextPageUrl.value = null
@@ -1062,11 +1031,14 @@ async function removeIdentityProof(field: ProfileField) {
   }
 }
 
-async function loadNextPage(maxId: string) {
+async function loadPostListPage(maxId?: string) {
   if (!profile.value) {
     return
   }
-  const nextPage = await getProfileTimeline(
+  if (!maxId && tabName.value === "posts") {
+    maxId = getInitialMaxId()
+  }
+  const page = await getProfileTimeline(
     authToken.value,
     profile.value.id,
     tabName.value !== "posts-with-replies",
@@ -1075,11 +1047,11 @@ async function loadNextPage(maxId: string) {
     false,
     maxId,
   )
-  posts.value = [...posts.value, ...nextPage.posts]
+  posts.value = [...posts.value, ...page.posts]
 }
 
-async function loadFollowListNextPage() {
-  if (!profile.value || !followListNextPageUrl.value) {
+async function loadFollowListPage() {
+  if (!profile.value) {
     return
   }
   let loadFollowList
@@ -1093,7 +1065,7 @@ async function loadFollowListNextPage() {
   const page = await loadFollowList(
     ensureAuthToken(),
     profile.value.id,
-    followListNextPageUrl.value,
+    followListNextPageUrl.value ?? undefined,
   )
   followList.value.push(...page.profiles)
   followListNextPageUrl.value = page.nextPageUrl
