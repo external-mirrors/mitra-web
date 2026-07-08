@@ -172,7 +172,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
-    path: "/@:acct(.*)",
+    path: "/@:acct",
     name: "profile-by-acct",
     component: ProfileView,
     meta: { },
@@ -184,7 +184,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
-    path: "/@:acct(.*)/subscription",
+    path: "/@:acct/subscription",
     name: "profile-subscription-by-acct",
     component: SubscriptionPage,
     meta: { },
@@ -196,7 +196,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { },
   },
   {
-    path: "/@:acct(.*)/gallery",
+    path: "/@:acct/gallery",
     name: "profile-gallery-by-acct",
     component: Gallery,
     meta: { },
