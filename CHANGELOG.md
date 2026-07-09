@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [5.7.0] - 2026-07-09
+
 ### Added
 
 - Added optional `max_id` query parameter to profile page URL ([#171](https://codeberg.org/silverpill/mitra-web/pulls/171)).
