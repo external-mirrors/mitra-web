@@ -157,7 +157,8 @@
         "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?",
         "view_likes": "Voir les likes",
         "show_more_fields": "Afficher plus",
-        "view_groups": "Voir les groupes"
+        "view_groups": "Voir les groupes",
+        "group": "Groupe"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -459,6 +460,15 @@
     "groups": {
         "group": "Groupe",
         "groups": "Groupes",
-        "show_more_groups": "Afficher plus de groupes"
+        "show_more_groups": "Afficher plus de groupes",
+        "following": "Suivis",
+        "moderating": "Modérés",
+        "create_group": "Créer",
+        "create_post": "Rédiger un message"
+    },
+    "group_form": {
+        "create_group": "Créer un groupe",
+        "group_name": "Nom du groupe",
+        "create": "Créer"
     }
 }

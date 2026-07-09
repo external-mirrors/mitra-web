@@ -459,6 +459,20 @@
         "groups": "Grupos",
         "show_more_groups": "Mostrar más grupos",
         "group": "Grupo",
-        "create_post": "Crear publicación"
+        "create_post": "Crear publicación",
+        "following": "Siguiendo",
+        "moderating": "Moderando",
+        "create_group": "Crear",
+        "edit_group": "Editar grupo",
+        "delete_group": "Eliminar grupo",
+        "confirm_delete_this_group": "¿Estás seguro de que quieres eliminar este grupo?"
+    },
+    "group_form": {
+        "create_group": "Crear grupo",
+        "group_name": "Nombre del grupo",
+        "create": "Crear",
+        "edit_group": "Editar grupo",
+        "description": "Descripción",
+        "save": "Guardar"
     }
 }

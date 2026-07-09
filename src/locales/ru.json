@@ -183,7 +183,8 @@
         "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?",
         "view_likes": "Посмотр лайков",
         "show_more_fields": "Показать больше",
-        "view_groups": "Просмотреть группы"
+        "view_groups": "Просмотреть группы",
+        "group": "Группа"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
@@ -465,6 +466,20 @@
         "groups": "Группы",
         "show_more_groups": "Показать больше групп",
         "group": "Группа",
-        "create_post": "Создать пост"
+        "create_post": "Создать пост",
+        "following": "Следовать",
+        "moderating": "Модерация",
+        "create_group": "Создать",
+        "edit_group": "Редактировать группу",
+        "delete_group": "Удалить группу",
+        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?"
+    },
+    "group_form": {
+        "create_group": "Создать группу",
+        "group_name": "Название группы",
+        "create": "Создавать",
+        "edit_group": "Редактировать группу",
+        "description": "Описание",
+        "save": "Сохранить"
     }
 }

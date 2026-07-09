@@ -91,7 +91,7 @@
         "copy_coin_address": "复制地址",
         "send_coin": "送 {name}",
         "remove_bookmark": "移除书签",
-        "confirm_delete_this_post": "是否确定要删除此帖文？",
+        "confirm_delete_this_post": "您确定要删除此帖文吗？",
         "react_with_emoji": "用表情符号回应",
         "bookmark": "书签",
         "view_conversation": "查看对话",
@@ -181,8 +181,8 @@
         "load_featured_posts": "加载精选帖文",
         "subscription_expires_on": "@:subscriptions.subscription_expires_on",
         "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}",
-        "you_want_to_remove_from_followers": "是否确定要从粉丝中移除 {name}？",
-        "do_you_want_to_remove_this_identity_proof": "是否要移除此身份证明？",
+        "you_want_to_remove_from_followers": "您确定要从粉丝中移除 {name} 吗？",
+        "do_you_want_to_remove_this_identity_proof": "您要移除此身份证明吗？",
         "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
         "view_groups": "查看群组",
@@ -261,7 +261,7 @@
         "experiments_summary": "这些设置包含实验性功能。使用时请自行承担风险。",
         "enable_dark_mode": "启用暗色模式",
         "enabled_authentication_methods": "已启用的身份验证方式：",
-        "delete_account_confirm": "是否要删除账号？此操作无法撤销。",
+        "delete_account_confirm": "您确定要删除您的账号吗？此操作无法撤销。",
         "import": "导入",
         "import_follows": "导入关注列表",
         "move_followers": "移动粉丝",
@@ -353,7 +353,7 @@
         "configure_feed": "配置订阅源",
         "custom_feed": "自定义订阅源",
         "delete_feed": "删除订阅源",
-        "confirm_delete_this_feed": "是否确定要删除此订阅源？",
+        "confirm_delete_this_feed": "您确定要删除此订阅源吗？",
         "enter_address": "输入地址",
         "user_not_found": "用户未找到",
         "add_user": "添加用户",
@@ -361,7 +361,7 @@
         "remove_user_from_feed": "从订阅源中移除用户",
         "enter_feed_name": "输入订阅源名称",
         "user_is_already_in_the_list": "用户已在列表中",
-        "confirm_remove_this_user_from_feed": "是否确定要从订阅源中移除此用户？",
+        "confirm_remove_this_user_from_feed": "您确定要从订阅源中移除此用户吗？",
         "rename_feed": {
             "rename_feed": "重命名订阅源",
             "save": "保存",
@@ -414,7 +414,7 @@
     },
     "admin": {
         "delete_user": "删除用户",
-        "confirm_delete_user": "是否确定要删除 {address}？此操作无法撤销。"
+        "confirm_delete_user": "您确定要删除 {address} 吗？此操作无法撤销。"
     },
     "login": {
         "learn_more": "了解详情",
@@ -452,7 +452,7 @@
         "unknown": "未知",
         "current": "当前",
         "terminate_session": "终止会话",
-        "do_you_want_to_terminate_session": "是否要终止会话“{name}”？"
+        "do_you_want_to_terminate_session": "您要终止会话“{name}”吗？"
     },
     "likes": {
         "likes": "点赞"
@@ -461,6 +461,20 @@
         "groups": "群组",
         "show_more_groups": "显示更多群组",
         "group": "群组",
-        "create_post": "创建帖文"
+        "create_post": "创建帖文",
+        "following": "关注",
+        "moderating": "审核",
+        "create_group": "创建",
+        "edit_group": "编辑群组",
+        "delete_group": "删除群组",
+        "confirm_delete_this_group": "您确定要删除此群组吗？"
+    },
+    "group_form": {
+        "create_group": "创建群组",
+        "group_name": "群组名称",
+        "create": "创建",
+        "edit_group": "编辑群组",
+        "description": "描述",
+        "save": "保存"
     }
 }
