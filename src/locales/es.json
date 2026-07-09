@@ -193,7 +193,8 @@
         "closed": "Cerrado",
         "vote": "Votar",
         "ends": "{date} Finalizado(s)",
-        "see_results": "Ver resultados"
+        "see_results": "Ver resultados",
+        "people_voted": "{n} persona | {n} personas"
     },
     "profile_editor": {
         "lock_account": "Bloquear cuenta",
