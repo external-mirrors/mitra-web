@@ -469,11 +469,17 @@
         "create_post": "Создать пост",
         "following": "Следовать",
         "moderating": "Модерация",
-        "create_group": "Создать"
+        "create_group": "Создать",
+        "edit_group": "Редактировать группу",
+        "delete_group": "Удалить группу",
+        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?"
     },
     "group_form": {
         "create_group": "Создать группу",
         "group_name": "Название группы",
-        "create": "Создавать"
+        "create": "Создавать",
+        "edit_group": "Редактировать группу",
+        "description": "Описание",
+        "save": "Сохранить"
     }
 }
