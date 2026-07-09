@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Redirect to "Moderating" tab once a group has been created.
 - Assign unique paths to tabs in follow request list.
 - Speed up loading of posts on profile page.
+- Updated translations ([#170](https://codeberg.org/silverpill/mitra-web/pulls/170)).
 
 ### Fixed
 
