@@ -1383,6 +1383,7 @@ $avatar-size: 170px;
 }
 
 .filter-btn {
+  align-items: center;
   background-color: var(--block-background-color);
   border-radius: $block-border-radius;
   box-sizing: border-box;
