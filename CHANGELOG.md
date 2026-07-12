@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed alignment of filter button checkboxes in WebKit browsers.
+- Don't show "Follow" button on user's own profile.
 
 ## [5.7.0] - 2026-07-09
 
