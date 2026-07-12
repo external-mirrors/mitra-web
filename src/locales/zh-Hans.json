@@ -396,7 +396,8 @@
         "multiple_choices": "多选",
         "ends": "结束于 {date}",
         "closed": "已关闭",
-        "num_votes": "没有投票 | {n} 票 | {n} 票"
+        "num_votes": "没有投票 | {n} 票 | {n} 票",
+        "people_voted": "{n} 人 | {n} 人"
     },
     "poll_editor": {
         "duration_hour": "小时 | 小时",
