@@ -401,7 +401,8 @@
         "vote": "Голосование",
         "ends": "Заканчивается {date}",
         "closed": "Закрыт",
-        "multiple_choices": "Несколько вариантов"
+        "multiple_choices": "Несколько вариантов",
+        "people_voted": "{n} человек | {n} людей"
     },
     "poll_editor": {
         "option": "Вариант {n}",
