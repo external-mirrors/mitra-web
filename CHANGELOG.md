@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated translations ([#173](https://codeberg.org/silverpill/mitra-web/pulls/173)).
+
 ### Fixed
 
 - Fixed alignment of filter button checkboxes in WebKit browsers.
