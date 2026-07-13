@@ -82,7 +82,7 @@
         "repost": "Partager",
         "attach_file": "Joindre un fichier",
         "remove_attachment": "Supprimer le fichier joint",
-        "save_image_description": "Sauvegarder",
+        "save_image_description": "Enregistrer",
         "change_visibility": "Changer la visibilité",
         "enter_image_description": "Saisir la description de l'image",
         "remove_content_warning": "Supprimer l'avertissement de contenu",
@@ -164,7 +164,7 @@
         "mention_policy_applies": "S'applique aux messages directs et publications",
         "mention_everybody": "Tout le monde",
         "add_new_field": "Ajouter un élément",
-        "save": "Sauvegarder",
+        "save": "Enregistrer",
         "edit_profile": "Modifier le profil",
         "display_name": "Nom public",
         "bio": "Bio",
@@ -185,7 +185,7 @@
         "mark_this_account_as_automated": "Activer cette option si ce compte est piloté par un programme"
     },
     "settings": {
-        "password_save": "Sauvegarder",
+        "password_save": "Enregistrer",
         "followers": "Abonné·e·s",
         "settings": "Paramètres",
         "profile": "Profil",
@@ -227,7 +227,7 @@
         "delete_feed": "Supprimer le flux",
         "rename_feed": {
             "rename_feed": "Renommer le flux",
-            "save": "Sauvegarder",
+            "save": "Enregistrer",
             "cancel": "Annuler"
         },
         "confirm_delete_this_feed": "Voulez-vous vraiment supprimer ce flux ?",
@@ -278,7 +278,7 @@
         "edit_settings": "Modifier les paramètres",
         "price": "Prix",
         "payout_address": "Adresse de paiement",
-        "save_settings": "Sauvegarder",
+        "save_settings": "Enregistrer",
         "enable_subscriptions": "Activer les souscriptions",
         "subscriber_details": "Information souscript·eur·rice",
         "not_subscribed_yet": "Pas encore de souscription",
@@ -396,7 +396,8 @@
         "closed": "Terminé",
         "num_votes": "Pas de votes | {n} vote | {n} votes",
         "vote": "Voter",
-        "multiple_choices": "Choix multiples"
+        "multiple_choices": "Choix multiples",
+        "people_voted": "{n} personne | {n} personnes"
     },
     "poll_editor": {
         "option": "Option {n}",
@@ -464,11 +465,17 @@
         "following": "Suivis",
         "moderating": "Modérés",
         "create_group": "Créer",
-        "create_post": "Rédiger un message"
+        "create_post": "Rédiger un message",
+        "edit_group": "Modifier le groupe",
+        "delete_group": "Supprimer le groupe",
+        "confirm_delete_this_group": "Souhaitez-vous vraiment supprimer ce groupe ?"
     },
     "group_form": {
         "create_group": "Créer un groupe",
         "group_name": "Nom du groupe",
-        "create": "Créer"
+        "create": "Créer",
+        "edit_group": "Modifier le groupe",
+        "description": "Description",
+        "save": "Enregistrer"
     }
 }
