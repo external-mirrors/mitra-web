@@ -102,6 +102,25 @@
         </template>
       </universal-link>
     </div>
+    <i18n-t
+      v-if="post.group && !post.in_reply_to_id"
+      tag="div"
+      class="post-subheader"
+      keypath="post.in_group"
+      scope="global"
+    >
+      <template #group>
+        <universal-link
+          class="mention"
+          :to="getProfileLocation(post.group)"
+          :title="getActorHandle(post.group)"
+        >
+          <template #link-content>
+            @{{ post.group.username }}
+          </template>
+        </universal-link>
+      </template>
+    </i18n-t>
     <post-content
       v-if="post.content"
       :post="post"
@@ -1282,14 +1301,15 @@ $reaction-padding: 5px;
 }
 
 .post-subheader {
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: $whitespace;
   padding: calc($block-inner-padding / 2) $block-inner-padding 0;
 
-  .replying-to {
-    color: var(--secondary-text-color);
+  a.replying-to {
+    color: inherit;
   }
 
   a.replying-to:hover {

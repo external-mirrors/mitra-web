@@ -58,6 +58,7 @@
     "featured": "Featured",
     "edited": "edited",
     "replying_to": "replying to",
+    "in_group": "in group {group}",
     "sensitive_content": "Sensitive content",
     "hide_image": "Hide image",
     "close_image": "Close",
