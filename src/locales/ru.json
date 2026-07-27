@@ -184,7 +184,8 @@
         "view_likes": "Посмотр лайков",
         "show_more_fields": "Показать больше",
         "view_groups": "Просмотреть группы",
-        "group": "Группа"
+        "group": "Группа",
+        "tab_reactions": "Реакции"
     },
     "profile_list": {
         "show_more_profiles": "Показать больше профилей",
