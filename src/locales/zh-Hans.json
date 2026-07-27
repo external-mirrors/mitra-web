@@ -186,7 +186,8 @@
         "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
         "view_groups": "查看群组",
-        "group": "群组"
+        "group": "群组",
+        "tab_reactions": "回应"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
