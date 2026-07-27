@@ -142,7 +142,8 @@
         "open_profile_page": "Profilseite öffnen",
         "subscriber_details": "Details zum Abonnenten",
         "link_ethereum_address": "Ethereum-Adresse verlinken",
-        "show_more_fields": "Mehr anzeigen"
+        "show_more_fields": "Mehr anzeigen",
+        "tab_reactions": "Reaktionen"
     },
     "profile_editor": {
         "avatar": "Avatar",
