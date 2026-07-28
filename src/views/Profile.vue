@@ -1188,12 +1188,7 @@ $avatar-size: 170px;
   }
 
   .badge {
-    border: 1px solid var(--btn-background-color);
-    border-radius: $btn-border-radius;
-    font-size: 14px;
-    line-height: 30px;
-    padding: 0 7px;
-    white-space: nowrap;
+    @include badge;
   }
 
   .dropdown-menu-wrapper {

@@ -7,6 +7,14 @@
         >
           {{ group.getDisplayName() }}
         </router-link>
+        <router-link
+          id="view-members"
+          class="icon"
+          :to="{ name: 'group-member-list', params: { groupId: group.id } }"
+          :title="$t('groups.view_group_members')"
+        >
+          <icon-users></icon-users>
+        </router-link>
         <button
           type="button"
           id="create-post"
@@ -49,6 +57,7 @@ import { getGroupTimeline } from "@/api/groups"
 import { addRelationships, Post } from "@/api/posts"
 import { getProfile, ProfileWrapper } from "@/api/users"
 import IconEdit from "@/assets/feather/edit.svg?component"
+import IconUsers from "@/assets/feather/users.svg?component"
 import Loader from "@/components/Loader.vue"
 import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
@@ -124,8 +133,12 @@ onMounted(async () => {
   gap: $block-inner-padding;
   margin-bottom: $block-outer-padding;
 
-  #create-post {
+  #view-members {
     margin-left: auto;
+  }
+
+  #create-post {
+    //margin-left: auto;
   }
 }
 

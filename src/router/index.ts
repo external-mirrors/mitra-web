@@ -22,6 +22,7 @@ import FollowRequestList from "@/views/FollowRequestList.vue"
 import Gallery from "@/views/Gallery.vue"
 import GroupForm from "@/views/GroupForm.vue"
 import GroupList from "@/views/GroupList.vue"
+import GroupMemberList from "@/views/GroupMemberList.vue"
 import GroupTimeline from "@/views/GroupTimeline.vue"
 import HomeTimeline from "@/views/HomeTimeline.vue"
 import IdentityProof from "@/views/IdentityProof.vue"
@@ -319,6 +320,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/groups/:groupId",
     name: "group-timeline",
     component: GroupTimeline,
+    meta: { onlyAuthenticated: true },
+  },
+  {
+    path: "/groups/:groupId/members",
+    name: "group-member-list",
+    component: GroupMemberList,
     meta: { onlyAuthenticated: true },
   },
   {

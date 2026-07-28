@@ -344,7 +344,10 @@
     "delete_group": "Delete group",
     "confirm_delete_this_group": "Are you sure you want to delete this group?",
     "group": "Group",
-    "create_post": "Create post"
+    "view_group_members": "View group members",
+    "create_post": "Create post",
+    "group_members_are_not_known": "Group members are not known",
+    "affiliation_admin": "Admin"
   },
   "group_form": {
     "create_group": "Create group",

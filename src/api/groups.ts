@@ -62,6 +62,20 @@ export async function deleteGroup(
   await handleResponse(response, 204)
 }
 
+export interface Affiliation {
+  account: Profile,
+  affiliation: string,
+}
+
+export async function getGroupMembers(
+  groupId: string,
+): Promise<Affiliation[]> {
+  const url = `${BACKEND_URL}/api/v1/groups/${groupId}/members`
+  const response = await http(url)
+  const data = await handleResponse(response)
+  return data
+}
+
 export async function getGroups(
   authToken: string,
   filter: "following" | "moderating",
