@@ -383,13 +383,6 @@ onMounted(async () => {
   }
 }
 
-.source-list {
-  display: flex;
-  flex-direction: column;
-  gap: $block-outer-padding;
-  margin-bottom: $block-outer-padding;
-}
-
 .add-source {
   @include content-form;
   @include content-form-suggestions;
