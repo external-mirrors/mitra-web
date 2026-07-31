@@ -110,7 +110,8 @@
         "show_more": "显示更多",
         "authors_and_others": "{authors} 和其他人",
         "authors_are_hidden": "作者已隐藏",
-        "load_conversation": "加载对话"
+        "load_conversation": "加载对话",
+        "in_group": "在 {group} 群组中"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -186,7 +187,8 @@
         "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
         "view_groups": "查看群组",
-        "group": "群组"
+        "group": "群组",
+        "tab_reactions": "回应"
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
@@ -468,7 +470,10 @@
         "create_group": "创建",
         "edit_group": "编辑群组",
         "delete_group": "删除群组",
-        "confirm_delete_this_group": "您确定要删除此群组吗？"
+        "confirm_delete_this_group": "您确定要删除此群组吗？",
+        "view_group_members": "查看群组成员",
+        "group_members_are_not_known": "群组成员未知",
+        "affiliation_admin": "管理员"
     },
     "group_form": {
         "create_group": "创建群组",
