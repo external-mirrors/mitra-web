@@ -68,10 +68,11 @@ export interface Affiliation {
 }
 
 export async function getGroupMembers(
+  authToken: string,
   groupId: string,
 ): Promise<Affiliation[]> {
   const url = `${BACKEND_URL}/api/v1/groups/${groupId}/members`
-  const response = await http(url)
+  const response = await http(url, { authToken })
   const data = await handleResponse(response)
   return data
 }

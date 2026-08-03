@@ -71,7 +71,7 @@ onMounted(async () => {
   )
   group.value = new ProfileWrapper(_group)
   setPageTitle(group.value.getDisplayName())
-  members.value = await getGroupMembers(group.value.id)
+  members.value = await getGroupMembers(authToken, group.value.id)
   isLoading.value = false
 })
 </script>
