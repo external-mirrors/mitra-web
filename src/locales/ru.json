@@ -82,7 +82,8 @@
         "unfollow_conversation": "Отписаться от разговора",
         "authors_and_others": "{authors} и другие",
         "authors_are_hidden": "Авторы скрыты",
-        "load_conversation": "Загрузить разговор"
+        "load_conversation": "Загрузить разговор",
+        "in_group": "в группе {group}"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -472,7 +473,10 @@
         "create_group": "Создать",
         "edit_group": "Редактировать группу",
         "delete_group": "Удалить группу",
-        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?"
+        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?",
+        "view_group_members": "Просмотреть участников группы",
+        "group_members_are_not_known": "Состав группы неизвестен",
+        "affiliation_admin": "Администратор"
     },
     "group_form": {
         "create_group": "Создать группу",
