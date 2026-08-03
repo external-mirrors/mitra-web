@@ -61,7 +61,8 @@
         "unfollow_conversation": "Arrêter de suivre le fil",
         "authors_and_others": "{authors} et d'autres",
         "authors_are_hidden": "les auteurs sont masqués",
-        "load_conversation": "Charger la conversation"
+        "load_conversation": "Charger la conversation",
+        "in_group": "dans le groupe {group}"
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -157,7 +158,8 @@
         "do_you_want_to_remove_this_identity_proof": "Voulez-vous retirer cette preuve d'identité ?",
         "show_more_fields": "Afficher plus",
         "view_groups": "Voir les groupes",
-        "group": "Groupe"
+        "group": "Groupe",
+        "tab_reactions": "Réactions"
     },
     "profile_editor": {
         "mention_policy_applies": "S'applique aux messages directs et publications",
@@ -466,7 +468,10 @@
         "create_post": "Rédiger un message",
         "edit_group": "Modifier le groupe",
         "delete_group": "Supprimer le groupe",
-        "confirm_delete_this_group": "Souhaitez-vous vraiment supprimer ce groupe ?"
+        "confirm_delete_this_group": "Souhaitez-vous vraiment supprimer ce groupe ?",
+        "view_group_members": "Afficher les membres du groupe",
+        "group_members_are_not_known": "Membres du groupe inconnus",
+        "affiliation_admin": "Admin"
     },
     "group_form": {
         "create_group": "Créer un groupe",
