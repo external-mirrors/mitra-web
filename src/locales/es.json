@@ -110,7 +110,8 @@
         "unfollow_conversation": "Dejar de seguir la conversación",
         "authors_and_others": "{authors} y otros",
         "authors_are_hidden": "Los autores están ocultos",
-        "load_conversation": "Cargar conversación"
+        "load_conversation": "Cargar conversación",
+        "in_group": "en el grupo {group}"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -172,7 +173,8 @@
         "do_you_want_to_remove_this_identity_proof": "¿Quieres eliminar este documento de identidad?",
         "show_more_fields": "Mostrar más",
         "view_groups": "Ver grupos",
-        "group": "Grupo"
+        "group": "Grupo",
+        "tab_reactions": "Reacciones"
     },
     "emoji_picker": {
         "search": "Buscar…",
@@ -464,7 +466,10 @@
         "create_group": "Crear",
         "edit_group": "Editar grupo",
         "delete_group": "Eliminar grupo",
-        "confirm_delete_this_group": "¿Estás seguro de que quieres eliminar este grupo?"
+        "confirm_delete_this_group": "¿Estás seguro de que quieres eliminar este grupo?",
+        "view_group_members": "Ver miembros del grupo",
+        "group_members_are_not_known": "No se conocen los miembros del grupo",
+        "affiliation_admin": "Administrador"
     },
     "group_form": {
         "create_group": "Crear grupo",
