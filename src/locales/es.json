@@ -166,7 +166,6 @@
         "atom_feed": "Atom feed",
         "you_want_to_remove_from_followers": "¿Estás seguro de que quieres eliminar a {name} de tus seguidores?",
         "view_custom_feeds": "Ver fuentes personalizadas",
-        "view_likes": "Ver los «Me gusta»",
         "unmute": "Quitar el silencio",
         "unfollow": "Dejar de seguir",
         "follow_this_user_from_your_server": "Puedes seguir a este usuario desde tu servidor del Fediverse: {handle}",
@@ -452,9 +451,6 @@
     "dialog": {
         "cancel": "Cancelar",
         "ok": "De acuerdo"
-    },
-    "likes": {
-        "likes": "Me gusta(n)"
     },
     "groups": {
         "groups": "Grupos",

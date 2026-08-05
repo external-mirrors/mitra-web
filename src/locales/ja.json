@@ -407,9 +407,6 @@
         "delete_user": "ユーザを削除する",
         "confirm_delete_user": "本当に{address}を削除しますか？取り消すことはできません。"
     },
-    "likes": {
-        "likes": "いいね"
-    },
     "sessions": {
         "active_sessions": "有効なセッション",
         "terminate_session": "セッションを終了",

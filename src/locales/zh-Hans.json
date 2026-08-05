@@ -184,7 +184,6 @@
         "follow_this_user_from_your_server": "您可以从您的联邦宇宙服务器关注此用户：{handle}",
         "you_want_to_remove_from_followers": "您确定要从粉丝中移除 {name} 吗？",
         "do_you_want_to_remove_this_identity_proof": "您要移除此身份证明吗？",
-        "view_likes": "查看点赞",
         "show_more_fields": "显示更多",
         "view_groups": "查看群组",
         "group": "群组",
@@ -456,9 +455,6 @@
         "current": "当前",
         "terminate_session": "终止会话",
         "do_you_want_to_terminate_session": "您要终止会话“{name}”吗？"
-    },
-    "likes": {
-        "likes": "点赞"
     },
     "groups": {
         "groups": "群组",

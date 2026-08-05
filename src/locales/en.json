@@ -181,7 +181,6 @@
     "you_want_to_remove_from_followers": "Are you sure you want to remove {name} from followers?",
     "view_groups": "View groups",
     "view_custom_feeds": "View custom feeds",
-    "view_likes": "View likes",
     "mute": "Mute",
     "unmute": "Unmute",
     "view_muted_users": "View muted users",
@@ -378,9 +377,6 @@
     "posts_will_not_be_displayed": "Posts from these users will not be displayed in the home timeline.",
     "remove_user_from_feed": "Remove user from feed",
     "confirm_remove_this_user_from_feed": "Are you sure you want to remove this user from the feed?"
-  },
-  "likes": {
-    "likes": "Likes"
   },
   "subscriptions": {
     "subscription": "Subscription",

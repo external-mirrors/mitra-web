@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 
 - Removed "View group profile" item from post menu.
+- Removed "Likes" page.
 
 ## [5.8.0] - 2026-07-31
 

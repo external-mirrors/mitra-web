@@ -181,7 +181,6 @@
         "follow_this_user_from_your_server": "Вы можете следить за этим пользователем с вашего сервера Fediverse: {handle}",
         "you_want_to_remove_from_followers": "Вы уверены что хотите убрать {name} из подписчиков?",
         "do_you_want_to_remove_this_identity_proof": "Вы хотите удалить это удостоверение личности?",
-        "view_likes": "Посмотр лайков",
         "show_more_fields": "Показать больше",
         "view_groups": "Просмотреть группы",
         "group": "Группа",
@@ -460,9 +459,6 @@
         "current": "Текущий",
         "terminate_session": "Завершить сеанс",
         "do_you_want_to_terminate_session": "Вы хотите завершить сеанс '{name}'?"
-    },
-    "likes": {
-        "likes": "Лайки"
     },
     "groups": {
         "groups": "Группы",
