@@ -19,14 +19,14 @@
             :key="session.id"
           >
             <td>
-                {{ getSessionName(session) }}
-                <span
+              {{ getSessionName(session) }}
+              <span
                 v-if="session.is_current"
                 class="current-session"
               >
                 {{ $t('sessions.current') }}
               </span>
-              </td>
+            </td>
             <td>{{ formatDateTime(session.created_at) }}</td>
             <td>
               <button
@@ -101,36 +101,15 @@ onMounted(async () => {
 @import "../styles/theme";
 
 .sessions {
-  background-color: var(--block-background-color);
-  border-radius: $block-border-radius;
-  line-height: $line-height * 1.25;
-  width: 100%;
-  word-break: break-all;
+  @include content-table;
 
   th, td {
-    padding: calc($block-inner-padding / 2);
-    text-align: left;
-
     &:first-child {
       width: 40%;
     }
 
     &:last-child {
       text-align: right;
-    }
-
-    &:not(:last-child) {
-      padding-right: 0;
-    }
-  }
-
-  tr {
-    &:first-child {
-      vertical-align: top;
-    }
-
-    &:not(:last-child) {
-      border-bottom: 1px solid var(--separator-color);
     }
   }
 }

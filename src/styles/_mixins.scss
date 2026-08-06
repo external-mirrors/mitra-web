@@ -419,3 +419,28 @@
     }
   }
 }
+
+@mixin content-table {
+  background-color: var(--block-background-color);
+  border-radius: $block-border-radius;
+  line-height: $line-height * 1.25;
+  overflow-wrap: anywhere;
+  width: 100%;
+
+  tr {
+    border-bottom: 1px solid var(--separator-color);
+  }
+
+  th, td {
+    padding: calc($block-inner-padding / 2) $block-inner-padding;
+    text-align: left;
+
+    &:not(:last-child) {
+      padding-right: 0;
+    }
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+}
