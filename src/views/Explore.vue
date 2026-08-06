@@ -96,7 +96,9 @@ onMounted(async () => {
   flex-direction: column;
   gap: $block-outer-padding;
 
-  margin-bottom: $block-outer-padding;
+  &:not(:last-child) {
+    margin-bottom: $block-outer-padding;
+  }
 }
 
 .feed {

@@ -74,6 +74,10 @@ function loadNextPage() {
 <style scoped lang="scss">
 @import "../styles/layout";
 
+.post-list-item:not(:last-of-type) {
+  margin-bottom: $block-outer-padding;
+}
+
 .post-list-item.marked::before {
   border: 5px solid var(--block-background-color);
   border-radius: 50%;
@@ -85,6 +89,6 @@ function loadNextPage() {
 }
 
 .next-btn {
-  margin-bottom: $block-outer-padding;
+  margin-top: $block-outer-padding;
 }
 </style>

@@ -195,7 +195,7 @@ header {
 }
 
 #main:not(.wide) {
-  padding: 0 $body-padding;
+  padding: 0 $body-padding $block-outer-padding;
 }
 
 #content {

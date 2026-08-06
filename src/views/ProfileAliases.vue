@@ -151,7 +151,7 @@ async function onRemoveAlias(actorId: string) {
 @import "../styles/mixins";
 @import "../styles/theme";
 
-section {
+section:not(:last-child) {
   margin-bottom: $block-outer-padding;
 }
 

@@ -97,7 +97,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: $block-outer-padding;
-  margin-bottom: $block-outer-padding;
 }
 
 .profile {

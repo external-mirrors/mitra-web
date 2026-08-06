@@ -77,7 +77,6 @@ async function loadNextPage() {
   display: grid;
   gap: $block-outer-padding;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  margin-bottom: $block-outer-padding;
 }
 
 .profile-list-item {
@@ -85,7 +84,7 @@ async function loadNextPage() {
 }
 
 .next-btn {
-  margin-bottom: $block-outer-padding;
+  margin-top: $block-outer-padding;
 }
 
 .loader {

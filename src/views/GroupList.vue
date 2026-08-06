@@ -161,7 +161,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: $block-outer-padding;
-  margin-bottom: $block-outer-padding;
 }
 
 .profile {
@@ -173,7 +172,7 @@ onMounted(async () => {
 }
 
 .next-btn {
-  margin-bottom: $block-outer-padding;
+  margin-top: $block-outer-padding;
 }
 
 .loader {

@@ -90,8 +90,4 @@ onMounted(async () => {
 .post {
   margin-bottom: $block-outer-padding;
 }
-
-.next-btn {
-  margin-bottom: $block-outer-padding;
-}
 </style>

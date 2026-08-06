@@ -155,7 +155,6 @@ onMounted(async () => {
 }
 
 .search-result-list {
-  margin-bottom: $block-outer-padding;
   margin-top: $block-outer-padding;
 }
 
@@ -185,6 +184,6 @@ onMounted(async () => {
 }
 
 .next-btn {
-  margin-bottom: $block-outer-padding;
+  margin-top: $block-outer-padding;
 }
 </style>

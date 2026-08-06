@@ -278,7 +278,7 @@ async function loadNextPage() {
   @include content-message;
 }
 
-.notification:not(.collapsed) {
+.notification:not(.collapsed):not(:last-child) {
   margin-bottom: $block-outer-padding;
 }
 
@@ -352,10 +352,6 @@ async function loadNextPage() {
     text-align: right;
     white-space: nowrap;
   }
-}
-
-.next-btn {
-  margin-bottom: $block-outer-padding;
 }
 
 .loader {

@@ -341,8 +341,6 @@ async function save() {
 
 .profile-form {
   @include content-form;
-
-  margin-bottom: $block-outer-padding;
 }
 
 .image-upload-group {

@@ -376,7 +376,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: $block-outer-padding;
-  margin-bottom: $block-outer-padding;
 
   &.obscured {
     opacity: 0.5;
@@ -417,6 +416,7 @@ onMounted(async () => {
 
 .next-btn {
   align-self: flex-start;
+  margin-top: $block-outer-padding;
 }
 
 .loader {

@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Removed "View group profile" item from post menu.
 - Removed "Likes" page.
 
+### Fixed
+
+- Fixed missing whitespace at the bottom of some pages.
+
 ## [5.8.0] - 2026-07-31
 
 ### Added
