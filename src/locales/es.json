@@ -13,7 +13,8 @@
         "bookmarks": "Marcadores",
         "search_account": "cuenta",
         "search_text": "texto",
-        "search_hashtag": "hashtag"
+        "search_hashtag": "hashtag",
+        "administration": "@:admin.administration"
     },
     "post_editor": {
         "prompt": "¿Qué estás pensando?",
@@ -429,8 +430,15 @@
     "admin": {
         "users": {
             "delete_user": "Eliminar usuario",
-            "confirm_delete_user": "¿Seguro que quieres eliminar {address}? Esta acción es irreversible."
-        }
+            "confirm_delete_user": "¿Seguro que quieres eliminar {address}? Esta acción es irreversible.",
+            "users": "Usuarios",
+            "username": "Nombre de usuario",
+            "account_type": "Tipo de cuenta",
+            "role": "Función",
+            "last_login": "Último inicio de sesión",
+            "actions": "Acciones"
+        },
+        "administration": "Administración"
     },
     "login": {
         "learn_more": "Más información",
