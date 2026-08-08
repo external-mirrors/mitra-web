@@ -270,6 +270,8 @@
     "user_moved_to_a_new_instance": "{name} moved to a new instance",
     "user_signed_up": "{name} signed up",
     "you_received_an_anonymous_payment": "You received an anonymous payment",
+    "post_deleted": "{name} deleted your post",
+    "moderation_action_reason": "Reason: {reason}",
     "show_more_notifications": "Show more notifications"
   },
   "settings": {

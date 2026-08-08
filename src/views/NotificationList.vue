@@ -29,6 +29,7 @@
           <icon-user-minus v-else-if="notification.type === 'subscriber_leaving'"></icon-user-minus>
           <icon-truck v-else-if="notification.type === 'move'"></icon-truck>
           <icon-user-check v-else-if="notification.type === 'admin.sign_up'"></icon-user-check>
+          <icon-user-check v-else-if="notification.type === 'moderation_warning'"></icon-user-check>
           <i18n-t :keypath="getNotificationTextKeypath(notification)" scope="global">
             <template #name>
               <router-link
@@ -57,7 +58,7 @@
           <div class="floating-avatar">
             <avatar :profile="defaultProfile()"></avatar>
           </div>
-          <span class="payment-amount">
+          <span class="action-info">
             <template v-if="notification.payment_amount">
               {{ formatXmrAmount(notification.payment_amount) }} XMR
             </template>
@@ -80,7 +81,7 @@
           </div>
           <span
             v-if="notification.type === 'subscription'"
-            class="payment-amount"
+            class="action-info"
           >
             <template v-if="notification.payment_amount">
               {{ formatXmrAmount(notification.payment_amount) }} XMR
@@ -88,6 +89,12 @@
             <template v-else>
               Unknown amount
             </template>
+          </span>
+          <span
+            v-else-if="notification.moderation_warning"
+            class="action-info"
+          >
+            {{ $t('notifications.moderation_action_reason', { reason: notification.moderation_warning.text || 'unknown' }) }}
           </span>
           <template v-else>
             <profile-display-name :profile="getSender(notification)">
@@ -195,6 +202,12 @@ function getNotificationTextKeypath(notification: Notification): string {
     return "notifications.user_moved_to_a_new_instance"
   } else if (notification.type === "admin.sign_up") {
     return "notifications.user_signed_up"
+  } else if (notification.type === "moderation_warning") {
+    if (notification.moderation_warning?.action === "delete_statuses") {
+      return "notifications.post_deleted"
+    } else {
+      throw new Error("unsupported warning type")
+    }
   } else {
     // Unexpected notification type
     return ""
@@ -342,7 +355,7 @@ async function loadNextPage() {
     text-overflow: ellipsis;
   }
 
-  .payment-amount {
+  .action-info {
     color: var(--text-color);
     flex-grow: 1;
     font-weight: bold;

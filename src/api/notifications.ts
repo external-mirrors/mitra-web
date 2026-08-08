@@ -5,6 +5,11 @@ import { CustomEmoji } from "./emojis"
 import { Post } from "./posts"
 import { Profile } from "./users"
 
+interface ModerationWarning {
+  action: string,
+  text: string,
+}
+
 interface EmojiReaction {
   content: string,
   emoji: CustomEmoji | null,
@@ -15,7 +20,8 @@ export interface Notification {
   type: string;
   subtype: string | null,
   account: Profile;
-  status: Post | null;
+  status: Post | null,
+  moderation_warning: ModerationWarning | null,
   reaction: EmojiReaction | null,
   payment_amount: number | null,
   created_at: string;
