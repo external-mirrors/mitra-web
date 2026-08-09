@@ -389,6 +389,16 @@
               <span>{{ $t('post.unfollow_conversation') }}</span>
             </button>
           </li>
+          <li v-if="canDeleteGroupPost()" role="separator"></li>
+          <li v-if="canDeleteGroupPost()">
+            <button
+              class="icon"
+              @click="hideMenu(); onDeleteGroupPost()"
+            >
+              <icon-trash></icon-trash>
+              <span>{{ $t('post.delete_post') }}</span>
+            </button>
+          </li>
           <li v-if="isAdmin()" role="separator"></li>
           <li v-if="isAdmin()">
             <a
@@ -418,7 +428,7 @@
               <span>{{ $t('post.load_conversation') }}</span>
             </button>
           </li>
-          <li v-if="isAdmin() && !canDeletePost()">
+          <li v-if="isAdmin() && !canDeletePost() && !canDeleteGroupPost()">
             <button
               class="icon"
               @click="hideMenu(); onAdminDeletePost()"
@@ -499,6 +509,7 @@ import {
   createBookmark,
   deleteBookmark,
   getPostSource,
+  deleteFromThread,
   deletePost,
   favourite,
   unfavourite,
@@ -1043,6 +1054,18 @@ async function onDeletePost() {
   }
 }
 
+function canDeleteGroupPost() {
+  return !canDeletePost() && props.post.conversation?.can_moderate
+}
+
+async function onDeleteGroupPost() {
+  if (confirm(t("post.confirm_delete_this_post"))) {
+    const authToken = ensureAuthToken()
+    await deleteFromThread(authToken, props.post.id)
+    emit("post-deleted")
+  }
+}
+
 function canMute(): boolean {
   return (
     props.post.account.id !== currentUser.value?.id &&
@@ -1087,7 +1110,8 @@ function canUnfollowConversation(): boolean {
 
 async function onChangeConversationTrackingStatus(status: "normal" | "follow") {
   const authToken = ensureAuthToken()
-  const { conversation_tracking } = await changeConversationTrackingStatus(authToken, props.post.id, status)
+  const { conversation, conversation_tracking } = await changeConversationTrackingStatus(authToken, props.post.id, status)
+  props.post.conversation = conversation
   props.post.conversation_tracking = conversation_tracking
 }
 

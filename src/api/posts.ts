@@ -68,6 +68,12 @@ interface PleromaEmojiReaction {
   me: boolean,
 }
 
+interface PostConversation {
+  id: string,
+  tracking: "normal" | "follow" | null,
+  can_moderate: boolean | null,
+}
+
 export interface Post {
   id: string;
   uri: string;
@@ -106,6 +112,7 @@ export interface Post {
   ipfs_cid: string | null;
   links: Post[];
   group: Profile | null,
+  conversation: PostConversation | null,
 
   // Data added by client
   contentSource?: string | null,
@@ -224,6 +231,18 @@ export async function getPostThread(
   return data
 }
 
+export async function deleteFromThread(
+  authToken: string,
+  postId: string,
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/thread`
+  const response = await http(url, {
+    method: "DELETE",
+    authToken,
+  })
+  await handleResponse(response, 204)
+}
+
 export async function getReactions(
   authToken: string,
   showAll: boolean,
@@ -339,6 +358,7 @@ export async function previewPost(
     ipfs_cid: null,
     links: [],
     group: null,
+    conversation: null,
   }
 }
 

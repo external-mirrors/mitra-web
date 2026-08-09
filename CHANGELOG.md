@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added user management page.
 - Added support for `moderation_warning` notifications.
+- Allow group admins to delete posts in their groups.
 
 ### Changed
 
