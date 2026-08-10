@@ -17,7 +17,8 @@
         "settings": "Настройки",
         "search_text": "текст",
         "search_hashtag": "хештег",
-        "search_account": "учётная запись"
+        "search_account": "учётная запись",
+        "administration": "@:admin.administration"
     },
     "welcome": {
         "welcome": "Добро пожаловать в {server}!",
@@ -422,8 +423,15 @@
     "admin": {
         "users": {
             "confirm_delete_user": "Вы уверены, что хотите удалить {address}? Этого нельзя изменить.",
-            "delete_user": "Удалить пользователя"
-        }
+            "delete_user": "Удалить пользователя",
+            "users": "Пользователи",
+            "username": "Имя пользователя",
+            "account_type": "Тип аккаунта",
+            "role": "Роль",
+            "last_login": "Последний вход в систему",
+            "actions": "Действия"
+        },
+        "administration": "Администрация"
     },
     "login": {
         "learn_more": "Узнать больше",
