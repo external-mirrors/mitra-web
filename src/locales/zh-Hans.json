@@ -235,7 +235,9 @@
         "user_subscription_expired": "{name} 订阅已到期",
         "user_is_no_longer_a_subscriber": "{name} 不再是订阅者",
         "user_moved_to_a_new_instance": "{name} 迁移到了新的实例",
-        "user_signed_up": "{name} 已注册"
+        "user_signed_up": "{name} 已注册",
+        "post_deleted": "{name} 删除了您的帖文",
+        "moderation_action_reason": "原因：{reason}"
     },
     "settings": {
         "settings": "设置",
