@@ -237,7 +237,9 @@
         "user_subscription_expired": "{name} suscripción caducada",
         "user_is_no_longer_a_subscriber": "{name} ya no es suscriptor",
         "user_moved_to_a_new_instance": "{name} cambió de instancia",
-        "user_signed_up": "{name} registrado"
+        "user_signed_up": "{name} registrado",
+        "post_deleted": "{name} eliminó tu publicación",
+        "moderation_action_reason": "Motivo: {reason}"
     },
     "poll_editor": {
         "option": "Opción {n}",
