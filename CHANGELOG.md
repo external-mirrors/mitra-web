@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Send authentication token when retrieving group members.
 - Improved session table appearance.
+- Updated translations ([#176](https://codeberg.org/silverpill/mitra-web/pulls/176)).
 
 ### Removed
 
