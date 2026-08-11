@@ -13,7 +13,8 @@
         "bookmarks": "书签",
         "search_account": "账号",
         "search_hashtag": "话题标签",
-        "search_text": "文本"
+        "search_text": "文本",
+        "administration": "@:admin.administration"
     },
     "post_editor": {
         "prompt": "在想什么呢？",
@@ -417,8 +418,15 @@
     "admin": {
         "users": {
             "delete_user": "删除用户",
-            "confirm_delete_user": "您确定要删除 {address} 吗？此操作无法撤销。"
-        }
+            "confirm_delete_user": "您确定要删除 {address} 吗？此操作无法撤销。",
+            "users": "用户",
+            "username": "用户名",
+            "account_type": "账号类型",
+            "role": "角色",
+            "last_login": "上次登录",
+            "actions": "操作"
+        },
+        "administration": "管理"
     },
     "login": {
         "learn_more": "了解详情",

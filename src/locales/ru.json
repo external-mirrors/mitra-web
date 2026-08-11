@@ -17,7 +17,8 @@
         "settings": "Настройки",
         "search_text": "текст",
         "search_hashtag": "хештег",
-        "search_account": "учётная запись"
+        "search_account": "учётная запись",
+        "administration": "@:admin.administration"
     },
     "welcome": {
         "welcome": "Добро пожаловать в {server}!",
@@ -82,7 +83,8 @@
         "unfollow_conversation": "Отписаться от разговора",
         "authors_and_others": "{authors} и другие",
         "authors_are_hidden": "Авторы скрыты",
-        "load_conversation": "Загрузить разговор"
+        "load_conversation": "Загрузить разговор",
+        "in_group": "в группе {group}"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -421,8 +423,15 @@
     "admin": {
         "users": {
             "confirm_delete_user": "Вы уверены, что хотите удалить {address}? Этого нельзя изменить.",
-            "delete_user": "Удалить пользователя"
-        }
+            "delete_user": "Удалить пользователя",
+            "users": "Пользователи",
+            "username": "Имя пользователя",
+            "account_type": "Тип аккаунта",
+            "role": "Роль",
+            "last_login": "Последний вход в систему",
+            "actions": "Действия"
+        },
+        "administration": "Администрация"
     },
     "login": {
         "learn_more": "Узнать больше",
@@ -472,7 +481,10 @@
         "create_group": "Создать",
         "edit_group": "Редактировать группу",
         "delete_group": "Удалить группу",
-        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?"
+        "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?",
+        "view_group_members": "Просмотреть участников группы",
+        "group_members_are_not_known": "Состав группы неизвестен",
+        "affiliation_admin": "Администратор"
     },
     "group_form": {
         "create_group": "Создать группу",
