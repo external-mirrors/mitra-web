@@ -236,7 +236,9 @@
         "user_is_no_longer_a_subscriber": "{name} больше не является подписчиком",
         "user_moved_to_a_new_instance": "{name} перемещено в новый экземпляр",
         "user_signed_up": "{name} зарегистрировался",
-        "you_received_an_anonymous_payment": "Вы получили анонимный платеж"
+        "you_received_an_anonymous_payment": "Вы получили анонимный платеж",
+        "post_deleted": "{name} удалил ваш пост",
+        "moderation_action_reason": "Причина: {reason}"
     },
     "settings": {
         "settings": "Настройки",
