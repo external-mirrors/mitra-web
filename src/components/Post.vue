@@ -1097,22 +1097,21 @@ async function onUnmute() {
 function canFollowConversation(): boolean {
   return (
     currentUser.value !== null
-    && props.post.conversation_tracking === "normal"
+    && props.post.conversation?.tracking === "normal"
   )
 }
 
 function canUnfollowConversation(): boolean {
   return (
     currentUser.value !== null
-    && props.post.conversation_tracking === "follow"
+    && props.post.conversation?.tracking === "follow"
   )
 }
 
 async function onChangeConversationTrackingStatus(status: "normal" | "follow") {
   const authToken = ensureAuthToken()
-  const { conversation, conversation_tracking } = await changeConversationTrackingStatus(authToken, props.post.id, status)
+  const { conversation } = await changeConversationTrackingStatus(authToken, props.post.id, status)
   props.post.conversation = conversation
-  props.post.conversation_tracking = conversation_tracking
 }
 
 function canLoadReplies(): boolean {
