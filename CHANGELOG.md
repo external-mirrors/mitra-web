@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Use `Status.conversation.tracking` property instead of `Status.conversation_tracking`.
 
+### Fixed
+
+- Fixed indentation of nested lists in post content.
+
 ## [5.9.0] - 2026-08-11
 
 ### Added

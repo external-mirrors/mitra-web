@@ -251,6 +251,15 @@ onMounted(() => {
     padding: $whitespace;
   }
 
+  :deep(ul),
+  :deep(ol) {
+    /* Adds indentation to nested lists */
+    ul,
+    ol {
+      padding-inline-start: 1rem;
+    }
+  }
+
   :deep(ul) {
     list-style-type: disc;
   }
