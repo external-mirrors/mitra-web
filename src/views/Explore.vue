@@ -2,7 +2,7 @@
   <sidebar-layout>
     <template #content>
       <h1>
-        Explore
+        {{ $t('explore.explore') }}
       </h1>
       <h2>
         Basic feeds

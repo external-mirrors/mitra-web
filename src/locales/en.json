@@ -49,6 +49,9 @@
     "read_only_mode": "Your account is in read-only mode",
     "browse_directory": "Browse profile directory"
   },
+  "explore": {
+    "explore": "Explore"
+  },
   "post": {
     "go_to_previous_post": "Go to previous post",
     "visibility": {
