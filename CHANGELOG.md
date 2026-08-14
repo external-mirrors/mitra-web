@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added "Expore" link to admin panel.
+- Added "Profile directory", "Custom feeds" and "Groups" to "Explore" page.
 
 ### Changed
 

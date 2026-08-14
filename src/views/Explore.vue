@@ -4,73 +4,70 @@
       <h1>
         {{ $t('explore.explore') }}
       </h1>
-      <h2>
-        Basic feeds
-      </h2>
       <div class="feed-list">
-        <div class="feed">
-          <router-link
-            class="feed-name"
-            :to="{ name: 'local' }"
-          >
-            {{ $t('navigation.local') }}
-          </router-link>
-        </div>
-        <div class="feed">
-          <router-link
-            class="feed-name"
-            :to="{ name: 'known-network' }"
-          >
-            {{ $t('navigation.federated') }}
-          </router-link>
-        </div>
-      </div>
-      <h2>
-        {{ $t('custom_feeds.custom_feeds') }}
-      </h2>
-      <div v-if="!isLoading" class="feed-list">
-        <div
-          v-for="feed in feeds"
-          :key="feed.id"
-          class="feed"
+        <link-block
+          :to="{ name: 'local' }"
+          :title="$t('navigation.local')"
         >
-          <router-link
-            class="feed-name"
-            :title="$t('custom_feeds.view_feed')"
-            :to="{ name: 'custom-feed-timeline', params: { feedId: feed.id } }"
-          >
-            {{ feed.title }}
-          </router-link>
-        </div>
+          <template #icon>
+            <icon-community></icon-community>
+          </template>
+        </link-block>
+        <link-block
+          :to="{ name: 'known-network' }"
+          :title="$t('navigation.federated')"
+        >
+          <template #icon>
+            <icon-globe></icon-globe>
+          </template>
+        </link-block>
+        <link-block
+          :to="{ name: 'profile-directory' }"
+          :title="$t('navigation.profile_directory')"
+        >
+          <template #icon>
+            <icon-users></icon-users>
+          </template>
+        </link-block>
+        <link-block
+          :to="{ name: 'custom-feed-list' }"
+          :title="$t('custom_feeds.custom_feeds')"
+        >
+          <template #icon>
+            <icon-list></icon-list>
+          </template>
+        </link-block>
+        <link-block
+          :to="{ name: 'group-list', params: { tabName: 'following' } }"
+          :title="$t('groups.groups')"
+        >
+          <template #icon>
+            <icon-bubble></icon-bubble>
+          </template>
+        </link-block>
       </div>
-      <loader v-if="isLoading"></loader>
     </template>
   </sidebar-layout>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted } from "vue"
+import { useI18n } from "vue-i18n"
 
-import {
-  getCustomFeeds,
-  CustomFeed,
-} from "@/api/custom-feeds"
-import Loader from "@/components/Loader.vue"
+import IconCommunity from "@/assets/tabler/building-community.svg?component"
+import IconGlobe from "@/assets/feather/globe.svg?component"
+import IconList from "@/assets/feather/list.svg?component"
+import IconUsers from "@/assets/feather/users.svg?component"
+import IconBubble from "@/assets/tabler/chart-bubble.svg?component"
+import LinkBlock from "@/components/LinkBlock.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useTitle } from "@/composables/title"
-import { useCurrentUser } from "@/composables/user"
 
-const { ensureAuthToken } = useCurrentUser()
+const { t } = useI18n({ useScope: "global" })
 const { setPageTitle } = useTitle()
 
-const feeds = ref<CustomFeed[]>([])
-const isLoading = ref(false)
-
 onMounted(async () => {
-  setPageTitle("Explore")
-  isLoading.value = true
-  feeds.value = await getCustomFeeds(ensureAuthToken())
-  isLoading.value = false
+  setPageTitle(t("explore.explore"))
 })
 </script>
 
@@ -78,18 +75,6 @@ onMounted(async () => {
 @import "../styles/layout";
 @import "../styles/mixins";
 @import "../styles/theme";
-
-.content-header {
-  @include content-list-header;
-
-  font-size: inherit;
-}
-
-.content-message {
-  @include content-message;
-
-  margin-bottom: $block-outer-padding;
-}
 
 .feed-list {
   display: flex;
@@ -99,24 +84,5 @@ onMounted(async () => {
   &:not(:last-child) {
     margin-bottom: $block-outer-padding;
   }
-}
-
-.feed {
-  @include block-icon;
-
-  align-items: center;
-  background-color: var(--block-background-color);
-  border-radius: $block-border-radius;
-  display: flex;
-  gap: $block-inner-padding;
-  padding: $block-inner-padding;
-
-  .feed-name {
-    flex-grow: 1;
-  }
-}
-
-.loader {
-  margin: $block-outer-padding auto;
 }
 </style>
