@@ -5,20 +5,14 @@
         {{ $t('admin.administration') }}
       </h1>
       <div class="page-list">
-        <router-link
-            class="page"
-            :to="{ name: 'admin-users' }"
-          >
-          <span class="icon">
+        <link-block
+          :to="{ name: 'admin-users' }"
+          :title="$t('admin.users.users')"
+        >
+          <template #icon>
             <icon-users></icon-users>
-          </span>
-          <span class="page-name">
-            {{ $t('admin.users.users') }}
-          </span>
-          <span class="icon">
-             <icon-arrow-right></icon-arrow-right>
-          </span>
-        </router-link>
+          </template>
+        </link-block>
       </div>
     </template>
   </sidebar-layout>
@@ -28,8 +22,8 @@
 import { onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 
-import IconArrowRight from "@/assets/feather/arrow-right.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
+import LinkBlock from "@/components/LinkBlock.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useTitle } from "@/composables/title"
 
@@ -43,27 +37,10 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import "../styles/layout";
-@import "../styles/mixins";
-@import "../styles/theme";
 
 .page-list {
   display: flex;
   flex-direction: column;
   gap: $block-outer-padding;
-}
-
-.page {
-  @include content-link-icon;
-
-  align-items: center;
-  background-color: var(--block-background-color);
-  border-radius: $block-border-radius;
-  display: flex;
-  gap: $block-inner-padding;
-  padding: $block-inner-padding;
-
-  .page-name {
-    flex-grow: 1;
-  }
 }
 </style>
