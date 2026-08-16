@@ -88,6 +88,11 @@
                     {{ $t('profile.show_replies') }}
                   </button>
                 </li>
+                <li v-if="!isCurrentUser()">
+                  <button @click="hideProfileMenu(); customFeedDialogVisible = true">
+                    {{ $t('profile.view_custom_feeds') }}
+                  </button>
+                </li>
                 <li v-if="isFollowedBy()">
                   <button @click="onRemoveFollower()">
                     {{ $t('profile.remove_from_followers') }}
@@ -180,6 +185,14 @@
                 </li>
               </menu>
             </div>
+            <modal-dialog
+              :open="customFeedDialogVisible"
+              @close="customFeedDialogVisible = false"
+            >
+              <profile-custom-feeds-dialog
+                :profile-id="profile.id"
+              ></profile-custom-feeds-dialog>
+            </modal-dialog>
           </div>
           <div class="name-buttons-group">
             <div class="name-group">
@@ -492,6 +505,8 @@ import IconLock from "@/assets/forkawesome/lock.svg?component"
 import IconRefresh from "@/assets/forkawesome/refresh.svg?component"
 import Avatar from "@/components/Avatar.vue"
 import Loader from "@/components/Loader.vue"
+import ModalDialog from "@/components/ModalDialog.vue"
+import ProfileCustomFeedsDialog from "@/components/ProfileCustomFeedsDialog.vue"
 import PostList from "@/components/PostList.vue"
 import ProfileDisplayName from "@/components/ProfileDisplayName.vue"
 import ProfileListItem from "@/components/ProfileListItem.vue"
@@ -537,6 +552,7 @@ const fieldsDisplayAll = ref(false)
 const expandedFields = ref<number[]>([])
 
 const profileMenuVisible = ref(false)
+const customFeedDialogVisible = ref(false)
 const isProcessingFollow = ref(false)
 const isProcessingUnfollow = ref(false)
 
@@ -1200,6 +1216,10 @@ $avatar-size: 170px;
         stroke: var(--link-hover-color);
       }
     }
+  }
+
+  dialog {
+    width: 200px;
   }
 }
 

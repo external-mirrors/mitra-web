@@ -110,3 +110,16 @@ export async function getCustomFeedSources(
   const data = await handleResponse(response)
   return data
 }
+
+export async function getCustomFeedsBySource(
+  authToken: string,
+  sourceId: string,
+): Promise<CustomFeed[]> {
+  const url = `${BACKEND_URL}/api/v1/accounts/${sourceId}/lists`
+  const response = await http(url, {
+    method: "GET",
+    authToken,
+  })
+  const data = await handleResponse(response)
+  return data
+}

@@ -3,7 +3,8 @@
     ref="dialogElement"
     @close="closeDialog()"
   >
-    <form method="dialog">
+    <!-- v-if is used to trigger onMounted -->
+    <form v-if="open" method="dialog">
       <slot></slot>
     </form>
   </dialog>
