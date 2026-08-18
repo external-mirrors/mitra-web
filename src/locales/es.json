@@ -488,5 +488,8 @@
         "edit_group": "Editar grupo",
         "description": "Descripción",
         "save": "Guardar"
+    },
+    "explore": {
+        "explore": "Explorar"
     }
 }
