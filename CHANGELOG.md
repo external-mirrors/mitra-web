@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Use `Status.conversation.tracking` property instead of `Status.conversation_tracking`.
+- Add alt text to "More" icons on post blocks and profile page.
 
 ### Fixed
 

@@ -263,8 +263,8 @@
         class="dropdown-menu-wrapper"
         v-click-away="hideMenu"
       >
-        <button class="icon" :title="$t('post.more')" @click="toggleMenu()">
-          <icon-more></icon-more>
+        <button class="icon" @click="toggleMenu()">
+          <icon-more :title="$t('post.more')"></icon-more>
         </button>
         <menu
           v-if="menuVisible"

@@ -43,8 +43,8 @@
               class="dropdown-menu-wrapper"
               v-click-away="hideProfileMenu"
             >
-              <button :title="$t('profile.more')" @click="toggleProfileMenu()">
-                <icon-more></icon-more>
+              <button @click="toggleProfileMenu()">
+                <icon-more :title="$t('profile.more')"></icon-more>
               </button>
               <menu
                 v-if="profileMenuVisible"
