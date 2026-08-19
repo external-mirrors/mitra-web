@@ -13,14 +13,6 @@
             <icon-users></icon-users>
           </template>
         </link-block>
-        <link-block
-          :to="{ name: 'explore' }"
-          :title="$t('explore.explore')"
-        >
-          <template #icon>
-            <icon-search></icon-search>
-          </template>
-        </link-block>
       </div>
     </template>
   </sidebar-layout>
@@ -30,7 +22,6 @@
 import { onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 
-import IconSearch from "@/assets/feather/search.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
 import LinkBlock from "@/components/LinkBlock.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"

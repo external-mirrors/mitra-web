@@ -23,19 +23,19 @@
           </template>
         </link-block>
         <link-block
-          :to="{ name: 'profile-directory' }"
-          :title="$t('navigation.profile_directory')"
-        >
-          <template #icon>
-            <icon-users></icon-users>
-          </template>
-        </link-block>
-        <link-block
           :to="{ name: 'custom-feed-list' }"
           :title="$t('custom_feeds.custom_feeds')"
         >
           <template #icon>
             <icon-list></icon-list>
+          </template>
+        </link-block>
+        <link-block
+          :to="{ name: 'profile-directory' }"
+          :title="$t('navigation.profile_directory')"
+        >
+          <template #icon>
+            <icon-users></icon-users>
           </template>
         </link-block>
         <link-block

@@ -7,21 +7,9 @@
       </div>
       <span>{{ $t('navigation.notifications') }}</span>
     </router-link>
-    <router-link class="sidebar-link" to="/local">
-      <div class="icon"><icon-community></icon-community></div>
-      <span>{{ $t('navigation.local') }}</span>
-    </router-link>
-    <router-link
-      v-if="canViewFederatedTimeline()"
-      class="sidebar-link"
-      :to="{ name: 'known-network' }"
-    >
-      <div class="icon"><icon-globe></icon-globe></div>
-      <span>{{ $t('navigation.federated') }}</span>
-    </router-link>
-    <router-link class="sidebar-link" to="/profile-directory">
-      <div class="icon"><icon-users></icon-users></div>
-      <span>{{ $t('navigation.profile_directory') }}</span>
+    <router-link class="sidebar-link" :to="{ name: 'explore' }">
+      <div class="icon"><icon-search></icon-search></div>
+      <span>{{ $t('explore.explore') }}</span>
     </router-link>
     <router-link class="sidebar-link" :to="{ name: 'bookmark-list' }">
       <div class="icon"><icon-bookmarks></icon-bookmarks></div>
@@ -56,15 +44,12 @@ import { useRoute, useRouter } from "vue-router"
 
 import { revokeAccessToken } from "@/api/oauth"
 import IconBell from "@/assets/feather/bell.svg?component"
-import IconCommunity from "@/assets/tabler/building-community.svg?component"
 import IconAdmin from "@/assets/tabler/device-analytics.svg?component"
-import IconGlobe from "@/assets/feather/globe.svg?component"
 import IconHelp from "@/assets/feather/help-circle.svg?component"
 import IconLogout from "@/assets/feather/log-out.svg?component"
+import IconSearch from "@/assets/feather/search.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
-import IconUsers from "@/assets/feather/users.svg?component"
 import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
-import { useGuards } from "@/composables/guards"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
 
@@ -76,7 +61,6 @@ const {
   ensureAuthToken,
   isAdmin,
 } = useCurrentUser()
-const { canViewFederatedTimeline } = useGuards()
 const { loadNotifications, getUnreadNotificationCount } = useNotifications()
 
 onMounted(async () => {

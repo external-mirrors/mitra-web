@@ -8,11 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Added "Explore" link to admin panel.
-- Added "Profile directory", "Custom feeds" and "Groups" to "Explore" page.
+- Added "Custom feeds" and "Groups" to "Explore" page.
 - Included profile menu action for finding custom feeds to which the user has been added.
 - Added "Mute conversation" option to post menu.
 - Added support for posting to a private group.
+- Added "Explore" link to sidebar.
+- Moved "Local", "Federated" and "Profile directory" links from sidebar to "Explore" page.
 
 ### Changed
 
