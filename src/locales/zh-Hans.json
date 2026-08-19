@@ -490,5 +490,8 @@
         "edit_group": "编辑群组",
         "description": "描述",
         "save": "保存"
+    },
+    "explore": {
+        "explore": "探索"
     }
 }
