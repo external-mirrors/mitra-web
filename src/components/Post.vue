@@ -389,6 +389,24 @@
               <span>{{ $t('post.unfollow_conversation') }}</span>
             </button>
           </li>
+          <li v-if="canMuteConversation()">
+            <button
+              class="icon"
+              @click="onChangeConversationTrackingStatus('mute')"
+            >
+              <icon-mute></icon-mute>
+              <span>{{ $t('post.mute_conversation') }}</span>
+            </button>
+          </li>
+          <li v-if="canUnmuteConversation()">
+            <button
+              class="icon"
+              @click="onChangeConversationTrackingStatus('normal')"
+            >
+              <icon-unmute></icon-unmute>
+              <span>{{ $t('post.unmute_conversation') }}</span>
+            </button>
+          </li>
           <li v-if="canDeleteGroupPost()" role="separator"></li>
           <li v-if="canDeleteGroupPost()">
             <button
@@ -1097,7 +1115,8 @@ async function onUnmute() {
 function canFollowConversation(): boolean {
   return (
     currentUser.value !== null
-    && props.post.conversation?.tracking === "normal"
+    && props.post.conversation !== null
+    && props.post.conversation.tracking !== "follow"
   )
 }
 
@@ -1108,7 +1127,22 @@ function canUnfollowConversation(): boolean {
   )
 }
 
-async function onChangeConversationTrackingStatus(status: "normal" | "follow") {
+function canMuteConversation(): boolean {
+  return (
+    currentUser.value !== null
+    && props.post.conversation !== null
+    && props.post.conversation.tracking !== "mute"
+  )
+}
+
+function canUnmuteConversation(): boolean {
+  return (
+    currentUser.value !== null
+    && props.post.conversation?.tracking === "mute"
+  )
+}
+
+async function onChangeConversationTrackingStatus(status: "normal" | "follow" | "mute") {
   const authToken = ensureAuthToken()
   const { conversation } = await changeConversationTrackingStatus(authToken, props.post.id, status)
   props.post.conversation = conversation

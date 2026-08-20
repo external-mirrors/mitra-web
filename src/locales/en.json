@@ -103,6 +103,8 @@
     "unmute_author": "Unmute author",
     "follow_conversation": "Follow conversation",
     "unfollow_conversation": "Unfollow conversation",
+    "mute_conversation": "Mute conversation",
+    "unmute_conversation": "Unmute conversation",
     "load_replies": "Load replies",
     "load_conversation": "Load conversation",
     "become_a_subscriber": "Become a subscriber",

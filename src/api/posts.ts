@@ -70,7 +70,7 @@ interface PleromaEmojiReaction {
 
 interface PostConversation {
   id: string,
-  tracking: "normal" | "follow" | null,
+  tracking: "normal" | "follow" | "mute" | null,
   can_moderate: boolean | null,
 }
 
@@ -594,7 +594,7 @@ export async function unpinPost(
 export async function changeConversationTrackingStatus(
   authToken: string,
   postId: string,
-  trackingStatus: "normal" | "follow",
+  trackingStatus: "normal" | "follow" | "mute",
 ): Promise<Post> {
   const url = `${BACKEND_URL}/api/v1/statuses/${postId}/conversation_tracking`
   const response = await http(url, {
