@@ -64,7 +64,7 @@ export async function deleteGroup(
 
 export interface Affiliation {
   account: Profile,
-  affiliation: string,
+  affiliation: "admin" | "member",
 }
 
 export async function getGroupMembers(

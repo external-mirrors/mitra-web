@@ -10,9 +10,15 @@ function getVisibilityOptions(
 ): Visibility[] {
   if (inReplyTo === null) {
     if (group !== null) {
-      return [
-        Visibility.Public,
-      ]
+      if (group.locked) {
+        return [
+          Visibility.Group,
+        ]
+      } else {
+        return [
+          Visibility.Public,
+        ]
+      }
     }
     return [
       Visibility.Public,
@@ -46,6 +52,11 @@ function getVisibilityOptions(
         Visibility.Conversation,
         Visibility.Direct,
       ]
+    case Visibility.Group:
+      return [
+        Visibility.Conversation,
+        Visibility.Direct,
+      ]
     case Visibility.Conversation:
       return [
         Visibility.Conversation,
@@ -71,6 +82,10 @@ export function useVisibility() {
     [Visibility.Subscribers]: {
       name: t("post.visibility.subscribers"),
       description: t("post.visibility_description.visible_to_premium_subscribers"),
+    },
+    [Visibility.Group]: {
+      name: t("post.visibility.group"),
+      description: t("post.visibility_description.visible_to_group_members"),
     },
     [Visibility.Conversation]: {
       name: t("post.visibility.conversation"),

@@ -16,6 +16,7 @@
           <icon-users></icon-users>
         </router-link>
         <button
+          v-if="canCreatePost()"
           type="button"
           id="create-post"
           class="icon"
@@ -53,7 +54,7 @@ import { onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 
-import { getGroupTimeline } from "@/api/groups"
+import { getGroupMembers, getGroupTimeline } from "@/api/groups"
 import { addRelationships, Post } from "@/api/posts"
 import { getProfile, ProfileWrapper } from "@/api/users"
 import IconEdit from "@/assets/feather/edit.svg?component"
@@ -69,13 +70,26 @@ import { useCurrentUser } from "@/composables/user"
 const { t } = useI18n({ useScope: "global" })
 const route = useRoute()
 const { getActorLocation } = useActorHandle()
-const { ensureAuthToken } = useCurrentUser()
+const { ensureCurrentUser, ensureAuthToken } = useCurrentUser()
 const { setPageTitle } = useTitle()
 
 const group = ref<ProfileWrapper | null>(null)
+const currentUserAffiliation = ref<"admin" | "member" | "none">("none")
 const postEditorVisible = ref(false)
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
+
+function canCreatePost(): boolean {
+  if (group.value === null) {
+    return false
+  }
+  if (group.value.locked) {
+    return currentUserAffiliation.value !== "none"
+  } else {
+    // Public group
+    return true
+  }
+}
 
 async function loadTimelinePage(
   authToken: string,
@@ -114,6 +128,10 @@ onMounted(async () => {
   )
   group.value = new ProfileWrapper(_group)
   setPageTitle(group.value.getDisplayName())
+  const members = await getGroupMembers(authToken, group.value.id)
+  const currentUserMembership = members
+    .find(member => member.account.id === ensureCurrentUser().id)
+  currentUserAffiliation.value = currentUserMembership?.affiliation ?? "none"
   posts.value = await loadTimelinePage(authToken)
   isLoading.value = false
 })

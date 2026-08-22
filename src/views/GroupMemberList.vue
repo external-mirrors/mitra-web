@@ -57,7 +57,7 @@ const group = ref<ProfileWrapper | null>(null)
 const members = ref<Affiliation[]>([])
 const isLoading = ref(false)
 
-function getAffiliationDisplay(affiliation: string): string {
+function getAffiliationDisplay(affiliation: "admin" | "member"): string {
   return t(`groups.affiliation_${affiliation}`)
 }
 

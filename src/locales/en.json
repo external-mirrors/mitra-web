@@ -58,6 +58,7 @@
       "public": "Public",
       "followers": "Followers",
       "subscribers": "Subscribers",
+      "group": "Group",
       "conversation": "Conversation",
       "direct": "Direct"
     },
@@ -65,6 +66,7 @@
       "visible_to_everyone": "Visible to everyone",
       "visible_to_followers": "Visible to followers",
       "visible_to_premium_subscribers": "Visible to premium subscribers",
+      "visible_to_group_members": "Visible to group members",
       "visible_to_people_chosen_by_conversation_owner": "Visible to people chosen by conversation owner",
       "visible_to_mentioned_users": "Visible to mentioned users"
     },
@@ -363,7 +365,8 @@
     "view_group_members": "View group members",
     "create_post": "Create post",
     "group_members_are_not_known": "Group members are not known",
-    "affiliation_admin": "Admin"
+    "affiliation_admin": "Admin",
+    "affiliation_member": "Member"
   },
   "group_form": {
     "create_group": "Create group",

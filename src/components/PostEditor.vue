@@ -445,6 +445,12 @@ if (props.post) {
 } else {
   // Writing new post
   content.value = loadLocalDraft()
+  if (visibilityOptions.value.includes(defaultVisibility.value)) {
+    visibility.value = defaultVisibility.value
+  } else {
+    // First item is default visibility
+    visibility.value = visibilityOptions.value[0]
+  }
 }
 
 function inlineMentions(mentions: Mention[]): string {
@@ -468,15 +474,6 @@ if (props.inReplyTo && content.value.length === 0) {
     ...props.inReplyTo.mentions,
   ]
   content.value = inlineMentions(mentions)
-}
-
-if (props.inReplyTo && props.post === null) {
-  if (visibilityOptions.value.includes(defaultVisibility.value)) {
-    visibility.value = defaultVisibility.value
-  } else {
-    // First item is default visibility
-    visibility.value = visibilityOptions.value[0]
-  }
 }
 
 if (props.repostOf && content.value.length === 0) {

@@ -2,6 +2,7 @@
   <icon-globe v-if="visibility === 'public'"></icon-globe>
   <icon-users v-else-if="visibility === 'private'"></icon-users>
   <icon-premium v-else-if="visibility === 'subscribers'"></icon-premium>
+  <icon-lock v-else-if="visibility === 'group'"></icon-lock>
   <icon-lock v-else-if="visibility === 'conversation'"></icon-lock>
   <icon-envelope v-else-if="visibility === 'direct'"></icon-envelope>
 </template>

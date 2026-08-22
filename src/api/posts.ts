@@ -51,6 +51,7 @@ export enum Visibility {
   Public = "public",
   Followers = "private",
   Subscribers = "subscribers",
+  Group = "group",
   Conversation = "conversation",
   Direct = "direct",
 }
