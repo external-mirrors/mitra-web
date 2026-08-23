@@ -428,7 +428,11 @@ const visibilityOptions = computed(() => {
     // Visibility can not be changed after publishing
     return []
   } else {
-    return getVisibilityOptions(ensureCurrentUser(), props.inReplyTo)
+    return getVisibilityOptions(
+      ensureCurrentUser(),
+      props.inReplyTo,
+      props.group ?? null,
+    )
   }
 })
 

@@ -1,10 +1,19 @@
 import { useI18n } from "vue-i18n"
 
 import { Post, Visibility } from "@/api/posts"
-import { User } from "@/api/users"
+import { Profile, User } from "@/api/users"
 
-function getVisibilityOptions(author: User, inReplyTo: Post | null): Visibility[] {
+function getVisibilityOptions(
+  author: User,
+  inReplyTo: Post | null,
+  group: Profile | null,
+): Visibility[] {
   if (inReplyTo === null) {
+    if (group !== null) {
+      return [
+        Visibility.Public,
+      ]
+    }
     return [
       Visibility.Public,
       Visibility.Followers,
