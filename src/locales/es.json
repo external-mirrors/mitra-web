@@ -112,7 +112,9 @@
         "authors_and_others": "{authors} y otros",
         "authors_are_hidden": "Los autores están ocultos",
         "load_conversation": "Cargar conversación",
-        "in_group": "en el grupo {group}"
+        "in_group": "en el grupo {group}",
+        "mute_conversation": "Silenciar conversación",
+        "unmute_conversation": "Activa el silencio de la conversación"
     },
     "misc": {
         "reload_page": "Recargar la página en unos minutos"
@@ -399,7 +401,8 @@
         "delete_feed": "Feed borrado",
         "confirm_delete_this_feed": "¿Estás seguro de que quieres eliminar este feed?",
         "remove_user_from_feed": "Eliminar usuario del feed",
-        "confirm_remove_this_user_from_feed": "¿Seguro que quieres eliminar a este usuario del feed?"
+        "confirm_remove_this_user_from_feed": "¿Seguro que quieres eliminar a este usuario del feed?",
+        "this_user_has_not_been_added_to_any_custom_feed": "Usuario no añadido a ningún feed personalizado."
     },
     "follow_requests": {
         "show_more_requests": "Mostrar más solicitudes",
