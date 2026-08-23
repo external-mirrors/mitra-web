@@ -7,6 +7,7 @@ import {
 } from "vue-router"
 
 import { Permissions } from "@/api/users"
+import { useGuards } from "@/composables/guards"
 import { useInstanceInfo } from "@/composables/instance"
 import { useCurrentUser } from "@/composables/user"
 
@@ -121,10 +122,8 @@ const routes: Array<RouteRecordRaw> = [
     component: PublicTimeline,
     meta: { onlyAuthenticated: true },
     beforeEnter: () => {
-      const { isAdmin } = useCurrentUser()
-      const { instance } = useInstanceInfo()
-      const federatedTimelineRestricted = instance.value?.configuration.timelines_access.live_feeds.remote === "restricted"
-      if (!federatedTimelineRestricted || isAdmin()) {
+      const { canViewFederatedTimeline } = useGuards()
+      if (canViewFederatedTimeline()) {
         return true
       }
       return { name: "home" }

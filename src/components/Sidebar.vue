@@ -64,7 +64,7 @@ import IconLogout from "@/assets/feather/log-out.svg?component"
 import IconSettings from "@/assets/feather/settings.svg?component"
 import IconUsers from "@/assets/feather/users.svg?component"
 import IconBookmarks from "@/assets/tabler/bookmarks.svg?component"
-import { useInstanceInfo } from "@/composables/instance"
+import { useGuards } from "@/composables/guards"
 import { useNotifications } from "@/composables/notifications"
 import { useCurrentUser } from "@/composables/user"
 
@@ -76,7 +76,7 @@ const {
   ensureAuthToken,
   isAdmin,
 } = useCurrentUser()
-const { instance } = useInstanceInfo()
+const { canViewFederatedTimeline } = useGuards()
 const { loadNotifications, getUnreadNotificationCount } = useNotifications()
 
 onMounted(async () => {
@@ -92,11 +92,6 @@ function isUserAuthenticated(): boolean {
 const unreadNotificationCount = computed<number>(() => {
   return getUnreadNotificationCount()
 })
-
-function canViewFederatedTimeline(): boolean {
-  const federatedTimelineRestricted = instance.value?.configuration.timelines_access.live_feeds.remote === "restricted"
-  return !federatedTimelineRestricted || isAdmin()
-}
 
 async function logout() {
   await revokeAccessToken(ensureAuthToken())

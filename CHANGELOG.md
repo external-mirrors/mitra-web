@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Use `Status.conversation.tracking` property instead of `Status.conversation_tracking`.
 - Add alt text to "More" icons on post blocks and profile page.
 - Force visibility to "Public" when posting to a public group.
+- Hide federated timeline from "Explore" page if access to timeline is restricted.
 
 ### Fixed
 

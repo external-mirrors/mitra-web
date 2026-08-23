@@ -14,6 +14,7 @@
           </template>
         </link-block>
         <link-block
+          v-if="canViewFederatedTimeline()"
           :to="{ name: 'known-network' }"
           :title="$t('navigation.federated')"
         >
@@ -61,9 +62,11 @@ import IconUsers from "@/assets/feather/users.svg?component"
 import IconBubble from "@/assets/tabler/chart-bubble.svg?component"
 import LinkBlock from "@/components/LinkBlock.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
+import { useGuards } from "@/composables/guards"
 import { useTitle } from "@/composables/title"
 
 const { t } = useI18n({ useScope: "global" })
+const { canViewFederatedTimeline } = useGuards()
 const { setPageTitle } = useTitle()
 
 onMounted(async () => {
