@@ -112,7 +112,9 @@
         "authors_and_others": "{authors} 和其他人",
         "authors_are_hidden": "作者已隐藏",
         "load_conversation": "加载对话",
-        "in_group": "在 {group} 群组中"
+        "in_group": "在 {group} 群组中",
+        "mute_conversation": "静音对话",
+        "unmute_conversation": "取消静音对话"
     },
     "misc": {
         "reload_page": "等待数分钟后重新加载页面"
@@ -175,7 +177,7 @@
         "tab_following": "关注",
         "tab_subscribers": "订阅者",
         "muted": "已静音",
-        "view_muted_users": "查看已静音的用户",
+        "view_muted_users": "查看已静音用户",
         "profile": "个人资料",
         "profile_with_handle": "个人资料 - {handle}",
         "view_custom_feeds": "查看自定义订阅源",
@@ -192,8 +194,8 @@
     },
     "profile_list": {
         "show_more_profiles": "查看更多用户",
-        "no_muted_users": "没有静音用户",
-        "muted_users": "已静音的用户",
+        "no_muted_users": "无已静音用户",
+        "muted_users": "已静音用户",
         "show_more_users": "显示更多用户"
     },
     "profile_editor": {
@@ -235,7 +237,9 @@
         "user_subscription_expired": "{name} 订阅已到期",
         "user_is_no_longer_a_subscriber": "{name} 不再是订阅者",
         "user_moved_to_a_new_instance": "{name} 迁移到了新的实例",
-        "user_signed_up": "{name} 已注册"
+        "user_signed_up": "{name} 已注册",
+        "post_deleted": "{name} 删除了您的帖文",
+        "moderation_action_reason": "原因：{reason}"
     },
     "settings": {
         "settings": "设置",
@@ -368,7 +372,8 @@
             "rename_feed": "重命名订阅源",
             "save": "保存",
             "cancel": "取消"
-        }
+        },
+        "this_user_has_not_been_added_to_any_custom_feed": "此用户未添加到任何自定义订阅源中"
     },
     "import_follows": {
         "follows_csv": "关注列表 (CSV)",
@@ -488,5 +493,8 @@
         "edit_group": "编辑群组",
         "description": "描述",
         "save": "保存"
+    },
+    "explore": {
+        "explore": "探索"
     }
 }
