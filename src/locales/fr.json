@@ -62,7 +62,9 @@
         "authors_and_others": "{authors} et d'autres",
         "authors_are_hidden": "les auteurs sont masqués",
         "load_conversation": "Charger la conversation",
-        "in_group": "dans le groupe {group}"
+        "in_group": "dans le groupe {group}",
+        "mute_conversation": "Mettre la conv. en sourdine",
+        "unmute_conversation": "Retirer la sourdine de la conv."
     },
     "post_list": {
         "no_posts_found": "Pas de publications trouvées",
@@ -244,7 +246,8 @@
         "user_is_already_in_the_list": "Le compte est déjà dans la liste",
         "posts_will_not_be_displayed": "Les publications de ces comptes n'apparaîtront pas sur votre page d'accueil.",
         "remove_user_from_feed": "Retirer le compte du flux",
-        "confirm_remove_this_user_from_feed": "Voulez-vous vraiment retirer ce compte du flux ?"
+        "confirm_remove_this_user_from_feed": "Voulez-vous vraiment retirer ce compte du flux ?",
+        "this_user_has_not_been_added_to_any_custom_feed": "Cet utilisateur n'a encore été ajouté à aucun flux personnalisé"
     },
     "subscriptions": {
         "no_subscription_info": "Pas d'informations de souscription",
@@ -490,5 +493,8 @@
         "edit_group": "Modifier le groupe",
         "description": "Description",
         "save": "Enregistrer"
+    },
+    "explore": {
+        "explore": "Explorer"
     }
 }
