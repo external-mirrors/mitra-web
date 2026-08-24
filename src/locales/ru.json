@@ -84,7 +84,9 @@
         "authors_and_others": "{authors} и другие",
         "authors_are_hidden": "Авторы скрыты",
         "load_conversation": "Загрузить разговор",
-        "in_group": "в группе {group}"
+        "in_group": "в группе {group}",
+        "mute_conversation": "Беззвучный разговор",
+        "unmute_conversation": "Отключить звук разговора"
     },
     "post_list": {
         "post_not_found": "Пост не найден",
@@ -375,7 +377,8 @@
             "cancel": "Отмена",
             "save": "Сохранить",
             "rename_feed": "Переименование ленты"
-        }
+        },
+        "this_user_has_not_been_added_to_any_custom_feed": "Этот пользователь не был добавлен ни в одну пользовательскую ленту"
     },
     "import_follows": {
         "follows_csv": "Подписки (CSV)",
@@ -495,5 +498,8 @@
         "edit_group": "Редактировать группу",
         "description": "Описание",
         "save": "Сохранить"
+    },
+    "explore": {
+        "explore": "Обзор"
     }
 }
