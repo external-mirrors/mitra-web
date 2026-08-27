@@ -61,13 +61,15 @@
             "subscribers": "Abonennten",
             "direct": "Direkt",
             "conversation": "Unterhaltung",
-            "public": "Öffentlich"
+            "public": "Öffentlich",
+            "group": "Gruppe"
         },
         "visibility_description": {
             "visible_to_premium_subscribers": "Sichtbar für Premium-Abonnenten",
             "visible_to_mentioned_users": "Sichtbar für erwähnte Benutzer",
             "visible_to_people_chosen_by_conversation_owner": "Sichtbar für Personen, die vom Eigentümer der Unterhaltung ausgewählt wurden",
-            "visible_to_everyone": "Für jeden sichtbar"
+            "visible_to_everyone": "Für jeden sichtbar",
+            "visible_to_group_members": "Für Gruppenmitglieder sichtbar"
         },
         "unlike": "Mag ich nicht",
         "like": "Mag ich",
@@ -93,7 +95,8 @@
         "show_more": "Mehr anzeigen",
         "copy_object_id": "Objektkennung kopieren",
         "follow_conversation": "Konversation folgen",
-        "unfollow_conversation": "Konversation nicht mehr folgen"
+        "unfollow_conversation": "Konversation nicht mehr folgen",
+        "in_group": "in Gruppe {group}"
     },
     "welcome": {
         "welcome": "Willkommen bei {server}!",
@@ -117,7 +120,7 @@
         "subscribe": "Abonnieren",
         "stats_posts": "Beiträge",
         "tab_gallery": "Galerie",
-        "tab_following": "Folgt",
+        "tab_following": "Folgen",
         "tab_subscribers": "Abonennten",
         "not_found": "Profil nicht gefunden",
         "profile": "Profil",
@@ -129,7 +132,7 @@
         "renew_verification": "Verifizierung erneuern",
         "verified": "Verifiziert",
         "copy_profile_id": "Profilkennung kopieren",
-        "stats_following": "folgt",
+        "stats_following": "folgen",
         "load_latest_posts": "Letzte Beiträge laden",
         "reject_follow_request": "Folgeanfrage ablehnen",
         "view_follow_requests": "Folgeanfragen ansehen",
@@ -143,7 +146,9 @@
         "subscriber_details": "Details zum Abonnenten",
         "link_ethereum_address": "Ethereum-Adresse verlinken",
         "show_more_fields": "Mehr anzeigen",
-        "tab_reactions": "Reaktionen"
+        "tab_reactions": "Reaktionen",
+        "group": "Gruppe",
+        "view_groups": "Gruppen ansehen"
     },
     "profile_editor": {
         "avatar": "Avatar",
@@ -177,7 +182,8 @@
         "user_is_no_longer_a_subscriber": "{name} ist kein Abonnent mehr",
         "user_moved_to_a_new_instance": "{name} wurde auf eine neue Instanz verschoben",
         "you_received_an_anonymous_payment": "Du hast eine anonyme Zahlung erhalten",
-        "you_dont_have_any_notifications": "Du hast keine Benachrichtigungen"
+        "you_dont_have_any_notifications": "Du hast keine Benachrichtigungen",
+        "moderation_action_reason": "Grund: {reason}"
     },
     "settings": {
         "experiments_summary": "Dieser Abschnitt enthält experimentelle Funktionen. Die Verwendung erfolgt auf eigene Gefahr.",
@@ -329,7 +335,8 @@
         "num_votes": "keine Stimmen | {n} Stimme | {n} Stimmen",
         "vote": "Abstimmen",
         "closed": "Geschlossen",
-        "see_results": "Siehe Ergebnisse"
+        "see_results": "Siehe Ergebnisse",
+        "people_voted": "{n} Person | {n} Leute"
     },
     "emoji_picker": {
         "search": "Suchen…",
@@ -365,8 +372,15 @@
     },
     "admin": {
         "users": {
-          "delete_user": "Benutzer löschen"
-        }
+            "delete_user": "Benutzer löschen",
+            "users": "Benutzer",
+            "username": "Benutzername",
+            "account_type": "Kontotyp",
+            "role": "Rolle",
+            "last_login": "Letzte Anmeldung",
+            "actions": "Aktionen"
+        },
+        "administration": "Administration"
     },
     "login": {
         "learn_more": "Mehr erfahren",
@@ -394,7 +408,13 @@
         "show_more_groups": "Weitere Gruppen anzeigen",
         "edit_group": "Gruppe bearbeiten",
         "delete_group": "Gruppe löschen",
-        "create_post": "Beitrag erstellen"
+        "create_post": "Beitrag erstellen",
+        "affiliation_member": "Mitglied",
+        "moderating": "Moderieren",
+        "following": "Folgen",
+        "view_group_members": "Gruppenmitglieder ansehen",
+        "group_members_are_not_known": "Gruppenmitglieder sind nicht bekannt",
+        "affiliation_admin": "Administrator"
     },
     "group_form": {
         "save": "Speichern",
@@ -403,5 +423,8 @@
         "group_name": "Gruppenname",
         "create_group": "Gruppe erstellen",
         "edit_group": "Gruppe bearbeiten"
+    },
+    "explore": {
+        "explore": "Entdecken"
     }
 }
