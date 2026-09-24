@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated translations ([#178](https://codeberg.org/silverpill/mitra-web/pulls/178)).
+
 ### Removed
 
 - Removed "View custom feeds" item from current user's profile menu.
