@@ -32,7 +32,8 @@
             "followers": "Мои фоловеры",
             "subscribers": "Подписчики",
             "direct": "Директ",
-            "conversation": "Беседа"
+            "conversation": "Беседа",
+            "group": "Группа"
         },
         "featured": "Избранное",
         "replying_to": "Ответить на",
@@ -73,7 +74,8 @@
             "visible_to_followers": "Показать подписчикам",
             "visible_to_premium_subscribers": "Показать премиум-подписчикам",
             "visible_to_people_chosen_by_conversation_owner": "Видно только тем кого выбрал владелец беседы",
-            "visible_to_mentioned_users": "Видно указанным пользователям"
+            "visible_to_mentioned_users": "Видно указанным пользователям",
+            "visible_to_group_members": "Видно участникам группы"
         },
         "copy_object_id": "Копировать идентификатор объекта",
         "source_is_not_available": "Источник недоступен",
@@ -489,7 +491,8 @@
         "confirm_delete_this_group": "Вы уверены, что хотите удалить эту группу?",
         "view_group_members": "Просмотреть участников группы",
         "group_members_are_not_known": "Состав группы неизвестен",
-        "affiliation_admin": "Администратор"
+        "affiliation_admin": "Администратор",
+        "affiliation_member": "Участник"
     },
     "group_form": {
         "create_group": "Создать группу",

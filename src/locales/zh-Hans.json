@@ -63,7 +63,8 @@
             "followers": "粉丝",
             "subscribers": "订阅者",
             "direct": "私信",
-            "conversation": "对话"
+            "conversation": "对话",
+            "group": "群组"
         },
         "edited": "已编辑",
         "sensitive_content": "敏感内容",
@@ -101,7 +102,8 @@
             "visible_to_followers": "粉丝可见",
             "visible_to_people_chosen_by_conversation_owner": "对话所有者所选的人可见",
             "visible_to_mentioned_users": "提到的用户可见",
-            "visible_to_premium_subscribers": "高级订阅者可见"
+            "visible_to_premium_subscribers": "高级订阅者可见",
+            "visible_to_group_members": "群组成员可见"
         },
         "copy_object_id": "复制对象 ID",
         "source_is_not_available": "来源不可用",
@@ -484,7 +486,8 @@
         "confirm_delete_this_group": "您确定要删除此群组吗？",
         "view_group_members": "查看群组成员",
         "group_members_are_not_known": "群组成员未知",
-        "affiliation_admin": "管理员"
+        "affiliation_admin": "管理员",
+        "affiliation_member": "成员"
     },
     "group_form": {
         "create_group": "创建群组",

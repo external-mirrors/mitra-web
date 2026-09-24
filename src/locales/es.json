@@ -66,7 +66,8 @@
             "followers": "Seguidores",
             "subscribers": "Suscriptores",
             "conversation": "Conversación",
-            "direct": "Directo"
+            "direct": "Directo",
+            "group": "Grupo"
         },
         "hide_image": "Ocultar imagen",
         "view_conversation": "Ver conversación",
@@ -79,7 +80,8 @@
             "visible_to_followers": "Visible para seguidores",
             "visible_to_premium_subscribers": "Visible para subscriptores premium",
             "visible_to_people_chosen_by_conversation_owner": "Visible para las personas seleccionadas por el propietario de la conversación",
-            "visible_to_mentioned_users": "Visible para usuarios mencionados"
+            "visible_to_mentioned_users": "Visible para usuarios mencionados",
+            "visible_to_group_members": "Visible para los miembros del grupo"
         },
         "like": "Me gusta",
         "remove_bookmark": "Eliminar marcador",
@@ -482,7 +484,8 @@
         "confirm_delete_this_group": "¿Estás seguro de que quieres eliminar este grupo?",
         "view_group_members": "Ver miembros del grupo",
         "group_members_are_not_known": "No se conocen los miembros del grupo",
-        "affiliation_admin": "Administrador"
+        "affiliation_admin": "Administrador",
+        "affiliation_member": "Miembro"
     },
     "group_form": {
         "create_group": "Crear grupo",

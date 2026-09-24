@@ -10,7 +10,8 @@
             "conversation": "Conversation",
             "public": "Public",
             "followers": "Abonné·e·s",
-            "direct": "Direct"
+            "direct": "Direct",
+            "group": "Groupe"
         },
         "go_to_previous_post": "Aller à la publication précédente",
         "visibility_description": {
@@ -18,7 +19,8 @@
             "visible_to_followers": "Visible pour les abonné·e·s",
             "visible_to_premium_subscribers": "Visible pour les abonné•e•s payant•e•s",
             "visible_to_people_chosen_by_conversation_owner": "Visible pour les personnes choisies par le propriétaire de la conversation",
-            "visible_to_mentioned_users": "Visible pour les comptes mentionnés"
+            "visible_to_mentioned_users": "Visible pour les comptes mentionnés",
+            "visible_to_group_members": "Visible aux membres du groupe"
         },
         "featured": "À la une",
         "edited": "modifié",
@@ -484,7 +486,8 @@
         "confirm_delete_this_group": "Souhaitez-vous vraiment supprimer ce groupe ?",
         "view_group_members": "Afficher les membres du groupe",
         "group_members_are_not_known": "Membres du groupe inconnus",
-        "affiliation_admin": "Admin"
+        "affiliation_admin": "Admin",
+        "affiliation_member": "Membre"
     },
     "group_form": {
         "create_group": "Créer un groupe",
