@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Removed
+
+- Removed "View custom feeds" item from current user's profile menu.
+
 ## [5.10.0] - 2026-08-24
 
 ### Added
