@@ -431,7 +431,8 @@
     border-bottom: 1px solid var(--separator-color);
   }
 
-  th, td {
+  th,
+  td {
     padding: calc($block-inner-padding / 2) $block-inner-padding;
     text-align: left;
 

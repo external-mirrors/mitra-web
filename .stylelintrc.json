@@ -16,6 +16,8 @@
     "max-nesting-depth": 3,
     "selector-max-id": 1,
     "selector-no-qualifying-type": null,
-    "order/properties-alphabetical-order": true
+    "order/properties-alphabetical-order": true,
+    "@stylistic/color-hex-case": null,
+    "@stylistic/string-quotes": "double"
   }
 }

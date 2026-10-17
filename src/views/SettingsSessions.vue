@@ -103,7 +103,8 @@ onMounted(async () => {
 .sessions {
   @include content-table;
 
-  th, td {
+  th,
+  td {
     &:first-child {
       width: 40%;
     }
