@@ -34,19 +34,18 @@ function getVisibilityOptions(
         Visibility.Followers,
         Visibility.Direct,
       ]
-    case Visibility.Followers:
-      if (author.id === inReplyTo.account.id) {
-        return [
-          Visibility.Followers,
-          Visibility.Conversation,
-          Visibility.Direct,
-        ]
-      } else {
-        return [
-          Visibility.Conversation,
-          Visibility.Direct,
-        ]
+    case Visibility.Followers: {
+      const options = []
+      if (!inReplyTo.conversation?.is_public) {
+        // Conversation visibility is not allowed in public conversations
+        options.push(Visibility.Conversation)
       }
+      if (author.id === inReplyTo.account.id) {
+        options.push(Visibility.Followers)
+      }
+      options.push(Visibility.Direct)
+      return options
+    }
     case Visibility.Subscribers:
       return [
         Visibility.Conversation,
