@@ -175,7 +175,7 @@ onMounted(async () => {
   }
 }
 
-.post {
+.post:not(:last-of-type) {
   margin-bottom: $block-outer-padding;
 }
 

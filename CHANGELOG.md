@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Don't allow replies with "Conversation" visibility in public conversations.
 - Allow subscribers-only replies under user's own public posts.
 
+### Fixed
+
+- Removed extra space near "Show more" button at search results page.
+
 ## [5.11.0] - 2026-10-07
 
 ### Changed
