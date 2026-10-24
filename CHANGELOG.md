@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Removed extra space near "Show more" button at search results page.
+- Fixed "user must be authenticated" error in browser console when viewing profile as guest.
 
 ## [5.11.0] - 2026-10-07
 

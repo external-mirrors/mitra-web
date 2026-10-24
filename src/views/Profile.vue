@@ -613,11 +613,11 @@ function addCustomEmojis() {
 }
 
 async function loadRelationship(profile: Profile) {
-  if (currentUser.value?.id === profile.id) {
+  if (!authToken.value || currentUser.value?.id === profile.id) {
     return
   }
   relationship.value = await getRelationship(
-    ensureAuthToken(),
+    authToken.value,
     profile.id,
   )
 }
