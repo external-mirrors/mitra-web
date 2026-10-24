@@ -624,7 +624,7 @@ async function loadRelationship(profile: Profile) {
 
 async function loadAliases(profile: Profile) {
   if (profile.identity_proofs.length > 0) {
-    const { verified } = await getAliases(profile.id)
+    const { verified } = await getAliases(authToken.value, profile.id)
     aliases.value = verified
   }
 }

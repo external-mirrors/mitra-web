@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Don't allow replies with "Conversation" visibility in public conversations.
 - Allow subscribers-only replies under user's own public posts.
+- Send access token when loading aliases for a profile.
 
 ### Fixed
 

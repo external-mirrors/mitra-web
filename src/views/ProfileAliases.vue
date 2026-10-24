@@ -103,7 +103,10 @@ const newAliasError = ref<string | null>(null)
 onMounted(async () => {
   setPageTitle(t("identities.identities"))
   isLoading.value = true
-  aliases.value = await getAliases(ensureCurrentUser().id)
+  aliases.value = await getAliases(
+    ensureAuthToken(),
+    ensureCurrentUser().id,
+  )
   isLoading.value = false
 })
 

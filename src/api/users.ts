@@ -312,9 +312,12 @@ export interface Aliases {
   verified: Profile[],
 }
 
-export async function getAliases(profileId: string): Promise<Aliases> {
+export async function getAliases(
+  authToken: string | null,
+  profileId: string,
+): Promise<Aliases> {
   const url = `${BACKEND_URL}/api/v1/accounts/${profileId}/aliases/all`
-  const response = await http(url)
+  const response = await http(url, { authToken })
   const data = await handleResponse(response)
   return data
 }
