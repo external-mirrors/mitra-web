@@ -54,6 +54,7 @@ export interface Profile {
   mention_policy: "none" | "only_known" | "only_contacts",
   bot: boolean,
   is_group: boolean,
+  group_type: null | "public" | "private",
   identity_proofs: ProfileField[];
   payment_options: ProfilePaymentOption[];
   fields: ProfileField[];
@@ -80,6 +81,7 @@ export function defaultProfile(fields: Partial<Profile> = {}): Profile {
     mention_policy: "none",
     bot: false,
     is_group: false,
+    group_type: null,
     identity_proofs: [],
     payment_options: [],
     fields: [],

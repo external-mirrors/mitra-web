@@ -364,6 +364,7 @@
     "group": "Group",
     "view_group_members": "View group members",
     "create_post": "Create post",
+    "posts_in_this_group_are_only_visible_to_group_members": "Posts in this group are only visible to group members",
     "group_members_are_not_known": "Group members are not known",
     "affiliation_admin": "Admin",
     "affiliation_member": "Member"

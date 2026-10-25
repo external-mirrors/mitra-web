@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Display a warning when non-member views private group timeline.
+
 ### Changed
 
 - Don't allow replies with "Conversation" visibility in public conversations.

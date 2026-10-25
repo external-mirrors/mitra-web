@@ -34,8 +34,11 @@
         :group="group"
         @post-saved="insertPost"
       ></post-editor>
+      <div v-if="!isLoading && !canView()" class="content-message">
+        {{ $t('groups.posts_in_this_group_are_only_visible_to_group_members') }}
+      </div>
       <div
-        v-if="!isLoading && posts.length === 0 && !postEditorVisible"
+        v-else-if="!isLoading && posts.length === 0 && !postEditorVisible"
         class="content-message"
       >
         {{ $t('post_list.no_posts_found') }}
@@ -79,16 +82,20 @@ const postEditorVisible = ref(false)
 const posts = ref<Post[]>([])
 const isLoading = ref(false)
 
-function canCreatePost(): boolean {
+function canView(): boolean {
   if (group.value === null) {
     return false
   }
-  if (group.value.locked) {
+  if (group.value.group_type === "private" || group.value.locked) {
     return currentUserAffiliation.value !== "none"
   } else {
     // Public group
     return true
   }
+}
+
+function canCreatePost(): boolean {
+  return canView()
 }
 
 async function loadTimelinePage(
@@ -166,6 +173,8 @@ onMounted(async () => {
 
 .content-message {
   @include content-message;
+
+  margin-bottom: $block-outer-padding;
 }
 
 .loader {
