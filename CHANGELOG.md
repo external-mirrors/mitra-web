@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Display a warning when non-member views private group timeline.
+- Remember home timeline state when navigating to conversation.
 
 ### Changed
 

@@ -35,9 +35,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref } from "vue"
 import { useI18n } from "vue-i18n"
-import { useRouter } from "vue-router"
+import { useRouter, onBeforeRouteLeave } from "vue-router"
 
 import { getHomeMarker, updateHomeMarker } from "@/api/markers"
 import { Post, addRelationships, getHomeTimeline } from "@/api/posts"
@@ -47,6 +47,7 @@ import PostEditor from "@/components/PostEditor.vue"
 import PostList from "@/components/PostList.vue"
 import SidebarLayout from "@/components/SidebarLayout.vue"
 import { useInstanceInfo } from "@/composables/instance"
+import { useTimelineState } from "@/composables/timelines"
 import { useTitle } from "@/composables/title"
 import { useCurrentUser } from "@/composables/user"
 
@@ -59,6 +60,7 @@ const {
   onInvalidAuthToken,
 } = useCurrentUser()
 const { instance } = useInstanceInfo()
+const { homeTimelineState } = useTimelineState()
 const { setPageTitle } = useTitle()
 
 const posts = ref<Post[]>([])
@@ -122,7 +124,17 @@ async function loadTimelinePage(
   return page
 }
 
-async function loadTimeline() {
+async function loadTimeline(refresh: boolean = true) {
+  if (!refresh && homeTimelineState.value !== null) {
+    // Show cached timeline
+    posts.value = homeTimelineState.value.posts
+    marker.value = homeTimelineState.value.marker
+    await nextTick()
+    // This is needed to render posts
+    await new Promise(requestAnimationFrame)
+    window.scroll({ top: homeTimelineState.value.offset })
+    return
+  }
   isLoading.value = true
   const authToken = ensureAuthToken()
   window.scrollTo({ top: 0, behavior: "smooth" })
@@ -145,6 +157,11 @@ async function loadTimeline() {
   if (homeMarker !== null) {
     marker.value = homeMarker.last_read_id
   }
+  homeTimelineState.value = {
+    posts: posts.value,
+    offset: window.scrollY,
+    marker: marker.value,
+  }
   updateMarker()
 }
 
@@ -162,7 +179,14 @@ async function loadNextPage(maxId: string) {
 
 onMounted(async () => {
   setPageTitle(t("navigation.home"))
-  await loadTimeline()
+  // Will show cached timeline if possible
+  await loadTimeline(false)
+})
+
+onBeforeRouteLeave(() => {
+  if (homeTimelineState.value !== null) {
+    homeTimelineState.value.offset = window.scrollY
+  }
 })
 </script>
 
