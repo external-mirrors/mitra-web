@@ -17,4 +17,14 @@ describe("Emojis", () => {
     const result = element.innerHTML
     expect(result).to.equal('<span>text<br></span>​<span class="emoji"><img title=":abcd:" alt=":abcd:" src="https://social.example/emoji.png"></span>​<span> </span>')
   })
+
+  it("Should escape image URL in custom emoji", () => {
+    const content = ":abcd:"
+    const emoji = {
+      shortcode: "abcd",
+      url: 'https://social.example/emoji.png"',
+    }
+    const result = replaceShortcodes(content, [emoji])
+    expect(result).to.equal('<span class="emoji"><img title=":abcd:" alt=":abcd:" src="https://social.example/emoji.png&quot;"></span>')
+  })
 })

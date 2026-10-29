@@ -1,6 +1,7 @@
 export function escapeHtml(unsafe: string): string {
-  // Doesn't escape quotes
   return new Option(unsafe).innerHTML
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
 }
 
 export function replaceTextNodes(

@@ -1,4 +1,5 @@
 import { BACKEND_URL } from "@/constants"
+import { escapeHtml } from "@/utils/html"
 
 import { handleResponse, http } from "./common"
 
@@ -18,8 +19,10 @@ export function replaceShortcodes(text: string, emojis: CustomEmoji[]): string {
       return emoji.shortcode === name
     })
     if (emoji) {
+      // This is defense-in-depth; Mitra shouldn't produce unsafe URLs
+      const safeUrl = escapeHtml(emoji.url)
       // See also: EmojiImage component
-      return `<span class="emoji"><img title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${emoji.url}"></span>`
+      return `<span class="emoji"><img title=":${emoji.shortcode}:" alt=":${emoji.shortcode}:" src="${safeUrl}"></span>`
     } else {
       return match
     }
