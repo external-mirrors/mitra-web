@@ -30,12 +30,12 @@
     "qrcode": "^1.5.1",
     "viem": "^2.37.0",
     "vue": "~3.5.43",
-    "vue-i18n": "^10.0.7",
+    "vue-i18n": "^11.0.0",
     "vue-router": "~4.5.0",
     "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
-    "@intlify/unplugin-vue-i18n": "^4.0.0",
+    "@intlify/unplugin-vue-i18n": "^6.0.0",
     "@lavamoat/allow-scripts": "^3.4.2",
     "@lavamoat/preinstall-always-fail": "^2.1.1",
     "@types/luxon": "^1.26.5",
