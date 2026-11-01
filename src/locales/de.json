@@ -13,7 +13,8 @@
         "bookmarks": "Lesezeichen",
         "search_account": "Konto",
         "search_text": "Text",
-        "search_hashtag": "Hashtag"
+        "search_hashtag": "Hashtag",
+        "administration": "@:admin.administration"
     },
     "post_editor": {
         "update": "Aktualisierung",
