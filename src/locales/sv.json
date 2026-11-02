@@ -470,7 +470,8 @@
         "view_group_members": "Visa gruppmedlemmar",
         "group_members_are_not_known": "Gruppmedlemmarna är inte kända",
         "affiliation_admin": "Administratör",
-        "affiliation_member": "Medlem"
+        "affiliation_member": "Medlem",
+        "posts_in_this_group_are_only_visible_to_group_members": "Inlägg i den här gruppen är endast synliga för gruppmedlemmar"
     },
     "group_form": {
         "create_group": "Skapa grupp",
