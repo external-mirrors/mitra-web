@@ -53,7 +53,6 @@ export interface InstanceInfo {
   like_emoji: string,
   favorite_emojis: string[],
   blockchains: BlockchainInfo[];
-  ipfs_gateway_url: string | null;
 }
 
 export async function getInstanceInfo(): Promise<InstanceInfo> {

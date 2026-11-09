@@ -249,16 +249,6 @@
           @emoji-picked="onToggleReaction($event)"
         ></emoji-picker>
       </div>
-      <a
-        v-if="getIpfsUrl()"
-        class="icon"
-        :title="$t('post.saved_to_ipfs')"
-        :href="getIpfsUrl() || ''"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <icon-ipfs></icon-ipfs>
-      </a>
       <div
         class="dropdown-menu-wrapper"
         v-click-away="hideMenu"
@@ -315,15 +305,6 @@
             >
               <icon-unpin></icon-unpin>
               <span>{{ $t('post.remove_from_featured') }}</span>
-            </button>
-          </li>
-          <li v-if="canSaveToIpfs()">
-            <button
-              class="icon"
-              @click="hideMenu(); saveToIpfs()"
-            >
-              <icon-ipfs></icon-ipfs>
-              <span>{{ $t('post.save_to_ipfs') }}</span>
             </button>
           </li>
           <li v-if="canRepostWithComment()">
@@ -540,7 +521,6 @@ import {
   createReaction,
   deleteReaction,
   changeConversationTrackingStatus,
-  makePermanent,
   Post,
   Visibility,
   getWhoFavourited,
@@ -555,7 +535,6 @@ import {
   Profile,
   ProfileWrapper,
 } from "@/api/users"
-import IconIpfs from "@/assets/extra-icons/ipfs.svg?component"
 import IconEdit from "@/assets/feather/edit-3.svg?component"
 import IconFollow from "@/assets/tabler/news.svg?component"
 import IconUnfollow from "@/assets/tabler/news-off.svg?component"
@@ -1009,35 +988,6 @@ async function onUnpin() {
   const authToken = ensureAuthToken()
   const { pinned } = await unpinPost(authToken, props.post.id)
   props.post.pinned = pinned
-}
-
-function getIpfsUrl(): string | null {
-  const gatewayUrl = instance.value?.ipfs_gateway_url
-  if (
-    !gatewayUrl ||
-    props.post.ipfs_cid === null
-  ) {
-    return null
-  }
-  return `${gatewayUrl}/ipfs/${props.post.ipfs_cid}`
-}
-
-function canSaveToIpfs(): boolean {
-  return (
-    Boolean(instance.value?.ipfs_gateway_url) &&
-    props.post.account.id === currentUser.value?.id &&
-    props.post.visibility === "public" &&
-    props.post.ipfs_cid === null
-  )
-}
-
-async function saveToIpfs() {
-  if (!currentUser.value || !instance.value || !instance.value.ipfs_gateway_url) {
-    return
-  }
-  const authToken = ensureAuthToken()
-  const { ipfs_cid } = await makePermanent(authToken, props.post.id)
-  props.post.ipfs_cid = ipfs_cid
 }
 
 function canEditPost(): boolean {

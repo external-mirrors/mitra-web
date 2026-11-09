@@ -53,11 +53,9 @@
         "replying_to": "antwortend auf",
         "load_replies": "Antworten laden",
         "remove_bookmark": "Lesezeichen entfernen",
-        "save_to_ipfs": "Im IPFS speichern",
         "bookmark": "Lesezeichen",
         "mute_author": "Autor stummschalten",
         "view_conversation": "Unterhaltung ansehen",
-        "saved_to_ipfs": "In IPFS gespeichert",
         "visibility": {
             "subscribers": "Abonennten",
             "direct": "Direkt",

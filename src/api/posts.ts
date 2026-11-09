@@ -110,7 +110,6 @@ export interface Post {
   },
 
   hidden: boolean,
-  ipfs_cid: string | null;
   links: Post[];
   group: Profile | null,
   conversation: PostConversation | null,
@@ -355,7 +354,6 @@ export async function previewPost(
       quote: null,
     },
     hidden: false,
-    ipfs_cid: null,
     links: [],
     group: null,
     conversation: null,
@@ -603,19 +601,6 @@ export async function changeConversationTrackingStatus(
     method: "POST",
     authToken,
     json: { status: trackingStatus },
-  })
-  const data = await handleResponse(response)
-  return data
-}
-
-export async function makePermanent(
-  authToken: string,
-  postId: string,
-): Promise<Post> {
-  const url = `${BACKEND_URL}/api/v1/statuses/${postId}/make_permanent`
-  const response = await http(url, {
-    method: "POST",
-    authToken,
   })
   const data = await handleResponse(response)
   return data
