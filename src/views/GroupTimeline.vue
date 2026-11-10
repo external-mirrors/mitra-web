@@ -10,7 +10,7 @@
         <router-link
           id="view-members"
           class="icon"
-          :to="{ name: 'group-member-list', params: { groupId: group.id } }"
+          :to="{ name: 'group-member-list', params: { groupId: group.id, tabName: 'members' } }"
           :title="$t('groups.view_group_members')"
         >
           <icon-users></icon-users>

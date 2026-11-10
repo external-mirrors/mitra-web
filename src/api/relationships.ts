@@ -119,7 +119,7 @@ export async function unmute(
   return data
 }
 
-interface ProfileListPage {
+export interface ProfileListPage {
   profiles: Profile[];
   nextPageUrl: string | null;
 }

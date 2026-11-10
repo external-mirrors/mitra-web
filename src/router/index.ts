@@ -322,7 +322,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { onlyAuthenticated: true },
   },
   {
-    path: "/groups/:groupId/members",
+    path: "/groups/:groupId/:tabName(members|followers)",
     name: "group-member-list",
     component: GroupMemberList,
     meta: { onlyAuthenticated: true },

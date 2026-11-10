@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added "Followers" tab to group members list.
+
 ## [5.12.0] - 2026-10-31
 
 ### Added

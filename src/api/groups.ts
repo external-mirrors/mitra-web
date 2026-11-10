@@ -1,6 +1,7 @@
 import { BACKEND_URL } from "@/constants"
-import { handleResponse, http, PAGE_SIZE } from "./common"
+import { handleResponse, http, getNextPageUrl, PAGE_SIZE } from "./common"
 import { Post } from "./posts"
+import { ProfileListPage } from "./relationships"
 import { Profile } from "./users"
 
 export async function createGroup(
@@ -60,6 +61,22 @@ export async function deleteGroup(
     authToken,
   })
   await handleResponse(response, 204)
+}
+
+export async function getGroupFollowers(
+  authToken: string,
+  groupId: string,
+  url?: string,
+): Promise<ProfileListPage> {
+  if (!url) {
+    url = `${BACKEND_URL}/api/v1/groups/${groupId}/followers`
+  }
+  const response = await http(url, { authToken })
+  const data = await handleResponse(response)
+  return {
+    profiles: data,
+    nextPageUrl: getNextPageUrl(response),
+  }
 }
 
 export interface Affiliation {
