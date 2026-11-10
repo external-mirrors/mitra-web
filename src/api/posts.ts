@@ -71,7 +71,7 @@ interface PleromaEmojiReaction {
 
 interface PostConversation {
   id: string,
-  is_public?: boolean,
+  is_public: boolean,
   tracking: "normal" | "follow" | "mute" | null,
   can_moderate: boolean | null,
 }
