@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added "Followers" tab to group members list.
 
+### Changed
+
+- Updated translations ([#181](https://codeberg.org/silverpill/mitra-web/pulls/181)).
+
 ## [5.12.0] - 2026-10-31
 
 ### Added
