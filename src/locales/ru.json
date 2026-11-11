@@ -492,7 +492,8 @@
         "view_group_members": "Просмотреть участников группы",
         "group_members_are_not_known": "Состав группы неизвестен",
         "affiliation_admin": "Администратор",
-        "affiliation_member": "Участник"
+        "affiliation_member": "Участник",
+        "posts_in_this_group_are_only_visible_to_group_members": "Сообщения в этой группе видны только участникам группы"
     },
     "group_form": {
         "create_group": "Создать группу",
