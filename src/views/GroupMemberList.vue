@@ -117,7 +117,7 @@ async function switchTab(name: "members" | "followers") {
 }
 
 function canViewFollowers(): boolean {
-  return currentUserAffiliation.value !== "none"
+  return currentUserAffiliation.value === "admin"
 }
 
 async function loadFollowersPage() {
