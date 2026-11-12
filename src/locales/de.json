@@ -413,7 +413,8 @@
         "following": "Folgen",
         "view_group_members": "Gruppenmitglieder ansehen",
         "group_members_are_not_known": "Gruppenmitglieder sind nicht bekannt",
-        "affiliation_admin": "Administrator"
+        "affiliation_admin": "Administrator",
+        "members": "Mitglieder"
     },
     "group_form": {
         "save": "Speichern",
