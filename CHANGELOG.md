@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use `Account.group_type` field instead of `is_group`.
+
 ### Removed
 
 - Removed "Save to IPFS" feature.
