@@ -45,6 +45,7 @@ export async function getAccessToken(
   const url = `${BACKEND_URL}/oauth/token`
   const tokenRequestData = {
     grant_type: loginType,
+    scope: "read write",
     ...loginData,
   }
   const response = await http(url, {

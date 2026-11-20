@@ -88,7 +88,11 @@ export function useCurrentUser() {
     try {
       token = await getAccessToken(loginType, loginData)
     } catch (error: any) {
-      if (error.message === "invalid client credentials") {
+      if (
+        error.message === "invalid client credentials"
+        // Legacy OAuth app?
+        || error.message === "requested token scopes are not a subset of app scopes"
+      ) {
         localStorage.removeItem(OAUTH_CLIENT_ID_KEY)
         localStorage.removeItem(OAUTH_CLIENT_SECRET_KEY)
       }

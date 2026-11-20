@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Ask for `read` and `write` scopes when requesting an access token.
+
 ## [6.0.0] - 2026-11-14
 
 ### Changed
