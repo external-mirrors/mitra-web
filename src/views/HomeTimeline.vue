@@ -6,6 +6,7 @@
         :post="null"
         :in-reply-to="null"
         :repost-of="null"
+        :focus-on-mount="homeTimelineState === null"
         @post-saved="insertPost"
       ></post-editor>
       <loader v-if="isLoading"></loader>
@@ -124,17 +125,7 @@ async function loadTimelinePage(
   return page
 }
 
-async function loadTimeline(refresh: boolean = true) {
-  if (!refresh && homeTimelineState.value !== null) {
-    // Show cached timeline
-    posts.value = homeTimelineState.value.posts
-    marker.value = homeTimelineState.value.marker
-    await nextTick()
-    // This is needed to render posts
-    await new Promise(requestAnimationFrame)
-    window.scroll({ top: homeTimelineState.value.offset })
-    return
-  }
+async function loadTimeline() {
   isLoading.value = true
   const authToken = ensureAuthToken()
   window.scrollTo({ top: 0, behavior: "smooth" })
@@ -177,10 +168,23 @@ async function loadNextPage(maxId: string) {
   posts.value = [...posts.value, ...nextPage]
 }
 
+async function loadTimelineCached() {
+  if (homeTimelineState.value !== null) {
+    // Show cached timeline
+    posts.value = homeTimelineState.value.posts
+    marker.value = homeTimelineState.value.marker
+    await nextTick()
+    // This is needed to render posts
+    await new Promise(requestAnimationFrame)
+    window.scroll({ top: homeTimelineState.value.offset })
+    return
+  }
+  await loadTimeline()
+}
+
 onMounted(async () => {
   setPageTitle(t("navigation.home"))
-  // Will show cached timeline if possible
-  await loadTimeline(false)
+  await loadTimelineCached()
 })
 
 onBeforeRouteLeave(() => {

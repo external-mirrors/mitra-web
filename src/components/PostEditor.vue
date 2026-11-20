@@ -307,7 +307,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref, withDefaults } from "vue"
 import { useI18n } from "vue-i18n"
 
 import {
@@ -365,12 +365,16 @@ const { currentUser, ensureAuthToken, ensureCurrentUser } = useCurrentUser()
 const { instance } = useInstanceInfo()
 const { getVisibilityOptions, VISIBILITY_MAP } = useVisibility()
 
-const props = defineProps<{
-  post: Post | null,
-  inReplyTo: Post | null,
-  repostOf: Post | null,
-  group?: Profile,
-}>()
+const props = withDefaults(
+  defineProps<{
+    post: Post | null,
+    inReplyTo: Post | null,
+    repostOf: Post | null,
+    group?: Profile,
+    focusOnMount?: boolean,
+  }>(),
+  { focusOnMount: true },
+)
 
 const emit = defineEmits<{
   (event: "post-saved", post: Post): void,
@@ -484,7 +488,9 @@ if (props.repostOf && content.value.length === 0) {
 onMounted(() => {
   if (contentInputElement.value) {
     setupAutoResize(contentInputElement.value)
-    contentInputElement.value.focus()
+    if (props.focusOnMount) {
+      contentInputElement.value.focus()
+    }
   }
 })
 

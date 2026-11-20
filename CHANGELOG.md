@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Ask for `read` and `write` scopes when requesting an access token.
 
+### Fixed
+
+- Don't focus on post editor when loading home timeline from cache.
+
 ## [6.0.0] - 2026-11-14
 
 ### Changed
