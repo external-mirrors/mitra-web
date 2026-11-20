@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Ask for `read` and `write` scopes when requesting an access token.
+- Updated translations ([#182](https://codeberg.org/silverpill/mitra-web/pulls/182)).
 
 ### Fixed
 
