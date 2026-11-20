@@ -485,7 +485,10 @@
         "view_group_members": "查看群组成员",
         "group_members_are_not_known": "群组成员未知",
         "affiliation_admin": "管理员",
-        "affiliation_member": "成员"
+        "affiliation_member": "成员",
+        "posts_in_this_group_are_only_visible_to_group_members": "此群组中的帖文仅对群组成员可见",
+        "members": "成员",
+        "followers": "粉丝"
     },
     "group_form": {
         "create_group": "创建群组",
